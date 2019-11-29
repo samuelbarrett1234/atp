@@ -3,6 +3,10 @@
 
 *.opendb
 
+.vs/*
+
+*.suo
+
 # Compiled Object files
 *.slo
 *.lo

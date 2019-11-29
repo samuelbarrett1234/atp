@@ -32,3 +32,10 @@
 *.exe
 *.out
 *.app
+
+# Intermediate directory:
+Temp/*
+
+# Output directory:
+Output/*
+

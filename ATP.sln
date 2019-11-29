@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATPSearch", "ATPSearch\ATPSearch.vcxproj", "{19F1A863-CD69-4BA7-A591-1FE78C107CA6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19F1A863-CD69-4BA7-A591-1FE78C107CA6}.Debug|x64.ActiveCfg = Debug|x64
+		{19F1A863-CD69-4BA7-A591-1FE78C107CA6}.Debug|x64.Build.0 = Debug|x64
+		{19F1A863-CD69-4BA7-A591-1FE78C107CA6}.Debug|x86.ActiveCfg = Debug|Win32
+		{19F1A863-CD69-4BA7-A591-1FE78C107CA6}.Debug|x86.Build.0 = Debug|Win32
+		{19F1A863-CD69-4BA7-A591-1FE78C107CA6}.Release|x64.ActiveCfg = Release|x64
+		{19F1A863-CD69-4BA7-A591-1FE78C107CA6}.Release|x64.Build.0 = Release|x64
+		{19F1A863-CD69-4BA7-A591-1FE78C107CA6}.Release|x86.ActiveCfg = Release|Win32
+		{19F1A863-CD69-4BA7-A591-1FE78C107CA6}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5DE20A5A-B64C-47AD-9F4E-28CCA3B073D2}
+	EndGlobalSection
+EndGlobal

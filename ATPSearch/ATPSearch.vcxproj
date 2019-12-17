@@ -155,12 +155,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Error.h" />
+    <ClInclude Include="Lock.h" />
+    <ClInclude Include="LockSet.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="ProcessManager.h" />
+    <ClInclude Include="ProcessStatus.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ProcessManager.cpp" />
+    <ClCompile Include="ProcessStatus.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

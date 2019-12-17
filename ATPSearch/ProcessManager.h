@@ -4,80 +4,63 @@
 // Author: Samuel Barrett
 
 
-#include <memory>
 #include "Process.h"
-#include "LockManager.h"
 
 
-
-namespace atp
+namespace atpsearch
 {
 
 
 /// <summary>
-/// The process manager is a class designed to handle concurrency
-/// and resource locking automatically. To use it, you can submit
-/// processes to it, and you can also set up several threads to
-/// run the process manager in.
-/// This class is thread-safe.
+/// This is the main class of this library, which manages
+/// the execution of many processes and resources. It is
+/// ran by dedicating one or more threads to process execution,
+/// and one or more threads to I/O. There must be at least
+/// one thread running each.
 /// </summary>
 class ProcessManager
 {
 public:
-	ProcessManager();
-	~ProcessManager();
 
 	/// <summary>
-	/// Calling 'run' will cause the calling thread to block
-	/// indefinitely until the process manager finishes all
-	/// processes. This function continually executes processes
-	/// until all are finished.
+	/// Calling this function blocks the calling thread
+	/// until the process manager stops. The thread will
+	/// repeatedly perform process ticks (i.e. do process
+	/// updates).
 	/// </summary>
-	void run();
-
+	void run_processes();
 
 	/// <summary>
-	/// Run a single step of a single process. This translates
-	/// to a single init/update/release call.
+	/// Calling this function blocks the calling thread
+	/// until the process manager stops. The thread will
+	/// repeatedly handle IO requests from the process
+	/// ticks. This thread should spend most of its time
+	/// sleeping.
 	/// </summary>
-	void run_one();
-
+	void run_io();
 
 	/// <summary>
-	/// Abort all processes. This will cause any threads running
-	/// run() to exit the function.
+	/// Add a new process to the system. The process manager
+	/// assumes control of the memory of this process. This
+	/// function is thread-safe, and can be called from inside
+	/// another process, or from another thread entirely.
 	/// </summary>
-	void abort_all();
-
+	void post(ProcessPtr pProc);
 
 	/// <summary>
-	/// Add another process to the process manager.
-	/// Will be added to the queue for running.
+	/// This will stop all threads from executing any processes,
+	/// cancel any IO operations, and then all processes will be
+	/// aborted, and then all processes will be cleared (returning
+	/// this process manager back to its initial state). All worker
+	/// threads will be allowed to exit, and should do so shortly
+	/// after they have helped abort all processes.
 	/// </summary>
-	/// <param name="pProc">A pointer to the process object.</param>
-	/// <param name="dependsOn">
-	/// An optional ID; if given, the process manager will only execute
-	/// the process once a process with this ID has finished.
-	/// PRECONDITION: pProc->get_id() != dependsOn (if both are provided).
-	/// Edge cases:
-	/// If such a process ID does not exist, either because it has already
-	/// finished or hasn't been added yet, then the process will just be
-	/// executed as normal.
-	/// </param>
-	/// <remarks>
-	/// If you are trying to add a dependency graph (DAG) of processes, then
-	/// you must post them in a topologically-sorted order. The dependency
-	/// management of this function has been set up to make it impossible to
-	/// create cyclic dependencies (as when the dependsOn ID does not exist,
-	/// the dependency is ignored!)
-	/// </remarks>
-	void post(ProcessPtr pProc, ProcessID dependsOn = ProcessID());
+	void stop();
 
 private:
-	LockManager m_lockMgr;
 };
 
 
-} // namespace atp
+} // namespace atpsearch
 
 

@@ -5,10 +5,17 @@
 
 
 #include "Utility.h"
+#include "ResourceOperation.h"
+#include <vector>
+#include <initializer_list>
 
 
 namespace atpsearch
 {
+
+
+//Export arrays of resource operations:
+template class ATP_API std::vector<ResourceOperation>;
 
 
 /// <summary>
@@ -18,45 +25,31 @@ namespace atpsearch
 /// information for any asynchronous operations that the
 /// process wants to execute for its next iteration.
 /// </summary>
-struct ProcessStatus
+struct ATP_API ProcessStatus
 {
-    enum class Status
-    {
-        CONTINUE,
-        FINISH
-    }
-    status = Status::CONTINUE;
-
-    enum class Action
-    {
-        NONE,
-        LOCK_REQUEST,
-        RW_OP
-    }
-    action = Action::NONE;
-
-    struct
-    {
-        // TODO
-    } lock_request;
-
-    struct
-    {
-        // TODO
-    } rw_op;
+    bool bFinished = false;
+    std::vector<ResourceOperation> ops;
 };
 
 
-/// <summary>
-/// This is a convenience function which takes a process
-/// status (e.g. an async IO operation) and adds a flag
-/// to the status to say that, once this operation has
-/// finished, the process is finished. This will only happen
-/// AFTER the action completes.
-/// </summary>
-/// <param name="stat">The status to add the flag to.</param>
-/// <returns>The process status as given, but with the status set to FINISH.</returns>
-ATP_API ProcessStatus finish_after(ProcessStatus stat);
+namespace status // this namespace contains a set of convenience functions for constructing ProcessStatus objects.
+{
+
+
+ATP_API ProcessStatus not_finished();
+
+ATP_API ProcessStatus res_op(ResourceOperation op);
+ATP_API ProcessStatus res_ops(std::initializer_list<ResourceOperation> ops);
+ATP_API ProcessStatus res_ops(std::vector<ResourceOperation> ops);
+
+ATP_API ProcessStatus finished();
+
+ATP_API ProcessStatus finish_after_res_op(ResourceOperation op);
+ATP_API ProcessStatus finish_after_res_ops(std::initializer_list<ResourceOperation> ops);
+ATP_API ProcessStatus finish_after_res_ops(std::vector<ResourceOperation> ops);
+
+
+} // namespace status
 
 
 } // namespace atpsearch

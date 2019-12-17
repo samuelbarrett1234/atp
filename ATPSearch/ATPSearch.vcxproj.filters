@@ -30,10 +30,10 @@
     <ClInclude Include="ProcessStatus.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Lock.h">
+    <ClInclude Include="ResourceOperation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LockSet.h">
+    <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -42,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ProcessStatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceOperation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

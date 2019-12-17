@@ -8,11 +8,14 @@ namespace atpsearch
 {
 
 
-ProcessStatus finish_after(ProcessStatus stat)
+namespace status
 {
-    stat.status = ProcessStatus::Status::FINISH;
-    return stat;
-}
+
+
+
+
+
+} // namespace status
 
 
 } // namespace atpsearch

@@ -18,7 +18,7 @@ namespace atpsearch
 /// and one or more threads to I/O. There must be at least
 /// one thread running each.
 /// </summary>
-class ProcessManager
+class ATP_API ProcessManager
 {
 public:
 
@@ -56,6 +56,16 @@ public:
 	/// after they have helped abort all processes.
 	/// </summary>
 	void stop();
+
+
+	/// <summary>
+	/// Register a resource with the process manager. This allows
+	/// processes to access it.
+	/// Precondition: the ID of this resource has not already been
+	/// registered.
+	/// </summary>
+	/// <param name="pRes">A pointer to the resource object to add.</param>
+	void register_resource(ResourcePtr pRes);
 
 private:
 };

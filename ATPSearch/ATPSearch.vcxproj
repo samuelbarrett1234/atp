@@ -155,6 +155,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Error.h" />
+    <ClInclude Include="LockManager.h" />
+    <ClInclude Include="Scheduler.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="ProcessManager.h" />
     <ClInclude Include="ProcessStatus.h" />

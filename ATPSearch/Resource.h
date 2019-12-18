@@ -6,6 +6,9 @@
 #include <memory>
 
 
+// Author: Samuel Barrett
+
+
 namespace atpsearch
 {
 

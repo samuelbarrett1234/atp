@@ -5,6 +5,7 @@
 
 
 #include "Utility.h"
+#include <memory>
 
 
 namespace atpsearch
@@ -41,6 +42,8 @@ enum class LockType
 /// the interface of a process - all they need is some process
 /// identifier. There are many ways of implementing this; see
 /// two-phase-locking, wait-die, wound-wait.
+/// Important: the worker IDs are precisely their priorities.
+/// Lower ID means higher priority!
 /// </summary>
 class ATP_API ILockManager
 {
@@ -81,6 +84,30 @@ public:
 	/// <param name="worker_id">The ID of the worker to release all the locks of.</param>
 	virtual void remove_worker(size_t worker_id) = 0;
 };
+
+
+typedef std::unique_ptr<ILockManager> LockManagerPtr;
+
+
+/// <summary>
+/// Different ways of managing a lock table.
+/// These basically differ in ways of resolving deadlocks.
+/// </summary>
+enum class LockManagementType
+{
+	// An older process will wait for a younger one if it is last to acquire a lock,
+	// A younger process will abort if it tries to acquire a lock held by an older process
+	WAIT_DIE,
+	// An older process will take priority over a younger one if it tries to acquire its lock,
+	// A younger process will wait for an older one if it tries to acquire its lock
+	WOUND_WAIT
+};
+
+
+/// <summary>
+/// Allocate a lock manager implementing the given type.
+/// </summary>
+ATP_API LockManagerPtr create_lock_manager(LockManagementType type);
 
 
 } // namespace atpsearch

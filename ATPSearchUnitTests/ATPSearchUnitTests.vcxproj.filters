@@ -20,7 +20,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LockManagerTests.cpp">
+    <ClCompile Include="WaitDieLockManagerTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -166,10 +166,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DummyProcess.h" />
     <ClInclude Include="Test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WaitDieLockManagerTests.cpp" />
+    <ClCompile Include="WorkStealingSchedulerTests.cpp" />
+    <ClCompile Include="WoundWaitLockManagerTests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,6 +5,9 @@
 
 
 #include "Process.h"
+#include "Scheduler.h"
+#include "LockManager.h"
+#include <map>
 
 
 namespace atpsearch
@@ -21,6 +24,7 @@ namespace atpsearch
 class ATP_API ProcessManager
 {
 public:
+	ProcessManager(SchedulerType schedulerType, LockManagementType lkMgmtType);
 
 	/// <summary>
 	/// Calling this function blocks the calling thread
@@ -68,6 +72,19 @@ public:
 	void register_resource(ResourcePtr pRes);
 
 private:
+	struct ProcMetaData
+	{
+		size_t timestamp;
+		bool bReadyToDestroy;
+	};
+
+private:
+	bool m_bStop;
+	SchedulerPtr m_pScheduler;
+	LockManagerPtr m_pLkMgr;
+
+	size_t m_NextTimestamp;  // Starts at 0, increments by 1 for every process
+	std::map<const IProcess*, ProcMetaData> m_MetaData;  // metadata for each process
 };
 
 

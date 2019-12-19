@@ -165,6 +165,7 @@
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LockManager.cpp" />
     <ClCompile Include="ProcessManager.cpp" />
     <ClCompile Include="ProcessStatus.cpp" />
     <ClCompile Include="ResourceOperation.cpp" />

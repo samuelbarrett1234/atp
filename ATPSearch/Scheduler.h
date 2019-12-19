@@ -31,8 +31,8 @@ public:
 	/// <param name="pProc">The process to add.</param>
 	/// <param name="thread_id">
 	/// The ID of the calling thread (extracted as a parameter
-	/// to allow this class to be unit tested - of course it
-	/// suffices to pass std::this_thread::get_id()).
+	/// to allow this class to be unit tested - it suffices
+	/// to pass a hash of std::this_thread::get_id()).
 	/// </param>
 	virtual void push(ProcessPtr pProc, size_t thread_id) = 0;
 
@@ -51,8 +51,8 @@ public:
 	/// </summary>
 	/// <param name="thread_id">
 	/// The ID of the calling thread (extracted as a parameter
-	/// to allow this class to be unit tested - of course it
-	/// suffices to pass std::this_thread::get_id()).
+	/// to allow this class to be unit tested - it suffices
+	/// to pass a hash of std::this_thread::get_id()).
 	/// </param>
 	/// <returns>A pointer to a process which needs work iff there is work available.</returns>
 	virtual ProcessPtr pop(size_t thread_id) = 0;

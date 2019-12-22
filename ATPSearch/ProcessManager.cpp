@@ -52,7 +52,18 @@ void ProcessManager::run_processes()
 		case WorkerStatus::READY:
 		{
 			const auto procStat = pProc->tick();
-			// TODO: handle different process statuses
+			// TODO: handle different process statuses (i.e.
+			// whether the process finished or not, and whether
+			// or not there are any resource operations.)
+
+			// Not finished & no res-ops: just push onto scheduler
+			// Not finished & res-ops: push onto scheduler but add
+			// the resource operations to however they are managed.
+			// Finished & no res-ops: greedily delete process
+			// Finished & res-ops: unfortunately still need to push
+			// onto the scheduler because the res-op may depend on
+			// data held in the process (so need to delete as soon
+			// as the scheduler next pops it).
 		}
 			break;
 

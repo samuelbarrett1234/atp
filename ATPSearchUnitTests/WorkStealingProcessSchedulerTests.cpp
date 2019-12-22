@@ -1,23 +1,23 @@
 #include "Test.h"
 #include "DummyProcess.h"
-#include <Scheduler.h>
+#include <ProcessScheduler.h>
 
 
-using atpsearch::SchedulerType;
+using atpsearch::ProcessSchedulerType;
 using atpsearch::ProcessPtr;
 
 
 struct Fixture
 {
 	Fixture() :
-		pScheduler(atpsearch::create_scheduler(SchedulerType::WORK_STEALING))
+		pScheduler(atpsearch::create_process_scheduler(ProcessSchedulerType::WORK_STEALING))
 	{ }
 
-	atpsearch::SchedulerPtr pScheduler;
+	atpsearch::ProcessSchedulerPtr pScheduler;
 };
 
 
-BOOST_FIXTURE_TEST_SUITE(WorkStealingSchedulerTests, Fixture);
+BOOST_FIXTURE_TEST_SUITE(WorkStealingProcessSchedulerTests, Fixture);
 
 
 BOOST_AUTO_TEST_CASE(Test_PushToOneThread_PopFromAnotherThread)

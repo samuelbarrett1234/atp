@@ -171,7 +171,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WaitDieLockManagerTests.cpp" />
-    <ClCompile Include="WorkStealingSchedulerTests.cpp" />
+    <ClCompile Include="WorkStealingProcessSchedulerTests.cpp" />
+    <ClCompile Include="WorkStealingResOpSchedulerTests.cpp" />
     <ClCompile Include="WoundWaitLockManagerTests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

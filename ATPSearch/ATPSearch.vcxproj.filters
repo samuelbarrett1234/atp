@@ -42,10 +42,13 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files\Process Management</Filter>
     </ClInclude>
-    <ClInclude Include="Scheduler.h">
+    <ClInclude Include="LockManager.h">
       <Filter>Header Files\Process Management</Filter>
     </ClInclude>
-    <ClInclude Include="LockManager.h">
+    <ClInclude Include="ProcessScheduler.h">
+      <Filter>Header Files\Process Management</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceOperationScheduler.h">
       <Filter>Header Files\Process Management</Filter>
     </ClInclude>
   </ItemGroup>

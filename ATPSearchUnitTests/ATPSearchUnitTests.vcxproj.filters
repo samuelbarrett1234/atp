@@ -29,7 +29,10 @@
     <ClCompile Include="WoundWaitLockManagerTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WorkStealingSchedulerTests.cpp">
+    <ClCompile Include="WorkStealingProcessSchedulerTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkStealingResOpSchedulerTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -16,12 +16,12 @@ namespace atpsearch
 /// <summary>
 /// This class has the responsibility of distributing the work,
 /// not executing it. It is basically a central, thread-safe
-/// queue.
+/// queue for processes.
 /// </summary>
-class ATP_API IScheduler
+class ATP_API IProcessScheduler
 {
 public:
-	virtual ~IScheduler() = default;
+	virtual ~IProcessScheduler() = default;
 
 	/// <summary>
 	/// Add a process to the queue.
@@ -59,13 +59,13 @@ public:
 };
 
 
-typedef std::unique_ptr<IScheduler> SchedulerPtr;
+typedef std::unique_ptr<IProcessScheduler> ProcessSchedulerPtr;
 
 
 /// <summary>
-/// Different types of scheduler algorithm
+/// Different types of scheduler algorithm for processes
 /// </summary>
-enum class SchedulerType
+enum class ProcessSchedulerType
 {
 	// When a thread runs out of processes it will steal
 	// one from another thread at random (hence if the
@@ -75,7 +75,7 @@ enum class SchedulerType
 };
 
 
-ATP_API SchedulerPtr create_scheduler(SchedulerType type);
+ATP_API ProcessSchedulerPtr create_process_scheduler(ProcessSchedulerType type);
 
 
 } // namespace atpsearch

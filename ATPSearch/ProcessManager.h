@@ -7,6 +7,7 @@
 #include "Process.h"
 #include "Scheduler.h"
 #include "LockManager.h"
+#include "ResourceOperation.h"
 #include <map>
 
 
@@ -71,10 +72,24 @@ public:
 	void register_resource(ResourcePtr pRes);
 
 private:
+	/// <summary>
+	/// This is some data associated with an active process.
+	/// The timestamp is used to prioritise processes. It is
+	/// not a "true" timestamp in the sense that it is derived
+	/// from the current system time - it is just incremented
+	/// by 1 for each subsequent process.
+	/// </summary>
 	struct ProcMetaData
 	{
 		size_t timestamp;
 		bool bReadyToDestroy;
+	};
+
+	struct IOOperationMetaData
+	{
+		size_t id;
+		size_t dependsOn; // Another IO op ID, or -1 if doesn't depend.
+		ResourceOperation op;
 	};
 
 private:

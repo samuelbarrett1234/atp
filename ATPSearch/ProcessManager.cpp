@@ -78,6 +78,11 @@ void ProcessManager::run_processes()
 }
 
 
+void ProcessManager::run_io()
+{
+}
+
+
 } // namespace atpsearch
 
 

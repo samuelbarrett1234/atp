@@ -60,8 +60,7 @@ public:
 	/// after they have helped abort all processes.
 	/// </summary>
 	void stop();
-
-
+	
 	/// <summary>
 	/// Register a resource with the process manager. This allows
 	/// processes to access it.

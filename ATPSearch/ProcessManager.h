@@ -5,9 +5,10 @@
 
 
 #include "Process.h"
-#include "Scheduler.h"
+#include "ProcessScheduler.h"
 #include "LockManager.h"
 #include "ResourceOperation.h"
+#include "ResourceOperationScheduler.h"
 #include <map>
 
 
@@ -25,7 +26,7 @@ namespace atpsearch
 class ATP_API ProcessManager
 {
 public:
-	ProcessManager(SchedulerType schedulerType, LockManagementType lkMgmtType);
+	ProcessManager(ProcessSchedulerType schedulerType, LockManagementType lkMgmtType);
 
 	/// <summary>
 	/// Calling this function blocks the calling thread
@@ -72,6 +73,9 @@ public:
 	void register_resource(ResourcePtr pRes);
 
 private:
+
+
+private:
 	/// <summary>
 	/// This is some data associated with an active process.
 	/// The timestamp is used to prioritise processes. It is
@@ -94,7 +98,7 @@ private:
 
 private:
 	bool m_bStop;
-	SchedulerPtr m_pScheduler;
+	ProcessSchedulerPtr m_pProcessScheduler;
 	LockManagerPtr m_pLkMgr;
 
 	size_t m_NextTimestamp;  // Starts at 0, increments by 1 for every process

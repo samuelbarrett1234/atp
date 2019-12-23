@@ -14,6 +14,23 @@ namespace atpsearch
 
 
 /// <summary>
+/// This class is a helper class whose lifetime represents
+/// the duration of a resource operation's work. It represents
+/// a way of getting the ID of a resource operation, and also
+/// when this object destructs, it notifies the scheduler that
+/// the resource operation's work has finished.
+/// </summary>
+class ATP_API ResourceOperationWork
+{
+public:
+	ResourceOperationWork(size_t resop_id, IResourceOperationScheduler& scheduler);
+	~ResourceOperationWork();
+
+	size_t operator* () const;
+};
+
+
+/// <summary>
 /// This class has the responsibility of distributing resource operations.
 /// It is basically a central, thread-safe queue for resource operations.
 /// It also allows IO operations to depend on other IO operations, and
@@ -54,11 +71,19 @@ public:
 	/// This function will never return the same ID twice
 	/// (because we don't want several threads executing
 	/// the same operation.)
-	/// Don't forget to call on_finished() when done!
 	/// Precondition: ready() returns true.
 	/// </summary>
-	/// <returns>The ID of the next available resource operation.</returns>
-	virtual size_t next() = 0;
+	/// <returns>
+	/// A "resource operation work" object which allows you to
+	/// get the ID of the resource operation (by using *) and
+	/// also the lifetime of this work object represents the
+	/// lifetime of the resource operation's work (so it calls
+	/// on_finished() in the destructor.)
+	/// </returns>
+	virtual ResourceOperationWork next() = 0;
+
+protected:
+	friend ResourceOperationWork;
 
 	/// <summary>
 	/// Call this when an resource operation has finished,

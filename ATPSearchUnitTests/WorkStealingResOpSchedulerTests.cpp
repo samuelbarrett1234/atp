@@ -34,15 +34,15 @@ BOOST_AUTO_TEST_CASE(Test_Ready_When_Added_Work)
 BOOST_AUTO_TEST_CASE(Test_Next_Returns_Correct_ID)
 {
 	pScheduler->add(7);
-	auto id = pScheduler->next();
-	BOOST_TEST(id == 7);
+	auto work = pScheduler->next();
+	BOOST_TEST(*work == 7);
 }
 
 
 BOOST_AUTO_TEST_CASE(Test_Not_Ready_After_Calling_Next)
 {
 	pScheduler->add(0);
-	auto id = pScheduler->next();
+	auto work = pScheduler->next();
 	BOOST_TEST(!pScheduler->ready());
 }
 
@@ -51,13 +51,13 @@ BOOST_AUTO_TEST_CASE(Test_Concurrent_Resops)
 {
 	pScheduler->add(1);
 	pScheduler->add(2);
-	auto id1 = pScheduler->next();
+	auto work1 = pScheduler->next();
 
 	BOOST_TEST(pScheduler->ready());
 
-	auto id2 = pScheduler->next();
+	auto work2 = pScheduler->next();
 
-	BOOST_TEST(id1 != id2);
+	BOOST_TEST(*work1 != *work2);
 }
 
 
@@ -66,19 +66,20 @@ BOOST_AUTO_TEST_CASE(Test_Dependent_Resops)
 	pScheduler->add(1);
 	pScheduler->add(2, 1);
 
-	auto id1 = pScheduler->next();
+	{
+		auto work1 = pScheduler->next();
 
-	BOOST_TEST(id1 == 1);
+		BOOST_TEST(*work1 == 1);
 
-	BOOST_TEST(!pScheduler->ready());
+		BOOST_TEST(!pScheduler->ready());
 
-	pScheduler->on_finished(1);
-
+	}  // work1 destructs and calls on_finished()
+	
 	BOOST_TEST(pScheduler->ready());
 
-	auto id2 = pScheduler->next();
+	auto work2 = pScheduler->next();
 
-	BOOST_TEST(id2 == 2);
+	BOOST_TEST(*work2 == 2);
 }
 
 

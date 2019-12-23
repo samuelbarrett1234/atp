@@ -28,7 +28,7 @@ void ProcessManager::run_processes()
 		ProcessPtr pProc;
 		while (!pProc)
 		{
-			pProc = m_pScheduler->pop(get_this_thread_id());
+			pProc = m_pProcessScheduler->pop(get_this_thread_id());
 		}
 
 		// Now get metadata:
@@ -74,12 +74,12 @@ void ProcessManager::run_processes()
 			m_pLkMgr->remove_worker(worker_id);  // release all locks
 			// Try again later:
 			// TODO: add a random time delay for restart?
-			m_pScheduler->push(std::move(pProc), get_this_thread_id());
+			m_pProcessScheduler->push(std::move(pProc), get_this_thread_id());
 			break;
 
 		case WorkerStatus::BLOCKED:
 			// Try again later:
-			m_pScheduler->push(std::move(pProc), get_this_thread_id());
+			m_pProcessScheduler->push(std::move(pProc), get_this_thread_id());
 			break;
 
 		default:

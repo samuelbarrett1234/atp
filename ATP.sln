@@ -10,6 +10,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATPSearchUnitTests", "ATPSe
 		{19F1A863-CD69-4BA7-A591-1FE78C107CA6} = {19F1A863-CD69-4BA7-A591-1FE78C107CA6}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProcessManagerFuzzTest", "ProcessManagerFuzzTest\ProcessManagerFuzzTest.vcxproj", "{E8E83147-7205-4FE0-87D4-954841A3976A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{19F1A863-CD69-4BA7-A591-1FE78C107CA6} = {19F1A863-CD69-4BA7-A591-1FE78C107CA6}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -34,6 +39,14 @@ Global
 		{624CD962-149C-4B6C-93E9-6536FBA70220}.Release|x64.Build.0 = Release|x64
 		{624CD962-149C-4B6C-93E9-6536FBA70220}.Release|x86.ActiveCfg = Release|Win32
 		{624CD962-149C-4B6C-93E9-6536FBA70220}.Release|x86.Build.0 = Release|Win32
+		{E8E83147-7205-4FE0-87D4-954841A3976A}.Debug|x64.ActiveCfg = Debug|x64
+		{E8E83147-7205-4FE0-87D4-954841A3976A}.Debug|x64.Build.0 = Debug|x64
+		{E8E83147-7205-4FE0-87D4-954841A3976A}.Debug|x86.ActiveCfg = Debug|Win32
+		{E8E83147-7205-4FE0-87D4-954841A3976A}.Debug|x86.Build.0 = Debug|Win32
+		{E8E83147-7205-4FE0-87D4-954841A3976A}.Release|x64.ActiveCfg = Release|x64
+		{E8E83147-7205-4FE0-87D4-954841A3976A}.Release|x64.Build.0 = Release|x64
+		{E8E83147-7205-4FE0-87D4-954841A3976A}.Release|x86.ActiveCfg = Release|Win32
+		{E8E83147-7205-4FE0-87D4-954841A3976A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

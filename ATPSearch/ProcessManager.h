@@ -26,7 +26,9 @@ namespace atpsearch
 class ATP_API ProcessManager
 {
 public:
-	ProcessManager(ProcessSchedulerType schedulerType, LockManagementType lkMgmtType);
+	ProcessManager(ProcessSchedulerType processSchedulerType,
+		ResourceOperationSchedulerType resOpSchedulerType,
+		LockManagementType lkMgmtType);
 
 	/// <summary>
 	/// Calling this function blocks the calling thread
@@ -99,6 +101,7 @@ private:
 private:
 	bool m_bStop;
 	ProcessSchedulerPtr m_pProcessScheduler;
+	ResourceOperationSchedulerPtr m_pResOpScheduler;
 	LockManagerPtr m_pLkMgr;
 
 	size_t m_NextTimestamp;  // Starts at 0, increments by 1 for every process

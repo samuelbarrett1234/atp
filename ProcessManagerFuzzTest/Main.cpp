@@ -2,6 +2,7 @@
 #include <thread>
 #include <vector>
 #include <ProcessManager.h>
+#include <fstream>
 #include "TestProcess.h"
 #include "BufferResource.h"
 
@@ -29,35 +30,44 @@ void io_thread_func()
 
 int main(int argc, char* argv[])
 {
-	g_pProcMgr = std::make_unique<ProcessManager>(
-		ProcessSchedulerType::WORK_STEALING,
-		ResourceOperationSchedulerType::WORK_STEALING,
-		LockManagementType::WOUND_WAIT
-	);
-
-	const size_t proc_threads = 2U, io_threads = 2U;
-
-	std::vector<std::thread> threads;
-
-	for (size_t i = 0; i < proc_threads; i++)
+	try
 	{
-		threads.emplace_back(&proc_thread_func);
+		g_pProcMgr = std::make_unique<ProcessManager>(
+			ProcessSchedulerType::WORK_STEALING,
+			ResourceOperationSchedulerType::WORK_STEALING,
+			LockManagementType::WOUND_WAIT
+			);
+
+		const size_t proc_threads = 2U, io_threads = 2U;
+
+		std::vector<std::thread> threads;
+
+		for (size_t i = 0; i < proc_threads; i++)
+		{
+			threads.emplace_back(&proc_thread_func);
+		}
+		for (size_t i = 0; i < io_threads; i++)
+		{
+			threads.emplace_back(&io_thread_func);
+		}
+
+		//TODO: set up an initial batch of resources and processes
+
+		//TODO: wait for a bit
+
+		g_pProcMgr->stop();
+
+		for (auto& t : threads)
+			t.join();
+
+		return 0;
 	}
-	for (size_t i = 0; i < io_threads; i++)
+	catch (std::exception& ex)
 	{
-		threads.emplace_back(&io_thread_func);
+		std::ofstream output("fuzz_test_output_" PROJECT_CONFIGPLATFORM ".txt", std::ios::ate);
+		output << ex.what() << std::endl;
+		output.close();
 	}
-
-	//TODO: set up an initial batch of resources and processes
-
-	//TODO: wait for a bit
-
-	g_pProcMgr->stop();
-
-	for (auto& t : threads)
-		t.join();
-
-	return 0;
 }
 
 

@@ -75,7 +75,23 @@ public:
 	void register_resource(ResourcePtr pRes);
 
 private:
+	/// <summary>
+	/// Add a list of resource operations for a given process. This
+	/// will mean that the process will be blocked until they are
+	/// complete.
+	/// </summary>
+	/// <param name="worker_id">The ID of the worker (process) which the resource operations belong to.</param>
+	/// <param name="ops">A list of resource operations.</param>
+	void add_resource_operations(size_t worker_id, const ResourceOperations& ops);
 
+	/// <summary>
+	/// Determine if this process is waiting on resource operations
+	/// to be completed. If so, the process must be blocked until
+	/// they are finished.
+	/// </summary>
+	/// <param name="worker_id">The ID of the worker (process) to check.</param>
+	/// <returns>True if waiting, false if ready.</returns>
+	bool proc_waiting_on_res_op(size_t worker_id) const;
 
 private:
 	/// <summary>

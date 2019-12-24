@@ -16,6 +16,7 @@ namespace atpsearch
 
 //Export arrays of resource operations:
 template class ATP_API std::vector<ResourceOperation>;
+typedef std::vector<ResourceOperation> ResourceOperations;
 
 
 /// <summary>
@@ -28,7 +29,7 @@ template class ATP_API std::vector<ResourceOperation>;
 struct ATP_API ProcessStatus
 {
     bool bFinished = false;
-    std::vector<ResourceOperation> ops;
+    ResourceOperations ops;
 };
 
 

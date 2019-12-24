@@ -32,17 +32,24 @@ void ProcessManager::run_processes()
 		}
 
 		// Now get metadata:
-		auto meta = m_MetaData.at(pProc.get());
+		auto& meta = m_MetaData.at(pProc.get());
 		const size_t worker_id = meta.timestamp;  // use timestamp as ID (lower timestamp => older process => higher priority)
 
+		if (proc_waiting_on_res_op(worker_id))
+		{
+			// Try again later:
+			m_pProcessScheduler->push(std::move(pProc), get_this_thread_id());
+			continue;  // this calls the destructor of pProc, which destructs our process.
+		}
+
 		// If the process is ready to be destroyed, we can do so now:
-		if (meta.bReadyToDestroy)  // TODO: CHECK IF HAS ANY WAITING IO OPERATIONS
+		if (meta.bReadyToDestroy)
 		{
 			m_pLkMgr->remove_worker(worker_id);
 			continue;  // this calls the destructor of pProc, which destructs our process.
 		}
 
-		// Now, check its lock status:
+		// Otherwise, check its lock status:
 
 		WorkerStatus worker_status;
 		auto _freeze_lock = m_pLkMgr->get_status_freeze_if_ready(worker_id, &worker_status);
@@ -52,24 +59,33 @@ void ProcessManager::run_processes()
 		case WorkerStatus::READY:
 		{
 			const auto procStat = pProc->tick();
-			// TODO: handle different process statuses (i.e.
-			// whether the process finished or not, and whether
-			// or not there are any resource operations.)
 
-			// Not finished & no res-ops: just push onto scheduler
-			// Not finished & res-ops: push onto scheduler but add
-			// the resource operations to however they are managed.
-			// Finished & no res-ops: greedily delete process
-			// Finished & res-ops: unfortunately still need to push
-			// onto the scheduler because the res-op may depend on
-			// data held in the process (so need to delete as soon
-			// as the scheduler next pops it).
+			add_resource_operations(worker_id, procStat.ops);
+
+			if (procStat.bFinished)
+			{
+				if (procStat.ops.empty())
+				{
+					// Can finish immediately
+					m_pLkMgr->remove_worker(worker_id);  // release all locks
+				}
+				else
+				{
+					// Cannot finish immediately - finish next time we check it
+					meta.bReadyToDestroy = true;
+					m_pProcessScheduler->push(std::move(pProc), get_this_thread_id());
+				}
+			}
+			else
+			{
+				// Push to continue ticking() next time we come across it
+				m_pProcessScheduler->push(std::move(pProc), get_this_thread_id());
+			}
 		}
 			break;
 
 		case WorkerStatus::FAILED:
-			// TODO: before aborting, check to see if there are any I/O operations
-			// that this process is waiting on, and if so, block until they are done.
+			// TODO: should we worry about aborting earlier? (Because it will have been aborted by something else, which is relying on this being called)
 			pProc->abort();
 			m_pLkMgr->remove_worker(worker_id);  // release all locks
 			// Try again later:

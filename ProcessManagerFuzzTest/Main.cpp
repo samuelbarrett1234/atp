@@ -38,7 +38,13 @@ int main(int argc, char* argv[])
 			LockManagementType::WOUND_WAIT
 			);
 
+		// Parameters:
+
 		const size_t proc_threads = 2U, io_threads = 2U;
+		const size_t num_resources = 8U, initial_num_processes = 512U;
+		const size_t running_seconds = 4U;
+
+		// Set up worker threads
 
 		std::vector<std::thread> threads;
 
@@ -51,9 +57,23 @@ int main(int argc, char* argv[])
 			threads.emplace_back(&io_thread_func);
 		}
 
-		//TODO: set up an initial batch of resources and processes
+		// Set up an initial batch of resources and processes
 
-		//TODO: wait for a bit
+		for (size_t i = 0; i < num_resources; i++)
+		{
+			g_pProcMgr->register_resource(std::make_unique<BufferResource>(i));
+		}
+
+		for (size_t i = 0; i < initial_num_processes; i++)
+		{
+			g_pProcMgr->post(std::make_unique<TestProcess>(num_resources, *g_pProcMgr));
+		}
+
+		// Wait for a bit
+
+		std::this_thread::sleep_for(std::chrono::seconds(running_seconds));
+
+		// Halt the program
 
 		g_pProcMgr->stop();
 

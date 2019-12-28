@@ -46,6 +46,11 @@ public:
 	/// This is called when the process manager decides to abort
 	/// the process. This can be done when an I/O operation fails
 	/// or when the process manager is stopped.
+	/// Before this function is called, all I/O operations that this
+	/// process has performed are automatically UNDONE!
+	/// Here, the process needs to modify its state so that it is
+	/// ready to be restarted. The next time tick() is called on
+	/// this process, it should feel like starting the process anew.
 	/// </summary>
 	virtual void abort() = 0;
 

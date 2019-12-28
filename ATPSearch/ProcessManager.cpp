@@ -85,6 +85,7 @@ void ProcessManager::run_processes()
 			break;
 
 		case WorkerStatus::FAILED:
+			// TODO: undo all I/O operations!!!
 			// TODO: should we worry about aborting earlier? (Because it will have been aborted by something else, which is relying on this being called)
 			pProc->abort();
 			m_pLkMgr->remove_worker(worker_id);  // release all locks

@@ -170,6 +170,7 @@
     <ClInclude Include="Test.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ProcessHandlingLogicTests.cpp" />
     <ClCompile Include="WaitDieLockManagerTests.cpp" />
     <ClCompile Include="WorkStealingProcessSchedulerTests.cpp" />
     <ClCompile Include="WorkStealingResOpSchedulerTests.cpp" />

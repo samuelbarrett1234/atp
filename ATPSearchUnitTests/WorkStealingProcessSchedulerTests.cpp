@@ -7,17 +7,13 @@ using atpsearch::ProcessSchedulerType;
 using atpsearch::ProcessPtr;
 
 
-struct Fixture
+struct WorkStealingProcessSchedulerFixture
 {
-	Fixture() :
-		pScheduler(atpsearch::create_process_scheduler(ProcessSchedulerType::WORK_STEALING))
-	{ }
-
-	atpsearch::ProcessSchedulerPtr pScheduler;
+	atpsearch::ProcessSchedulerPtr pScheduler = atpsearch::create_process_scheduler(ProcessSchedulerType::WORK_STEALING);
 };
 
 
-BOOST_FIXTURE_TEST_SUITE(WorkStealingProcessSchedulerTests, Fixture);
+BOOST_FIXTURE_TEST_SUITE(WorkStealingProcessSchedulerTests, WorkStealingProcessSchedulerFixture);
 
 
 BOOST_AUTO_TEST_CASE(Test_PushToOneThread_PopFromAnotherThread)

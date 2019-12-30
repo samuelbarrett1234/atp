@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="Error.h" />
     <ClInclude Include="LockManager.h" />
+    <ClInclude Include="ProcessHandlingLogic.h" />
     <ClInclude Include="ProcessScheduler.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="ProcessManager.h" />
@@ -167,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LockManager.cpp" />
+    <ClCompile Include="ProcessHandlingLogic.cpp" />
     <ClCompile Include="ProcessManager.cpp" />
     <ClCompile Include="ProcessStatus.cpp" />
     <ClCompile Include="ResourceOperation.cpp" />

@@ -7,14 +7,14 @@ using atpsearch::WorkerStatus;
 using atpsearch::LockType;
 
 
-struct Fixture
+struct WoundWaitLockManagerFixture
 {
 	atpsearch::LockManagerPtr pLkMgr = atpsearch::create_lock_manager(LockManagementType::WOUND_WAIT);
 	WorkerStatus status;
 };
 
 
-BOOST_FIXTURE_TEST_SUITE(WoundWaitLockManagerTests, Fixture);
+BOOST_FIXTURE_TEST_SUITE(WoundWaitLockManagerTests, WoundWaitLockManagerFixture);
 
 
 BOOST_AUTO_TEST_CASE(Test_Wound_On_XLock_Request)

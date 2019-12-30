@@ -51,6 +51,9 @@
     <ClInclude Include="ResourceOperationScheduler.h">
       <Filter>Header Files\Process Management</Filter>
     </ClInclude>
+    <ClInclude Include="ProcessHandlingLogic.h">
+      <Filter>Header Files\Process Management</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ProcessManager.cpp">
@@ -63,6 +66,9 @@
       <Filter>Source Files\Process Management</Filter>
     </ClCompile>
     <ClCompile Include="LockManager.cpp">
+      <Filter>Source Files\Process Management</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessHandlingLogic.cpp">
       <Filter>Source Files\Process Management</Filter>
     </ClCompile>
   </ItemGroup>

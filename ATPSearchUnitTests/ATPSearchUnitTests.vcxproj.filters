@@ -35,5 +35,8 @@
     <ClCompile Include="WorkStealingResOpSchedulerTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ProcessHandlingLogicTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

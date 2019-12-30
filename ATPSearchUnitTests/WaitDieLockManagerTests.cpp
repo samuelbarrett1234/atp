@@ -7,14 +7,14 @@ using atpsearch::WorkerStatus;
 using atpsearch::LockType;
 
 
-struct Fixture
+struct WaitDieLockManagerFixture
 {
 	atpsearch::LockManagerPtr pLkMgr = atpsearch::create_lock_manager(LockManagementType::WAIT_DIE);
 	WorkerStatus status;
 };
 
 
-BOOST_FIXTURE_TEST_SUITE(WaitDieLockManagerTests, Fixture);
+BOOST_FIXTURE_TEST_SUITE(WaitDieLockManagerTests, WaitDieLockManagerFixture);
 
 
 BOOST_AUTO_TEST_CASE(Test_Wait_On_XLock_Request)

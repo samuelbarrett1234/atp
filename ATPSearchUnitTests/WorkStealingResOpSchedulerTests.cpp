@@ -5,17 +5,13 @@
 using atpsearch::ResourceOperationSchedulerType;
 
 
-struct Fixture
+struct WorkStealingResourceOperationSchedulerFixture
 {
-	Fixture() :
-		pScheduler(atpsearch::create_resop_scheduler(ResourceOperationSchedulerType::WORK_STEALING))
-	{ }
-
-	atpsearch::ResourceOperationSchedulerPtr pScheduler;
+	atpsearch::ResourceOperationSchedulerPtr pScheduler = atpsearch::create_resop_scheduler(ResourceOperationSchedulerType::WORK_STEALING);
 };
 
 
-BOOST_FIXTURE_TEST_SUITE(WorkStealingResourceOperationSchedulerTests, Fixture);
+BOOST_FIXTURE_TEST_SUITE(WorkStealingResourceOperationSchedulerTests, WorkStealingResourceOperationSchedulerFixture);
 
 
 BOOST_AUTO_TEST_CASE(Test_Not_Ready_When_No_Work)

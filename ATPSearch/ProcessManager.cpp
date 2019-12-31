@@ -58,16 +58,20 @@ void ProcessManager::run_processes()
 		{
 		case WorkerStatus::READY:
 		{
-			const auto procStat = pProc->tick();
+			const auto proc_stat = pProc->tick();
 
-			add_resource_operations(worker_id, procStat.ops);
+			// This will not request any locks immediately - this will
+			// happen "as we go along" in the I/O threads, requesting
+			// locks as we use different resources.
+			add_resource_operations(worker_id, proc_stat.ops);
 
-			if (procStat.bFinished)
+			if (proc_stat.bFinished)
 			{
-				if (procStat.ops.empty())
+				if (proc_stat.ops.empty())
 				{
 					// Can finish immediately
 					m_pLkMgr->remove_worker(worker_id);  // release all locks
+					pProc.reset();  // calls destructor
 				}
 				else
 				{
@@ -85,10 +89,9 @@ void ProcessManager::run_processes()
 			break;
 
 		case WorkerStatus::FAILED:
-			// TODO: undo all I/O operations!!!
-			// TODO: should we worry about aborting earlier? (Because it will have been aborted by something else, which is relying on this being called)
+			undo_res_ops(worker_id);
 			pProc->abort();
-			m_pLkMgr->remove_worker(worker_id);  // release all locks
+			m_pLkMgr->remove_worker(worker_id);
 			// Try again later:
 			// TODO: add a random time delay for restart?
 			m_pProcessScheduler->push(std::move(pProc), get_this_thread_id());

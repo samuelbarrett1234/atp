@@ -52,6 +52,7 @@ public:
 	/// assumes control of the memory of this process. This
 	/// function is thread-safe, and can be called from inside
 	/// another process, or from another thread entirely.
+	/// I.e. this function is thread-safe and never blocks.
 	/// </summary>
 	void post(ProcessPtr pProc);
 
@@ -93,6 +94,17 @@ private:
 	/// <returns>True if waiting, false if ready.</returns>
 	bool proc_waiting_on_res_op(size_t worker_id) const;
 
+	/// <summary>
+	/// Undo all resource operations of a worker.
+	/// Precondition: the worker has been aborted by the lock manager,
+	/// which means that I/O threads cannot pick up new tasks for this
+	/// worker. This function will wait until all I/O threads have
+	/// finished working on this process's stuff, then will undo them
+	/// all.
+	/// </summary>
+	/// <param name="worker_id">The ID of the worker (process) to undo.</param>
+	void undo_res_ops(size_t worker_id);
+
 private:
 	/// <summary>
 	/// This is some data associated with an active process.
@@ -101,13 +113,13 @@ private:
 	/// from the current system time - it is just incremented
 	/// by 1 for each subsequent process.
 	/// </summary>
-	struct ProcMetaData
+	struct ProcMetaData  // WIP
 	{
 		size_t timestamp;
 		bool bReadyToDestroy;
 	};
 
-	struct IOOperationMetaData
+	struct IOOperationMetaData  // WIP
 	{
 		size_t id;
 		size_t dependsOn; // Another IO op ID, or -1 if doesn't depend.

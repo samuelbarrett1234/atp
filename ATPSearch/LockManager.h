@@ -89,6 +89,10 @@ public:
 	/// currently held by a younger worker which is currently
 	/// undergoing a tick() - as a result we must wait for the
 	/// tick() function to return before aborting it.)
+	/// Warning: if this requests causes any process to abort
+	/// to avoid deadlocks, the aborted process changes to the
+	/// abort state, and this process becomes BLOCKED until
+	/// remove_worker() is called on the aborted process.
 	/// PRECONDITION: the worker_id must NOT be frozen.
 	/// </summary>
 	/// <param name="worker_id">The ID of the worker requesting the resource.</param>

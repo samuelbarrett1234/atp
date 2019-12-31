@@ -39,12 +39,17 @@ BOOST_AUTO_TEST_CASE(Test_Die_On_XLock_Request)
 	pLkMgr->request(0, 0, LockType::XLOCK);
 
 	pLkMgr->get_status_freeze_if_ready(0, &status);
-	BOOST_TEST(status == WorkerStatus::READY);
+	BOOST_TEST(status == WorkerStatus::BLOCKED);  // will block until we remove worker 1
 
 	pLkMgr->request(1, 0, LockType::XLOCK);
 
 	pLkMgr->get_status_freeze_if_ready(1, &status);
 	BOOST_TEST(status == WorkerStatus::FAILED);
+
+	pLkMgr->remove_worker(1);
+
+	pLkMgr->get_status_freeze_if_ready(0, &status);
+	BOOST_TEST(status == WorkerStatus::READY);  // now ready
 }
 
 
@@ -99,10 +104,15 @@ BOOST_AUTO_TEST_CASE(Test_SLock_Blocks_XLock_With_Wait)
 	pLkMgr->request(1, 0, LockType::XLOCK);
 
 	pLkMgr->get_status_freeze_if_ready(0, &status);
-	BOOST_TEST(status == WorkerStatus::READY);
+	BOOST_TEST(status == WorkerStatus::BLOCKED);  // blocked until we remove worker 1
 
 	pLkMgr->get_status_freeze_if_ready(1, &status);
 	BOOST_TEST(status == WorkerStatus::FAILED);
+
+	pLkMgr->remove_worker(1);
+
+	pLkMgr->get_status_freeze_if_ready(0, &status);
+	BOOST_TEST(status == WorkerStatus::READY);  // now ready
 }
 
 
@@ -129,10 +139,15 @@ BOOST_AUTO_TEST_CASE(Test_XLock_Blocks_SLock_With_Wait)
 	pLkMgr->request(1, 0, LockType::SLOCK);
 
 	pLkMgr->get_status_freeze_if_ready(0, &status);
-	BOOST_TEST(status == WorkerStatus::READY);
+	BOOST_TEST(status == WorkerStatus::BLOCKED);  // blocked until we remove worker 1
 
 	pLkMgr->get_status_freeze_if_ready(1, &status);
 	BOOST_TEST(status == WorkerStatus::FAILED);
+
+	pLkMgr->remove_worker(1);
+
+	pLkMgr->get_status_freeze_if_ready(0, &status);
+	BOOST_TEST(status == WorkerStatus::READY);  // now ready
 }
 
 
@@ -181,6 +196,20 @@ BOOST_AUTO_TEST_CASE(Test_Remove_Unlocks_SLock)
 
 	// 0 should not be blocked, too.
 	pLkMgr->get_status_freeze_if_ready(0, &status);
+	BOOST_TEST(status == WorkerStatus::READY);
+}
+
+
+BOOST_AUTO_TEST_CASE(Test_Remove_Worker_Removes_All_Locks_Automatically)
+{
+	pLkMgr->request(0, 0, LockType::XLOCK);
+	pLkMgr->request(0, 1, LockType::XLOCK);
+
+	pLkMgr->remove_worker(0);
+
+	pLkMgr->request(1, 0, LockType::XLOCK);
+
+	pLkMgr->get_status_freeze_if_ready(1, &status);
 	BOOST_TEST(status == WorkerStatus::READY);
 }
 

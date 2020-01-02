@@ -7,6 +7,9 @@
 #include "BufferResource.h"
 
 
+// Author: Samuel Barrett
+
+
 using atpsearch::ProcessManager;
 using atpsearch::ProcessSchedulerType;
 using atpsearch::ResourceOperationSchedulerType;

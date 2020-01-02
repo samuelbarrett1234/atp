@@ -2,6 +2,9 @@
 #include <Error.h>
 
 
+// Author: Samuel Barrett
+
+
 BufferResource::BufferResource(ResourceID id) :
 	m_Offset(0U),
 	m_ID(id)

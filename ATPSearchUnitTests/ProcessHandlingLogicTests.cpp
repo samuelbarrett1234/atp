@@ -2,6 +2,9 @@
 #include <ProcessHandlingLogic.h>
 
 
+// Author: Samuel Barrett
+
+
 using atpsearch::ProcessSchedulerType;
 using atpsearch::ResourceOperationSchedulerType;
 

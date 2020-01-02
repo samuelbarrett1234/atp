@@ -1,6 +1,9 @@
 #pragma once
 
 
+// Author: Samuel Barrett
+
+
 #include <Resource.h>
 #include <array>
 

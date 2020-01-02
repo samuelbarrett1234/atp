@@ -1,6 +1,9 @@
 #pragma once
 
 
+// Author: Samuel Barrett
+
+
 #include <Process.h>
 #include <ProcessManager.h>
 #include <random>

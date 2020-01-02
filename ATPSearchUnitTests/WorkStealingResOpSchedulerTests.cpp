@@ -2,6 +2,9 @@
 #include <ResourceOperationScheduler.h>
 
 
+// Author: Samuel Barrett
+
+
 using atpsearch::ResourceOperationSchedulerType;
 
 

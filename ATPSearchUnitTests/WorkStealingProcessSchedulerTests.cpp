@@ -3,6 +3,9 @@
 #include <ProcessScheduler.h>
 
 
+// Author: Samuel Barrett
+
+
 using atpsearch::ProcessSchedulerType;
 using atpsearch::ProcessPtr;
 

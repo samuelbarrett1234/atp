@@ -2,6 +2,9 @@
 #include <LockManager.h>
 
 
+// Author: Samuel Barrett
+
+
 using atpsearch::LockManagementType;
 using atpsearch::WorkerStatus;
 using atpsearch::LockType;

@@ -1,6 +1,9 @@
 #pragma once
 
 
+// Author: Samuel Barrett
+
+
 #ifdef ATP_EXPORTS
 
 

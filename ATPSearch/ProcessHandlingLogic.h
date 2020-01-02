@@ -7,10 +7,60 @@
 #include "Utility.h"
 #include "ProcessScheduler.h"
 #include "ResourceOperationScheduler.h"
+#include <boost/optional.hpp>
 
 
 namespace atpsearch
 {
+
+
+class ProcessHandlingLogic;
+
+
+/// <summary>
+/// This struct contains information about a
+/// process, and also executes code in the
+/// destructor.
+/// </summary>
+struct ATP_API ProcessHandlingMetaData
+{
+public:
+	ProcessHandlingMetaData(ProcessHandlingLogic& handler,
+		size_t process_id,
+		bool b_finished);
+	~ProcessHandlingMetaData();
+
+	const size_t process_id;  // a unique ID for the process
+	bool b_finished;  // if true, the process is ready to be destroyed
+
+	// If non-empty when the destructor is called, these will be added
+	// to the pool of resource operations
+	ResourceOperations res_ops;
+
+private:
+	ProcessHandlingLogic& handler;
+};
+
+
+struct ATP_API ResOpMetaData
+{
+public:
+	ResOpMetaData(ProcessHandlingLogic& handler,
+		ResourceOperation res_op,
+		size_t process_id,
+		size_t res_op_idx);
+	~ResOpMetaData();
+
+	ResourceOperation res_op;  // the main operation
+
+	bool b_failed;  // starts as false; set to true if op failed
+
+	// the process which this operation corresponds to
+	const size_t process_id;
+
+	// the index of this res-op in the list of res-ops for the process
+	const size_t res_op_idx;
+};
 
 
 /// <summary>
@@ -29,43 +79,91 @@ public:
 	/// <summary>
 	/// Call this when a brand new process is posted
 	/// to the process manager.
-	/// Precondition: worker_id has not already been added.
+	/// Precondition: process_id has not already been added.
 	/// </summary>
-	/// <param name="worker_id">Some ID of the process.</param>
-	virtual void add_new_process(size_t worker_id);
+	/// <param name="process_id">Some ID of the process.</param>
+	void add_new_process(size_t process_id);
 
 	/// <summary>
-	/// Try to get the next worker ID to handle. If there
-	/// is one available and p_worker_id is non-null, then
-	/// a worker will be written out to this parameter.
-	/// This function returns true iff there are any workers
-	/// ready to be executed.
+	/// Try to get the next process to update. If there
+	/// is one available, the returned option will contain
+	/// a struct of data about the process. This struct
+	/// will execute important code on exit - try to make
+	/// sure it goes out of scope when you have finished
+	/// handling the object.
+	/// POSTCONDITIONS: if the returned option contains a
+	/// value, that struct will return a valid process_id,
+	/// and b_finished will be false, and res_ops will be
+	/// empty.
+	/// NOTE: if a process is marked as finished, and then
+	/// the destructor of the struct is called, then the
+	/// process will never be returned from this function
+	/// again.
 	/// </summary>
-	/// <param name="p_worker_id">The ID of the next worker.</param>
-	/// <returns>True if there were any workers remaining, false if not.</returns>
-	virtual bool next_worker_id_if_exists(size_t* p_worker_id);
+	/// <returns>
+	/// If there were no processes available to be handled,
+	/// this returns none. Otherwise, it returns a struct
+	/// of data about the next process. Modify this as you
+	/// wish (by indicating that it has finished / adding
+	/// res-ops, etc) and then when the destructor is called,
+	/// all of this data will be cached.
+	/// </returns>
+	boost::optional<ProcessHandlingMetaData> try_begin_next_process();
 
 	/// <summary>
-	/// Add some resource operations given by a worker.
+	/// Try to get the next res-op to complete. If there
+	/// is one available, the returned option will contain
+	/// a struct of data about the res-op. This struct
+	/// will execute important code on exit - try to make
+	/// sure it goes out of scope when you have finished
+	/// handling the operation.
+	/// POSTCONDITIONS: if the returned option contains a
+	/// value, that struct will return a valid process_id,
+	/// and res_op_idx. b_failed will always initially be false.
+	/// NOTE: it is always assumed that you complete a res-op
+	/// successfully, unless b_failed is set to true, in
+	/// which case all other res-ops for this process are
+	/// cleared, and the process is aborted. Earlier res-ops
+	/// are undone, as well. This is all executed in the
+	/// destructor.
 	/// </summary>
-	/// <param name="p_begin">Beginning of an array of resource operations.</param>
-	/// <param name="p_end">End of an array of resource operations (one past the end).</param>
-	/// <param name="worker_id">The worker that produced these operations.</param>
-	virtual void add_resource_operations(ResourceOperation* p_begin,
-		ResourceOperation* p_end, size_t worker_id);
+	/// <returns>
+	/// If there were no res-ops available to be handled,
+	/// this returns none. Otherwise, it returns a struct
+	/// of data about the next res-op. Modify this as you
+	/// wish (by indicating that it has failed if it did)
+	/// and then when the destructor is called, all of
+	/// this data will be handled.
+	/// </returns>
+	boost::optional<ResOpMetaData> try_begin_next_res_op();
+
+
+private:
+	friend ProcessHandlingMetaData;
+	friend ResOpMetaData;
+
 
 	/// <summary>
-	/// Try to get the next resource operation to execute. If
-	/// p_res_op is non-null, then a res-op is written to that
-	/// pointer if one is available. True is returned iff a
-	/// res-op is available.
+	/// Once you have finished handling a process, call this.
+	/// This should only need to be called by the
+	/// ProcessHandlingMetaData struct, which does so in the
+	/// destructor.
 	/// </summary>
-	/// <param name="p_res_op">Where to write the next resource operation.</param>
-	/// <returns>True iff there was any res-op available.</returns>
-	virtual bool next_resop_if_exists(ResourceOperation* p_res_op);
+	/// <param name="data">
+	/// The data corresponding to the process that just finished.
+	/// </param>
+	void end_next_process(ProcessHandlingMetaData& data);
 
 
-
+	/// <summary>
+	/// Once you have finished handling a res-op, call this.
+	/// This should only need to be called by the ResOpMetaData
+	/// struct, which does so in the destructor.
+	/// </summary>
+	/// <param name="data">
+	/// The data corresponding to the res-op that just finished.
+	/// </param>
+	void end_next_res_op(ProcessHandlingMetaData& data);
 };
 
 

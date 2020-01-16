@@ -28,7 +28,7 @@ struct ATP_API ResourceOperation
         WRITE,
         SEEK,
         PIPE
-    };
+    } type;
 
     union
     {

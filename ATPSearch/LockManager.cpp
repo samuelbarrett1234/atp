@@ -1,6 +1,9 @@
 #include "LockManager.h"
 
 
+// Author: Samuel Barrett
+
+
 namespace atpsearch
 {
 

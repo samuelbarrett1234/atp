@@ -2,6 +2,9 @@
 #include <Error.h>
 
 
+// Author: Samuel Barrett
+
+
 static std::random_device g_static_eng;
 
 

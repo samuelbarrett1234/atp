@@ -1,0 +1,52 @@
+% Definition File
+
+% Essential Relations:
+
+\begin{relations}
+
+SUM $0 + $1 = $2
+NEG $0 = -$1
+MUL $0 \times $1 = $2
+REC $0 = \frac{1}{ $2 }
+POS $0 > 0
+
+\end{relations}
+
+% Macros:
+
+\begin{macros}
+
+
+_ASSOCIATIVE(REL) \forall $0, $1, $2 . \exists $3, $4 . REL($0, $1, $2) \and REL($2, $3, $4) \iff REL($0, $3, $4) \and REL($1, $2, $3)
+_COMMUTATIVE(REL) \forall $0, $1 . \exists $2 . REL($0, $1, $2) \iff REL($1, $0, $2)
+_IDENTIY(REL) \exists $0 . \forall $1 . REL($1, $0, $1)
+_INVERTIBLE_AND_INVERTIBLE(REL_OP, REL_INV) \exists $0 . (\forall $1 . REL_OP($1, $0, $1)) \and (\forall $1 . \exists $2 . REL_INV($1, $2) \and REL_OP($1, $2, $0))
+_DISTRIBUTIVE(REL1, REL2) %TODO
+
+\end{macros}
+
+% Axioms:
+
+\begin{axioms}
+
+\forall $0, $1 . \exists $2 . SUM($0, $1, $2) % Every two elements can be added together
+_ASSOCIATIVE(SUM)
+_COMMUTATIVE(SUM)
+_INVERTIBLE_AND_INVERTIBLE(SUM, NEG)
+\forall $0 . \exists $1 . NEG($0, $1) % Can negate every element
+
+\forall $0, $1 . \exists $2 . MUL($0, $1, $2) % Every two elements can be multiplied together
+_ASSOCIATIVE(MUL)
+_COMMUTATIVE(MUL)
+_INVERTIBLE_AND_INVERTIBLE(MUL, REC)
+\forall $0 . (\not . \forall $1 . SUM($1, $0, $1)) \implies \exists $1 . REC($0, $1) % We can take the reciprocal of element except for the additive identity
+
+_DISTRIBUTIVE(MUL, SUM)
+
+% TODO: trichotomy on ordering (every element satisfies exactly one of: is in POS, its negative is in POS, or it is the additive identity)
+
+% TODO: completeness axiom (???)
+
+
+\end{axioms}
+

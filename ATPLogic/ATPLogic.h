@@ -25,7 +25,6 @@ namespace logic
 
 enum class LangType
 {
-	PROPOSITIONAL_LOGIC,  // not yet implemented
 	FIRST_ORDER_LOGIC,  // not yet implemented
 	SECOND_ORDER_LOGIC  // not yet implemented
 };

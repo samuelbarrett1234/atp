@@ -59,7 +59,8 @@ public:
 
 	// Postcondition: returns an empty kernel object to use for
 	// loading (this is the only way of obtaining a knowledge
-	// kernel).
+	// kernel). Empty kernels are initialised with knowledge of
+	// propositional logic only.
 	virtual KnowledgeKernelPtr create_empty_kernel() const = 0;
 
 	// Load an array of statements from a file or from binary (see

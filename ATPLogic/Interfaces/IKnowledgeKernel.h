@@ -10,6 +10,10 @@ inference rules of the logical system. It aims to be vectorised and
 lazy where possible.
 In summary, the knowledge kernel contains all logical rules, axioms,
 and available theorems.
+Note that every kernel state is associated with a kind of hash-code;
+this is useful because the code is designed such that if two kernels
+agree on their code, they agree on the return results for all of
+their functions (assuming no hash collisions).
 
 */
 
@@ -37,6 +41,12 @@ class ATP_LOGIC_API IKnowledgeKernel
 {
 public:
 	virtual ~IKnowledgeKernel() = default;
+
+	// If two knowledge kernels agree on their code, then they agree
+	// on the return results of all the functions below. (This code
+	// is computed by hashing all of the available syntax and axioms
+	// etc.)
+	virtual size_t get_code() const = 0;
 
 	// Precondition: valid(p_stmts)
 	// Postcondition: for each statement in the input array, we

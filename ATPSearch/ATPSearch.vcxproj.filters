@@ -16,6 +16,12 @@
     <Filter Include="Header Files\Interfaces">
       <UniqueIdentifier>{1450bded-fa2b-4c48-837d-857386be9022}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Internal">
+      <UniqueIdentifier>{bf85746d-ab46-464a-9a86-f79e4b2777b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Internal">
+      <UniqueIdentifier>{7d612c25-217b-4cc4-a176-e0baeab49d18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -33,10 +39,16 @@
     <ClInclude Include="Interfaces\IStatementHeuristic.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\IterativeDeepeningSolver.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\IterativeDeepeningSolver.cpp">
+      <Filter>Source Files\Internal</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

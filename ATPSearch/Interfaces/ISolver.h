@@ -22,7 +22,7 @@ to execute arbitrary code in-between.
 #include <memory>
 #include <boost/optional.hpp>
 #include <ATPLogic.h>
-#include "ATPSearchAPI.h"
+#include "../ATPSearchAPI.h"
 
 
 namespace atp
@@ -55,7 +55,8 @@ class ATP_SEARCH_API ISolver
 public:
 	virtual ~ISolver() = default;
 
-	// Precondition: p_stmts is valid within the knowledge base
+	// Precondition: p_stmts is valid within the knowledge base and
+	// is nonempty (p_stmts->size() > 0)
 	// Postcondition: calls clear() then sets these statements
 	// to be the statements targeted for proving. engaged() will now
 	// return true.
@@ -110,9 +111,9 @@ public:
 	virtual std::vector<size_t> get_max_mem() const = 0;
 
 	// Preconditions: engaged()
-	// Postconditions: returns the number of node allocations
+	// Postconditions: returns the number of node expansions
 	// performed in the search tree for each proof.
-	virtual std::vector<size_t> get_num_new_nodes() const = 0;
+	virtual std::vector<size_t> get_num_expansions() const = 0;
 };
 
 

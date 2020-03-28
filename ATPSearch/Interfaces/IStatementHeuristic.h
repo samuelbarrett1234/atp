@@ -18,7 +18,7 @@ knowledge kernel. Their operations are also vectorised.
 #include <memory>
 #include <map>
 #include <ATPLogic.h>
-#include "ATPSearchAPI.h"
+#include "../ATPSearchAPI.h"
 
 
 namespace atp

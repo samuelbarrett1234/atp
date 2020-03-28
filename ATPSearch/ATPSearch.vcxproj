@@ -161,9 +161,11 @@
     <ClInclude Include="ATPSearchAPI.h" />
     <ClInclude Include="Interfaces\ISolver.h" />
     <ClInclude Include="Interfaces\IStatementHeuristic.h" />
+    <ClInclude Include="Internal\IterativeDeepeningSolver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp" />
+    <ClCompile Include="Internal\IterativeDeepeningSolver.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

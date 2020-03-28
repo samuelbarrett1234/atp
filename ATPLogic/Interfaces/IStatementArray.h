@@ -57,13 +57,13 @@ public:
 
 // Postcondition: returns a singleton array which contains just this
 // one statement.
-ATP_LOGIC_API StatementArrayPtr from_statement(IStatement& stmt);
+ATP_LOGIC_API StatementArrayPtr from_statement(const IStatement& stmt);
 
 
 // Postcondition: returns the concatenation of the two arrays
 // with 'l' placed first
-ATP_LOGIC_API StatementArrayPtr concat(IStatementArray& l,
-	IStatementArray& r);
+ATP_LOGIC_API StatementArrayPtr concat(const IStatementArray& l,
+	const IStatementArray& r);
 
 
 // Postcondition: returns the concatenation of the array of arrays

@@ -159,6 +159,8 @@
   <ItemGroup>
     <ClInclude Include="ATPSearch.h" />
     <ClInclude Include="ATPSearchAPI.h" />
+    <ClInclude Include="Interfaces\ISolver.h" />
+    <ClInclude Include="Interfaces\IStatementHeuristic.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp" />

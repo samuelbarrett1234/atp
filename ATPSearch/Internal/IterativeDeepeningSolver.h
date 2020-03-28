@@ -93,6 +93,22 @@ public:
 	}
 
 private:
+	// functions which form part of the step() function:
+
+	// step an individual proof i for n steps
+	void step_proof(size_t i, size_t n);
+
+	// expand the back of the stack by adding successors using the
+	// kernel. Precondition: st.size() < m_cur_depth_limits[i]
+	void expand_next(size_t i, std::list<StackFrame>& st);
+
+	// when we can't expand any more, we have to delete some end
+	// elements off the stack. in particular, we need to restore
+	// the invariant that st.back().m_stmts.at(st.back().m_idx)
+	// is ready to expand!
+	void trim_expansion(size_t i, std::list<StackFrame>& st);
+
+private:
 	const size_t m_max_depth;  // ultimate depth limit
 	const size_t m_starting_depth;
 

@@ -163,6 +163,10 @@
   <ItemGroup>
     <ClInclude Include="ATPLogic.h" />
     <ClInclude Include="ATPLogicAPI.h" />
+    <ClInclude Include="Interfaces\IKnowledgeKernel.h" />
+    <ClInclude Include="Interfaces\ILanguage.h" />
+    <ClInclude Include="Interfaces\IStatement.h" />
+    <ClInclude Include="Interfaces\IStatementArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp" />

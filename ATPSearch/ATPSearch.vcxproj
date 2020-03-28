@@ -73,28 +73,28 @@
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPDatabase\;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPDatabase\;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPDatabase\;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPDatabase\;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

@@ -74,7 +74,7 @@
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPSearch\;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -82,7 +82,7 @@
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPSearch\;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -90,7 +90,7 @@
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPSearch\;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -98,14 +98,14 @@
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPSearch\;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ATP_DATABASE_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -117,7 +117,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ATP_DATABASE_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -131,7 +131,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ATP_DATABASE_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -147,7 +147,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ATP_DATABASE_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>

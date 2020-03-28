@@ -1,0 +1,12 @@
+Type theory:
+
+Element (can query Arity)
+UniverseElement : Element (Arity 1)
+TupleElementN : Element (Arity >1)
+Set (of Elements with fixed Arity)
+
+Tuples are ALWAYS unpacked, e.g. if x \in S then S implicitly always has elements of arity 1 and contains no tuples.
+
+Syntactic sugar help for relations and functions, but they are still just sets
+Sugar: R(x1, .., xn) ... (x1, .., xn) \in R
+       f(x1, .., xn) = y ... (x1, .., xn, y) \in f

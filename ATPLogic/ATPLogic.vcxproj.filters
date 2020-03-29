@@ -28,6 +28,24 @@
     <Filter Include="Source Files\Internal\Equational">
       <UniqueIdentifier>{14522795-d78f-416b-b14d-22985b3cb304}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Internal\Equational\Parsing">
+      <UniqueIdentifier>{89cceff1-70b1-4dde-8c54-0b146676db56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Internal\Equational\Syntax">
+      <UniqueIdentifier>{07f50982-a08a-4919-8a48-53bbb7f4ad17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Internal\Equational\Implementations">
+      <UniqueIdentifier>{5a6d6b4e-00bd-49cf-a1ac-96ac16b9e2bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Internal\Equational\Parsing">
+      <UniqueIdentifier>{ff23ac29-9faa-4620-8409-64062c736471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Internal\Equational\Syntax">
+      <UniqueIdentifier>{82aa2102-491f-4176-ba6b-44b31fbed6d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Internal\Equational\Implementations">
+      <UniqueIdentifier>{dbcc2ea2-04c2-4da3-92ca-e9e5fa51eafc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -51,64 +69,64 @@
     <ClInclude Include="Interfaces\IStatementArray.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\Equational\EquationalStatement.h">
-      <Filter>Header Files\Internal\Equational</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\Equational\EquationalStatementArray.h">
-      <Filter>Header Files\Internal\Equational</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\Equational\EquationalLanguage.h">
-      <Filter>Header Files\Internal\Equational</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\Equational\EquationalKnowledgeKernel.h">
-      <Filter>Header Files\Internal\Equational</Filter>
-    </ClInclude>
     <ClInclude Include="Interfaces\IPropositionalKnowledgeKernel.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\Equational\EquationalSyntaxTrees.h">
-      <Filter>Header Files\Internal\Equational</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\Equational\EquationalParser.h">
-      <Filter>Header Files\Internal\Equational</Filter>
-    </ClInclude>
     <ClInclude Include="Internal\Equational\EquationalGrammar.h">
-      <Filter>Header Files\Internal\Equational</Filter>
+      <Filter>Header Files\Internal\Equational\Parsing</Filter>
     </ClInclude>
     <ClInclude Include="Internal\Equational\EquationalParseNodes.h">
-      <Filter>Header Files\Internal\Equational</Filter>
+      <Filter>Header Files\Internal\Equational\Parsing</Filter>
     </ClInclude>
     <ClInclude Include="Internal\Equational\EquationalMatching.h">
-      <Filter>Header Files\Internal\Equational</Filter>
+      <Filter>Header Files\Internal\Equational\Syntax</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\Equational\EquationalParser.h">
+      <Filter>Header Files\Internal\Equational\Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\Equational\EquationalSyntaxTrees.h">
+      <Filter>Header Files\Internal\Equational\Syntax</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\Equational\EquationalKnowledgeKernel.h">
+      <Filter>Header Files\Internal\Equational\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\Equational\EquationalLanguage.h">
+      <Filter>Header Files\Internal\Equational\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\Equational\EquationalStatement.h">
+      <Filter>Header Files\Internal\Equational\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\Equational\EquationalStatementArray.h">
+      <Filter>Header Files\Internal\Equational\Implementations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\Equational\EquationalStatement.cpp">
-      <Filter>Source Files\Internal\Equational</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\Equational\EquationalStatementArray.cpp">
-      <Filter>Source Files\Internal\Equational</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\Equational\EquationalLanguage.cpp">
-      <Filter>Source Files\Internal\Equational</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\Equational\EquationalKnowledgeKernel.cpp">
-      <Filter>Source Files\Internal\Equational</Filter>
+    <ClCompile Include="Internal\Equational\EquationalGrammar.cpp">
+      <Filter>Source Files\Internal\Equational\Parsing</Filter>
     </ClCompile>
     <ClCompile Include="Internal\Equational\EquationalParser.cpp">
-      <Filter>Source Files\Internal\Equational</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\Equational\EquationalSyntaxTrees.cpp">
-      <Filter>Source Files\Internal\Equational</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\Equational\EquationalGrammar.cpp">
-      <Filter>Source Files\Internal\Equational</Filter>
+      <Filter>Source Files\Internal\Equational\Parsing</Filter>
     </ClCompile>
     <ClCompile Include="Internal\Equational\EquationalMatching.cpp">
-      <Filter>Source Files\Internal\Equational</Filter>
+      <Filter>Source Files\Internal\Equational\Syntax</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\Equational\EquationalSyntaxTrees.cpp">
+      <Filter>Source Files\Internal\Equational\Syntax</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\Equational\EquationalKnowledgeKernel.cpp">
+      <Filter>Source Files\Internal\Equational\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\Equational\EquationalLanguage.cpp">
+      <Filter>Source Files\Internal\Equational\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\Equational\EquationalStatement.cpp">
+      <Filter>Source Files\Internal\Equational\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\Equational\EquationalStatementArray.cpp">
+      <Filter>Source Files\Internal\Equational\Implementations</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

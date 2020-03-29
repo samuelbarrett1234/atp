@@ -31,7 +31,7 @@ std::vector<StatementArrayPtr> EquationalKnowledgeKernel::succs(
 {
 	ATP_LOGIC_PRECOND(valid(p_stmts));
 
-
+	// TODO
 }
 
 
@@ -40,7 +40,7 @@ std::vector<StatementArrayPtr> EquationalKnowledgeKernel::prevs(
 {
 	ATP_LOGIC_PRECOND(valid(p_stmts));
 
-
+	// TODO
 }
 
 

@@ -16,7 +16,7 @@ bool check_proof(logic::IKnowledgeKernel& ker,
 
 	auto result = ker.follows(
 		proof->slice(0, proof->size() - 1),
-		proof->slice(1, proof->size));
+		proof->slice(1, proof->size()));
 
 	return std::all_of(result.begin(), result.end(),
 		[](bool x) { return x; });

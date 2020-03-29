@@ -1,0 +1,21 @@
+# first order logic (no equality) spec
+# (this is a comment)
+
+# syntax:
+# \and \or \not
+# \forall x y z ..
+# \exists x y z ..
+# R(x, y, z, ..)  # n-ary relations (n >= 1)
+
+# the knowledge kernel already comes with propositional logic rules
+# so only encode first order ones
+
+\forall x . P(x) ... \not . \exists x . \not . P(x)
+
+\forall x . P(x) >>> P(y)  # note y cannot be free when this rewrite rule is used
+
+\forall x . P(x) >>> \exists x . P(x)
+
+\forall x . \forall y . P(x, y) ...  \forall y . \forall x . P(x, y)
+
+# I'm not sure if this is an exhaustive list

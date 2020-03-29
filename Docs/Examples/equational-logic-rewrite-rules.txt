@@ -1,0 +1,24 @@
+# Equational logic rewrite rules
+# (this is a comment)
+
+# Equational logic does NOT support \and \or \not
+
+# <LHS> = <RHS>  # undirected rewrite rule
+# <LHS> >>> <RHS>  # directed rewrite rule
+# supports functions like f(x, y, z, ..)
+
+# define constants and functions like this, where
+# \arr specifies their arity (constants have arity 0)
+# \def \arr 0 e
+# \def \arr 1 i
+# \def \arr 2 *
+# note that functions can only take elements (arity 0) as argument.
+# the above definitions would go in some sort of "axiom/definition file"
+# then, for example, we can specify the group theory axioms like:
+# *(x, e) = x
+# *(x, i(x)) = e
+# *(x, *(y, z)) = *(*(x, y), z)
+
+# IMPORTANT NOTE: it is a rule in all equational logic that x = y >>> f(x) = f(y) !!!
+# Another important rule is that = is an equivalence relation - this is also built into
+# the logic.

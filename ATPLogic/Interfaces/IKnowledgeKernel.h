@@ -80,27 +80,6 @@ public:
 	virtual std::vector<bool> follows(
 		StatementArrayPtr p_premise,
 		StatementArrayPtr p_concl) const = 0;
-
-	// Precondition: valid(p_stmts)
-	// Postcondition: returns the negation of each statement in the
-	// array (this is always valid because propositional logic is
-	// built into the system).
-	virtual StatementArrayPtr negate_stmts(
-		StatementArrayPtr p_stmts) const = 0;
-
-	// Precondition: valid(p_stmts) and l->size() == r->size()
-	// Postcondition: returns the and-ing of each pair of statements
-	// in the two arrays (this is always valid because propositional
-	// logic is built into the system).
-	virtual StatementArrayPtr and_stmts(
-		StatementArrayPtr l, StatementArrayPtr r) const = 0;
-
-	// Precondition: valid(p_stmts) and l->size() == r->size()
-	// Postcondition: returns the or-ing of each pair of statements
-	// in the two arrays (this is always valid because propositional
-	// logic is built into the system).
-	virtual StatementArrayPtr or_stmts(
-		StatementArrayPtr l, StatementArrayPtr r) const = 0;
 };
 
 

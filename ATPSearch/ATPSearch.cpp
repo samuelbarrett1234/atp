@@ -8,7 +8,7 @@ namespace search
 {
 
 
-bool check_proof(logic::IKnowledgeKernel& ker,
+bool simple_check_proof(logic::IKnowledgeKernel& ker,
 	logic::StatementArrayPtr proof)
 {
 	if (proof->size() == 0)

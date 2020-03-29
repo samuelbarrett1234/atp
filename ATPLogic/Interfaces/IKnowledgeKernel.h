@@ -46,7 +46,7 @@ public:
 	// on the return results of all the functions below. (This code
 	// is computed by hashing all of the available syntax and axioms
 	// etc.)
-	virtual size_t get_code() const = 0;
+	virtual size_t get_integrity_code() const = 0;
 
 	// Precondition: valid(p_stmts)
 	// Postcondition: for each statement in the input array, we

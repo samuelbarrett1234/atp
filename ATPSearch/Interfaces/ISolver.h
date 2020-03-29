@@ -85,7 +85,7 @@ public:
 	// that proof terminated and the theorem was true. A proof
 	// constitutes a sequence of statements which are each deduced
 	// from the last using exactly one step from the knowledge kernel.
-	// If a proof is present in the optional, then check_proof(proof)
+	// If a proof is present in the optional, then simple_check_proof(proof)
 	// will return true.
 	virtual std::vector<boost::optional<logic::StatementArrayPtr>>
 		get_proofs() const = 0;

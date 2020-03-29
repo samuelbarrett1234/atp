@@ -150,6 +150,14 @@ public:
 	{
 		return m_children.size();
 	}
+	inline std::list<SyntaxNodePtr>::const_iterator begin() const
+	{
+		return m_children.begin();
+	}
+	inline std::list<SyntaxNodePtr>::const_iterator end() const
+	{
+		return m_children.end();
+	}
 private:
 	std::list<SyntaxNodePtr> m_children;
 };

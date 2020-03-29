@@ -175,6 +175,7 @@
     <ClInclude Include="Internal\Equational\EquationalGrammar.h" />
     <ClInclude Include="Internal\Equational\EquationalKnowledgeKernel.h" />
     <ClInclude Include="Internal\Equational\EquationalLanguage.h" />
+    <ClInclude Include="Internal\Equational\EquationalMatching.h" />
     <ClInclude Include="Internal\Equational\EquationalParseNodes.h" />
     <ClInclude Include="Internal\Equational\EquationalParser.h" />
     <ClInclude Include="Internal\Equational\EquationalStatement.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="Internal\Equational\EquationalGrammar.cpp" />
     <ClCompile Include="Internal\Equational\EquationalKnowledgeKernel.cpp" />
     <ClCompile Include="Internal\Equational\EquationalLanguage.cpp" />
+    <ClCompile Include="Internal\Equational\EquationalMatching.cpp" />
     <ClCompile Include="Internal\Equational\EquationalParser.cpp" />
     <ClCompile Include="Internal\Equational\EquationalStatement.cpp" />
     <ClCompile Include="Internal\Equational\EquationalStatementArray.cpp" />

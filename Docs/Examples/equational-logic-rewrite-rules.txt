@@ -22,3 +22,5 @@
 # IMPORTANT NOTE: it is a rule in all equational logic that x = y >>> f(x) = f(y) !!!
 # Another important rule is that = is an equivalence relation - this is also built into
 # the logic.
+# transitivity and symmetry are built into the knowledge kernel, and "x=x" is the only
+# trivially true statement, where we can substitute anything for x.

@@ -75,6 +75,13 @@ public:
 	virtual StatementArrayPtr slice(size_t start, size_t end,
 		size_t step = 1) const override;
 
+	// raw array can be useful for efficiency of other equational
+	// systems
+	inline const ArrType& raw() const
+	{
+		return *m_array;
+	}
+
 private:
 	ArrPtr m_array;
 

@@ -29,7 +29,7 @@ of seen nodes too.
 #include <set>
 #include <list>
 #include <functional>
-#include "EquationalSyntaxTrees.h"
+#include "EquationalSyntaxNodes.h"
 
 
 namespace atp

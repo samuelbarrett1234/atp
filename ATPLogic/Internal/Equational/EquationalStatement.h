@@ -20,7 +20,7 @@ swapped; this is obvious because f(x,y) /= f(y,x) in general.)
 
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IStatement.h"
-#include "EquationalSyntaxTrees.h"
+#include "EquationalSyntaxNodes.h"
 
 
 namespace atp

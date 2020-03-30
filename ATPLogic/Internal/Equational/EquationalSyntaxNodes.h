@@ -3,7 +3,7 @@
 
 /*
 
-EquationalSyntaxTrees.h
+EquationalSyntaxNodes.h
 
 A syntax tree represents an expression, which has been type-checked,
 and may contain user-defined constants and functions, and free

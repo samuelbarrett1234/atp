@@ -32,7 +32,7 @@ user defined "h", and instead if our statement is
 #include <boost/bimap.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IKnowledgeKernel.h"
-#include "EquationalSyntaxTrees.h"
+#include "EquationalSyntaxNodes.h"
 #include "EquationalStatementArray.h"
 
 

@@ -84,9 +84,6 @@
     <ClInclude Include="Internal\Equational\EquationalParser.h">
       <Filter>Header Files\Internal\Equational\Parsing</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\Equational\EquationalSyntaxTrees.h">
-      <Filter>Header Files\Internal\Equational\Syntax</Filter>
-    </ClInclude>
     <ClInclude Include="Internal\Equational\EquationalKnowledgeKernel.h">
       <Filter>Header Files\Internal\Equational\Implementations</Filter>
     </ClInclude>
@@ -103,6 +100,9 @@
       <Filter>Header Files\Internal\Equational\Syntax</Filter>
     </ClInclude>
     <ClInclude Include="Internal\Equational\EquationalSyntaxTreeTraversal.h">
+      <Filter>Header Files\Internal\Equational\Syntax</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\Equational\EquationalSyntaxNodes.h">
       <Filter>Header Files\Internal\Equational\Syntax</Filter>
     </ClInclude>
   </ItemGroup>

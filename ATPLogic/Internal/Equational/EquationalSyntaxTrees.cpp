@@ -1,4 +1,4 @@
-#include "EquationalSyntaxTrees.h"
+#include "EquationalSyntaxNodes.h"
 #include <boost/bind.hpp>
 #include <map>
 

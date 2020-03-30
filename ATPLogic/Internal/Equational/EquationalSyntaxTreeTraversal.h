@@ -17,6 +17,8 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 // EqFuncT : should be of type (EqSyntaxNode&) -> ResultT
@@ -61,6 +63,7 @@ ResultT apply_to_syntax_node(EqFuncT eq_func, FreeFuncT free_func,
 }
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

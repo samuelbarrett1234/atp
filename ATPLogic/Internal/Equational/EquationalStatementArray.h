@@ -25,6 +25,8 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 // Helper function for computing the number of elements in a slice.
@@ -95,6 +97,7 @@ private:
 };
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

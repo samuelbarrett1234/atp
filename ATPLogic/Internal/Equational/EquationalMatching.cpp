@@ -11,7 +11,7 @@ namespace atp
 {
 namespace logic
 {
-namespace eq_matching
+namespace equational
 {
 
 
@@ -488,7 +488,7 @@ std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node)
 }
 
 
-}  // namespace eq_matching
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

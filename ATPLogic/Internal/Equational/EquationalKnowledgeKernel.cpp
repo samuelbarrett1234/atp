@@ -13,6 +13,8 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 size_t EquationalKnowledgeKernel::get_integrity_code() const
@@ -254,7 +256,7 @@ std::vector<bool> EquationalKnowledgeKernel::follows(
 		// either side of the premise:
 		for (size_t j = 0; j < 4; j++)
 		{
-			auto subs = eq_matching::try_match(exprs[j / 2],
+			auto subs = equational::try_match(exprs[j / 2],
 				exprs[2 + j % 2]);
 
 			if (subs.has_value())
@@ -375,10 +377,10 @@ EquationalKnowledgeKernel::replace_free_with_def(
 		// which will then be bound to the fold_free_constructor
 		// below.
 		const size_t num_free_vars =
-			eq_matching::num_free_vars(p_root);
+			equational::num_free_vars(p_root);
 
 		// NOTE: we are assuming that the free var IDs are contiguous
-		ATP_LOGIC_PRECOND(!eq_matching::needs_free_var_id_rebuild(
+		ATP_LOGIC_PRECOND(!equational::needs_free_var_id_rebuild(
 			p_root));
 
 		// now apply the fold!
@@ -463,10 +465,10 @@ EquationalKnowledgeKernel::replace_free_with_free(
 		// which will then be bound to the fold_free_constructor
 		// below.
 		const size_t num_free_vars =
-			eq_matching::num_free_vars(p_root);
+			equational::num_free_vars(p_root);
 
 		// NOTE: we are assuming that the free var IDs are contiguous
-		ATP_LOGIC_PRECOND(!eq_matching::needs_free_var_id_rebuild(
+		ATP_LOGIC_PRECOND(!equational::needs_free_var_id_rebuild(
 			p_root));
 
 		// now apply the fold!
@@ -522,7 +524,7 @@ EquationalKnowledgeKernel::make_substitutions(
 		// we will have at most 4 * num_variables * num_rules
 		// substitutions:
 		std::vector<SyntaxNodePtr> trees;
-		trees.reserve(4 * eq_matching::num_free_vars(p_root)
+		trees.reserve(4 * equational::num_free_vars(p_root)
 			* m_rules.size());
 
 		// now examine rules:
@@ -532,13 +534,13 @@ EquationalKnowledgeKernel::make_substitutions(
 
 			for (size_t j = 0; j < 4; j++)
 			{
-				auto maybe_substitution = eq_matching::try_match(
+				auto maybe_substitution = equational::try_match(
 					rule_sides[j % 2], expr_sides[j / 2]
 				);
 
 				if (maybe_substitution.has_value())
 				{
-					auto sub_result = eq_matching::get_substitution(
+					auto sub_result = equational::get_substitution(
 						p_root, maybe_substitution.get()
 					);
 					trees.push_back(sub_result);
@@ -647,6 +649,7 @@ EquationalKnowledgeKernel::fold_func_constructor(size_t symb_id,
 }
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

@@ -20,7 +20,7 @@ namespace atp
 {
 namespace logic
 {
-namespace eq_matching
+namespace equational
 {
 
 
@@ -89,7 +89,7 @@ ATP_LOGIC_API bool identical(const ISyntaxNode& a,
 ATP_LOGIC_API bool trivially_true(const ISyntaxNode& eq);
 
 
-}  // namespace eq_matching
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

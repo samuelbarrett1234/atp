@@ -10,6 +10,8 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 EquationalStatement::EquationalStatement(
@@ -19,13 +21,13 @@ EquationalStatement::EquationalStatement(
 {
 	ATP_LOGIC_PRECOND(m_root != nullptr);
 	ATP_LOGIC_PRECOND(
-		!eq_matching::needs_free_var_id_rebuild(m_root));
+		!equational::needs_free_var_id_rebuild(m_root));
 }
 
 
 StmtForm EquationalStatement::form() const
 {
-	if (eq_matching::trivially_true(*m_root))
+	if (equational::trivially_true(*m_root))
 	{
 		return StmtForm::CANONICAL_TRUE;
 	}
@@ -66,6 +68,7 @@ std::string EquationalStatement::to_str() const
 }
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

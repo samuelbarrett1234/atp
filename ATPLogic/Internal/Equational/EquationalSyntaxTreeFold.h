@@ -36,6 +36,8 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 // perform a fold on syntax trees!
@@ -201,6 +203,7 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 }
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

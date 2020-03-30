@@ -7,7 +7,7 @@ namespace atp
 {
 namespace logic
 {
-namespace grammar
+namespace equational
 {
 
 
@@ -76,7 +76,7 @@ qi::rule<Iterator, std::string, SkipperType> Identifier()
 }
 
 
-}  // namespace grammar
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

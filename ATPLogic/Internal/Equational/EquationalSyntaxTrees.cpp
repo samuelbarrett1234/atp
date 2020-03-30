@@ -11,6 +11,8 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 typedef std::map<std::string, size_t> IdentifierMap;
@@ -54,7 +56,7 @@ SyntaxNodePtr parse_any(ParseNodePtr ptree, ParseData& pd)
 		// we need to be careful about which of the following this
 		// identifier represents: a free variable, a user-defined
 		// constant, or a user-defined function application.
-		
+
 		if (idn.begin() != idn.end())
 		{
 			// if it has children then it is definitely a function
@@ -189,6 +191,7 @@ SyntaxNodePtr parse_func(ParseNodePtr node, ParseData& pd)
 }
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

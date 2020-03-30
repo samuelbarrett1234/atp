@@ -40,6 +40,8 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 // TODO: a couple of functions for setting/unsetting large
@@ -191,6 +193,7 @@ private:
 };
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

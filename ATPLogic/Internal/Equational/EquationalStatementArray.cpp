@@ -7,6 +7,8 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 StatementArrayPtr EquationalStatementArray::try_from_stmt(
@@ -200,6 +202,7 @@ size_t compute_slice_size(size_t start, size_t end, size_t step)
 }
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

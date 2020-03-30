@@ -21,9 +21,11 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
-class ATP_LOGIC_API EquationalLanguage: public ILanguage
+class ATP_LOGIC_API EquationalLanguage : public ILanguage
 {
 public:
 	bool load_kernel(IKnowledgeKernel& ker,
@@ -41,6 +43,7 @@ public:
 };
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

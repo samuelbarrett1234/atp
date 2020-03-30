@@ -8,6 +8,8 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 boost::optional<std::list<ParseNodePtr>> parse_statements(std::istream& in)
@@ -17,8 +19,8 @@ boost::optional<std::list<ParseNodePtr>> parse_statements(std::istream& in)
 
 	std::list<ParseNodePtr> output;
 	boost::spirit::qi::phrase_parse(
-		begin, end, grammar::StatementGrammar(),
-		grammar::Skipper(),  // custom skipper for comments etc
+		begin, end, equational::StatementGrammar(),
+		equational::Skipper(),  // custom skipper for comments etc
 		output
 	);
 
@@ -43,8 +45,8 @@ boost::optional<std::list<std::pair<std::string, size_t>>>
 
 	std::list<std::pair<std::string, size_t>> output;
 	boost::spirit::qi::phrase_parse(
-		begin, end, grammar::DefinitionGrammar(),
-		grammar::Skipper(),  // custom skipper for comments etc
+		begin, end, equational::DefinitionGrammar(),
+		equational::Skipper(),  // custom skipper for comments etc
 		output
 	);
 
@@ -61,6 +63,7 @@ boost::optional<std::list<std::pair<std::string, size_t>>>
 }
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

@@ -22,6 +22,8 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 enum class ParseNodeType
@@ -113,6 +115,7 @@ private:
 };
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

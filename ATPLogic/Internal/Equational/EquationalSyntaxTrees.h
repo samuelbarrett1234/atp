@@ -30,6 +30,8 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 // The different kinds of node we can have in our syntax tree
@@ -175,6 +177,7 @@ private:
 ATP_LOGIC_API SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree);
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

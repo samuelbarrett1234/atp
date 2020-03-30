@@ -27,7 +27,7 @@ namespace atp
 {
 namespace logic
 {
-namespace grammar
+namespace equational
 {
 
 
@@ -79,7 +79,7 @@ ATP_LOGIC_API qi::rule<Iterator> Skipper();
 ATP_LOGIC_API qi::rule<Iterator, std::string, SkipperType> Identifier();
 
 
-}  // namespace grammar
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

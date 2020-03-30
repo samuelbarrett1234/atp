@@ -9,6 +9,8 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 bool EquationalLanguage::load_kernel(IKnowledgeKernel& _ker,
@@ -101,6 +103,7 @@ StatementArrayPtr EquationalLanguage::create_stmts(std::istream& in,
 }
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

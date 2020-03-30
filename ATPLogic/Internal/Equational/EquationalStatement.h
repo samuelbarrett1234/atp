@@ -27,12 +27,14 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 class ATP_LOGIC_API EquationalStatement : public IStatement
 {
 public:
-	// precondition: !eq_matching::needs_free_var_id_rebuild(p_root).
+	// precondition: !equational::needs_free_var_id_rebuild(p_root).
 	EquationalStatement(EquationalKnowledgeKernel& ker,
 		SyntaxNodePtr p_root);
 
@@ -50,6 +52,7 @@ private:
 };
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

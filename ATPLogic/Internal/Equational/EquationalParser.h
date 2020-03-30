@@ -25,6 +25,8 @@ namespace atp
 {
 namespace logic
 {
+namespace equational
+{
 
 
 // Parse an input stream of line-separated statements.
@@ -42,6 +44,7 @@ ATP_LOGIC_API boost::optional<std::list<
 	parse_definitions(std::istream& in);
 
 
+}  // namespace equational
 }  // namespace logic
 }  // namespace atp
 

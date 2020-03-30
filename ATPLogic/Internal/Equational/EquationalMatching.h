@@ -42,6 +42,32 @@ ATP_LOGIC_API boost::optional<FreeVarSubstitution>
 	try_match(SyntaxNodePtr pattern, SyntaxNodePtr trial);
 
 
+// given a mapping of free variable IDs to subtrees, return a new
+// tree which makes the substitutions given (and automatically
+// rebuilds the free variable IDs; see `rebuild_free_var_ids`.
+ATP_LOGIC_API SyntaxNodePtr get_substitution(SyntaxNodePtr p_node,
+	FreeVarSubstitution subs);
+
+
+// ensure that the free variable IDs in the given syntax tree start
+// at 0 and are contiguous (i.e. it cannot be the case that there are
+// free variables with IDs 0 and 3 but no free variable with ID 2.)
+// warning: this modifies the existing tree object!
+// this function is idempotent
+ATP_LOGIC_API void rebuild_free_var_ids(SyntaxNodePtr p_node);
+
+
+// returns true if and only if the tree rooted at p_node has
+// contiguous free variable IDs starting at 0 (if any exist).
+ATP_LOGIC_API bool needs_free_var_id_rebuild(SyntaxNodePtr p_node);
+
+
+// returns the number of distinct free variables which are present in
+// the subtree rooted at the given node (doesn't have to be a
+// contiguous set of variable IDs.)
+ATP_LOGIC_API size_t num_free_vars(SyntaxNodePtr p_node);
+
+
 // returns true iff a and b are equal as syntax trees,
 // which means that they are basically identical except UP TO
 // swapping around the names of the free variables.

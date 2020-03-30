@@ -55,12 +55,6 @@ public:
 	virtual std::vector<StatementArrayPtr> succs(
 		StatementArrayPtr p_stmts) const = 0;
 
-	// Postcondition: for each statement in the input array, we
-	// return an array of statements which deduce the statement
-	// in one step.
-	virtual std::vector<StatementArrayPtr> prevs(
-		StatementArrayPtr p_stmts) const = 0;
-
 	// Postcondition: for each statement, check whether it is valid
 	// in terms of the logic, axioms and definitions in this
 	// knowledge kernel. Statements are only allowed to be used if

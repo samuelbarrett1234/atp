@@ -5,7 +5,24 @@
 
 EquationalKnowledgeKernel.h
 
-Implementation of the IKnowledgeKernel for equational logic.
+Implementation of the IKnowledgeKernel for equational logic. This
+object contains the functions which tell you what is/isn't allowed
+in equational logic.
+
+More specifically, the successor statements in equational logic are:
+- Replacing either side of an equation with one of the given
+  equality rules (just transitivity in disguise; if x=y is
+  our statement, and we have a rule of the form y=z, then we
+  can turn the statement into x=z.)
+- Replacing a free variable with any of: a user-defined
+  constant, a user-defined function whose arguments are new
+  free variables, or a free variable which already exists
+  within the statement.
+For example, with the latter rule, if our statement is
+"f(x)=g(x)" then we can obtain:
+"f(e)=g(e)" for user defined "e", and "f(h(x))=g(h(x))" for
+user defined "h", and instead if our statement is
+"f(x, y)=g(h(x), y)" then "f(x, x)=g(h(x), x)".
 
 */
 
@@ -15,6 +32,7 @@ Implementation of the IKnowledgeKernel for equational logic.
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IKnowledgeKernel.h"
 #include "EquationalSyntaxTrees.h"
+#include "EquationalStatementArray.h"
 
 
 namespace atp
@@ -30,9 +48,6 @@ public:
 	virtual size_t get_integrity_code() const override;
 
 	virtual std::vector<StatementArrayPtr> succs(
-		StatementArrayPtr p_stmts) const override;
-
-	virtual std::vector<StatementArrayPtr> prevs(
 		StatementArrayPtr p_stmts) const override;
 
 	virtual bool valid(
@@ -91,6 +106,52 @@ public:
 		ATP_LOGIC_PRECOND(is_defined(name));
 		return std::hash<std::string>()(name);
 	}
+
+private:
+	// return all of the statements which are reachable from the
+	// input statements via user-defined equality rules (returns an
+	// array B s.t. B[i] are all the statements reachable from arr[i]
+	// by the equality rules.)
+	std::vector<EquationalStatementArray> adjacent(
+		EquationalStatementArray arr) const;
+
+	// for each statement in 'arr',
+	// for each free variable in the tree,
+	// for each user-defined constant or function,
+	// make the substitution (note that function arguments are always
+	// new free variables).
+	// returns an array B s.t. B[i] are all the results from arr[i]
+	// built using a fold - see the fold_* functions for more info.
+	std::vector<EquationalStatementArray> replace_free_with_def(
+		const EquationalStatementArray& arr) const;
+
+	// for each statement in 'arr',
+	// for each distinct unordered pair of free variables in the tree,
+	// replace the left element in the pair with the right element
+	// (don't need to go the other way around).
+	// returns an array B s.t. B[i] are all the results from arr[i]
+	// built using a fold - see the fold_* functions for more info.
+	std::vector<EquationalStatementArray> replace_free_with_free(
+		const EquationalStatementArray& arr) const;
+
+	// given two arrays of left-hand-sides and right-hand-sides,
+	// stitch them together into an array of equality statements
+	// precondition: lhss.size() == rhss.size()
+	static std::vector<SyntaxNodePtr> fold_eq_constructor(
+		const std::vector<SyntaxNodePtr>& lhss,
+		const std::vector<SyntaxNodePtr>& rhss);
+
+	// given a symbol ID of a constant, returns N different copies
+	// of a constant syntax node with that symbol ID.
+	static std::vector<SyntaxNodePtr> fold_const_constructor(
+		size_t N, size_t symb_id);
+
+	// given an array of lists of child nodes, and a function symbol
+	// ID, create (for each list of children) a function node with
+	// those children.
+	static std::vector<SyntaxNodePtr> fold_func_constructor(
+		size_t symb_id,
+		const std::vector<std::list<SyntaxNodePtr>>& childrens);
 
 private:
 	// all defined symbol names, and their arity

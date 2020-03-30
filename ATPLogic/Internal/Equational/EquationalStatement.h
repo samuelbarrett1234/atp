@@ -32,6 +32,9 @@ namespace logic
 class ATP_LOGIC_API EquationalStatement : public IStatement
 {
 public:
+	// precondition: !eq_matching::needs_free_var_id_rebuild(p_root).
+	EquationalStatement(SyntaxNodePtr p_root);
+
 	virtual StmtForm form() const override;
 	virtual std::string to_str() const override;
 

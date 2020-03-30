@@ -41,15 +41,15 @@ namespace logic
 // perform a fold on syntax trees!
 // this is very handy for computing functions of the trees, and just
 // traversing the trees in general.
-template<typename ResultT>
-ResultT fold_syntax_tree(
-	std::function<ResultT(ResultT, ResultT)>& eq_func,
-	std::function<ResultT(size_t)>& free_func,
-	std::function<ResultT(size_t)>& const_func,
-	std::function<ResultT(size_t,
-		typename std::list<ResultT>::iterator,
-		typename std::list<ResultT>::iterator)>& f_func,
-	SyntaxNodePtr p_root
+// EqFuncT : should be of type (ResultT, ResultT) -> ResultT
+// FreeFuncT : should be of type (size_t) -> ResultT
+// ConstFuncT : should be of type (size_t) -> ResultT
+// FFuncT : should be of type (size_t, std::list<ResultT>::iterator,
+//                             std::list<ResultT>::iterator) -> ResultT
+template<typename ResultT, typename EqFuncT,
+typename FreeFuncT, typename ConstFuncT, typename FFuncT>
+ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
+	ConstFuncT const_func, FFuncT f_func, SyntaxNodePtr p_root
 )
 {
 	std::list<ResultT> result_stack;

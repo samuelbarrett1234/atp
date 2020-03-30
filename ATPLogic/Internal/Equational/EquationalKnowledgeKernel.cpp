@@ -204,7 +204,6 @@ std::vector<bool> EquationalKnowledgeKernel::follows(
 	ATP_LOGIC_PRECOND(valid(_p_concl));
 #endif
 
-	// TODO:
 	// check that, at each step, the left or right hand side of the
 	// premise matches the left or right hand side of the conclusion
 	// (using the premise as the pattern and the conclusion as the
@@ -607,14 +606,42 @@ EquationalKnowledgeKernel::fold_const_constructor(size_t N,
 
 std::vector<SyntaxNodePtr>
 EquationalKnowledgeKernel::fold_func_constructor(size_t symb_id,
-	const std::vector<std::list<SyntaxNodePtr>>& childrens)
+	const std::list<std::vector<SyntaxNodePtr>>::iterator&
+	children_begin,
+	const std::list<std::vector<SyntaxNodePtr>>::iterator&
+	children_end)
 {
-	std::vector<SyntaxNodePtr> result;
-	result.reserve(childrens.size());
+	ATP_LOGIC_PRECOND(children_begin != children_end);
 
-	std::transform(childrens.begin(), childrens.end(),
-		std::back_inserter(result), boost::bind(
-		std::make_shared<FuncSyntaxNode>, symb_id, _1));
+	auto num_children = std::distance(children_begin, children_end);
+	auto num_poss = children_begin->size();
+
+#ifdef ATP_LOGIC_DEFENSIVE
+
+	ATP_LOGIC_PRECOND(std::all_of(children_begin, children_end,
+		[num_poss](auto vec) { return vec.size() == num_poss; }));
+#endif
+
+	std::vector<SyntaxNodePtr> result;
+	result.reserve(num_poss);
+
+	// warning: we basically have to do a transpose on the 2D array
+	// given as input! (we want a vector of lists not a list of
+	// vectors!)
+
+	for (size_t i = 0; i < num_poss; i++)
+	{
+		// the children for this possibility
+		std::list<SyntaxNodePtr> children_for_poss;
+		for (auto iter = children_begin; iter != children_end; iter++)
+		{
+			children_for_poss.push_back(iter->at(i));
+		}
+		result.push_back(std::make_shared<FuncSyntaxNode>(
+			symb_id, children_for_poss.begin(),
+			children_for_poss.end()
+			));
+	}
 
 	return result;
 }

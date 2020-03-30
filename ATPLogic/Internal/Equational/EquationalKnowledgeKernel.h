@@ -158,7 +158,10 @@ private:
 	// those children.
 	static std::vector<SyntaxNodePtr> fold_func_constructor(
 		size_t symb_id,
-		const std::vector<std::list<SyntaxNodePtr>>& childrens);
+		const std::list<std::vector<SyntaxNodePtr>>::iterator&
+		children_begin,
+		const std::list<std::vector<SyntaxNodePtr>>::iterator&
+		children_end);
 
 private:
 	// all defined symbol names, and their arity

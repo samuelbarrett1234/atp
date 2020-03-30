@@ -182,6 +182,7 @@
     <ClInclude Include="Internal\Equational\EquationalStatementArray.h" />
     <ClInclude Include="Internal\Equational\EquationalSyntaxTreeFold.h" />
     <ClInclude Include="Internal\Equational\EquationalSyntaxTrees.h" />
+    <ClInclude Include="Internal\Equational\EquationalSyntaxTreeTraversal.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp" />

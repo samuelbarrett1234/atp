@@ -1,5 +1,6 @@
 #include "EquationalMatching.h"
 #include "EquationalSyntaxTreeFold.h"
+#include "EquationalSyntaxTreeTraversal.h"
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/bimap.hpp>
 #include <boost/mpl/identity.hpp>
@@ -466,34 +467,23 @@ std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node)
 		p_node = stack.back();
 		stack.pop_back();
 
-		switch (p_node->get_type())
-		{
-		case SyntaxNodeType::EQ:
-		{
-			auto p_eq = dynamic_cast<EqSyntaxNode*>(p_node.get());
-			ATP_LOGIC_ASSERT(p_eq != nullptr);
-			stack.push_back(p_eq->left());
-			stack.push_back(p_eq->right());
-		}
-		break;
-		case SyntaxNodeType::FREE:
-		{
-			auto p_free = dynamic_cast<FreeSyntaxNode*>(p_node.get());
-			ATP_LOGIC_ASSERT(p_free != nullptr);
-			var_ids.insert(p_free->get_free_id());
-		}
-		break;
-		case SyntaxNodeType::FUNC:
-		{
-			auto p_func = dynamic_cast<FuncSyntaxNode*>(p_node.get());
-			ATP_LOGIC_ASSERT(p_func != nullptr);
-			stack.insert(stack.end(), p_func->begin(),
-				p_func->end());
-
-		}
-		break;
-		// default: do nothing
-		}
+		apply_to_syntax_node(
+			[&stack](EqSyntaxNode& node) -> void
+			{
+				stack.push_back(node.left());
+				stack.push_back(node.right());
+			},
+			[&var_ids](FreeSyntaxNode& node) -> void
+			{
+				var_ids.insert(node.get_free_id());
+			},
+			[](ConstantSyntaxNode&) -> void {},
+			[&stack](FuncSyntaxNode& node) -> void
+			{
+				stack.insert(stack.end(), node.begin(), node.end());
+			},
+			*p_node
+		);
 	}
 }
 

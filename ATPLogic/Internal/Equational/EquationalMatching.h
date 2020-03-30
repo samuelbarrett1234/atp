@@ -24,6 +24,9 @@ namespace eq_matching
 {
 
 
+typedef std::map<size_t, SyntaxNodePtr> FreeVarSubstitution;
+
+
 // try to match the trial expression to the pattern expression
 // this will be done, if possible, by replacing free variables
 // in 'pattern' to match 'trial'.
@@ -35,27 +38,29 @@ namespace eq_matching
 // after the subsitution, equal to 'trial' up to the order of the
 // free variables (we don't care about swapping ID's of the free
 // variables.)
-ATP_LOGIC_API boost::optional<std::map<size_t, SyntaxNodePtr>>
+ATP_LOGIC_API boost::optional<FreeVarSubstitution>
 	try_match(SyntaxNodePtr pattern, SyntaxNodePtr trial);
 
 
-// returns true iff p_a and p_b are equal as syntax trees,
-// which means that they are basically identical except up to
+// returns true iff a and b are equal as syntax trees,
+// which means that they are basically identical except UP TO
 // swapping around the names of the free variables.
-ATP_LOGIC_API bool equivalent(SyntaxNodePtr p_a,
-	SyntaxNodePtr p_b);
+ATP_LOGIC_API bool equivalent(const ISyntaxNode& a,
+	const ISyntaxNode& b);
 
 
-// returns true iff p_a and p_b are identical (i.e. without allowing
+// returns true iff a and b are identical (i.e. without allowing
 // permutations of the free variables.)
-ATP_LOGIC_API bool trivially_equal(SyntaxNodePtr p_a,
-	SyntaxNodePtr p_b);
+ATP_LOGIC_API bool identical(const ISyntaxNode& a,
+	const ISyntaxNode& b);
 
 
 // returns true iff both sides of the equals sign are trivially equal
 // (using the above function as a subroutine.)
-// precondition: p_eq is an EQ syntax node.
-ATP_LOGIC_API bool trivially_true(SyntaxNodePtr p_eq);
+// remark: this function basically tells you whether 'p_eq' follows
+// from the reflexivity of =, i.e. the statement "x=x" for free "x".
+// precondition: eq is an EQ syntax node.
+ATP_LOGIC_API bool trivially_true(const ISyntaxNode& eq);
 
 
 }  // namespace eq_matching

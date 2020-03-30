@@ -42,14 +42,12 @@ ATP_LOGIC_API boost::optional<std::map<size_t, SyntaxNodePtr>>
 // returns true iff p_a and p_b are equal as syntax trees,
 // which means that they are basically identical except up to
 // swapping around the names of the free variables.
-// precondition: p_a and p_b are not EQ synax nodes.
 ATP_LOGIC_API bool equivalent(SyntaxNodePtr p_a,
 	SyntaxNodePtr p_b);
 
 
 // returns true iff p_a and p_b are identical (i.e. without allowing
 // permutations of the free variables.)
-// precondition: p_a and p_b are not EQ syntax nodes.
 ATP_LOGIC_API bool trivially_equal(SyntaxNodePtr p_a,
 	SyntaxNodePtr p_b);
 

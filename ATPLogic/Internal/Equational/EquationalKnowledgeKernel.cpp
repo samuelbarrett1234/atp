@@ -1,6 +1,7 @@
 #include "EquationalKnowledgeKernel.h"
 #include "EquationalMatching.h"
 #include "EquationalStatementArray.h"
+#include "EquationalSyntaxTreeFold.h"
 #include <boost/functional/hash.hpp>
 
 
@@ -47,82 +48,88 @@ std::vector<StatementArrayPtr> EquationalKnowledgeKernel::prevs(
 bool EquationalKnowledgeKernel::valid(
 	StatementArrayPtr _p_stmts) const
 {
+	// we will use a fold to check validity!
+
+	std::function<bool(bool, bool)> eq_valid =
+		[](bool lhs, bool rhs) -> bool
+	{
+		return lhs && rhs;
+	};
+	std::function<bool(size_t)> free_valid =
+		[](size_t free_id) -> bool
+	{
+		return true;  // can't get a free variable wrong
+	};
+	std::function<bool(size_t)> const_valid =
+		[this](size_t symb_id) -> bool
+	{
+		auto id_iter = m_id_to_name.find(symb_id);
+
+		if (id_iter == m_id_to_name.end())
+		{
+			// identifier not found
+			return false;
+		}
+		// else... check arity
+
+		if (m_symb_arity.at(id_iter->second) != 0)
+		{
+			// wrong arity
+			return false;
+		}
+
+		// passed check
+		return true;
+	};
+	std::function<bool(size_t, std::list<bool>::iterator,
+		std::list<bool>::iterator)> func_valid =
+		[this](size_t symb_id,
+		std::list<bool>::iterator child_begin,
+		std::list<bool>::iterator child_end) -> bool
+	{
+		auto id_iter = m_id_to_name.find(symb_id);
+
+		if (id_iter == m_id_to_name.end())
+		{
+			// identifier not found
+			return false;
+		}
+		// else... check arity
+
+		const size_t implied_arity = std::distance(child_begin,
+			child_end);
+
+		if (m_symb_arity.at(id_iter->second) != implied_arity)
+		{
+			// wrong arity
+			return false;
+		}
+
+		// if the above didn't fail, then our subtree is valid
+		// iff all children are valid:
+		return std::all_of(child_begin, child_end,
+			[](bool x) { return x; });
+	};
+	auto check_stmt = [&eq_valid, &free_valid, &const_valid,
+		&func_valid](const EquationalStatement& stmt) -> bool
+	{
+		return fold_syntax_tree<bool>(
+			eq_valid,
+			free_valid,
+			const_valid,
+			func_valid, stmt.root());
+	};
+
 	auto p_stmts = dynamic_cast<EquationalStatementArray*>(
 		_p_stmts.get());
 
 	if (p_stmts == nullptr)
 		return false;
 
-	// first, compute a set of IDs:
-
 	const auto& arr = p_stmts->raw();
 
-	std::list<SyntaxNodePtr> stack;
-	for (size_t i = 0; i < arr.size(); i++)
-	{
-		// explore tree i using a stack
-		stack.push_back(arr[i].root());
-		while (!stack.empty())
-		{
-			auto p_node = stack.back();
-			stack.pop_back();
-
-			// handle constants...
-			if (auto p_const = dynamic_cast<ConstantSyntaxNode*>(
-				p_node.get()))
-			{
-				auto id_iter = m_id_to_name.find(
-					p_const->get_symbol_id());
-
-				if (id_iter == m_id_to_name.end())
-				{
-					// identifier not found
-					return false;
-				}
-				// else... check arity
-
-				if (m_symb_arity.at(id_iter->second) != 0)
-				{
-					// wrong arity
-					return false;
-				}
-			}
-			// handle functions...
-			else if (auto p_func = dynamic_cast<FuncSyntaxNode*>(
-				p_node.get()))
-			{
-				auto id_iter = m_id_to_name.find(
-					p_func->get_symbol_id());
-
-				if (id_iter == m_id_to_name.end())
-				{
-					// identifier not found
-					return false;
-				}
-				// else... check arity
-
-				if (m_symb_arity.at(id_iter->second) !=
-					p_func->get_arity())
-				{
-					// wrong arity
-					return false;
-				}
-
-				// otherwise, add children of function node to stack:
-				stack.insert(stack.end(), p_func->begin(),
-					p_func->end());
-			}
-			// finally, handle the equals sign:
-			else if (auto p_eq = dynamic_cast<EqSyntaxNode*>(
-				p_node.get()
-				))
-			{
-				// nothing to check, just examine both children.
-				stack.push_back(p_eq->left());
-				stack.push_back(p_eq->right());
-			}
-		}
-	}
+	return std::all_of(arr.begin(), arr.end(),
+		check_stmt);
 }
 
 

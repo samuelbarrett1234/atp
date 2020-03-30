@@ -180,6 +180,7 @@
     <ClInclude Include="Internal\Equational\EquationalParser.h" />
     <ClInclude Include="Internal\Equational\EquationalStatement.h" />
     <ClInclude Include="Internal\Equational\EquationalStatementArray.h" />
+    <ClInclude Include="Internal\Equational\EquationalSyntaxTreeFold.h" />
     <ClInclude Include="Internal\Equational\EquationalSyntaxTrees.h" />
   </ItemGroup>
   <ItemGroup>

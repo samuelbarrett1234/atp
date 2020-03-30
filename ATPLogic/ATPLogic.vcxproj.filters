@@ -99,6 +99,9 @@
     <ClInclude Include="Internal\Equational\EquationalStatementArray.h">
       <Filter>Header Files\Internal\Equational\Implementations</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\Equational\EquationalSyntaxTreeFold.h">
+      <Filter>Header Files\Internal\Equational\Syntax</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp">

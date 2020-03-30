@@ -9,7 +9,8 @@ This repository has four projects:
 - `ATPLogic` : the library which contains the logical inference code, and also the parsers,
 - `ATPSearch` : the library of search algorithms for finding proofs,
 - `ATPDatabase` : the library for the management of proven theorems and also concurrent process management,
-- `Docs` : specifications, documentation, and example code.
+- `Docs` : specifications, documentation, and example code,
+- `Data` : definition files, theorem databases.
 
 Note that when you build the application, the binaries can be found in the `Output` folder, and `Temp` will contain Visual Studio intermediate files.
 

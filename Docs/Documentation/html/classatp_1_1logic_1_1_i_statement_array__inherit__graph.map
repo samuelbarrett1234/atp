@@ -1,0 +1,4 @@
+<map id="atp::logic::IStatementArray" name="atp::logic::IStatementArray">
+<area shape="rect" id="node1" title="A 1&#45;dimensional array of IStatement objects. This is an immutable collection (you cannot modify the s..." alt="" coords="8,5,185,32"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_equational_statement_array.html" title=" " alt="" coords="5,80,188,121"/>
+</map>

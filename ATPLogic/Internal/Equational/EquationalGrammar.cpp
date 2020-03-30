@@ -10,19 +10,6 @@ namespace grammar
 {
 
 
-ParseNodePtr Parser::join_siblings(
-	ParseNodePtr p_head, ParseNodePtr p_tail)
-{
-	// head node must be an identifier node
-	auto p_head_id = dynamic_cast<IdentifierParseNode*>(
-		p_head.get());
-	ATP_LOGIC_PRECOND(p_head_id != nullptr);
-
-	p_head_id->set_sibling(p_tail);
-	return p_head;
-}
-
-
 Parser::Parser() :
 	Parser::base_type(start)
 {
@@ -62,7 +49,8 @@ Parser::Parser() :
 
 	// identifiers are alphanumeric strings, or arithmetic
 	// operations
-	identifier = +(qi::alnum | '+' | '-' | '*' | '/');
+	identifier = +(qi::alnum | '+' | '-' | '*' | '/' | '.' | '_' | 
+		'?' | '^' | '%' | '&');
 }
 
 

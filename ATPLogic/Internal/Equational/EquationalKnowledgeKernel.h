@@ -29,6 +29,7 @@ user defined "h", and instead if our statement is
 
 #include <map>
 #include <string>
+#include <boost/bimap.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IKnowledgeKernel.h"
 #include "EquationalSyntaxTrees.h"
@@ -41,23 +42,28 @@ namespace logic
 {
 
 
+// TODO: a couple of functions for setting/unsetting large
+// batches of theorems (loaded from a database). These will
+// probably be in a more efficient format (i.e. not a
+// SyntaxNodePtr) and we will need to be able to identify
+// them so we can get rid of them later.
 class ATP_LOGIC_API EquationalKnowledgeKernel :
 	public IKnowledgeKernel
 {
 public:
-	virtual size_t get_integrity_code() const override;
+	size_t get_integrity_code() const override;
 
-	virtual std::vector<StatementArrayPtr> succs(
+	std::vector<StatementArrayPtr> succs(
 		StatementArrayPtr p_stmts) const override;
 
-	virtual bool valid(
+	bool valid(
 		StatementArrayPtr p_stmts) const override;
 
 	// warning: this only checks for logical implication based on the
 	// theorems which are currently loaded in this knowledge kernel!
 	// thus it may return incorrect results if we don't stream in/out
 	// the theorems carefully.
-	virtual std::vector<bool> follows(
+	std::vector<bool> follows(
 		StatementArrayPtr p_premise,
 		StatementArrayPtr p_concl) const override;
 
@@ -78,12 +84,6 @@ public:
 	// of unloading them.
 	void define_eq_rule(SyntaxNodePtr rule);
 
-	// TODO: a couple of functions for setting/unsetting large
-	// batches of theorems (loaded from a database). These will
-	// probably be in a more efficient format (i.e. not a
-	// SyntaxNodePtr) and we will need to be able to identify
-	// them so we can get rid of them later.
-
 	// check if a given identifier has been defined already or not
 	inline bool is_defined(std::string name) const
 	{
@@ -91,7 +91,7 @@ public:
 	}
 
 	// precondition: is_defined(name)
-	size_t symbol_arity(std::string name) const
+	inline size_t symbol_arity(std::string name) const
 	{
 		ATP_LOGIC_PRECOND(is_defined(name));
 		return m_symb_arity.at(name);
@@ -101,10 +101,23 @@ public:
 	// postcondition: returns (basically) a hash of the name. It
 	// should be assumed that if two symbol names agree on their
 	// hash, they agree on their symbol name too.
-	size_t symbol_id(std::string name) const
+	inline size_t symbol_id(std::string name) const
 	{
 		ATP_LOGIC_PRECOND(is_defined(name));
-		return std::hash<std::string>()(name);
+		const size_t id = std::hash<std::string>()(name);
+#ifdef ATP_LOGIC_DEFENSIVE
+		ATP_LOGIC_ASSERT(m_id_to_name.left.find(id)
+			!= m_id_to_name.left.end());
+#endif
+		return id;
+	}
+
+	// precondition: 'id' is a valid symbol ID
+	inline std::string symbol_name(size_t id) const
+	{
+		auto iter = m_id_to_name.right.find(id);
+		ATP_LOGIC_PRECOND(iter != m_id_to_name.right.end());
+		return iter.base()->get_right();
 	}
 
 private:
@@ -168,7 +181,7 @@ private:
 	std::map<std::string, size_t> m_symb_arity;
 
 	// a mapping from symbol IDs to names
-	std::map<size_t, std::string> m_id_to_name;
+	boost::bimap<size_t, std::string> m_id_to_name;
 
 	// this list stores pairs of expressions which appear on
 	// opposite sides of an equals sign.

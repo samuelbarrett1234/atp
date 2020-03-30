@@ -61,18 +61,18 @@ public:
 		size_t start = 0, size_t end = static_cast<size_t>(-1),
 		size_t step = 1);
 
-	virtual inline size_t size() const override
+	inline size_t size() const override
 	{
 		return compute_slice_size(m_start, m_stop, m_step);
 	}
-	virtual const IStatement& at(size_t i) const override
+	const IStatement& at(size_t i) const override
 	{
 		ATP_LOGIC_PRECOND(i < size());
 		ATP_LOGIC_ASSERT(m_array != nullptr);
 		return static_cast<const IStatement&>(
 			m_array->at(m_start + i * m_step));
 	}
-	virtual StatementArrayPtr slice(size_t start, size_t end,
+	StatementArrayPtr slice(size_t start, size_t end,
 		size_t step = 1) const override;
 
 	// raw array can be useful for efficiency of other equational

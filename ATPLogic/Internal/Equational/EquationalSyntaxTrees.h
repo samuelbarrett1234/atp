@@ -153,7 +153,7 @@ public:
 	{
 		return SyntaxNodeType::FUNC;
 	}
-	size_t get_arity() const
+	inline size_t get_arity() const
 	{
 		return m_children.size();
 	}
@@ -170,7 +170,7 @@ private:
 };
 
 
-// convert a parse tree to a syntax tree
+// convert a parse_statements tree to a syntax tree
 // returns nullptr iff type checking failed
 ATP_LOGIC_API SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree);
 

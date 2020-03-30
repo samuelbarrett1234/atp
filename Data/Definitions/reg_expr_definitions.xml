@@ -1,7 +1,0 @@
-<env name="Kozen's axioms for regular expressions">
-	<def identifier="+" arity=2 />
-	<def identifier="emptyset" arity=0 />
-	<def identifier="emptystring" arity=0 />
-	<def identifier="." arity=2 />
-	<def identifier="*" arity=1 />
-</env>

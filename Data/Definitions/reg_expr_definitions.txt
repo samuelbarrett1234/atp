@@ -1,0 +1,5 @@
++ 2
+emptyset 0
+emptystring 0
+. 2
+* 1

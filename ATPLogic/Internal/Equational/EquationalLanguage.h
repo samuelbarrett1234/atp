@@ -26,22 +26,18 @@ namespace logic
 class ATP_LOGIC_API EquationalLanguage: public ILanguage
 {
 public:
-	EquationalLanguage();
-
-	virtual bool load_kernel(IKnowledgeKernel& ker,
+	bool load_kernel(IKnowledgeKernel& ker,
 		std::istream& in) const override;
 
-	virtual KnowledgeKernelPtr create_empty_kernel() const override;
+	KnowledgeKernelPtr create_empty_kernel() const override;
 
-	virtual StatementArrayPtr create_stmts(std::istream& in,
-		StmtFormat input_format) const override;
+	StatementArrayPtr create_stmts(std::istream& in,
+		StmtFormat input_format,
+		const IKnowledgeKernel& ker) const override;
 
-	virtual void save_stmts(std::ostream& out,
+	void save_stmts(std::ostream& out,
 		StatementArrayPtr p_stmts,
 		StmtFormat output_format) const override;
-
-private:
-
 };
 
 

@@ -63,10 +63,12 @@ public:
 	// propositional logic only.
 	virtual KnowledgeKernelPtr create_empty_kernel() const = 0;
 
-	// Load an array of statements from a file or from binary (see
-	// the StmtFormat enumeration for the different formats).
+	// Load an array of statements from a text file or from binary
+	// (see the StmtFormat enumeration for the different formats).
+	// Requires the kernel for type checking etc.
 	virtual StatementArrayPtr create_stmts(std::istream& in,
-		StmtFormat input_format) const = 0;
+		StmtFormat input_format,
+		const IKnowledgeKernel& ker) const = 0;
 
 	// Save an array of statements to a file (either in text format
 	// or binary format, see the StmtFormat enumeration.)

@@ -35,25 +35,48 @@ typedef boost::spirit::istream_iterator Iterator;
 typedef qi::rule<Iterator> SkipperType;
 
 
-class Parser :
+// This class represents the grammar for parsing statements into
+// a parse tree.
+class StatementGrammar :
 	public qi::grammar<Iterator, std::list<ParseNodePtr>, SkipperType>
 {
 public:
-	using Iterator = std::string::const_iterator;
-
-public:
-	Parser();
+	StatementGrammar();
 
 protected:
 	qi::rule<Iterator, ParseNodePtr, SkipperType> statement,
 		expression;
-	qi::rule<Iterator, std::string, SkipperType> identifier;
 	qi::rule<Iterator, std::list<ParseNodePtr>, SkipperType> start,
 		expression_list;
 };
 
 
+// This class represents the grammar for parsing definition files,
+// which is basically just a list of (symbol name, symbol arity)
+// pairs.
+class DefinitionGrammar :
+	public qi::grammar<Iterator,
+		std::list<std::pair<std::string, size_t>>, SkipperType>
+{
+public:
+	DefinitionGrammar();
+
+protected:
+	qi::rule<Iterator, std::pair<std::string, size_t>, SkipperType>
+		symbol_def;
+
+	qi::rule<Iterator, std::list<std::pair<std::string, size_t>>,
+		SkipperType> symbol_def_list;
+};
+
+
+// This function returns the default skipping rule for the grammars
+// above (to include skipping comments, etc).
 ATP_LOGIC_API qi::rule<Iterator> Skipper();
+
+
+// This is the rule for parsing an "identifier"
+ATP_LOGIC_API qi::rule<Iterator, std::string, SkipperType> Identifier();
 
 
 }  // namespace grammar

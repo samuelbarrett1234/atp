@@ -123,9 +123,9 @@ bool EquationalKnowledgeKernel::valid(
 	std::function<bool(size_t)> const_valid =
 		[this](size_t symb_id) -> bool
 	{
-		auto id_iter = m_id_to_name.find(symb_id);
+		auto id_iter = m_id_to_name.left.find(symb_id);
 
-		if (id_iter == m_id_to_name.end())
+		if (id_iter == m_id_to_name.left.end())
 		{
 			// identifier not found
 			return false;
@@ -147,9 +147,9 @@ bool EquationalKnowledgeKernel::valid(
 		std::list<bool>::iterator child_begin,
 		std::list<bool>::iterator child_end) -> bool
 	{
-		auto id_iter = m_id_to_name.find(symb_id);
+		auto id_iter = m_id_to_name.left.find(symb_id);
 
-		if (id_iter == m_id_to_name.end())
+		if (id_iter == m_id_to_name.left.end())
 		{
 			// identifier not found
 			return false;
@@ -294,7 +294,7 @@ EquationalKnowledgeKernel::replace_free_with_def(
 {
 	// get the symbol ID of every user-defined constant or function
 	std::list<size_t> symb_ids;
-	std::transform(m_id_to_name.begin(), m_id_to_name.end(),
+	std::transform(m_id_to_name.left.begin(), m_id_to_name.left.end(),
 		std::back_inserter(symb_ids),
 		[](std::pair<size_t, std::string> a) { return a.first; });
 
@@ -320,9 +320,9 @@ EquationalKnowledgeKernel::replace_free_with_def(
 					// get the arity so we can determine whether it's
 					// a function or a constant:
 
-					ATP_LOGIC_ASSERT(m_id_to_name.find(symb_id)
-						!= m_id_to_name.end());
-					const auto name = m_id_to_name.at(symb_id);
+					ATP_LOGIC_ASSERT(m_id_to_name.left.find(symb_id)
+						!= m_id_to_name.left.end());
+					const auto name = m_id_to_name.left.at(symb_id);
 					ATP_LOGIC_ASSERT(m_symb_arity.find(name)
 						!= m_symb_arity.end());
 					const auto arity = m_symb_arity.at(name);

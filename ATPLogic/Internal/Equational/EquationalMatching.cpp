@@ -47,7 +47,7 @@ boost::optional<FreeVarSubstitution> try_match(SyntaxNodePtr pattern,
 	{
 		return subs;
 	}
-	else return boost::optional<FreeVarSubstitution>();
+	else return boost::none;
 }
 
 

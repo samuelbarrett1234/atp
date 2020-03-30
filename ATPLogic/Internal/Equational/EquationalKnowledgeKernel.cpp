@@ -5,6 +5,7 @@
 #include <boost/functional/hash.hpp>
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/bind.hpp>
+#include <boost/mpl/identity.hpp>
 #include <functional>
 
 
@@ -55,8 +56,10 @@ std::vector<StatementArrayPtr> EquationalKnowledgeKernel::succs(
 
 	auto results1 = replace_free_with_def(*p_stmts);
 	auto results2 = replace_free_with_free(*p_stmts);
+	auto results3 = make_substitutions(*p_stmts);
 
 	ATP_LOGIC_ASSERT(results1.size() == results2.size());
+	ATP_LOGIC_ASSERT(results1.size() == results3.size());
 	ATP_LOGIC_ASSERT(results1.size() == p_stmts->size());
 
 	std::vector<StatementArrayPtr> results;
@@ -67,9 +70,11 @@ std::vector<StatementArrayPtr> EquationalKnowledgeKernel::succs(
 	// concat(results1[i], results2[i])
 
 	std::transform(boost::make_zip_iterator(
-		boost::make_tuple(results1.begin(), results2.begin())
+		boost::make_tuple(results1.begin(), results2.begin(),
+			results3.begin())
 	), boost::make_zip_iterator(
-		boost::make_tuple(results1.end(), results2.end())
+		boost::make_tuple(results1.end(), results2.end(),
+			results3.end())
 	), std::back_inserter(results),
 
 		[](auto iter_pair)
@@ -77,6 +82,14 @@ std::vector<StatementArrayPtr> EquationalKnowledgeKernel::succs(
 			// concatenate!
 			auto result = EquationalStatementArray::try_concat(
 				iter_pair->get<0>(), iter_pair->get<1>()
+			);
+
+			// this should work as no typing issues
+			ATP_LOGIC_ASSERT(result != nullptr);
+
+			// concatenate again!
+			result = EquationalStatementArray::try_concat(
+				*result, iter_pair->get<2>()
 			);
 
 			// this should work as no typing issues
@@ -155,7 +168,7 @@ bool EquationalKnowledgeKernel::valid(
 		// if the above didn't fail, then our subtree is valid
 		// iff all children are valid:
 		return std::all_of(child_begin, child_end,
-			[](bool x) { return x; });
+			boost::mpl::identity<bool>());
 	};
 	auto check_stmt = [&eq_valid, &free_valid, &const_valid,
 		&func_valid](const EquationalStatement& stmt) -> bool
@@ -484,6 +497,126 @@ EquationalKnowledgeKernel::replace_free_with_free(
 	}
 
 	return results;
+}
+
+
+std::vector<EquationalStatementArray>
+EquationalKnowledgeKernel::make_substitutions(
+	const EquationalStatementArray& arr) const
+{
+	std::vector<EquationalStatementArray> results;
+	results.reserve(arr.size());
+
+	for (size_t i = 0; i < arr.size(); i++)
+	{
+		auto p_root = arr.raw()[i].root();
+		SyntaxNodePtr expr_sides[2] = { nullptr, nullptr };
+
+		// get both sides of the equation:
+		ATP_LOGIC_PRECOND(p_root->get_type() == SyntaxNodeType::EQ);
+		auto p_eq = dynamic_cast<EqSyntaxNode*>(p_root.get());
+		ATP_LOGIC_ASSERT(p_eq != nullptr);
+		expr_sides[0] = p_eq->left();
+		expr_sides[1] = p_eq->right();
+
+		// here we will store the resulting trees
+		// we will have at most 4 * num_variables * num_rules
+		// substitutions:
+		std::vector<SyntaxNodePtr> trees;
+		trees.reserve(4 * eq_matching::num_free_vars(p_root)
+			* m_rules.size());
+
+		// now examine rules:
+		for (auto r : m_rules)
+		{
+			SyntaxNodePtr rule_sides[2] = { r.first, r.second };
+
+			for (size_t j = 0; j < 4; j++)
+			{
+				auto maybe_substitution = eq_matching::try_match(
+					rule_sides[j % 2], expr_sides[j / 2]
+				);
+
+				if (maybe_substitution.has_value())
+				{
+					auto sub_result = eq_matching::get_substitution(
+						p_root, maybe_substitution.get()
+					);
+					trees.push_back(sub_result);
+				}
+			}
+		}
+
+		// now we want to turn this array of trees into an array of
+		// EquationalStatements, which then needs to be turned into
+		// an EquationalStatementArray:
+
+		EquationalStatementArray::ArrPtr p_stmt_arr =
+			std::make_shared<EquationalStatementArray::ArrType>();
+		p_stmt_arr->reserve(trees.size());
+
+		for (size_t j = 0; j < trees.size(); j++)
+		{
+			p_stmt_arr->emplace_back(trees[i]);
+		}
+
+		results.emplace_back(p_stmt_arr);
+	}
+
+	return results;
+}
+
+
+std::vector<SyntaxNodePtr>
+EquationalKnowledgeKernel::fold_eq_constructor(
+	const std::vector<SyntaxNodePtr>& lhss,
+	const std::vector<SyntaxNodePtr>& rhss)
+{
+	ATP_LOGIC_PRECOND(lhss.size() == rhss.size());
+
+	auto begin = boost::make_zip_iterator(
+		boost::make_tuple(lhss.begin(), rhss.begin())
+	);
+	auto end = boost::make_zip_iterator(
+		boost::make_tuple(lhss.end(), rhss.end())
+	);
+	
+	std::vector<SyntaxNodePtr> result;
+	result.reserve(lhss.size());
+
+	std::transform(begin, end, std::back_inserter(result),
+		[](boost::tuple<SyntaxNodePtr, SyntaxNodePtr>& tup)
+		{ return std::make_shared<EqSyntaxNode>(tup.get<0>(), tup.get<1>()); });
+
+	return result;
+}
+
+
+std::vector<SyntaxNodePtr>
+EquationalKnowledgeKernel::fold_const_constructor(size_t N,
+	size_t symb_id)
+{
+	std::vector<SyntaxNodePtr> result;
+
+	std::generate_n(result.end(), N, boost::bind(
+		std::make_shared<ConstantSyntaxNode>, symb_id));
+
+	return result;
+}
+
+
+std::vector<SyntaxNodePtr>
+EquationalKnowledgeKernel::fold_func_constructor(size_t symb_id,
+	const std::vector<std::list<SyntaxNodePtr>>& childrens)
+{
+	std::vector<SyntaxNodePtr> result;
+	result.reserve(childrens.size());
+
+	std::transform(childrens.begin(), childrens.end(),
+		std::back_inserter(result), boost::bind(
+		std::make_shared<FuncSyntaxNode>, symb_id, _1));
+
+	return result;
 }
 
 

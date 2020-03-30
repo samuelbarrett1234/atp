@@ -134,6 +134,13 @@ private:
 	std::vector<EquationalStatementArray> replace_free_with_free(
 		const EquationalStatementArray& arr) const;
 
+	// for each statement in 'arr'
+	// for each equality rule
+	// try making substitutions (for the LHS and RHS of both rules,
+	// i.e. at most four possibilities per pair)
+	std::vector<EquationalStatementArray> make_substitutions(
+		const EquationalStatementArray& arr) const;
+
 	// given two arrays of left-hand-sides and right-hand-sides,
 	// stitch them together into an array of equality statements
 	// precondition: lhss.size() == rhss.size()

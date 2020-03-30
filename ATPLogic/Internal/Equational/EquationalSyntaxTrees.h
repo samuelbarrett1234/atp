@@ -94,6 +94,13 @@ public:
 	{
 		return m_id;
 	}
+
+	// sometimes one needs to "rebuild" free variable IDs, after
+	// substitutions etc. this function helps do that.
+	inline void rebuild_free_id(size_t id)
+	{
+		m_id = id;
+	}
 private:
 	// a 0-indexed ID for each free variable (because storing strings
 	// isn't very efficient!)

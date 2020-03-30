@@ -1,6 +1,9 @@
 #include "EquationalMatching.h"
+#include "EquationalSyntaxTreeFold.h"
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/bimap.hpp>
+#include <boost/mpl/identity.hpp>
+#include <set>
 
 
 namespace atp
@@ -14,7 +17,7 @@ namespace eq_matching
 typedef boost::bimap<size_t, size_t> FreeIdMatching;
 
 
-// TODO: do better than a recursion!
+// TODO: do better than recursion!
 
 
 // check if p_a and p_b are equivalent (return true iff they are) and
@@ -30,6 +33,10 @@ bool build_mapping(SyntaxNodePtr pattern, SyntaxNodePtr trial,
 	FreeVarSubstitution& substitutions);
 
 
+// get all of the free variable IDs in the tree rooted at this node
+std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node);
+
+
 boost::optional<FreeVarSubstitution> try_match(SyntaxNodePtr pattern,
 	SyntaxNodePtr trial)
 {
@@ -40,6 +47,125 @@ boost::optional<FreeVarSubstitution> try_match(SyntaxNodePtr pattern,
 		return subs;
 	}
 	else return boost::optional<FreeVarSubstitution>();
+}
+
+
+SyntaxNodePtr get_substitution(SyntaxNodePtr p_node,
+	FreeVarSubstitution subs)
+{
+	// it turns out that substitution is just a fold!
+
+	// warning: we need to make sure there are no free variable
+	// clashes when we make the substitution! To solve this, we will
+	// just offset all of the free variables in p_node which are not
+	// being substituted, by the highest ID in p_node, to make sure
+	// they remain unique. right at the end we will rebuild the IDs
+	// anyway.
+
+	const auto var_ids = get_free_var_ids(p_node);
+	const auto max_id = *std::max_element(var_ids.begin(), var_ids.end());
+
+	auto fold_eq_constructor = boost::bind(
+		std::make_shared<EqSyntaxNode>, _1);
+	auto fold_const_constructor = boost::bind(
+		std::make_shared<ConstantSyntaxNode>, _1);
+	auto fold_func_constructor = boost::bind(
+		std::make_shared<FuncSyntaxNode>, _1, _2, _3);
+
+	auto fold_free_constructor = [&subs, max_id](size_t free_var_id)
+		-> SyntaxNodePtr
+	{
+		auto iter = subs.find(free_var_id);
+
+		// if this is a free variable we're not interested in
+		// substituting...
+		if (iter == subs.end())
+			return std::make_shared<FreeSyntaxNode>(
+				// see earlier comment for why we add these
+				free_var_id + max_id);
+
+		else  // else return the substitution...
+			return iter->second;
+	};
+
+	auto result_tree = fold_syntax_tree<SyntaxNodePtr>(
+		fold_eq_constructor, fold_free_constructor,
+		fold_const_constructor, fold_func_constructor,
+		p_node
+	);
+
+	rebuild_free_var_ids(result_tree);
+
+	return result_tree;
+}
+
+
+void rebuild_free_var_ids(SyntaxNodePtr p_node)
+{
+	auto var_ids = get_free_var_ids(p_node);
+
+	// mapping from old IDs to new IDs
+	std::map<size_t, size_t> id_map;
+	size_t next_id = 0;
+
+	for (size_t id : var_ids)
+	{
+		id_map[id] = next_id;
+		next_id++;
+	}
+
+	std::list<SyntaxNodePtr> stack;
+	stack.push_back(p_node);
+
+	while (!stack.empty())
+	{
+		p_node = stack.back();
+		stack.pop_back();
+
+		if (p_node->get_type() == SyntaxNodeType::FREE)
+		{
+			auto p_free = dynamic_cast<FreeSyntaxNode*>(
+				p_node.get());
+			ATP_LOGIC_ASSERT(p_free != nullptr);
+
+			p_free->rebuild_free_id(id_map.at(
+				p_free->get_free_id()));
+		}
+	}
+}
+
+
+bool needs_free_var_id_rebuild(SyntaxNodePtr p_node)
+{
+	auto var_ids = get_free_var_ids(p_node);
+
+	std::vector<bool> id_bitmap;
+
+	for (size_t id : var_ids)
+	{
+		// ensure that the bitmap is large enough so that
+		// id_bitmap[id] exists - but no larger than necessary
+		if (id >= id_bitmap.size())
+			id_bitmap.resize(id + 1, false);
+
+		id_bitmap[id] = true;
+	}
+
+	ATP_LOGIC_ASSERT(id_bitmap.empty() == var_ids.empty());
+
+	// either there are no free variables, or the free variable with
+	// largest ID is at the back, thus the back must be true
+	ATP_LOGIC_ASSERT(id_bitmap.empty() || id_bitmap.back());
+
+	// we need a rebuild iff any element in this vector is false
+	return std::all_of(id_bitmap.begin(), id_bitmap.end(),
+		boost::mpl::identity<bool>());
+}
+
+
+size_t num_free_vars(SyntaxNodePtr p_node)
+{
+	return get_free_var_ids(p_node).size();
 }
 
 
@@ -327,7 +453,52 @@ bool build_mapping(SyntaxNodePtr pattern, SyntaxNodePtr trial,
 }
 
 
+// get all of the free variable IDs in the tree rooted at this node
+std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node)
+{
+	std::list<SyntaxNodePtr> stack;
+	std::set<size_t> var_ids;
+
+	stack.push_back(p_node);
+
+	while (!stack.empty())
+	{
+		p_node = stack.back();
+		stack.pop_back();
+
+		switch (p_node->get_type())
+		{
+		case SyntaxNodeType::EQ:
+		{
+			auto p_eq = dynamic_cast<EqSyntaxNode*>(p_node.get());
+			ATP_LOGIC_ASSERT(p_eq != nullptr);
+			stack.push_back(p_eq->left());
+			stack.push_back(p_eq->right());
+		}
+		break;
+		case SyntaxNodeType::FREE:
+		{
+			auto p_free = dynamic_cast<FreeSyntaxNode*>(p_node.get());
+			ATP_LOGIC_ASSERT(p_free != nullptr);
+			var_ids.insert(p_free->get_free_id());
+		}
+		break;
+		case SyntaxNodeType::FUNC:
+		{
+			auto p_func = dynamic_cast<FuncSyntaxNode*>(p_node.get());
+			ATP_LOGIC_ASSERT(p_func != nullptr);
+			stack.insert(stack.end(), p_func->begin(),
+				p_func->end());
+
+		}
+		break;
+		// default: do nothing
+		}
+	}
 }
+
+
+}  // namespace eq_matching
 }  // namespace logic
 }  // namespace atp
 

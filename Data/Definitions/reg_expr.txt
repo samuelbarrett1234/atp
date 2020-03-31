@@ -1,0 +1,3 @@
+lang=equational
+def=Data/Definitions/reg_expr_definitions.txt
+rules=Data/Definitions/reg_expr_rules.txt

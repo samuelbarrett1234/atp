@@ -1,0 +1,4 @@
+# try to prove these!
+i(*(x, y)) = *(i(y), i(x))
+i(i(x)) = x
+i(e) = e

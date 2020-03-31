@@ -1,0 +1,3 @@
+e 0  # identity
+i 1  # inverses
+* 2  # group operation

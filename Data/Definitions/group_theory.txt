@@ -1,0 +1,3 @@
+lang=equational
+def=Data/Definitions/group_theory_definitions.txt
+rules=Data/Definitions/group_theory_rules.txt

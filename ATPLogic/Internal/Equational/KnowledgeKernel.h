@@ -111,7 +111,7 @@ public:
 	}
 	
 	// precondition: id_is_defined(id)
-	inline size_t symbol_arity_from_name(size_t id) const
+	inline size_t symbol_arity_from_id(size_t id) const
 	{
 		ATP_LOGIC_PRECOND(id_is_defined(id));
 		return m_id_to_arity.at(id);

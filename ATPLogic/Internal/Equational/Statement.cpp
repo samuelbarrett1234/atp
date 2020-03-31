@@ -237,8 +237,8 @@ bool Statement::type_check(
 		[&alternative_ker](size_t symb_id) -> bool
 	{
 		return alternative_ker.id_is_defined(symb_id)
-			&& alternative_ker.symbol_arity(
-			alternative_ker.symbol_name) == 0;
+			&& alternative_ker.symbol_arity_from_id(
+			symb_id) == 0;
 	};
 
 	std::function<bool(size_t, std::list<bool>::iterator,
@@ -251,8 +251,8 @@ bool Statement::type_check(
 			child_end);
 
 		return alternative_ker.id_is_defined(symb_id)
-			&& alternative_ker.symbol_arity(
-				alternative_ker.symbol_name) == implied_arity
+			&& alternative_ker.symbol_arity_from_id(
+				symb_id) == implied_arity
 			&& std::all_of(child_begin, child_end,
 				boost::mpl::identity<bool>());
 	};

@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['identical_353',['identical',['../namespaceatp_1_1logic_1_1equational.html#a270c6614ab2b4ede410c924f54b477bf',1,'atp::logic::equational']]],
-  ['identifier_354',['Identifier',['../namespaceatp_1_1logic_1_1equational.html#a771e259f314ca9e80186227c72205806',1,'atp::logic::equational']]],
-  ['identifierparsenode_355',['IdentifierParseNode',['../classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#aaa9dd37fdd19ef7bbc58bec35a392eb4',1,'atp::logic::equational::IdentifierParseNode']]],
-  ['is_5fdefined_356',['is_defined',['../classatp_1_1logic_1_1equational_1_1_equational_knowledge_kernel.html#abde9fa05e6b43b4c139908f93ca7e412',1,'atp::logic::equational::EquationalKnowledgeKernel']]],
-  ['iterativedeepeningsolver_357',['IterativeDeepeningSolver',['../classatp_1_1search_1_1_iterative_deepening_solver.html#ad0d082e6510ccf4daaa079062d9c4c36',1,'atp::search::IterativeDeepeningSolver']]]
+  ['id_5fis_5fdefined_368',['id_is_defined',['../classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504',1,'atp::logic::equational::KnowledgeKernel']]],
+  ['identical_369',['identical',['../namespaceatp_1_1logic_1_1equational_1_1syntax__matching.html#a32938a08f41da81ded4cf46f2eb5c775',1,'atp::logic::equational::syntax_matching']]],
+  ['identifier_370',['Identifier',['../namespaceatp_1_1logic_1_1equational.html#a937ec99a9c46acc458fc08b706187350',1,'atp::logic::equational']]],
+  ['identifierparsenode_371',['IdentifierParseNode',['../classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#aaa9dd37fdd19ef7bbc58bec35a392eb4',1,'atp::logic::equational::IdentifierParseNode']]],
+  ['is_5fdefined_372',['is_defined',['../classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af7ae5937b36a9fd2a8427b543b47ed56',1,'atp::logic::equational::KnowledgeKernel']]],
+  ['iterativedeepeningsolver_373',['IterativeDeepeningSolver',['../classatp_1_1search_1_1_iterative_deepening_solver.html#ad0d082e6510ccf4daaa079062d9c4c36',1,'atp::search::IterativeDeepeningSolver']]]
 ];

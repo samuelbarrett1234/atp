@@ -1,8 +1,12 @@
 var searchData=
 [
-  ['readme_2emd_300',['README.md',['../atp_2_r_e_a_d_m_e_8md.html',1,'(Global Namespace)'],['../_a_t_p_database_2_r_e_a_d_m_e_8md.html',1,'(Global Namespace)'],['../_a_t_p_logic_2_r_e_a_d_m_e_8md.html',1,'(Global Namespace)'],['../_a_t_p_search_2_r_e_a_d_m_e_8md.html',1,'(Global Namespace)'],['../_r_e_a_d_m_e_8md.html',1,'(Global Namespace)']]],
-  ['real_2dnumbers_2daxioms_2etxt_301',['real-numbers-axioms.txt',['../real-numbers-axioms_8txt.html',1,'']]],
-  ['reg_5fexpr_5fdefinitions_2etxt_302',['reg_expr_definitions.txt',['../reg__expr__definitions_8txt.html',1,'']]],
-  ['reg_5fexpr_5frules_2etxt_303',['reg_expr_rules.txt',['../reg__expr__rules_8txt.html',1,'']]],
-  ['rewrite_2drules_2dsol_2etxt_304',['rewrite-rules-sol.txt',['../rewrite-rules-sol_8txt.html',1,'']]]
+  ['iknowledgekernel_2eh_282',['IKnowledgeKernel.h',['../_i_knowledge_kernel_8h.html',1,'']]],
+  ['ilanguage_2eh_283',['ILanguage.h',['../_i_language_8h.html',1,'']]],
+  ['ipropositionalknowledgekernel_2eh_284',['IPropositionalKnowledgeKernel.h',['../_i_propositional_knowledge_kernel_8h.html',1,'']]],
+  ['isolver_2eh_285',['ISolver.h',['../_i_solver_8h.html',1,'']]],
+  ['istatement_2eh_286',['IStatement.h',['../_i_statement_8h.html',1,'']]],
+  ['istatementarray_2eh_287',['IStatementArray.h',['../_i_statement_array_8h.html',1,'']]],
+  ['istatementheuristic_2eh_288',['IStatementHeuristic.h',['../_i_statement_heuristic_8h.html',1,'']]],
+  ['iterativedeepeningsolver_2ecpp_289',['IterativeDeepeningSolver.cpp',['../_iterative_deepening_solver_8cpp.html',1,'']]],
+  ['iterativedeepeningsolver_2eh_290',['IterativeDeepeningSolver.h',['../_iterative_deepening_solver_8h.html',1,'']]]
 ];

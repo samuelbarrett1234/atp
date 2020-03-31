@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classatp_1_1logic_1_1_i_language.html" title="Object for serialising statements, and constructing knowledge kernels." alt="" coords="5,13,148,39"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_equational_language.html" title=" " alt="" coords="196,5,343,47"/>
+<area shape="rect" id="node1" href="$classatp_1_1logic_1_1_i_statement.html" title="Statement objects are immutable. They might be useful for exploring the ASTs, or viewing them as a st..." alt="" coords="5,13,152,39"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html" title=" " alt="" coords="200,5,343,47"/>
 </map>

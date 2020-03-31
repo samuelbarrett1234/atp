@@ -1,11 +1,5 @@
 <map id="atp::logic::equational::fold_syntax_tree" name="atp::logic::equational::fold_syntax_tree">
-<area shape="rect" id="node1" title=" " alt="" coords="5,249,148,291"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#a36a4fa343fb0952573b0761b3ccb6141" title=" " alt="" coords="205,5,375,47"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#a94702c6b23ee486d9fb1224af41ad3bc" title=" " alt="" coords="211,71,369,112"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#a6c1afdefc1603907af3081d8ae447c69" title=" " alt="" coords="196,136,384,177"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#afcf50ff53b2b80f130da2b4292bf7bd8" title=" " alt="" coords="213,202,367,258"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#a39fd9122899fcd0c13f3c3013b4c8455" title=" " alt="" coords="209,282,371,338"/>
-<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_i_syntax_node.html#abeec346aa5f82fc170e2bb2765c04a5a" title=" " alt="" coords="209,363,371,404"/>
-<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#ab387f330c6f631916a017bf368a24845" title=" " alt="" coords="219,428,361,469"/>
-<area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a725fafce5637f9a5b1862f9e04baddea" title=" " alt="" coords="215,493,365,535"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,148,80"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#ab387f330c6f631916a017bf368a24845" title=" " alt="" coords="200,5,343,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a725fafce5637f9a5b1862f9e04baddea" title=" " alt="" coords="196,71,347,112"/>
 </map>

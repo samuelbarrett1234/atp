@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ker_416',['ker',['../structatp_1_1logic_1_1equational_1_1_parse_data.html#ac04c2653d62f28e9fbb5325225fd0fe0',1,'atp::logic::equational::ParseData']]]
+  ['m_5fsymbol_5fid_432',['m_symbol_id',['../classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#abf3d83c1ba0eeb176ae8ca8bce06bd6e',1,'atp::logic::equational::ConstantSyntaxNode']]]
 ];

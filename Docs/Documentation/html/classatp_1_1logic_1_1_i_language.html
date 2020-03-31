@@ -84,8 +84,8 @@ Inheritance diagram for atp::logic::ILanguage:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1_i_language__inherit__graph.png" border="0" usemap="#atp_1_1logic_1_1_i_language_inherit__map" alt="Inheritance graph"/></div>
 <map name="atp_1_1logic_1_1_i_language_inherit__map" id="atp_1_1logic_1_1_i_language_inherit__map">
-<area shape="rect" title="Object for serialising statements, and constructing knowledge kernels." alt="" coords="7,5,150,32"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_equational_language.html" title=" " alt="" coords="5,80,152,121"/>
+<area shape="rect" title="Object for serialising statements, and constructing knowledge kernels." alt="" coords="5,5,148,32"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html" title=" " alt="" coords="5,80,148,121"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -97,10 +97,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac11ce20dff7d2f9cc6523da880d22ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa32d63f80dd645223a1559ec3d678e58"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">KnowledgeKernelPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#aa32d63f80dd645223a1559ec3d678e58">create_empty_kernel</a> () const =0</td></tr>
 <tr class="separator:aa32d63f80dd645223a1559ec3d678e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59b9b3285b7e60bf1c11f21c297e9995"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#a59b9b3285b7e60bf1c11f21c297e9995">create_stmts</a> (std::istream &amp;in, <a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7">StmtFormat</a> input_format, const <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;ker) const =0</td></tr>
-<tr class="separator:a59b9b3285b7e60bf1c11f21c297e9995"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28bf91a919f307110638b6aa2ac3eb63"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#a28bf91a919f307110638b6aa2ac3eb63">save_stmts</a> (std::ostream &amp;out, <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts, <a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7">StmtFormat</a> output_format) const =0</td></tr>
-<tr class="separator:a28bf91a919f307110638b6aa2ac3eb63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c5aaf7f3ce929503541fc4e96b23235"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#a9c5aaf7f3ce929503541fc4e96b23235">deserialise_stmts</a> (std::istream &amp;in, <a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7">StmtFormat</a> input_format, const <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;ker) const =0</td></tr>
+<tr class="separator:a9c5aaf7f3ce929503541fc4e96b23235"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a432c41810c239fc23d3ffce7875bac21"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#a432c41810c239fc23d3ffce7875bac21">serialise_stmts</a> (std::ostream &amp;out, <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts, <a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7">StmtFormat</a> output_format) const =0</td></tr>
+<tr class="separator:a432c41810c239fc23d3ffce7875bac21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Object for serialising statements, and constructing knowledge kernels. </p>
@@ -154,12 +154,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_equational_language.html#a5a38074b5794821cbafad4e85c11aced">atp::logic::equational::EquationalLanguage</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#adc67e1cd31111e298b33b5d4c953b6c7">atp::logic::equational::Language</a>.</p>
 
 </div>
 </div>
-<a id="a59b9b3285b7e60bf1c11f21c297e9995"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59b9b3285b7e60bf1c11f21c297e9995">&#9670;&nbsp;</a></span>create_stmts()</h2>
+<a id="a9c5aaf7f3ce929503541fc4e96b23235"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c5aaf7f3ce929503541fc4e96b23235">&#9670;&nbsp;</a></span>deserialise_stmts()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -168,7 +168,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> atp::logic::ILanguage::create_stmts </td>
+          <td class="memname">virtual <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> atp::logic::ILanguage::deserialise_stmts </td>
           <td>(</td>
           <td class="paramtype">std::istream &amp;&#160;</td>
           <td class="paramname"><em>in</em>, </td>
@@ -198,7 +198,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_equational_language.html#a16fda6de2fa937baeb5d3cb3ed38fd29">atp::logic::equational::EquationalLanguage</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26">atp::logic::equational::Language</a>.</p>
 
 </div>
 </div>
@@ -236,12 +236,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_equational_language.html#a7429d5ed5106e8c76af63e22cae144ed">atp::logic::equational::EquationalLanguage</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#ae71040498b42b9764a6523734d748613">atp::logic::equational::Language</a>.</p>
 
 </div>
 </div>
-<a id="a28bf91a919f307110638b6aa2ac3eb63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28bf91a919f307110638b6aa2ac3eb63">&#9670;&nbsp;</a></span>save_stmts()</h2>
+<a id="a432c41810c239fc23d3ffce7875bac21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a432c41810c239fc23d3ffce7875bac21">&#9670;&nbsp;</a></span>serialise_stmts()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,7 +250,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void atp::logic::ILanguage::save_stmts </td>
+          <td class="memname">virtual void atp::logic::ILanguage::serialise_stmts </td>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
           <td class="paramname"><em>out</em>, </td>
@@ -280,7 +280,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_equational_language.html#a928f882afceb18cfb34f3c8c4a269431">atp::logic::equational::EquationalLanguage</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#a7836b8070b045f8d65f5f1b8e61b1e35">atp::logic::equational::Language</a>.</p>
 
 </div>
 </div>

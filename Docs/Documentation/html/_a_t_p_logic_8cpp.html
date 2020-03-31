@@ -75,35 +75,33 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="_a_t_p_logic_8h.html">ATPLogic.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_equational_statement_array_8h.html">Internal/Equational/EquationalStatementArray.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_statement_array_8h.html">Internal/Equational/StatementArray.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_language_8h.html">Internal/Equational/Language.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for ATPLogic.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="_a_t_p_logic_8cpp__incl.png" border="0" usemap="#_a_t_p_logic_2_a_t_p_logic_8cpp" alt=""/></div>
 <map name="_a_t_p_logic_2_a_t_p_logic_8cpp" id="_a_t_p_logic_2_a_t_p_logic_8cpp">
-<area shape="rect" title=" " alt="" coords="892,5,1055,32"/>
-<area shape="rect" href="_a_t_p_logic_8h.html" title=" " alt="" coords="398,244,488,271"/>
-<area shape="rect" href="_equational_statement_array_8h.html" title=" " alt="" coords="1239,80,1428,121"/>
-<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title=" " alt="" coords="954,617,1065,644"/>
-<area shape="rect" href="_i_statement_8h.html" title=" " alt="" coords="48,543,204,569"/>
-<area shape="rect" href="_i_statement_array_8h.html" title=" " alt="" coords="819,468,1006,495"/>
-<area shape="rect" href="_i_knowledge_kernel_8h.html" title=" " alt="" coords="514,393,710,420"/>
-<area shape="rect" href="_i_language_8h.html" title=" " alt="" coords="278,319,430,345"/>
-<area shape="rect" title=" " alt="" coords="977,692,1042,719"/>
-<area shape="rect" title=" " alt="" coords="98,617,153,644"/>
-<area shape="rect" title=" " alt="" coords="1280,543,1336,569"/>
-<area shape="rect" title=" " alt="" coords="786,543,855,569"/>
-<area shape="rect" title=" " alt="" coords="229,393,294,420"/>
-<area shape="rect" title=" " alt="" coords="319,393,388,420"/>
-<area shape="rect" href="_equational_statement_8h.html" title=" " alt="" coords="1064,169,1219,196"/>
-<area shape="rect" href="_equational_syntax_trees_8h.html" title=" " alt="" coords="981,244,1148,271"/>
-<area shape="rect" title=" " alt="" coords="1004,319,1042,345"/>
-<area shape="rect" title=" " alt="" coords="1067,319,1144,345"/>
-<area shape="rect" title=" " alt="" coords="1168,319,1296,345"/>
-<area shape="rect" href="_equational_knowledge_kernel_8h.html" title=" " alt="" coords="632,319,827,345"/>
-<area shape="rect" href="_equational_parse_nodes_8h.html" title=" " alt="" coords="1080,468,1246,495"/>
-<area shape="rect" title=" " alt="" coords="877,393,924,420"/>
-<area shape="rect" title=" " alt="" coords="734,393,853,420"/>
+<area shape="rect" title=" " alt="" coords="1021,5,1183,32"/>
+<area shape="rect" href="_a_t_p_logic_8h.html" title=" " alt="" coords="1057,87,1147,114"/>
+<area shape="rect" href="_statement_array_8h.html" title=" " alt="" coords="548,80,677,121"/>
+<area shape="rect" href="_language_8h.html" title=" " alt="" coords="1243,80,1372,121"/>
+<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title=" " alt="" coords="852,468,963,495"/>
+<area shape="rect" href="_i_statement_8h.html" title=" " alt="" coords="923,393,1079,420"/>
+<area shape="rect" href="_i_statement_array_8h.html" title=" " alt="" coords="675,319,862,345"/>
+<area shape="rect" href="_i_knowledge_kernel_8h.html" title=" " alt="" coords="807,244,1003,271"/>
+<area shape="rect" href="_i_language_8h.html" title=" " alt="" coords="1231,169,1383,196"/>
+<area shape="rect" title=" " alt="" coords="875,543,940,569"/>
+<area shape="rect" title=" " alt="" coords="52,468,107,495"/>
+<area shape="rect" title=" " alt="" coords="695,393,751,420"/>
+<area shape="rect" title=" " alt="" coords="235,393,305,420"/>
+<area shape="rect" title=" " alt="" coords="1436,244,1501,271"/>
+<area shape="rect" title=" " alt="" coords="1342,244,1411,271"/>
+<area shape="rect" href="_statement_8h.html" title=" " alt="" coords="378,169,471,196"/>
+<area shape="rect" title=" " alt="" coords="401,244,448,271"/>
+<area shape="rect" href="_syntax_nodes_8h.html" title=" " alt="" coords="215,244,325,271"/>
+<area shape="rect" title=" " alt="" coords="308,319,347,345"/>
+<area shape="rect" href="_parse_nodes_8h.html" title=" " alt="" coords="27,319,131,345"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -116,8 +114,9 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1c89562065d65fe74e21d8b7415d2176"><td class="memItemLeft" align="right" valign="top">StatementArrayPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#a1c89562065d65fe74e21d8b7415d2176">atp::logic::from_statement</a> (const IStatement &amp;stmt)</td></tr>
-<tr class="separator:a1c89562065d65fe74e21d8b7415d2176"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fda740917a0bffb00bd9c06b8adc621"><td class="memItemLeft" align="right" valign="top">LanguagePtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621">atp::logic::create_language</a> (LangType lt)</td></tr>
+<tr class="memdesc:a2fda740917a0bffb00bd9c06b8adc621"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a language object for the given supported language type. Returns an empty object if the language type was invalid which could happen if the LangType has not yet been implemented. You will only have to create one language object for each type.  <a href="namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621">More...</a><br /></td></tr>
+<tr class="separator:a2fda740917a0bffb00bd9c06b8adc621"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0bf7e3fc379b924cf7031f1110c685d"><td class="memItemLeft" align="right" valign="top">StatementArrayPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#aa0bf7e3fc379b924cf7031f1110c685d">atp::logic::concat</a> (const IStatementArray &amp;l, const IStatementArray &amp;r)</td></tr>
 <tr class="separator:aa0bf7e3fc379b924cf7031f1110c685d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae01bdbaa6d12f3441ccdae7dc170ec70"><td class="memItemLeft" align="right" valign="top">StatementArrayPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#ae01bdbaa6d12f3441ccdae7dc170ec70">atp::logic::concat</a> (const std::vector&lt; StatementArrayPtr &gt; &amp;stmts)</td></tr>

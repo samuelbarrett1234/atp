@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['ker_145',['ker',['../structatp_1_1logic_1_1equational_1_1_parse_data.html#ac04c2653d62f28e9fbb5325225fd0fe0',1,'atp::logic::equational::ParseData']]],
-  ['knowledgekernelptr_146',['KnowledgeKernelPtr',['../namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357',1,'atp::logic']]]
+  ['knowledgekernel_133',['KnowledgeKernel',['../classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html',1,'atp::logic::equational']]],
+  ['knowledgekernel_2ecpp_134',['KnowledgeKernel.cpp',['../_knowledge_kernel_8cpp.html',1,'']]],
+  ['knowledgekernel_2eh_135',['KnowledgeKernel.h',['../_knowledge_kernel_8h.html',1,'']]],
+  ['knowledgekernelptr_136',['KnowledgeKernelPtr',['../namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357',1,'atp::logic']]]
 ];

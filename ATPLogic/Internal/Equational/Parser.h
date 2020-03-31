@@ -18,7 +18,7 @@ for more information, or the parse_statements nodes file.
 #include <list>
 #include <boost/optional.hpp>
 #include "../../ATPLogicAPI.h"
-#include "EquationalParseNodes.h"
+#include "ParseNodes.h"
 
 
 namespace atp

@@ -1,6 +1,6 @@
-#include "EquationalStatement.h"
-#include "EquationalMatching.h"
-#include "EquationalSyntaxTreeFold.h"
+#include "Statement.h"
+#include "Matching.h"
+#include "SyntaxTreeFold.h"
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/range.hpp>

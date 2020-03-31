@@ -28,7 +28,7 @@ of seen nodes too.
 
 #include <set>
 #include <list>
-#include "EquationalSyntaxNodes.h"
+#include "SyntaxNodes.h"
 
 
 namespace atp

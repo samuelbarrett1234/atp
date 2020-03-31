@@ -22,8 +22,8 @@ a data structure for storing and querying many trees at once.
 #include <functional>
 #include <boost/optional.hpp>
 #include "../../ATPLogicAPI.h"
-#include "EquationalKnowledgeKernel.h"
-#include "EquationalParseNodes.h"
+#include "KnowledgeKernel.h"
+#include "ParseNodes.h"
 
 
 namespace atp

@@ -1,5 +1,5 @@
-#include "EquationalSyntaxNodes.h"
-#include "EquationalParseTreeFold.h"
+#include "SyntaxNodes.h"
+#include "ParseTreeFold.h"
 #include <boost/bind.hpp>
 #include <map>
 

@@ -16,7 +16,7 @@ syntax tree.
 #include <string>
 #include <list>
 #include <boost/spirit/include/qi.hpp>
-#include "EquationalParseNodes.h"
+#include "ParseNodes.h"
 
 
 namespace qi = boost::spirit::qi;

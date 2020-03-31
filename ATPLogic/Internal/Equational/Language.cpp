@@ -1,6 +1,6 @@
-#include "EquationalLanguage.h"
-#include "EquationalParser.h"
-#include "EquationalSyntaxNodes.h"
+#include "Language.h"
+#include "Parser.h"
+#include "SyntaxNodes.h"
 #include <type_traits>
 #include <boost/phoenix.hpp>
 #include <boost/bind.hpp>

@@ -18,7 +18,7 @@ this is worth the speedup.
 #include <vector>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IStatementArray.h"
-#include "EquationalStatement.h"
+#include "Statement.h"
 
 
 namespace atp

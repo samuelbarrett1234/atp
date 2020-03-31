@@ -1,5 +1,5 @@
-#include "EquationalParser.h"
-#include "EquationalGrammar.h"
+#include "Parser.h"
+#include "Grammar.h"
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/qi_stream.hpp>
 

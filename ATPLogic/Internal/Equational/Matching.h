@@ -13,7 +13,7 @@ possible, between two syntax tree expressions.
 
 #include <map>
 #include <boost/optional.hpp>
-#include "EquationalSyntaxNodes.h"
+#include "SyntaxNodes.h"
 
 
 namespace atp

@@ -28,7 +28,7 @@ of seen nodes too.
 
 #include <set>
 #include <list>
-#include "EquationalParseNodes.h"
+#include "ParseNodes.h"
 
 
 namespace atp

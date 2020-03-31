@@ -1,7 +1,7 @@
-#include "EquationalKnowledgeKernel.h"
-#include "EquationalMatching.h"
-#include "EquationalStatementArray.h"
-#include "EquationalSyntaxTreeFold.h"
+#include "KnowledgeKernel.h"
+#include "Matching.h"
+#include "StatementArray.h"
+#include "SyntaxTreeFold.h"
 #include <boost/functional/hash.hpp>
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/bind.hpp>

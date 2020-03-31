@@ -10,7 +10,7 @@ Contains templated helper functions for traversing syntax trees.
 */
 
 
-#include "EquationalSyntaxNodes.h"
+#include "SyntaxNodes.h"
 
 
 namespace atp

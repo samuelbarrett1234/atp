@@ -32,8 +32,8 @@ user defined "h", and instead if our statement is
 #include <boost/bimap.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IKnowledgeKernel.h"
-#include "EquationalSyntaxNodes.h"
-#include "EquationalStatementArray.h"
+#include "SyntaxNodes.h"
+#include "StatementArray.h"
 
 
 namespace atp

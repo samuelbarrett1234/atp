@@ -1,4 +1,4 @@
-#include "EquationalStatementArray.h"
+#include "StatementArray.h"
 #include <algorithm>
 #include <initializer_list>
 

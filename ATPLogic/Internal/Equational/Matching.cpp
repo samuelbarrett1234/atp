@@ -1,6 +1,6 @@
-#include "EquationalMatching.h"
-#include "EquationalSyntaxTreeFold.h"
-#include "EquationalSyntaxTreeTraversal.h"
+#include "Matching.h"
+#include "SyntaxTreeFold.h"
+#include "SyntaxTreeTraversal.h"
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/bimap.hpp>
 #include <boost/mpl/identity.hpp>

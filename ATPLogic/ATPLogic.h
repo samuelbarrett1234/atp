@@ -25,9 +25,7 @@ namespace logic
 
 enum class LangType
 {
-	EQUATIONAL_LOGIC,
-	FIRST_ORDER_LOGIC,  // not yet implemented
-	SECOND_ORDER_LOGIC  // not yet implemented
+	EQUATIONAL_LOGIC
 };
 
 

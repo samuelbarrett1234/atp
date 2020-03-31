@@ -28,7 +28,11 @@ of seen nodes too.
 
 #include <set>
 #include <list>
+#include <functional>
+#include <type_traits>
+#include <algorithm>
 #include "SyntaxNodes.h"
+#include "SyntaxTreeTraversal.h"
 
 
 namespace atp
@@ -53,7 +57,29 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 	ConstFuncT const_func, FFuncT f_func, SyntaxNodePtr p_root
 )
 {
-	std::list<typename ResultT> result_stack;
+	ATP_LOGIC_PRECOND(p_root != nullptr);
+
+	// static assertions on the types of the functions given:
+
+	static_assert(std::is_convertible<EqFuncT,
+		std::function<ResultT(ResultT, ResultT)>>::value,
+		"EqFuncT should be of type (ResultT, ResultT) -> ResultT");
+	static_assert(std::is_convertible<FreeFuncT,
+		std::function<ResultT(size_t)>>::value,
+		"FreeFuncT should be of type (size_t) -> ResultT");
+	static_assert(std::is_convertible<ConstFuncT,
+		std::function<ResultT(size_t)>>::value,
+		"ConstFuncT should be of type (size_t) -> ResultT");
+	static_assert(std::is_convertible<FFuncT,
+		std::function<ResultT(size_t,
+			typename std::list<ResultT>::iterator,
+			typename std::list<ResultT>::iterator)>>::value,
+		"FFuncT should be of type (size_t, std::list<ResultT>::iterator,"
+		" std::list<ResultT>::iterator) -> ResultT");
+
+	// now proceed with the function:
+
+	std::list<ResultT> result_stack;
 	std::list<ISyntaxNode*> todo_stack;
 	std::set<ISyntaxNode*> seen;
 
@@ -67,7 +93,7 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 		// first occurrence
 		if (seen.find(p_node) == seen.end())
 		{
-			apply_to_syntax_node(
+			apply_to_syntax_node<void>(
 				// if EQ...
 				[&todo_stack, &seen](EqSyntaxNode& eq)
 				{
@@ -76,8 +102,8 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 					seen.insert(&eq);
 
 					// add children
-					todo_stack.push_back(eq.left());
-					todo_stack.push_back(eq.right());
+					todo_stack.push_back(eq.left().get());
+					todo_stack.push_back(eq.right().get());
 				},
 				// if FREE...
 				[&result_stack, &free_func](FreeSyntaxNode& free)
@@ -97,19 +123,21 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 				[&todo_stack, &seen](FuncSyntaxNode& f)
 				{
 					// revisit it later
-					todo_stack.push_back(p_node);
-					seen.insert(p_node);
+					todo_stack.push_back(&f);
+					seen.insert(&f);
 
 					// add children
-					todo_stack.insert(todo_stack.end(),
-						f.begin(), f.end());
+					std::transform(f.begin(), f.end(),
+						std::back_inserter(todo_stack),
+						[](SyntaxNodePtr p_node)
+						{ return p_node.get(); });
 				},
 				*p_node
 			);
 		}
 		else  // else revisiting
 		{
-			apply_to_syntax_node(
+			apply_to_syntax_node<void>(
 				// if EQ...
 				[&result_stack, &eq_func](EqSyntaxNode& eq)
 				{
@@ -121,8 +149,8 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 					result_stack.pop_back();
 
 					// compute function of eq for its children:
-					result_stack.push_back(eq_func(left_result,
-						right_result));
+					result_stack.push_back(eq_func(std::move(left_result),
+						std::move(right_result)));
 				},
 				// if FREE...
 				[](FreeSyntaxNode&) { },

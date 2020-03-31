@@ -16,6 +16,7 @@ for more information, or the parse_statements nodes file.
 
 #include <istream>
 #include <list>
+#include <string>
 #include <boost/optional.hpp>
 #include "../../ATPLogicAPI.h"
 #include "ParseNodes.h"

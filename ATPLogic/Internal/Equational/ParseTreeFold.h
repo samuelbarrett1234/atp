@@ -28,6 +28,10 @@ of seen nodes too.
 
 #include <set>
 #include <list>
+#include <string>
+#include <functional>
+#include <algorithm>
+#include <type_traits>
 #include "ParseNodes.h"
 
 
@@ -52,6 +56,24 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 	IdentifierFuncT identifier_func,
 	ParseNodePtr p_root)
 {
+	ATP_LOGIC_PRECOND(p_root != nullptr);
+
+	// static assertions on the types of the functions given:
+
+	static_assert(std::is_convertible<EqFuncT,
+		std::function<ResultT(ResultT,
+			ResultT)>>::value,
+		"EqFuncT should be of type (ResultT, ResultT) -> ResultT");
+	static_assert(std::is_convertible<IdentifierFuncT,
+		std::function<ResultT(std::string,
+			typename std::list<ResultT>::iterator,
+			typename std::list<ResultT>::iterator)>>::value,
+		"IdentifierFuncT should be of type (std::string, "
+		"std::list<ResultT>::iterator,"
+		" std::list<ResultT>::iterator) -> ResultT");
+	
+	// now proceed with the function:
+
 	std::list<ResultT> result_stack;
 	std::list<IParseNode*> todo_stack;
 	std::set<IParseNode*> seen;
@@ -78,8 +100,8 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 				seen.insert(p_node);
 
 				// add children
-				todo_stack.push_back(eq.left());
-				todo_stack.push_back(eq.right());
+				todo_stack.push_back(p_eq->left().get());
+				todo_stack.push_back(p_eq->right().get());
 			}
 				break;
 			case ParseNodeType::IDENTIFIER:
@@ -95,7 +117,7 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 				{
 					// handle now:
 
-					std::list<typename ResultT> empty_list;
+					std::list<ResultT> empty_list;
 
 					result_stack.push_back(
 						identifier_func(p_id->get_name(),
@@ -109,8 +131,10 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 					seen.insert(p_node);
 
 					// add children:
-					todo_stack.insert(todo_stack.end(),
-						p_id->begin(), p_id->end());
+					std::transform(p_id->begin(), p_id->end(),
+						std::back_inserter(todo_stack),
+						[](ParseNodePtr p_node)
+						{ return p_node.get(); });
 				}
 			}
 			}

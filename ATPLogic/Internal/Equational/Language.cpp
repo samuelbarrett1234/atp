@@ -1,7 +1,8 @@
 #include "Language.h"
 #include "Parser.h"
 #include "SyntaxNodes.h"
-#include <type_traits>
+#include "KnowledgeKernel.h"
+#include "StatementArray.h"
 #include <boost/phoenix.hpp>
 #include <boost/bind.hpp>
 
@@ -80,7 +81,7 @@ StatementArrayPtr Language::create_stmts(std::istream& in,
 
 		if (std::any_of(syntax_nodes.begin(),
 			syntax_nodes.end(),
-			std::is_null_pointer<SyntaxNodePtr>()))
+			boost::phoenix::arg_names::arg1 == nullptr))
 			return StatementArrayPtr();  // failed due to syntax error
 
 		// now convert these into the final type
@@ -91,11 +92,10 @@ StatementArrayPtr Language::create_stmts(std::istream& in,
 
 		// construct StatementArray objects from the syntax
 		// nodes:
-		std::transform(syntax_nodes.begin(), syntax_nodes.end(),
-			std::back_inserter(*pStmtArr),
-			boost::phoenix::construct<StatementArray>(
-				*p_ker, boost::phoenix::arg_names::arg1
-				));
+		for (auto iter = syntax_nodes.begin(); iter != syntax_nodes.end(); iter++)
+		{
+			pStmtArr->emplace_back(*p_ker, *iter);
+		}
 
 		return std::make_shared<StatementArray>(pStmtArr);
 	}

@@ -11,11 +11,21 @@ namespace equational
 {
 
 
+Skipper::Skipper() :
+	Skipper::base_type(skip)
+{
+	qi::rule<Iterator> comments = 
+		'#' >> *(qi::char_ - qi::eol) >> (qi::eol | qi::eoi);
+
+	skip = qi::space | comments;
+}
+
+
 StatementGrammar::StatementGrammar() :
 	StatementGrammar::base_type(start)
 {
 	// statements are line-separated
-	start = statement % qi::eol;
+	start = qi::skip(Skipper())[statement % qi::eol];
 
 	// a statement is an equality of two expressions
 	statement = (expression >> '=' >> expression)
@@ -53,26 +63,16 @@ StatementGrammar::StatementGrammar() :
 DefinitionGrammar::DefinitionGrammar() :
 	DefinitionGrammar::base_type(symbol_def_list)
 {
-	symbol_def_list = symbol_def % eol;
+	symbol_def_list = qi::skip(Skipper())[symbol_def % qi::eol];
 
-	symbol_def = Identifier() >> qi::uint_
-		[qi::_val = boost::bind(&std::make_pair<std::string, size_t>,
-			_1, _2)];
+	symbol_def = Identifier() >> qi::uint_;
 }
 
 
-qi::rule<Iterator> Skipper()
-{
-	qi::rule<Iterator> comments = '#' >> *(qi::char_ - qi::eol) >> (qi::eol | qi ::eoi);
-
-	return qi::space | comments;
-}
-
-
-qi::rule<Iterator, std::string, SkipperType> Identifier()
+qi::rule<Iterator, std::string, Skipper> Identifier()
 {
 	return +(qi::alnum | '+' | '-' | '*' | '/' | '.' | '_' |
-		'?' | '^' | '%' | '&');
+		'?' | '^' | '%' | qi::lit('&'));
 }
 
 

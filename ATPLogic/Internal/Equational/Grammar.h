@@ -13,8 +13,10 @@ syntax tree.
 */
 
 
+// #define BOOST_SPIRIT_DEBUG
 #include <string>
 #include <list>
+#include <map>
 #include <boost/spirit/include/qi.hpp>
 #include "ParseNodes.h"
 
@@ -32,21 +34,27 @@ namespace equational
 
 
 typedef boost::spirit::istream_iterator Iterator;
-typedef qi::rule<Iterator> SkipperType;
+
+
+struct ATP_LOGIC_API Skipper :
+	public qi::grammar<Iterator>
+{
+	Skipper();
+
+	qi::rule<Iterator> skip;
+};
 
 
 // This class represents the grammar for parsing statements into
 // a parse tree.
-class StatementGrammar :
-	public qi::grammar<Iterator, std::list<ParseNodePtr>, SkipperType>
+struct ATP_LOGIC_API StatementGrammar :
+	public qi::grammar<Iterator, std::list<ParseNodePtr>()>
 {
-public:
 	StatementGrammar();
 
-protected:
-	qi::rule<Iterator, ParseNodePtr, SkipperType> statement,
+	qi::rule<Iterator, ParseNodePtr, Skipper> statement,
 		expression;
-	qi::rule<Iterator, std::list<ParseNodePtr>, SkipperType> start,
+	qi::rule<Iterator, std::list<ParseNodePtr>, Skipper> start,
 		expression_list;
 };
 
@@ -54,29 +62,22 @@ protected:
 // This class represents the grammar for parsing definition files,
 // which is basically just a list of (symbol name, symbol arity)
 // pairs.
-class DefinitionGrammar :
+struct ATP_LOGIC_API DefinitionGrammar :
 	public qi::grammar<Iterator,
-		std::list<std::pair<std::string, size_t>>, SkipperType>
+		std::map<std::string, size_t>()>
 {
-public:
 	DefinitionGrammar();
 
-protected:
-	qi::rule<Iterator, std::pair<std::string, size_t>, SkipperType>
+	qi::rule<Iterator, std::pair<std::string, size_t>, Skipper>
 		symbol_def;
 
-	qi::rule<Iterator, std::list<std::pair<std::string, size_t>>,
-		SkipperType> symbol_def_list;
+	qi::rule<Iterator, std::map<std::string, size_t>,
+		Skipper> symbol_def_list;
 };
 
 
-// This function returns the default skipping rule for the grammars
-// above (to include skipping comments, etc).
-ATP_LOGIC_API qi::rule<Iterator> Skipper();
-
-
 // This is the rule for parsing an "identifier"
-ATP_LOGIC_API qi::rule<Iterator, std::string, SkipperType> Identifier();
+ATP_LOGIC_API qi::rule<Iterator, std::string, Skipper> Identifier();
 
 
 }  // namespace equational

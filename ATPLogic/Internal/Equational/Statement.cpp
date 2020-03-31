@@ -1,12 +1,12 @@
 #include "Statement.h"
 #include "Matching.h"
 #include "SyntaxTreeFold.h"
+#include "KnowledgeKernel.h"
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/range.hpp>
 #include <boost/bind.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/phoenix.hpp>
 
 
@@ -71,6 +71,15 @@ Statement::Statement(
 	m_left = p_eq->left();
 	m_right = p_eq->right();
 }
+
+
+Statement::Statement(Statement&& other) :
+	m_ker(other.m_ker),
+	m_root(std::move(other.m_root)),
+	m_left(std::move(other.m_left)),
+	m_right(std::move(other.m_right)),
+	m_num_free_vars(other.m_num_free_vars)
+{ }
 
 
 StmtForm Statement::form() const
@@ -150,7 +159,7 @@ Statement::get_substitutions(
 		}
 	}
 
-	return from_trees(trees);
+	return from_trees(m_ker, trees);
 }
 
 
@@ -164,13 +173,14 @@ Statement::replace_free_with_def(
 	// each free variable with a constant:
 	auto trees = fold_syntax_tree<std::vector<SyntaxNodePtr>>(
 		&fold_eq_constructor,
-		boost::bind(free_var_def_constructor,
+		boost::bind(&free_var_def_constructor,
 			boost::ref(symb_id_to_arity),
 			m_num_free_vars, _1),
-		&fold_const_constructor, &fold_func_constructor,
-		m_root);
+		boost::bind(&fold_const_constructor,
+			m_num_free_vars * symb_id_to_arity.size(), _1),
+		&fold_func_constructor, m_root);
 
-	return from_trees(trees);
+	return from_trees(m_ker, trees);
 }
 
 
@@ -184,11 +194,12 @@ Statement::replace_free_with_free() const
 	// unordered distinct pairs only):
 	auto trees = fold_syntax_tree<std::vector<SyntaxNodePtr>>(
 		&fold_eq_constructor,
-		boost::bind(free_var_free_constructor, m_num_free_vars, _1),
-		&fold_const_constructor, &fold_func_constructor,
-		m_root);
+		boost::bind(&free_var_free_constructor, m_num_free_vars, _1),
+		boost::bind(&fold_const_constructor,
+			m_num_free_vars * (m_num_free_vars - 1) / 2, _1),
+		&fold_func_constructor, m_root);
 
-	return from_trees(trees);
+	return from_trees(m_ker, trees);
 }
 
 
@@ -254,11 +265,20 @@ bool Statement::type_check(
 			&& alternative_ker.symbol_arity_from_id(
 				symb_id) == implied_arity
 			&& std::all_of(child_begin, child_end,
-				boost::mpl::identity<bool>());
+				// use phoenix for an easy identity function
+				boost::phoenix::arg_names::arg1);
 	};
 
 	return fold_syntax_tree<bool>(eq_valid, free_valid,
 		const_valid, func_valid, m_root);
+}
+
+
+bool Statement::check_kernel(const IKnowledgeKernel* p_ker) const
+{
+	return (dynamic_cast<const KnowledgeKernel*>(p_ker) != nullptr
+		&& p_ker->get_integrity_code() ==
+		m_ker.get_integrity_code());
 }
 
 
@@ -379,7 +399,7 @@ std::vector<SyntaxNodePtr> fold_eq_constructor(
 	result.reserve(lhss.size());
 
 	std::transform(begin, end, std::back_inserter(result),
-		[](boost::tuple<SyntaxNodePtr, SyntaxNodePtr>& tup)
+		[](boost::tuple<SyntaxNodePtr, SyntaxNodePtr> tup)
 		{ return std::make_shared<EqSyntaxNode>(tup.get<0>(), tup.get<1>()); });
 
 	return result;
@@ -391,9 +411,10 @@ fold_const_constructor(size_t N,
 	size_t symb_id)
 {
 	std::vector<SyntaxNodePtr> result;
+	result.reserve(N);
 
-	std::generate_n(result.end(), N, boost::bind(
-		std::make_shared<ConstantSyntaxNode>, symb_id));
+	std::generate_n(result.begin(), N, boost::bind(
+		&std::make_shared<ConstantSyntaxNode, size_t>, symb_id));
 
 	return result;
 }
@@ -443,6 +464,7 @@ fold_func_constructor(size_t symb_id,
 
 // helper function for converting fold results:
 std::shared_ptr<std::vector<Statement>> from_trees(
+	const KnowledgeKernel& ker,
 	std::vector<SyntaxNodePtr> trees
 )
 {
@@ -453,7 +475,7 @@ std::shared_ptr<std::vector<Statement>> from_trees(
 
 	for (size_t j = 0; j < trees.size(); j++)
 	{
-		p_stmt_arr->emplace_back(trees[j]);
+		p_stmt_arr->emplace_back(ker, trees[j]);
 	}
 
 	return p_stmt_arr;

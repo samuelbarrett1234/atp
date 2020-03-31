@@ -1,6 +1,8 @@
 #include "SyntaxNodes.h"
 #include "ParseTreeFold.h"
+#include "KnowledgeKernel.h"
 #include <boost/bind.hpp>
+#include <boost/phoenix.hpp>
 #include <map>
 
 
@@ -19,7 +21,7 @@ SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 	size_t next_free_id = 0;
 	size_t num_eq_signs_encountered = 0;
 
-	return fold_parse_tree(
+	return fold_parse_tree<SyntaxNodePtr>(
 		[&num_eq_signs_encountered](SyntaxNodePtr lhs, SyntaxNodePtr rhs)
 		-> SyntaxNodePtr
 		{
@@ -78,7 +80,7 @@ SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 
 				// if any child fails, we fail:
 				if (std::any_of(child_begin, child_end,
-					std::is_null_pointer<SyntaxNodePtr>()))
+					boost::phoenix::arg_names::arg1 == nullptr))
 					return SyntaxNodePtr();
 
 				const size_t symbol_id = ker.symbol_id(name);

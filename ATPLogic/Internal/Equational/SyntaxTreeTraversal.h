@@ -21,6 +21,9 @@ namespace equational
 {
 
 
+// For functional programmers: this is just a map operation on syntax
+// trees! (It applies the correct argument function to the type of
+// tree given).
 // EqFuncT : should be of type (EqSyntaxNode&) -> ResultT
 // FreeFuncT : should be of type (FreeSyntaxNode&) -> ResultT
 // ConstFuncT : should be of type (ConstantSyntaxNode&) -> ResultT
@@ -31,6 +34,23 @@ template<typename ResultT,
 ResultT apply_to_syntax_node(EqFuncT eq_func, FreeFuncT free_func,
 	ConstFuncT const_func, FFuncT f_func, ISyntaxNode& node)
 {
+	// static assertions on the types of the functions given:
+
+	static_assert(std::is_convertible<EqFuncT,
+		std::function<ResultT(EqSyntaxNode&)>>::value,
+		"EqFuncT should be of type (EqSyntaxNode&) -> ResultT");
+	static_assert(std::is_convertible<FreeFuncT,
+		std::function<ResultT(FreeSyntaxNode&)>>::value,
+		"FreeFuncT should be of type (FreeSyntaxNode&) -> ResultT");
+	static_assert(std::is_convertible<ConstFuncT,
+		std::function<ResultT(ConstantSyntaxNode&)>>::value,
+		"ConstFuncT should be of type (ConstFuncT&) -> ResultT");
+	static_assert(std::is_convertible<FFuncT,
+		std::function<ResultT(FuncSyntaxNode&)>>::value,
+		"FFuncT should be of type (FuncSyntaxNode&) -> ResultT");
+
+	// now proceed with the function:
+
 	switch (node.get_type())
 	{
 	case SyntaxNodeType::EQ:

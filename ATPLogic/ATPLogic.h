@@ -40,11 +40,6 @@ enum class LangType
 ATP_LOGIC_API LanguagePtr create_language(LangType lt);
 
 
-// Postcondition: returns a singleton array which contains just this
-// one statement.
-ATP_LOGIC_API StatementArrayPtr from_statement(const IStatement& stmt);
-
-
 // Postcondition: returns the concatenation of the two arrays
 // with 'l' placed first
 ATP_LOGIC_API StatementArrayPtr concat(const IStatementArray& l,

@@ -29,9 +29,12 @@ user defined "h", and instead if our statement is
 
 #include <map>
 #include <string>
+#include <vector>
+#include <list>
 #include <boost/bimap.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IKnowledgeKernel.h"
+#include "Statement.h"
 #include "StatementArray.h"
 
 
@@ -80,7 +83,7 @@ public:
 		ATP_LOGIC_ASSERT(!id_is_defined(id));
 
 		m_name_to_arity[name] = arity;
-		m_id_to_name.left[symbol_id(name)] = name;
+		m_id_to_name.left.insert(std::make_pair(id, name));
 		m_id_to_arity[id] = arity;
 	}
 
@@ -89,7 +92,7 @@ public:
 	// technically this would work as a way of inputting already-
 	// proven theorems, but it will be slow and there would be no way
 	// of unloading them.
-	void define_eq_rule(Statement rule);
+	void define_eq_rule(Statement& rule);
 
 	// check if a given identifier has been defined already or not
 	inline bool is_defined(std::string name) const
@@ -135,8 +138,8 @@ public:
 	// precondition: 'id' is a valid symbol ID
 	inline std::string symbol_name(size_t id) const
 	{
-		auto iter = m_id_to_name.right.find(id);
-		ATP_LOGIC_PRECOND(iter != m_id_to_name.right.end());
+		auto iter = m_id_to_name.left.find(id);
+		ATP_LOGIC_PRECOND(iter != m_id_to_name.left.end());
 		return iter.base()->get_right();
 	}
 

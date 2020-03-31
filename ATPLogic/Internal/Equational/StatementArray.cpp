@@ -11,30 +11,6 @@ namespace equational
 {
 
 
-StatementArrayPtr StatementArray::try_from_stmt(
-	const IStatement& _stmt)
-{
-	if (auto p_stmt =
-		dynamic_cast<const Statement*>(&_stmt))
-	{
-		// create an array and then add the statement
-		ArrPtr p_arr = std::make_shared<ArrType>();
-		p_arr->push_back(*p_stmt);
-
-		// now embed into one of our array objects
-		auto p_result = std::make_shared<StatementArray>(
-			p_arr, 0, 1, 1
-			);
-
-		ATP_LOGIC_ASSERT(p_result->size() == 1);
-
-		return p_result;
-	}
-	// else not a type we are concerned with
-	else return StatementArrayPtr();
-}
-
-
 StatementArrayPtr StatementArray::try_concat(
 	const IStatementArray& _l, const IStatementArray& _r)
 {
@@ -71,7 +47,7 @@ StatementArrayPtr StatementArray::try_concat(
 			}
 
 			return std::make_shared<StatementArray>(
-				std::make_shared<ArrPtr>(std::move(result)),
+				std::make_shared<ArrType>(std::move(result)),
 				0, result.size(), 1
 				);
 		}
@@ -126,7 +102,7 @@ StatementArrayPtr StatementArray::try_concat(
 	}
 
 	return std::make_shared<StatementArray>(
-		std::make_shared<ArrPtr>(std::move(result)),
+		std::make_shared<ArrType>(std::move(result)),
 		0, result.size(), 1
 		);
 }
@@ -189,6 +165,8 @@ StatementArrayPtr StatementArray::slice(size_t start,
 	// assert the size was correctly computed:
 	ATP_LOGIC_ASSERT(p_result->size() == expected_size);
 #endif
+
+	return p_result;
 }
 
 

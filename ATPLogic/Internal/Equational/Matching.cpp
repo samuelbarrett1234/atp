@@ -3,7 +3,7 @@
 #include "SyntaxTreeTraversal.h"
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/bimap.hpp>
-#include <boost/mpl/identity.hpp>
+#include <boost/phoenix.hpp>
 #include <set>
 
 
@@ -12,6 +12,8 @@ namespace atp
 namespace logic
 {
 namespace equational
+{
+namespace syntax_matching
 {
 
 
@@ -67,11 +69,14 @@ SyntaxNodePtr get_substitution(SyntaxNodePtr p_node,
 	const auto max_id = *std::max_element(var_ids.begin(), var_ids.end());
 
 	auto fold_eq_constructor = boost::bind(
-		std::make_shared<EqSyntaxNode>, _1);
+		&std::make_shared<EqSyntaxNode, SyntaxNodePtr, SyntaxNodePtr>,
+		_1, _2);
 	auto fold_const_constructor = boost::bind(
-		std::make_shared<ConstantSyntaxNode>, _1);
+		&std::make_shared<ConstantSyntaxNode, size_t>, _1);
 	auto fold_func_constructor = boost::bind(
-		std::make_shared<FuncSyntaxNode>, _1, _2, _3);
+		&std::make_shared<FuncSyntaxNode, size_t,
+		std::list<SyntaxNodePtr>::iterator,
+		std::list<SyntaxNodePtr>::iterator>, _1, _2, _3);
 
 	auto fold_free_constructor = [&subs, max_id](size_t free_var_id)
 		-> SyntaxNodePtr
@@ -81,7 +86,7 @@ SyntaxNodePtr get_substitution(SyntaxNodePtr p_node,
 		// if this is a free variable we're not interested in
 		// substituting...
 		if (iter == subs.end())
-			return std::make_shared<FreeSyntaxNode>(
+			return std::make_shared<FreeSyntaxNode, size_t>(
 				// see earlier comment for why we add these
 				free_var_id + max_id);
 
@@ -93,7 +98,7 @@ SyntaxNodePtr get_substitution(SyntaxNodePtr p_node,
 		fold_eq_constructor, fold_free_constructor,
 		fold_const_constructor, fold_func_constructor,
 		p_node
-	);
+		);
 
 	rebuild_free_var_ids(result_tree);
 
@@ -160,7 +165,8 @@ bool needs_free_var_id_rebuild(SyntaxNodePtr p_node)
 
 	// we need a rebuild iff any element in this vector is false
 	return std::all_of(id_bitmap.begin(), id_bitmap.end(),
-		boost::mpl::identity<bool>());
+		// use phoenix for an easy identity function
+		boost::phoenix::arg_names::arg1);
 }
 
 
@@ -264,7 +270,7 @@ bool equivalent_from_mapping(const ISyntaxNode* p_a,
 		{
 			// greedily set this, as we haven't seen either variable
 			// before
-			free_id_map.left[a_id] = b_id;
+			free_id_map.left.insert(std::make_pair(a_id, b_id));
 			return true;
 		}
 		else if (left_iter->get_right() == b_id &&
@@ -467,7 +473,7 @@ std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node)
 		p_node = stack.back();
 		stack.pop_back();
 
-		apply_to_syntax_node(
+		apply_to_syntax_node<void>(
 			[&stack](EqSyntaxNode& node) -> void
 			{
 				stack.push_back(node.left());
@@ -477,17 +483,18 @@ std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node)
 			{
 				var_ids.insert(node.get_free_id());
 			},
-			[](ConstantSyntaxNode&) -> void {},
-			[&stack](FuncSyntaxNode& node) -> void
+				[](ConstantSyntaxNode&) -> void {},
+				[&stack](FuncSyntaxNode& node) -> void
 			{
 				stack.insert(stack.end(), node.begin(), node.end());
 			},
-			*p_node
-		);
+				*p_node
+				);
 	}
 }
 
 
+}  // namespace syntax_matching
 }  // namespace equational
 }  // namespace logic
 }  // namespace atp

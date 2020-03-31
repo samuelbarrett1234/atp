@@ -18,11 +18,7 @@ a data structure for storing and querying many trees at once.
 
 #include <list>
 #include <memory>
-#include <vector>
-#include <functional>
-#include <boost/optional.hpp>
 #include "../../ATPLogicAPI.h"
-#include "KnowledgeKernel.h"
 #include "ParseNodes.h"
 
 
@@ -32,6 +28,9 @@ namespace logic
 {
 namespace equational
 {
+
+
+class KnowledgeKernel;  // forward definition
 
 
 // The different kinds of node we can have in our syntax tree
@@ -151,6 +150,15 @@ public:
 		// functions always need arguments
 		ATP_LOGIC_PRECOND(!m_children.empty());
 	}
+	FuncSyntaxNode(size_t symb_id,
+		std::list<SyntaxNodePtr>::iterator begin,
+		std::list<SyntaxNodePtr>::iterator end) :
+		ConstantSyntaxNode(symb_id),
+		m_children(begin, end)
+	{
+		// functions always need arguments
+		ATP_LOGIC_PRECOND(!m_children.empty());
+	}
 	inline SyntaxNodeType get_type() const override
 	{
 		return SyntaxNodeType::FUNC;
@@ -175,7 +183,7 @@ private:
 // convert a parse_statements tree to a syntax tree
 // returns nullptr iff type checking failed
 ATP_LOGIC_API SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
-	KnowledgeKernel& ker);
+	const KnowledgeKernel& ker);
 
 
 }  // namespace equational

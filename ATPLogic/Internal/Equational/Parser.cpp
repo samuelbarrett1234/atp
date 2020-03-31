@@ -18,14 +18,13 @@ boost::optional<std::list<ParseNodePtr>> parse_statements(std::istream& in)
 	boost::spirit::istream_iterator end;
 
 	std::list<ParseNodePtr> output;
-	boost::spirit::qi::phrase_parse(
+	const bool ok = boost::spirit::qi::parse(
 		begin, end, equational::StatementGrammar(),
-		equational::Skipper(),  // custom skipper for comments etc
 		output
 	);
 
 	// failed if we didn't get to the end
-	if (begin != end)
+	if (!ok || begin != end)
 	{
 		return boost::none;
 	}
@@ -43,15 +42,18 @@ boost::optional<std::list<std::pair<std::string, size_t>>>
 	boost::spirit::istream_iterator begin(in);
 	boost::spirit::istream_iterator end;
 
-	std::list<std::pair<std::string, size_t>> output;
-	boost::spirit::qi::phrase_parse(
+	std::map<std::string, size_t> _output;
+	const bool ok = boost::spirit::qi::parse(
 		begin, end, equational::DefinitionGrammar(),
-		equational::Skipper(),  // custom skipper for comments etc
-		output
+		_output
 	);
 
+	// convert output to the kind we want:
+	std::list<std::pair<std::string, size_t>> output;
+	output.insert(output.end(), _output.begin(), _output.end());
+
 	// failed if we didn't get to the end
-	if (begin != end)
+	if (!ok || begin != end)
 	{
 		return boost::none;
 	}

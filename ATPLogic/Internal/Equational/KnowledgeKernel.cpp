@@ -102,7 +102,7 @@ bool KnowledgeKernel::valid(
 
 	// call .type_check on each statement
 	return std::all_of(arr.begin(), arr.end(),
-		boost::bind(Statement::type_check, _1, boost::ref(*this)));
+		boost::bind(&Statement::type_check, _1, boost::ref(*this)));
 }
 
 
@@ -147,19 +147,20 @@ std::vector<bool> KnowledgeKernel::follows(
 	), boost::make_zip_iterator(
 		boost::make_tuple(arr_premise.end(), arr_concl.end())
 	), std::back_inserter(follows_result),
-		boost::bind(&Statement::follows_from, _2, _1));
+		[](boost::tuple<const Statement&, const Statement&> p)
+		{ return p.get<1>().follows_from(p.get<0>()); });
 
 	return follows_result;
 }
 
 
-void KnowledgeKernel::define_eq_rule(Statement rule)
+void KnowledgeKernel::define_eq_rule(Statement& rule)
 {
 	ATP_LOGIC_PRECOND(rule.check_kernel(this));
 	ATP_LOGIC_PRECOND(rule.type_check(*this));
 
 	// construct rule statement from syntax tree
-	m_rules.push_back(rule);
+	m_rules.emplace_back(std::move(rule));
 }
 
 
@@ -167,10 +168,10 @@ std::list<size_t> KnowledgeKernel::get_symbol_id_catalogue() const
 {
 	std::list<size_t> symb_ids;
 
-	std::transform(m_id_to_name.left.begin(),
-		m_id_to_name.left.end(),
+	std::transform(m_id_to_name.begin(),
+		m_id_to_name.end(),
 		std::back_inserter(symb_ids),
-		[](std::pair<size_t, std::string> a) { return a.first; });
+		[](boost::bimap<size_t, std::string>::value_type a) { return a.left; });
 
 	return symb_ids;
 }

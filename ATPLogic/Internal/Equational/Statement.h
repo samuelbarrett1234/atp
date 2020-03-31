@@ -25,8 +25,14 @@ swapped; this is obvious because f(x,y) /= f(y,x) in general.)
 */
 
 
+#include <memory>
+#include <vector>
+#include <string>
+#include <map>
+#include <boost/noncopyable.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IStatement.h"
+#include "../../Interfaces/IKnowledgeKernel.h"
 #include "SyntaxNodes.h"
 
 
@@ -38,7 +44,11 @@ namespace equational
 {
 
 
-class ATP_LOGIC_API Statement : public IStatement
+class KnowledgeKernel;  // forward definition
+
+
+class ATP_LOGIC_API Statement : public IStatement,
+	boost::noncopyable
 {
 public:
 	// precondition: !equational::needs_free_var_id_rebuild(p_root)
@@ -46,13 +56,14 @@ public:
 	// tree.
 	Statement(const KnowledgeKernel& ker,
 		SyntaxNodePtr p_root);
+	Statement(Statement&& other);
 
 	StmtForm form() const override;
 	std::string to_str() const override;
 
 	// for each input rule, try making a substitution!
-	// returns an array of at most 4 * rules.size(), because statements
-	// have two sides each, and 2*2=4!
+	// returns an array of at most 4 * rules.size(), because
+	// statements have two sides each, and 2*2=4!
 	std::shared_ptr<std::vector<Statement>> get_substitutions(
 		const std::vector<Statement>& rules
 	) const;
@@ -93,11 +104,7 @@ public:
 	// checks that the version of the kernel used by this statement
 	// agrees with the given kernel (more specifically, it checks
 	// the type and the integrity code).
-	inline bool check_kernel(const IKnowledgeKernel* p_ker) const
-	{
-		return (dynamic_cast<const KnowledgeKernel*>(p_ker) != nullptr
-			&& p_ker->get_integrity_code() == m_ker.get_integrity_code());
-	}
+	bool check_kernel(const IKnowledgeKernel* p_ker) const;
 
 private:
 	const KnowledgeKernel& m_ker;

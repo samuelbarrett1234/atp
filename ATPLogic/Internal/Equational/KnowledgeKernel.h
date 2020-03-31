@@ -32,7 +32,6 @@ user defined "h", and instead if our statement is
 #include <boost/bimap.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IKnowledgeKernel.h"
-#include "SyntaxNodes.h"
 #include "StatementArray.h"
 
 
@@ -75,8 +74,14 @@ public:
 	inline void define_symbol(std::string name, size_t arity)
 	{
 		ATP_LOGIC_PRECOND(!is_defined(name));
-		m_symb_arity[name] = arity;
+		const size_t id = symbol_id(name);
+
+		// check we have no hash collisions:
+		ATP_LOGIC_ASSERT(!id_is_defined(id));
+
+		m_name_to_arity[name] = arity;
 		m_id_to_name.left[symbol_id(name)] = name;
+		m_id_to_arity[id] = arity;
 	}
 
 	// this is for rules from the definition file, NOT for theorems
@@ -84,19 +89,32 @@ public:
 	// technically this would work as a way of inputting already-
 	// proven theorems, but it will be slow and there would be no way
 	// of unloading them.
-	void define_eq_rule(SyntaxNodePtr rule);
+	void define_eq_rule(Statement rule);
 
 	// check if a given identifier has been defined already or not
 	inline bool is_defined(std::string name) const
 	{
-		return (m_symb_arity.find(name) != m_symb_arity.end());
+		return (m_name_to_arity.find(name) != m_name_to_arity.end());
+	}
+
+	// check if a given ID has been defined already or not
+	inline bool id_is_defined(size_t id) const
+	{
+		return (m_id_to_name.left.find(id) != m_id_to_name.left.end());
 	}
 
 	// precondition: is_defined(name)
-	inline size_t symbol_arity(std::string name) const
+	inline size_t symbol_arity_from_name(std::string name) const
 	{
 		ATP_LOGIC_PRECOND(is_defined(name));
-		return m_symb_arity.at(name);
+		return m_name_to_arity.at(name);
+	}
+	
+	// precondition: id_is_defined(id)
+	inline size_t symbol_arity_from_name(size_t id) const
+	{
+		ATP_LOGIC_PRECOND(id_is_defined(id));
+		return m_id_to_arity.at(id);
 	}
 
 	// precondition: is_defined(name)
@@ -123,73 +141,23 @@ public:
 	}
 
 private:
-	// return all of the statements which are reachable from the
-	// input statements via user-defined equality rules (returns an
-	// array B s.t. B[i] are all the statements reachable from arr[i]
-	// by the equality rules.)
-	std::vector<StatementArray> adjacent(
-		StatementArray arr) const;
-
-	// for each statement in 'arr',
-	// for each free variable in the tree,
-	// for each user-defined constant or function,
-	// make the substitution (note that function arguments are always
-	// new free variables).
-	// returns an array B s.t. B[i] are all the results from arr[i]
-	// built using a fold - see the fold_* functions for more info.
-	std::vector<StatementArray> replace_free_with_def(
-		const StatementArray& arr) const;
-
-	// for each statement in 'arr',
-	// for each distinct unordered pair of free variables in the tree,
-	// replace the left element in the pair with the right element
-	// (don't need to go the other way around).
-	// returns an array B s.t. B[i] are all the results from arr[i]
-	// built using a fold - see the fold_* functions for more info.
-	std::vector<StatementArray> replace_free_with_free(
-		const StatementArray& arr) const;
-
-	// for each statement in 'arr'
-	// for each equality rule
-	// try making substitutions (for the LHS and RHS of both rules,
-	// i.e. at most four possibilities per pair)
-	std::vector<StatementArray> make_substitutions(
-		const StatementArray& arr) const;
-
-	// given two arrays of left-hand-sides and right-hand-sides,
-	// stitch them together into an array of equality statements
-	// precondition: lhss.size() == rhss.size()
-	static std::vector<SyntaxNodePtr> fold_eq_constructor(
-		const std::vector<SyntaxNodePtr>& lhss,
-		const std::vector<SyntaxNodePtr>& rhss);
-
-	// given a symbol ID of a constant, returns N different copies
-	// of a constant syntax node with that symbol ID.
-	static std::vector<SyntaxNodePtr> fold_const_constructor(
-		size_t N, size_t symb_id);
-
-	// given an array of lists of child nodes, and a function symbol
-	// ID, create (for each list of children) a function node with
-	// those children.
-	static std::vector<SyntaxNodePtr> fold_func_constructor(
-		size_t symb_id,
-		const std::list<std::vector<SyntaxNodePtr>>::iterator&
-		children_begin,
-		const std::list<std::vector<SyntaxNodePtr>>::iterator&
-		children_end);
+	// return a list of every defined symbol ID so far:
+	std::list<size_t> get_symbol_id_catalogue() const;
 
 private:
-	// all defined symbol names, and their arity
-	std::map<std::string, size_t> m_symb_arity;
+	// mapping from symbol names to arity
+	std::map<std::string, size_t> m_name_to_arity;
+
+	// mapping from symbol IDs to arity
+	std::map<size_t, size_t> m_id_to_arity;
 
 	// a mapping from symbol IDs to names
 	boost::bimap<size_t, std::string> m_id_to_name;
 
-	// this list stores pairs of expressions which appear on
-	// opposite sides of an equals sign.
-	// (this is definitely temporary, as it is really inefficient
-	// to check against)
-	std::list<std::pair<SyntaxNodePtr, SyntaxNodePtr>> m_rules;
+	// all equality rules (given as axioms)
+	// use vector not StatementArray because we need mutability
+	// (we need to .push_back as we go):
+	std::vector<Statement> m_rules;
 };
 
 

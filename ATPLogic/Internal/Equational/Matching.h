@@ -22,6 +22,8 @@ namespace logic
 {
 namespace equational
 {
+namespace syntax_matching
+{
 
 
 typedef std::map<size_t, SyntaxNodePtr> FreeVarSubstitution;
@@ -39,7 +41,7 @@ typedef std::map<size_t, SyntaxNodePtr> FreeVarSubstitution;
 // free variables (we don't care about swapping ID's of the free
 // variables.)
 ATP_LOGIC_API boost::optional<FreeVarSubstitution>
-	try_match(SyntaxNodePtr pattern, SyntaxNodePtr trial);
+try_match(SyntaxNodePtr pattern, SyntaxNodePtr trial);
 
 
 // given a mapping of free variable IDs to subtrees, return a new
@@ -89,6 +91,7 @@ ATP_LOGIC_API bool identical(const ISyntaxNode& a,
 ATP_LOGIC_API bool trivially_true(const ISyntaxNode& eq);
 
 
+}  // namespace syntax_matching
 }  // namespace equational
 }  // namespace logic
 }  // namespace atp

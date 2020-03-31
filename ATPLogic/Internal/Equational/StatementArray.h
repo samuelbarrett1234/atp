@@ -49,7 +49,8 @@ public:
 public:
 	// these functions return nullptr if the statement types given as
 	// argument are not equational (thus this class isn't responsible
-	// for handling them). Returning nullptr is NOT an error
+	// for handling them). Returning nullptr is NOT an error.
+	static StatementArrayPtr try_from_stmt(const IStatement& stmt);
 	static StatementArrayPtr try_concat(const IStatementArray& l,
 		const IStatementArray& r);
 	static StatementArrayPtr try_concat(

@@ -31,13 +31,16 @@ enum class LangType
 };
 
 
-/// <summary>
 /// Construct a language object for the given supported language
 /// type. Returns an empty object if the language type was invalid
 /// which could happen if the LangType has not yet been implemented.
 /// You will only have to create one language object for each type.
-/// </summary>
 ATP_LOGIC_API LanguagePtr create_language(LangType lt);
+
+
+// Postcondition: returns a singleton array which contains just this
+// one statement.
+ATP_LOGIC_API StatementArrayPtr from_statement(const IStatement& stmt);
 
 
 // Postcondition: returns the concatenation of the two arrays

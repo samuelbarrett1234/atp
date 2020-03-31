@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATPSearch", "ATPSearch\ATPSearch.vcxproj", "{19F1A863-CD69-4BA7-A591-1FE78C107CA6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9F91A056-31E6-4086-BB17-764EA0793ECE} = {9F91A056-31E6-4086-BB17-764EA0793ECE}
+		{F75FAA5D-B540-453B-9C2E-CD502ECFBC1C} = {F75FAA5D-B540-453B-9C2E-CD502ECFBC1C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATPLogic", "ATPLogic\ATPLogic.vcxproj", "{F75FAA5D-B540-453B-9C2E-CD502ECFBC1C}"
 EndProject

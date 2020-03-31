@@ -152,7 +152,8 @@ void IterativeDeepeningSolver::expand_next(size_t i,
 }
 
 
-void IterativeDeepeningSolver::trim_expansion(size_t i, std::list<StackFrame>& st)
+void IterativeDeepeningSolver::trim_expansion(size_t i,
+	std::list<StackFrame>& st)
 {
 	auto st_iter = st.rbegin();
 	auto st_last = st_iter;

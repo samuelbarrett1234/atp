@@ -92,7 +92,7 @@ StatementArrayPtr Language::create_stmts(std::istream& in,
 
 		// construct StatementArray objects from the syntax
 		// nodes:
-		for (auto iter = syntax_nodes.begin(); iter != syntax_nodes.end(); iter++)
+		for (auto iter = syntax_nodes.begin(); iter != syntax_nodes.end(); ++iter)
 		{
 			pStmtArr->emplace_back(*p_ker, *iter);
 		}
@@ -101,6 +101,9 @@ StatementArrayPtr Language::create_stmts(std::istream& in,
 	}
 	case StmtFormat::BINARY:
 		return StatementArrayPtr();  // not implemented yet!!
+	default:
+		ATP_LOGIC_PRECOND(false && "invalid statement type!");
+		return StatementArrayPtr();
 	}
 }
 

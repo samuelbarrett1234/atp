@@ -49,8 +49,10 @@ fold_func_constructor(size_t symb_id,
 	const std::list<std::vector<SyntaxNodePtr>>::iterator&
 	children_end);
 
-// helper function for converting fold results:
+// helper function for converting fold results;
+// precond: none of the trees need their free variable IDs rebuilding
 std::shared_ptr<std::vector<Statement>> from_trees(
+	const KnowledgeKernel& ker,
 	std::vector<SyntaxNodePtr> trees
 );
 
@@ -73,13 +75,36 @@ Statement::Statement(
 }
 
 
-Statement::Statement(Statement&& other) :
+Statement::Statement(const Statement& other) :
+	m_ker(other.m_ker),
+	m_root(other.m_root),
+	m_left(other.m_left),
+	m_right(other.m_right),
+	m_num_free_vars(other.m_num_free_vars)
+{ }
+
+
+Statement::Statement(Statement&& other) noexcept :
 	m_ker(other.m_ker),
 	m_root(std::move(other.m_root)),
 	m_left(std::move(other.m_left)),
 	m_right(std::move(other.m_right)),
 	m_num_free_vars(other.m_num_free_vars)
 { }
+
+
+Statement& Statement::operator=(const Statement& other)
+{
+	if (this != &other)
+	{
+		ATP_LOGIC_PRECOND(&m_ker == &other.m_ker);
+		m_root = other.m_root;
+		m_left = other.m_left;
+		m_right = other.m_right;
+		m_num_free_vars = other.m_num_free_vars;
+	}
+	return *this;
+}
 
 
 StmtForm Statement::form() const
@@ -379,6 +404,8 @@ std::vector<SyntaxNodePtr> free_var_free_constructor(
 			}
 		}
 	}
+
+	return result;
 }
 
 
@@ -413,8 +440,8 @@ fold_const_constructor(size_t N,
 	std::vector<SyntaxNodePtr> result;
 	result.reserve(N);
 
-	std::generate_n(result.begin(), N, boost::bind(
-		&std::make_shared<ConstantSyntaxNode, size_t>, symb_id));
+	std::generate_n(result.begin(), N,
+		[symb_id]() { return std::make_shared<ConstantSyntaxNode>(symb_id); });
 
 	return result;
 }
@@ -448,7 +475,7 @@ fold_func_constructor(size_t symb_id,
 	{
 		// the children for this possibility
 		std::list<SyntaxNodePtr> children_for_poss;
-		for (auto iter = children_begin; iter != children_end; iter++)
+		for (auto iter = children_begin; iter != children_end; ++iter)
 		{
 			children_for_poss.push_back(iter->at(i));
 		}
@@ -468,6 +495,11 @@ std::shared_ptr<std::vector<Statement>> from_trees(
 	std::vector<SyntaxNodePtr> trees
 )
 {
+#ifdef ATP_LOGIC_DEFENSIVE
+	ATP_LOGIC_PRECOND(std::none_of(trees.begin(),
+		trees.end(), &syntax_matching::needs_free_var_id_rebuild));
+#endif
+
 	std::shared_ptr<std::vector<Statement>> p_stmt_arr =
 		std::make_shared<std::vector<Statement>>();
 

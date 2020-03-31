@@ -1,7 +1,6 @@
 #include "Parser.h"
 #include "Grammar.h"
 #include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/include/qi_stream.hpp>
 
 
 namespace atp
@@ -14,12 +13,11 @@ namespace equational
 
 boost::optional<std::list<ParseNodePtr>> parse_statements(std::istream& in)
 {
-	boost::spirit::istream_iterator begin(in);
-	boost::spirit::istream_iterator end;
+	QiParseIterator begin(in), end;
 
 	std::list<ParseNodePtr> output;
-	const bool ok = boost::spirit::qi::parse(
-		begin, end, equational::StatementGrammar(),
+	const bool ok = boost::spirit::qi::phrase_parse(
+		begin, end, StatementGrammar(), Skipper(),
 		output
 	);
 
@@ -39,18 +37,13 @@ boost::optional<std::list<ParseNodePtr>> parse_statements(std::istream& in)
 boost::optional<std::list<std::pair<std::string, size_t>>>
 	parse_definitions(std::istream& in)
 {
-	boost::spirit::istream_iterator begin(in);
-	boost::spirit::istream_iterator end;
+	QiParseIterator begin(in), end;
 
-	std::map<std::string, size_t> _output;
-	const bool ok = boost::spirit::qi::parse(
-		begin, end, equational::DefinitionGrammar(),
-		_output
-	);
-
-	// convert output to the kind we want:
 	std::list<std::pair<std::string, size_t>> output;
-	output.insert(output.end(), _output.begin(), _output.end());
+	const bool ok = boost::spirit::qi::phrase_parse(
+		begin, end, DefinitionGrammar(), Skipper(),
+		output
+	);
 
 	// failed if we didn't get to the end
 	if (!ok || begin != end)

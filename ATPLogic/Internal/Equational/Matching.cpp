@@ -207,11 +207,13 @@ bool identical(const ISyntaxNode& a, const ISyntaxNode& b)
 	// else check that free_id_map is the identity:
 
 	for (auto iter = free_id_map.begin(); iter != free_id_map.end();
-		iter++)
+		++iter)
 	{
 		if (iter->get_left() != iter->get_right())
 			return false;  // doesn't map left to itself
 	}
+
+	return true;
 }
 
 
@@ -321,7 +323,7 @@ bool equivalent_from_mapping(const ISyntaxNode* p_a,
 		auto end = boost::make_zip_iterator(boost::make_tuple(
 			p_a_func->end(), p_b_func->end()));
 
-		for (auto iter = begin; iter != end; iter++)
+		for (auto iter = begin; iter != end; ++iter)
 		{
 			if (!equivalent_from_mapping(
 				iter->get<0>().get(),
@@ -438,7 +440,7 @@ bool build_mapping(SyntaxNodePtr pattern, SyntaxNodePtr trial,
 		auto end = boost::make_zip_iterator(boost::make_tuple(
 			pattern_func->end(), trial_func->end()));
 
-		for (auto iter = begin; iter != end; iter++)
+		for (auto iter = begin; iter != end; ++iter)
 		{
 			if (!build_mapping(
 				iter->get<0>(),
@@ -491,6 +493,8 @@ std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node)
 				*p_node
 				);
 	}
+
+	return var_ids;
 }
 
 

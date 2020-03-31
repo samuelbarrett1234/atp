@@ -160,7 +160,7 @@ void KnowledgeKernel::define_eq_rule(Statement& rule)
 	ATP_LOGIC_PRECOND(rule.type_check(*this));
 
 	// construct rule statement from syntax tree
-	m_rules.emplace_back(std::move(rule));
+	m_rules.push_back(rule);
 }
 
 

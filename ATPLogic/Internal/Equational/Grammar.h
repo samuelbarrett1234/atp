@@ -16,13 +16,10 @@ syntax tree.
 // #define BOOST_SPIRIT_DEBUG
 #include <string>
 #include <list>
-#include <map>
+#include <utility>  // for std::pair
 #include <boost/spirit/include/qi.hpp>
+#include <boost/fusion/include/std_pair.hpp>
 #include "ParseNodes.h"
-
-
-namespace qi = boost::spirit::qi;
-namespace phx = boost::phoenix;
 
 
 namespace atp
@@ -33,51 +30,55 @@ namespace equational
 {
 
 
-typedef boost::spirit::istream_iterator Iterator;
+typedef boost::spirit::istream_iterator QiParseIterator;
 
 
-struct ATP_LOGIC_API Skipper :
-	public qi::grammar<Iterator>
+struct Skipper :
+	public boost::spirit::qi::grammar<QiParseIterator>
 {
 	Skipper();
 
-	qi::rule<Iterator> skip;
+	boost::spirit::qi::rule<QiParseIterator> skip;
 };
 
 
 // This class represents the grammar for parsing statements into
 // a parse tree.
-struct ATP_LOGIC_API StatementGrammar :
-	public qi::grammar<Iterator, std::list<ParseNodePtr>()>
+struct StatementGrammar :
+	public boost::spirit::qi::grammar<QiParseIterator, std::list<ParseNodePtr>(),
+		Skipper>
 {
 	StatementGrammar();
 
-	qi::rule<Iterator, ParseNodePtr, Skipper> statement,
-		expression;
-	qi::rule<Iterator, std::list<ParseNodePtr>, Skipper> start,
-		expression_list;
+	boost::spirit::qi::rule<QiParseIterator, ParseNodePtr(), Skipper>
+		statement, expression;
+	boost::spirit::qi::rule<QiParseIterator, std::list<ParseNodePtr>(),
+		Skipper> start, expression_list;
 };
 
 
 // This class represents the grammar for parsing definition files,
 // which is basically just a list of (symbol name, symbol arity)
 // pairs.
-struct ATP_LOGIC_API DefinitionGrammar :
-	public qi::grammar<Iterator,
-		std::map<std::string, size_t>()>
+struct DefinitionGrammar :
+	public boost::spirit::qi::grammar<QiParseIterator,
+		std::list<std::pair<std::string, size_t>>(),
+		Skipper>
 {
 	DefinitionGrammar();
 
-	qi::rule<Iterator, std::pair<std::string, size_t>, Skipper>
-		symbol_def;
-
-	qi::rule<Iterator, std::map<std::string, size_t>,
+	boost::spirit::qi::rule<QiParseIterator,
+		std::list<std::pair<std::string, size_t>>(),
 		Skipper> symbol_def_list;
+
+	boost::spirit::qi::rule<QiParseIterator,
+		std::pair<std::string, size_t>(), Skipper> symbol_def;
 };
 
 
 // This is the rule for parsing an "identifier"
-ATP_LOGIC_API qi::rule<Iterator, std::string, Skipper> Identifier();
+boost::spirit::qi::rule<QiParseIterator, std::string(),
+	Skipper> Identifier();
 
 
 }  // namespace equational

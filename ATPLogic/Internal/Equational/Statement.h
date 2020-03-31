@@ -29,7 +29,6 @@ swapped; this is obvious because f(x,y) /= f(y,x) in general.)
 #include <vector>
 #include <string>
 #include <map>
-#include <boost/noncopyable.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IStatement.h"
 #include "../../Interfaces/IKnowledgeKernel.h"
@@ -47,8 +46,7 @@ namespace equational
 class KnowledgeKernel;  // forward definition
 
 
-class ATP_LOGIC_API Statement : public IStatement,
-	boost::noncopyable
+class ATP_LOGIC_API Statement : public IStatement
 {
 public:
 	// precondition: !equational::needs_free_var_id_rebuild(p_root)
@@ -56,7 +54,15 @@ public:
 	// tree.
 	Statement(const KnowledgeKernel& ker,
 		SyntaxNodePtr p_root);
-	Statement(Statement&& other);
+	Statement(const Statement& other);
+
+	// the only reason this is here is so that we can put Statement
+	// objects into a vector... try to avoid using this otherwise!
+	Statement(Statement&& other) noexcept;
+
+	// the only reason this is here is so that we can put Statement
+	// objects into a vector... try to avoid using this otherwise!
+	Statement& operator= (const Statement& other);
 
 	StmtForm form() const override;
 	std::string to_str() const override;
@@ -110,7 +116,7 @@ private:
 	const KnowledgeKernel& m_ker;
 	SyntaxNodePtr m_root;
 	SyntaxNodePtr m_left, m_right;  // LHS and RHS of equation
-	const size_t m_num_free_vars;
+	size_t m_num_free_vars;
 };
 
 

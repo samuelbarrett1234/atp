@@ -3,6 +3,10 @@
 #include <boost/bind.hpp>
 
 
+namespace qi = boost::spirit::qi;
+namespace phx = boost::phoenix;
+
+
 namespace atp
 {
 namespace logic
@@ -14,7 +18,7 @@ namespace equational
 Skipper::Skipper() :
 	Skipper::base_type(skip)
 {
-	qi::rule<Iterator> comments = 
+	qi::rule<QiParseIterator> comments = 
 		'#' >> *(qi::char_ - qi::eol) >> (qi::eol | qi::eoi);
 
 	skip = qi::space | comments;
@@ -25,7 +29,7 @@ StatementGrammar::StatementGrammar() :
 	StatementGrammar::base_type(start)
 {
 	// statements are line-separated
-	start = qi::skip(Skipper())[statement % qi::eol];
+	start = statement % qi::eol;
 
 	// a statement is an equality of two expressions
 	statement = (expression >> '=' >> expression)
@@ -63,13 +67,13 @@ StatementGrammar::StatementGrammar() :
 DefinitionGrammar::DefinitionGrammar() :
 	DefinitionGrammar::base_type(symbol_def_list)
 {
-	symbol_def_list = qi::skip(Skipper())[symbol_def % qi::eol];
+	symbol_def_list = symbol_def % qi::eol;
 
 	symbol_def = Identifier() >> qi::uint_;
 }
 
 
-qi::rule<Iterator, std::string, Skipper> Identifier()
+qi::rule<QiParseIterator, std::string(), Skipper> Identifier()
 {
 	return +(qi::alnum | '+' | '-' | '*' | '/' | '.' | '_' |
 		'?' | '^' | '%' | qi::lit('&'));

@@ -28,7 +28,6 @@ of seen nodes too.
 
 #include <set>
 #include <list>
-#include <functional>
 #include "EquationalSyntaxNodes.h"
 
 
@@ -54,7 +53,7 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 	ConstFuncT const_func, FFuncT f_func, SyntaxNodePtr p_root
 )
 {
-	std::list<ResultT> result_stack;
+	std::list<typename ResultT> result_stack;
 	std::list<ISyntaxNode*> todo_stack;
 	std::set<ISyntaxNode*> seen;
 
@@ -68,131 +67,88 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 		// first occurrence
 		if (seen.find(p_node) == seen.end())
 		{
-			switch (p_node->get_type())
-			{
-			case SyntaxNodeType::EQ:
-			{
-				// first occurrence of an equality node
+			apply_to_syntax_node(
+				// if EQ...
+				[&todo_stack, &seen](EqSyntaxNode& eq)
+				{
+					// revisit it later
+					todo_stack.push_back(&eq);
+					seen.insert(&eq);
 
-				EqSyntaxNode* p_eq = dynamic_cast<EqSyntaxNode*>(
-					p_node);
-				ATP_LOGIC_ASSERT(p_eq != nullptr);
+					// add children
+					todo_stack.push_back(eq.left());
+					todo_stack.push_back(eq.right());
+				},
+				// if FREE...
+				[&result_stack, &free_func](FreeSyntaxNode& free)
+				{
+					// compute result and add it to result stack:
+					result_stack.push_back(free_func(
+						free.get_free_id()));
+				},
+				// if CONST...
+				[&result_stack, &const_func](ConstantSyntaxNode& c)
+				{
+					// compute result and add it to result stack:
+					result_stack.push_back(const_func(
+						c.get_symbol_id()));
+				},
+				// if FUNC...
+				[&todo_stack, &seen](FuncSyntaxNode& f)
+				{
+					// revisit it later
+					todo_stack.push_back(p_node);
+					seen.insert(p_node);
 
-				// revisit it later
-				todo_stack.push_back(p_node);
-				seen.insert(p_node);
-
-				// add children
-				todo_stack.push_back(p_eq->left());
-				todo_stack.push_back(p_eq->right());
-			}
-			break;
-			case SyntaxNodeType::FREE:
-			{
-				// free variable node
-
-				FreeSyntaxNode* p_free =
-					dynamic_cast<FreeSyntaxNode*>(p_node);
-				ATP_LOGIC_ASSERT(p_free != nullptr);
-
-				// compute result and add it to result stack:
-				result_stack.push_back(free_func(
-					p_free->get_free_id()));
-			}
-			break;
-			case SyntaxNodeType::CONSTANT:
-			{
-				// first occurrence of an equality node
-
-				ConstantSyntaxNode* p_const =
-					dynamic_cast<ConstantSyntaxNode*>(p_node);
-				ATP_LOGIC_ASSERT(p_const != nullptr);
-
-				// compute result and add it to result stack:
-				result_stack.push_back(const_func(
-					p_const->get_symbol_id()));
-			}
-			break;
-			case SyntaxNodeType::FUNC:
-			{
-				// first occurrence of an equality node
-
-				FuncSyntaxNode* p_func =
-					dynamic_cast<FuncSyntaxNode*>(p_node);
-				ATP_LOGIC_ASSERT(p_func != nullptr);
-
-				// revisit it later
-				todo_stack.push_back(p_node);
-				seen.insert(p_node);
-
-				// add children
-				todo_stack.insert(todo_stack.end(),
-					p_func->begin(), p_func->end());
-			}
-			break;
-#ifdef ATP_LOGIC_DEFENSIVE
-			default:
-				ATP_LOGIC_ASSERT(false &&
-					"invalid syntax node type - corrupt memory?");
-				break;
-#endif
-			}
+					// add children
+					todo_stack.insert(todo_stack.end(),
+						f.begin(), f.end());
+				},
+				*p_node
+			);
 		}
 		else  // else revisiting
 		{
-			switch (p_node->get_type())
-			{
-			case SyntaxNodeType::EQ:
-			{
-				// first occurrence of an equality node
+			apply_to_syntax_node(
+				// if EQ...
+				[&result_stack, &eq_func](EqSyntaxNode& eq)
+				{
+					ATP_LOGIC_ASSERT(result_stack.size() >= 2);
 
-				EqSyntaxNode* p_eq = dynamic_cast<EqSyntaxNode*>(
-					p_node);
-				ATP_LOGIC_ASSERT(p_eq != nullptr);
-				ATP_LOGIC_ASSERT(result_stack.size() >= 2);
+					auto right_result = result_stack.back();
+					result_stack.pop_back();
+					auto left_result = result_stack.back();
+					result_stack.pop_back();
 
-				auto right_result = result_stack.back();
-				result_stack.pop_back();
-				auto left_result = result_stack.back();
-				result_stack.pop_back();
+					// compute function of eq for its children:
+					result_stack.push_back(eq_func(left_result,
+						right_result));
+				},
+				// if FREE...
+				[](FreeSyntaxNode&) { },
+				// if CONST...
+				[](ConstantSyntaxNode&) { },
+				// if FUNC...
+				[&result_stack, &f_func](FuncSyntaxNode& f)
+				{
+					ATP_LOGIC_ASSERT(result_stack.size() >=
+						f.get_arity());
 
-				// compute function of eq for its children:
-				result_stack.push_back(eq_func(left_result,
-					right_result));
-			}
-			break;
-			case SyntaxNodeType::FUNC:
-			{
-				// first occurrence of an equality node
+					// find list of child results:
+					auto result_iter = result_stack.rbegin();
+					std::advance(result_iter, f.get_arity());
 
-				FuncSyntaxNode* p_func =
-					dynamic_cast<FuncSyntaxNode*>(p_node);
-				ATP_LOGIC_ASSERT(p_func != nullptr);
-				ATP_LOGIC_ASSERT(result_stack.size() >=
-					p_func->get_arity());
+					// now compute result for p_func:
+					auto result = f_func(f.get_symbol_id(),
+						result_iter.base(), result_stack.end());
 
-				// find list of child results:
-				auto result_iter = result_stack.rbegin();
-				std::advance(result_iter, p_func->get_arity());
-
-				// now compute result for p_func:
-				auto result = f_func(p_func->get_symbol_id(),
-					result_iter.base(), result_stack.end());
-
-				// now remove the child results and add ours:
-				result_stack.erase(result_iter.base(),
-					result_stack.end());
-				result_stack.push_back(result);
-			}
-			break;
-#ifdef ATP_LOGIC_DEFENSIVE
-			default:
-				ATP_LOGIC_ASSERT(false &&
-					"invalid syntax node type for appearance in the"
-					" 'seen' set");
-				break;
-#endif
-			}
+					// now remove the child results and add ours:
+					result_stack.erase(result_iter.base(),
+						result_stack.end());
+					result_stack.push_back(result);
+				},
+				*p_node
+			);
 		}
 	}
 

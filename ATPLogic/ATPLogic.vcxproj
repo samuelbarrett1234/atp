@@ -178,6 +178,7 @@
     <ClInclude Include="Internal\Equational\EquationalMatching.h" />
     <ClInclude Include="Internal\Equational\EquationalParseNodes.h" />
     <ClInclude Include="Internal\Equational\EquationalParser.h" />
+    <ClInclude Include="Internal\Equational\EquationalParseTreeFold.h" />
     <ClInclude Include="Internal\Equational\EquationalStatement.h" />
     <ClInclude Include="Internal\Equational\EquationalStatementArray.h" />
     <ClInclude Include="Internal\Equational\EquationalSyntaxTreeFold.h" />
@@ -193,7 +194,7 @@
     <ClCompile Include="Internal\Equational\EquationalParser.cpp" />
     <ClCompile Include="Internal\Equational\EquationalStatement.cpp" />
     <ClCompile Include="Internal\Equational\EquationalStatementArray.cpp" />
-    <ClCompile Include="Internal\Equational\EquationalSyntaxTrees.cpp" />
+    <ClCompile Include="Internal\Equational\EquationalSyntaxNodes.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

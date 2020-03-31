@@ -174,7 +174,8 @@ private:
 
 // convert a parse_statements tree to a syntax tree
 // returns nullptr iff type checking failed
-ATP_LOGIC_API SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree);
+ATP_LOGIC_API SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
+	EquationalKnowledgeKernel& ker);
 
 
 }  // namespace equational

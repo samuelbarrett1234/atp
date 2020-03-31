@@ -3,6 +3,7 @@
 #include "EquationalSyntaxNodes.h"
 #include <type_traits>
 #include <boost/phoenix.hpp>
+#include <boost/bind.hpp>
 
 
 namespace atp
@@ -74,7 +75,8 @@ StatementArrayPtr EquationalLanguage::create_stmts(std::istream& in,
 		std::transform(parse_nodes.get().begin(),
 			parse_nodes.get().end(), std::back_inserter(
 				syntax_nodes
-			), &ptree_to_stree);
+			), boost::bind(&ptree_to_stree, _1,
+				boost::ref(*p_ker)));
 
 		if (std::any_of(syntax_nodes.begin(),
 			syntax_nodes.end(),

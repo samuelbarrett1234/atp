@@ -60,11 +60,11 @@ public:
 	{
 		return ParseNodeType::EQ;
 	}
-	inline ParseNodePtr get_left() const
+	inline ParseNodePtr left() const
 	{
 		return m_left;
 	}
-	inline ParseNodePtr get_right() const
+	inline ParseNodePtr right() const
 	{
 		return m_right;
 	}

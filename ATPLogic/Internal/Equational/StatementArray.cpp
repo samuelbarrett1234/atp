@@ -11,18 +11,18 @@ namespace equational
 {
 
 
-StatementArrayPtr EquationalStatementArray::try_from_stmt(
+StatementArrayPtr StatementArray::try_from_stmt(
 	const IStatement& _stmt)
 {
 	if (auto p_stmt =
-		dynamic_cast<const EquationalStatement*>(&_stmt))
+		dynamic_cast<const Statement*>(&_stmt))
 	{
 		// create an array and then add the statement
 		ArrPtr p_arr = std::make_shared<ArrType>();
 		p_arr->push_back(*p_stmt);
 
 		// now embed into one of our array objects
-		auto p_result = std::make_shared<EquationalStatementArray>(
+		auto p_result = std::make_shared<StatementArray>(
 			p_arr, 0, 1, 1
 			);
 
@@ -35,12 +35,12 @@ StatementArrayPtr EquationalStatementArray::try_from_stmt(
 }
 
 
-StatementArrayPtr EquationalStatementArray::try_concat(
+StatementArrayPtr StatementArray::try_concat(
 	const IStatementArray& _l, const IStatementArray& _r)
 {
-	if (auto p_l = dynamic_cast<const EquationalStatementArray*>(&_l))
+	if (auto p_l = dynamic_cast<const StatementArray*>(&_l))
 	{
-		if (auto p_r = dynamic_cast<const EquationalStatementArray*>(&_r))
+		if (auto p_r = dynamic_cast<const StatementArray*>(&_r))
 		{
 			// Don't do a lazy operation; explicitly construct the
 			// array. Also, another warning: both l and r might be
@@ -54,23 +54,23 @@ StatementArrayPtr EquationalStatementArray::try_concat(
 			for (size_t i = 0; i < p_l->size(); i++)
 			{
 				// the reinterpret_cast is safe because we already
-				// know that p_l is of the EquationalStatementArray
+				// know that p_l is of the StatementArray
 				// type!
 				result.push_back(
-					reinterpret_cast<const EquationalStatement&>(
+					reinterpret_cast<const Statement&>(
 						p_l->at(i)));
 			}
 			for (size_t i = 0; i < p_r->size(); i++)
 			{
 				// the reinterpret_cast is safe because we already
-				// know that p_l is of the EquationalStatementArray
+				// know that p_l is of the StatementArray
 				// type!
 				result.push_back(
-					reinterpret_cast<const EquationalStatement&>(
+					reinterpret_cast<const Statement&>(
 						p_l->at(i)));
 			}
 
-			return std::make_shared<EquationalStatementArray>(
+			return std::make_shared<StatementArray>(
 				std::make_shared<ArrPtr>(std::move(result)),
 				0, result.size(), 1
 				);
@@ -82,14 +82,14 @@ StatementArrayPtr EquationalStatementArray::try_concat(
 }
 
 
-StatementArrayPtr EquationalStatementArray::try_concat(
+StatementArrayPtr StatementArray::try_concat(
 	const std::vector<StatementArrayPtr>& stmts)
 {
 	size_t total_size = 0;
 
 	for (const auto& stmt_arr : stmts)
 	{
-		if (!dynamic_cast<const EquationalStatementArray*>(
+		if (!dynamic_cast<const StatementArray*>(
 			stmt_arr.get()))
 			return StatementArrayPtr();  // can't handle the type!
 		
@@ -109,30 +109,30 @@ StatementArrayPtr EquationalStatementArray::try_concat(
 	for (const auto& _stmt_arr : stmts)
 	{
 		// the reinterpret_cast is safe because we already
-		// know that stmt_arr is of the EquationalStatementArray
+		// know that stmt_arr is of the StatementArray
 		// type!
 		const auto& stmt_arr = reinterpret_cast<
-			const EquationalStatementArray&>(_stmt_arr);
+			const StatementArray&>(_stmt_arr);
 
 		for (size_t i = 0; i < stmt_arr.size(); i++)
 		{
 			// the reinterpret_cast is safe because we already
-			// know that stmt_arr is of the EquationalStatementArray
+			// know that stmt_arr is of the StatementArray
 			// type!
 			result.push_back(
-				reinterpret_cast<const EquationalStatement&>(
+				reinterpret_cast<const Statement&>(
 					stmt_arr.at(i)));
 		}
 	}
 
-	return std::make_shared<EquationalStatementArray>(
+	return std::make_shared<StatementArray>(
 		std::make_shared<ArrPtr>(std::move(result)),
 		0, result.size(), 1
 		);
 }
 
 
-EquationalStatementArray::EquationalStatementArray(ArrPtr p_array,
+StatementArray::StatementArray(ArrPtr p_array,
 	size_t start, size_t end, size_t step) :
 	m_array(p_array), m_start(start),
 	m_stop(std::min(end,
@@ -155,7 +155,7 @@ EquationalStatementArray::EquationalStatementArray(ArrPtr p_array,
 }
 
 
-StatementArrayPtr EquationalStatementArray::slice(size_t start,
+StatementArrayPtr StatementArray::slice(size_t start,
 	size_t end, size_t step) const
 {
 	// WARNING: don't forget that the arguments given are indices
@@ -181,7 +181,7 @@ StatementArrayPtr EquationalStatementArray::slice(size_t start,
 	step *= m_step;
 
 	// compute result:
-	auto p_result = std::make_shared<EquationalStatementArray>(
+	auto p_result = std::make_shared<StatementArray>(
 			m_array, start, end, step
 		);
 

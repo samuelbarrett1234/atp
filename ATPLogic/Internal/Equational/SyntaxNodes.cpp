@@ -13,7 +13,7 @@ namespace equational
 
 
 SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
-	const EquationalKnowledgeKernel& ker)
+	const KnowledgeKernel& ker)
 {
 	std::map<std::string, size_t> free_var_ids;
 	size_t next_free_id = 0;

@@ -3,7 +3,7 @@
 
 /*
 
-EquationalStatement.h
+Statement.h
 
 Implementation of the IStatement interface for equational logic. In
 equational logic, the main idea is to try to deduce if two things are
@@ -31,11 +31,13 @@ namespace equational
 {
 
 
-class ATP_LOGIC_API EquationalStatement : public IStatement
+class ATP_LOGIC_API Statement : public IStatement
 {
 public:
-	// precondition: !equational::needs_free_var_id_rebuild(p_root).
-	EquationalStatement(EquationalKnowledgeKernel& ker,
+	// precondition: !equational::needs_free_var_id_rebuild(p_root)
+	// and p_root must be an eq node, with no other eq nodes in the
+	// tree.
+	Statement(KnowledgeKernel& ker,
 		SyntaxNodePtr p_root);
 
 	StmtForm form() const override;
@@ -47,7 +49,7 @@ public:
 	}
 
 private:
-	EquationalKnowledgeKernel& m_ker;
+	KnowledgeKernel& m_ker;
 	SyntaxNodePtr m_root;
 };
 

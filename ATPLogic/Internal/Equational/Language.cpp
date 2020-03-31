@@ -14,12 +14,12 @@ namespace equational
 {
 
 
-bool EquationalLanguage::load_kernel(IKnowledgeKernel& _ker,
+bool Language::load_kernel(IKnowledgeKernel& _ker,
 	std::istream& in) const
 {
 	// check they've given us a valid kernel:
 
-	auto p_ker = dynamic_cast<EquationalKnowledgeKernel*>(
+	auto p_ker = dynamic_cast<KnowledgeKernel*>(
 		&_ker
 		);
 
@@ -44,17 +44,17 @@ bool EquationalLanguage::load_kernel(IKnowledgeKernel& _ker,
 }
 
 
-KnowledgeKernelPtr EquationalLanguage::create_empty_kernel() const
+KnowledgeKernelPtr Language::create_empty_kernel() const
 {
-	return std::make_shared<EquationalKnowledgeKernel>();
+	return std::make_shared<KnowledgeKernel>();
 }
 
 
-StatementArrayPtr EquationalLanguage::create_stmts(std::istream& in,
+StatementArrayPtr Language::create_stmts(std::istream& in,
 	StmtFormat input_format, const IKnowledgeKernel& _ker) const
 {
-	const EquationalKnowledgeKernel* p_ker =
-		dynamic_cast<const EquationalKnowledgeKernel*>(&_ker);
+	const KnowledgeKernel* p_ker =
+		dynamic_cast<const KnowledgeKernel*>(&_ker);
 	ATP_LOGIC_PRECOND(p_ker != nullptr);
 
 	switch (input_format)
@@ -85,19 +85,19 @@ StatementArrayPtr EquationalLanguage::create_stmts(std::istream& in,
 
 		// now convert these into the final type
 
-		EquationalStatementArray::ArrPtr pStmtArr =
-			std::make_shared<EquationalStatementArray::ArrType>();
+		StatementArray::ArrPtr pStmtArr =
+			std::make_shared<StatementArray::ArrType>();
 		pStmtArr->reserve(syntax_nodes.size());
 
-		// construct EquationalStatementArray objects from the syntax
+		// construct StatementArray objects from the syntax
 		// nodes:
 		std::transform(syntax_nodes.begin(), syntax_nodes.end(),
 			std::back_inserter(*pStmtArr),
-			boost::phoenix::construct<EquationalStatementArray>(
+			boost::phoenix::construct<StatementArray>(
 				*p_ker, boost::phoenix::arg_names::arg1
 				));
 
-		return std::make_shared<EquationalStatementArray>(pStmtArr);
+		return std::make_shared<StatementArray>(pStmtArr);
 	}
 	case StmtFormat::BINARY:
 		return StatementArrayPtr();  // not implemented yet!!

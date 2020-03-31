@@ -17,7 +17,7 @@ namespace equational
 {
 
 
-size_t EquationalKnowledgeKernel::get_integrity_code() const
+size_t KnowledgeKernel::get_integrity_code() const
 {
 	// this is a temporary and a little bit hacky:
 	// we compute the hash of the defined symbols (this is okay) but
@@ -33,7 +33,7 @@ size_t EquationalKnowledgeKernel::get_integrity_code() const
 }
 
 
-std::vector<StatementArrayPtr> EquationalKnowledgeKernel::succs(
+std::vector<StatementArrayPtr> KnowledgeKernel::succs(
 	StatementArrayPtr _p_stmts) const
 {
 	ATP_LOGIC_PRECOND(valid(_p_stmts));  // expensive :(
@@ -53,7 +53,7 @@ std::vector<StatementArrayPtr> EquationalKnowledgeKernel::succs(
 	// user defined "h", and instead if our statement is
 	// "f(x, y)=g(h(x), y)" then "f(x, x)=g(h(x), x)".
 
-	auto p_stmts = dynamic_cast<EquationalStatementArray*>(
+	auto p_stmts = dynamic_cast<StatementArray*>(
 		_p_stmts.get());
 
 	auto results1 = replace_free_with_def(*p_stmts);
@@ -82,7 +82,7 @@ std::vector<StatementArrayPtr> EquationalKnowledgeKernel::succs(
 		[](auto iter_pair)
 		{
 			// concatenate!
-			auto result = EquationalStatementArray::try_concat(
+			auto result = StatementArray::try_concat(
 				iter_pair->get<0>(), iter_pair->get<1>()
 			);
 
@@ -90,16 +90,16 @@ std::vector<StatementArrayPtr> EquationalKnowledgeKernel::succs(
 			ATP_LOGIC_ASSERT(result != nullptr);
 
 			// concatenate again!
-			result = EquationalStatementArray::try_concat(
+			result = StatementArray::try_concat(
 				*result, iter_pair->get<2>()
 			);
 
 			// this should work as no typing issues
 			ATP_LOGIC_ASSERT(result != nullptr);
 
-			// now create a pointer to an EquationalStatementArray
+			// now create a pointer to an StatementArray
 			// object
-			return std::make_shared<EquationalStatementArray>(
+			return std::make_shared<StatementArray>(
 				result);
 		});
 
@@ -107,7 +107,7 @@ std::vector<StatementArrayPtr> EquationalKnowledgeKernel::succs(
 }
 
 
-bool EquationalKnowledgeKernel::valid(
+bool KnowledgeKernel::valid(
 	StatementArrayPtr _p_stmts) const
 {
 	// we will use a fold to check validity!
@@ -173,7 +173,7 @@ bool EquationalKnowledgeKernel::valid(
 			boost::mpl::identity<bool>());
 	};
 	auto check_stmt = [&eq_valid, &free_valid, &const_valid,
-		&func_valid](const EquationalStatement& stmt) -> bool
+		&func_valid](const Statement& stmt) -> bool
 	{
 		return fold_syntax_tree<bool>(
 			eq_valid,
@@ -182,7 +182,7 @@ bool EquationalKnowledgeKernel::valid(
 			func_valid, stmt.root());
 	};
 
-	auto p_stmts = dynamic_cast<EquationalStatementArray*>(
+	auto p_stmts = dynamic_cast<StatementArray*>(
 		_p_stmts.get());
 
 	if (p_stmts == nullptr)
@@ -195,7 +195,7 @@ bool EquationalKnowledgeKernel::valid(
 }
 
 
-std::vector<bool> EquationalKnowledgeKernel::follows(
+std::vector<bool> KnowledgeKernel::follows(
 	StatementArrayPtr _p_premise, StatementArrayPtr _p_concl) const
 {
 	ATP_LOGIC_PRECOND(_p_premise->size() == _p_concl->size());
@@ -212,9 +212,9 @@ std::vector<bool> EquationalKnowledgeKernel::follows(
 	// trial). I.e. there will be four checks per element per
 	// equality rule.
 
-	auto p_premise = dynamic_cast<EquationalStatementArray*>(
+	auto p_premise = dynamic_cast<StatementArray*>(
 		_p_premise.get());
-	auto p_concl = dynamic_cast<EquationalStatementArray*>(
+	auto p_concl = dynamic_cast<StatementArray*>(
 		_p_concl.get());
 
 	ATP_LOGIC_ASSERT(p_premise != nullptr);
@@ -274,7 +274,7 @@ std::vector<bool> EquationalKnowledgeKernel::follows(
 }
 
 
-void EquationalKnowledgeKernel::define_eq_rule(SyntaxNodePtr rule)
+void KnowledgeKernel::define_eq_rule(SyntaxNodePtr rule)
 {
 	// rules are all of equation form!
 	ATP_LOGIC_PRECOND(rule->get_type() == SyntaxNodeType::EQ);
@@ -290,9 +290,9 @@ void EquationalKnowledgeKernel::define_eq_rule(SyntaxNodePtr rule)
 }
 
 
-std::vector<EquationalStatementArray>
-EquationalKnowledgeKernel::replace_free_with_def(
-	const EquationalStatementArray& arr) const
+std::vector<StatementArray>
+KnowledgeKernel::replace_free_with_def(
+	const StatementArray& arr) const
 {
 	// get the symbol ID of every user-defined constant or function
 	std::list<size_t> symb_ids;
@@ -366,7 +366,7 @@ EquationalKnowledgeKernel::replace_free_with_def(
 		}
 	};
 
-	std::vector<EquationalStatementArray> results;
+	std::vector<StatementArray> results;
 	results.reserve(arr.size());
 
 	for (size_t i = 0; i < arr.size(); i++)
@@ -395,10 +395,10 @@ EquationalKnowledgeKernel::replace_free_with_def(
 
 		// now we want to turn this array of trees into an array of
 		// EquationalStatements, which then needs to be turned into
-		// an EquationalStatementArray:
+		// an StatementArray:
 
-		EquationalStatementArray::ArrPtr p_stmt_arr =
-			std::make_shared<EquationalStatementArray::ArrType>();
+		StatementArray::ArrPtr p_stmt_arr =
+			std::make_shared<StatementArray::ArrType>();
 		p_stmt_arr->reserve(trees.size());
 
 		for (size_t j = 0; j < trees.size(); j++)
@@ -413,9 +413,9 @@ EquationalKnowledgeKernel::replace_free_with_def(
 }
 
 
-std::vector<EquationalStatementArray>
-EquationalKnowledgeKernel::replace_free_with_free(
-	const EquationalStatementArray& arr) const
+std::vector<StatementArray>
+KnowledgeKernel::replace_free_with_free(
+	const StatementArray& arr) const
 {
 	// this is the constructor for the FreeSyntaxNodes which we will
 	// pass to the fold function
@@ -454,7 +454,7 @@ EquationalKnowledgeKernel::replace_free_with_free(
 		}
 	};
 
-	std::vector<EquationalStatementArray> results;
+	std::vector<StatementArray> results;
 	results.reserve(arr.size());
 
 	for (size_t i = 0; i < arr.size(); i++)
@@ -483,10 +483,10 @@ EquationalKnowledgeKernel::replace_free_with_free(
 
 		// now we want to turn this array of trees into an array of
 		// EquationalStatements, which then needs to be turned into
-		// an EquationalStatementArray:
+		// an StatementArray:
 
-		EquationalStatementArray::ArrPtr p_stmt_arr =
-			std::make_shared<EquationalStatementArray::ArrType>();
+		StatementArray::ArrPtr p_stmt_arr =
+			std::make_shared<StatementArray::ArrType>();
 		p_stmt_arr->reserve(trees.size());
 
 		for (size_t j = 0; j < trees.size(); j++)
@@ -501,11 +501,11 @@ EquationalKnowledgeKernel::replace_free_with_free(
 }
 
 
-std::vector<EquationalStatementArray>
-EquationalKnowledgeKernel::make_substitutions(
-	const EquationalStatementArray& arr) const
+std::vector<StatementArray>
+KnowledgeKernel::make_substitutions(
+	const StatementArray& arr) const
 {
-	std::vector<EquationalStatementArray> results;
+	std::vector<StatementArray> results;
 	results.reserve(arr.size());
 
 	for (size_t i = 0; i < arr.size(); i++)
@@ -550,10 +550,10 @@ EquationalKnowledgeKernel::make_substitutions(
 
 		// now we want to turn this array of trees into an array of
 		// EquationalStatements, which then needs to be turned into
-		// an EquationalStatementArray:
+		// an StatementArray:
 
-		EquationalStatementArray::ArrPtr p_stmt_arr =
-			std::make_shared<EquationalStatementArray::ArrType>();
+		StatementArray::ArrPtr p_stmt_arr =
+			std::make_shared<StatementArray::ArrType>();
 		p_stmt_arr->reserve(trees.size());
 
 		for (size_t j = 0; j < trees.size(); j++)
@@ -569,7 +569,7 @@ EquationalKnowledgeKernel::make_substitutions(
 
 
 std::vector<SyntaxNodePtr>
-EquationalKnowledgeKernel::fold_eq_constructor(
+KnowledgeKernel::fold_eq_constructor(
 	const std::vector<SyntaxNodePtr>& lhss,
 	const std::vector<SyntaxNodePtr>& rhss)
 {
@@ -594,7 +594,7 @@ EquationalKnowledgeKernel::fold_eq_constructor(
 
 
 std::vector<SyntaxNodePtr>
-EquationalKnowledgeKernel::fold_const_constructor(size_t N,
+KnowledgeKernel::fold_const_constructor(size_t N,
 	size_t symb_id)
 {
 	std::vector<SyntaxNodePtr> result;
@@ -607,7 +607,7 @@ EquationalKnowledgeKernel::fold_const_constructor(size_t N,
 
 
 std::vector<SyntaxNodePtr>
-EquationalKnowledgeKernel::fold_func_constructor(size_t symb_id,
+KnowledgeKernel::fold_func_constructor(size_t symb_id,
 	const std::list<std::vector<SyntaxNodePtr>>::iterator&
 	children_begin,
 	const std::list<std::vector<SyntaxNodePtr>>::iterator&

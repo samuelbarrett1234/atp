@@ -14,7 +14,7 @@ StatementArrayPtr from_statement(const IStatement& stmt)
 
 	// for each statement type, try converting it here:
 
-	p_result = EquationalStatementArray::try_from_stmt(stmt);
+	p_result = StatementArray::try_from_stmt(stmt);
 	if (p_result != nullptr) return p_result;
 
 	// if we get to here we have failed
@@ -33,7 +33,7 @@ StatementArrayPtr concat(const IStatementArray& l,
 
 	// for each statement type, try converting it here:
 
-	p_result = EquationalStatementArray::try_concat(l, r);
+	p_result = StatementArray::try_concat(l, r);
 	if (p_result != nullptr) return p_result;
 
 	// if we get to here we have failed
@@ -51,7 +51,7 @@ StatementArrayPtr concat(const std::vector<StatementArrayPtr>& stmts)
 
 	// for each statement type, try converting it here:
 
-	p_result = EquationalStatementArray::try_concat(stmts);
+	p_result = StatementArray::try_concat(stmts);
 	if (p_result != nullptr) return p_result;
 
 	// if we get to here we have failed

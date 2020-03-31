@@ -3,7 +3,7 @@
 
 /*
 
-EquationalStatement.h
+Statement.h
 
 Implementation of the IStatementArray interface for equational logic.
 This class tries to be as lazy as possible, for example by sharing a
@@ -37,13 +37,13 @@ ATP_LOGIC_API size_t compute_slice_size(size_t start, size_t end,
 	size_t step);
 
 
-class ATP_LOGIC_API EquationalStatementArray : public IStatementArray
+class ATP_LOGIC_API StatementArray : public IStatementArray
 {
 public:
 	// We DEFINITELY want to be using a vector of the derived type
-	// EquationalStatement here, not a pointer to the base type
+	// Statement here, not a pointer to the base type
 	// IStatement.
-	typedef std::vector<EquationalStatement> ArrType;
+	typedef std::vector<Statement> ArrType;
 	typedef std::shared_ptr<ArrType> ArrPtr;
 
 public:
@@ -59,7 +59,7 @@ public:
 public:
 	// start/end/step are like the parameters given to slice() and
 	// they follow the same preconditions.
-	EquationalStatementArray(ArrPtr p_array = ArrPtr(),
+	StatementArray(ArrPtr p_array = ArrPtr(),
 		size_t start = 0, size_t end = static_cast<size_t>(-1),
 		size_t step = 1);
 

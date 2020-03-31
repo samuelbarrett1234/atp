@@ -3,7 +3,7 @@
 
 /*
 
-EquationalKnowledgeKernel.h
+KnowledgeKernel.h
 
 Implementation of the IKnowledgeKernel for equational logic. This
 object contains the functions which tell you what is/isn't allowed
@@ -49,7 +49,7 @@ namespace equational
 // probably be in a more efficient format (i.e. not a
 // SyntaxNodePtr) and we will need to be able to identify
 // them so we can get rid of them later.
-class ATP_LOGIC_API EquationalKnowledgeKernel :
+class ATP_LOGIC_API KnowledgeKernel :
 	public IKnowledgeKernel
 {
 public:
@@ -76,7 +76,7 @@ public:
 	{
 		ATP_LOGIC_PRECOND(!is_defined(name));
 		m_symb_arity[name] = arity;
-		m_id_to_name[symbol_id(name)] = name;
+		m_id_to_name.left[symbol_id(name)] = name;
 	}
 
 	// this is for rules from the definition file, NOT for theorems
@@ -127,8 +127,8 @@ private:
 	// input statements via user-defined equality rules (returns an
 	// array B s.t. B[i] are all the statements reachable from arr[i]
 	// by the equality rules.)
-	std::vector<EquationalStatementArray> adjacent(
-		EquationalStatementArray arr) const;
+	std::vector<StatementArray> adjacent(
+		StatementArray arr) const;
 
 	// for each statement in 'arr',
 	// for each free variable in the tree,
@@ -137,8 +137,8 @@ private:
 	// new free variables).
 	// returns an array B s.t. B[i] are all the results from arr[i]
 	// built using a fold - see the fold_* functions for more info.
-	std::vector<EquationalStatementArray> replace_free_with_def(
-		const EquationalStatementArray& arr) const;
+	std::vector<StatementArray> replace_free_with_def(
+		const StatementArray& arr) const;
 
 	// for each statement in 'arr',
 	// for each distinct unordered pair of free variables in the tree,
@@ -146,15 +146,15 @@ private:
 	// (don't need to go the other way around).
 	// returns an array B s.t. B[i] are all the results from arr[i]
 	// built using a fold - see the fold_* functions for more info.
-	std::vector<EquationalStatementArray> replace_free_with_free(
-		const EquationalStatementArray& arr) const;
+	std::vector<StatementArray> replace_free_with_free(
+		const StatementArray& arr) const;
 
 	// for each statement in 'arr'
 	// for each equality rule
 	// try making substitutions (for the LHS and RHS of both rules,
 	// i.e. at most four possibilities per pair)
-	std::vector<EquationalStatementArray> make_substitutions(
-		const EquationalStatementArray& arr) const;
+	std::vector<StatementArray> make_substitutions(
+		const StatementArray& arr) const;
 
 	// given two arrays of left-hand-sides and right-hand-sides,
 	// stitch them together into an array of equality statements

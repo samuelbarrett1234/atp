@@ -3,7 +3,7 @@
 
 /*
 
-EquationalLanguage.h
+Language.h
 
 Implementation of the ILanguage interface for equational logic. Note
 that equational logic does NOT support \not (thus it cannot prove
@@ -25,7 +25,7 @@ namespace equational
 {
 
 
-class ATP_LOGIC_API EquationalLanguage : public ILanguage
+class ATP_LOGIC_API Language : public ILanguage
 {
 public:
 	bool load_kernel(IKnowledgeKernel& ker,

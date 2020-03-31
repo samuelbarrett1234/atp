@@ -14,8 +14,8 @@ namespace equational
 {
 
 
-EquationalStatement::EquationalStatement(
-	EquationalKnowledgeKernel& ker,
+Statement::Statement(
+	KnowledgeKernel& ker,
 	SyntaxNodePtr p_root) :
 	m_ker(ker), m_root(p_root)
 {
@@ -25,7 +25,7 @@ EquationalStatement::EquationalStatement(
 }
 
 
-StmtForm EquationalStatement::form() const
+StmtForm Statement::form() const
 {
 	if (equational::trivially_true(*m_root))
 	{
@@ -37,7 +37,7 @@ StmtForm EquationalStatement::form() const
 }
 
 
-std::string EquationalStatement::to_str() const
+std::string Statement::to_str() const
 {
 	// this is a fold!
 

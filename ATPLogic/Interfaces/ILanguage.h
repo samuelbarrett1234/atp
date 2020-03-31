@@ -66,13 +66,13 @@ public:
 	// Load an array of statements from a text file or from binary
 	// (see the StmtFormat enumeration for the different formats).
 	// Requires the kernel for type checking etc.
-	virtual StatementArrayPtr create_stmts(std::istream& in,
+	virtual StatementArrayPtr deserialise_stmts(std::istream& in,
 		StmtFormat input_format,
 		const IKnowledgeKernel& ker) const = 0;
 
 	// Save an array of statements to a file (either in text format
 	// or binary format, see the StmtFormat enumeration.)
-	virtual void save_stmts(std::ostream& out,
+	virtual void serialise_stmts(std::ostream& out,
 		StatementArrayPtr p_stmts,
 		StmtFormat output_format) const = 0;
 };

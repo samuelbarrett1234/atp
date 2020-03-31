@@ -33,11 +33,11 @@ public:
 
 	KnowledgeKernelPtr create_empty_kernel() const override;
 
-	StatementArrayPtr create_stmts(std::istream& in,
+	StatementArrayPtr deserialise_stmts(std::istream& in,
 		StmtFormat input_format,
 		const IKnowledgeKernel& ker) const override;
 
-	void save_stmts(std::ostream& out,
+	void serialise_stmts(std::ostream& out,
 		StatementArrayPtr p_stmts,
 		StmtFormat output_format) const override;
 };

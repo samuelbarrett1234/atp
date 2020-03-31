@@ -10,6 +10,9 @@ using Boost Spirit for constructing the parser from a CFG. This
 can then produce a parse tree, which can then be turned into a
 syntax tree.
 
+Note that Boost's Qi library doesn't seem to let us export the
+parsers, so they aren't being exported here.
+
 */
 
 

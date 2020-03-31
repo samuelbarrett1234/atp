@@ -4,6 +4,7 @@
 #include "KnowledgeKernel.h"
 #include "StatementArray.h"
 #include <boost/phoenix.hpp>
+#include <boost/algorithm/string/join.hpp>
 #include <boost/bind.hpp>
 
 
@@ -51,7 +52,7 @@ KnowledgeKernelPtr Language::create_empty_kernel() const
 }
 
 
-StatementArrayPtr Language::create_stmts(std::istream& in,
+StatementArrayPtr Language::deserialise_stmts(std::istream& in,
 	StmtFormat input_format, const IKnowledgeKernel& _ker) const
 {
 	const KnowledgeKernel* p_ker =
@@ -104,6 +105,43 @@ StatementArrayPtr Language::create_stmts(std::istream& in,
 	default:
 		ATP_LOGIC_PRECOND(false && "invalid statement type!");
 		return StatementArrayPtr();
+	}
+}
+
+
+void Language::serialise_stmts(std::ostream& out,
+	StatementArrayPtr _p_stmts,
+	StmtFormat output_format) const
+{
+	// convert to derived type:
+	auto p_stmts = dynamic_cast<const StatementArray*>(
+		_p_stmts.get()
+		);
+
+	ATP_LOGIC_PRECOND(p_stmts != nullptr);
+	const auto& arr = p_stmts->raw();
+
+	switch (output_format)
+	{
+	case StmtFormat::TEXT:
+	{
+		std::vector<std::string> as_strs;
+		as_strs.reserve(arr.size());
+
+		// convert each statement to string
+		std::transform(arr.begin(), arr.end(),
+			std::back_inserter(as_strs),
+			boost::bind(&Statement::to_str, _1));
+
+		// output the statements separated by newlines
+		out << boost::algorithm::join(as_strs, "\n");
+	}
+		break;
+	case StmtFormat::BINARY:
+		break;  // not implemented yet!!
+	default:
+		ATP_LOGIC_PRECOND(false && "invalid statement type!");
+		break;
 	}
 }
 

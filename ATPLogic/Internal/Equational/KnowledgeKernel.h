@@ -77,7 +77,7 @@ public:
 	inline void define_symbol(std::string name, size_t arity)
 	{
 		ATP_LOGIC_PRECOND(!is_defined(name));
-		const size_t id = symbol_id(name);
+		const size_t id = _get_id_from_str(name);
 
 		// check we have no hash collisions:
 		ATP_LOGIC_ASSERT(!id_is_defined(id));
@@ -127,7 +127,7 @@ public:
 	inline size_t symbol_id(std::string name) const
 	{
 		ATP_LOGIC_PRECOND(is_defined(name));
-		const size_t id = std::hash<std::string>()(name);
+		const size_t id = _get_id_from_str(name);
 #ifdef ATP_LOGIC_DEFENSIVE
 		ATP_LOGIC_ASSERT(m_id_to_name.left.find(id)
 			!= m_id_to_name.left.end());
@@ -146,6 +146,13 @@ public:
 private:
 	// return a list of every defined symbol ID so far:
 	std::list<size_t> get_symbol_id_catalogue() const;
+
+	// a version of "symbol_id" which doesn't check for
+	// is_defined(str) or anything like that
+	inline size_t _get_id_from_str(std::string str) const
+	{
+		return std::hash<std::string>()(str);
+	}
 
 private:
 	// mapping from symbol names to arity

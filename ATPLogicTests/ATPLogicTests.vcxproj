@@ -170,6 +170,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Equational\KnowledgeKernelDefinitionsTests.cpp" />
     <ClCompile Include="Equational\ParseDefinitionsTests.cpp" />
     <ClCompile Include="Equational\ParseStatementsTests.cpp" />
     <ClCompile Include="Equational\ParseTreeFoldTests.cpp" />

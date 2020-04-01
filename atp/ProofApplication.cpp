@@ -9,12 +9,13 @@ bool ProofApplication::set_context_file(std::string path)
 	if (!in)
 		return false;
 
-
+	return false;
 }
 
 
 bool ProofApplication::add_proof_task(std::string path_or_stmt)
 {
+	return false;
 }
 
 

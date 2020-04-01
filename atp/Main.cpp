@@ -1,4 +1,4 @@
-#include <list>
+#include <vector>
 #include <iostream>
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
@@ -22,7 +22,7 @@ int main(int argc, const char* const argv[])
 		("context,ctx", po::value<std::string>(),
 			"Path to the file containing the context for the proofs")
 
-		("prove,P", po::value<std::list<std::string>>(),
+		("prove,P", po::value<std::vector<std::string>>(),
 			"Path to a file containing statements to prove, or write"
 			" a statement with no spaces f(x)=y to try to prove")
 
@@ -38,7 +38,7 @@ int main(int argc, const char* const argv[])
 	po::notify(vm);
 
 	// if we are asked to prove some statements...
-	if (!vm.count("prove") > 0)
+	if (!vm.count("prove"))
 	{
 		return run_proof_application(vm);
 	}
@@ -76,7 +76,7 @@ int run_proof_application(const po::variables_map& vm)
 	std::cout << "Loaded context file successfully." << std::endl;
 
 	// try to add all of the proof tasks:
-	auto proof_tasks = vm["prove"].as<std::list<std::string>>();
+	auto proof_tasks = vm["prove"].as<std::vector<std::string>>();
 	for (auto task : proof_tasks)
 	{
 		if (!app.add_proof_task(task))

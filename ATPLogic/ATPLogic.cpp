@@ -15,10 +15,6 @@ LanguagePtr create_language(LangType lt)
 	{
 	case LangType::EQUATIONAL_LOGIC:
 		return std::make_shared<equational::Language>();
-	case LangType::FIRST_ORDER_LOGIC:
-		return LanguagePtr();  // not yet implemented
-	case LangType::SECOND_ORDER_LOGIC:
-		return LanguagePtr();  // not yet implemented
 	default:
 		ATP_LOGIC_PRECOND(false && "invalid language type.");
 		return LanguagePtr();

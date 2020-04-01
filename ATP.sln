@@ -20,9 +20,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "atp", "atp\atp.vcxproj", "{
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATPLogicTests", "ATPLogicTests\ATPLogicTests.vcxproj", "{C7343796-47C9-4245-B24C-722BFEFB45AA}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F75FAA5D-B540-453B-9C2E-CD502ECFBC1C} = {F75FAA5D-B540-453B-9C2E-CD502ECFBC1C}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

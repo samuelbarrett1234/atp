@@ -35,8 +35,9 @@ static std::string identifier_to_str(std::string name,
 	std::list<std::string>::iterator arg_end);
 
 
+BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_AUTO_TEST_SUITE(ParseTreeFoldTests,
-	*boost::unit_test_framework::depends_on("ParseStatementsTests"));
+	*boost::unit_test_framework::depends_on("EquationalTests/ParseStatementsTests"));
 
 
 // the idea for this test is to: get a load of statements in string
@@ -65,7 +66,8 @@ BOOST_DATA_TEST_CASE(test_fold_for_converting_to_str,
 }
 
 
-BOOST_AUTO_TEST_SUITE_END();
+BOOST_AUTO_TEST_SUITE_END();  // ParseTreeFoldTests
+BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
 
 
 std::string eq_to_str(std::string lhs, std::string rhs)

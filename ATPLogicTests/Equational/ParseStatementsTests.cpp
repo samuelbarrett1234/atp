@@ -30,6 +30,7 @@ struct ParseStatementsTestFixture
 };
 
 
+BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(ParseStatementsTests, ParseStatementsTestFixture)
 
 
@@ -222,6 +223,5 @@ BOOST_AUTO_TEST_CASE(parse_statements_correctly_interprets_functions)
 }
 
 
-BOOST_AUTO_TEST_SUITE_END();
-
-
+BOOST_AUTO_TEST_SUITE_END();  // ParseStatementTests
+BOOST_AUTO_TEST_SUITE_END();  // EquationalTests

@@ -28,6 +28,7 @@ struct ParseDefinitionsTestFixture
 };
 
 
+BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(ParseDefinitionsTests, ParseDefinitionsTestFixture)
 
 
@@ -87,6 +88,7 @@ BOOST_DATA_TEST_CASE(parse_definitions_returns_none_when_incorrect,
 }
 
 
-BOOST_AUTO_TEST_SUITE_END();
+BOOST_AUTO_TEST_SUITE_END();  // ParseDefinitionsTests
+BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
 
 

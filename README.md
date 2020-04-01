@@ -7,6 +7,7 @@ An automated theorem prover in C++, geared towards proving mathematical statemen
 This repository has four projects:
 - `atp` : the command line application for running the theorem prover,
 - `ATPLogic` : the library which contains the logical inference code, and also the parsers,
+- `ATPLogicTests` : the unit tests for the logic library,
 - `ATPSearch` : the library of search algorithms for finding proofs,
 - `ATPDatabase` : the library for the management of proven theorems and also concurrent process management,
 - `Docs` : specifications, documentation, and example code,

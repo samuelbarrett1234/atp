@@ -70,6 +70,17 @@ BOOST_AUTO_TEST_CASE(parse_statements_returns_one_result)
 }
 
 
+BOOST_AUTO_TEST_CASE(parse_statements_handles_no_spaces)
+{
+	s << "x=x\ny=y";
+
+	auto result = parse_statements(s);
+
+	BOOST_REQUIRE(result.has_value());
+	BOOST_TEST(result.get().size() == 2);
+}
+
+
 BOOST_AUTO_TEST_CASE(parse_statements_returns_three_results)
 {
 	s << "f(x, y) = z\ng(z)=f(x, y)\nh(x, y, z, w) = f(x, y)";

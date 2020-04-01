@@ -63,6 +63,7 @@ struct ParseTreeToSyntaxTreeFixture
 		ker.define_symbol("e", 0);
 		ker.define_symbol("i", 1);
 		ker.define_symbol("*", 2);
+		s << std::noskipws;
 	}
 
 	std::stringstream s;

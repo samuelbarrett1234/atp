@@ -73,6 +73,7 @@ ATP_LOGIC_API size_t num_free_vars(SyntaxNodePtr p_node);
 // returns true iff a and b are equal as syntax trees,
 // which means that they are basically identical except UP TO
 // swapping around the names of the free variables.
+// this does NOT include swapping the equals sign around!
 ATP_LOGIC_API bool equivalent(const ISyntaxNode& a,
 	const ISyntaxNode& b);
 
@@ -86,7 +87,9 @@ ATP_LOGIC_API bool identical(const ISyntaxNode& a,
 // returns true iff both sides of the equals sign are trivially equal
 // (using the above function as a subroutine.)
 // remark: this function basically tells you whether 'p_eq' follows
-// from the reflexivity of =, i.e. the statement "x=x" for free "x".
+// from the reflexivity of =, i.e. the statement "x=x" for any
+// substitution for the free "x"; i.e. if the LHS and RHS are
+// identical.
 // precondition: eq is an EQ syntax node.
 ATP_LOGIC_API bool trivially_true(const ISyntaxNode& eq);
 

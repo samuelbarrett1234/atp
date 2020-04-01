@@ -38,6 +38,7 @@ struct MatchingTestsFixture
 		ker.define_symbol("e", 0);
 		ker.define_symbol("i", 1);
 		ker.define_symbol("*", 2);
+		s << std::noskipws;
 	}
 
 	std::stringstream s;
@@ -219,7 +220,71 @@ BOOST_AUTO_TEST_CASE(try_match_with_double_substitution)
 }
 
 
-BOOST_AUTO_TEST_SUITE_END();
-BOOST_AUTO_TEST_SUITE_END();
+BOOST_DATA_TEST_CASE(trivially_true_works_on_examples,
+	boost::unit_test::data::make({
+		// some statements to test on:
+		"x=x", "x=y", "i(x)=x", "x=e", "e=e", "i(x)=i(x)",
+		"*(x, y)=*(x, y)", "*(x, y)=*(y, x)" }) ^
+	boost::unit_test::data::make({
+		// whether or not those statements are trivially true
+		true, false, false, false, true, true, true, false}),
+	stmt, is_trivially_true)
+{
+	s << stmt;
+	auto result = parse_statements(s);
+	
+	BOOST_REQUIRE(result.has_value());
+	BOOST_REQUIRE(result.get().size() == 1);
+
+	auto syntax_tree = ptree_to_stree(result.get().front(),
+		ker);
+
+	BOOST_REQUIRE(syntax_tree != nullptr);
+
+	BOOST_TEST(syntax_matching::trivially_true(*syntax_tree)
+		== is_trivially_true);
+}
+
+
+BOOST_DATA_TEST_CASE(test_identical_and_equivalent_work,
+	boost::unit_test::data::make({
+		// first list of statements
+		"x = x", "i(x) = x", "x = e" }) ^
+		boost::unit_test::data::make({
+		// second list of statements
+		"y = y", "i(y) = y", "e = e" }) ^
+		boost::unit_test::data::make({
+		// whether or not those statements are equivalent
+		// (and also identical - it makes no difference here) and
+		// note that "x=x" and "y=y" are identical because, once
+		// the statements are parsed, both have 0 as their free
+		// variable IDs.
+		true, true, false }),
+		stmt1, stmt2, is_equivalent_and_identical)
+{
+	// parse them both at the same time
+	s << stmt1 << std::endl << stmt2;
+	auto result = parse_statements(s);
+
+	BOOST_REQUIRE(result.has_value());
+	BOOST_REQUIRE(result.get().size() == 2);
+
+	auto syntax_tree_1 = ptree_to_stree(result.get().front(),
+		ker);
+	auto syntax_tree_2 = ptree_to_stree(result.get().back(),
+		ker);
+
+	BOOST_REQUIRE(syntax_tree_1 != nullptr);
+	BOOST_REQUIRE(syntax_tree_2 != nullptr);
+
+	BOOST_TEST(syntax_matching::identical(*syntax_tree_1,
+		*syntax_tree_2) == is_equivalent_and_identical);
+	BOOST_TEST(syntax_matching::equivalent(*syntax_tree_1,
+		*syntax_tree_2) == is_equivalent_and_identical);
+}
+
+
+BOOST_AUTO_TEST_SUITE_END();  // MatchingTests
+BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
 
 

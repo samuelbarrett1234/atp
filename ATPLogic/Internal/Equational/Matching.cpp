@@ -485,13 +485,12 @@ std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node)
 			{
 				var_ids.insert(node.get_free_id());
 			},
-				[](ConstantSyntaxNode&) -> void {},
-				[&stack](FuncSyntaxNode& node) -> void
+			[](ConstantSyntaxNode&) -> void {},
+			[&stack](FuncSyntaxNode& node) -> void
 			{
 				stack.insert(stack.end(), node.begin(), node.end());
 			},
-				*p_node
-				);
+			*p_node);
 	}
 
 	return var_ids;

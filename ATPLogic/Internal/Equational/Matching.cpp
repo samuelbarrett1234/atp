@@ -128,15 +128,23 @@ void rebuild_free_var_ids(SyntaxNodePtr p_node)
 		p_node = stack.back();
 		stack.pop_back();
 
-		if (p_node->get_type() == SyntaxNodeType::FREE)
-		{
-			auto p_free = dynamic_cast<FreeSyntaxNode*>(
-				p_node.get());
-			ATP_LOGIC_ASSERT(p_free != nullptr);
-
-			p_free->rebuild_free_id(id_map.at(
-				p_free->get_free_id()));
-		}
+		apply_to_syntax_node<void>(
+			[&stack](EqSyntaxNode& eq)
+			{
+				stack.push_back(eq.left());
+				stack.push_back(eq.right());
+			},
+			[&id_map](FreeSyntaxNode& free)
+			{
+				free.rebuild_free_id(id_map.at(
+					free.get_free_id()));
+			},
+			[](ConstantSyntaxNode&) {},
+			[&stack](FuncSyntaxNode& func)
+			{
+				stack.insert(stack.end(),
+					func.begin(), func.end());
+			}, *p_node);
 	}
 }
 
@@ -164,7 +172,9 @@ bool needs_free_var_id_rebuild(SyntaxNodePtr p_node)
 	ATP_LOGIC_ASSERT(id_bitmap.empty() || id_bitmap.back());
 
 	// we need a rebuild iff any element in this vector is false
-	return std::all_of(id_bitmap.begin(), id_bitmap.end(),
+	// (which of course happens if it is not the case that they are
+	// all true!)
+	return !std::all_of(id_bitmap.begin(), id_bitmap.end(),
 		// use phoenix for an easy identity function
 		boost::phoenix::arg_names::arg1);
 }

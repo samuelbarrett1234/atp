@@ -230,6 +230,51 @@ BOOST_AUTO_TEST_CASE(try_match_with_double_substitution)
 }
 
 
+BOOST_DATA_TEST_CASE(test_get_substitution,
+	boost::unit_test::data::make({
+		"x = x", "i(x) = e", "*(i(x), i(y)) = x"}) ^
+	boost::unit_test::data::make({
+		"i(x) = i(x)", "i(*(x, y)) = e", "*(i(y), i(y)) = y"}),
+	start_stmt, target_stmt)
+{
+	s << start_stmt << std::endl << target_stmt;
+
+	auto results = parse_statements(s);
+
+	BOOST_REQUIRE(results.has_value());
+	BOOST_REQUIRE(results.get().size() == 2);
+
+	auto syntax_start_stmt = ptree_to_stree(results.get().front(),
+		ker);
+	auto syntax_target_stmt = ptree_to_stree(results.get().back(),
+		ker);
+
+	BOOST_REQUIRE(syntax_start_stmt != nullptr);
+	BOOST_REQUIRE(syntax_target_stmt != nullptr);
+
+	// extract the LHS from the start and the target
+
+	auto p_pattern = dynamic_cast<EqSyntaxNode*>(
+		syntax_start_stmt.get())->left();
+	auto p_target = dynamic_cast<EqSyntaxNode*>(
+		syntax_target_stmt.get())->left();
+
+	auto sub = syntax_matching::try_match(p_pattern,
+		p_target);
+
+	BOOST_REQUIRE(sub.has_value());
+
+	auto sub_result_stmt = syntax_matching::get_substitution(
+		syntax_start_stmt, sub.get());
+
+	BOOST_REQUIRE(sub_result_stmt != nullptr);
+
+	// and finally, the important test:
+	BOOST_TEST(syntax_matching::equivalent(*sub_result_stmt,
+		*syntax_target_stmt));
+}
+
+
 BOOST_DATA_TEST_CASE(trivially_true_works_on_examples,
 	boost::unit_test::data::make({
 		// some statements to test on:
@@ -261,17 +306,17 @@ BOOST_DATA_TEST_CASE(trivially_true_works_on_examples,
 BOOST_DATA_TEST_CASE(test_identical_and_equivalent_work,
 	boost::unit_test::data::make({
 		// first list of statements
-		"x = x", "i(x) = x", "x = e" }) ^
+		"x = x", "i(x) = x", "x = e", "e = e" }) ^
 		boost::unit_test::data::make({
 		// second list of statements
-		"y = y", "i(y) = y", "e = e" }) ^
+		"y = y", "i(y) = y", "e = e", "e = e" }) ^
 		boost::unit_test::data::make({
 		// whether or not those statements are equivalent
 		// (and also identical - it makes no difference here) and
 		// note that "x=x" and "y=y" are identical because, once
 		// the statements are parsed, both have 0 as their free
 		// variable IDs.
-		true, true, false }),
+		true, true, false, true }),
 		stmt1, stmt2, is_equivalent_and_identical)
 {
 	// parse them both at the same time
@@ -359,6 +404,94 @@ BOOST_DATA_TEST_CASE(test_neither_equivalent_nor_identical,
 		*syntax_tree_2));
 	BOOST_TEST(!syntax_matching::equivalent(*syntax_tree_1,
 		*syntax_tree_2));
+}
+
+
+BOOST_DATA_TEST_CASE(test_num_free_vars,
+	boost::unit_test::data::make({
+		"x = x", "x = y", "*(x, *(y, z)) = *(*(x, y), z)",
+		"i(x) = e", "e = e", "*(x, i(x)) = e" }) ^
+	boost::unit_test::data::make({
+		1, 2, 3, 1, 0, 1 }),
+	stmt, num_free_vars)
+{
+	s << stmt;
+	auto result = parse_statements(s);
+
+	BOOST_REQUIRE(result.has_value());
+	BOOST_REQUIRE(result.get().size() == 1);
+
+	auto syntax_tree = ptree_to_stree(result.get().front(),
+		ker);
+
+	BOOST_TEST(syntax_matching::num_free_vars(syntax_tree)
+		== num_free_vars);
+}
+
+
+// now we will apply both functions to an example where the two
+// statements are equivalent but not identical
+BOOST_DATA_TEST_CASE(test_needs_free_var_id_rebuild_and_rebuilding,
+	boost::unit_test::data::make({
+		"x = y", "i(y) = x", "x = e", "*(x, y) = z" }), stmt)
+{
+	s << stmt;
+	auto result = parse_statements(s);
+
+	BOOST_REQUIRE(result.has_value());
+	BOOST_REQUIRE(result.get().size() == 1);
+
+	auto syntax_tree_1 = ptree_to_stree(result.get().front(), ker);
+
+	BOOST_REQUIRE(syntax_tree_1 != nullptr);
+
+	// first test:
+	BOOST_TEST(!syntax_matching::needs_free_var_id_rebuild(
+		syntax_tree_1));
+
+	// change the free variable IDs so that they need rebuilding
+	// note that this map has been chosen carefully, so that:
+	// - for each statement example, a rebuild is needed
+	// - for each statement example, the IDs don't form a contiguous
+	//   block
+	// - for each example with <= 2 free variables, there is no free
+	//   variable with ID 0.
+	std::map<size_t, size_t> free_id_map;
+	free_id_map[0] = 1;  free_id_map[1] = 5; free_id_map[2] = 0;
+
+	auto syntax_tree_2 = map_free_ids(free_id_map, syntax_tree_1);
+
+	BOOST_REQUIRE(syntax_tree_2 != nullptr);
+
+	// second test:
+	BOOST_TEST(syntax_matching::needs_free_var_id_rebuild(
+		syntax_tree_2));
+
+	// now try rebuilding! (modifies existing tree)
+	syntax_matching::rebuild_free_var_ids(syntax_tree_2);
+
+	// third test:
+	BOOST_TEST(!syntax_matching::needs_free_var_id_rebuild(
+		syntax_tree_2));
+}
+
+
+BOOST_AUTO_TEST_CASE(test_no_free_vars_means_doesnt_need_rebuild)
+{
+	// a statement with no free variables in it shouldn't need
+	// rebuilding
+	s << "e = e";
+	auto result = parse_statements(s);
+
+	BOOST_REQUIRE(result.has_value());
+	BOOST_REQUIRE(result.get().size() == 1);
+
+	auto syntax_tree = ptree_to_stree(result.get().front(), ker);
+
+	BOOST_REQUIRE(syntax_tree != nullptr);
+
+	BOOST_TEST(!syntax_matching::needs_free_var_id_rebuild(
+		syntax_tree));
 }
 
 

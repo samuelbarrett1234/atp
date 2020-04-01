@@ -9,6 +9,7 @@ and algorithms for dealing with syntax trees.
 */
 
 
+#include <boost/bind.hpp>
 #include <Internal/Equational/Matching.h>
 #include <Internal/Equational/Parser.h>
 #include <Internal/Equational/SyntaxNodes.h>
@@ -28,6 +29,15 @@ using atp::logic::equational::parse_statements;
 using atp::logic::equational::ptree_to_stree;
 using atp::logic::equational::fold_syntax_tree;
 namespace syntax_matching = atp::logic::equational::syntax_matching;
+
+
+// apply the following map to free variable IDs (does not attempt to
+// rebuild them afterwards) (returns a new tree) (IDs not present
+// in the map are left unchanged - so for example, were the map to
+// be empty, this would be the identity function.)
+static SyntaxNodePtr map_free_ids(
+	const std::map<size_t, size_t>& free_id_map,
+	SyntaxNodePtr p_tree);
 
 
 struct MatchingTestsFixture
@@ -246,6 +256,8 @@ BOOST_DATA_TEST_CASE(trivially_true_works_on_examples,
 }
 
 
+// firstly we will test the `identical` and `equivalent` functions
+// in scenarios where they both should return the same value:
 BOOST_DATA_TEST_CASE(test_identical_and_equivalent_work,
 	boost::unit_test::data::make({
 		// first list of statements
@@ -284,7 +296,114 @@ BOOST_DATA_TEST_CASE(test_identical_and_equivalent_work,
 }
 
 
+// now we will apply both functions to an example where the two
+// statements are equivalent but not identical
+BOOST_DATA_TEST_CASE(test_equivalent_but_not_identical,
+	boost::unit_test::data::make({
+		"x = x", "i(x) = x", "x = e", "*(x, y) = x" }), stmt)
+{
+	s << stmt;
+	auto result = parse_statements(s);
+
+	BOOST_REQUIRE(result.has_value());
+	BOOST_REQUIRE(result.get().size() == 1);
+
+	auto syntax_tree_1 = ptree_to_stree(result.get().front(), ker);
+
+	BOOST_REQUIRE(syntax_tree_1 != nullptr);
+
+	// change the free variable IDs so that they are no longer identical
+	// (note that in some cases this may make the free IDs no longer
+	// contiguous, but that shouldn't matter in this test.)
+	std::map<size_t, size_t> free_id_map;
+	free_id_map[0] = 1;  free_id_map[1] = 0;
+
+	auto syntax_tree_2 = map_free_ids(free_id_map, syntax_tree_1);
+
+	BOOST_REQUIRE(syntax_tree_2 != nullptr);
+
+	// not identical, but equivalent
+	BOOST_TEST(!syntax_matching::identical(*syntax_tree_1,
+		*syntax_tree_2));
+	BOOST_TEST(syntax_matching::equivalent(*syntax_tree_1,
+		*syntax_tree_2));
+}
+
+
+// finally we will consider cases in which the statements are
+// neither equivalent nor identical
+BOOST_DATA_TEST_CASE(test_neither_equivalent_nor_identical,
+	boost::unit_test::data::make({
+		"x = y", "i(x) = y", "x = *(e, y)", "*(x, y) = x" }), stmt)
+{
+	s << stmt;
+	auto result = parse_statements(s);
+
+	BOOST_REQUIRE(result.has_value());
+	BOOST_REQUIRE(result.get().size() == 1);
+
+	auto syntax_tree_1 = ptree_to_stree(result.get().front(), ker);
+
+	BOOST_REQUIRE(syntax_tree_1 != nullptr);
+
+	// map all used variables to ID 0!
+	std::map<size_t, size_t> free_id_map;
+	free_id_map[1] = 0;
+
+	auto syntax_tree_2 = map_free_ids(free_id_map, syntax_tree_1);
+
+	BOOST_REQUIRE(syntax_tree_2 != nullptr);
+
+	// not identical, but equivalent
+	BOOST_TEST(!syntax_matching::identical(*syntax_tree_1,
+		*syntax_tree_2));
+	BOOST_TEST(!syntax_matching::equivalent(*syntax_tree_1,
+		*syntax_tree_2));
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();  // MatchingTests
 BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
+
+
+SyntaxNodePtr map_free_ids(
+	const std::map<size_t, size_t>& free_id_map,
+	SyntaxNodePtr p_tree)
+{
+	// this is just another fold, where the eq/const/func
+	// constructors are just trivial (they construct said
+	// objects) whereas the free constructor first checks
+	// as to whether the given ID is present in the free_id_map
+	// and if it is, it returns the corresponding mapped ID.
+	// Otherwise it keeps the ID as-is.
+
+	auto eq_constructor = boost::bind(
+		&std::make_shared<EqSyntaxNode, SyntaxNodePtr, SyntaxNodePtr>,
+		_1, _2);
+
+	// (using function composition via nested boost::bind)
+	auto free_constructor = boost::bind(
+		&std::make_shared<FreeSyntaxNode, size_t>,
+		boost::bind<size_t>([&free_id_map](size_t id) -> size_t
+		{
+			auto iter = free_id_map.find(id);
+			if (iter != free_id_map.end())
+				return iter->second;
+			else
+				return id;
+		}, _1));
+
+	auto const_constructor = boost::bind(
+		&std::make_shared<ConstantSyntaxNode, size_t>, _1);
+
+	auto func_constructor = boost::bind(
+		&std::make_shared<FuncSyntaxNode, size_t,
+		std::list<SyntaxNodePtr>::iterator,
+		std::list<SyntaxNodePtr>::iterator>, _1, _2, _3);
+
+	return fold_syntax_tree<SyntaxNodePtr>(eq_constructor,
+		free_constructor, const_constructor, func_constructor,
+		p_tree);
+}
 
 

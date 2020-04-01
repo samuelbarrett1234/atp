@@ -15,14 +15,18 @@ boost::optional<std::list<ParseNodePtr>> parse_statements(std::istream& in)
 {
 	QiParseIterator begin(in), end;
 
+	// no input at all is not an error, so don't return boost::none,
+	// so return an empty list instead:
+	if (begin == end)
+		return boost::make_optional(std::list<ParseNodePtr>());
+
 	std::list<ParseNodePtr> output;
 	const bool ok = boost::spirit::qi::phrase_parse(
 		begin, end, StatementGrammar(), Skipper(),
 		output
 	);
 
-	// failed if we didn't get to the end
-	if (!ok || begin != end)
+	if (!ok)
 	{
 		return boost::none;
 	}
@@ -39,14 +43,19 @@ boost::optional<std::list<std::pair<std::string, size_t>>>
 {
 	QiParseIterator begin(in), end;
 
+	// no input at all is not an error, so don't return boost::none,
+	// so return an empty list instead:
+	if (begin == end)
+		return boost::make_optional(
+			std::list<std::pair<std::string, size_t>>());
+
 	std::list<std::pair<std::string, size_t>> output;
 	const bool ok = boost::spirit::qi::phrase_parse(
 		begin, end, DefinitionGrammar(), Skipper(),
 		output
 	);
 
-	// failed if we didn't get to the end
-	if (!ok || begin != end)
+	if (!ok)
 	{
 		return boost::none;
 	}

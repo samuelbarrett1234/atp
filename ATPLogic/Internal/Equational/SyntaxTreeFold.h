@@ -126,8 +126,8 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 					todo_stack.push_back(&f);
 					seen.insert(&f);
 
-					// add children
-					std::transform(f.begin(), f.end(),
+					// add children in reverse order
+					std::transform(f.rbegin(), f.rend(),
 						std::back_inserter(todo_stack),
 						[](SyntaxNodePtr p_node)
 						{ return p_node.get(); });
@@ -143,9 +143,16 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 				{
 					ATP_LOGIC_ASSERT(result_stack.size() >= 2);
 
-					auto right_result = result_stack.back();
-					result_stack.pop_back();
+					// note that we have to pop left and right in this
+					// order, because we initially pushed left then right
+					// but since then, they have both been popped from
+					// the todo_stack and pushed to the result_stack,
+					// thus their order has been inverted (so: inverted
+					// twice means left the same!)
+					// [check unit tests for evidence]
 					auto left_result = result_stack.back();
+					result_stack.pop_back();
+					auto right_result = result_stack.back();
 					result_stack.pop_back();
 
 					// compute function of eq for its children:

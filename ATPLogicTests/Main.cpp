@@ -8,21 +8,25 @@
 #include <boost/test/debug.hpp>
 
 
-struct FileLoggingConfig
-{
-	FileLoggingConfig() : test_log("ATPLogicTests - results.txt")
-	{
-		boost::unit_test::unit_test_log.set_stream(test_log);
-	}
-	~FileLoggingConfig()
-	{
-		boost::unit_test::unit_test_log.set_stream(std::cout);
-	}
-
-	std::ofstream test_log;
-};
+// Uncomment these lines if you want the test results to be written
+// to a file instead of to the console:
 
 
-BOOST_GLOBAL_FIXTURE(FileLoggingConfig);
+//struct FileLoggingConfig
+//{
+//	FileLoggingConfig() : test_log("ATPLogicTests - results.txt")
+//	{
+//		boost::unit_test::unit_test_log.set_stream(test_log);
+//	}
+//	~FileLoggingConfig()
+//	{
+//		boost::unit_test::unit_test_log.set_stream(std::cout);
+//	}
+//
+//	std::ofstream test_log;
+//};
+//
+//
+//BOOST_GLOBAL_FIXTURE(FileLoggingConfig);
 
 

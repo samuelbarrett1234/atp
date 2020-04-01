@@ -130,8 +130,8 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 					todo_stack.push_back(p_node);
 					seen.insert(p_node);
 
-					// add children:
-					std::transform(p_id->begin(), p_id->end(),
+					// add children in reverse order:
+					std::transform(p_id->rbegin(), p_id->rend(),
 						std::back_inserter(todo_stack),
 						[](ParseNodePtr p_node)
 						{ return p_node.get(); });
@@ -150,9 +150,16 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 
 				ATP_LOGIC_ASSERT(result_stack.size() >= 2);
 
-				auto right_result = result_stack.back();
-				result_stack.pop_back();
+				// note that we have to pop left and right in this
+				// order, because we initially pushed left then right
+				// but since then, they have both been popped from
+				// the todo_stack and pushed to the result_stack,
+				// thus their order has been inverted (so: inverted
+				// twice means left the same!)
+				// [check unit tests for evidence]
 				auto left_result = result_stack.back();
+				result_stack.pop_back();
+				auto right_result = result_stack.back();
 				result_stack.pop_back();
 
 				// compute function of eq for its children:

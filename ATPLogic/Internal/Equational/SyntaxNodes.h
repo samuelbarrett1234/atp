@@ -175,6 +175,14 @@ public:
 	{
 		return m_children.end();
 	}
+	inline std::list<SyntaxNodePtr>::const_reverse_iterator rbegin() const
+	{
+		return m_children.rbegin();
+	}
+	inline std::list<SyntaxNodePtr>::const_reverse_iterator rend() const
+	{
+		return m_children.rend();
+	}
 private:
 	std::list<SyntaxNodePtr> m_children;
 };

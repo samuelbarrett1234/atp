@@ -16,7 +16,10 @@ parsers, so they aren't being exported here.
 */
 
 
+// Uncommenting this prints out parsing info to std::cout to help
+// debug parser errors
 // #define BOOST_SPIRIT_DEBUG
+
 #include <string>
 #include <list>
 #include <utility>  // for std::pair
@@ -41,7 +44,7 @@ struct Skipper :
 {
 	Skipper();
 
-	boost::spirit::qi::rule<QiParseIterator> skip;
+	boost::spirit::qi::rule<QiParseIterator> skip, comments;
 };
 
 
@@ -57,6 +60,8 @@ struct StatementGrammar :
 		statement, expression;
 	boost::spirit::qi::rule<QiParseIterator, std::list<ParseNodePtr>(),
 		Skipper> start, expression_list;
+	boost::spirit::qi::rule<QiParseIterator, std::string(),
+		Skipper> identifier;
 };
 
 
@@ -76,6 +81,9 @@ struct DefinitionGrammar :
 
 	boost::spirit::qi::rule<QiParseIterator,
 		std::pair<std::string, size_t>(), Skipper> symbol_def;
+
+	boost::spirit::qi::rule<QiParseIterator, std::string(),
+		Skipper> identifier;
 };
 
 

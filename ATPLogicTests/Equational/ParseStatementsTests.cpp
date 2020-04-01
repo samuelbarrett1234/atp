@@ -1,38 +1,39 @@
 /*
 
-ParserTests.cpp
+ParseStatementsTests.cpp
 
-This file will test two functions:
+This file will test the function:
 - atp::logic::equational::parse_statements
-- atp::logic::equational::parse_definitions
 
 */
 
 
 #include <sstream>
-#include <boost/random/uniform_int_distribution.hpp>
 #include <ATPLogic.h>
 #include <Internal/Equational/Parser.h>
 #include "../Test.h"
 
 
 using atp::logic::equational::parse_statements;
-using atp::logic::equational::parse_definitions;
 using atp::logic::equational::ParseNodeType;
 using atp::logic::equational::EqParseNode;
 using atp::logic::equational::IdentifierParseNode;
 
 
-struct ParserTestFixture
+struct ParseStatementsTestFixture
 {
+	ParseStatementsTestFixture()
+	{
+		s << std::noskipws;
+	}
 	std::stringstream s;
 };
 
 
-BOOST_FIXTURE_TEST_SUITE(ParserTests, ParserTestFixture)
+BOOST_FIXTURE_TEST_SUITE(ParseStatementsTests, ParseStatementsTestFixture)
 
 
-std::string ill_formed_statements[] =
+static std::string ill_formed_statements[] =
 {
 	"f(x,",
 	"f(",
@@ -43,23 +44,6 @@ std::string ill_formed_statements[] =
 	"f(x=y,z)",
 	"f(x=g(x))",
 	"f x,y"
-};
-
-
-std::string ill_formed_definitions[] =
-{
-	"f\ng 0",
-	"f -1",
-	"1 f",
-	"1",
-	"f"
-};
-
-
-std::string symbol_names[] =
-{
-	"a", "b", "c", "f", "g", "h", "x", "y", "z",
-	"*", "+", "-", ".", "/", "%"
 };
 
 
@@ -113,7 +97,7 @@ BOOST_AUTO_TEST_CASE(parse_statements_handles_special_chars)
 BOOST_AUTO_TEST_CASE(parse_statements_ignores_comment_at_eol)
 {
 	// note that g(x, y) = z should be ignored here:
-	s << "f(x, y) = z # this is a comment! g(x, y) = z \n";
+	s << "f(x, y) = z # this is a comment! g(x, y) = z" << std::endl;
 	s << "h(x, y) = z";
 
 	auto result = parse_statements(s);
@@ -169,7 +153,7 @@ BOOST_AUTO_TEST_CASE(parse_statements_correctly_interprets_equality)
 
 BOOST_AUTO_TEST_CASE(parse_statements_correctly_interprets_functions)
 {
-	s << "f(x, y)";
+	s << "f(x, y) = z";
 
 	auto result = parse_statements(s);
 
@@ -179,12 +163,19 @@ BOOST_AUTO_TEST_CASE(parse_statements_correctly_interprets_functions)
 
 	auto stmt = result.get().front();
 
+	BOOST_REQUIRE(stmt->get_type() == ParseNodeType::EQ);
+
+	auto p_eq = dynamic_cast<EqParseNode*>(
+		stmt.get());
+
+	BOOST_REQUIRE(p_eq != nullptr);
+
 	// check that it got the root statement correct
-	BOOST_REQUIRE(stmt->get_type() ==
+	BOOST_REQUIRE(p_eq->left()->get_type() ==
 		ParseNodeType::IDENTIFIER);
 
 	auto p_func = dynamic_cast<IdentifierParseNode*>(
-		stmt.get());
+		p_eq->left().get());
 
 	BOOST_REQUIRE(p_func != nullptr);
 
@@ -228,48 +219,6 @@ BOOST_AUTO_TEST_CASE(parse_statements_correctly_interprets_functions)
 	BOOST_REQUIRE(p_child != nullptr);
 
 	BOOST_TEST(p_child->get_name() == "y");
-}
-
-
-/////////////////////////////////////////////////////////////////////
-
-
-// generate a random list of (string, int) pairs
-BOOST_DATA_TEST_CASE(parse_definitions_returns_correct_mapping,
-	boost::unit_test::data::random(boost::unit_test::data::distribution
-		= boost::random::uniform_int_distribution<size_t>(0, 10))
-	^ boost::unit_test::data::make(symbol_names), arity, name)
-{
-	s << name << ' ' << arity;
-
-	auto result = parse_definitions(s);
-
-	BOOST_REQUIRE(result.has_value());
-	BOOST_TEST(result.get().size() == 1);
-	BOOST_TEST(result.get().front().first == name);
-	BOOST_TEST(result.get().front().second == arity);
-}
-
-
-BOOST_AUTO_TEST_CASE(parse_definitions_works_with_none)
-{
-	// leave s empty
-
-	auto result = parse_definitions(s);
-
-	BOOST_REQUIRE(result.has_value());
-	BOOST_TEST(result.get().empty());
-}
-
-
-BOOST_DATA_TEST_CASE(parse_definitions_returns_none_when_incorrect,
-	boost::unit_test::data::make(ill_formed_definitions), def)
-{
-	s << def;
-
-	auto result = parse_definitions(s);
-
-	BOOST_TEST(!result.has_value());
 }
 
 

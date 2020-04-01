@@ -108,6 +108,14 @@ public:
 	{
 		return m_children.end();
 	}
+	inline ArgArray::const_reverse_iterator rbegin() const
+	{
+		return m_children.rbegin();
+	}
+	inline ArgArray::const_reverse_iterator rend() const
+	{
+		return m_children.rend();
+	}
 
 private:
 	std::string m_name;

@@ -170,7 +170,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Equational\ParserTests.cpp" />
+    <ClCompile Include="Equational\ParseDefinitionsTests.cpp" />
+    <ClCompile Include="Equational\ParseStatementsTests.cpp" />
+    <ClCompile Include="Equational\ParseTreeFoldTests.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>

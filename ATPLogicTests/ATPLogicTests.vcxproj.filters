@@ -21,7 +21,13 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Equational\ParserTests.cpp">
+    <ClCompile Include="Equational\ParseStatementsTests.cpp">
+      <Filter>Source Files\Equational</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\ParseDefinitionsTests.cpp">
+      <Filter>Source Files\Equational</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\ParseTreeFoldTests.cpp">
       <Filter>Source Files\Equational</Filter>
     </ClCompile>
   </ItemGroup>

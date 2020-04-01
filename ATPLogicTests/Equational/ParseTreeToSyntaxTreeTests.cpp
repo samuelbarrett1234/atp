@@ -10,16 +10,10 @@ in the knowledge kernel.
 
 
 #include <sstream>
-#include <utility>
 #include <string>
-#include <vector>
-#include <boost/tuple/tuple.hpp>
-#include <boost/phoenix.hpp>
-#include <Internal/Equational/ParseNodes.h>
 #include <Internal/Equational/Parser.h>
 #include <Internal/Equational/SyntaxNodes.h>
 #include <Internal/Equational/KnowledgeKernel.h>
-#include <Internal/Equational/SyntaxTreeFold.h>
 #include "../Test.h"
 
 
@@ -31,12 +25,11 @@ using atp::logic::equational::ConstantSyntaxNode;
 using atp::logic::equational::FreeSyntaxNode;
 using atp::logic::equational::parse_statements;
 using atp::logic::equational::ptree_to_stree;
-using atp::logic::equational::fold_syntax_tree;
-namespace phx = boost::phoenix;
-using namespace phx::arg_names;
 
 
-namespace atp { namespace logic { namespace equational {
+namespace atp {
+namespace logic {
+namespace equational {
 static inline std::ostream& boost_test_print_type (std::ostream& os,
 	SyntaxNodeType type)
 {
@@ -57,9 +50,9 @@ static inline std::ostream& boost_test_print_type (std::ostream& os,
 	}
 	return os;
 }
-}
-}
-}
+}  // namespace equational
+}  // namespace logic
+}  // namespace atp
 
 
 struct ParseTreeToSyntaxTreeFixture
@@ -128,20 +121,6 @@ static SyntaxNodeType rhs_types[] =
 {
 	SyntaxNodeType::FREE, SyntaxNodeType::FREE,
 	SyntaxNodeType::FUNC
-};
-
-
-// here are some statements, with plenty of free variables,
-// for us to test their IDs:
-static std::string stmts_with_free_vars[] =
-{
-	"*(x, *(y, z)) = *(*(x, y), z)",
-	"*(x, y) = z",
-	"*(*(x, y), *(z, w)) = i(i(i(i(*(x, w)))))"
-};
-static size_t num_free_vars_in_stmts[] =
-{
-	3, 3, 4
 };
 
 
@@ -314,57 +293,6 @@ BOOST_AUTO_TEST_CASE(test_func_args_typed_correctly)
 
 	// it is the same free variable as before:
 	BOOST_TEST(p_final_child->get_free_id() == 0);
-}
-
-
-BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
-	"EquationalTests/ParseTreeToSyntaxTreeTests/test_func_args_typed_correctly"))
-BOOST_DATA_TEST_CASE(test_free_var_ids_are_valid,
-	boost::unit_test::data::make(stmts_with_free_vars)
-	^ boost::unit_test::data::make(num_free_vars_in_stmts),
-	stmt, num_free_vars)
-{
-	s << stmt;
-	auto result = parse_statements(s);
-
-	// the tests should be parsable at least:
-	BOOST_REQUIRE(result.has_value());
-
-	// only one statement per test please:
-	BOOST_REQUIRE(result.get().size() == 1);
-
-	auto p_node = ptree_to_stree(
-		result.get().front(), ker);
-
-	// should've been successful
-	BOOST_REQUIRE(p_node != nullptr);
-
-	std::vector<bool> exists_free;
-	exists_free.resize(num_free_vars, false);
-
-	auto eq_func = arg1 && arg2;
-	auto const_func = phx::val(true);
-	auto func_func = [](size_t, std::list<bool>::iterator begin,
-		std::list<bool>::iterator end) -> bool
-	{
-		return std::all_of(begin, end, arg1);
-	};
-
-	auto free_func = [&exists_free, num_free_vars](size_t id) -> bool
-	{
-		if (id >= num_free_vars)
-			return false;
-		else
-		{
-			exists_free[id] = true;
-			return true;
-		}
-	};
-
-	BOOST_TEST(fold_syntax_tree<bool>(eq_func, free_func, const_func,
-		func_func, p_node));
-	BOOST_TEST(std::all_of(exists_free.begin(), exists_free.end(),
-		arg1));
 }
 
 

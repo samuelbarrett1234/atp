@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Equational">
       <UniqueIdentifier>{8a1a1ac3-5362-42d2-b2e6-8d8aa023ecff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Equational">
+      <UniqueIdentifier>{dc2089c1-1792-479f-8dc5-95badcac6521}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -36,10 +39,25 @@
     <ClCompile Include="Equational\ParseTreeToSyntaxTreeTests.cpp">
       <Filter>Source Files\Equational</Filter>
     </ClCompile>
+    <ClCompile Include="Equational\MatchingTests.cpp">
+      <Filter>Source Files\Equational</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\SyntaxTreeFoldTests.cpp">
+      <Filter>Source Files\Equational</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\SyntaxTreeFreeVarTests.cpp">
+      <Filter>Source Files\Equational</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\SyntaxNodeToStr.cpp">
+      <Filter>Source Files\Equational</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Equational\SyntaxNodeToStr.h">
+      <Filter>Header Files\Equational</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

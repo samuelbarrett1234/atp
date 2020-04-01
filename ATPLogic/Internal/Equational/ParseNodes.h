@@ -15,6 +15,7 @@ children or siblings of other identifier nodes).
 
 #include <string>
 #include <memory>
+#include <list>
 #include "../../ATPLogicAPI.h"
 
 

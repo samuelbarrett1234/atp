@@ -33,6 +33,9 @@
     <ClCompile Include="Equational\KnowledgeKernelDefinitionsTests.cpp">
       <Filter>Source Files\Equational</Filter>
     </ClCompile>
+    <ClCompile Include="Equational\ParseTreeToSyntaxTreeTests.cpp">
+      <Filter>Source Files\Equational</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">

@@ -42,12 +42,12 @@ SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 			const auto arity = std::distance(child_begin, child_end);
 			const bool identifier_defined = ker.is_defined(name);
 
-			// check that we have no free variables with nonzero
-			// arity:
-			ATP_LOGIC_PRECOND(arity == 0 || identifier_defined);
-
 			if (!identifier_defined)  // if a free variable
 			{
+				// free functions are not allowed!
+				if (arity > 0)
+					return SyntaxNodePtr();
+
 				// construct free variable ID:
 				auto name_id_iter = free_var_ids.find(name);
 				if (name_id_iter == free_var_ids.end())
@@ -69,6 +69,12 @@ SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 			}
 			else if (arity == 0)  // if a user defined constant...
 			{
+				ATP_LOGIC_ASSERT(identifier_defined);
+
+				// first check that we got the correct arity:
+				if (ker.symbol_arity_from_name(name) != arity)
+					return SyntaxNodePtr();
+
 				const size_t symbol_id = ker.symbol_id(name);
 
 				return std::make_shared<ConstantSyntaxNode>(
@@ -77,6 +83,10 @@ SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 			else  // if a user defined function...
 			{
 				ATP_LOGIC_ASSERT(identifier_defined && arity > 0);
+
+				// first check that we got the correct arity:
+				if (ker.symbol_arity_from_name(name) != arity)
+					return SyntaxNodePtr();
 
 				// if any child fails, we fail:
 				if (std::any_of(child_begin, child_end,

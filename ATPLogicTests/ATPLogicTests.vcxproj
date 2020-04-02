@@ -171,11 +171,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Equational\KnowledgeKernelDefinitionsTests.cpp" />
+    <ClCompile Include="Equational\LanguageTests.cpp" />
     <ClCompile Include="Equational\MatchingTests.cpp" />
     <ClCompile Include="Equational\ParseDefinitionsTests.cpp" />
     <ClCompile Include="Equational\ParseStatementsTests.cpp" />
     <ClCompile Include="Equational\ParseTreeFoldTests.cpp" />
     <ClCompile Include="Equational\ParseTreeToSyntaxTreeTests.cpp" />
+    <ClCompile Include="Equational\StatementTests.cpp" />
     <ClCompile Include="Equational\SyntaxNodeToStr.cpp" />
     <ClCompile Include="Equational\SyntaxTreeFoldTests.cpp" />
     <ClCompile Include="Equational\SyntaxTreeFreeVarTests.cpp" />

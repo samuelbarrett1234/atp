@@ -97,9 +97,6 @@ public:
 	// substitution, if there is one.)
 	bool follows_from(const Statement& premise) const;
 
-	// perform type checking against some other kernel
-	bool type_check(const KnowledgeKernel& alternative_ker) const;
-
 	// returns the number of (distinct) free variables
 	// i.e. if the statement contains "x y z w x" we return 4.
 	inline size_t num_free_variables() const
@@ -110,7 +107,15 @@ public:
 	// checks that the version of the kernel used by this statement
 	// agrees with the given kernel (more specifically, it checks
 	// the type and the integrity code).
-	bool check_kernel(const IKnowledgeKernel* p_ker) const;
+	bool check_compatible(const IKnowledgeKernel* p_ker) const;
+
+	// returns true iff this statement is equal to the `other`
+	// statement UP TO permutation of free variables
+	bool equivalent(const Statement& other) const;
+
+	// returns true iff this statement is equal to the `other`
+	// statement (not allowing permutations of free variables).
+	bool identical(const Statement& other) const;
 
 private:
 	const KnowledgeKernel& m_ker;

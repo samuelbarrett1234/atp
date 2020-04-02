@@ -51,6 +51,12 @@
     <ClCompile Include="Equational\SyntaxNodeToStr.cpp">
       <Filter>Source Files\Equational</Filter>
     </ClCompile>
+    <ClCompile Include="Equational\StatementTests.cpp">
+      <Filter>Source Files\Equational</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\LanguageTests.cpp">
+      <Filter>Source Files\Equational</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">

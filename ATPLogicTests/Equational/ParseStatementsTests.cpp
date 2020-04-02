@@ -234,5 +234,18 @@ BOOST_AUTO_TEST_CASE(parse_statements_correctly_interprets_functions)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_no_partial_load)
+{
+	// if one line is incorrect then it counts as a
+	// failed parse
+
+	s << "x = x \n x = i(";
+
+	auto result = parse_statements(s);
+
+	BOOST_TEST(!result.has_value());
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();  // ParseStatementTests
 BOOST_AUTO_TEST_SUITE_END();  // EquationalTests

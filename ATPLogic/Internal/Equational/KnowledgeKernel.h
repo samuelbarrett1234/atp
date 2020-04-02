@@ -87,12 +87,15 @@ public:
 		m_id_to_arity[id] = arity;
 	}
 
-	// this is for rules from the definition file, NOT for theorems
-	// loaded from a database!
-	// technically this would work as a way of inputting already-
-	// proven theorems, but it will be slow and there would be no way
-	// of unloading them.
-	void define_eq_rule(Statement& rule);
+	// note: as of yet, there is no way of "undefining" these rules,
+	// if you wanted to stream theorems in and out of memory (for
+	// example.)
+	// precondition: valid(p_rules)
+	void define_eq_rules(StatementArrayPtr p_rules);
+
+	// returns true iff `stmt` is equivalent to one of the given
+	// equality rules
+	bool is_a_rule(const Statement& stmt) const;
 
 	// check if a given identifier has been defined already or not
 	inline bool is_defined(std::string name) const

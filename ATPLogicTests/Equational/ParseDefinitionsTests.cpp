@@ -77,6 +77,19 @@ BOOST_AUTO_TEST_CASE(parse_definitions_works_with_none)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_no_partial_load)
+{
+	// if one line is incorrect then it counts as a
+	// failed parse
+
+	s << "e 0 \n 1 i";
+
+	auto result = parse_definitions(s);
+
+	BOOST_TEST(!result.has_value());
+}
+
+
 BOOST_DATA_TEST_CASE(parse_definitions_returns_none_when_incorrect,
 	boost::unit_test::data::make(ill_formed_definitions), def)
 {

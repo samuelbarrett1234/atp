@@ -151,7 +151,7 @@ StatementArray::StatementArray(ArrPtr p_array,
 	// m_array should be non-null and we should have rectified m_stop
 	// earlier in the constructor
 	ATP_LOGIC_ASSERT(m_array != nullptr);
-	ATP_LOGIC_ASSERT(m_stop < m_array->size());
+	ATP_LOGIC_ASSERT(m_stop <= m_array->size());
 }
 
 

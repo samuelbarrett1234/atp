@@ -28,7 +28,9 @@ StatementGrammar::StatementGrammar() :
 	StatementGrammar::base_type(start)
 {
 	// statements are line-separated, by any number of lines
-	start = statement % (+qi::eol);
+	// (always read end of input at the end, to prevent partial
+	// parses - see the test `test_no_partial_load`.
+	start = statement % (+qi::eol) >> qi::eoi;
 
 	// a statement is an equality of two expressions
 	statement = (expression >> '=' >> expression)
@@ -74,7 +76,9 @@ DefinitionGrammar::DefinitionGrammar() :
 	DefinitionGrammar::base_type(symbol_def_list)
 {
 	// definitions are line-separated, by any number of lines
-	symbol_def_list = symbol_def % (+qi::eol);
+	// (always read end of input at the end, to prevent partial
+	// parses - see the test `test_no_partial_load`.
+	symbol_def_list = symbol_def % (+qi::eol) >> qi::eoi;
 
 	symbol_def = identifier >> qi::uint_;
 

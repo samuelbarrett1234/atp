@@ -102,7 +102,7 @@ bool KnowledgeKernel::valid(
 
 	// call .type_check on each statement
 	return std::all_of(arr.begin(), arr.end(),
-		boost::bind(&Statement::type_check, _1, boost::ref(*this)));
+		boost::bind(&Statement::check_compatible, _1, this));
 }
 
 
@@ -154,13 +154,26 @@ std::vector<bool> KnowledgeKernel::follows(
 }
 
 
-void KnowledgeKernel::define_eq_rule(Statement& rule)
+void KnowledgeKernel::define_eq_rules(StatementArrayPtr _p_rules)
 {
-	ATP_LOGIC_PRECOND(rule.check_kernel(this));
-	ATP_LOGIC_PRECOND(rule.type_check(*this));
+	ATP_LOGIC_PRECOND(valid(_p_rules));
+
+	// try casting to equational::StatememtArray
+	auto p_rules = dynamic_cast<const StatementArray*>(
+		_p_rules.get());
+
+	ATP_LOGIC_ASSERT(p_rules != nullptr);
 
 	// construct rule statement from syntax tree
-	m_rules.push_back(rule);
+	m_rules.insert(m_rules.end(), p_rules->raw().begin(),
+		p_rules->raw().end());
+}
+
+
+bool KnowledgeKernel::is_a_rule(const Statement& stmt) const
+{
+	return std::any_of(m_rules.begin(), m_rules.end(),
+		boost::bind(&Statement::equivalent, boost::ref(stmt), _1));
 }
 
 

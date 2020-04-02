@@ -109,7 +109,8 @@ Statement& Statement::operator=(const Statement& other)
 
 StmtForm Statement::form() const
 {
-	if (syntax_matching::trivially_true(*m_root))
+	if (syntax_matching::trivially_true(*m_root) ||
+		m_ker.is_a_rule(*this))
 	{
 		return StmtForm::CANONICAL_TRUE;
 	}
@@ -140,9 +141,9 @@ std::string Statement::to_str() const
 		std::list<std::string>::iterator begin,
 		std::list<std::string>::iterator end) -> std::string
 	{
-		return m_ker.symbol_name(symb_id) +
+		return m_ker.symbol_name(symb_id) + '(' +
 			boost::algorithm::join(
-				boost::make_iterator_range(begin, end), ", ");
+				boost::make_iterator_range(begin, end), ", ") + ')';
 	};
 
 	return fold_syntax_tree<std::string>(eq_fold, free_var_fold,
@@ -257,10 +258,21 @@ bool Statement::follows_from(const Statement& premise) const
 }
 
 
-bool Statement::type_check(
-	const KnowledgeKernel& alternative_ker) const
+bool Statement::check_compatible(const IKnowledgeKernel* p_ker) const
 {
-	// we will use a fold to check validity!
+	// first check integrity codes
+	if (p_ker->get_integrity_code() !=
+		m_ker.get_integrity_code())
+		return false;
+
+	// next check types
+	auto p_alternative_ker = dynamic_cast<const KnowledgeKernel*>(
+		p_ker);
+
+	if (p_alternative_ker == nullptr)
+		return false;
+
+	// now we will use a fold to check type validity!
 
 	// eq is valid iff both its sides are valid:
 	auto eq_valid = boost::phoenix::arg_names::arg1
@@ -270,24 +282,24 @@ bool Statement::type_check(
 	auto free_valid = boost::phoenix::val(true);
 
 	std::function<bool(size_t)> const_valid =
-		[&alternative_ker](size_t symb_id) -> bool
+		[&p_alternative_ker](size_t symb_id) -> bool
 	{
-		return alternative_ker.id_is_defined(symb_id)
-			&& alternative_ker.symbol_arity_from_id(
-			symb_id) == 0;
+		return p_alternative_ker->id_is_defined(symb_id)
+			&& p_alternative_ker->symbol_arity_from_id(
+				symb_id) == 0;
 	};
 
 	std::function<bool(size_t, std::list<bool>::iterator,
 		std::list<bool>::iterator)> func_valid =
-		[&alternative_ker](size_t symb_id,
+		[&p_alternative_ker](size_t symb_id,
 			std::list<bool>::iterator child_begin,
 			std::list<bool>::iterator child_end) -> bool
 	{
 		const size_t implied_arity = std::distance(child_begin,
 			child_end);
 
-		return alternative_ker.id_is_defined(symb_id)
-			&& alternative_ker.symbol_arity_from_id(
+		return p_alternative_ker->id_is_defined(symb_id)
+			&& p_alternative_ker->symbol_arity_from_id(
 				symb_id) == implied_arity
 			&& std::all_of(child_begin, child_end,
 				// use phoenix for an easy identity function
@@ -299,11 +311,17 @@ bool Statement::type_check(
 }
 
 
-bool Statement::check_kernel(const IKnowledgeKernel* p_ker) const
+bool Statement::equivalent(const Statement& other) const
 {
-	return (dynamic_cast<const KnowledgeKernel*>(p_ker) != nullptr
-		&& p_ker->get_integrity_code() ==
-		m_ker.get_integrity_code());
+	return syntax_matching::equivalent(*m_root,
+		*other.m_root);
+}
+
+
+bool Statement::identical(const Statement& other) const
+{
+	return syntax_matching::identical(*m_root,
+		*other.m_root);
 }
 
 
@@ -441,7 +459,10 @@ fold_const_constructor(size_t N,
 	result.reserve(N);
 
 	std::generate_n(result.begin(), N,
-		[symb_id]() { return std::make_shared<ConstantSyntaxNode>(symb_id); });
+		[symb_id]()
+		{
+			return std::make_shared<ConstantSyntaxNode>(symb_id);
+		});
 
 	return result;
 }

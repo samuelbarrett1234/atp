@@ -122,6 +122,7 @@ BOOST_DATA_TEST_CASE(test_try_match_gets_correct_substitutions,
 		pattern_parse_tree, ker);
 
 	s = std::stringstream();
+	s << std::noskipws;
 
 	s << trial;
 	auto trial_result = parse_statements(s);
@@ -175,6 +176,7 @@ BOOST_AUTO_TEST_CASE(try_match_with_double_substitution)
 		pattern_parse_tree, ker);
 
 	s = std::stringstream();
+	s << std::noskipws;
 
 	s << "*(*(i(x0), *(x0, x1)), i(x0)) = x0";
 	auto trial_result = parse_statements(s);

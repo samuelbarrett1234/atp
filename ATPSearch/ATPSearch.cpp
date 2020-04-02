@@ -19,7 +19,9 @@ bool simple_check_proof(logic::IKnowledgeKernel& ker,
 		proof->slice(1, proof->size()));
 
 	return std::all_of(result.begin(), result.end(),
-		[](bool x) { return x; });
+		[](bool x) { return x; })
+		&& proof->at(0).form() ==
+		logic::StmtForm::CANONICAL_TRUE;
 }
 
 

@@ -36,7 +36,7 @@ ATP_SEARCH_API SolverPtr create_solver(SolverType st,
 // Postcondition: returns true iff the proof is correct.
 // Checks the given proof by ensuring that each statement is reached
 // from the last statement in exactly one step according to the
-// knowledge kernel.
+// knowledge kernel. The first step must be canonically true.
 // WARNING: we call this function "simple" because of two reasons: if
 // the kernel doesn't have all proven theorems available to it, it
 // may return an incorrect result (which would happen if the proof

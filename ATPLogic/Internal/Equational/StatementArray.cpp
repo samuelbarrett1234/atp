@@ -200,7 +200,7 @@ size_t compute_slice_size(size_t start, size_t end, size_t step)
 	ATP_LOGIC_PRECOND(step > 0);
 
 	return (end - start) / step +
-		((end != start) ? 1 : 0);
+		((end != start && (end - start) % step != 0) ? 1 : 0);
 }
 
 

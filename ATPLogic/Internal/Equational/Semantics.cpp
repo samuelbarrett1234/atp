@@ -119,7 +119,9 @@ bool equivalent(const Statement& a, const Statement& b)
 	auto default_func = phx::val(false);
 
 	return a.fold_pair<bool>(eq_func, free_func, const_func,
-		f_func, default_func, b);
+		f_func, default_func, b) ||
+	a.fold_pair<bool>(eq_func, free_func, const_func,
+		f_func, default_func, transpose(b));
 }
 
 
@@ -422,7 +424,7 @@ StatementArray replace_free_with_free(const Statement& stmt)
 bool follows_from(const Statement& premise,
 	const Statement& concl)
 {
-	auto subs = get_substitutions(premise, { concl });
+	auto subs = get_substitutions(concl, { premise });
 	
 	return std::any_of(subs.begin(), subs.end(),
 		boost::bind(&equivalent, boost::ref(concl), _1));

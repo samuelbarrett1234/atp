@@ -158,11 +158,17 @@ public:
 		}
 		inline bool operator==(const iterator& iter) const
 		{
-			return (i == iter.i && arr == iter.arr);
+			// warning: end iterators don't necessarily agree
+			// on their index!
+			// so if their indices are the same, or they are
+			// both end iterators, then we treat them as equal.
+			return ((i == iter.i) ||
+				(is_end_iterator() && iter.is_end_iterator())
+				&& arr == iter.arr);
 		}
 		inline bool operator!=(const iterator& iter) const
 		{
-			return (i != iter.i || arr != iter.arr);
+			return !(*this == iter);
 		}
 		inline bool operator<(const iterator& iter) const
 		{
@@ -179,6 +185,11 @@ public:
 		inline bool operator>=(const iterator& iter) const
 		{
 			return (i >= iter.i);
+		}
+		inline bool is_end_iterator() const
+		{
+			ATP_LOGIC_PRECOND(arr != nullptr);
+			return i >= arr->size();
 		}
 
 	private:

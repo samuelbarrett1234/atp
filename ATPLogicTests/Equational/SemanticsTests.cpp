@@ -1,6 +1,6 @@
 /*
 
-MatchingTests.cpp
+SemanticsTests.cpp
 
 This suite tests the functions that are found in the Matching.h/
 Matching.cpp files. Those files contain an array of helper functions
@@ -129,19 +129,19 @@ BOOST_DATA_TEST_CASE(test_true_by_reflexivity_works_on_examples,
 // in scenarios where they both should return the same value:
 BOOST_DATA_TEST_CASE(test_identical_and_equivalent,
 	boost::unit_test::data::make({
-		// first list of statements
-		"x = x", "i(x) = x", "x = e", "e = e" }) ^
-		boost::unit_test::data::make({
-		// second list of statements
-		"y = y", "i(y) = y", "e = e", "e = e" }) ^
-		boost::unit_test::data::make({
-		// whether or not those statements are equivalent
-		// (and also identical - it makes no difference here) and
-		// note that "x=x" and "y=y" are identical because, once
-		// the statements are parsed, both have 0 as their free
-		// variable IDs.
-		true, true, false, true }),
-		stmt1, stmt2, is_equivalent_and_identical)
+	// first list of statements
+	"x = x", "i(x) = x", "x = e", "e = e" }) ^
+	boost::unit_test::data::make({
+	// second list of statements
+	"y = y", "i(y) = y", "e = e", "e = e" }) ^
+	boost::unit_test::data::make({
+	// whether or not those statements are equivalent
+	// (and also identical - it makes no difference here) and
+	// note that "x=x" and "y=y" are identical because, once
+	// the statements are parsed, both have 0 as their free
+	// variable IDs.
+	true, true, false, true }),
+	stmt1, stmt2, is_equivalent_and_identical)
 {
 	// parse them both at the same time
 	s << stmt1 << std::endl << stmt2;
@@ -165,6 +165,34 @@ BOOST_DATA_TEST_CASE(test_identical_and_equivalent,
 		stmt2_obj) == is_equivalent_and_identical);
 	BOOST_TEST(semantics::equivalent(stmt1_obj,
 		stmt2_obj) == is_equivalent_and_identical);
+}
+
+
+BOOST_DATA_TEST_CASE(test_transpose,
+	boost::unit_test::data::make({ "x0 = i(x0)",
+		"i(x0) = *(x0, x1)" }) ^
+	boost::unit_test::data::make({
+		"i(x0) = x0", "*(x0, x1) = i(x0)" }),
+	original, target)
+{
+	// create statements from the "original" and
+	// "target" strings
+	s << original << "\n" << target;
+	auto results = parse_statements(s);
+	BOOST_REQUIRE(results.has_value());
+	BOOST_REQUIRE(results.get().size() == 2);
+	auto stree1 = ptree_to_stree(results.get().front(), ker);
+	auto stree2 = ptree_to_stree(results.get().back(), ker);
+	BOOST_REQUIRE(stree1 != nullptr);
+	BOOST_REQUIRE(stree2 != nullptr);
+	auto stmt1 = Statement(ker, stree1);
+	auto stmt2 = Statement(ker, stree2);
+	// check that the transpose of one of them is identical
+	// to the other one
+	BOOST_TEST(semantics::identical(stmt1,
+		semantics::transpose(stmt2)));
+	BOOST_TEST(semantics::identical(stmt2,
+		semantics::transpose(stmt1)));
 }
 
 

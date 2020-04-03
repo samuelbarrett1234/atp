@@ -29,7 +29,8 @@ struct ParseDefinitionsTestFixture
 
 
 BOOST_AUTO_TEST_SUITE(EquationalTests);
-BOOST_FIXTURE_TEST_SUITE(ParseDefinitionsTests, ParseDefinitionsTestFixture)
+BOOST_FIXTURE_TEST_SUITE(ParseDefinitionsTests,
+	ParseDefinitionsTestFixture);
 
 
 static std::string ill_formed_definitions[] =
@@ -74,6 +75,26 @@ BOOST_AUTO_TEST_CASE(parse_definitions_works_with_none)
 
 	BOOST_REQUIRE(result.has_value());
 	BOOST_TEST(result.get().empty());
+}
+
+
+BOOST_AUTO_TEST_CASE(parse_definitions_handles_trailing_whitespace)
+{
+	s << "e 0\n\n\n\n\n\n    \t\t";
+
+	auto result = parse_definitions(s);
+
+	BOOST_TEST(result.has_value());
+}
+
+
+BOOST_AUTO_TEST_CASE(parse_definitions_handles_words)
+{
+	s << "very_b1g_constant_nam3 100";
+
+	auto result = parse_definitions(s);
+
+	BOOST_TEST(result.has_value());
 }
 
 

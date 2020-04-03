@@ -81,6 +81,26 @@ BOOST_AUTO_TEST_CASE(parse_statements_handles_no_spaces)
 }
 
 
+BOOST_AUTO_TEST_CASE(parse_statements_handles_trailing_whitespace)
+{
+	s << "x = x\n\n\n\n\n\n    \t\t";
+
+	auto result = parse_statements(s);
+
+	BOOST_TEST(result.has_value());
+}
+
+
+BOOST_AUTO_TEST_CASE(parse_statements_handles_words_and_numbers)
+{
+	s << "very_long_func_name(x, very_b1g_var1abl3_nam3) = 3";
+
+	auto result = parse_statements(s);
+
+	BOOST_TEST(result.has_value());
+}
+
+
 BOOST_AUTO_TEST_CASE(parse_statements_returns_three_results)
 {
 	s << "f(x, y) = z\ng(z)=f(x, y)\nh(x, y, z, w) = f(x, y)";

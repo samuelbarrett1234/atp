@@ -61,11 +61,11 @@ Statement::Statement(
 	const KnowledgeKernel& ker,
 	SyntaxNodePtr p_root) :
 	m_ker(ker), m_root(p_root),
-	m_num_free_vars(syntax_matching::num_free_vars(p_root))
+	m_num_free_vars(semantics::num_free_vars(p_root))
 {
 	ATP_LOGIC_PRECOND(m_root != nullptr);
 	ATP_LOGIC_PRECOND(
-		!syntax_matching::needs_free_var_id_rebuild(m_root));
+		!semantics::needs_free_var_id_rebuild(m_root));
 	ATP_LOGIC_PRECOND(m_root->get_type() == SyntaxNodeType::EQ);
 
 	auto p_eq = dynamic_cast<EqSyntaxNode*>(m_root.get());
@@ -109,7 +109,7 @@ Statement& Statement::operator=(const Statement& other)
 
 StmtForm Statement::form() const
 {
-	if (syntax_matching::trivially_true(*m_root) ||
+	if (semantics::trivially_true(*m_root) ||
 		m_ker.is_a_rule(*this))
 	{
 		return StmtForm::CANONICAL_TRUE;
@@ -171,13 +171,13 @@ Statement::get_substitutions(
 
 		for (size_t j = 0; j < 4; j++)
 		{
-			auto maybe_substitution = syntax_matching::try_match(
+			auto maybe_substitution = semantics::try_match(
 				rule_sides[j % 2], expr_sides[j / 2]
 			);
 
 			if (maybe_substitution.has_value())
 			{
-				auto sub_result = syntax_matching::get_substitution(
+				auto sub_result = semantics::get_substitution(
 					m_root, maybe_substitution.get()
 				);
 				trees.push_back(sub_result);
@@ -242,7 +242,7 @@ bool Statement::follows_from(const Statement& premise) const
 	// either side of the premise:
 	for (size_t j = 0; j < 4; j++)
 	{
-		auto subs = syntax_matching::try_match(exprs[j / 2],
+		auto subs = semantics::try_match(exprs[j / 2],
 			exprs[2 + j % 2]);
 
 		if (subs.has_value())
@@ -313,14 +313,14 @@ bool Statement::check_compatible(const IKnowledgeKernel* p_ker) const
 
 bool Statement::equivalent(const Statement& other) const
 {
-	return syntax_matching::equivalent(*m_root,
+	return semantics::equivalent(*m_root,
 		*other.m_root);
 }
 
 
 bool Statement::identical(const Statement& other) const
 {
-	return syntax_matching::identical(*m_root,
+	return semantics::identical(*m_root,
 		*other.m_root);
 }
 
@@ -518,7 +518,7 @@ std::shared_ptr<std::vector<Statement>> from_trees(
 {
 #ifdef ATP_LOGIC_DEFENSIVE
 	ATP_LOGIC_PRECOND(std::none_of(trees.begin(),
-		trees.end(), &syntax_matching::needs_free_var_id_rebuild));
+		trees.end(), &semantics::needs_free_var_id_rebuild));
 #endif
 
 	std::shared_ptr<std::vector<Statement>> p_stmt_arr =

@@ -28,7 +28,7 @@ using atp::logic::equational::FreeSyntaxNode;
 using atp::logic::equational::parse_statements;
 using atp::logic::equational::ptree_to_stree;
 using atp::logic::equational::fold_syntax_tree;
-namespace syntax_matching = atp::logic::equational::syntax_matching;
+namespace semantics = atp::logic::equational::semantics;
 
 
 // apply the following map to free variable IDs (does not attempt to
@@ -145,7 +145,7 @@ BOOST_DATA_TEST_CASE(test_try_match_gets_correct_substitutions,
 	auto p_trial = dynamic_cast<EqSyntaxNode*>(
 		trial_syntax_tree.get())->left();
 
-	auto match_result = syntax_matching::try_match(
+	auto match_result = semantics::try_match(
 		p_pattern, p_trial);
 
 	BOOST_TEST(match_result.has_value());
@@ -199,7 +199,7 @@ BOOST_AUTO_TEST_CASE(try_match_with_double_substitution)
 	auto p_trial = dynamic_cast<EqSyntaxNode*>(
 		trial_syntax_tree.get())->left();
 
-	auto match_result = syntax_matching::try_match(
+	auto match_result = semantics::try_match(
 		p_pattern, p_trial);
 
 	BOOST_TEST(match_result.has_value());
@@ -261,18 +261,18 @@ BOOST_DATA_TEST_CASE(test_get_substitution,
 	auto p_target = dynamic_cast<EqSyntaxNode*>(
 		syntax_target_stmt.get())->left();
 
-	auto sub = syntax_matching::try_match(p_pattern,
+	auto sub = semantics::try_match(p_pattern,
 		p_target);
 
 	BOOST_REQUIRE(sub.has_value());
 
-	auto sub_result_stmt = syntax_matching::get_substitution(
+	auto sub_result_stmt = semantics::get_substitution(
 		syntax_start_stmt, sub.get());
 
 	BOOST_REQUIRE(sub_result_stmt != nullptr);
 
 	// and finally, the important test:
-	BOOST_TEST(syntax_matching::equivalent(*sub_result_stmt,
+	BOOST_TEST(semantics::equivalent(*sub_result_stmt,
 		*syntax_target_stmt));
 }
 
@@ -298,7 +298,7 @@ BOOST_DATA_TEST_CASE(trivially_true_works_on_examples,
 
 	BOOST_REQUIRE(syntax_tree != nullptr);
 
-	BOOST_TEST(syntax_matching::trivially_true(*syntax_tree)
+	BOOST_TEST(semantics::trivially_true(*syntax_tree)
 		== is_trivially_true);
 }
 
@@ -336,9 +336,9 @@ BOOST_DATA_TEST_CASE(test_identical_and_equivalent_work,
 	BOOST_REQUIRE(syntax_tree_1 != nullptr);
 	BOOST_REQUIRE(syntax_tree_2 != nullptr);
 
-	BOOST_TEST(syntax_matching::identical(*syntax_tree_1,
+	BOOST_TEST(semantics::identical(*syntax_tree_1,
 		*syntax_tree_2) == is_equivalent_and_identical);
-	BOOST_TEST(syntax_matching::equivalent(*syntax_tree_1,
+	BOOST_TEST(semantics::equivalent(*syntax_tree_1,
 		*syntax_tree_2) == is_equivalent_and_identical);
 }
 
@@ -370,10 +370,27 @@ BOOST_DATA_TEST_CASE(test_equivalent_but_not_identical,
 	BOOST_REQUIRE(syntax_tree_2 != nullptr);
 
 	// not identical, but equivalent
-	BOOST_TEST(!syntax_matching::identical(*syntax_tree_1,
+	BOOST_TEST(!semantics::identical(*syntax_tree_1,
 		*syntax_tree_2));
-	BOOST_TEST(syntax_matching::equivalent(*syntax_tree_1,
+	BOOST_TEST(semantics::equivalent(*syntax_tree_1,
 		*syntax_tree_2));
+}
+
+
+BOOST_AUTO_TEST_CASE(test_equivalent_invariant_to_reflection)
+{
+	// reflect the statement along the equals sign, should still
+	// be equivalent but not identical
+	s << "x = i(x) \n i(x) = x";
+	auto result = parse_statements(s);
+
+	BOOST_REQUIRE(result.has_value());
+	BOOST_REQUIRE(result.get().size() == 2);
+
+	auto stree1 = ptree_to_stree(result.get().front(), ker);
+	auto stree2 = ptree_to_stree(result.get().back(), ker);
+
+	BOOST_TEST(semantics::equivalent(stree1, stree2));
 }
 
 
@@ -402,9 +419,9 @@ BOOST_DATA_TEST_CASE(test_neither_equivalent_nor_identical,
 	BOOST_REQUIRE(syntax_tree_2 != nullptr);
 
 	// not identical, but equivalent
-	BOOST_TEST(!syntax_matching::identical(*syntax_tree_1,
+	BOOST_TEST(!semantics::identical(*syntax_tree_1,
 		*syntax_tree_2));
-	BOOST_TEST(!syntax_matching::equivalent(*syntax_tree_1,
+	BOOST_TEST(!semantics::equivalent(*syntax_tree_1,
 		*syntax_tree_2));
 }
 
@@ -426,7 +443,7 @@ BOOST_DATA_TEST_CASE(test_num_free_vars,
 	auto syntax_tree = ptree_to_stree(result.get().front(),
 		ker);
 
-	BOOST_TEST(syntax_matching::num_free_vars(syntax_tree)
+	BOOST_TEST(semantics::num_free_vars(syntax_tree)
 		== num_free_vars);
 }
 
@@ -448,7 +465,7 @@ BOOST_DATA_TEST_CASE(test_needs_free_var_id_rebuild_and_rebuilding,
 	BOOST_REQUIRE(syntax_tree_1 != nullptr);
 
 	// first test:
-	BOOST_TEST(!syntax_matching::needs_free_var_id_rebuild(
+	BOOST_TEST(!semantics::needs_free_var_id_rebuild(
 		syntax_tree_1));
 
 	// change the free variable IDs so that they need rebuilding
@@ -466,14 +483,14 @@ BOOST_DATA_TEST_CASE(test_needs_free_var_id_rebuild_and_rebuilding,
 	BOOST_REQUIRE(syntax_tree_2 != nullptr);
 
 	// second test:
-	BOOST_TEST(syntax_matching::needs_free_var_id_rebuild(
+	BOOST_TEST(semantics::needs_free_var_id_rebuild(
 		syntax_tree_2));
 
 	// now try rebuilding! (modifies existing tree)
-	syntax_matching::rebuild_free_var_ids(syntax_tree_2);
+	semantics::rebuild_free_var_ids(syntax_tree_2);
 
 	// third test:
-	BOOST_TEST(!syntax_matching::needs_free_var_id_rebuild(
+	BOOST_TEST(!semantics::needs_free_var_id_rebuild(
 		syntax_tree_2));
 }
 
@@ -492,7 +509,7 @@ BOOST_AUTO_TEST_CASE(test_no_free_vars_means_doesnt_need_rebuild)
 
 	BOOST_REQUIRE(syntax_tree != nullptr);
 
-	BOOST_TEST(!syntax_matching::needs_free_var_id_rebuild(
+	BOOST_TEST(!semantics::needs_free_var_id_rebuild(
 		syntax_tree));
 }
 

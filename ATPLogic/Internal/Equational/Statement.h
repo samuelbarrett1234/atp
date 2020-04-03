@@ -17,7 +17,8 @@ Syntax trees are a good intermediate format (to pass between parsing
 and the Statement object).
 
 Note that an equational statement is trivially true if and only if it
-is of the form "x = x", with some substitution for "x". Thus, to check
+is of the form "x = x", with some substitution for "x", or is equivalent
+to one of the axioms in the equality rules. Thus, to check
 if a statement is trivial, we check if the left hand side and right
 hand side are identical (without allowing free variables to be
 swapped; this is obvious because f(x,y) /= f(y,x) in general.)

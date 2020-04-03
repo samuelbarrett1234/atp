@@ -22,7 +22,7 @@ namespace logic
 {
 namespace equational
 {
-namespace syntax_matching
+namespace semantics
 {
 
 
@@ -94,7 +94,7 @@ ATP_LOGIC_API bool identical(const ISyntaxNode& a,
 ATP_LOGIC_API bool trivially_true(const ISyntaxNode& eq);
 
 
-}  // namespace syntax_matching
+}  // namespace semantics
 }  // namespace equational
 }  // namespace logic
 }  // namespace atp

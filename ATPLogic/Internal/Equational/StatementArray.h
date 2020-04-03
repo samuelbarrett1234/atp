@@ -3,7 +3,7 @@
 
 /*
 
-Statement.h
+StatementArray.h
 
 Implementation of the IStatementArray interface for equational logic.
 This class tries to be as lazy as possible, for example by sharing a
@@ -16,6 +16,7 @@ this is worth the speedup.
 
 #include <memory>
 #include <vector>
+#include <iterator>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IStatementArray.h"
 #include "Statement.h"
@@ -47,6 +48,145 @@ public:
 	typedef std::shared_ptr<ArrType> ArrPtr;
 
 public:
+	class ATP_LOGIC_API iterator
+	{
+	public:
+		typedef std::random_access_iterator_tag iterator_category;
+		typedef Statement value_type;
+		typedef const Statement& reference;
+		typedef const Statement* pointer;
+		typedef size_t difference_type;
+
+		inline iterator() :
+			i(static_cast<size_t>(-1)),
+			arr(nullptr)
+		{ }
+		inline iterator(const StatementArray* arr) :
+			i(static_cast<size_t>(-1)),
+			arr(arr)
+		{ }
+		inline iterator(const StatementArray* arr, size_t i) :
+			i(i), arr(arr)
+		{ }
+		inline iterator(const iterator& other) :
+			i(other.i),
+			arr(other.arr)
+		{ }
+		inline iterator(iterator&& other) noexcept :
+			i(other.i),
+			arr(other.arr)
+		{ other.arr = nullptr; }
+		inline iterator& operator =(const iterator& other)
+		{
+			i = other.i;
+			arr = other.arr;
+			return *this;
+		}
+		inline iterator operator +(int j) const
+		{
+			if (j > 0)
+				return iterator(arr, i + static_cast<size_t>(j));
+			else if (-j > i)
+				return iterator(arr);
+			else
+				return iterator(arr, i - static_cast<size_t>(-j));
+		}
+		inline iterator operator -(int j) const
+		{
+			return *this + (-j);
+		}
+		inline difference_type operator - (const iterator& other) const
+		{
+			if (i >= other.i)
+				return i - other.i;
+			else
+				return static_cast<size_t>(-1);
+		}
+		inline iterator& operator += (int j)
+		{
+			*this = (*this + j);
+			return *this;
+		}
+		inline iterator& operator -= (int j)
+		{
+			*this = (*this - j);
+			return *this;
+		}
+		inline reference operator*() const
+		{
+			ATP_LOGIC_PRECOND(arr != nullptr);
+			ATP_LOGIC_PRECOND(i < arr->size());
+			return arr->my_at(i);
+		}
+		inline pointer operator->() const
+		{
+			ATP_LOGIC_PRECOND(arr != nullptr);
+			ATP_LOGIC_PRECOND(i < arr->size());
+			return &arr->my_at(i);
+		}
+		inline reference operator[](size_t j) const
+		{
+			return *(*this + (int)j);
+		}
+		inline iterator& operator++()
+		{
+			++i;
+			return *this;
+		}
+		inline iterator& operator--()
+		{
+			if (i > 0)
+				--i;
+			else
+				i = static_cast<size_t>(-1);
+			return *this;
+		}
+		inline iterator operator++(int)
+		{
+			iterator temp = *this;
+			++i;
+			return temp;
+		}
+		inline iterator operator--(int)
+		{
+			iterator temp = *this;
+			if (i > 0)
+				--i;
+			else
+				i = static_cast<size_t>(-1);
+			return temp;
+		}
+		inline bool operator==(const iterator& iter) const
+		{
+			return (i == iter.i && arr == iter.arr);
+		}
+		inline bool operator!=(const iterator& iter) const
+		{
+			return (i != iter.i || arr != iter.arr);
+		}
+		inline bool operator<(const iterator& iter) const
+		{
+			return (i < iter.i);
+		}
+		inline bool operator<=(const iterator& iter) const
+		{
+			return (i <= iter.i);
+		}
+		inline bool operator>(const iterator& iter) const
+		{
+			return (i > iter.i);
+		}
+		inline bool operator>=(const iterator& iter) const
+		{
+			return (i >= iter.i);
+		}
+
+	private:
+		size_t i;
+		const StatementArray* arr;
+	};
+
+public:
 	// these functions return nullptr if the statement types given as
 	// argument are not equational (thus this class isn't responsible
 	// for handling them). Returning nullptr is NOT an error.
@@ -74,15 +214,20 @@ public:
 		return static_cast<const IStatement&>(
 			m_array->at(m_start + i * m_step));
 	}
+	const Statement& my_at(size_t i) const
+	{
+		return m_array->at(i);
+	}
+	inline iterator begin() const
+	{
+		return iterator(this, 0);
+	}
+	inline iterator end() const
+	{
+		return iterator(this);
+	}
 	StatementArrayPtr slice(size_t start, size_t end,
 		size_t step = 1) const override;
-
-	// raw array can be useful for efficiency of other equational
-	// systems
-	inline const ArrType& raw() const
-	{
-		return *m_array;
-	}
 
 private:
 	ArrPtr m_array;

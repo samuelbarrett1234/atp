@@ -74,6 +74,14 @@ public:
 	virtual std::vector<bool> follows(
 		StatementArrayPtr p_premise,
 		StatementArrayPtr p_concl) const = 0;
+
+	// Precondition: valid(p_stmts)
+	// Postcondition: returns an array of size p_stmts->size()
+	// which contains the form of each statement in the array
+	// (telling you if the statements are trivially true /
+	// trivially false / not canonical.)
+	virtual std::vector<StmtForm> get_form(
+		StatementArrayPtr p_stmts) const = 0;
 };
 
 

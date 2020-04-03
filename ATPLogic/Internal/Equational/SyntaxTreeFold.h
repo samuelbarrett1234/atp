@@ -3,7 +3,7 @@
 
 /*
 
-EquationalSyntaxTreeFold.h
+SyntaxTreeFold.h
 
 This file contains a (templated) implementation of a fold over syntax
 trees. Folds are a special kind of concept, prominent in functional

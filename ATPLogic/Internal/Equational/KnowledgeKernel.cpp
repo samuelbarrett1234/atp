@@ -1,10 +1,12 @@
 #include "KnowledgeKernel.h"
 #include "StatementArray.h"
+#include "Semantics.h"
+#include <functional>
 #include <boost/functional/hash.hpp>
 #include <boost/iterator/zip_iterator.hpp>
+#include <boost/phoenix.hpp>
 #include <boost/bind.hpp>
 #include <boost/mpl/identity.hpp>
-#include <functional>
 
 
 namespace atp
@@ -36,27 +38,6 @@ std::vector<StatementArrayPtr> KnowledgeKernel::succs(
 {
 	ATP_LOGIC_PRECOND(valid(_p_stmts));  // expensive :(
 
-	// successor rules of a single statement
-	auto succ_statement = [this](const Statement& stmt)
-		-> StatementArrayPtr
-	{
-		auto p_sub_results = std::make_shared<StatementArray>(
-			stmt.get_substitutions(m_rules)
-			);
-		auto p_def_results = std::make_shared<StatementArray>(
-			stmt.replace_free_with_def(m_id_to_arity)
-			);
-		auto p_free_results = std::make_shared<StatementArray>(
-			stmt.replace_free_with_free()
-			);
-
-		return StatementArray::try_concat(
-			*StatementArray::try_concat(
-				*p_sub_results, *p_def_results
-			), *p_free_results
-		);
-	};
-
 	// The successor statements in equational logic are:
 	// - Replacing either side of an equation with one of the given
 	//   equality rules (just transitivity in disguise; if x=y is
@@ -72,17 +53,27 @@ std::vector<StatementArrayPtr> KnowledgeKernel::succs(
 	// user defined "h", and instead if our statement is
 	// "f(x, y)=g(h(x), y)" then "f(x, x)=g(h(x), x)".
 
+	// successor rules of a single statement
+	auto succ_statement = [this](const Statement& stmt)
+		-> StatementArrayPtr
+	{
+		return StatementArray::try_concat(
+			*StatementArray::try_concat(
+				semantics::get_substitutions(stmt, m_rules),
+				semantics::replace_free_with_def(stmt, m_id_to_arity)
+			), semantics::replace_free_with_free(stmt)
+		);
+	};
+
 	auto p_stmts = dynamic_cast<StatementArray*>(
 		_p_stmts.get());
 
 	ATP_LOGIC_PRECOND(p_stmts != nullptr);
 
-	const auto& stmts_arr = p_stmts->raw();
-
 	std::vector<StatementArrayPtr> results;
-	results.reserve(stmts_arr.size());
+	results.reserve(p_stmts->size());
 
-	std::transform(stmts_arr.begin(), stmts_arr.end(),
+	std::transform(p_stmts->begin(), p_stmts->end(),
 		std::back_inserter(results), succ_statement);
 
 	return results;
@@ -98,11 +89,45 @@ bool KnowledgeKernel::valid(
 	if (p_stmts == nullptr)
 		return false;
 
-	const auto& arr = p_stmts->raw();
+	// we will use a fold to check validity!
 
-	// call .type_check on each statement
-	return std::all_of(arr.begin(), arr.end(),
-		boost::bind(&Statement::check_compatible, _1, this));
+	// eq is valid iff both its sides are valid:
+	auto eq_valid = boost::phoenix::arg_names::arg1
+		&& boost::phoenix::arg_names::arg2;
+
+	// can't get a free variable wrong:
+	auto free_valid = boost::phoenix::val(true);
+
+	auto const_valid = [this](size_t symb_id)
+	{
+		return id_is_defined(symb_id)
+			&& symbol_arity_from_id(symb_id) == 0;
+	};
+
+	auto func_valid = [this](size_t symb_id,
+			std::list<bool>::iterator child_begin,
+			std::list<bool>::iterator child_end)
+	{
+		const size_t implied_arity = std::distance(child_begin,
+			child_end);
+
+		return id_is_defined(symb_id)
+			&& symbol_arity_from_id(
+				symb_id) == implied_arity
+			&& std::all_of(child_begin, child_end,
+				// use phoenix for an easy identity function
+				boost::phoenix::arg_names::arg1);
+	};
+
+	auto stmt_valid = [&eq_valid, &free_valid, &const_valid,
+		&func_valid](const Statement& stmt)
+	{
+		return stmt.fold<bool>(eq_valid, free_valid, const_valid,
+			func_valid);
+	};
+
+	return std::all_of(p_stmts->begin(), p_stmts->end(),
+		stmt_valid);
 }
 
 
@@ -117,12 +142,6 @@ std::vector<bool> KnowledgeKernel::follows(
 	ATP_LOGIC_PRECOND(valid(_p_concl));
 #endif
 
-	// check that, at each step, the left or right hand side of the
-	// premise matches the left or right hand side of the conclusion
-	// (using the premise as the pattern and the conclusion as the
-	// trial). I.e. there will be four checks per element per
-	// equality rule.
-
 	auto p_premise = dynamic_cast<StatementArray*>(
 		_p_premise.get());
 	auto p_concl = dynamic_cast<StatementArray*>(
@@ -131,26 +150,54 @@ std::vector<bool> KnowledgeKernel::follows(
 	ATP_LOGIC_ASSERT(p_premise != nullptr);
 	ATP_LOGIC_ASSERT(p_concl != nullptr);
 
-	const auto& arr_premise = p_premise->raw();
-	const auto& arr_concl = p_concl->raw();
-
-	const size_t n = arr_premise.size();
-	ATP_LOGIC_ASSERT(arr_concl.size() == n);
-
 	std::vector<bool> follows_result;
-	follows_result.reserve(n);
+	follows_result.reserve(p_premise->size());
 
 	// call conclusion_statement.follows_from(premise_statement)
 
 	std::transform(boost::make_zip_iterator(
-		boost::make_tuple(arr_premise.begin(), arr_concl.begin())
+		boost::make_tuple(p_premise->begin(), p_concl->begin())
 	), boost::make_zip_iterator(
-		boost::make_tuple(arr_premise.end(), arr_concl.end())
+		boost::make_tuple(p_premise->end(), p_concl->end())
 	), std::back_inserter(follows_result),
-		[](boost::tuple<const Statement&, const Statement&> p)
-		{ return p.get<1>().follows_from(p.get<0>()); });
+	[](boost::tuple<Statement, Statement> p)
+	{ return semantics::follows_from(p.get<0>(), p.get<1>()); });
 
 	return follows_result;
+}
+
+
+std::vector<StmtForm> KnowledgeKernel::get_form(
+	StatementArrayPtr _p_stmts) const
+{
+	auto p_stmts = dynamic_cast<StatementArray*>(
+		_p_stmts.get());
+
+	ATP_LOGIC_PRECOND(p_stmts != nullptr);
+
+	std::vector<StmtForm> result;
+	result.reserve(p_stmts->size());
+
+	auto get_form = [this](const Statement& stmt) -> StmtForm
+	{
+		// a statement is trivially true if it is symmetric
+		// about the equals sign (thus is true by reflexivity
+		// of equality) or is a "rule" (which we take as an
+		// axiom).
+		// statements cannot be canonically false.
+
+		if (semantics::true_by_reflexivity(stmt))
+			return StmtForm::CANONICAL_TRUE;
+		else if (is_a_rule(stmt))
+			return StmtForm::CANONICAL_TRUE;
+		else
+			return StmtForm::NOT_CANONICAL;
+	};
+
+	std::transform(p_stmts->begin(), p_stmts->end(),
+		std::back_inserter(result), get_form);
+
+	return result;
 }
 
 
@@ -165,15 +212,15 @@ void KnowledgeKernel::define_eq_rules(StatementArrayPtr _p_rules)
 	ATP_LOGIC_ASSERT(p_rules != nullptr);
 
 	// construct rule statement from syntax tree
-	m_rules.insert(m_rules.end(), p_rules->raw().begin(),
-		p_rules->raw().end());
+	m_rules.insert(m_rules.end(), p_rules->begin(),
+		p_rules->end());
 }
 
 
 bool KnowledgeKernel::is_a_rule(const Statement& stmt) const
 {
 	return std::any_of(m_rules.begin(), m_rules.end(),
-		boost::bind(&Statement::equivalent, boost::ref(stmt), _1));
+		boost::bind(&semantics::equivalent, boost::ref(stmt), _1));
 }
 
 
@@ -184,7 +231,8 @@ std::list<size_t> KnowledgeKernel::get_symbol_id_catalogue() const
 	std::transform(m_id_to_name.begin(),
 		m_id_to_name.end(),
 		std::back_inserter(symb_ids),
-		[](boost::bimap<size_t, std::string>::value_type a) { return a.left; });
+		[](boost::bimap<size_t, std::string>::value_type a)
+		{ return a.left; });
 
 	return symb_ids;
 }

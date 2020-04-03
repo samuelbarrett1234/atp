@@ -96,9 +96,6 @@
     <ClInclude Include="Internal\Equational\ParseTreeFold.h">
       <Filter>Header Files\Internal\Equational\Parsing</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\Equational\Matching.h">
-      <Filter>Header Files\Internal\Equational\Syntax</Filter>
-    </ClInclude>
     <ClInclude Include="Internal\Equational\SyntaxNodes.h">
       <Filter>Header Files\Internal\Equational\Syntax</Filter>
     </ClInclude>
@@ -106,6 +103,9 @@
       <Filter>Header Files\Internal\Equational\Syntax</Filter>
     </ClInclude>
     <ClInclude Include="Internal\Equational\SyntaxTreeTraversal.h">
+      <Filter>Header Files\Internal\Equational\Syntax</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\Equational\Semantics.h">
       <Filter>Header Files\Internal\Equational\Syntax</Filter>
     </ClInclude>
   </ItemGroup>
@@ -131,10 +131,10 @@
     <ClCompile Include="Internal\Equational\Parser.cpp">
       <Filter>Source Files\Internal\Equational\Parsing</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\Equational\Matching.cpp">
+    <ClCompile Include="Internal\Equational\SyntaxNodes.cpp">
       <Filter>Source Files\Internal\Equational\Syntax</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\Equational\SyntaxNodes.cpp">
+    <ClCompile Include="Internal\Equational\Semantics.cpp">
       <Filter>Source Files\Internal\Equational\Syntax</Filter>
     </ClCompile>
   </ItemGroup>

@@ -30,10 +30,12 @@ swapped; this is obvious because f(x,y) /= f(y,x) in general.)
 #include <vector>
 #include <string>
 #include <map>
+#include <boost/iterator/zip_iterator.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IStatement.h"
 #include "../../Interfaces/IKnowledgeKernel.h"
 #include "SyntaxNodes.h"
+#include "SyntaxTreeFold.h"
 
 
 namespace atp
@@ -65,63 +67,233 @@ public:
 	// objects into a vector... try to avoid using this otherwise!
 	Statement& operator= (const Statement& other);
 
-	StmtForm form() const override;
+	// implemented by another fold
 	std::string to_str() const override;
 
-	// for each input rule, try making a substitution!
-	// returns an array of at most 4 * rules.size(), because
-	// statements have two sides each, and 2*2=4!
-	std::shared_ptr<std::vector<Statement>> get_substitutions(
-		const std::vector<Statement>& rules
-	) const;
-
-	// returns all the possible ways a free variable could be
-	// substituted by a user definition (from the kernel) noting
-	// that whenever a function is substituted, its arguments
-	// are always new free variables.
-	// symb_id_to_arity: a mapping from all symbol IDs, to their
-	// corresponding arity.
-	std::shared_ptr<std::vector<Statement>>
-		replace_free_with_def(
-			const std::map<size_t, size_t>& symb_id_to_arity) const;
-
-	// returns all the ways of replacing a free variable in this
-	// formula with another free variable in this formula (i.e.
-	// all the ways you could reduce the number of free variables
-	// in this formula by 1). Of course, we are considering
-	// distinct unordered pairs of free variables.
-	std::shared_ptr<std::vector<Statement>>
-		replace_free_with_free() const;
-
-	// returns true iff this statement follows from the premise
-	// in any number of steps (we check this by constructing a
-	// substitution, if there is one.)
-	bool follows_from(const Statement& premise) const;
-
-	// returns the number of (distinct) free variables
-	// i.e. if the statement contains "x y z w x" we return 4.
-	inline size_t num_free_variables() const
+	inline size_t num_free_vars() const
 	{
 		return m_num_free_vars;
 	}
 
-	// checks that the version of the kernel used by this statement
-	// agrees with the given kernel (more specifically, it checks
-	// the type and the integrity code).
-	bool check_compatible(const IKnowledgeKernel* p_ker) const;
+	inline const KnowledgeKernel& kernel() const
+	{
+		return m_ker;
+	}
 
-	// returns true iff this statement is equal to the `other`
-	// statement UP TO permutation of free variables
-	bool equivalent(const Statement& other) const;
+	// perform a fold operation over the syntax tree
+	template<typename ResultT, typename EqFuncT,
+		typename FreeFuncT, typename ConstFuncT,
+		typename FFuncT>
+	ResultT fold(EqFuncT eq_func, FreeFuncT free_func,
+		ConstFuncT const_func, FFuncT f_func) const
+	{
+		// just use the syntax tree fold
+		return fold_syntax_tree<ResultT>(eq_func, free_func,
+			const_func, f_func, m_root);
+	}
 
-	// returns true iff this statement is equal to the `other`
-	// statement (not allowing permutations of free variables).
-	bool identical(const Statement& other) const;
+	// perform a fold over a pair of syntax trees (where
+	// there are five functions: one function for each type
+	// of syntax node, which is invoked when both syntax
+	// trees have the same type, then a default version where
+	// the nodes have different type).
+	// IMPORTANT NOTE: default_func is also called when we are
+	// comparing two function nodes with different arity!
+	template<typename ResultT, typename EqPairFuncT,
+		typename FreePairFuncT, typename ConstPairFuncT,
+		typename FuncPairFuncT, typename DefaultPairFuncT>
+	ResultT fold_pair(EqPairFuncT eq_func, FreePairFuncT free_func,
+		ConstPairFuncT const_func, FuncPairFuncT f_func,
+		DefaultPairFuncT default_func, const Statement& other) const
+	{
+		// static assertions on the types of the functions given:
+
+		static_assert(std::is_convertible<EqPairFuncT,
+			std::function<ResultT(ResultT, ResultT)>>::value,
+			"EqFuncT should be of type (ResultT, ResultT) -> ResultT");
+		static_assert(std::is_convertible<FreePairFuncT,
+			std::function<ResultT(size_t, size_t)>>::value,
+			"FreeFuncT should be of type (size_t, size_t) -> ResultT");
+		static_assert(std::is_convertible<ConstPairFuncT,
+			std::function<ResultT(size_t, size_t)>>::value,
+			"ConstFuncT should be of type (size_t, size_t) -> ResultT");
+		static_assert(std::is_convertible<FuncPairFuncT,
+			std::function<ResultT(size_t, size_t,
+				typename std::list<ResultT>::iterator,
+				typename std::list<ResultT>::iterator)>>::value,
+			"FFuncT should be of type (size_t, size_t, "
+			"std::list<ResultT>::iterator,"
+			" std::list<ResultT>::iterator) -> ResultT");
+		static_assert(std::is_convertible<DefaultPairFuncT,
+			std::function<ResultT(SyntaxNodePtr, SyntaxNodePtr)>>::value,
+			"EqFuncT should be of type (SyntaxNodePtr, "
+			"SyntaxNodePtr) -> ResultT");
+
+		// we will proceed similarly to the normal fold function,
+		// but iterating over pairs instead of just singletons
+		std::list<std::pair<SyntaxNodePtr, SyntaxNodePtr>> todo_stack;
+		std::list<ResultT> result_stack;
+		std::set<std::pair<SyntaxNodePtr, SyntaxNodePtr>> seen;
+
+		todo_stack.push_back(std::make_pair(m_root, other.m_root));
+
+		while (!todo_stack.empty())
+		{
+			auto pair = todo_stack.back();
+			todo_stack.pop_back();
+
+			const bool seen_pair = (seen.find(pair) != seen.end());
+			
+			if (pair.first->get_type() !=
+				pair.second->get_type())
+				result_stack.push_back(default_func(pair.first,
+					pair.second));
+			else switch (pair.first->get_type())
+			{
+			case SyntaxNodeType::EQ:
+			{
+				auto p_first = dynamic_cast<EqSyntaxNode*>(
+					pair.first.get());
+				auto p_second = dynamic_cast<EqSyntaxNode*>(
+					pair.second.get());
+
+				ATP_LOGIC_ASSERT(p_first != nullptr);
+				ATP_LOGIC_ASSERT(p_second != nullptr);
+
+				if (!seen_pair)
+				{
+					// push ourselves:
+					todo_stack.push_back(pair);
+
+					// examine children:
+
+					todo_stack.push_back(std::make_pair(
+						p_first->left(), p_second->left()));
+					todo_stack.push_back(std::make_pair(
+						p_first->right(), p_second->right()));
+
+					// mark as seen
+					seen.insert(pair);
+				}
+				else
+				{
+					auto left_result = result_stack.back();
+					todo_stack.pop_back();
+					auto right_result = result_stack.back();
+					result_stack.pop_back();
+
+					result_stack.push_back(eq_func(left_result,
+						right_result));
+				}
+			}
+			break;
+			case SyntaxNodeType::FREE:
+			{
+				auto p_first = dynamic_cast<FreeSyntaxNode*>(
+					pair.first.get());
+				auto p_second = dynamic_cast<FreeSyntaxNode*>(
+					pair.second.get());
+
+				ATP_LOGIC_ASSERT(p_first != nullptr);
+				ATP_LOGIC_ASSERT(p_second != nullptr);
+
+				result_stack.push_back(free_func(p_first->get_free_id(),
+					p_second->get_free_id()));
+			}
+			break;
+			case SyntaxNodeType::CONSTANT:
+			{
+				auto p_first = dynamic_cast<ConstantSyntaxNode*>(
+					pair.first.get());
+				auto p_second = dynamic_cast<ConstantSyntaxNode*>(
+					pair.second.get());
+
+				ATP_LOGIC_ASSERT(p_first != nullptr);
+				ATP_LOGIC_ASSERT(p_second != nullptr);
+
+				result_stack.push_back(const_func(
+					p_first->get_symbol_id(),
+					p_second->get_symbol_id()));
+			}
+			break;
+			case SyntaxNodeType::FUNC:
+			{
+				auto p_first = dynamic_cast<FuncSyntaxNode*>(
+					pair.first.get());
+				auto p_second = dynamic_cast<FuncSyntaxNode*>(
+					pair.second.get());
+
+				ATP_LOGIC_ASSERT(p_first != nullptr);
+				ATP_LOGIC_ASSERT(p_second != nullptr);
+
+				// handle the annoying side case where the functions
+				// have different arity:
+				if (p_first->get_arity() != p_second->get_arity())
+				{
+					result_stack.push_back(default_func(
+						pair.first, pair.second));
+				}
+				else if (!seen_pair)
+				{
+					// push ourselves:
+					todo_stack.push_back(pair);
+
+					// push child (argument) pairs to the
+					// todo stack in reverse order!!
+
+					std::transform(boost::make_zip_iterator(
+						boost::make_tuple(p_first->rbegin(),
+							p_second->rbegin())),
+						boost::make_zip_iterator(boost::make_tuple(
+							p_first->rend(), p_second->rend())),
+						std::back_inserter(todo_stack),
+						[](boost::tuple<SyntaxNodePtr,
+							SyntaxNodePtr> tup)
+						{ return std::make_pair(tup.get<0>(),
+							tup.get<1>()); });
+
+					// mark as seen
+					seen.insert(pair);
+				}
+				else
+				{
+					// the results of our children are now at the
+					// back of the stack
+
+					auto result_rbegin_iter = result_stack.rbegin();
+					std::advance(result_rbegin_iter,
+						p_first->get_arity());
+					ATP_LOGIC_ASSERT(p_first->get_arity() ==
+						p_second->get_arity());
+					auto result_begin_iter = result_rbegin_iter.base();
+
+					// compute our result
+
+					auto func_result = f_func(p_first->get_symbol_id(),
+						p_second->get_symbol_id(),
+						result_begin_iter, result_stack.end());
+
+					// erase child results from stack
+					result_stack.erase(result_begin_iter,
+						result_stack.end());
+
+					// add our result to the stack
+					result_stack.push_back(func_result);
+				}
+			}
+			break;
+			}
+		}
+
+		// we should only have one value left, which would be due to the
+		// very first node we inserted:
+		ATP_LOGIC_ASSERT(result_stack.size() == 1);
+		return result_stack.front();
+	}
 
 private:
 	const KnowledgeKernel& m_ker;
 	SyntaxNodePtr m_root;
-	SyntaxNodePtr m_left, m_right;  // LHS and RHS of equation
 	size_t m_num_free_vars;
 };
 

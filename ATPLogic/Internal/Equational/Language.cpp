@@ -67,7 +67,8 @@ StatementArrayPtr Language::deserialise_stmts(std::istream& in,
 		auto parse_nodes = parse_statements(in);
 
 		if (!parse_nodes.has_value())
-			return StatementArrayPtr();  // failed due to parse_statements error
+			// failed due to parse_statements error
+			return StatementArrayPtr();
 
 		std::vector<SyntaxNodePtr> syntax_nodes;
 		syntax_nodes.reserve(parse_nodes.get().size());
@@ -83,7 +84,8 @@ StatementArrayPtr Language::deserialise_stmts(std::istream& in,
 		if (std::any_of(syntax_nodes.begin(),
 			syntax_nodes.end(),
 			boost::phoenix::arg_names::arg1 == nullptr))
-			return StatementArrayPtr();  // failed due to syntax error
+			// failed due to syntax error
+			return StatementArrayPtr();
 
 		// now convert these into the final type
 
@@ -93,7 +95,8 @@ StatementArrayPtr Language::deserialise_stmts(std::istream& in,
 
 		// construct StatementArray objects from the syntax
 		// nodes:
-		for (auto iter = syntax_nodes.begin(); iter != syntax_nodes.end(); ++iter)
+		for (auto iter = syntax_nodes.begin();
+			iter != syntax_nodes.end(); ++iter)
 		{
 			pStmtArr->emplace_back(*p_ker, *iter);
 		}
@@ -119,17 +122,16 @@ void Language::serialise_stmts(std::ostream& out,
 		);
 
 	ATP_LOGIC_PRECOND(p_stmts != nullptr);
-	const auto& arr = p_stmts->raw();
 
 	switch (output_format)
 	{
 	case StmtFormat::TEXT:
 	{
 		std::vector<std::string> as_strs;
-		as_strs.reserve(arr.size());
+		as_strs.reserve(p_stmts->size());
 
 		// convert each statement to string
-		std::transform(arr.begin(), arr.end(),
+		std::transform(p_stmts->begin(), p_stmts->end(),
 			std::back_inserter(as_strs),
 			boost::bind(&Statement::to_str, _1));
 

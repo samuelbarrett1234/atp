@@ -54,7 +54,6 @@ public:
 	virtual ~IStatement() = default;
 
 
-	virtual StmtForm form() const = 0;
 	virtual std::string to_str() const = 0;
 
 	// TODO: allow explicit AST traversal (for example, to use as input

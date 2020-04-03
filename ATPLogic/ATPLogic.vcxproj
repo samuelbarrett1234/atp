@@ -175,7 +175,7 @@
     <ClInclude Include="Internal\Equational\Grammar.h" />
     <ClInclude Include="Internal\Equational\KnowledgeKernel.h" />
     <ClInclude Include="Internal\Equational\Language.h" />
-    <ClInclude Include="Internal\Equational\Matching.h" />
+    <ClInclude Include="Internal\Equational\Semantics.h" />
     <ClInclude Include="Internal\Equational\ParseNodes.h" />
     <ClInclude Include="Internal\Equational\Parser.h" />
     <ClInclude Include="Internal\Equational\ParseTreeFold.h" />
@@ -190,7 +190,7 @@
     <ClCompile Include="Internal\Equational\Grammar.cpp" />
     <ClCompile Include="Internal\Equational\KnowledgeKernel.cpp" />
     <ClCompile Include="Internal\Equational\Language.cpp" />
-    <ClCompile Include="Internal\Equational\Matching.cpp" />
+    <ClCompile Include="Internal\Equational\Semantics.cpp" />
     <ClCompile Include="Internal\Equational\Parser.cpp" />
     <ClCompile Include="Internal\Equational\Statement.cpp" />
     <ClCompile Include="Internal\Equational\StatementArray.cpp" />

@@ -71,6 +71,9 @@ public:
 		StatementArrayPtr p_premise,
 		StatementArrayPtr p_concl) const override;
 
+	std::vector<StmtForm> get_form(
+		StatementArrayPtr p_stmts) const override;
+
 	// precondition: !is_defined(name)
 	// (warning: if 'name' happens to share a hash code with another
 	// symbol name, which is incredibly unlikely, it will throw.)
@@ -92,10 +95,6 @@ public:
 	// example.)
 	// precondition: valid(p_rules)
 	void define_eq_rules(StatementArrayPtr p_rules);
-
-	// returns true iff `stmt` is equivalent to one of the given
-	// equality rules
-	bool is_a_rule(const Statement& stmt) const;
 
 	// check if a given identifier has been defined already or not
 	inline bool is_defined(std::string name) const
@@ -145,6 +144,11 @@ public:
 		ATP_LOGIC_PRECOND(iter != m_id_to_name.left.end());
 		return iter.base()->get_right();
 	}
+
+private:
+	// returns true iff `stmt` is equivalent to one of the given
+	// equality rules
+	bool is_a_rule(const Statement& stmt) const;
 
 private:
 	// return a list of every defined symbol ID so far:

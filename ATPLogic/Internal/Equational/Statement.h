@@ -177,8 +177,10 @@ public:
 				}
 				else
 				{
+					ATP_LOGIC_ASSERT(result_stack.size() >= 2);
+
 					auto left_result = result_stack.back();
-					todo_stack.pop_back();
+					result_stack.pop_back();
 					auto right_result = result_stack.back();
 					result_stack.pop_back();
 
@@ -260,11 +262,14 @@ public:
 					// the results of our children are now at the
 					// back of the stack
 
+					ATP_LOGIC_ASSERT(p_first->get_arity() ==
+						p_second->get_arity());
+					ATP_LOGIC_ASSERT(result_stack.size() >=
+						p_first->get_arity());
+
 					auto result_rbegin_iter = result_stack.rbegin();
 					std::advance(result_rbegin_iter,
 						p_first->get_arity());
-					ATP_LOGIC_ASSERT(p_first->get_arity() ==
-						p_second->get_arity());
 					auto result_begin_iter = result_rbegin_iter.base();
 
 					// compute our result

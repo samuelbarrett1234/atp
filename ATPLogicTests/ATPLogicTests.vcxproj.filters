@@ -39,13 +39,7 @@
     <ClCompile Include="Equational\ParseTreeToSyntaxTreeTests.cpp">
       <Filter>Source Files\Equational</Filter>
     </ClCompile>
-    <ClCompile Include="Equational\MatchingTests.cpp">
-      <Filter>Source Files\Equational</Filter>
-    </ClCompile>
     <ClCompile Include="Equational\SyntaxTreeFoldTests.cpp">
-      <Filter>Source Files\Equational</Filter>
-    </ClCompile>
-    <ClCompile Include="Equational\SyntaxTreeFreeVarTests.cpp">
       <Filter>Source Files\Equational</Filter>
     </ClCompile>
     <ClCompile Include="Equational\SyntaxNodeToStr.cpp">
@@ -55,6 +49,9 @@
       <Filter>Source Files\Equational</Filter>
     </ClCompile>
     <ClCompile Include="Equational\LanguageTests.cpp">
+      <Filter>Source Files\Equational</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\SemanticsTests.cpp">
       <Filter>Source Files\Equational</Filter>
     </ClCompile>
   </ItemGroup>

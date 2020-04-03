@@ -14,6 +14,7 @@ This file tests the equational::Language class.
 #include <Internal/Equational/SyntaxNodes.h>
 #include <Internal/Equational/StatementArray.h>
 #include <Internal/Equational/Statement.h>
+#include <Internal/Equational/Semantics.h>
 #include "../Test.h"
 
 
@@ -25,6 +26,7 @@ using atp::logic::equational::StatementArray;
 using atp::logic::equational::Statement;
 using atp::logic::equational::parse_statements;
 using atp::logic::equational::ptree_to_stree;
+namespace semantics = atp::logic::equational::semantics;
 
 
 struct LanguageTestsFixture
@@ -55,7 +57,9 @@ BOOST_FIXTURE_TEST_SUITE(LanguageTests,
 	* boost::unit_test_framework::depends_on(
 		"EquationalTests/SyntaxTreeFoldTests")
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/SyntaxTreeFreeVarTests"));
+		"EquationalTests/StatementTests")
+	* boost::unit_test_framework::depends_on(
+		"EquationalTests/SemanticsTests"));
 
 
 BOOST_AUTO_TEST_CASE(check_integrity_of_empty_kernel)
@@ -143,7 +147,7 @@ BOOST_DATA_TEST_CASE(test_text_deserialisation_in_correct_cases,
 
 	BOOST_REQUIRE(parse_results.has_value());
 	BOOST_REQUIRE(parse_results.get().size() ==
-		lang_stmts->raw().size());
+		lang_stmts->size());
 
 	size_t i = 0;
 	for (auto ptree : parse_results.get())
@@ -158,8 +162,8 @@ BOOST_DATA_TEST_CASE(test_text_deserialisation_in_correct_cases,
 		auto stmt = Statement(ker, stree);
 
 		// test equivalent to the one produced by the language
-		BOOST_TEST(stmt.equivalent(
-			lang_stmts->raw().at(i)));
+		BOOST_TEST(semantics::equivalent(stmt,
+			lang_stmts->my_at(i)));
 
 		i++;
 	}
@@ -194,19 +198,17 @@ BOOST_DATA_TEST_CASE(test_serialisation_in_one_free_variable,
 	stmt)
 {
 	s << stmt;
-	auto _stmt_arr = lang.deserialise_stmts(s, StmtFormat::TEXT, ker);
-	auto stmt_arr = dynamic_cast<StatementArray*>(_stmt_arr.get());
+	auto stmt_arr = lang.deserialise_stmts(s, StmtFormat::TEXT, ker);
 
-	BOOST_REQUIRE(stmt_arr != nullptr);
-	BOOST_REQUIRE(stmt_arr->raw().size() == 1);
+	BOOST_REQUIRE(stmt_arr->size() == 1);
 
 	// clear this
 	s = std::stringstream();
 	s << std::noskipws;
 
-	lang.serialise_stmts(s, _stmt_arr, StmtFormat::TEXT);
+	lang.serialise_stmts(s, stmt_arr, StmtFormat::TEXT);
 
-	BOOST_TEST(stmt == s.str());
+	BOOST_TEST(stmt_arr->at(0).to_str() == s.str());
 }
 
 

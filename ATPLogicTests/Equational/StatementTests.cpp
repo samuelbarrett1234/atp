@@ -2,32 +2,44 @@
 
 StatementTests.cpp
 
-This file tests the equational::Statement class.
+This file tests the equational::Statement class. Its main job is to
+test the two "fold" functions in the class, because these are used
+as the building blocks of virtually every function in the
+equational::semantics namespace.
 
 */
 
 
 #include <sstream>
-#include <Internal/Equational/Language.h>
+#include <boost/phoenix.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/bind.hpp>
+#include <boost/algorithm/string/join.hpp>
 #include <Internal/Equational/KnowledgeKernel.h>
 #include <Internal/Equational/StatementArray.h>
 #include <Internal/Equational/Statement.h>
+#include <Internal/Equational/Parser.h>
+#include <Internal/Equational/SyntaxNodes.h>
 #include "../Test.h"
 
 
-using atp::logic::equational::Language;
 using atp::logic::equational::KnowledgeKernel;
-using atp::logic::StmtFormat;
 using atp::logic::StmtForm;
 using atp::logic::equational::StatementArray;
 using atp::logic::equational::Statement;
+using atp::logic::equational::parse_statements;
+using atp::logic::equational::ptree_to_stree;
+using atp::logic::equational::SyntaxNodeType;
+using atp::logic::equational::FuncSyntaxNode;
+using atp::logic::equational::SyntaxNodePtr;
+namespace phx = boost::phoenix;
+namespace phxargs = phx::arg_names;
 
 
 struct StatementTestsFixture
 {
 	std::stringstream s;
 	KnowledgeKernel ker;
-	Language lang;
 
 	StatementTestsFixture()
 	{
@@ -37,22 +49,6 @@ struct StatementTestsFixture
 		ker.define_symbol("e", 0);
 		ker.define_symbol("i", 1);
 		ker.define_symbol("*", 2);
-
-		// load group theory rules:
-		s << "*(x, *(y, z)) = *(*(x, y), z) \n";
-		s << "*(i(x), x) = e \n";
-		s << "*(x, i(x)) = e \n";
-		s << "*(x, e) = x \n";
-		s << "*(e, x) = x";
-
-		auto p_rules = lang.deserialise_stmts(s,
-			StmtFormat::TEXT, ker);
-
-		ker.define_eq_rules(p_rules);
-
-		// reset stream:
-		s = std::stringstream();
-		s << std::noskipws;
 	}
 };
 
@@ -67,40 +63,7 @@ BOOST_FIXTURE_TEST_SUITE(StatementTests,
 	* boost::unit_test_framework::depends_on(
 		"EquationalTests/ParseDefinitionsTests")
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/SyntaxTreeFoldTests")
-	* boost::unit_test_framework::depends_on(
-		"EquationalTests/SyntaxTreeFreeVarTests")
-	* boost::unit_test_framework::depends_on(
-		"EquationalTests/LanguageTests"));
-
-
-BOOST_DATA_TEST_CASE(test_statement_form,
-	boost::unit_test::data::make({ "x = x",
-		"i(x) = i(x)", "x = y", "*(x, y) = *(y, x)",
-		"*(e, x) = x" }) ^
-	boost::unit_test::data::make({ true, true,
-		false, false, true}), stmt, is_trivially_true)
-{
-	s << stmt;
-
-	auto stmt_arr = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
-
-	BOOST_TEST(stmt_arr != nullptr);
-
-	if (is_trivially_true)
-	{
-		BOOST_TEST((stmt_arr->at(0).form() ==
-			StmtForm::CANONICAL_TRUE));
-	}
-	else
-	{
-		BOOST_TEST((stmt_arr->at(0).form() ==
-			StmtForm::NOT_CANONICAL));
-	}
-
-	// equational statements cannot be canonically false
-}
+		"EquationalTests/SyntaxTreeFoldTests"));
 
 
 // only test this with one free variable due to naming issues
@@ -113,13 +76,13 @@ BOOST_DATA_TEST_CASE(test_statement_with_one_var_to_str,
 	// test that .to_str is the inverse of the parser
 
 	s << stmt;
+	auto result = parse_statements(s);
+	BOOST_REQUIRE(result.has_value());
+	BOOST_REQUIRE(result.get().size() == 1);
+	auto stree = ptree_to_stree(result.get().front(), ker);
+	auto stmt_obj = Statement(ker, stree);
 
-	auto stmt_arr = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
-
-	BOOST_TEST(stmt_arr != nullptr);
-
-	BOOST_TEST(stmt_arr->at(0).to_str() == stmt);
+	BOOST_TEST(stmt_obj.to_str() == stmt);
 }
 
 
@@ -130,43 +93,110 @@ BOOST_DATA_TEST_CASE(num_free_vars_test,
 	stmt, num_free_vars)
 {
 	s << stmt;
+	auto result = parse_statements(s);
+	BOOST_REQUIRE(result.has_value());
+	BOOST_REQUIRE(result.get().size() == 1);
+	auto stree = ptree_to_stree(result.get().front(), ker);
+	auto stmt_obj = Statement(ker, stree);
 
-	auto _stmt_arr = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
-
-	auto stmt_arr = dynamic_cast<StatementArray*>(
-		_stmt_arr.get());
-
-	BOOST_REQUIRE(stmt_arr != nullptr);
-	BOOST_REQUIRE(stmt_arr->raw().size() == 1);
-
-	BOOST_TEST(stmt_arr->raw().front().num_free_variables()
+	BOOST_TEST(stmt_obj.num_free_vars()
 		== num_free_vars);
 }
 
 
-// the data for this test case is of the following form:
-// phi \n psi
-// where phi follows from psi in exactly one step
-BOOST_DATA_TEST_CASE(follows_from_test,
-	boost::unit_test::data::make({ " i(x) = i(x) \n x = x ",
-		" *(*(x, y), *(i(y), i(x))) =  e \n"
-		" i(*(x, y)) = *(i(y), i(x)) ",
-		" i(x) = i(x) \n i(x) = i(y) ",
-		"  " }), stmts)
+BOOST_DATA_TEST_CASE(test_string_fold_is_inverse_to_parser,
+	boost::unit_test::data::make({ "x0 = i(x0)",
+		"*(x0, *(e, i(x0))) = *(x0, x0)" }), stmt)
 {
-	s << stmts;
-	auto arr = lang.deserialise_stmts(s, StmtFormat::TEXT, ker);
+	// this is the best way I can think of testing the fold function;
+	// by using it as a .to_str() function (of course, the Statement
+	// interface already provides this, but we are doing this to test
+	// the fold function specifically.)
 
-	BOOST_REQUIRE(arr != nullptr);
-	BOOST_REQUIRE(arr->size() == 2);
+	s << stmt;
+	auto result = parse_statements(s);
+	BOOST_REQUIRE(result.has_value());
+	BOOST_REQUIRE(result.get().size() == 1);
+	auto stree = ptree_to_stree(result.get().front(), ker);
+	auto stmt_obj = Statement(ker, stree);
 
-	const Statement& stmt_concl = dynamic_cast<const Statement&>(
-		arr->at(0));
-	const Statement& stmt_premise = dynamic_cast<const Statement&>(
-		arr->at(1));
+	auto eq_to_str = phxargs::arg1 + " = " + phxargs::arg2;
+	auto free_to_str = [](size_t id)
+	{ return "x" + boost::lexical_cast<std::string>(id); };
+	auto const_to_str = boost::bind(&KnowledgeKernel::symbol_name,
+		boost::ref(ker), _1);
+	auto func_to_str = [this](size_t symb_id,
+		std::list<std::string>::iterator begin,
+		std::list<std::string>::iterator end) -> std::string
+	{
+		return ker.symbol_name(symb_id) + '(' + boost::algorithm::join(
+			boost::make_iterator_range(begin, end), ", "
+		) + ')';
+	};
 
-	BOOST_TEST(stmt_concl.follows_from(stmt_premise));
+	BOOST_TEST(stmt_obj.fold<std::string>(eq_to_str, free_to_str,
+		const_to_str, func_to_str) == stmt);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_pair_fold_with_conflicting_func_arities)
+{
+	// define some extra symbol for this test
+	ker.define_symbol("pi", 0);
+
+	s << "i(x) = e \n";
+	s << "*(x, y) = pi";
+
+	auto results = parse_statements(s);
+
+	BOOST_REQUIRE(results.has_value());
+	BOOST_REQUIRE(results.get().size() == 2);
+
+	auto stree1 = ptree_to_stree(results.get().front(), ker);
+	auto stree2 = ptree_to_stree(results.get().back(), ker);
+
+	auto stmt1 = Statement(ker, stree1);
+	auto stmt2 = Statement(ker, stree2);
+
+	auto eq_func = phxargs::arg1 && phxargs::arg2;
+
+	// there should be no free variable comparisons in this example
+	// pair fold:
+	auto free_func = phx::val(false);
+
+	auto const_func = [this](size_t id_lhs, size_t id_rhs)
+	{
+		return (ker.symbol_name(id_lhs) == "e" &&
+			ker.symbol_name(id_rhs) == "pi");
+	};
+
+	// when comparing two functions with different arities, it should
+	// use the default comparer
+	auto f_func = phx::val(false);
+
+	auto default_func = [this](SyntaxNodePtr lhs, SyntaxNodePtr rhs)
+		-> bool
+	{
+		if (lhs->get_type() != SyntaxNodeType::FUNC ||
+			rhs->get_type() != SyntaxNodeType::FUNC)
+			return false;
+		auto p_lhs = dynamic_cast<FuncSyntaxNode*>(lhs.get());
+		auto p_rhs = dynamic_cast<FuncSyntaxNode*>(rhs.get());
+
+		if (p_lhs == nullptr ||
+			p_rhs == nullptr)
+			return false;
+
+		if (ker.symbol_name(p_lhs->get_symbol_id()) != "i")
+			return false;
+		if (ker.symbol_name(p_rhs->get_symbol_id()) != "*")
+			return false;
+
+		return true;  // passed the tests!
+	};
+
+	BOOST_TEST(stmt1.fold_pair<bool>(eq_func, free_func, const_func,
+		f_func, default_func, stmt2));
 }
 
 

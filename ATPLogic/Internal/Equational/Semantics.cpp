@@ -4,7 +4,11 @@
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/bimap.hpp>
 #include <boost/phoenix.hpp>
+#include <boost/bind.hpp>
 #include <set>
+#include <vector>
+#include <list>
+#include <map>
 
 
 namespace phx = boost::phoenix;
@@ -23,30 +27,30 @@ namespace semantics
 
 // the free variable constructor for substituting it with definitions
 // for use in a fold
-std::vector<SyntaxNodePtr> free_var_def_constructor(
+static std::vector<SyntaxNodePtr> free_var_def_constructor(
 	const std::map<size_t, size_t>& symb_id_to_arity,
-	size_t num_free_vars, size_t my_var_id
+	const std::set<size_t>& free_var_ids, size_t my_var_id
 );
 
 // the free variable constructor for substituting it with other free
 // variables, for use in a fold
-std::vector<SyntaxNodePtr> free_var_free_constructor(
-	size_t num_free_vars, size_t my_var_id
+static std::vector<SyntaxNodePtr> free_var_free_constructor(
+	const std::set<size_t>& free_var_ids, size_t my_var_id
 );
 
 // constructor method for equality nodes
-std::vector<SyntaxNodePtr> fold_eq_constructor(
+static std::vector<SyntaxNodePtr> fold_eq_constructor(
 	const std::vector<SyntaxNodePtr>& lhss,
 	const std::vector<SyntaxNodePtr>& rhss);
 
 // constructor method for constant nodes
 std::vector<SyntaxNodePtr>
-fold_const_constructor(size_t N,
+static fold_const_constructor(size_t N,
 	size_t symb_id);
 
 // constructor method for function nodes
 std::vector<SyntaxNodePtr>
-fold_func_constructor(size_t symb_id,
+static fold_func_constructor(size_t symb_id,
 	const std::list<std::vector<SyntaxNodePtr>>::iterator&
 	children_begin,
 	const std::list<std::vector<SyntaxNodePtr>>::iterator&
@@ -54,10 +58,13 @@ fold_func_constructor(size_t symb_id,
 
 // helper function for converting fold results;
 // precond: none of the trees need their free variable IDs rebuilding
-StatementArray from_trees(
+static StatementArray from_trees(
 	const KnowledgeKernel& ker,
 	std::vector<SyntaxNodePtr> trees
 );
+
+
+static std::set<size_t> get_free_var_ids(const Statement& stmt);
 
 
 typedef boost::optional<std::map<size_t, SyntaxNodePtr>>
@@ -88,10 +95,10 @@ bool equivalent(const Statement& a, const Statement& b)
 	auto free_func = [&id_map](size_t id1, size_t id2)
 	{
 		auto left_iter = id_map.left.find(id1);
-		auto right_iter = id_map.left.find(id2);
+		auto right_iter = id_map.right.find(id2);
 
 		if (left_iter == id_map.left.end() &&
-			right_iter == id_map.left.end())
+			right_iter == id_map.right.end())
 		{
 			id_map.left.insert(std::make_pair(id1, id2));
 			return true;
@@ -385,6 +392,8 @@ StatementArray get_substitutions(const Statement& stmt,
 StatementArray replace_free_with_def(const Statement& stmt,
 	const std::map<size_t, size_t>& symb_id_to_arity)
 {
+	std::set<size_t> free_var_ids = get_free_var_ids(stmt);
+
 	// now apply the fold!
 	// what this does is return a list of syntax trees which
 	// represent all of the possible ways one could substitute
@@ -393,7 +402,7 @@ StatementArray replace_free_with_def(const Statement& stmt,
 		&fold_eq_constructor,
 		boost::bind(&free_var_def_constructor,
 			boost::ref(symb_id_to_arity),
-			stmt.num_free_vars(), _1),
+			boost::ref(free_var_ids), _1),
 		boost::bind(&fold_const_constructor,
 			stmt.num_free_vars() * symb_id_to_arity.size(), _1),
 		&fold_func_constructor);
@@ -404,6 +413,8 @@ StatementArray replace_free_with_def(const Statement& stmt,
 
 StatementArray replace_free_with_free(const Statement& stmt)
 {
+	std::set<size_t> free_var_ids = get_free_var_ids(stmt);
+
 	// now apply the fold!
 	// what this does is return a list of syntax trees which
 	// represent all of the possible ways one could substitute
@@ -412,7 +423,7 @@ StatementArray replace_free_with_free(const Statement& stmt)
 	auto trees = stmt.fold<std::vector<SyntaxNodePtr>>(
 		&fold_eq_constructor,
 		boost::bind(&free_var_free_constructor,
-			stmt.num_free_vars(), _1),
+			boost::ref(free_var_ids), _1),
 		boost::bind(&fold_const_constructor,
 			stmt.num_free_vars() * (stmt.num_free_vars() - 1) / 2, _1),
 		&fold_func_constructor);
@@ -541,9 +552,11 @@ bool syntax_tree_identical(SyntaxNodePtr a, SyntaxNodePtr b)
 
 std::vector<SyntaxNodePtr> free_var_def_constructor(
 	const std::map<size_t, size_t>& symb_id_to_arity,
-	size_t num_free_vars, size_t my_var_id
+	const std::set<size_t>& free_var_ids, size_t my_var_id
 )
 {
+	const size_t num_free_vars = free_var_ids.size();
+
 	// create results for each symbol and for each free variable
 	// (i.e. substitution candidate.)
 	std::vector<SyntaxNodePtr> result;
@@ -551,7 +564,7 @@ std::vector<SyntaxNodePtr> free_var_def_constructor(
 
 	for (auto symb_id_arity : symb_id_to_arity)
 	{
-		for (size_t i = 0; i < num_free_vars; i++)
+		for (size_t i : free_var_ids)
 		{
 			// if it is my turn to be substituted...
 			if (i == my_var_id)
@@ -602,9 +615,11 @@ std::vector<SyntaxNodePtr> free_var_def_constructor(
 
 
 std::vector<SyntaxNodePtr> free_var_free_constructor(
-	size_t num_free_vars, size_t my_var_id
+	const std::set<size_t>& free_var_ids, size_t my_var_id
 )
 {
+	const size_t num_free_vars = free_var_ids.size();
+
 	// create results for each unordered distinct pair of free
 	// variable IDs
 	std::vector<SyntaxNodePtr> result;
@@ -613,10 +628,17 @@ std::vector<SyntaxNodePtr> free_var_free_constructor(
 	// integer:
 	result.reserve(num_free_vars * (num_free_vars - 1) / 2);
 
-	for (size_t i = 0; i < num_free_vars; i++)
+	for (auto i_iter = free_var_ids.begin();
+		i_iter != free_var_ids.end(); ++i_iter)
 	{
-		for (size_t j = i + 1; j < num_free_vars; j++)
+		const size_t i = *i_iter;
+		auto j_iter = i_iter;
+		j_iter++;
+
+		for (; j_iter != free_var_ids.end(); ++j_iter)
 		{
+			const size_t j = *j_iter;
+
 			// if it is my turn to be substituted...
 			if (i == my_var_id)
 			{
@@ -667,7 +689,7 @@ fold_const_constructor(size_t N,
 	size_t symb_id)
 {
 	std::vector<SyntaxNodePtr> result;
-	result.reserve(N);
+	result.resize(N);
 
 	std::generate_n(result.begin(), N,
 		[symb_id]()
@@ -737,6 +759,27 @@ StatementArray from_trees(const KnowledgeKernel& ker,
 	}
 
 	return StatementArray(p_stmt_arr);
+}
+
+
+std::set<size_t> get_free_var_ids(const Statement& stmt)
+{
+	std::set<size_t> result;
+
+	auto eq_func = [](int, int) { return 0; };
+	auto free_func = [&result](size_t id)
+	{
+		result.insert(id);
+		return 0;
+	};
+	auto const_func = [](size_t) { return 0; };
+	auto f_func = [](size_t, std::list<int>::iterator,
+		std::list<int>::iterator) { return 0; };
+
+	stmt.fold<int>(eq_func, free_func, const_func,
+		f_func);
+
+	return result;
 }
 
 

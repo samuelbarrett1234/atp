@@ -19,7 +19,7 @@ namespace equational
 {
 
 
-std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node);
+static std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node);
 
 
 Statement::Statement(

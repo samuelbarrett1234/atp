@@ -20,8 +20,8 @@ bool simple_check_proof(logic::IKnowledgeKernel& ker,
 
 	return std::all_of(result.begin(), result.end(),
 		[](bool x) { return x; })
-		&& proof->at(0).form() ==
-		logic::StmtForm::CANONICAL_TRUE;
+		&& ker.get_form(proof->slice(0, 1)).front()
+		== logic::StmtForm::CANONICAL_TRUE;
 }
 
 

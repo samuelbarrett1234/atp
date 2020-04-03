@@ -22,7 +22,8 @@ IterativeDeepeningSolver::IterativeDeepeningSolver(
 }
 
 
-void IterativeDeepeningSolver::set_targets(logic::StatementArrayPtr p_stmts)
+void IterativeDeepeningSolver::set_targets(
+	logic::StatementArrayPtr p_stmts)
 {
 	ATP_SEARCH_PRECOND(p_stmts != nullptr);
 	ATP_SEARCH_PRECOND(p_stmts->size() > 0);
@@ -31,7 +32,8 @@ void IterativeDeepeningSolver::set_targets(logic::StatementArrayPtr p_stmts)
 	m_stacks.resize(m_targets->size());
 	m_cur_depth_limits.resize(m_stacks.size(), m_starting_depth);
 	m_agg_time.resize(m_stacks.size(), 0.0f);
-	m_num_node_exps.resize(m_stacks.size(), 1);  // 1 for the root node
+	// 1 for the root node:
+	m_num_node_exps.resize(m_stacks.size(), 1);
 
 	// construct root nodes for each stack
 	for (size_t i = 0; i < m_stacks.size(); i++)

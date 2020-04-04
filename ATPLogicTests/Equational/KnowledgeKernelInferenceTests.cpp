@@ -10,10 +10,16 @@ proof? Etc.
 It does not test the definition storage functionality of the
 knowledge kernel; that is done in KnowledgeKernelDefinitionsTests.cpp
 
+More specifically, we are only interested in testing the functions:
+- `succs`
+- `follows`
+- `get_form`
+
 */
 
 
 #include <sstream>
+#include <boost/phoenix.hpp>
 #include <Internal/Equational/KnowledgeKernel.h>
 #include <Internal/Equational/Language.h>
 #include <Internal/Equational/Statement.h>
@@ -26,6 +32,8 @@ using atp::logic::equational::Language;
 using atp::logic::equational::Statement;
 using atp::logic::equational::StatementArray;
 using atp::logic::StmtFormat;
+using atp::logic::StmtForm;
+namespace phxargs = boost::phoenix::arg_names;
 
 
 struct KnowledgeKernelInferenceTestsFixture
@@ -63,15 +71,56 @@ struct KnowledgeKernelInferenceTestsFixture
 
 
 BOOST_AUTO_TEST_SUITE(EquationalTests);
-BOOST_AUTO_TEST_SUITE(KnowledgeKernelInferenceTests,
-	* boost::unit_test_framework::depends_on("EquationalTests/SemanticsTests")
-	* boost::unit_test_framework::depends_on("EquationalTests/LanguageTests")
-	* boost::unit_test_framework::depends_on("EquationalTests/StatementTests")
+BOOST_FIXTURE_TEST_SUITE(KnowledgeKernelInferenceTests,
+	KnowledgeKernelInferenceTestsFixture,
+	* boost::unit_test_framework::depends_on(
+		"EquationalTests/SemanticsTests")
+	* boost::unit_test_framework::depends_on(
+		"EquationalTests/LanguageTests")
+	* boost::unit_test_framework::depends_on(
+		"EquationalTests/StatementTests")
+	* boost::unit_test_framework::depends_on(
+		"EquationalTests/StatementArrayTests")
 	* boost::unit_test_framework::depends_on(
 		"EquationalTests/KnowledgeKernelDefinitionsTests"));
 
 
+BOOST_DATA_TEST_CASE(test_form_canonical_true,
+	boost::unit_test::data::make({
+		"*(*(x, y), z) = *(x, *(y, z))",
+		"e = e", "x = x", "i(x) = i(x)",
+		"e = *(i(y), y)", "*(x, y) = *(x, y)"
+		}), stmt)
+{
+	s << stmt;
 
+	auto p_stmts = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, ker);
+
+	auto forms = ker.get_form(p_stmts);
+
+	BOOST_TEST(std::all_of(forms.begin(),
+		forms.end(), phxargs::arg1 == StmtForm::CANONICAL_TRUE));
+}
+
+
+BOOST_DATA_TEST_CASE(test_form_not_canonical,
+	boost::unit_test::data::make({
+		"*(i(x), i(i(x))) = e",
+		"i(e) = e", "*(e, e) = e",
+		"*(x, y) = *(y, x)"
+		}), stmt)
+{
+	s << stmt;
+
+	auto p_stmts = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, ker);
+
+	auto forms = ker.get_form(p_stmts);
+
+	BOOST_TEST(std::all_of(forms.begin(),
+		forms.end(), phxargs::arg1 == StmtForm::NOT_CANONICAL));
+}
 
 
 BOOST_AUTO_TEST_SUITE_END();

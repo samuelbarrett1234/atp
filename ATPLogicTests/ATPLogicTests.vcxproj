@@ -178,6 +178,7 @@
     <ClCompile Include="Equational\ParseStatementsTests.cpp" />
     <ClCompile Include="Equational\ParseTreeFoldTests.cpp" />
     <ClCompile Include="Equational\ParseTreeToSyntaxTreeTests.cpp" />
+    <ClCompile Include="Equational\StatementArrayTests.cpp" />
     <ClCompile Include="Equational\StatementTests.cpp" />
     <ClCompile Include="Equational\SyntaxNodeToStr.cpp" />
     <ClCompile Include="Equational\SyntaxTreeFoldTests.cpp" />

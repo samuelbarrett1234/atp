@@ -84,12 +84,25 @@ public:
 		}
 		inline iterator operator +(int j) const
 		{
-			if (j > 0)
-				return iterator(arr, i + static_cast<size_t>(j));
-			else if (-j > i)
-				return iterator(arr);
+			if (!is_end_iterator())
+			{
+				if (j > 0)
+					return iterator(arr,
+						i + static_cast<size_t>(j));
+				else if (-j > i)
+					return iterator(arr);
+				else
+					return iterator(arr,
+						i - static_cast<size_t>(-j));
+			}
 			else
-				return iterator(arr, i - static_cast<size_t>(-j));
+			{
+				if (j >= 0)
+					return *this;
+				else
+					return iterator(arr,
+						arr->size() + j);
+			}
 		}
 		inline iterator operator -(int j) const
 		{
@@ -97,10 +110,14 @@ public:
 		}
 		inline difference_type operator - (const iterator& other) const
 		{
-			if (i >= other.i)
-				return i - other.i;
-			else
+			if (is_end_iterator() && other.is_end_iterator())
+				return 0;
+			else if (is_end_iterator() || i < other.i)
 				return static_cast<size_t>(-1);
+			else if (other.is_end_iterator())
+				return (arr->size() - i);
+			else
+				return i - other.i;
 		}
 		inline iterator& operator += (int j)
 		{
@@ -130,30 +147,29 @@ public:
 		}
 		inline iterator& operator++()
 		{
+			ATP_LOGIC_ASSERT(!is_end_iterator());
 			++i;
 			return *this;
 		}
 		inline iterator& operator--()
 		{
-			if (i > 0)
-				--i;
+			ATP_LOGIC_ASSERT(i > 0);
+			if (is_end_iterator())
+				i = arr->size() - 1;
 			else
-				i = static_cast<size_t>(-1);
+				--i;
 			return *this;
 		}
 		inline iterator operator++(int)
 		{
 			iterator temp = *this;
-			++i;
+			++(*this);
 			return temp;
 		}
 		inline iterator operator--(int)
 		{
 			iterator temp = *this;
-			if (i > 0)
-				--i;
-			else
-				i = static_cast<size_t>(-1);
+			--(*this);
 			return temp;
 		}
 		inline bool operator==(const iterator& iter) const

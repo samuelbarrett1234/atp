@@ -89,11 +89,15 @@ public:
 				if (j > 0)
 					return iterator(arr,
 						i + static_cast<size_t>(j));
-				else if (-j > i)
-					return iterator(arr);
 				else
+				{
+					// can't go backwards before index 0
+					ATP_LOGIC_PRECOND(static_cast<size_t>(-j)
+						>= i);
 					return iterator(arr,
 						i - static_cast<size_t>(-j));
+
+				}
 			}
 			else
 			{
@@ -188,19 +192,21 @@ public:
 		}
 		inline bool operator<(const iterator& iter) const
 		{
-			return (i < iter.i);
+			return ((i < iter.i && !iter.is_end_iterator()) ||
+				(!is_end_iterator() && iter.is_end_iterator()));
 		}
 		inline bool operator<=(const iterator& iter) const
 		{
-			return (i <= iter.i);
+			return (i <= iter.i
+				|| (is_end_iterator() && iter.is_end_iterator()));
 		}
 		inline bool operator>(const iterator& iter) const
 		{
-			return (i > iter.i);
+			return !(*this <= iter);
 		}
 		inline bool operator>=(const iterator& iter) const
 		{
-			return (i >= iter.i);
+			return !(*this < iter);
 		}
 		inline bool is_end_iterator() const
 		{

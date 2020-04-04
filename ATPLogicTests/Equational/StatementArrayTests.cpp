@@ -21,6 +21,7 @@ using atp::logic::equational::StatementArray;
 using atp::logic::equational::Language;
 using atp::logic::equational::KnowledgeKernel;
 using atp::logic::StmtFormat;
+using atp::logic::equational::compute_slice_size;
 
 
 struct StatementArrayTestsFixture
@@ -53,6 +54,7 @@ BOOST_FIXTURE_TEST_SUITE(StatementArrayTests,
 
 BOOST_AUTO_TEST_CASE(size_test)
 {
+	// 5 statements
 	s << "x = x \n x = x \n x = x \n x = x \n x = x";
 
 	auto p_arr = lang.deserialise_stmts(s,
@@ -69,6 +71,7 @@ BOOST_AUTO_TEST_CASE(size_test)
 
 BOOST_AUTO_TEST_CASE(basic_iterator_tests)
 {
+	// 5 statements
 	s << "x = x \n x = x \n x = x \n x = x \n x = x";
 
 	auto p_arr = lang.deserialise_stmts(s,
@@ -100,15 +103,78 @@ BOOST_AUTO_TEST_CASE(basic_iterator_tests)
 	iter = stmtarr.end();
 	BOOST_TEST((iter == stmtarr.end()));
 	iter = stmtarr.begin();
-	BOOST_TEST(iter == stmtarr.begin());
+	BOOST_TEST((iter == stmtarr.begin()));
 
 	BOOST_TEST((stmtarr.end() - 5 == stmtarr.begin()));
 
 	iter = stmtarr.begin();
 	std::advance(iter, 5);
-	BOOST_TEST(iter == stmtarr.end());
+	BOOST_TEST((iter == stmtarr.end()));
 	std::advance(iter, -5);
-	BOOST_TEST(iter == stmtarr.begin());
+	BOOST_TEST((iter == stmtarr.begin()));
+}
+
+
+BOOST_AUTO_TEST_CASE(empty_arr_iterator_tests)
+{
+	// create empty array
+	auto stmtarr = StatementArray(
+		std::make_shared<StatementArray::ArrType>());
+
+	BOOST_TEST(stmtarr.size() == 0);
+
+	BOOST_TEST((stmtarr.begin() == stmtarr.end()));
+}
+
+
+BOOST_AUTO_TEST_CASE(test_slice_start_end)
+{
+	// 3 statements
+	s << "x = x \n i(x) = i(x) \n";
+	s << "i(i(x)) = i(i(x))";
+
+	auto p_arr = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, ker);
+
+	auto stmtarr = dynamic_cast<const StatementArray&>(
+		*p_arr.get());
+
+	auto p_slice = stmtarr.slice(1, 2, 1);
+	BOOST_TEST(p_slice->size() == 1);
+	BOOST_TEST(p_slice->at(0).to_str() == "i(x0) = i(x0)");
+}
+
+
+BOOST_AUTO_TEST_CASE(test_slice_step)
+{
+	// 3 statements
+	s << "x = x \n i(x) = i(x) \n";
+	s << "i(i(x)) = i(i(x))";
+
+	auto p_arr = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, ker);
+
+	auto stmtarr = dynamic_cast<const StatementArray&>(
+		*p_arr.get());
+
+	auto p_slice = stmtarr.slice(0, 3, 2);
+	BOOST_TEST(p_slice->size() == 2);
+	BOOST_TEST(p_slice->at(1).to_str() == "i(i(x0)) = i(i(x0))");
+}
+
+
+BOOST_DATA_TEST_CASE(test_slice_size_computations,
+	// start:
+	boost::unit_test::data::make({ 0, 1, 0, 0, 2, 2 }) ^
+	// stop:
+	boost::unit_test::data::make({ 0, 1, 2, 3, 12, 13 }) ^
+	// step:
+	boost::unit_test::data::make({ 1, 1, 2, 2, 5, 5 }) ^
+	// correct size:
+	boost::unit_test::data::make({ 0, 0, 1, 2, 2, 3 }),
+	start, end, step, size)
+{
+	BOOST_TEST(compute_slice_size(start, end, step) == size);
 }
 
 

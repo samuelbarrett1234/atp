@@ -171,6 +171,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Equational\KnowledgeKernelDefinitionsTests.cpp" />
+    <ClCompile Include="Equational\KnowledgeKernelInferenceTests.cpp" />
     <ClCompile Include="Equational\LanguageTests.cpp" />
     <ClCompile Include="Equational\SemanticsTests.cpp" />
     <ClCompile Include="Equational\ParseDefinitionsTests.cpp" />

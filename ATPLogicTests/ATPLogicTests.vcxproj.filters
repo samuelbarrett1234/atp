@@ -54,6 +54,9 @@
     <ClCompile Include="Equational\SemanticsTests.cpp">
       <Filter>Source Files\Equational</Filter>
     </ClCompile>
+    <ClCompile Include="Equational\KnowledgeKernelInferenceTests.cpp">
+      <Filter>Source Files\Equational</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">

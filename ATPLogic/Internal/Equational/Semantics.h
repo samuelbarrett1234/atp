@@ -60,12 +60,6 @@ ATP_LOGIC_API StatementArray replace_free_with_free(
 	const Statement& stmt);
 
 
-// returns true iff this statement follows from the premise
-// in a single substitution step
-ATP_LOGIC_API bool follows_from(const Statement& premise,
-	const Statement& concl);
-
-
 // returns true iff a and b are equal as syntax trees,
 // which means that they are basically identical except UP TO
 // swapping around the names of the free variables.

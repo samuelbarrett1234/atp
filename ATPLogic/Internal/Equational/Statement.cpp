@@ -90,6 +90,24 @@ std::string Statement::to_str() const
 }
 
 
+Statement Statement::adjoin_rhs(const Statement& other) const
+{
+	ATP_LOGIC_PRECOND(&m_ker == &other.m_ker);
+
+	auto p_eq = dynamic_cast<EqSyntaxNode*>(m_root.get());
+	auto p_other_eq = dynamic_cast<EqSyntaxNode*>(
+		other.m_root.get());
+
+	ATP_LOGIC_ASSERT(p_eq != nullptr);
+	ATP_LOGIC_ASSERT(p_other_eq != nullptr);
+
+	auto p_new_eq = std::make_shared<EqSyntaxNode>(p_eq->left(),
+		p_other_eq->right());
+
+	return Statement(m_ker, p_new_eq);
+}
+
+
 std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node)
 {
 	std::list<SyntaxNodePtr> stack;

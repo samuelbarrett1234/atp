@@ -38,33 +38,6 @@ std::vector<StatementArrayPtr> KnowledgeKernel::succs(
 {
 	ATP_LOGIC_PRECOND(valid(_p_stmts));  // expensive :(
 
-	// The successor statements in equational logic are:
-	// - Replacing either side of an equation with one of the given
-	//   equality rules (just transitivity in disguise; if x=y is
-	//   our statement, and we have a rule of the form y=z, then we
-	//   can turn the statement into x=z.)
-	// - Replacing a free variable with any of: a user-defined
-	//   constant, a user-defined function whose arguments are new
-	//   free variables, or a free variable which already exists
-	//   within the statement.
-	// For example, with the latter rule, if our statement is
-	// "f(x)=g(x)" then we can obtain:
-	// "f(e)=g(e)" for user defined "e", and "f(h(x))=g(h(x))" for
-	// user defined "h", and instead if our statement is
-	// "f(x, y)=g(h(x), y)" then "f(x, x)=g(h(x), x)".
-
-	// successor rules of a single statement
-	auto succ_statement = [this](const Statement& stmt)
-		-> StatementArrayPtr
-	{
-		return StatementArray::try_concat(
-			*StatementArray::try_concat(
-				semantics::get_substitutions(stmt, m_rules),
-				semantics::replace_free_with_def(stmt, m_id_to_arity)
-			), semantics::replace_free_with_free(stmt)
-		);
-	};
-
 	auto p_stmts = dynamic_cast<StatementArray*>(
 		_p_stmts.get());
 
@@ -74,7 +47,8 @@ std::vector<StatementArrayPtr> KnowledgeKernel::succs(
 	results.reserve(p_stmts->size());
 
 	std::transform(p_stmts->begin(), p_stmts->end(),
-		std::back_inserter(results), succ_statement);
+		std::back_inserter(results),
+		boost::bind(&KnowledgeKernel::succ_stmt, this, _1));
 
 	return results;
 }
@@ -160,8 +134,20 @@ std::vector<bool> KnowledgeKernel::follows(
 	), boost::make_zip_iterator(
 		boost::make_tuple(p_premise->end(), p_concl->end())
 	), std::back_inserter(follows_result),
-	[](boost::tuple<Statement, Statement> p)
-	{ return semantics::follows_from(p.get<0>(), p.get<1>()); });
+	[this](boost::tuple<Statement, Statement> p)
+	{
+		// we check if it follows by seeing if the conclusion
+		// (p.get<1>()) is a successor of the premise (p.get<0>()).
+
+		auto p_succs = succ_stmt(p.get<0>());
+		ATP_LOGIC_ASSERT(p_succs != nullptr);
+		const StatementArray& succs = dynamic_cast<
+			const StatementArray&>(*p_succs.get());
+
+		return std::any_of(succs.begin(), succs.end(),
+			boost::bind(&semantics::equivalent,
+				boost::ref(p.get<1>()), _1));
+	});
 
 	return follows_result;
 }
@@ -235,6 +221,33 @@ std::list<size_t> KnowledgeKernel::get_symbol_id_catalogue() const
 		{ return a.left; });
 
 	return symb_ids;
+}
+
+
+StatementArrayPtr KnowledgeKernel::succ_stmt(
+	const Statement& stmt) const
+{
+	// The successor statements in equational logic are:
+	// - Replacing either side of an equation with one of the given
+	//   equality rules (just transitivity in disguise; if x=y is
+	//   our statement, and we have a rule of the form y=z, then we
+	//   can turn the statement into x=z.)
+	// - Replacing a free variable with any of: a user-defined
+	//   constant, a user-defined function whose arguments are new
+	//   free variables, or a free variable which already exists
+	//   within the statement.
+	// For example, with the latter rule, if our statement is
+	// "f(x)=g(x)" then we can obtain:
+	// "f(e)=g(e)" for user defined "e", and "f(h(x))=g(h(x))" for
+	// user defined "h", and instead if our statement is
+	// "f(x, y)=g(h(x), y)" then "f(x, x)=g(h(x), x)".
+
+	return StatementArray::try_concat(
+		*StatementArray::try_concat(
+			semantics::get_substitutions(stmt, m_rules),
+			semantics::replace_free_with_def(stmt, m_id_to_arity)
+		), semantics::replace_free_with_free(stmt)
+	);
 }
 
 

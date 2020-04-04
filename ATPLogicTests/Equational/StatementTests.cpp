@@ -310,6 +310,35 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_by_converting_pair_to_str)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_adjoint_rhs)
+{
+	// stmt1:
+	s << "*(x, y) = e\n";
+
+	// stmt2:
+	s << "i(x) = i(*(i(x), y))";
+
+	auto results = parse_statements(s);
+
+	BOOST_REQUIRE(results.has_value());
+	BOOST_REQUIRE(results.get().size() == 2);
+
+	auto stree1 = ptree_to_stree(results->front(), ker);
+	auto stree2 = ptree_to_stree(results->back(), ker);
+
+	auto stmt1 = Statement(ker, stree1);
+	auto stmt2 = Statement(ker, stree2);
+
+	auto stmt_adjoin_result = stmt1.adjoin_rhs(stmt2);
+
+	auto adjoin_as_str = stmt_adjoin_result.to_str();
+
+	BOOST_TEST((adjoin_as_str ==
+		"*(x0, x1) = i(*(i(x0), x1))" || adjoin_as_str
+		== "*(x1, x0) = i(*(i(x1), x0))"));
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();  // StatementTests
 BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
 

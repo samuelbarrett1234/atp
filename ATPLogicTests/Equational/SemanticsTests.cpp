@@ -279,14 +279,33 @@ BOOST_AUTO_TEST_CASE(test_equivalent_invariant_to_reflection)
 }
 
 
-BOOST_AUTO_TEST_CASE(test_get_substitutions)
+BOOST_DATA_TEST_CASE(test_get_substitutions,
+	boost::unit_test::data::make({
+		"*(x, x) = *( i(x), i(i(x)) )",
+		"x = *(e, *(x, e))",
+		"i(x) = e",
+		"*(i(x), e) = x" }) ^
+	boost::unit_test::data::make({
+		"*(x, i(x)) = e",
+		"*(x, *(y, z)) = *(*(x, y), z)",
+		"x = x",
+		"*(x, e) = x" }) ^
+	boost::unit_test::data::make({
+		"*(x, x) = e",
+		"x = *(*(e, x), e)",
+		"e = i(x)",
+		"i(x) = x" }),
+	subst_candidate, subst_rule, a_subst_result)
 {
 	// the statement to try substituting:
-	s << "*(x, x) = *( i(x), i(i(x)) )\n";
+	s << subst_candidate << "\n";
 	// the substitution rule(s):
-	s << "*(x, i(x)) = e\n";
-	// the result of the substitution:
-	s << "*(x, x) = e";
+	s << subst_rule << "\n";
+	// a particular result of the substitution
+	// (not necessarily all possibilities will be this,
+	// but the test will pass iff at least one of the
+	// substitution results is equivalent to this).
+	s << a_subst_result;
 
 	auto results = parse_statements(s);
 	BOOST_REQUIRE(results.has_value());
@@ -299,20 +318,17 @@ BOOST_AUTO_TEST_CASE(test_get_substitutions)
 	auto rule_stmt = Statement(ker, ptree_to_stree(
 		*parse_result_iter, ker));
 	++parse_result_iter;
-	auto sub_result_stmt = Statement(ker, ptree_to_stree(
+	auto target_stmt = Statement(ker, ptree_to_stree(
 		*parse_result_iter, ker));
 
 	auto responses = semantics::get_substitutions(initial_stmt,
 		{ rule_stmt });
 
-	// there was exactly one way to apply that rule:
-	BOOST_TEST(responses.size() == 1);
+	BOOST_TEST(responses.size() != 0);
 
-	for (auto stmt : responses)
-	{
-		BOOST_TEST(semantics::equivalent(sub_result_stmt,
-			stmt));
-	}
+	BOOST_TEST(std::any_of(responses.begin(), responses.end(),
+		boost::bind(&semantics::equivalent,
+			boost::ref(target_stmt), _1)));
 }
 
 
@@ -406,41 +422,6 @@ BOOST_AUTO_TEST_CASE(test_replace_free_with_free)
 		BOOST_TEST(semantics::equivalent(stmt, answer_stmt));
 	}
 }
-
-
-BOOST_DATA_TEST_CASE(test_follows_from,
-	boost::unit_test::data::make({
-		// patterns
-		"x0 = x0",
-		"*(x0, e) = x0",
-		"*(x0, i(x0)) = e",
-		"e = *( x, i(x) )" })
-		^ boost::unit_test::data::make({
-		// targets
-		"i(x0) = i(x0)",
-		"*(i(x0), e) = i(x0)",
-		"*(i(x0), i(i(x0))) = e",
-		"e = *( i(x), i(i(x)) )" }),
-		pattern, target)
-{
-	s << pattern << "\n" << target;
-	auto results = parse_statements(s);
-
-	BOOST_REQUIRE(results.has_value());
-	BOOST_REQUIRE(results.get().size() == 2);
-
-	auto stree1 = ptree_to_stree(results.get().front(), ker);
-	auto stree2 = ptree_to_stree(results.get().back(), ker);
-
-	BOOST_REQUIRE(stree1 != nullptr);
-	BOOST_REQUIRE(stree2 != nullptr);
-
-	auto pattern_stmt = Statement(ker, stree1);
-	auto target_stmt = Statement(ker, stree2);
-
-	BOOST_TEST(semantics::follows_from(pattern_stmt, target_stmt));
-}
-
 
 
 BOOST_AUTO_TEST_SUITE_END();  // SemanticsTests

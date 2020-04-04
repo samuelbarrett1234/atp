@@ -328,17 +328,12 @@ SyntaxNodePtr get_substitution(const Statement& pattern,
 StatementArray get_substitutions(const Statement& stmt,
 	const std::vector<Statement>& rules)
 {
-	// here we will store the resulting trees
-	// we will have at most 4 * num_variables * num_rules
-	// substitutions:
-	std::vector<SyntaxNodePtr> trees;
-	trees.reserve(4 * stmt.num_free_vars() * rules.size());
+	auto result_stmts = std::make_shared<std::vector<Statement>>();
+	result_stmts->reserve(4 * stmt.num_free_vars() * rules.size());
 
 	auto stmt_T = transpose(stmt);
 
-	// we also need to compute the largest free variable
-	// ID in the statement:
-
+	// fold functions for computing the maximum free variable ID:
 	auto eq_func = boost::bind(&std::max<size_t>, _1, _2);
 	auto free_func = phxarg::arg1;
 	auto const_func = phx::val(0);  // smallest possible value
@@ -350,42 +345,56 @@ StatementArray get_substitutions(const Statement& stmt,
 		ATP_LOGIC_ASSERT(mx != end);
 		return *mx;
 	};
-	const size_t max_id = stmt.fold<size_t>(eq_func,
-		free_func, const_func, f_func);
+
+	// use an array to reduce code duplication
+	const Statement* stmts[2] =
+	{
+		&stmt, &stmt_T
+	};
+	// note that stmt[1-i] is the transpose of
+	// the statement stmt[i]
 
 	// now examine rules:
 	for (const auto& r : rules)
 	{
+		// we also need to compute the largest free variable
+		// ID in the rule:
+		const size_t max_id = r.fold<size_t>(eq_func,
+			free_func, const_func, f_func);
+
 		auto r_T = transpose(r);
 
-		auto sub1 = try_build_lhs_mapping(r, stmt);
-		auto sub2 = try_build_lhs_mapping(r_T, stmt);
-		auto sub3 = try_build_lhs_mapping(r, stmt_T);
-		auto sub4 = try_build_lhs_mapping(r_T, stmt_T);
+		// use an array to reduce code duplication
+		const Statement* rs[2] =
+		{ &r, &r_T };
+		// note that rs[1-i] is the transpose of
+		// the statement rs[i]
 
-		if (sub1.has_value())
+		for (size_t i = 0; i < 4; ++i)
 		{
-			trees.emplace_back(
-				get_substitution(r, sub1.get(), max_id));
-		}
-		if (sub2.has_value())
-		{
-			trees.emplace_back(
-				get_substitution(r, sub2.get(), max_id));
-		}
-		if (sub3.has_value())
-		{
-			trees.emplace_back(
-				get_substitution(r, sub3.get(), max_id));
-		}
-		if (sub4.has_value())
-		{
-			trees.emplace_back(
-				get_substitution(r, sub4.get(), max_id));
+			// try to match LHS of rule to LHS of statement
+			auto sub = try_build_lhs_mapping(*rs[i / 2],
+				*stmts[i % 2]);
+
+			if (sub.has_value())
+			{
+				// apply the substitution to the whole rule statement
+				// (note: we want to ensure that the half of the
+				// statement which we built the mapping for above,
+				// is on the LHS).
+				auto stmt_substituted = Statement(stmt.kernel(),
+					get_substitution(*rs[i / 2],
+						sub.get(), max_id));
+
+				// now combine the RHS of the substituted rule with
+				// the RHS of the input `stmts[i % 2]`
+				result_stmts->emplace_back(
+					stmts[1 - i % 2]->adjoin_rhs(stmt_substituted));
+			}
 		}
 	}
 
-	return from_trees(stmt.kernel(), trees);
+	return StatementArray(result_stmts);
 }
 
 
@@ -429,16 +438,6 @@ StatementArray replace_free_with_free(const Statement& stmt)
 		&fold_func_constructor);
 
 	return from_trees(stmt.kernel(), trees);
-}
-
-
-bool follows_from(const Statement& premise,
-	const Statement& concl)
-{
-	auto subs = get_substitutions(concl, { premise });
-	
-	return std::any_of(subs.begin(), subs.end(),
-		boost::bind(&equivalent, boost::ref(concl), _1));
 }
 
 

@@ -82,6 +82,10 @@ public:
 		return m_ker;
 	}
 
+	// return a new statement obtained by replacing the RHS
+	// of this statement with the RHS of the statement `other`:
+	Statement adjoin_rhs(const Statement& other) const;
+
 	// perform a fold operation over the syntax tree
 	template<typename ResultT, typename EqFuncT,
 		typename FreeFuncT, typename ConstFuncT,

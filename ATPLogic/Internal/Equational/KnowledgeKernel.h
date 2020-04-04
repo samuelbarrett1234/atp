@@ -161,6 +161,9 @@ private:
 		return std::hash<std::string>()(str);
 	}
 
+	// get the successors of a single statement
+	StatementArrayPtr succ_stmt(const Statement& stmt) const;
+
 private:
 	// mapping from symbol names to arity
 	std::map<std::string, size_t> m_name_to_arity;

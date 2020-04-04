@@ -26,8 +26,8 @@ of seen nodes too.
 */
 
 
-#include <set>
 #include <list>
+#include <vector>
 #include <functional>
 #include <type_traits>
 #include <algorithm>
@@ -81,29 +81,37 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 
 	std::list<ResultT> result_stack;
 	std::list<ISyntaxNode*> todo_stack;
-	std::set<ISyntaxNode*> seen;
+	std::vector<bool> seen_stack;
 
 	todo_stack.push_back(p_root.get());
+	seen_stack.push_back(false);
 
 	while (!todo_stack.empty())
 	{
+		ATP_LOGIC_ASSERT(seen_stack.size() ==
+			todo_stack.size());
+
 		ISyntaxNode* p_node = todo_stack.back();
 		todo_stack.pop_back();
+		const bool seen = seen_stack.back();
+		seen_stack.pop_back();
 
 		// first occurrence
-		if (seen.find(p_node) == seen.end())
+		if (!seen)
 		{
 			apply_to_syntax_node<void>(
 				// if EQ...
-				[&todo_stack, &seen](EqSyntaxNode& eq)
+				[&todo_stack, &seen_stack](EqSyntaxNode& eq)
 				{
 					// revisit it later
 					todo_stack.push_back(&eq);
-					seen.insert(&eq);
+					seen_stack.push_back(true);
 
 					// add children
 					todo_stack.push_back(eq.left().get());
+					seen_stack.push_back(false);
 					todo_stack.push_back(eq.right().get());
+					seen_stack.push_back(false);
 				},
 				// if FREE...
 				[&result_stack, &free_func](FreeSyntaxNode& free)
@@ -120,17 +128,19 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 						c.get_symbol_id()));
 				},
 				// if FUNC...
-				[&todo_stack, &seen](FuncSyntaxNode& f)
+				[&todo_stack, &seen_stack](FuncSyntaxNode& f)
 				{
 					// revisit it later
 					todo_stack.push_back(&f);
-					seen.insert(&f);
+					seen_stack.push_back(true);
 
 					// add children in reverse order
 					std::transform(f.rbegin(), f.rend(),
 						std::back_inserter(todo_stack),
 						[](SyntaxNodePtr p_node)
 						{ return p_node.get(); });
+					seen_stack.resize(seen_stack.size()
+						+ f.get_arity(), false);
 				},
 				*p_node
 			);
@@ -169,17 +179,31 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 					ATP_LOGIC_ASSERT(result_stack.size() >=
 						f.get_arity());
 
+#ifdef ATP_LOGIC_DEFENSIVE
+					const size_t size_before = result_stack.size();
+#endif
+
 					// find list of child results:
 					auto result_iter = result_stack.rbegin();
 					std::advance(result_iter, f.get_arity());
 
+					ATP_LOGIC_ASSERT(std::distance(result_iter.base(),
+						result_stack.end()) == f.get_arity());
+
 					// now compute result for p_func:
 					auto result = f_func(f.get_symbol_id(),
-						result_iter.base(), result_stack.end());
+						result_iter.base(),
+						result_stack.end());
 
 					// now remove the child results and add ours:
 					result_stack.erase(result_iter.base(),
 						result_stack.end());
+
+#ifdef ATP_LOGIC_DEFENSIVE
+					ATP_LOGIC_ASSERT(result_stack.size() + f.get_arity()
+						== size_before);
+#endif
+
 					result_stack.push_back(result);
 				},
 				*p_node

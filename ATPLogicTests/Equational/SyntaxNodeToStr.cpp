@@ -1,4 +1,5 @@
 #include "SyntaxNodeToStr.h"
+#include "../Test.h"
 #include <list>
 #include <map>
 #include <algorithm>
@@ -120,6 +121,9 @@ std::string free_node_to_str(
 std::string const_node_to_str(const KnowledgeKernel& ker,
 	size_t symbol_id)
 {
+	// might as well test the arity here:
+	BOOST_TEST(ker.symbol_arity_from_id(symbol_id) == 0);
+
 	return ker.symbol_name(symbol_id);
 }
 
@@ -128,6 +132,10 @@ std::string func_node_to_str(const KnowledgeKernel& ker,
 	size_t symbol_id, std::list<std::string>::iterator begin,
 	std::list<std::string>::iterator end)
 {
+	// might as well test the arity here:
+	BOOST_TEST(std::distance(begin, end)
+		== ker.symbol_arity_from_id(symbol_id));
+
 	return ker.symbol_name(symbol_id) + '(' +
 		boost::algorithm::join(
 			boost::make_iterator_range(begin, end),

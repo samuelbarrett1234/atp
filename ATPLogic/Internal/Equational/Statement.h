@@ -29,6 +29,8 @@ swapped; this is obvious because f(x,y) /= f(y,x) in general.)
 #include <memory>
 #include <vector>
 #include <string>
+#include <vector>
+#include <algorithm>
 #include <map>
 #include <boost/iterator/zip_iterator.hpp>
 #include "../../ATPLogicAPI.h"
@@ -133,21 +135,27 @@ public:
 		// but iterating over pairs instead of just singletons
 		std::list<std::pair<SyntaxNodePtr, SyntaxNodePtr>> todo_stack;
 		std::list<ResultT> result_stack;
-		std::set<std::pair<SyntaxNodePtr, SyntaxNodePtr>> seen;
+		std::vector<bool> seen_stack;
 
 		todo_stack.push_back(std::make_pair(m_root, other.m_root));
+		seen_stack.push_back(false);
 
 		while (!todo_stack.empty())
 		{
+			ATP_LOGIC_ASSERT(seen_stack.size() ==
+				todo_stack.size());
+
 			auto pair = todo_stack.back();
 			todo_stack.pop_back();
+			const bool seen_pair = seen_stack.back();
+			seen_stack.pop_back();
 
-			const bool seen_pair = (seen.find(pair) != seen.end());
-			
 			if (pair.first->get_type() !=
 				pair.second->get_type())
+			{
 				result_stack.push_back(default_func(pair.first,
 					pair.second));
+			}
 			else switch (pair.first->get_type())
 			{
 			case SyntaxNodeType::EQ:
@@ -164,16 +172,16 @@ public:
 				{
 					// push ourselves:
 					todo_stack.push_back(pair);
+					seen_stack.push_back(true);
 
 					// examine children:
 
 					todo_stack.push_back(std::make_pair(
 						p_first->left(), p_second->left()));
+					seen_stack.push_back(false);
 					todo_stack.push_back(std::make_pair(
 						p_first->right(), p_second->right()));
-
-					// mark as seen
-					seen.insert(pair);
+					seen_stack.push_back(false);
 				}
 				else
 				{
@@ -239,6 +247,7 @@ public:
 				{
 					// push ourselves:
 					todo_stack.push_back(pair);
+					seen_stack.push_back(true);
 
 					// push child (argument) pairs to the
 					// todo stack in reverse order!!
@@ -254,8 +263,8 @@ public:
 						{ return std::make_pair(tup.get<0>(),
 							tup.get<1>()); });
 
-					// mark as seen
-					seen.insert(pair);
+					seen_stack.resize(seen_stack.size() +
+						p_first->get_arity(), false);
 				}
 				else
 				{
@@ -267,20 +276,30 @@ public:
 					ATP_LOGIC_ASSERT(result_stack.size() >=
 						p_first->get_arity());
 
-					auto result_rbegin_iter = result_stack.rbegin();
-					std::advance(result_rbegin_iter,
+#ifdef ATP_LOGIC_DEFENSIVE
+					const size_t size_before = result_stack.size();
+#endif
+
+					auto result_iter = result_stack.rbegin();
+					std::advance(result_iter,
 						p_first->get_arity());
-					auto result_begin_iter = result_rbegin_iter.base();
+
+					ATP_LOGIC_ASSERT(std::distance(result_iter.base(),
+						result_stack.end()) == p_first->get_arity());
 
 					// compute our result
-
 					auto func_result = f_func(p_first->get_symbol_id(),
 						p_second->get_symbol_id(),
-						result_begin_iter, result_stack.end());
+						result_iter.base(), result_stack.end());
 
 					// erase child results from stack
-					result_stack.erase(result_begin_iter,
+					result_stack.erase(result_iter.base(),
 						result_stack.end());
+
+#ifdef ATP_LOGIC_DEFENSIVE
+					ATP_LOGIC_ASSERT(result_stack.size() +
+						p_first->get_arity() == size_before);
+#endif
 
 					// add our result to the stack
 					result_stack.push_back(func_result);

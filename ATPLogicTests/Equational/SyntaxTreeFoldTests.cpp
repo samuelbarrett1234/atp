@@ -43,18 +43,6 @@ struct SyntaxTreeFoldTestsFixture
 };
 
 
-std::string stmts[] =
-{
-	"*(x0, x1) = e", "i(i(x0)) = x0",
-	"*(x0, *(x1, x2)) = *(*(x0, x1), x2)",
-	"*(e, e) = e"
-};
-size_t num_free_vars_in_stmts[] =
-{
-	2, 1, 3, 0
-};
-
-
 BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(SyntaxTreeFoldTests,
 	SyntaxTreeFoldTestsFixture,
@@ -67,12 +55,11 @@ BOOST_FIXTURE_TEST_SUITE(SyntaxTreeFoldTests,
 // to the parser!
 // We may assume the parser is correct, because this test suite
 // builds upon the parser
-BOOST_DATA_TEST_CASE(test_to_str_is_inverse_to_parser,
-	boost::unit_test::data::make(stmts) ^
-	boost::unit_test::data::make(num_free_vars_in_stmts),
-	stmt, num_free_vars)
+
+
+BOOST_AUTO_TEST_CASE(test_to_str_is_inverse_to_parser_1)
 {
-	s << stmt;
+	s << "*(x0, x1) = e";
 	auto result = parse_statements(s);
 
 	// the tests should be parsable at least:
@@ -94,8 +81,105 @@ BOOST_DATA_TEST_CASE(test_to_str_is_inverse_to_parser,
 	// some permutation of the variables ties up with the result
 	// given here:
 
-	BOOST_TEST(exists_free_var_assignment(ker,
-		syntax_tree, stmt, num_free_vars));
+	auto to_str = syntax_tree_to_str(ker, syntax_tree);
+
+	BOOST_TEST((to_str == "*(x0, x1) = e" ||
+		to_str == "*(x1, x0) = e"));
+}
+
+
+BOOST_AUTO_TEST_CASE(test_to_str_is_inverse_to_parser_2)
+{
+	s << "i(i(x0)) = x0";
+	auto result = parse_statements(s);
+
+	// the tests should be parsable at least:
+	BOOST_REQUIRE(result.has_value());
+
+	// only one statement per test please:
+	BOOST_REQUIRE(result.get().size() == 1);
+
+	auto parse_tree = result.get().front();
+
+	auto syntax_tree = ptree_to_stree(
+		parse_tree, ker);
+
+	// should have no problems here
+	BOOST_REQUIRE(syntax_tree != nullptr);
+
+	// warning: of course, we cannot guarantee the way in which the
+	// free variable IDs get assigned, so we need to check that
+	// some permutation of the variables ties up with the result
+	// given here:
+
+	auto to_str = syntax_tree_to_str(ker, syntax_tree);
+
+	BOOST_TEST(to_str == "i(i(x0)) = x0");
+}
+
+
+BOOST_AUTO_TEST_CASE(test_to_str_is_inverse_to_parser_3)
+{
+	s << "*(e, e) = e";
+	auto result = parse_statements(s);
+
+	// the tests should be parsable at least:
+	BOOST_REQUIRE(result.has_value());
+
+	// only one statement per test please:
+	BOOST_REQUIRE(result.get().size() == 1);
+
+	auto parse_tree = result.get().front();
+
+	auto syntax_tree = ptree_to_stree(
+		parse_tree, ker);
+
+	// should have no problems here
+	BOOST_REQUIRE(syntax_tree != nullptr);
+
+	// warning: of course, we cannot guarantee the way in which the
+	// free variable IDs get assigned, so we need to check that
+	// some permutation of the variables ties up with the result
+	// given here:
+
+	auto to_str = syntax_tree_to_str(ker, syntax_tree);
+
+	BOOST_TEST(to_str == "*(e, e) = e");
+}
+
+
+BOOST_AUTO_TEST_CASE(test_to_str_is_inverse_to_parser_4)
+{
+	// note: this statement catches an off-by-one
+	// bug in the fold (specifically, when the function
+	// constructor pops its children off the result
+	// stack)
+	s << "*(x, y) = i(*(i(x), i(y)))";
+	auto result = parse_statements(s);
+
+	// the tests should be parsable at least:
+	BOOST_REQUIRE(result.has_value());
+
+	// only one statement per test please:
+	BOOST_REQUIRE(result.get().size() == 1);
+
+	auto parse_tree = result.get().front();
+
+	auto syntax_tree = ptree_to_stree(
+		parse_tree, ker);
+
+	// should have no problems here
+	BOOST_REQUIRE(syntax_tree != nullptr);
+
+	// warning: of course, we cannot guarantee the way in which the
+	// free variable IDs get assigned, so we need to check that
+	// some permutation of the variables ties up with the result
+	// given here:
+
+	auto to_str = syntax_tree_to_str(ker, syntax_tree);
+
+	BOOST_TEST((to_str == "*(x0, x1) = i(*(i(x0), i(x1)))" ||
+		to_str == "*(x1, x0) = i(*(i(x1), i(x0)))"));
 }
 
 

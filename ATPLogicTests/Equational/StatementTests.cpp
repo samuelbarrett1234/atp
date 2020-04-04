@@ -21,6 +21,7 @@ equational::semantics namespace.
 #include <Internal/Equational/Parser.h>
 #include <Internal/Equational/SyntaxNodes.h>
 #include "../Test.h"
+#include "SyntaxNodeToStr.h"
 
 
 using atp::logic::equational::KnowledgeKernel;
@@ -106,7 +107,9 @@ BOOST_DATA_TEST_CASE(num_free_vars_test,
 
 BOOST_DATA_TEST_CASE(test_string_fold_is_inverse_to_parser,
 	boost::unit_test::data::make({ "x0 = i(x0)",
-		"*(x0, *(e, i(x0))) = *(x0, x0)" }), stmt)
+		"*(x0, *(e, i(x0))) = *(x0, x0)",
+		"*(x0, x1) = i(*(i(x0), i(x1)))",
+		"*(i(x0), i(i(x0))) = e" }), stmt)
 {
 	// this is the best way I can think of testing the fold function;
 	// by using it as a .to_str() function (of course, the Statement
@@ -136,6 +139,44 @@ BOOST_DATA_TEST_CASE(test_string_fold_is_inverse_to_parser,
 
 	BOOST_TEST(stmt_obj.fold<std::string>(eq_to_str, free_to_str,
 		const_to_str, func_to_str) == stmt);
+}
+
+
+BOOST_AUTO_TEST_CASE(
+	test_string_fold_is_inverse_to_parser_for_two_free_vars)
+{
+	// this is the best way I can think of testing the fold function;
+	// by using it as a .to_str() function (of course, the Statement
+	// interface already provides this, but we are doing this to test
+	// the fold function specifically.)
+
+	s << "*(x0, x1) = i(*(i(x0), i(x1)))";
+	auto result = parse_statements(s);
+	BOOST_REQUIRE(result.has_value());
+	BOOST_REQUIRE(result.get().size() == 1);
+	auto stree = ptree_to_stree(result.get().front(), ker);
+	auto stmt_obj = Statement(ker, stree);
+
+	auto eq_to_str = phxargs::arg1 + " = " + phxargs::arg2;
+	auto free_to_str = [](size_t id)
+	{ return "x" + boost::lexical_cast<std::string>(id); };
+	auto const_to_str = boost::bind(&KnowledgeKernel::symbol_name,
+		boost::ref(ker), _1);
+	auto func_to_str = [this](size_t symb_id,
+		std::list<std::string>::iterator begin,
+		std::list<std::string>::iterator end) -> std::string
+	{
+		return ker.symbol_name(symb_id) + '(' + boost::algorithm::join(
+			boost::make_iterator_range(begin, end), ", "
+		) + ')';
+	};
+
+	auto str_result = stmt_obj.fold<std::string>(
+		eq_to_str, free_to_str,
+		const_to_str, func_to_str);
+
+	BOOST_TEST((str_result == "*(x0, x1) = i(*(i(x0), i(x1)))" ||
+		str_result == "*(x1, x0) = i(*(i(x1), i(x0)))"));
 }
 
 
@@ -197,6 +238,75 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_with_conflicting_func_arities)
 
 	BOOST_TEST(stmt1.fold_pair<bool>(eq_func, free_func, const_func,
 		f_func, default_func, stmt2));
+}
+
+
+BOOST_AUTO_TEST_CASE(test_pair_fold_by_converting_pair_to_str)
+{
+	s << "*(x, y) = i(*(i(x), i(y))) \n";
+	s << "e = i(*(i(x), i(y)))";
+
+	auto results = parse_statements(s);
+
+	BOOST_REQUIRE(results.has_value());
+	BOOST_REQUIRE(results.get().size() == 2);
+
+	auto stree1 = ptree_to_stree(results.get().front(), ker);
+	auto stree2 = ptree_to_stree(results.get().back(), ker);
+
+	auto stmt1 = Statement(ker, stree1);
+	auto stmt2 = Statement(ker, stree2);
+
+	auto eq_func = phxargs::arg1 + " = " + phxargs::arg2;
+	auto free_func = [](size_t id1, size_t id2)
+	{
+		return (id1 == id2) ? 
+			("x" + boost::lexical_cast<std::string>(id1)) :
+			("x[" + boost::lexical_cast<std::string>(id1)
+			+ ", " + boost::lexical_cast<std::string>(id2) + "]");
+	};
+	auto const_func = [this](size_t id1, size_t id2)
+	{
+		// might as well test the arity here:
+		BOOST_TEST(ker.symbol_arity_from_id(id1) == 0);
+		BOOST_TEST(ker.symbol_arity_from_id(id2) == 0);
+
+		return (id1 == id2) ? ker.symbol_name(id1)
+			: ("[" + ker.symbol_name(id1) + ", " +
+				ker.symbol_name(id2) + "]");;
+	};
+	auto f_func = [this](size_t id1, size_t id2,
+		std::list<std::string>::iterator begin,
+		std::list<std::string>::iterator end)
+	{
+		// might as well test the arity here:
+		BOOST_TEST(std::distance(begin, end)
+			== ker.symbol_arity_from_id(id1));
+		BOOST_TEST(std::distance(begin, end)
+			== ker.symbol_arity_from_id(id2));
+
+		auto str_id = (id1 == id2) ? ker.symbol_name(id1)
+			: ("[" + ker.symbol_name(id1) + ", " +
+				ker.symbol_name(id2) + "]");
+		return str_id + '(' +
+			boost::algorithm::join(
+				boost::make_iterator_range(begin, end),
+				", ") + ')';
+	};
+	auto default_func = [this](SyntaxNodePtr p_left,
+		SyntaxNodePtr p_right)
+	{
+		return "[" + syntax_tree_to_str(ker, p_left)
+			+ ", " + syntax_tree_to_str(ker, p_right) + "]";
+	};
+
+	auto str_result = stmt1.fold_pair<std::string>(eq_func,
+		free_func, const_func, f_func, default_func,
+		stmt2);
+
+	BOOST_TEST((str_result ==
+		"[*(x0, x1), e] = i(*(i(x0), i(x1)))" ||
+		str_result == "[*(x1, x0), e] = i(*(i(x1), i(x0)))"));
 }
 
 

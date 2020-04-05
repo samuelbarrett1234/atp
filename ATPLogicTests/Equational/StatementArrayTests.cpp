@@ -13,6 +13,7 @@ iterator `equational::StatementArray::iterator`.
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/Language.h>
 #include <Internal/Equational/KnowledgeKernel.h>
+#include <ATPLogic.h>
 #include "../Test.h"
 
 
@@ -22,6 +23,7 @@ using atp::logic::equational::Language;
 using atp::logic::equational::KnowledgeKernel;
 using atp::logic::StmtFormat;
 using atp::logic::equational::compute_slice_size;
+using atp::logic::concat;
 
 
 struct StatementArrayTestsFixture
@@ -107,6 +109,8 @@ BOOST_AUTO_TEST_CASE(basic_iterator_tests)
 
 	BOOST_TEST((stmtarr.end() - 5 == stmtarr.begin()));
 
+	BOOST_TEST(((stmtarr.begin() + 2) - 2 == stmtarr.begin()));
+
 	iter = stmtarr.begin();
 	std::advance(iter, 5);
 	BOOST_TEST((iter == stmtarr.end()));
@@ -175,6 +179,39 @@ BOOST_DATA_TEST_CASE(test_slice_size_computations,
 	start, end, step, size)
 {
 	BOOST_TEST(compute_slice_size(start, end, step) == size);
+}
+
+
+BOOST_AUTO_TEST_CASE(concat_test)
+{
+	// 5 statements
+	s << "x = x \n x = x \n x = x \n x = x \n x = x";
+
+	auto p_arr1 = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, ker);
+
+	// reset stream
+	s = std::stringstream();
+	s << std::noskipws;
+
+	// 7 statements
+	s << "x = x \n x = x \n x = x \n x = x \n x = x \n";
+	s << "x = x \n x = x";
+
+	auto p_arr2 = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, ker);
+
+	auto slice1 = p_arr1->slice(1, 4, 2);
+	BOOST_REQUIRE(slice1->size() == 2);
+
+	auto slice2 = p_arr2->slice(0, 7, 3);
+	BOOST_REQUIRE(slice2->size() == 3);
+
+	// slice both arrays then concatenate
+	auto concat_result = concat(*slice1, *slice2);
+
+	// this is the main thing we're testing
+	BOOST_TEST(concat_result->size() == 5);
 }
 
 

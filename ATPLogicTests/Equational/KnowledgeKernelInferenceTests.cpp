@@ -19,11 +19,15 @@ More specifically, we are only interested in testing the functions:
 
 
 #include <sstream>
+#include <vector>
 #include <boost/phoenix.hpp>
+#include <boost/bind.hpp>
+#include <boost/algorithm/string/join.hpp>
 #include <Internal/Equational/KnowledgeKernel.h>
 #include <Internal/Equational/Language.h>
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/StatementArray.h>
+#include <Internal/Equational/Semantics.h>
 #include "../Test.h"
 
 
@@ -31,9 +35,23 @@ using atp::logic::equational::KnowledgeKernel;
 using atp::logic::equational::Language;
 using atp::logic::equational::Statement;
 using atp::logic::equational::StatementArray;
+using atp::logic::StatementArrayPtr;
+namespace semantics = atp::logic::equational::semantics;
 using atp::logic::StmtFormat;
 using atp::logic::StmtForm;
 namespace phxargs = boost::phoenix::arg_names;
+
+
+namespace std
+{
+static inline ostream& boost_test_print_type(ostream& os,
+	list<string> strs)
+{
+	os << '[' << boost::algorithm::join(strs, ", ") << ']';
+
+	return os;
+}
+}  // namespace std
 
 
 struct KnowledgeKernelInferenceTestsFixture
@@ -120,6 +138,117 @@ BOOST_DATA_TEST_CASE(test_form_not_canonical,
 
 	BOOST_TEST(std::all_of(forms.begin(),
 		forms.end(), phxargs::arg1 == StmtForm::NOT_CANONICAL));
+}
+
+
+// given several <statement, successor> pairs, test that the
+// successor appears in the list of successors returned by
+// the kernel function
+BOOST_DATA_TEST_CASE(test_is_a_succ,
+	boost::unit_test::data::make({
+		// starting statements
+		"x = x",
+		"x = x",
+		"x = x",
+		"x = i(x)",
+		"x = *(x, i(x))",
+		"*(x, y) = *(i(y), x)",
+		"*(*(x, y), i(*(x, y))) = *(*(x, y), *(i(y), i(x)))",
+		"*(*(x, y), i(*(x, y))) = *(x, i(x))",
+		"x = i(x)"
+		}) ^
+	boost::unit_test::data::make({
+		// one of the corresponding successor statements
+		"i(x) = i(x)",
+		"*(x, y) = *(x, y)",
+		"e = e",
+		"x = *(e, i(x))",
+		"x = e",
+		"*(x, x) = *(i(x), x)",
+		"*(*(x, y), i(*(x, y))) = *(x, *(y, *(i(y), i(x))))",
+		"*(*(x, y), i(*(x, y))) = *(x, *(e, i(x)))",
+		"*(x, y) = *(i(x), y)"
+		}), stmt, succ_stmt)
+{
+	s << stmt << "\n" << succ_stmt;
+
+	auto p_arr = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, ker);
+
+	BOOST_REQUIRE(p_arr != nullptr);
+	BOOST_REQUIRE(p_arr->size() == 2);
+
+	auto succ_arr = ker.succs(p_arr->slice(0, 1, 1));
+	auto target_succ = dynamic_cast<const Statement&>(
+		p_arr->at(1));
+
+	BOOST_REQUIRE(succ_arr.size() == 1);
+	BOOST_REQUIRE(succ_arr.front()->size() > 0);
+
+	auto succ = dynamic_cast<const StatementArray&>(
+		*succ_arr.front());
+
+	BOOST_TEST(std::any_of(succ.begin(),
+		succ.end(),
+		boost::bind(&semantics::equivalent, _1,
+			boost::ref(target_succ))));
+}
+
+
+BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
+	"EquationalTests/KnowledgeKernelInferenceTests/test_is_a_succ"))
+BOOST_DATA_TEST_CASE(check_follows,
+	boost::unit_test::data::make({
+		std::list<std::string>{
+			// proof that *(x, y) = *(x, z) => y = z
+			"*(x, y)=*(x, z)", "*(e, y)=*(e, z)",
+			"*(e, y)=z", "y = z"
+		},
+		std::list<std::string>{
+			// proof that i(i(x)) = x
+			"*(x, i(x)) = e",
+			"*(y, i(y)) = *(i(x), x)",
+			"*(i(x), i(i(x))) = *(i(x), x)",
+			"*(y, *(i(x), i(i(x)))) = *(y, *(i(x), x))",
+			"*(y, *(i(x), i(i(x)))) = *(*(y, i(x)), x)",
+			"*(*(y, i(x)), i(i(x))) = *(*(y, i(x)), x)",
+			"*(*(x, i(x)), i(i(x))) = *(*(x, i(x)), x)",
+			"*(e, i(i(x))) = *(*(x, i(x)), x)",
+			"i(i(x)) = *(*(x, i(x)), x)",
+			"i(i(x)) = *(e, x)",
+			"i(i(x)) = x",
+		},
+		std::list<std::string>{
+			// proof that i(*(x, y)) = *(i(y), i(x))
+			"*(x, i(x)) = e",
+			"*(*(x, y), i(*(x, y))) = e",
+			"*(*(x, y), i(*(x, y))) = *(z, i(z))",
+			"*(*(x, y), i(*(x, y))) = *(x, i(x))",
+			"*(*(x, y), i(*(x, y))) = *(x, *(e, i(x)))",
+			"*(*(x, y), i(*(x, y))) = *(x, *(*(z, i(z)), i(x))))",
+			"*(*(x, y), i(*(x, y))) = *(x, *(*(y, i(y)), i(x))))",
+			"*(*(x, y), i(*(x, y))) = *(x, *(y, *(i(y), i(x))))",
+			"*(*(x, y), i(*(x, y))) = *(*(x, y), *(i(y), i(x)))",
+			"*(i(z), *(*(x, y), i(*(x, y)))) = *(i(z), *(*(x, y), *(i(y), i(x))))",
+			"*(i(*(x, y)), *(*(x, y), i(*(x, y)))) = *(i(*(x, y)), *(*(x, y), *(i(y), i(x))))",
+			"*(i(*(x, y)), *(*(x, y), i(*(x, y)))) = *(*(i(*(x, y)), *(x, y)), *(i(y), i(x)))",
+			"*(*(i(*(x, y)), *(x, y)), i(*(x, y))) = *(*(i(*(x, y)), *(x, y)), *(i(y), i(x)))",
+			"*(e, i(*(x, y))) = *(*(i(*(x, y)), *(x, y)), *(i(y), i(x)))",
+			"i(*(x, y)) = *(*(i(*(x, y)), *(x, y)), *(i(y), i(x)))",
+			"i(*(x, y)) = *(e, *(i(y), i(x)))",
+			"i(*(x, y)) = *(i(y), i(x))",
+		}
+	}),
+	proof_strs)
+{
+	s << boost::algorithm::join(proof_strs, "\n");
+	auto proof = lang.deserialise_stmts(s, StmtFormat::TEXT, ker);
+
+	auto results = ker.follows(proof->slice(0, proof->size() - 1, 1),
+		proof->slice(1, proof->size(), 1));
+
+	BOOST_TEST(std::all_of(results.begin(), results.end(),
+		phxargs::arg1));
 }
 
 

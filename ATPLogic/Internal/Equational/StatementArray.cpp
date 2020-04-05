@@ -67,7 +67,7 @@ StatementArrayPtr StatementArray::try_concat(
 				// type!
 				result.push_back(
 					reinterpret_cast<const Statement&>(
-						p_l->at(i)));
+						p_r->at(i)));
 			}
 
 			return std::make_shared<StatementArray>(

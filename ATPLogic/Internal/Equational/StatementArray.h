@@ -116,12 +116,15 @@ public:
 		{
 			if (is_end_iterator() && other.is_end_iterator())
 				return 0;
-			else if (is_end_iterator() || i < other.i)
-				return static_cast<size_t>(-1);
 			else if (other.is_end_iterator())
-				return (arr->size() - i);
+				return static_cast<size_t>(-1);
+			else if (is_end_iterator())
+				return (arr->size() - other.i);
 			else
+			{
+				ATP_LOGIC_PRECOND(i >= other.i);
 				return i - other.i;
+			}
 		}
 		inline iterator& operator += (int j)
 		{

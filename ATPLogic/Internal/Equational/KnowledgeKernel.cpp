@@ -48,7 +48,12 @@ std::vector<StatementArrayPtr> KnowledgeKernel::succs(
 
 	std::transform(p_stmts->begin(), p_stmts->end(),
 		std::back_inserter(results),
-		boost::bind(&KnowledgeKernel::succ_stmt, this, _1));
+		[this](const Statement& stmt)
+		{
+			return std::make_shared<StatementArray>(
+				semantics::get_substitutions(stmt,
+					m_rules));
+		});
 
 	return results;
 }
@@ -139,10 +144,7 @@ std::vector<bool> KnowledgeKernel::follows(
 		// we check if it follows by seeing if the conclusion
 		// (p.get<1>()) is a successor of the premise (p.get<0>()).
 
-		auto p_succs = succ_stmt(p.get<0>());
-		ATP_LOGIC_ASSERT(p_succs != nullptr);
-		const StatementArray& succs = dynamic_cast<
-			const StatementArray&>(*p_succs.get());
+		auto succs = semantics::get_substitutions(p.get<0>(), m_rules);
 
 		return std::any_of(succs.begin(), succs.end(),
 			boost::bind(&semantics::equivalent,
@@ -174,7 +176,7 @@ std::vector<StmtForm> KnowledgeKernel::get_form(
 
 		if (semantics::true_by_reflexivity(stmt))
 			return StmtForm::CANONICAL_TRUE;
-		else if (is_a_rule(stmt))
+		else if (is_equivalent_to_a_rule(stmt))
 			return StmtForm::CANONICAL_TRUE;
 		else
 			return StmtForm::NOT_CANONICAL;
@@ -203,51 +205,16 @@ void KnowledgeKernel::define_eq_rules(StatementArrayPtr _p_rules)
 }
 
 
-bool KnowledgeKernel::is_a_rule(const Statement& stmt) const
-{
-	return std::any_of(m_rules.begin(), m_rules.end(),
-		boost::bind(&semantics::equivalent, boost::ref(stmt), _1));
-}
-
-
-std::list<size_t> KnowledgeKernel::get_symbol_id_catalogue() const
-{
-	std::list<size_t> symb_ids;
-
-	std::transform(m_id_to_name.begin(),
-		m_id_to_name.end(),
-		std::back_inserter(symb_ids),
-		[](boost::bimap<size_t, std::string>::value_type a)
-		{ return a.left; });
-
-	return symb_ids;
-}
-
-
-StatementArrayPtr KnowledgeKernel::succ_stmt(
+bool KnowledgeKernel::is_equivalent_to_a_rule(
 	const Statement& stmt) const
 {
-	// The successor statements in equational logic are:
-	// - Replacing either side of an equation with one of the given
-	//   equality rules (just transitivity in disguise; if x=y is
-	//   our statement, and we have a rule of the form y=z, then we
-	//   can turn the statement into x=z.)
-	// - Replacing a free variable with any of: a user-defined
-	//   constant, a user-defined function whose arguments are new
-	//   free variables, or a free variable which already exists
-	//   within the statement.
-	// For example, with the latter rule, if our statement is
-	// "f(x)=g(x)" then we can obtain:
-	// "f(e)=g(e)" for user defined "e", and "f(h(x))=g(h(x))" for
-	// user defined "h", and instead if our statement is
-	// "f(x, y)=g(h(x), y)" then "f(x, x)=g(h(x), x)".
-
-	return StatementArray::try_concat(
-		*StatementArray::try_concat(
-			semantics::get_substitutions(stmt, m_rules),
-			semantics::replace_free_with_def(stmt, m_id_to_arity)
-		), semantics::replace_free_with_free(stmt)
-	);
+	// crucially, we use "implies" here, not "equivalent"
+	// this is because, if we reduce an equality we want to prove
+	// down to a substitution of a rule, then we want to class this
+	// as a canonical form (since there is no implementation for "un-
+	// substituting" an expression to get back a rule.)
+	return std::any_of(m_rules.begin(), m_rules.end(),
+		boost::bind(&semantics::implies, _1, boost::ref(stmt)));
 }
 
 

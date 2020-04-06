@@ -30,34 +30,13 @@ namespace semantics
 {
 
 
-// for each input rule, try making a substitution! We do this by
-// using the rules as the "patterns" and the `stmt` as the "trial"
-// which means that we are looking for ways to substitute the free
-// variables in the rules.
-// returns an array of at most 4 * rules.size(), because
-// statements have two sides each, and 2*2=4!
+// For each input rule, try making a substitution! Using the given
+// equality rules, we explore the syntax tree of `stmt` and at each
+// syntax node we see if either side of any rule is applicable. If
+// so, we determine what assignments should be made for the free
+// variables in the rule, and then replace one side with the other.
 ATP_LOGIC_API StatementArray get_substitutions(const Statement& stmt,
 	const std::vector<Statement>& rules);
-
-
-// returns all the possible ways a free variable could be
-// substituted by a user definition (from the kernel) noting
-// that whenever a function is substituted, its arguments
-// are always new free variables.
-// symb_id_to_arity: a mapping from all symbol IDs, to their
-// corresponding arity.
-ATP_LOGIC_API StatementArray replace_free_with_def(
-	const Statement& stmt,
-	const std::map<size_t, size_t>& symb_id_to_arity);
-
-
-// returns all the ways of replacing a free variable in this
-// formula with another free variable in this formula (i.e.
-// all the ways you could reduce the number of free variables
-// in this formula by 1). Of course, we are considering
-// distinct unordered pairs of free variables.
-ATP_LOGIC_API StatementArray replace_free_with_free(
-	const Statement& stmt);
 
 
 // returns true iff a and b are equal as syntax trees,
@@ -83,6 +62,13 @@ ATP_LOGIC_API Statement transpose(const Statement& stmt);
 // of the equals sign (i.e. `stmt` has exactly the same stuff on
 // both sides of the equation.)
 ATP_LOGIC_API bool true_by_reflexivity(const Statement& stmt);
+
+
+// returns true iff there exists a substitution in the premise
+// which would produce the conclusion (note that this is NOT used
+// in finding proofs, because it is a one-way implication.)
+ATP_LOGIC_API bool implies(const Statement& premise,
+	const Statement& concl);
 
 
 }  // namespace semantics

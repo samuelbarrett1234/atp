@@ -147,22 +147,16 @@ public:
 
 private:
 	// returns true iff `stmt` is equivalent to one of the given
-	// equality rules
-	bool is_a_rule(const Statement& stmt) const;
+	// equality rules, allowing substitutions in the rules
+	bool is_equivalent_to_a_rule(const Statement& stmt) const;
 
 private:
-	// return a list of every defined symbol ID so far:
-	std::list<size_t> get_symbol_id_catalogue() const;
-
 	// a version of "symbol_id" which doesn't check for
 	// is_defined(str) or anything like that
 	inline size_t _get_id_from_str(std::string str) const
 	{
 		return std::hash<std::string>()(str);
 	}
-
-	// get the successors of a single statement
-	StatementArrayPtr succ_stmt(const Statement& stmt) const;
 
 private:
 	// mapping from symbol names to arity

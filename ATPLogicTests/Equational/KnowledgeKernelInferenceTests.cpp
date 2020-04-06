@@ -107,7 +107,8 @@ BOOST_DATA_TEST_CASE(test_form_canonical_true,
 	boost::unit_test::data::make({
 		"*(*(x, y), z) = *(x, *(y, z))",
 		"e = e", "x = x", "i(x) = i(x)",
-		"e = *(i(y), y)", "*(x, y) = *(x, y)"
+		"e = *(i(y), y)", "*(x, y) = *(x, y)",
+		"*(i(x), i(i(x))) = e", "*(e, e) = e",
 		}), stmt)
 {
 	s << stmt;
@@ -124,8 +125,7 @@ BOOST_DATA_TEST_CASE(test_form_canonical_true,
 
 BOOST_DATA_TEST_CASE(test_form_not_canonical,
 	boost::unit_test::data::make({
-		"*(i(x), i(i(x))) = e",
-		"i(e) = e", "*(e, e) = e",
+		"i(e) = e", 
 		"*(x, y) = *(y, x)"
 		}), stmt)
 {
@@ -147,27 +147,17 @@ BOOST_DATA_TEST_CASE(test_form_not_canonical,
 BOOST_DATA_TEST_CASE(test_is_a_succ,
 	boost::unit_test::data::make({
 		// starting statements
-		"x = x",
-		"x = x",
-		"x = x",
 		"x = i(x)",
 		"x = *(x, i(x))",
-		"*(x, y) = *(i(y), x)",
 		"*(*(x, y), i(*(x, y))) = *(*(x, y), *(i(y), i(x)))",
 		"*(*(x, y), i(*(x, y))) = *(x, i(x))",
-		"x = i(x)"
 		}) ^
 	boost::unit_test::data::make({
 		// one of the corresponding successor statements
-		"i(x) = i(x)",
-		"*(x, y) = *(x, y)",
-		"e = e",
 		"x = *(e, i(x))",
 		"x = e",
-		"*(x, x) = *(i(x), x)",
 		"*(*(x, y), i(*(x, y))) = *(x, *(y, *(i(y), i(x))))",
 		"*(*(x, y), i(*(x, y))) = *(x, *(e, i(x)))",
-		"*(x, y) = *(i(x), y)"
 		}), stmt, succ_stmt)
 {
 	s << stmt << "\n" << succ_stmt;
@@ -200,43 +190,25 @@ BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 BOOST_DATA_TEST_CASE(check_follows,
 	boost::unit_test::data::make({
 		std::list<std::string>{
-			// proof that *(x, y) = *(x, z) => y = z
-			"*(x, y)=*(x, z)", "*(e, y)=*(e, z)",
-			"*(e, y)=z", "y = z"
-		},
-		std::list<std::string>{
 			// proof that i(i(x)) = x
-			"*(x, i(x)) = e",
-			"*(y, i(y)) = *(i(x), x)",
-			"*(i(x), i(i(x))) = *(i(x), x)",
-			"*(y, *(i(x), i(i(x)))) = *(y, *(i(x), x))",
-			"*(y, *(i(x), i(i(x)))) = *(*(y, i(x)), x)",
-			"*(*(y, i(x)), i(i(x))) = *(*(y, i(x)), x)",
-			"*(*(x, i(x)), i(i(x))) = *(*(x, i(x)), x)",
-			"*(e, i(i(x))) = *(*(x, i(x)), x)",
-			"i(i(x)) = *(*(x, i(x)), x)",
-			"i(i(x)) = *(e, x)",
 			"i(i(x)) = x",
+			"*(i(i(x)), e) = x",
+			"*(i(i(x)), *(i(x), x)) = x",
+			"*(*(i(i(x)), i(x)), x) = x",
+			"*(e, x) = x"
 		},
 		std::list<std::string>{
 			// proof that i(*(x, y)) = *(i(y), i(x))
-			"*(x, i(x)) = e",
-			"*(*(x, y), i(*(x, y))) = e",
-			"*(*(x, y), i(*(x, y))) = *(z, i(z))",
-			"*(*(x, y), i(*(x, y))) = *(x, i(x))",
-			"*(*(x, y), i(*(x, y))) = *(x, *(e, i(x)))",
-			"*(*(x, y), i(*(x, y))) = *(x, *(*(z, i(z)), i(x))))",
-			"*(*(x, y), i(*(x, y))) = *(x, *(*(y, i(y)), i(x))))",
-			"*(*(x, y), i(*(x, y))) = *(x, *(y, *(i(y), i(x))))",
-			"*(*(x, y), i(*(x, y))) = *(*(x, y), *(i(y), i(x)))",
-			"*(i(z), *(*(x, y), i(*(x, y)))) = *(i(z), *(*(x, y), *(i(y), i(x))))",
-			"*(i(*(x, y)), *(*(x, y), i(*(x, y)))) = *(i(*(x, y)), *(*(x, y), *(i(y), i(x))))",
-			"*(i(*(x, y)), *(*(x, y), i(*(x, y)))) = *(*(i(*(x, y)), *(x, y)), *(i(y), i(x)))",
-			"*(*(i(*(x, y)), *(x, y)), i(*(x, y))) = *(*(i(*(x, y)), *(x, y)), *(i(y), i(x)))",
-			"*(e, i(*(x, y))) = *(*(i(*(x, y)), *(x, y)), *(i(y), i(x)))",
-			"i(*(x, y)) = *(*(i(*(x, y)), *(x, y)), *(i(y), i(x)))",
-			"i(*(x, y)) = *(e, *(i(y), i(x)))",
 			"i(*(x, y)) = *(i(y), i(x))",
+			"i(*(x, y)) = *( *(i(y), i(x)) , e )",
+			"i(*(x, y)) = *( *(i(y), i(x)) , *(*(x, y), i(*(x, y))) )",
+			"i(*(x, y)) = *( i(y), *(i(x), *(*(x, y), i(*(x, y)))) )",
+			"i(*(x, y)) = *( i(y), *(*(i(x), x),  *(y, i(*(x, y)))) )",
+			"i(*(x, y)) = *( i(y), *(e,  *(y, i(*(x, y)))) )",
+			"i(*(x, y)) = *( i(y), *(y, i(*(x, y))) )",
+			"i(*(x, y)) = *( *(i(y), y), i(*(x, y)) )",
+			"i(*(x, y)) = *( e, i(*(x, y)) )",
+			"i(*(x, y)) = i(*(x, y))",
 		}
 	}),
 	proof_strs)

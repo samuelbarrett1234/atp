@@ -284,17 +284,20 @@ BOOST_DATA_TEST_CASE(test_get_substitutions,
 		"*(x, x) = *( i(x), i(i(x)) )",
 		"x = *(e, *(x, e))",
 		"i(x) = e",
-		"*(i(x), e) = x" }) ^
+		"*(i(x), e) = x",
+		"x = *(x, i(x))" }) ^
 	boost::unit_test::data::make({
 		"*(x, i(x)) = e",
 		"*(x, *(y, z)) = *(*(x, y), z)",
 		"x = x",
-		"*(x, e) = x" }) ^
+		"*(x, e) = x",
+		"x = *(x, e)" }) ^
 	boost::unit_test::data::make({
 		"*(x, x) = e",
 		"x = *(*(e, x), e)",
 		"e = i(x)",
-		"i(x) = x" }),
+		"i(x) = x",
+		"x = *(x, *(i(x), e))" }),
 	subst_candidate, subst_rule, a_subst_result)
 {
 	// the statement to try substituting:
@@ -332,95 +335,33 @@ BOOST_DATA_TEST_CASE(test_get_substitutions,
 }
 
 
-BOOST_AUTO_TEST_CASE(test_replace_free_with_def)
+BOOST_DATA_TEST_CASE(test_implies,
+	boost::unit_test::data::make({
+		"*(x, i(x)) = e",
+		"*(x, y) = *(y, x)",
+		"x = x",
+		"x = x" }) ^
+	boost::unit_test::data::make({
+		"*(i(x), i(i(x))) = e",
+		"*(x, i(x)) = *(i(x), x)",
+		"e = e",
+		"i(x) = i(x)" }),
+	premise_stmt, concl_stmt)
 {
-	s << "x0 = i(x0) \n";
-	s << "e = i(e)\n";  // this is one of the possible answers
-	s << "i(x0) = i(i(x0))\n";  // another possible answer
-	s << "*(x0, x1) = i(*(x0, x1))";  // the final possible answer
-	// warning: with the last one, we can of course swap the two
-	// free variables around without issue.
-
+	s << premise_stmt << '\n' << concl_stmt;
+	
 	auto results = parse_statements(s);
+
 	BOOST_REQUIRE(results.has_value());
-	BOOST_REQUIRE(results.get().size() == 4);
+	BOOST_REQUIRE(results->size() == 2);
 
-	auto iter = results->begin();
-	auto initial_stmt = Statement(ker, ptree_to_stree(
-		*iter, ker));
-	iter++;
-	std::unique_ptr<Statement> answers[3];
-	for (size_t i = 0; i < 3; i++)
-	{
-		answers[i] = std::make_unique<Statement>(ker,
-			ptree_to_stree(*iter, ker));
-		iter++;
-	}
+	auto premise_stree = ptree_to_stree(results->front(), ker);
+	auto concl_stree = ptree_to_stree(results->back(), ker);
 
-	auto responses = semantics::replace_free_with_def(initial_stmt,
-		symb_id_to_arity);
-
-	BOOST_REQUIRE(responses.size() == 3);
-
-	// which_is_which[i] represents: which (unique) answer was
-	// equivalent to responses[i]?
-	size_t which_is_which[3];
-	for (size_t i = 0; i < 3; i++)
-	{
-		bool set = false;
-		for (size_t j = 0; j < 3; j++)
-		{
-			BOOST_TEST(!set);
-			if (semantics::equivalent(responses.my_at(i),
-				*answers[j]))
-			{
-				set = true;
-				which_is_which[i] = j;
-				break;
-			}
-		}
-		BOOST_TEST(set);
-	}
-
-	// now check that no two statements were equivalent to
-	// the same answer:
-	BOOST_TEST(which_is_which[0] != which_is_which[1]);
-	BOOST_TEST(which_is_which[1] != which_is_which[2]);
-	BOOST_TEST(which_is_which[0] != which_is_which[2]);
-}
-
-
-BOOST_AUTO_TEST_CASE(test_replace_free_with_free)
-{
-	// initial:
-	s << "*(x0, i(x1)) = *(e, i(x1)) \n";
-
-	// all answers equivalent to this:
-	s << "*(x0, i(x0)) = *(e, i(x0))";
-
-	auto results = parse_statements(s);
-	BOOST_REQUIRE(results.has_value());
-	BOOST_REQUIRE(results.get().size() == 2);
-
-	auto initial_stmt = Statement(ker, ptree_to_stree(
-		results->front(), ker));
-	auto answer_stmt = Statement(ker, ptree_to_stree(
-		results->back(), ker));
-
-	auto responses = semantics::replace_free_with_free(initial_stmt);
-
-	// there are two free variables, so the only unique way to do
-	// a substitution is by replacing one of the variables by the
-	// other, leaving only one variable left; of course, there are
-	// to symmetric ways of doing this, thus by testing that size()
-	// == 1, we are asking the implementation to avoid this symmetry:
-	BOOST_TEST(responses.size() == 1);
-
-	// all responses should be equivalent to the "answer statement"
-	for (auto stmt : responses)
-	{
-		BOOST_TEST(semantics::equivalent(stmt, answer_stmt));
-	}
+	auto premise = Statement(ker, premise_stree);
+	auto concl = Statement(ker, concl_stree);
+	
+	BOOST_TEST(semantics::implies(premise, concl));
 }
 
 

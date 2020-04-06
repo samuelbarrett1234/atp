@@ -2,6 +2,7 @@
 #include "SyntaxTreeFold.h"
 #include "SyntaxTreeTraversal.h"
 #include <boost/iterator/zip_iterator.hpp>
+#include <boost/iterator/transform_iterator.hpp>
 #include <boost/bimap.hpp>
 #include <boost/phoenix.hpp>
 #include <boost/bind.hpp>
@@ -25,63 +26,13 @@ namespace semantics
 {
 
 
-// the free variable constructor for substituting it with definitions
-// for use in a fold
-static std::vector<SyntaxNodePtr> free_var_def_constructor(
-	const std::map<size_t, size_t>& symb_id_to_arity,
-	const std::set<size_t>& free_var_ids, size_t my_var_id
-);
-
-// the free variable constructor for substituting it with other free
-// variables, for use in a fold
-static std::vector<SyntaxNodePtr> free_var_free_constructor(
-	const std::set<size_t>& free_var_ids, size_t my_var_id
-);
-
-// constructor method for equality nodes
-static std::vector<SyntaxNodePtr> fold_eq_constructor(
-	const std::vector<SyntaxNodePtr>& lhss,
-	const std::vector<SyntaxNodePtr>& rhss);
-
-// constructor method for constant nodes
-std::vector<SyntaxNodePtr>
-static fold_const_constructor(size_t N,
-	size_t symb_id);
-
-// constructor method for function nodes
-std::vector<SyntaxNodePtr>
-static fold_func_constructor(size_t symb_id,
-	const std::list<std::vector<SyntaxNodePtr>>::iterator&
-	children_begin,
-	const std::list<std::vector<SyntaxNodePtr>>::iterator&
-	children_end);
-
-// helper function for converting fold results;
-// precond: none of the trees need their free variable IDs rebuilding
-static StatementArray from_trees(
-	const KnowledgeKernel& ker,
-	std::vector<SyntaxNodePtr> trees
-);
-
-
-static std::set<size_t> get_free_var_ids(const Statement& stmt);
-
-
-typedef boost::optional<std::map<size_t, SyntaxNodePtr>>
-OptionalFreeVarSubstitution;
-
-// try to obtain a free variable mapping which, when substituted
-// into the LHS of the pattern, gives the LHS of the trial (we
-// completely ignore the RHS of both the pattern and the trial!)
-OptionalFreeVarSubstitution try_build_lhs_mapping(
-	const Statement& pattern, const Statement& trial);
-
-
-SyntaxNodePtr get_substitution(const Statement& pattern,
-	std::map<size_t, SyntaxNodePtr> sub, size_t max_id_in_trial);
-
-
 bool syntax_tree_identical(SyntaxNodePtr a, SyntaxNodePtr b);
+
+
+// try to apply each rule at the subtree rooted at the given node
+// and return the results
+std::list<SyntaxNodePtr> immediate_applications(SyntaxNodePtr node,
+	const std::vector<Statement>& rules);
 
 
 bool equivalent(const Statement& a, const Statement& b)
@@ -187,257 +138,219 @@ bool true_by_reflexivity(const Statement& stmt)
 }
 
 
-OptionalFreeVarSubstitution try_build_lhs_mapping(
-	const Statement& pattern, const Statement& trial)
-{
-	auto eq_func = [](OptionalFreeVarSubstitution lhs,
-		OptionalFreeVarSubstitution rhs)
-	{
-		return lhs;
-	};
-
-	auto free_func = [](size_t id_pattern, size_t id_trial)
-		-> OptionalFreeVarSubstitution
-	{
-		std::map<size_t, SyntaxNodePtr> subs;
-		subs[id_pattern] =
-			std::make_shared<FreeSyntaxNode>(id_trial);
-		return subs;
-	};
-
-	auto const_func = [](size_t symb_pattern, size_t symb_trial)
-		-> OptionalFreeVarSubstitution
-	{
-		if (symb_pattern == symb_trial)
-			return std::map<size_t, SyntaxNodePtr>();
-		else
-			return boost::none;
-	};
-
-	auto f_func = [](size_t symb_pattern, size_t symb_trial,
-		std::list<OptionalFreeVarSubstitution>::iterator begin,
-		std::list<OptionalFreeVarSubstitution>::iterator end)
-		-> OptionalFreeVarSubstitution
-	{
-		// if the function names don't agree, it's impossible
-		if (symb_pattern != symb_trial)
-			return boost::none;
-
-		// if any of them don't have a value, it's impossible
-		if (std::any_of(begin, end,
-			!boost::bind(&OptionalFreeVarSubstitution::has_value, _1)))
-			return boost::none;
-
-		// else try to combine the substitutions
-		std::map<size_t, SyntaxNodePtr> sub;
-		for (auto iter = begin; iter != end; ++iter)
-		{
-			ATP_LOGIC_ASSERT(iter->has_value());
-
-			for (auto sub_iter = iter->get().begin();
-				sub_iter != iter->get().end();
-				++sub_iter)
-			{
-				// we are trying to make a substitution for the
-				// variable with ID sub_iter->first
-
-				auto sub_search = sub.find(sub_iter->first);
-
-				if (sub_search != sub.end())
-				{
-					// if we already have a substitution for that free
-					// variable we need to check that it is identical
-					// to the one we are about to suggest!
-
-					if (!syntax_tree_identical(sub_search->second,
-						sub_iter->second))
-					{
-						// if they don't agree, it's impossible
-						return boost::none;
-					}
-					// else do nothing
-				}
-				else
-				{
-					// else this is a new free variable so we are free
-					// to make this substitution
-					sub.insert(*sub_iter);
-				}
-			}
-		}
-
-		return sub;
-	};
-
-	auto default_func = [](SyntaxNodePtr p_pattern, SyntaxNodePtr p_trial)
-		-> OptionalFreeVarSubstitution
-	{
-		if (p_pattern->get_type() != SyntaxNodeType::FREE)
-			return boost::none;
-
-		const FreeSyntaxNode* p_free = dynamic_cast<
-			const FreeSyntaxNode*>(p_pattern.get());
-
-		ATP_LOGIC_ASSERT(p_free != nullptr);
-
-		std::map<size_t, SyntaxNodePtr> subs;
-		subs[p_free->get_free_id()] = p_trial;
-		return subs;
-	};
-
-	return pattern.fold_pair<OptionalFreeVarSubstitution>(eq_func,
-		free_func, const_func, f_func, default_func, trial);
-}
-
-
-SyntaxNodePtr get_substitution(const Statement& pattern,
-	std::map<size_t, SyntaxNodePtr> sub, size_t max_id_in_trial)
-{
-	auto eq_func = boost::bind(
-		&std::make_shared<EqSyntaxNode, SyntaxNodePtr, SyntaxNodePtr>,
-		_1, _2);
-
-	auto free_func = [&sub, max_id_in_trial](size_t id)
-		-> SyntaxNodePtr
-	{
-		auto iter = sub.find(id);
-
-		if (iter != sub.end())
-			return iter->second;  // return the substitution
-
-		// else just return the free variable, but we need to offset
-		// its ID to prevent the remaining free variables from clashing
-		// with the IDs we are substituting for
-		return std::make_shared<FreeSyntaxNode>(
-			id + max_id_in_trial + 1);
-	};
-
-	auto const_func = boost::bind(
-		&std::make_shared<ConstantSyntaxNode, size_t>, _1);
-
-	auto f_func = boost::bind(
-		&std::make_shared<FuncSyntaxNode, size_t,
-		std::list<SyntaxNodePtr>::iterator,
-		std::list<SyntaxNodePtr>::iterator>, _1, _2, _3);
-
-	return pattern.fold<SyntaxNodePtr>(eq_func, free_func,
-		const_func, f_func);
-}
-
-
 StatementArray get_substitutions(const Statement& stmt,
 	const std::vector<Statement>& rules)
 {
-	auto result_stmts = std::make_shared<std::vector<Statement>>();
-	result_stmts->reserve(4 * stmt.num_free_vars() * rules.size());
+	// this pair can be thought of as a node saying: "<me, and all of
+	// the ways the subtree rooted at me look after substitution>"
+	typedef std::pair<SyntaxNodePtr, std::list<SyntaxNodePtr>>
+		SubResults;
 
-	auto stmt_T = transpose(stmt);
-
-	// fold functions for computing the maximum free variable ID:
-	auto eq_func = boost::bind(&std::max<size_t>, _1, _2);
-	auto free_func = phxarg::arg1;
-	auto const_func = phx::val(0);  // smallest possible value
-	auto f_func = [](size_t _,
-		std::list<size_t>::iterator begin,
-		std::list<size_t>::iterator end) -> size_t
+	auto eq_constructor = [&rules](const SubResults& lhs,
+		const SubResults& rhs) -> SubResults
 	{
-		auto mx = std::max_element(begin, end);
-		ATP_LOGIC_ASSERT(mx != end);
-		return *mx;
+		auto me = std::make_shared<EqSyntaxNode>(lhs.first,
+			rhs.first);
+
+		auto sub_results = immediate_applications(me,
+			rules);
+
+		// add left-hand results, keep RHS constant
+		std::transform(lhs.second.begin(), lhs.second.end(),
+			std::back_inserter(sub_results),
+			[&rhs](SyntaxNodePtr lhs)
+			{ return std::make_shared<EqSyntaxNode>(lhs, rhs.first); });
+
+		// add right-hand results, keep LHS constant
+		std::transform(rhs.second.begin(), rhs.second.end(),
+			std::back_inserter(sub_results),
+			[&lhs](SyntaxNodePtr rhs)
+			{ return std::make_shared<EqSyntaxNode>(lhs.first, rhs); });
+
+		return std::make_pair(me, sub_results);
 	};
 
-	// use an array to reduce code duplication
-	const Statement* stmts[2] =
+	auto free_constructor = [&rules](size_t id) -> SubResults
 	{
-		&stmt, &stmt_T
+		auto me = std::make_shared<FreeSyntaxNode>(id);
+
+		return std::make_pair(me, immediate_applications(me, rules));
 	};
-	// note that stmt[1-i] is the transpose of
-	// the statement stmt[i]
 
-	// now examine rules:
-	for (const auto& r : rules)
+	auto const_constructor = [&rules](size_t id) -> SubResults
 	{
-		// we also need to compute the largest free variable
-		// ID in the rule:
-		const size_t max_id = r.fold<size_t>(eq_func,
-			free_func, const_func, f_func);
+		auto me = std::make_shared<ConstantSyntaxNode>(id);
 
-		auto r_T = transpose(r);
+		return std::make_pair(me, immediate_applications(me, rules));
+	};
 
-		// use an array to reduce code duplication
-		const Statement* rs[2] =
-		{ &r, &r_T };
-		// note that rs[1-i] is the transpose of
-		// the statement rs[i]
+	auto func_constructor = [&rules](size_t id,
+		std::list<SubResults>::iterator begin,
+		std::list<SubResults>::iterator end) -> SubResults
+	{
+		// Get the children, unmodified, i.e. without the
+		// substitutions. This is just the first element of
+		// the pairs of the given list
+		auto map_first = boost::bind(&SubResults::first, _1);
+		std::list<SyntaxNodePtr> unmodified_children(
+			boost::make_transform_iterator(begin, map_first),
+			boost::make_transform_iterator(end, map_first));
 
-		for (size_t i = 0; i < 4; ++i)
+		auto me = std::make_shared<FuncSyntaxNode>(id,
+			unmodified_children.begin(), unmodified_children.end());
+
+		auto sub_results = immediate_applications(me,
+			rules);
+
+		for (auto child_iter = begin; child_iter != end;
+			++child_iter)
 		{
-			// try to match LHS of rule to LHS of statement
-			auto sub = try_build_lhs_mapping(*rs[i / 2],
-				*stmts[i % 2]);
+			auto child_dist = std::distance(begin,
+				child_iter);
 
-			if (sub.has_value())
+			auto new_child_list = unmodified_children;
+
+			// replace the child at `child_iter` with the
+			// substitution `child_sub` in the list, and then
+			// build a function syntax node out of it:
+
+			auto replace_iter = new_child_list.begin();
+			std::advance(replace_iter, child_dist);
+
+			// finally, go through each substitution and build a new
+			// function node out of it:
+			for (auto child_sub = child_iter->second.begin();
+				child_sub != child_iter->second.end(); ++child_sub)
 			{
-				// apply the substitution to the whole rule statement
-				// (note: we want to ensure that the half of the
-				// statement which we built the mapping for above,
-				// is on the LHS).
-				auto stmt_substituted = Statement(stmt.kernel(),
-					get_substitution(*rs[i / 2],
-						sub.get(), max_id));
+				// replace it:
+				*replace_iter = *child_sub;
 
-				// now combine the RHS of the substituted rule with
-				// the RHS of the input `stmts[i % 2]`
-				result_stmts->emplace_back(
-					stmts[1 - i % 2]->adjoin_rhs(stmt_substituted));
+				// now build a function node out of it:
+				sub_results.push_back(
+					std::make_shared<FuncSyntaxNode>(
+					id, new_child_list.begin(),
+						new_child_list.end()));
 			}
 		}
-	}
 
-	return StatementArray(result_stmts);
+		return std::make_pair(me, sub_results);
+	};
+
+	auto fold_results = stmt.fold<SubResults>(eq_constructor,
+		free_constructor, const_constructor, func_constructor);
+
+	// now we ignore the first element of the pair, and return
+	// the second list but as a statement array:
+
+	StatementArray::ArrPtr p_arr = std::make_shared<
+		StatementArray::ArrType>();
+
+	std::transform(fold_results.second.begin(),
+		fold_results.second.end(),
+		std::back_inserter(*p_arr),
+		[&stmt](SyntaxNodePtr p_node)
+		{
+			return Statement(stmt.kernel(), p_node);
+		}
+	);
+
+	return StatementArray(p_arr);
 }
 
 
-StatementArray replace_free_with_def(const Statement& stmt,
-	const std::map<size_t, size_t>& symb_id_to_arity)
+bool implies(const Statement& premise, const Statement& concl)
 {
-	std::set<size_t> free_var_ids = get_free_var_ids(stmt);
+	typedef boost::optional<
+		std::map<size_t, SyntaxNodePtr>> FreeVarMap;
 
-	// now apply the fold!
-	// what this does is return a list of syntax trees which
-	// represent all of the possible ways one could substitute
-	// each free variable with a constant:
-	auto trees = stmt.fold<std::vector<SyntaxNodePtr>>(
-		&fold_eq_constructor,
-		boost::bind(&free_var_def_constructor,
-			boost::ref(symb_id_to_arity),
-			boost::ref(free_var_ids), _1),
-		boost::bind(&fold_const_constructor,
-			stmt.num_free_vars() * symb_id_to_arity.size(), _1),
-		&fold_func_constructor);
+	// return true iff the two free variable mappings don't conflict
+	// (i.e. if they both map some free variable "x" to some
+	// expression, then those expressions are the same.)
+	auto try_union = [](const FreeVarMap& a, const FreeVarMap& b)
+		-> FreeVarMap
+	{
+		if (!a.has_value() || !b.has_value())
+			return boost::none;
 
-	return from_trees(stmt.kernel(), trees);
-}
+		// build a new mapping, starting with the contents of 'a',
+		// and adding the contents of 'b' checking they don't
+		// create a conflict
+		auto c = a;
+		for (const auto& subst : b.get())
+		{
+			auto iter = c.get().find(subst.first);
 
+			if (iter == c.get().end())
+			{
+				// okay; 'a' hasn't mapped this variable
+				c.get()[subst.first] = subst.second;
+			}
+			else
+			{
+				if (!syntax_tree_identical(iter->second,
+					subst.second))
+					return boost::none;  // CONFLICT!
 
-StatementArray replace_free_with_free(const Statement& stmt)
-{
-	std::set<size_t> free_var_ids = get_free_var_ids(stmt);
+				// else do nothing
+			}
+		}
+		return c;
+	};
 
-	// now apply the fold!
-	// what this does is return a list of syntax trees which
-	// represent all of the possible ways one could substitute
-	// each free variable with another free variable (considering
-	// unordered distinct pairs only):
-	auto trees = stmt.fold<std::vector<SyntaxNodePtr>>(
-		&fold_eq_constructor,
-		boost::bind(&free_var_free_constructor,
-			boost::ref(free_var_ids), _1),
-		boost::bind(&fold_const_constructor,
-			stmt.num_free_vars() * (stmt.num_free_vars() - 1) / 2, _1),
-		&fold_func_constructor);
+	auto eq_constructor = try_union;
 
-	return from_trees(stmt.kernel(), trees);
+	auto free_constructor = [](size_t id_a, size_t id_b)
+	{
+		// just map id_a to the free variable with id_b
+		FreeVarMap map = FreeVarMap::value_type();
+		map.get()[id_a] = std::make_shared<FreeSyntaxNode>(id_b);
+		return map;
+	};
+
+	auto const_constructor = phx::val(FreeVarMap::value_type());
+
+	auto func_constructor = [&try_union](size_t id1, size_t id2,
+		std::list<FreeVarMap>::iterator begin,
+		std::list<FreeVarMap>::iterator end)
+		-> FreeVarMap
+	{
+		// if the function names don't agree then we can't save
+		// ourselves by a substitution
+		if (id1 != id2)
+			return boost::none;
+
+		// if any child doesn't have a mapping then it's impossible
+		if (std::any_of(begin, end,
+			!boost::bind(&FreeVarMap::has_value, _1)))
+		{
+			return boost::none;
+		}
+
+		// return the union of all the mappings, or boost::none if
+		// they conflict!
+		return std::accumulate(begin, end,
+			FreeVarMap(FreeVarMap::value_type()), try_union);
+	};
+
+	auto default_constructor = [](SyntaxNodePtr a,
+		SyntaxNodePtr b) -> FreeVarMap
+	{
+		if (a->get_type() != SyntaxNodeType::FREE)
+			return boost::none;  // cannot do anything here
+
+		auto p_free = dynamic_cast<FreeSyntaxNode*>(a.get());
+
+		ATP_LOGIC_ASSERT(p_free != nullptr);
+
+		// map the free variable to the expression 'b'!
+		FreeVarMap map = FreeVarMap::value_type();
+		map.get()[p_free->get_free_id()] = b;
+		return map;
+	};
+
+	return premise.fold_pair<FreeVarMap>(eq_constructor,
+		free_constructor, const_constructor, func_constructor,
+		default_constructor, concl).has_value();
 }
 
 
@@ -476,7 +389,7 @@ bool syntax_tree_identical(SyntaxNodePtr a, SyntaxNodePtr b)
 			stack.emplace_back(std::make_pair(
 				p_first->right(), p_second->right()));
 		}
-			break;
+		break;
 		case SyntaxNodeType::FREE:
 		{
 			auto p_first = dynamic_cast<FreeSyntaxNode*>(
@@ -501,7 +414,8 @@ bool syntax_tree_identical(SyntaxNodePtr a, SyntaxNodePtr b)
 			ATP_LOGIC_ASSERT(p_first != nullptr);
 			ATP_LOGIC_ASSERT(p_second != nullptr);
 
-			if (p_first->get_symbol_id() != p_second->get_symbol_id())
+			if (p_first->get_symbol_id() !=
+				p_second->get_symbol_id())
 				return false;
 		}
 		break;
@@ -515,7 +429,8 @@ bool syntax_tree_identical(SyntaxNodePtr a, SyntaxNodePtr b)
 			ATP_LOGIC_ASSERT(p_first != nullptr);
 			ATP_LOGIC_ASSERT(p_second != nullptr);
 
-			if (p_first->get_symbol_id() != p_second->get_symbol_id())
+			if (p_first->get_symbol_id() !=
+				p_second->get_symbol_id())
 				return false;
 
 			// these statements have been type-checked, thus if two
@@ -536,249 +451,14 @@ bool syntax_tree_identical(SyntaxNodePtr a, SyntaxNodePtr b)
 				std::back_inserter(stack),
 
 				[](boost::tuple<SyntaxNodePtr, SyntaxNodePtr> tup)
-				{ return std::make_pair(tup.get<0>(), tup.get<1>()); });
+				{ return std::make_pair(tup.get<0>(),
+					tup.get<1>()); });
 		}
 		break;
 		}
 	}
 
 	return true;
-}
-
-
-// Implementations of fold constructors:
-
-
-std::vector<SyntaxNodePtr> free_var_def_constructor(
-	const std::map<size_t, size_t>& symb_id_to_arity,
-	const std::set<size_t>& free_var_ids, size_t my_var_id
-)
-{
-	const size_t num_free_vars = free_var_ids.size();
-
-	// create results for each symbol and for each free variable
-	// (i.e. substitution candidate.)
-	std::vector<SyntaxNodePtr> result;
-	result.reserve(symb_id_to_arity.size() * num_free_vars);
-
-	for (auto symb_id_arity : symb_id_to_arity)
-	{
-		for (size_t i : free_var_ids)
-		{
-			// if it is my turn to be substituted...
-			if (i == my_var_id)
-			{
-				if (symb_id_arity.second == 0)
-				{
-					// it's a constant:
-					result.push_back(
-						std::make_shared<ConstantSyntaxNode>(
-							symb_id_arity.first)
-					);
-				}
-				else
-				{
-					// it's a function, so create its arguments:
-					std::list<SyntaxNodePtr> func_args;
-					for (size_t i = 0; i < symb_id_arity.second; i++)
-					{
-						func_args.push_back(
-							std::make_shared<FreeSyntaxNode>(
-								num_free_vars + i)
-						);
-					}
-
-					// now create the function node:
-					result.push_back(
-						std::make_shared<FuncSyntaxNode>(
-							symb_id_arity.first, func_args.begin(),
-							func_args.end())
-					);
-				}
-			}
-			else  // not my turn to be substituted
-			{
-				result.push_back(
-					std::make_shared<FreeSyntaxNode>(my_var_id)
-				);
-			}
-		}
-	}
-
-	// cull excess memory (remark that, when we called reserve()
-	// earlier, we overestimated the number of substitutions)
-	result.shrink_to_fit();
-
-	return result;
-}
-
-
-std::vector<SyntaxNodePtr> free_var_free_constructor(
-	const std::set<size_t>& free_var_ids, size_t my_var_id
-)
-{
-	const size_t num_free_vars = free_var_ids.size();
-
-	// create results for each unordered distinct pair of free
-	// variable IDs
-	std::vector<SyntaxNodePtr> result;
-
-	// no chance of overflow here because n*(n-1)/2 is always an
-	// integer:
-	result.reserve(num_free_vars * (num_free_vars - 1) / 2);
-
-	for (auto i_iter = free_var_ids.begin();
-		i_iter != free_var_ids.end(); ++i_iter)
-	{
-		const size_t i = *i_iter;
-		auto j_iter = i_iter;
-		j_iter++;
-
-		for (; j_iter != free_var_ids.end(); ++j_iter)
-		{
-			const size_t j = *j_iter;
-
-			// if it is my turn to be substituted...
-			if (i == my_var_id)
-			{
-				// replace with j
-				result.push_back(
-					std::make_shared<FreeSyntaxNode>(j)
-				);
-			}
-			else  // not my turn to be substituted
-			{
-				result.push_back(
-					std::make_shared<FreeSyntaxNode>(my_var_id)
-				);
-			}
-		}
-	}
-
-	return result;
-}
-
-
-std::vector<SyntaxNodePtr> fold_eq_constructor(
-	const std::vector<SyntaxNodePtr>& lhss,
-	const std::vector<SyntaxNodePtr>& rhss)
-{
-	ATP_LOGIC_PRECOND(lhss.size() == rhss.size());
-
-	auto begin = boost::make_zip_iterator(
-		boost::make_tuple(lhss.begin(), rhss.begin())
-	);
-	auto end = boost::make_zip_iterator(
-		boost::make_tuple(lhss.end(), rhss.end())
-	);
-
-	std::vector<SyntaxNodePtr> result;
-	result.reserve(lhss.size());
-
-	std::transform(begin, end, std::back_inserter(result),
-		[](boost::tuple<SyntaxNodePtr, SyntaxNodePtr> tup)
-		{ return std::make_shared<EqSyntaxNode>(tup.get<0>(), tup.get<1>()); });
-
-	return result;
-}
-
-
-std::vector<SyntaxNodePtr>
-fold_const_constructor(size_t N,
-	size_t symb_id)
-{
-	std::vector<SyntaxNodePtr> result;
-	result.resize(N);
-
-	std::generate_n(result.begin(), N,
-		[symb_id]()
-		{
-			return std::make_shared<ConstantSyntaxNode>(symb_id);
-		});
-
-	return result;
-}
-
-
-std::vector<SyntaxNodePtr>
-fold_func_constructor(size_t symb_id,
-	const std::list<std::vector<SyntaxNodePtr>>::iterator&
-	children_begin,
-	const std::list<std::vector<SyntaxNodePtr>>::iterator&
-	children_end)
-{
-	ATP_LOGIC_PRECOND(children_begin != children_end);
-
-	auto num_children = std::distance(children_begin, children_end);
-	auto num_poss = children_begin->size();
-
-#ifdef ATP_LOGIC_DEFENSIVE
-	ATP_LOGIC_PRECOND(std::all_of(children_begin, children_end,
-		[num_poss](auto vec) { return vec.size() == num_poss; }));
-#endif
-
-	std::vector<SyntaxNodePtr> result;
-	result.reserve(num_poss);
-
-	// warning: we basically have to do a transpose on the 2D array
-	// given as input! (we want a vector of lists not a list of
-	// vectors!)
-
-	for (size_t i = 0; i < num_poss; i++)
-	{
-		// the children for this possibility
-		std::list<SyntaxNodePtr> children_for_poss;
-		for (auto iter = children_begin; iter != children_end; ++iter)
-		{
-			children_for_poss.push_back(iter->at(i));
-		}
-		result.push_back(std::make_shared<FuncSyntaxNode>(
-			symb_id, children_for_poss.begin(),
-			children_for_poss.end()
-			));
-	}
-
-	return result;
-}
-
-
-// helper function for converting fold results:
-StatementArray from_trees(const KnowledgeKernel& ker,
-	std::vector<SyntaxNodePtr> trees
-)
-{
-	std::shared_ptr<std::vector<Statement>> p_stmt_arr =
-		std::make_shared<std::vector<Statement>>();
-
-	p_stmt_arr->reserve(trees.size());
-
-	for (size_t j = 0; j < trees.size(); j++)
-	{
-		p_stmt_arr->emplace_back(ker, trees[j]);
-	}
-
-	return StatementArray(p_stmt_arr);
-}
-
-
-std::set<size_t> get_free_var_ids(const Statement& stmt)
-{
-	std::set<size_t> result;
-
-	auto eq_func = [](int, int) { return 0; };
-	auto free_func = [&result](size_t id)
-	{
-		result.insert(id);
-		return 0;
-	};
-	auto const_func = [](size_t) { return 0; };
-	auto f_func = [](size_t, std::list<int>::iterator,
-		std::list<int>::iterator) { return 0; };
-
-	stmt.fold<int>(eq_func, free_func, const_func,
-		f_func);
-
-	return result;
 }
 
 

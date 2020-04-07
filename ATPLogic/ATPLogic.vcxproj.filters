@@ -108,6 +108,9 @@
     <ClInclude Include="Internal\Equational\Semantics.h">
       <Filter>Header Files\Internal\Equational\Syntax</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\Equational\SemanticsHelper.h">
+      <Filter>Header Files\Internal\Equational\Syntax</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp">
@@ -135,6 +138,9 @@
       <Filter>Source Files\Internal\Equational\Syntax</Filter>
     </ClCompile>
     <ClCompile Include="Internal\Equational\Semantics.cpp">
+      <Filter>Source Files\Internal\Equational\Syntax</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\Equational\SemanticsHelper.cpp">
       <Filter>Source Files\Internal\Equational\Syntax</Filter>
     </ClCompile>
   </ItemGroup>

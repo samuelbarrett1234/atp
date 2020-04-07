@@ -2,8 +2,8 @@
 
 SemanticsTests.cpp
 
-This suite tests the functions that are found in the Matching.h/
-Matching.cpp files. Those files contain an array of helper functions
+This suite tests the functions that are found in the Semantics.h/
+Semantics.cpp files. Those files contain an array of helper functions
 and algorithms for dealing with syntax trees.
 
 */
@@ -324,7 +324,7 @@ BOOST_DATA_TEST_CASE(test_get_substitutions,
 	auto target_stmt = Statement(ker, ptree_to_stree(
 		*parse_result_iter, ker));
 
-	auto responses = semantics::get_substitutions(initial_stmt,
+	auto responses = semantics::get_successors(initial_stmt,
 		{ rule_stmt });
 
 	BOOST_TEST(responses.size() != 0);

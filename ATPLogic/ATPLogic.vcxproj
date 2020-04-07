@@ -179,6 +179,7 @@
     <ClInclude Include="Internal\Equational\ParseNodes.h" />
     <ClInclude Include="Internal\Equational\Parser.h" />
     <ClInclude Include="Internal\Equational\ParseTreeFold.h" />
+    <ClInclude Include="Internal\Equational\SemanticsHelper.h" />
     <ClInclude Include="Internal\Equational\Statement.h" />
     <ClInclude Include="Internal\Equational\StatementArray.h" />
     <ClInclude Include="Internal\Equational\SyntaxTreeFold.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="Internal\Equational\Language.cpp" />
     <ClCompile Include="Internal\Equational\Semantics.cpp" />
     <ClCompile Include="Internal\Equational\Parser.cpp" />
+    <ClCompile Include="Internal\Equational\SemanticsHelper.cpp" />
     <ClCompile Include="Internal\Equational\Statement.cpp" />
     <ClCompile Include="Internal\Equational\StatementArray.cpp" />
     <ClCompile Include="Internal\Equational\SyntaxNodes.cpp" />

@@ -1,6 +1,7 @@
 #include "Statement.h"
 #include "SyntaxTreeFold.h"
 #include "KnowledgeKernel.h"
+#include "SemanticsHelper.h"
 #include <set>
 #include <list>
 #include <boost/lexical_cast.hpp>
@@ -19,14 +20,11 @@ namespace equational
 {
 
 
-static std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node);
-
-
 Statement::Statement(
 	const KnowledgeKernel& ker,
 	SyntaxNodePtr p_root) :
 	m_ker(ker), m_root(p_root),
-	m_num_free_vars(get_free_var_ids(p_root).size())
+	m_free_var_ids(semantics::get_free_var_ids(p_root))
 {
 	ATP_LOGIC_PRECOND(m_root != nullptr);
 	ATP_LOGIC_PRECOND(m_root->get_type() == SyntaxNodeType::EQ);
@@ -36,14 +34,14 @@ Statement::Statement(
 Statement::Statement(const Statement& other) :
 	m_ker(other.m_ker),
 	m_root(other.m_root),
-	m_num_free_vars(other.m_num_free_vars)
+	m_free_var_ids(other.m_free_var_ids)
 { }
 
 
 Statement::Statement(Statement&& other) noexcept :
 	m_ker(other.m_ker),
 	m_root(std::move(other.m_root)),
-	m_num_free_vars(other.m_num_free_vars)
+	m_free_var_ids(other.m_free_var_ids)
 { }
 
 
@@ -53,7 +51,7 @@ Statement& Statement::operator=(const Statement& other)
 	{
 		ATP_LOGIC_PRECOND(&m_ker == &other.m_ker);
 		m_root = other.m_root;
-		m_num_free_vars = other.m_num_free_vars;
+		m_free_var_ids = other.m_free_var_ids;
 	}
 	return *this;
 }
@@ -105,40 +103,6 @@ Statement Statement::adjoin_rhs(const Statement& other) const
 		p_other_eq->right());
 
 	return Statement(m_ker, p_new_eq);
-}
-
-
-std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node)
-{
-	std::list<SyntaxNodePtr> stack;
-	std::set<size_t> var_ids;
-
-	stack.push_back(p_node);
-
-	while (!stack.empty())
-	{
-		p_node = stack.back();
-		stack.pop_back();
-
-		apply_to_syntax_node<void>(
-			[&stack](EqSyntaxNode& node)
-			{
-				stack.push_back(node.left());
-				stack.push_back(node.right());
-			},
-			[&var_ids](FreeSyntaxNode& node)
-			{
-				var_ids.insert(node.get_free_id());
-			},
-			[](ConstantSyntaxNode&) {},
-			[&stack](FuncSyntaxNode& node)
-			{
-				stack.insert(stack.end(), node.begin(), node.end());
-			},
-			*p_node);
-	}
-
-	return var_ids;
 }
 
 

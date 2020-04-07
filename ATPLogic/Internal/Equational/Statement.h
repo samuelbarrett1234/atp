@@ -29,9 +29,8 @@ swapped; this is obvious because f(x,y) /= f(y,x) in general.)
 #include <memory>
 #include <vector>
 #include <string>
-#include <vector>
 #include <algorithm>
-#include <map>
+#include <set>
 #include <boost/iterator/zip_iterator.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IStatement.h"
@@ -74,7 +73,12 @@ public:
 
 	inline size_t num_free_vars() const
 	{
-		return m_num_free_vars;
+		return m_free_var_ids.size();
+	}
+
+	inline const std::set<size_t>& free_var_ids() const
+	{
+		return m_free_var_ids;
 	}
 
 	inline const KnowledgeKernel& kernel() const
@@ -322,7 +326,7 @@ public:
 private:
 	const KnowledgeKernel& m_ker;
 	SyntaxNodePtr m_root;
-	size_t m_num_free_vars;
+	std::set<size_t> m_free_var_ids;
 };
 
 

@@ -5,8 +5,9 @@
 
 Semantics.h
 
-This file contains the code which determines whether matchings are
-possible, between two syntax tree expressions.
+This file contains code for performing logical inference in
+equational logic statements, and also for various other
+operations on statements, like checking logical equivalence.
 
 */
 
@@ -30,12 +31,10 @@ namespace semantics
 {
 
 
-// For each input rule, try making a substitution! Using the given
-// equality rules, we explore the syntax tree of `stmt` and at each
-// syntax node we see if either side of any rule is applicable. If
-// so, we determine what assignments should be made for the free
-// variables in the rule, and then replace one side with the other.
-ATP_LOGIC_API StatementArray get_substitutions(const Statement& stmt,
+// Try applying each given equality rule to the given statement, to
+// produce other logically equivalent statements which are
+// "adjacent" to `stmt`. Note that the statements returned are "iff".
+ATP_LOGIC_API StatementArray get_successors(const Statement& stmt,
 	const std::vector<Statement>& rules);
 
 

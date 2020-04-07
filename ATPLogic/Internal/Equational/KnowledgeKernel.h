@@ -9,20 +9,9 @@ Implementation of the IKnowledgeKernel for equational logic. This
 object contains the functions which tell you what is/isn't allowed
 in equational logic.
 
-More specifically, the successor statements in equational logic are:
-- Replacing either side of an equation with one of the given
-  equality rules (just transitivity in disguise; if x=y is
-  our statement, and we have a rule of the form y=z, then we
-  can turn the statement into x=z.)
-- Replacing a free variable with any of: a user-defined
-  constant, a user-defined function whose arguments are new
-  free variables, or a free variable which already exists
-  within the statement.
-For example, with the latter rule, if our statement is
-"f(x)=g(x)" then we can obtain:
-"f(e)=g(e)" for user defined "e", and "f(h(x))=g(h(x))" for
-user defined "h", and instead if our statement is
-"f(x, y)=g(h(x), y)" then "f(x, x)=g(h(x), x)".
+Currently, proofs in equational logic operate only in "iff" steps,
+so proofs can be read in both directions. This is for simplicity
+but can be a bit limiting.
 
 */
 
@@ -46,11 +35,6 @@ namespace equational
 {
 
 
-// TODO: a couple of functions for setting/unsetting large
-// batches of theorems (loaded from a database). These will
-// probably be in a more efficient format (i.e. not a
-// SyntaxNodePtr) and we will need to be able to identify
-// them so we can get rid of them later.
 class ATP_LOGIC_API KnowledgeKernel :
 	public IKnowledgeKernel
 {

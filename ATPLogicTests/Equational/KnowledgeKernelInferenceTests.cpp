@@ -188,32 +188,56 @@ BOOST_DATA_TEST_CASE(test_is_a_succ,
 BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 	"EquationalTests/KnowledgeKernelInferenceTests/test_is_a_succ"))
 BOOST_DATA_TEST_CASE(check_follows,
-	boost::unit_test::data::make({
-		std::list<std::string>{
-			// proof that i(i(x)) = x
-			"i(i(x)) = x",
-			"*(i(i(x)), e) = x",
-			"*(i(i(x)), *(i(x), x)) = x",
-			"*(*(i(i(x)), i(x)), x) = x",
-			"*(e, x) = x"
-		},
-		std::list<std::string>{
-			// proof that i(*(x, y)) = *(i(y), i(x))
-			"i(*(x, y)) = *(i(y), i(x))",
-			"i(*(x, y)) = *( *(i(y), i(x)) , e )",
-			"i(*(x, y)) = *( *(i(y), i(x)) , *(*(x, y), i(*(x, y))) )",
-			"i(*(x, y)) = *( i(y), *(i(x), *(*(x, y), i(*(x, y)))) )",
-			"i(*(x, y)) = *( i(y), *(i(x), *(x, *(y, i(*(x, y))))) )",
-			"i(*(x, y)) = *( i(y), *(*(i(x), x),  *(y, i(*(x, y)))) )",
-			"i(*(x, y)) = *( i(y), *(e,  *(y, i(*(x, y)))) )",
-			"i(*(x, y)) = *( i(y), *(y, i(*(x, y))) )",
-			"i(*(x, y)) = *( *(i(y), y), i(*(x, y)) )",
-			"i(*(x, y)) = *( e, i(*(x, y)) )",
-			"i(*(x, y)) = i(*(x, y))",
-		}
-	}),
-	proof_strs)
+boost::unit_test::data::make({
+	std::list<std::string>{
+		// proof that i(i(x)) = x
+		"i(i(x)) = x",
+		"*(i(i(x)), e) = x",
+		"*(i(i(x)), *(i(x), x)) = x",
+		"*(*(i(i(x)), i(x)), x) = x",
+		"*(e, x) = x"
+	}
+}),
+proof_strs)
 {
+	s << boost::algorithm::join(proof_strs, "\n");
+	auto proof = lang.deserialise_stmts(s, StmtFormat::TEXT, ker);
+
+	auto results = ker.follows(proof->slice(0, proof->size() - 1, 1),
+		proof->slice(1, proof->size(), 1));
+
+	BOOST_TEST(std::all_of(results.begin(), results.end(),
+		phxargs::arg1));
+}
+
+
+BOOST_AUTO_TEST_CASE(test_tricky_proof)
+{
+	// this proof is tricky as it relies on an extra theorem:
+	s << "e = *(*(x, y), i(*(x, y)))";
+	auto extra_thms = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ker);
+	ker.define_eq_rules(extra_thms);
+	
+	// clear this:
+	s = std::stringstream();
+	s << std::noskipws;
+
+	std::list<std::string> proof_strs = {
+		// proof that i(*(x, y)) = *(i(y), i(x))
+		"i(*(x, y)) = *(i(y), i(x))",
+		"i(*(x, y)) = *( *(i(y), i(x)) , e )",
+		"i(*(x, y)) = *( *(i(y), i(x)) , *(*(x, y), i(*(x, y))) )",
+		"i(*(x, y)) = *( i(y), *(i(x), *(*(x, y), i(*(x, y)))) )",
+		"i(*(x, y)) = *( i(y), *(i(x), *(x, *(y, i(*(x, y))))) )",
+		"i(*(x, y)) = *( i(y), *(*(i(x), x),  *(y, i(*(x, y)))) )",
+		"i(*(x, y)) = *( i(y), *(e,  *(y, i(*(x, y)))) )",
+		"i(*(x, y)) = *( i(y), *(y, i(*(x, y))) )",
+		"i(*(x, y)) = *( *(i(y), y), i(*(x, y)) )",
+		"i(*(x, y)) = *( e, i(*(x, y)) )",
+		"i(*(x, y)) = i(*(x, y))",
+	};
+
 	s << boost::algorithm::join(proof_strs, "\n");
 	auto proof = lang.deserialise_stmts(s, StmtFormat::TEXT, ker);
 

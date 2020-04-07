@@ -1,0 +1,10 @@
+<map id="atp::logic::equational::KnowledgeKernel::define_symbol" name="atp::logic::equational::KnowledgeKernel::define_symbol">
+<area shape="rect" id="node1" title=" " alt="" coords="263,209,435,265"/>
+<area shape="rect" id="node2" href="$struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="9,5,211,61"/>
+<area shape="rect" id="node3" href="$struct_language_tests_fixture.html#a0a581d1aedecd0d8c6665b7c1f1f105c" title=" " alt="" coords="31,86,189,127"/>
+<area shape="rect" id="node4" href="$struct_parse_tree_to_syntax_tree_fixture.html#a7fd840e22d7777134310e1c928f20492" title=" " alt="" coords="5,151,215,193"/>
+<area shape="rect" id="node5" href="$struct_semantics_tests_fixture.html#a9244f3aa92c593e6e8b20b75f34ec15b" title=" " alt="" coords="28,217,192,258"/>
+<area shape="rect" id="node6" href="$struct_statement_array_tests_fixture.html#aa55a2a36d6a2a17805d65454dbcd273b" title=" " alt="" coords="13,282,207,323"/>
+<area shape="rect" id="node7" href="$struct_statement_tests_fixture.html#a56a26f698b8cd8da5c1e79a1c47ceaf7" title=" " alt="" coords="29,347,191,389"/>
+<area shape="rect" id="node8" href="$struct_syntax_tree_fold_tests_fixture.html#a2d86d9a7c5f4d4952c97bf9d2b7ca1d4" title=" " alt="" coords="13,413,207,454"/>
+</map>

@@ -113,9 +113,7 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a86775702f28d47ba503e3ed7304270e2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#a86775702f28d47ba503e3ed7304270e2">LangType</a> { <a class="el" href="namespaceatp_1_1logic.html#a86775702f28d47ba503e3ed7304270e2a667697e7a3063a0d862e58de44c63a6e">LangType::EQUATIONAL_LOGIC</a>, 
-<a class="el" href="namespaceatp_1_1logic.html#a86775702f28d47ba503e3ed7304270e2a65b7e42546fa167200213a85ed6c5826">LangType::FIRST_ORDER_LOGIC</a>, 
-<a class="el" href="namespaceatp_1_1logic.html#a86775702f28d47ba503e3ed7304270e2a607a50d9f82e315e71b82614754899c2">LangType::SECOND_ORDER_LOGIC</a>
+<tr class="memitem:a86775702f28d47ba503e3ed7304270e2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#a86775702f28d47ba503e3ed7304270e2">LangType</a> { <a class="el" href="namespaceatp_1_1logic.html#a86775702f28d47ba503e3ed7304270e2a667697e7a3063a0d862e58de44c63a6e">LangType::EQUATIONAL_LOGIC</a>
  }</td></tr>
 <tr class="separator:a86775702f28d47ba503e3ed7304270e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a205e6fc78dac09fab6c7207aa37cdee7"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7">StmtFormat</a> { <a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7a98ad0e8750ae10ad556ed7a62affb452">StmtFormat::BINARY</a>, 
@@ -127,14 +125,15 @@ Enumerations</h2></td></tr>
 <a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0a779db0730846ea4c57bd178deb4709f0">StmtForm::CANONICAL_TRUE</a>, 
 <a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0a0aefba79ec377036888851b91fbf742a">StmtForm::CANONICAL_FALSE</a>
  }</td></tr>
-<tr class="memdesc:ae25b57b661a1aae85af78eacee99ffc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Every statement is either canonical or not. It is either true or false if and only if it is canonical. Non-canonical statements require evaluation to decide if they are true or false - and this is exactly the job of a theorem prover! (Reducing non-canonical statements to canonically true or false.)  <a href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0">More...</a><br /></td></tr>
+<tr class="memdesc:ae25b57b661a1aae85af78eacee99ffc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Every statement is either canonical or not. It is trivially true or false if and only if it is canonical. Non-canonical statements require evaluation to decide if they are true or false - and this is exactly the job of a theorem prover! (Reducing non-canonical statements to canonically true or false.) Canonical statements include axioms and substitutions of the statement "x=x".  <a href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0">More...</a><br /></td></tr>
 <tr class="separator:ae25b57b661a1aae85af78eacee99ffc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2fda740917a0bffb00bd9c06b8adc621"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic.html#adbff593c2b97048ded71e59eca8abe75">LanguagePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621">create_language</a> (<a class="el" href="namespaceatp_1_1logic.html#a86775702f28d47ba503e3ed7304270e2">LangType</a> lt)</td></tr>
-<tr class="memdesc:a2fda740917a0bffb00bd9c06b8adc621"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a language object for the given supported language type. Returns an empty object if the language type was invalid which could happen if the LangType has not yet been implemented. You will only have to create one language object for each type.  <a href="namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621">More...</a><br /></td></tr>
 <tr class="separator:a2fda740917a0bffb00bd9c06b8adc621"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c89562065d65fe74e21d8b7415d2176"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#a1c89562065d65fe74e21d8b7415d2176">from_statement</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;stmt)</td></tr>
+<tr class="separator:a1c89562065d65fe74e21d8b7415d2176"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0bf7e3fc379b924cf7031f1110c685d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#aa0bf7e3fc379b924cf7031f1110c685d">concat</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">IStatementArray</a> &amp;l, const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">IStatementArray</a> &amp;r)</td></tr>
 <tr class="separator:aa0bf7e3fc379b924cf7031f1110c685d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae01bdbaa6d12f3441ccdae7dc170ec70"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#ae01bdbaa6d12f3441ccdae7dc170ec70">concat</a> (const std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> &gt; &amp;stmts)</td></tr>
@@ -210,8 +209,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a86775702f28d47ba503e3ed7304270e2a667697e7a3063a0d862e58de44c63a6e"></a>EQUATIONAL_LOGIC&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a86775702f28d47ba503e3ed7304270e2a65b7e42546fa167200213a85ed6c5826"></a>FIRST_ORDER_LOGIC&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a86775702f28d47ba503e3ed7304270e2a607a50d9f82e315e71b82614754899c2"></a>SECOND_ORDER_LOGIC&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -236,7 +233,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Every statement is either canonical or not. It is either true or false if and only if it is canonical. Non-canonical statements require evaluation to decide if they are true or false - and this is exactly the job of a theorem prover! (Reducing non-canonical statements to canonically true or false.) </p>
+<p>Every statement is either canonical or not. It is trivially true or false if and only if it is canonical. Non-canonical statements require evaluation to decide if they are true or false - and this is exactly the job of a theorem prover! (Reducing non-canonical statements to canonically true or false.) Canonical statements include axioms and substitutions of the statement "x=x". </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae25b57b661a1aae85af78eacee99ffc0ac30950f4c14dd62305a9c73ae1cc4a10"></a>NOT_CANONICAL&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae25b57b661a1aae85af78eacee99ffc0a779db0730846ea4c57bd178deb4709f0"></a>CANONICAL_TRUE&#160;</td><td class="fielddoc"></td></tr>
@@ -308,6 +305,15 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a8b3c78a186b26edcc519caad57901111" title=" " alt="" coords="176,5,320,61"/>
 </map>
 </div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceatp_1_1logic_aa0bf7e3fc379b924cf7031f1110c685d_icgraph.png" border="0" usemap="#namespaceatp_1_1logic_aa0bf7e3fc379b924cf7031f1110c685d_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1logic_aa0bf7e3fc379b924cf7031f1110c685d_icgraph" id="namespaceatp_1_1logic_aa0bf7e3fc379b924cf7031f1110c685d_icgraph">
+<area shape="rect" title=" " alt="" coords="244,5,367,32"/>
+<area shape="rect" href="_statement_array_tests_8cpp.html#ab4e77a8340023c96b2acd036cc82d26e" title=" " alt="" coords="5,5,196,32"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -326,15 +332,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1logic_ae01bdbaa6d12f3441ccdae7dc170ec70_cgraph.png" border="0" usemap="#namespaceatp_1_1logic_ae01bdbaa6d12f3441ccdae7dc170ec70_cgraph" alt=""/></div>
-<map name="namespaceatp_1_1logic_ae01bdbaa6d12f3441ccdae7dc170ec70_cgraph" id="namespaceatp_1_1logic_ae01bdbaa6d12f3441ccdae7dc170ec70_cgraph">
-<area shape="rect" title=" " alt="" coords="5,20,128,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a8b3c78a186b26edcc519caad57901111" title=" " alt="" coords="176,5,320,61"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -353,8 +350,34 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
 <p>Construct a language object for the given supported language type. Returns an empty object if the language type was invalid which could happen if the LangType has not yet been implemented. You will only have to create one language object for each type. </p>
+
+</div>
+</div>
+<a id="a1c89562065d65fe74e21d8b7415d2176"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c89562065d65fe74e21d8b7415d2176">&#9670;&nbsp;</a></span>from_statement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_a_t_p_logic_a_p_i_8h.html#a193fc37208eae7f616325dca675bae63">ATP_LOGIC_API</a> <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> atp::logic::from_statement </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;&#160;</td>
+          <td class="paramname"><em>stmt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceatp_1_1logic_a1c89562065d65fe74e21d8b7415d2176_cgraph.png" border="0" usemap="#namespaceatp_1_1logic_a1c89562065d65fe74e21d8b7415d2176_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1logic_a1c89562065d65fe74e21d8b7415d2176_cgraph" id="namespaceatp_1_1logic_a1c89562065d65fe74e21d8b7415d2176_cgraph">
+<area shape="rect" title=" " alt="" coords="5,20,179,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#adf522fe07d480a831d66789e32c2705e" title=" " alt="" coords="227,5,371,61"/>
+</map>
+</div>
 
 </div>
 </div>

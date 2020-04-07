@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['text_476',['TEXT',['../namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7a61a96ffcb251bb9bf0abf8fec19d0ea8',1,'atp::logic']]]
+  ['unfinished_604',['UNFINISHED',['../namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a6f8eb84e55e2f1c21cb428ae5b644a6e',1,'atp::search']]]
 ];

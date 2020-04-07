@@ -1,12 +1,6 @@
 var searchData=
 [
-  ['iknowledgekernel_2eh_282',['IKnowledgeKernel.h',['../_i_knowledge_kernel_8h.html',1,'']]],
-  ['ilanguage_2eh_283',['ILanguage.h',['../_i_language_8h.html',1,'']]],
-  ['ipropositionalknowledgekernel_2eh_284',['IPropositionalKnowledgeKernel.h',['../_i_propositional_knowledge_kernel_8h.html',1,'']]],
-  ['isolver_2eh_285',['ISolver.h',['../_i_solver_8h.html',1,'']]],
-  ['istatement_2eh_286',['IStatement.h',['../_i_statement_8h.html',1,'']]],
-  ['istatementarray_2eh_287',['IStatementArray.h',['../_i_statement_array_8h.html',1,'']]],
-  ['istatementheuristic_2eh_288',['IStatementHeuristic.h',['../_i_statement_heuristic_8h.html',1,'']]],
-  ['iterativedeepeningsolver_2ecpp_289',['IterativeDeepeningSolver.cpp',['../_iterative_deepening_solver_8cpp.html',1,'']]],
-  ['iterativedeepeningsolver_2eh_290',['IterativeDeepeningSolver.h',['../_iterative_deepening_solver_8h.html',1,'']]]
+  ['language_2ecpp_369',['Language.cpp',['../_language_8cpp.html',1,'']]],
+  ['language_2eh_370',['Language.h',['../_language_8h.html',1,'']]],
+  ['languagetests_2ecpp_371',['LanguageTests.cpp',['../_language_tests_8cpp.html',1,'']]]
 ];

@@ -1,5 +1,8 @@
 <map id="atp::logic::equational::KnowledgeKernel::symbol_id" name="atp::logic::equational::KnowledgeKernel::symbol_id">
-<area shape="rect" id="node1" title=" " alt="" coords="440,5,637,47"/>
-<area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title=" " alt="" coords="249,5,392,47"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title=" " alt="" coords="5,5,201,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="712,61,909,102"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title=" " alt="" coords="511,27,653,69"/>
+<area shape="rect" id="node6" href="$struct_semantics_tests_fixture.html#a9244f3aa92c593e6e8b20b75f34ec15b" title=" " alt="" coords="500,93,664,134"/>
+<area shape="rect" id="node3" href="$_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="259,5,449,32"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title=" " alt="" coords="256,57,452,98"/>
+<area shape="rect" id="node5" href="$struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,49,208,105"/>
 </map>

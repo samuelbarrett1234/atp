@@ -1,9 +1,11 @@
 <map id="atp::logic::equational::fold_parse_tree" name="atp::logic::equational::fold_parse_tree">
-<area shape="rect" id="node1" title=" " alt="" coords="5,197,148,238"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#a6618f693f5e35cb6a1858b21e1a9b1a2" title=" " alt="" coords="210,5,353,61"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#a3818c3237a7a55c740540293031e4678" title=" " alt="" coords="196,86,367,127"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#a551c25e7739c0344a9fc78d76e8616df" title=" " alt="" coords="210,152,353,208"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_i_parse_node.html#ad1c5644349c91762784561e984c333bc" title=" " alt="" coords="204,233,359,274"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_eq_parse_node.html#a315b06b092eff96a2f708ab8bfea4dd8" title=" " alt="" coords="210,298,353,339"/>
-<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_eq_parse_node.html#a79b29db5e3721a74755ac89e53f97a5b" title=" " alt="" coords="210,363,353,405"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,266,148,307"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#a6618f693f5e35cb6a1858b21e1a9b1a2" title=" " alt="" coords="212,5,355,61"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#a3818c3237a7a55c740540293031e4678" title=" " alt="" coords="198,86,369,127"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#a551c25e7739c0344a9fc78d76e8616df" title=" " alt="" coords="212,152,355,208"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_i_parse_node.html#ad1c5644349c91762784561e984c333bc" title=" " alt="" coords="206,233,361,274"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_eq_parse_node.html#a315b06b092eff96a2f708ab8bfea4dd8" title=" " alt="" coords="212,298,355,339"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#a4addc3dc6f1148c3da4d04a89b028dff" title=" " alt="" coords="212,364,355,420"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#a7516bc05c496bf3aa2de7928826ae23c" title=" " alt="" coords="196,445,371,486"/>
+<area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_eq_parse_node.html#a79b29db5e3721a74755ac89e53f97a5b" title=" " alt="" coords="212,510,355,551"/>
 </map>

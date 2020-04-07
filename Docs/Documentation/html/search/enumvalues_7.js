@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['second_5forder_5flogic_475',['SECOND_ORDER_LOGIC',['../namespaceatp_1_1logic.html#a86775702f28d47ba503e3ed7304270e2a607a50d9f82e315e71b82614754899c2',1,'atp::logic']]]
+  ['text_603',['TEXT',['../namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7a61a96ffcb251bb9bf0abf8fec19d0ea8',1,'atp::logic']]]
 ];

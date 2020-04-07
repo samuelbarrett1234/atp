@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['operator_3d_381',['operator=',['../classatp_1_1logic_1_1equational_1_1_statement.html#a0da3e275f7f8d53ca28dfc64d576456e',1,'atp::logic::equational::Statement']]],
-  ['or_5fstmts_382',['or_stmts',['../classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html#ad5a951b09671257cba65a447612a9086',1,'atp::logic::IPropositionalKnowledgeKernel']]]
+  ['negate_5fstmts_477',['negate_stmts',['../classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html#aaa1775bde6aea34c764e32affd7af78d',1,'atp::logic::IPropositionalKnowledgeKernel']]],
+  ['num_5ffree_5fvars_478',['num_free_vars',['../classatp_1_1logic_1_1equational_1_1_statement.html#a48f7dac90ae8e93b6a26d04b8d306e23',1,'atp::logic::equational::Statement']]]
 ];

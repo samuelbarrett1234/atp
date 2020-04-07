@@ -102,6 +102,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1b2e18ce433fee2d9d28bccd45de2def"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73ef978d8dcea85093149574ca51bbd5"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a73ef978d8dcea85093149574ca51bbd5">follows</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_premise, <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_concl) const =0</td></tr>
 <tr class="separator:a73ef978d8dcea85093149574ca51bbd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25a73e5f0aa4756889e7397f513c76c1"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0">StmtForm</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a25a73e5f0aa4756889e7397f513c76c1">get_form</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts) const =0</td></tr>
+<tr class="separator:a25a73e5f0aa4756889e7397f513c76c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Object for logical inference on statement arrays. In the comments below, "one step" refers to a single application of a logical rule, axiom, or available theorem. Knowledge kernels are always tied to a particular language. </p>
@@ -179,6 +181,43 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a25a73e5f0aa4756889e7397f513c76c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25a73e5f0aa4756889e7397f513c76c1">&#9670;&nbsp;</a></span>get_form()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::vector&lt;<a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0">StmtForm</a>&gt; atp::logic::IKnowledgeKernel::get_form </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
+          <td class="paramname"><em>p_stmts</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0c6e59a58b672521c15be26ec87e5c3f">atp::logic::equational::KnowledgeKernel</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1_i_knowledge_kernel_a25a73e5f0aa4756889e7397f513c76c1_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1_i_knowledge_kernel_a25a73e5f0aa4756889e7397f513c76c1_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1_i_knowledge_kernel_a25a73e5f0aa4756889e7397f513c76c1_icgraph" id="classatp_1_1logic_1_1_i_knowledge_kernel_a25a73e5f0aa4756889e7397f513c76c1_icgraph">
+<area shape="rect" title=" " alt="" coords="187,5,373,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34" title=" " alt="" coords="5,5,139,47"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a26a0b198729c2ffbd5ff8c144a60491a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a26a0b198729c2ffbd5ff8c144a60491a">&#9670;&nbsp;</a></span>get_integrity_code()</h2>
 
@@ -203,16 +242,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a4c122c0c52a6dc8b77975749d2710535">atp::logic::equational::KnowledgeKernel</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1_i_knowledge_kernel_a26a0b198729c2ffbd5ff8c144a60491a_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1_i_knowledge_kernel_a26a0b198729c2ffbd5ff8c144a60491a_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1_i_knowledge_kernel_a26a0b198729c2ffbd5ff8c144a60491a_icgraph" id="classatp_1_1logic_1_1_i_knowledge_kernel_a26a0b198729c2ffbd5ff8c144a60491a_icgraph">
-<area shape="rect" title=" " alt="" coords="448,13,635,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ae6e7313b286fa14e2a0dc692e109a5a9" title=" " alt="" coords="225,13,400,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#aa90fe1863a3ddc7bc6ff8a60d48cddaf" title=" " alt="" coords="5,5,177,61"/>
-</map>
-</div>
 
 </div>
 </div>

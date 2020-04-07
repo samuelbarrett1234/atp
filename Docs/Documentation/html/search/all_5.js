@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['e_56',['E',['../reg__expr__rules_8txt.html#aa57b8491d1d8fc1014dd54bcf83b130a',1,'reg_expr_rules.txt']]],
-  ['end_57',['end',['../classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#a3818c3237a7a55c740540293031e4678',1,'atp::logic::equational::IdentifierParseNode::end()'],['../classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#a94702c6b23ee486d9fb1224af41ad3bc',1,'atp::logic::equational::FuncSyntaxNode::end()']]],
-  ['engaged_58',['engaged',['../classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3',1,'atp::search::ISolver::engaged()'],['../classatp_1_1search_1_1_iterative_deepening_solver.html#ac9b42536b5e5d868f45ba637a99d5265',1,'atp::search::IterativeDeepeningSolver::engaged()']]],
-  ['eq_59',['EQ',['../namespaceatp_1_1logic_1_1equational.html#a379b0decdece9de86db218c905d4f930a2dcbad7477fd40561e8b8198f173bd47',1,'atp::logic::equational::EQ()'],['../namespaceatp_1_1logic_1_1equational.html#a04726a5939dff190edd4935738778459a2dcbad7477fd40561e8b8198f173bd47',1,'atp::logic::equational::EQ()']]],
-  ['eqparsenode_60',['EqParseNode',['../classatp_1_1logic_1_1equational_1_1_eq_parse_node.html',1,'atp::logic::equational::EqParseNode'],['../classatp_1_1logic_1_1equational_1_1_eq_parse_node.html#a8efef4d255bff290d8deb2670f6af502',1,'atp::logic::equational::EqParseNode::EqParseNode()']]],
-  ['eqsyntaxnode_61',['EqSyntaxNode',['../classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html',1,'atp::logic::equational::EqSyntaxNode'],['../classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a9f56f4a204522eacc8516f48dad35a2f',1,'atp::logic::equational::EqSyntaxNode::EqSyntaxNode()']]],
-  ['equational_2dlogic_2drewrite_2drules_2etxt_62',['equational-logic-rewrite-rules.txt',['../equational-logic-rewrite-rules_8txt.html',1,'']]],
-  ['equational_5flogic_63',['EQUATIONAL_LOGIC',['../namespaceatp_1_1logic.html#a86775702f28d47ba503e3ed7304270e2a667697e7a3063a0d862e58de44c63a6e',1,'atp::logic']]],
-  ['equivalent_64',['equivalent',['../namespaceatp_1_1logic_1_1equational_1_1syntax__matching.html#acd02b9bbaceeaf12d89ecd00fdca43a3',1,'atp::logic::equational::syntax_matching']]],
-  ['equivalent_5ffrom_5fmapping_65',['equivalent_from_mapping',['../namespaceatp_1_1logic_1_1equational_1_1syntax__matching.html#a9cede4858a615ff61cf02374a3e7168b',1,'atp::logic::equational::syntax_matching']]],
-  ['expression_66',['expression',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#a85b9d2260cf033ebbd94ef811e578da7',1,'atp::logic::equational::StatementGrammar']]],
-  ['expression_5flist_67',['expression_list',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#ac0ba1222f1fdb5118d52e479dc3d4096',1,'atp::logic::equational::StatementGrammar']]]
+  ['f_74',['F',['../reg__expr__rules_8txt.html#a1fd406685cbdee605d0a7bebed56fdb0',1,'reg_expr_rules.txt']]],
+  ['fold_75',['fold',['../classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5',1,'atp::logic::equational::Statement']]],
+  ['fold_5fpair_76',['fold_pair',['../classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d',1,'atp::logic::equational::Statement']]],
+  ['fold_5fparse_5ftree_77',['fold_parse_tree',['../namespaceatp_1_1logic_1_1equational.html#ac5f7bc7ced86a79f9e8f436630704152',1,'atp::logic::equational']]],
+  ['fold_5fsyntax_5ftree_78',['fold_syntax_tree',['../namespaceatp_1_1logic_1_1equational.html#a56781fb4943ed73eaf36ccac9d19d54f',1,'atp::logic::equational']]],
+  ['follows_79',['follows',['../classatp_1_1logic_1_1_i_knowledge_kernel.html#a73ef978d8dcea85093149574ca51bbd5',1,'atp::logic::IKnowledgeKernel::follows()'],['../classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e',1,'atp::logic::equational::KnowledgeKernel::follows()']]],
+  ['free_80',['FREE',['../namespaceatp_1_1logic_1_1equational.html#a04726a5939dff190edd4935738778459a88c189a42c87aa49d667fc8ab76bc323',1,'atp::logic::equational']]],
+  ['free_5fvar_5fids_81',['free_var_ids',['../classatp_1_1logic_1_1equational_1_1_statement.html#a0fca33627b31e864cd20e2790f7a27f5',1,'atp::logic::equational::Statement']]],
+  ['freesyntaxnode_82',['FreeSyntaxNode',['../classatp_1_1logic_1_1equational_1_1_free_syntax_node.html',1,'atp::logic::equational::FreeSyntaxNode'],['../classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#ac7b032d740a79be5c3b1f4d5eff1ae8b',1,'atp::logic::equational::FreeSyntaxNode::FreeSyntaxNode()']]],
+  ['from_5fstatement_83',['from_statement',['../namespaceatp_1_1logic.html#a1c89562065d65fe74e21d8b7415d2176',1,'atp::logic']]],
+  ['func_84',['FUNC',['../namespaceatp_1_1logic_1_1equational.html#a04726a5939dff190edd4935738778459a1e49c8ad07b69571bfcafaf18ac9fa5b',1,'atp::logic::equational']]],
+  ['funcsyntaxnode_85',['FuncSyntaxNode',['../classatp_1_1logic_1_1equational_1_1_func_syntax_node.html',1,'atp::logic::equational::FuncSyntaxNode'],['../classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#a9edd9904751272bae031c597572cb0b4',1,'atp::logic::equational::FuncSyntaxNode::FuncSyntaxNode(size_t symb_id, std::list&lt; SyntaxNodePtr &gt; arg_children)'],['../classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#a0430c774804891c2cfd9ddc4688d4468',1,'atp::logic::equational::FuncSyntaxNode::FuncSyntaxNode(size_t symb_id, std::list&lt; SyntaxNodePtr &gt;::iterator begin, std::list&lt; SyntaxNodePtr &gt;::iterator end)']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['first_2dorder_2drewrite_2drules_2etxt_278',['first-order-rewrite-rules.txt',['../first-order-rewrite-rules_8txt.html',1,'']]]
+  ['how_5fto_5fcreate_5fnew_5flogic_2emd_355',['how_to_create_new_logic.md',['../how__to__create__new__logic_8md.html',1,'']]]
 ];

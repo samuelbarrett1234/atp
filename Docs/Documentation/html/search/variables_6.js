@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['theory_439',['theory',['../type-theory_8txt.html#a97a1cd7d49c4b56717dd8edd3886d5bd',1,'type-theory.txt']]]
+  ['m_5fsymbol_5fid_557',['m_symbol_id',['../classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#abf3d83c1ba0eeb176ae8ca8bce06bd6e',1,'atp::logic::equational::ConstantSyntaxNode']]]
 ];

@@ -105,10 +105,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a560f1112eae424e10182acb1577cb387"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a272cdcabd05bc5bc78cb6dc0420b336e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e">follows</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_premise, <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_concl) const override</td></tr>
 <tr class="separator:a272cdcabd05bc5bc78cb6dc0420b336e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c6e59a58b672521c15be26ec87e5c3f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0">StmtForm</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0c6e59a58b672521c15be26ec87e5c3f">get_form</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts) const override</td></tr>
+<tr class="separator:a0c6e59a58b672521c15be26ec87e5c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a156b634acaff683f7c974ed6fdaea2c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a156b634acaff683f7c974ed6fdaea2c1">define_symbol</a> (std::string name, size_t arity)</td></tr>
 <tr class="separator:a156b634acaff683f7c974ed6fdaea2c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa90fe1863a3ddc7bc6ff8a60d48cddaf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#aa90fe1863a3ddc7bc6ff8a60d48cddaf">define_eq_rule</a> (<a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;rule)</td></tr>
-<tr class="separator:aa90fe1863a3ddc7bc6ff8a60d48cddaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5e57fcdf5183b77602c249a4560b5ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea">define_eq_rules</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_rules)</td></tr>
+<tr class="separator:af5e57fcdf5183b77602c249a4560b5ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7ae5937b36a9fd2a8427b543b47ed56"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af7ae5937b36a9fd2a8427b543b47ed56">is_defined</a> (std::string name) const</td></tr>
 <tr class="separator:af7ae5937b36a9fd2a8427b543b47ed56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab75821a304cd2a2653ad550c76929504"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504">id_is_defined</a> (size_t id) const</td></tr>
@@ -126,17 +128,17 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9f3e4e715333bba2b48ff18b232c97ba inherit pub_methods_classatp_1_1logic_1_1_i_knowledge_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa90fe1863a3ddc7bc6ff8a60d48cddaf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa90fe1863a3ddc7bc6ff8a60d48cddaf">&#9670;&nbsp;</a></span>define_eq_rule()</h2>
+<a id="af5e57fcdf5183b77602c249a4560b5ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5e57fcdf5183b77602c249a4560b5ea">&#9670;&nbsp;</a></span>define_eq_rules()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void atp::logic::equational::KnowledgeKernel::define_eq_rule </td>
+          <td class="memname">void atp::logic::equational::KnowledgeKernel::define_eq_rules </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;&#160;</td>
-          <td class="paramname"><em>rule</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
+          <td class="paramname"><em>p_rules</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -144,15 +146,21 @@ Public Member Functions</h2></td></tr>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_aa90fe1863a3ddc7bc6ff8a60d48cddaf_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_aa90fe1863a3ddc7bc6ff8a60d48cddaf_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_aa90fe1863a3ddc7bc6ff8a60d48cddaf_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_aa90fe1863a3ddc7bc6ff8a60d48cddaf_cgraph">
-<area shape="rect" title=" " alt="" coords="5,111,177,167"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ae6e7313b286fa14e2a0dc692e109a5a9" title=" " alt="" coords="225,79,400,120"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a9fc9571ecc1f026a2ace668d01ca3689" title=" " alt="" coords="230,159,395,200"/>
-<area shape="rect" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a26a0b198729c2ffbd5ff8c144a60491a" title=" " alt="" coords="448,5,635,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a4c122c0c52a6dc8b77975749d2710535" title=" " alt="" coords="463,71,619,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="467,151,615,207"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="451,231,631,287"/>
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_cgraph">
+<area shape="rect" title=" " alt="" coords="5,45,177,101"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="225,53,388,94"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="452,5,600,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="436,85,616,141"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_icgraph">
+<area shape="rect" title=" " alt="" coords="256,5,428,61"/>
+<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,5,208,61"/>
 </map>
 </div>
 
@@ -191,6 +199,21 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a156b634acaff683f7c974ed6fdaea2c1_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a156b634acaff683f7c974ed6fdaea2c1_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a156b634acaff683f7c974ed6fdaea2c1_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a156b634acaff683f7c974ed6fdaea2c1_icgraph">
+<area shape="rect" title=" " alt="" coords="263,209,435,265"/>
+<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="9,5,211,61"/>
+<area shape="rect" href="struct_language_tests_fixture.html#a0a581d1aedecd0d8c6665b7c1f1f105c" title=" " alt="" coords="31,86,189,127"/>
+<area shape="rect" href="struct_parse_tree_to_syntax_tree_fixture.html#a7fd840e22d7777134310e1c928f20492" title=" " alt="" coords="5,151,215,193"/>
+<area shape="rect" href="struct_semantics_tests_fixture.html#a9244f3aa92c593e6e8b20b75f34ec15b" title=" " alt="" coords="28,217,192,258"/>
+<area shape="rect" href="struct_statement_array_tests_fixture.html#aa55a2a36d6a2a17805d65454dbcd273b" title=" " alt="" coords="13,282,207,323"/>
+<area shape="rect" href="struct_statement_tests_fixture.html#a56a26f698b8cd8da5c1e79a1c47ceaf7" title=" " alt="" coords="29,347,191,389"/>
+<area shape="rect" href="struct_syntax_tree_fold_tests_fixture.html#a2d86d9a7c5f4d4952c97bf9d2b7ca1d4" title=" " alt="" coords="13,413,207,454"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -234,12 +257,52 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a272cdcabd05bc5bc78cb6dc0420b336e_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a272cdcabd05bc5bc78cb6dc0420b336e_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a272cdcabd05bc5bc78cb6dc0420b336e_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a272cdcabd05bc5bc78cb6dc0420b336e_cgraph">
-<area shape="rect" title=" " alt="" coords="5,39,183,80"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="231,39,393,80"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a6130f50b5300abfe7726ed1847482700" title=" " alt="" coords="449,5,599,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a9fc9571ecc1f026a2ace668d01ca3689" title=" " alt="" coords="441,71,607,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="671,23,819,79"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="655,103,835,159"/>
+<area shape="rect" title=" " alt="" coords="5,53,183,94"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="231,53,393,94"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="457,5,605,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="441,85,621,141"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0c6e59a58b672521c15be26ec87e5c3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c6e59a58b672521c15be26ec87e5c3f">&#9670;&nbsp;</a></span>get_form()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0">StmtForm</a> &gt; atp::logic::equational::KnowledgeKernel::get_form </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
+          <td class="paramname"><em>p_stmts</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a25a73e5f0aa4756889e7397f513c76c1">atp::logic::IKnowledgeKernel</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0c6e59a58b672521c15be26ec87e5c3f_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0c6e59a58b672521c15be26ec87e5c3f_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0c6e59a58b672521c15be26ec87e5c3f_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0c6e59a58b672521c15be26ec87e5c3f_cgraph">
+<area shape="rect" title=" " alt="" coords="5,39,193,80"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a36dd38214bd3efb430f116eb9e40fc64" title=" " alt="" coords="241,39,443,80"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a22d63685a82821176f481186ee17bed6" title=" " alt="" coords="495,5,641,47"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title=" " alt="" coords="491,71,645,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title=" " alt="" coords="693,5,840,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5" title=" " alt="" coords="695,71,838,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a5b39be718d2816106293f4aa47f16824" title=" " alt="" coords="695,136,838,177"/>
 </map>
 </div>
 
@@ -274,9 +337,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a4c122c0c52a6dc8b77975749d2710535_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a4c122c0c52a6dc8b77975749d2710535_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a4c122c0c52a6dc8b77975749d2710535_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a4c122c0c52a6dc8b77975749d2710535_icgraph">
-<area shape="rect" title=" " alt="" coords="448,5,604,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ae6e7313b286fa14e2a0dc692e109a5a9" title=" " alt="" coords="225,13,400,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#aa90fe1863a3ddc7bc6ff8a60d48cddaf" title=" " alt="" coords="5,5,177,61"/>
+<area shape="rect" title=" " alt="" coords="244,5,400,61"/>
+<area shape="rect" href="_language_tests_8cpp.html#a29781dffcb6632930478d93135f9aa0b" title=" " alt="" coords="5,20,196,47"/>
 </map>
 </div>
 
@@ -310,12 +372,12 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ab75821a304cd2a2653ad550c76929504_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ab75821a304cd2a2653ad550c76929504_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ab75821a304cd2a2653ad550c76929504_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ab75821a304cd2a2653ad550c76929504_icgraph">
-<area shape="rect" title=" " alt="" coords="664,43,812,99"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a9fc9571ecc1f026a2ace668d01ca3689" title=" " alt="" coords="451,50,616,91"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#aa90fe1863a3ddc7bc6ff8a60d48cddaf" title=" " alt="" coords="231,5,403,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="235,86,398,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title=" " alt="" coords="5,53,183,94"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title=" " alt="" coords="7,118,181,159"/>
+<area shape="rect" title=" " alt="" coords="692,79,840,135"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="481,86,644,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="259,5,431,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title=" " alt="" coords="256,86,433,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title=" " alt="" coords="258,151,431,193"/>
+<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,5,208,61"/>
 </map>
 </div>
 
@@ -349,9 +411,12 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af7ae5937b36a9fd2a8427b543b47ed56_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af7ae5937b36a9fd2a8427b543b47ed56_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af7ae5937b36a9fd2a8427b543b47ed56_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af7ae5937b36a9fd2a8427b543b47ed56_icgraph">
-<area shape="rect" title=" " alt="" coords="440,5,588,61"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title=" " alt="" coords="249,13,392,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title=" " alt="" coords="5,13,201,54"/>
+<area shape="rect" title=" " alt="" coords="739,20,887,76"/>
+<area shape="rect" href="_language_tests_8cpp.html#a8613a27b01ffcb4a199d800a865c0c17" title=" " alt="" coords="500,5,691,32"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title=" " alt="" coords="524,57,667,98"/>
+<area shape="rect" href="_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="259,35,449,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title=" " alt="" coords="256,86,452,127"/>
+<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,79,208,135"/>
 </map>
 </div>
 
@@ -387,13 +452,10 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a093f40d4912048fb60afec984de0cfd4_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a093f40d4912048fb60afec984de0cfd4_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a093f40d4912048fb60afec984de0cfd4_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a093f40d4912048fb60afec984de0cfd4_cgraph">
-<area shape="rect" title=" " alt="" coords="5,50,179,91"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a8b3c78a186b26edcc519caad57901111" title=" " alt="" coords="236,5,380,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="227,86,389,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a6130f50b5300abfe7726ed1847482700" title=" " alt="" coords="445,53,595,94"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a9fc9571ecc1f026a2ace668d01ca3689" title=" " alt="" coords="437,118,603,159"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="667,71,815,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="651,151,831,207"/>
+<area shape="rect" title=" " alt="" coords="5,53,179,94"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="227,53,389,94"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="453,5,601,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="437,85,617,141"/>
 </map>
 </div>
 
@@ -427,12 +489,12 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ae31fdddded9c89577b18e63ef3544113_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ae31fdddded9c89577b18e63ef3544113_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ae31fdddded9c89577b18e63ef3544113_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ae31fdddded9c89577b18e63ef3544113_icgraph">
-<area shape="rect" title=" " alt="" coords="664,43,844,99"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a9fc9571ecc1f026a2ace668d01ca3689" title=" " alt="" coords="451,50,616,91"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#aa90fe1863a3ddc7bc6ff8a60d48cddaf" title=" " alt="" coords="231,5,403,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="235,86,398,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title=" " alt="" coords="5,53,183,94"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title=" " alt="" coords="7,118,181,159"/>
+<area shape="rect" title=" " alt="" coords="692,79,872,135"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="481,86,644,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="259,5,431,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title=" " alt="" coords="256,86,433,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title=" " alt="" coords="258,151,431,193"/>
+<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,5,208,61"/>
 </map>
 </div>
 
@@ -461,6 +523,18 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6817a1e4df3b10bd9bed1126aa35304_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6817a1e4df3b10bd9bed1126aa35304_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6817a1e4df3b10bd9bed1126aa35304_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6817a1e4df3b10bd9bed1126aa35304_icgraph">
+<area shape="rect" title=" " alt="" coords="691,20,871,76"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title=" " alt="" coords="500,27,643,69"/>
+<area shape="rect" href="_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="259,5,449,32"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title=" " alt="" coords="256,57,452,98"/>
+<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,49,208,105"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -492,9 +566,12 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6039360852cfb5619615af8bf2d2072_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6039360852cfb5619615af8bf2d2072_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6039360852cfb5619615af8bf2d2072_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6039360852cfb5619615af8bf2d2072_icgraph">
-<area shape="rect" title=" " alt="" coords="440,5,637,47"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title=" " alt="" coords="249,5,392,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title=" " alt="" coords="5,5,201,47"/>
+<area shape="rect" title=" " alt="" coords="712,61,909,102"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title=" " alt="" coords="511,27,653,69"/>
+<area shape="rect" href="struct_semantics_tests_fixture.html#a9244f3aa92c593e6e8b20b75f34ec15b" title=" " alt="" coords="500,93,664,134"/>
+<area shape="rect" href="_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="259,5,449,32"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title=" " alt="" coords="256,57,452,98"/>
+<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,49,208,105"/>
 </map>
 </div>
 
@@ -566,11 +643,9 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_cgraph">
-<area shape="rect" title=" " alt="" coords="5,39,168,80"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a6130f50b5300abfe7726ed1847482700" title=" " alt="" coords="224,5,373,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a9fc9571ecc1f026a2ace668d01ca3689" title=" " alt="" coords="216,71,381,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="445,23,593,79"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="429,103,609,159"/>
+<area shape="rect" title=" " alt="" coords="5,53,168,94"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="232,5,380,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="216,85,396,141"/>
 </map>
 </div>
 <div class="dynheader">
@@ -578,9 +653,11 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_icgraph">
-<area shape="rect" title=" " alt="" coords="231,39,393,80"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title=" " alt="" coords="5,5,183,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title=" " alt="" coords="7,71,181,112"/>
+<area shape="rect" title=" " alt="" coords="481,86,644,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="259,5,431,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title=" " alt="" coords="256,86,433,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title=" " alt="" coords="258,151,431,193"/>
+<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,5,208,61"/>
 </map>
 </div>
 

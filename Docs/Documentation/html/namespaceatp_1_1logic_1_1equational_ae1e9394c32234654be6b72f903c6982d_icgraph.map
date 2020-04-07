@@ -1,4 +1,6 @@
 <map id="atp::logic::equational::ptree_to_stree" name="atp::logic::equational::ptree_to_stree">
-<area shape="rect" id="node1" title=" " alt="" coords="249,5,392,47"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title=" " alt="" coords="5,5,201,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="500,27,643,69"/>
+<area shape="rect" id="node2" href="$_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="259,5,449,32"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title=" " alt="" coords="256,57,452,98"/>
+<area shape="rect" id="node4" href="$struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,49,208,105"/>
 </map>

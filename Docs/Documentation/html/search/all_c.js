@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['m_5fsymbol_5fid_144',['m_symbol_id',['../classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#abf3d83c1ba0eeb176ae8ca8bce06bd6e',1,'atp::logic::equational::ConstantSyntaxNode']]],
-  ['main_145',['main',['../_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae',1,'Main.cpp']]],
-  ['main_2ecpp_146',['Main.cpp',['../_main_8cpp.html',1,'']]],
-  ['matching_2ecpp_147',['Matching.cpp',['../_matching_8cpp.html',1,'']]],
-  ['matching_2eh_148',['Matching.h',['../_matching_8h.html',1,'']]]
+  ['negate_5fstmts_164',['negate_stmts',['../classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html#aaa1775bde6aea34c764e32affd7af78d',1,'atp::logic::IPropositionalKnowledgeKernel']]],
+  ['not_5fcanonical_165',['NOT_CANONICAL',['../namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0ac30950f4c14dd62305a9c73ae1cc4a10',1,'atp::logic']]],
+  ['num_5ffree_5fvars_166',['num_free_vars',['../classatp_1_1logic_1_1equational_1_1_statement.html#a48f7dac90ae8e93b6a26d04b8d306e23',1,'atp::logic::equational::Statement']]]
 ];

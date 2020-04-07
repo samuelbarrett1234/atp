@@ -17,13 +17,13 @@ Note that when you build the application, the binaries can be found in the `Outp
 
 ## Installation
 
-The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. It depends on the C++ Boost libaries, and it expects the environment variable `BOOST_DIR` to be set to the root of Boost's installation directory.
+The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. This project uses the Boost C++ libaries. Please ensure that they are installed, and that the environment variable `BOOST_DIR` to be set to the root of Boost's installation directory.
 
 ## Running the client
 
 TODO.
 
-## TODO
+## TODO beyond minimum viable product
 
 At the moment the project is working towards a minimum viable product, using only equational logic and uninformed search strategies. This repository still needs the following:
 - a statistics and machine learning library, for modelling the statements and searches, so we can start to use informed search strategies,

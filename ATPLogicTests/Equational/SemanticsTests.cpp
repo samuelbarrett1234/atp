@@ -340,12 +340,16 @@ BOOST_DATA_TEST_CASE(test_implies,
 		"*(x, i(x)) = e",
 		"*(x, y) = *(y, x)",
 		"x = x",
-		"x = x" }) ^
+		"x = x",
+		"x = i(x)",
+		"*(*(x, y), z) = *(x, *(y, z))" }) ^
 	boost::unit_test::data::make({
 		"*(i(x), i(i(x))) = e",
 		"*(x, i(x)) = *(i(x), x)",
 		"e = e",
-		"i(x) = i(x)" }),
+		"i(x) = i(x)",
+		"i(e) = e",
+		"*(x, *(i(x), x)) = *(*(x, i(x)), x)" }),
 	premise_stmt, concl_stmt)
 {
 	s << premise_stmt << '\n' << concl_stmt;

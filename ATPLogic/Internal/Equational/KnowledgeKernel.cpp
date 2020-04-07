@@ -141,10 +141,17 @@ std::vector<bool> KnowledgeKernel::follows(
 	), std::back_inserter(follows_result),
 	[this](boost::tuple<Statement, Statement> p)
 	{
+		std::string premise_str = p.get<0>().to_str();
+		std::string concl_str = p.get<1>().to_str();
+
 		// we check if it follows by seeing if the conclusion
 		// (p.get<1>()) is a successor of the premise (p.get<0>()).
 
 		auto succs = semantics::get_substitutions(p.get<0>(), m_rules);
+
+		std::vector<std::string> succs_str;
+		for (auto stmt : succs)
+			succs_str.push_back(stmt.to_str());
 
 		return std::any_of(succs.begin(), succs.end(),
 			boost::bind(&semantics::equivalent,

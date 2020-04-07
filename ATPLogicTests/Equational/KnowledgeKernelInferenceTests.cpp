@@ -196,6 +196,11 @@ boost::unit_test::data::make({
 		"*(i(i(x)), *(i(x), x)) = x",
 		"*(*(i(i(x)), i(x)), x) = x",
 		"*(e, x) = x"
+	},
+	std::list<std::string>{
+		// proof that e = i(e)
+		"e = i(e)",
+		"e = *(e, i(e))"
 	}
 }),
 proof_strs)

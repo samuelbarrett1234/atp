@@ -319,6 +319,11 @@ std::list<SyntaxNodePtr> substitute_tree(SyntaxNodePtr node,
 				std::back_inserter(sublist),
 				[](size_t id)
 				{ return std::make_shared<FreeSyntaxNode>(id); });
+
+			// this is to ensure that we can actually return
+			// something (we must be able to replace this un-subbed
+			// free variable with something, after all).
+			ATP_LOGIC_ASSERT(!sublist.empty());
 		}
 		// else this free variable has already been covered
 	}

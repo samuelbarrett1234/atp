@@ -279,25 +279,31 @@ BOOST_AUTO_TEST_CASE(test_equivalent_invariant_to_reflection)
 }
 
 
-BOOST_DATA_TEST_CASE(test_get_substitutions,
+BOOST_DATA_TEST_CASE(test_get_successors,
 	boost::unit_test::data::make({
 		"*(x, x) = *( i(x), i(i(x)) )",
 		"x = *(e, *(x, e))",
 		"i(x) = e",
 		"*(i(x), e) = x",
-		"x = *(x, i(x))" }) ^
+		"x = *(x, i(x))",
+		"e = *(e, i(e))",
+		"e = i(e)" }) ^
 	boost::unit_test::data::make({
 		"*(x, i(x)) = e",
 		"*(x, *(y, z)) = *(*(x, y), z)",
 		"x = x",
 		"*(x, e) = x",
-		"x = *(x, e)" }) ^
+		"x = *(x, e)",
+		"x = *(e, x)",
+		"x = *(e, x)" }) ^
 	boost::unit_test::data::make({
 		"*(x, x) = e",
 		"x = *(*(e, x), e)",
 		"e = i(x)",
 		"i(x) = x",
-		"x = *(x, *(i(x), e))" }),
+		"x = *(x, *(i(x), e))",
+		"e = i(e)",
+		"e = *(e, i(e))" }),
 	subst_candidate, subst_rule, a_subst_result)
 {
 	// the statement to try substituting:

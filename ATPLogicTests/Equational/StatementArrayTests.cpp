@@ -215,6 +215,32 @@ BOOST_AUTO_TEST_CASE(concat_test)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_slice_iterator)
+{
+	// 5 statements
+	s << "x = x \n i(x) = i(x) \n i(i(x)) = i(i(x)) \n";
+	s << "i(i(i(x))) = i(i(i(x))) \n i(i(i(i(x)))) = i(i(i(i(x))))";
+
+	auto p_arr = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, ker);
+
+	auto stmtarr = dynamic_cast<const StatementArray&>(
+		*p_arr.get());
+
+	auto _slice_1 = stmtarr.slice(1, 4, 2);
+
+	auto slice_1 = dynamic_cast<const StatementArray&>(
+		*_slice_1.get());
+
+	BOOST_TEST(std::distance(slice_1.begin(),
+		slice_1.end()) == slice_1.size());
+	BOOST_TEST(slice_1.size() == 2);
+
+	BOOST_TEST((*slice_1.begin()).to_str() !=
+		(*stmtarr.begin()).to_str());
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();  // StatementArrayTests
 BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
 

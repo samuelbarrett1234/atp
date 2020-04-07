@@ -252,7 +252,7 @@ public:
 	}
 	const Statement& my_at(size_t i) const
 	{
-		return m_array->at(i);
+		return m_array->at(m_start + i * m_step);
 	}
 	inline iterator begin() const
 	{

@@ -65,7 +65,9 @@ BOOST_FIXTURE_TEST_SUITE(SemanticsTests, SemanticsTestsFixture,
 	*boost::unit_test_framework::depends_on(
 		"EquationalTests/SyntaxTreeFoldTests")
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/StatementTests"));
+		"EquationalTests/StatementTests")
+	* boost::unit_test_framework::depends_on(
+		"EquationalTests/SemanticsHelperTests"));
 
 
 BOOST_DATA_TEST_CASE(test_true_by_reflexivity_works_on_examples,

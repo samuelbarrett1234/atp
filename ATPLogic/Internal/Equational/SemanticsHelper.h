@@ -35,7 +35,7 @@ namespace semantics
 // This structure holds lots of information for some of the functions
 // below (since so much information is required, and caching a lot of
 // it is important for performance).
-struct SubstitutionInfo
+struct ATP_LOGIC_API SubstitutionInfo
 {
 	SubstitutionInfo(const KnowledgeKernel& kernel,
 		const std::vector<Statement>& rules,

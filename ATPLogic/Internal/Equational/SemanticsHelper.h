@@ -77,6 +77,9 @@ ATP_LOGIC_API std::list<SyntaxNodePtr> immediate_applications(
 /// substitution would introduce new free variables, as we would then
 /// need to patch those up with previously existing free variables.
 /// </summary>
+/// <param name="node">The node to substitute into (typically this
+/// is the other side of the rule that was matched; see this
+/// function's usage in `immediate_applications`.</param>
 ATP_LOGIC_API std::list<SyntaxNodePtr> substitute_tree(
 	SyntaxNodePtr node,
 	const SubstitutionInfo& sub_info,

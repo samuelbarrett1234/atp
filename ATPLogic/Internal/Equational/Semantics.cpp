@@ -134,17 +134,8 @@ StatementArray get_successors(const Statement& stmt,
 	typedef std::pair<SyntaxNodePtr, std::list<SyntaxNodePtr>>
 		SubResults;
 
-	auto rule_exprs = get_statement_sides(rules);
-
-	// compute the free variable IDs used in each rule
-	auto rule_ids = std::vector<std::set<size_t>>();
-	rule_ids.reserve(rules.size());
-	std::transform(rules.begin(), rules.end(),
-		std::back_inserter(rule_ids),
-		boost::bind(&Statement::free_var_ids, _1));
-
-	// get free var ids of `stmt`
-	const auto stmt_ids = stmt.free_var_ids();
+	SubstitutionInfo sub_info(stmt.kernel(), rules,
+		stmt.free_var_ids());
 
 	auto eq_constructor = [](const SubResults& lhs,
 		const SubResults& rhs) -> SubResults
@@ -169,27 +160,25 @@ StatementArray get_successors(const Statement& stmt,
 		return std::make_pair(me, sub_results);
 	};
 
-	auto free_constructor = [&rule_exprs, &stmt_ids, &rule_ids]
+	auto free_constructor = [&sub_info]
 		(size_t id) -> SubResults
 	{
 		auto me = std::make_shared<FreeSyntaxNode>(id);
 
 		return std::make_pair(me,
-			immediate_applications(me, rule_exprs,
-			stmt_ids, rule_ids));
+			immediate_applications(me, sub_info));
 	};
 
-	auto const_constructor = [&rule_exprs, &stmt_ids, &rule_ids]
+	auto const_constructor = [&sub_info]
 		(size_t id) -> SubResults
 	{
 		auto me = std::make_shared<ConstantSyntaxNode>(id);
 
 		return std::make_pair(me,
-			immediate_applications(me, rule_exprs,
-				stmt_ids, rule_ids));
+			immediate_applications(me, sub_info));
 	};
 
-	auto func_constructor = [&rule_exprs, &stmt_ids, &rule_ids]
+	auto func_constructor = [&sub_info]
 		(size_t id, std::list<SubResults>::iterator begin,
 		std::list<SubResults>::iterator end) -> SubResults
 	{
@@ -205,7 +194,7 @@ StatementArray get_successors(const Statement& stmt,
 			unmodified_children.begin(), unmodified_children.end());
 
 		auto sub_results = immediate_applications(me,
-			rule_exprs, stmt_ids, rule_ids);
+			sub_info);
 
 		for (auto child_iter = begin; child_iter != end;
 			++child_iter)

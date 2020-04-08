@@ -218,6 +218,19 @@ bool KnowledgeKernel::is_equivalent_to_a_rule(
 }
 
 
+std::vector<size_t> KnowledgeKernel::constant_symbol_ids() const
+{
+	std::vector<size_t> result;
+	result.reserve(m_id_to_arity.size());  // overestimate
+	for (auto id_and_arity : m_id_to_arity)
+	{
+		if (id_and_arity.second == 0)
+			result.push_back(id_and_arity.first);
+	}
+	return result;
+}
+
+
 }  // namespace equational
 }  // namespace logic
 }  // namespace atp

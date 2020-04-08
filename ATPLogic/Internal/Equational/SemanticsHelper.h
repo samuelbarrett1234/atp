@@ -1,6 +1,16 @@
 #pragma once
 
 
+/*
+
+SemanticsHelper.h
+
+Provides several helper functions for the code in Semantics.h /
+Semantics.cpp
+
+*/
+
+
 #include <set>
 #include <map>
 #include <list>
@@ -22,43 +32,43 @@ namespace semantics
 {
 
 
-// returns true iff the two given syntax trees are identical
-ATP_LOGIC_API bool syntax_tree_identical(SyntaxNodePtr a, SyntaxNodePtr b);
+// This structure holds lots of information for some of the functions
+// below (since so much information is required, and caching a lot of
+// it is important for performance).
+struct SubstitutionInfo
+{
+	SubstitutionInfo(const KnowledgeKernel& kernel,
+		const std::vector<Statement>& rules,
+		const std::set<size_t>& stmt_free_var_ids);
+
+	// The knowledge kernel from which we obtained the rules etc
+	const KnowledgeKernel& kernel;
+
+	// A list of (LHS, RHS) pairs for the rules (they're more useful
+	// when split into LHS and RHS)
+	std::vector<std::pair<SyntaxNodePtr, SyntaxNodePtr>> rule_exprs;
+
+	// All of the free variable IDs present in the statement for
+	// which `node` is a subtree of (it is important that you get
+	// all, not just the ones present in the subtree rooted at
+	// `node`.
+	std::set<size_t> free_var_ids;
+
+	// All free variables present in each rule
+	std::vector<std::set<size_t>> rule_free_vars;
+
+	// The symbol ID of every user-defined constant
+	std::vector<size_t> const_symbol_ids;
+};
 
 
-/// <summary>
-/// Try to apply each rule at the subtree rooted at the given node
-/// and return the results
-/// </summary>
-/// <param name="node">The root of the subtree for which we should
-/// try to make the rule application.</param>
-/// <param name="rule_exprs">An array of (LHS, RHS) pairs for each
-/// rule to apply.</param>
-/// <param name="free_var_ids">The set of all free variable IDs
-/// present in the statement from which `node` was obtained (all
-/// statements returned from this function will only be able to
-/// contain free variables from this set, so if you don't provide
-/// them all it may be making some successors unreachable.)</param>
-/// <param name="rule_free_vars">For each rule, give the set of
-/// free variable IDs in it.</param>
+// Try to apply each rule at the subtree rooted at the given node
+// and return the results
 ATP_LOGIC_API std::list<SyntaxNodePtr> immediate_applications(
-	SyntaxNodePtr node, const std::vector<std::pair<SyntaxNodePtr,
-	SyntaxNodePtr>>& rule_exprs,
-	const std::set<size_t>& free_var_ids,
-	const std::vector<std::set<size_t>>& rule_free_vars);
+	SyntaxNodePtr node,
+	const SubstitutionInfo& sub_info);
 
 
-// try to obtain a free variable mapping which makes the premise
-// expression be identical to the conclusion expression (note
-// the word "expression" here is meant to mean "without an = sign").
-ATP_LOGIC_API boost::optional<std::map<size_t, SyntaxNodePtr>>
-	try_build_map(SyntaxNodePtr expr_premise,
-		SyntaxNodePtr expr_concl);
-
-
-// a simple function for applying a substitution to a given tree
-// (there may be many ways to substitute a tree, if the substitution
-// introduces new free variables!)
 /// <summary>
 /// Apply a substitution to the subtree rooted at the given node
 /// (Of course there may be many ways to do this, so we return a
@@ -67,23 +77,24 @@ ATP_LOGIC_API boost::optional<std::map<size_t, SyntaxNodePtr>>
 /// substitution would introduce new free variables, as we would then
 /// need to patch those up with previously existing free variables.
 /// </summary>
-/// <param name="node">The root of the subtree for which we should
-/// try to make the substitution.</param>
-/// <param name="free_var_map">The desired free variable substitution
-/// mapping</param>
-/// <param name="free_var_ids">The set of all free variable IDs
-/// present in the statement from which `node` was obtained (all
-/// statements returned from this function will only be able to
-/// contain free variables from this set, so if you don't provide
-/// them all it may be making some successors unreachable.)</param>
-/// <param name="rule_free_ids">The free variable IDs which are
-/// present in EITHER SIDE of the formula (of course this will be a
-/// superset of the IDs being mapped in `free_var_map`).</param>
 ATP_LOGIC_API std::list<SyntaxNodePtr> substitute_tree(
 	SyntaxNodePtr node,
+	const SubstitutionInfo& sub_info,
 	const std::map<size_t, SyntaxNodePtr>& free_var_map,
-	const std::set<size_t>& free_var_ids,
-	const std::set<size_t>& rule_free_ids);
+	size_t rule_idx);
+
+
+// try to obtain a free variable mapping which makes the premise
+// expression be identical to the conclusion expression (note
+// the word "expression" here is meant to mean "without an = sign").
+ATP_LOGIC_API boost::optional<std::map<size_t, SyntaxNodePtr>>
+try_build_map(SyntaxNodePtr expr_premise,
+	SyntaxNodePtr expr_concl);
+
+
+// returns true iff the two given syntax trees are identical
+ATP_LOGIC_API bool syntax_tree_identical(SyntaxNodePtr a,
+	SyntaxNodePtr b);
 
 
 // get a list containing the LHS and RHS of each statement given as

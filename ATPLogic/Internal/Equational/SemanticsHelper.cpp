@@ -1,8 +1,10 @@
 #include "SemanticsHelper.h"
 #include "SyntaxTreeFold.h"
 #include "SyntaxTreeTraversal.h"
+#include "KnowledgeKernel.h"
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/iterator/transform_iterator.hpp>
+#include <boost/range/adaptor/indexed.hpp>
 #include <boost/range/combine.hpp>
 #include <boost/bimap.hpp>
 #include <boost/phoenix.hpp>
@@ -19,128 +21,34 @@ namespace semantics
 {
 
 
-bool syntax_tree_identical(SyntaxNodePtr a, SyntaxNodePtr b)
+SubstitutionInfo::SubstitutionInfo(const KnowledgeKernel& kernel,
+	const std::vector<Statement>& rules,
+	const std::set<size_t>& stmt_free_var_ids) :
+	kernel(kernel), free_var_ids(stmt_free_var_ids),
+	rule_exprs(get_statement_sides(rules)),
+	const_symbol_ids(kernel.constant_symbol_ids())
 {
-	// don't need a fold for this (although we could do it with
-	// one; however that would involve writing a fold-pairs function
-	// for syntax trees.)
-
-	std::list<std::pair<SyntaxNodePtr, SyntaxNodePtr>> stack;
-
-	stack.push_back(std::make_pair(a, b));
-
-	while (!stack.empty())
-	{
-		auto pair = stack.back();
-		stack.pop_back();
-
-		if (pair.first->get_type() != pair.second->get_type())
-			return false;
-
-		switch (pair.first->get_type())
-		{
-		case SyntaxNodeType::EQ:
-		{
-			auto p_first = dynamic_cast<EqSyntaxNode*>(
-				pair.first.get());
-			auto p_second = dynamic_cast<EqSyntaxNode*>(
-				pair.second.get());
-
-			ATP_LOGIC_ASSERT(p_first != nullptr);
-			ATP_LOGIC_ASSERT(p_second != nullptr);
-
-			stack.emplace_back(std::make_pair(
-				p_first->left(), p_second->left()));
-			stack.emplace_back(std::make_pair(
-				p_first->right(), p_second->right()));
-		}
-		break;
-		case SyntaxNodeType::FREE:
-		{
-			auto p_first = dynamic_cast<FreeSyntaxNode*>(
-				pair.first.get());
-			auto p_second = dynamic_cast<FreeSyntaxNode*>(
-				pair.second.get());
-
-			ATP_LOGIC_ASSERT(p_first != nullptr);
-			ATP_LOGIC_ASSERT(p_second != nullptr);
-
-			if (p_first->get_free_id() != p_second->get_free_id())
-				return false;
-		}
-		break;
-		case SyntaxNodeType::CONSTANT:
-		{
-			auto p_first = dynamic_cast<ConstantSyntaxNode*>(
-				pair.first.get());
-			auto p_second = dynamic_cast<ConstantSyntaxNode*>(
-				pair.second.get());
-
-			ATP_LOGIC_ASSERT(p_first != nullptr);
-			ATP_LOGIC_ASSERT(p_second != nullptr);
-
-			if (p_first->get_symbol_id() !=
-				p_second->get_symbol_id())
-				return false;
-		}
-		break;
-		case SyntaxNodeType::FUNC:
-		{
-			auto p_first = dynamic_cast<FuncSyntaxNode*>(
-				pair.first.get());
-			auto p_second = dynamic_cast<FuncSyntaxNode*>(
-				pair.second.get());
-
-			ATP_LOGIC_ASSERT(p_first != nullptr);
-			ATP_LOGIC_ASSERT(p_second != nullptr);
-
-			if (p_first->get_symbol_id() !=
-				p_second->get_symbol_id())
-				return false;
-
-			// these statements have been type-checked, thus if two
-			// functions agree on their symbols, they must also agree
-			// on their arity!
-			ATP_LOGIC_ASSERT(p_first->get_arity() ==
-				p_second->get_arity());
-
-			// add all pairs of children to the stack
-			std::transform(boost::make_zip_iterator(
-				boost::make_tuple(p_first->begin(),
-					p_second->begin())),
-
-				boost::make_zip_iterator(
-					boost::make_tuple(p_first->end(),
-						p_second->end())),
-
-				std::back_inserter(stack),
-
-				[](boost::tuple<SyntaxNodePtr, SyntaxNodePtr> tup)
-				{ return std::make_pair(tup.get<0>(),
-					tup.get<1>()); });
-		}
-		break;
-		}
-	}
-
-	return true;
+	// compute the free variable IDs used in each rule
+	rule_free_vars.reserve(rules.size());
+	std::transform(rules.begin(), rules.end(),
+		std::back_inserter(rule_free_vars),
+		boost::bind(&Statement::free_var_ids, _1));
 }
 
 
-std::list<SyntaxNodePtr> immediate_applications(SyntaxNodePtr node,
-	const std::vector<std::pair<SyntaxNodePtr,
-	SyntaxNodePtr>>& rule_exprs,
-	const std::set<size_t>& free_var_ids,
-	const std::vector<std::set<size_t>>& rule_free_vars)
+std::list<SyntaxNodePtr> immediate_applications(
+	SyntaxNodePtr node,
+	const SubstitutionInfo& sub_info)
 {
-	ATP_LOGIC_PRECOND(node->get_type() != SyntaxNodeType::EQ);
+	ATP_LOGIC_PRECOND(node->get_type()
+		!= SyntaxNodeType::EQ);
 
 	std::list<SyntaxNodePtr> results;
-	for (auto rule_pair_and_ids : boost::range::combine(rule_exprs,
-		rule_free_vars))
+	for (auto rule_pair_and_idx : 
+		sub_info.rule_exprs | boost::adaptors::indexed())
 	{
-		const auto& rule_pair = rule_pair_and_ids.get<0>();
-		const auto& rule_free_ids = rule_pair_and_ids.get<1>();
+		const auto& rule_pair = rule_pair_and_idx.value();
+		const auto idx = rule_pair_and_idx.index();
 
 		auto lhs_match = try_build_map(rule_pair.first,
 			node);
@@ -150,20 +58,186 @@ std::list<SyntaxNodePtr> immediate_applications(SyntaxNodePtr node,
 		if (lhs_match)
 		{
 			results.splice(results.end(),
-				substitute_tree(rule_pair.second,
-					lhs_match.get(), free_var_ids,
-					rule_free_ids));
+				substitute_tree(rule_pair.second, sub_info,
+					lhs_match.get(), idx));
 		}
 		if (rhs_match)
 		{
 			results.splice(results.end(),
-				substitute_tree(rule_pair.first,
-					rhs_match.get(), free_var_ids,
-					rule_free_ids));
+				substitute_tree(rule_pair.first, sub_info,
+					rhs_match.get(), idx));
 		}
 	}
 
 	return results;
+}
+
+
+std::list<SyntaxNodePtr> substitute_tree(
+	SyntaxNodePtr node,
+	const SubstitutionInfo& sub_info,
+	const std::map<size_t, SyntaxNodePtr>& free_var_map,
+	size_t rule_idx)
+{
+	// rebuild the free variable mapping but include what to do for
+	// all the non-mapped free variables
+	std::map<size_t, std::list<SyntaxNodePtr>> all_var_map;
+	for (const auto& sub : free_var_map)
+		all_var_map[sub.first] = { sub.second };
+	for (const auto id : sub_info.rule_free_vars[rule_idx])
+	{
+		auto map_iter = all_var_map.find(id);
+		if (map_iter == all_var_map.end())
+		{
+			// if a new free variable is being introduced in this
+			// substitution, which doesn't have any value it is
+			// being substituted for, then we should just substitute
+			// it for ANY free variable which was already existing
+			// in `node`:
+			auto& sublist = all_var_map[id];
+
+			// create free vars
+			std::transform(sub_info.free_var_ids.begin(),
+				sub_info.free_var_ids.end(),
+				std::back_inserter(sublist),
+				[](size_t id)
+				{ return std::make_shared<FreeSyntaxNode>(id); });
+
+			// create constants
+			std::transform(sub_info.const_symbol_ids.begin(),
+				sub_info.const_symbol_ids.end(),
+				std::back_inserter(sublist),
+				[](size_t id)
+				{ return std::make_shared<ConstantSyntaxNode>(id); });
+
+			// this is to ensure that we can actually return
+			// something (we must be able to replace this un-subbed
+			// free variable with something, after all).
+			ATP_LOGIC_ASSERT(!sublist.empty());
+		}
+		// else this free variable has already been covered
+	}
+
+	typedef std::list<SyntaxNodePtr> ResultT;
+
+	auto eq_constructor = [](ResultT lhs, ResultT rhs)
+		-> ResultT
+	{
+		ResultT result;
+
+		// cartesian product
+		for (auto l : lhs)
+			for (auto r : rhs)
+				result.emplace_back(std::make_shared<EqSyntaxNode>(
+					l, r));
+		return result;
+	};
+
+	auto free_constructor = [&all_var_map](size_t id)
+		-> ResultT
+	{
+		auto iter = all_var_map.find(id);
+
+		// we should've assigned every free variable a sub:
+		ATP_LOGIC_ASSERT(iter != all_var_map.end());
+
+		return iter->second;
+	};
+
+	auto const_constructor = [](size_t id)
+		-> ResultT
+	{
+		return { std::make_shared<ConstantSyntaxNode>(id) };
+	};
+
+	// unfortunately this constructor is really long because we have
+	// to take a cartesian product of the list of lists given to us.
+	auto func_constructor = [](size_t id,
+		std::list<ResultT>::iterator begin,
+		std::list<ResultT>::iterator end)
+		-> ResultT
+	{
+		// none of them should be empty
+		ATP_LOGIC_ASSERT(std::none_of(begin, end,
+			boost::bind(&ResultT::empty, _1)));
+
+		// need to take the cartesian product of the elements
+		
+		// stores the tuple (current-iterator, begin-iterator,
+		// end-iterator)
+		std::list<boost::tuple<ResultT::iterator,
+			const ResultT::iterator,
+			const ResultT::iterator>> iter_begin_end;
+		ResultT result;
+
+		for (auto iter = begin; iter != end; ++iter)
+		{
+			// we start at the begin, hence the first element
+			// is always begin()
+			iter_begin_end.push_back(boost::make_tuple(
+				iter->begin(), iter->begin(), iter->end()));
+		}
+
+		while (true)
+		{
+			// get the next element which is not an end iterator,
+			// and in the process, reset any elements which are
+			// already end iterators
+			// if they are all end iterators then we are done
+			
+			// none of these should point to and end-iterator
+			ATP_LOGIC_ASSERT(std::none_of(iter_begin_end.begin(),
+				iter_begin_end.end(), [](auto tup)
+				{ return tup.get<0>() == tup.get<2>(); }));
+
+			// now add the result under the current list of
+			// iterators:
+
+			ResultT current_child_list;
+			for (auto iter : iter_begin_end)
+				current_child_list.push_back(*iter.get<0>());
+
+			// and finally construct the function:
+			result.emplace_back(
+				std::make_shared<FuncSyntaxNode>(id,
+				current_child_list.begin(),
+				current_child_list.end()));
+
+
+			// increment front iterator:
+			++iter_begin_end.front().get<0>();
+
+			auto ibe_iter = iter_begin_end.begin();
+			while (ibe_iter != iter_begin_end.end() &&
+				ibe_iter->get<0>() == ibe_iter->get<2>())
+			{
+				// reset back to begin
+				ibe_iter->get<0>() = ibe_iter->get<1>();
+
+				// move to next digit
+				++ibe_iter;
+
+				// try to carry forward the bit, if we've not already
+				// reached the end!
+				if (ibe_iter == iter_begin_end.end())
+				{
+					// we have exhausted all possibilities and now we
+					// are done!
+					return result;
+				}
+				else
+				{
+					// carry forward:
+					++ibe_iter->get<0>();
+				}
+			}
+
+		}
+	};
+
+	return fold_syntax_tree<ResultT>(eq_constructor,
+		free_constructor, const_constructor, func_constructor,
+		node);
 }
 
 
@@ -293,160 +367,111 @@ try_build_map(SyntaxNodePtr expr_premise, SyntaxNodePtr expr_concl)
 }
 
 
-std::list<SyntaxNodePtr> substitute_tree(SyntaxNodePtr node,
-	const std::map<size_t, SyntaxNodePtr>& free_var_map,
-	const std::set<size_t>& free_var_ids,
-	const std::set<size_t>& rule_free_ids)
+bool syntax_tree_identical(SyntaxNodePtr a, SyntaxNodePtr b)
 {
-	// rebuild the free variable mapping but include what to do for
-	// all the non-mapped free variables
-	std::map<size_t, std::list<SyntaxNodePtr>> all_var_map;
-	for (const auto& sub : free_var_map)
-		all_var_map[sub.first] = { sub.second };
-	for (const auto id : rule_free_ids)
-	{
-		auto map_iter = all_var_map.find(id);
-		if (map_iter == all_var_map.end())
-		{
-			// if a new free variable is being introduced in this
-			// substitution, which doesn't have any value it is
-			// being substituted for, then we should just substitute
-			// it for ANY free variable which was already existing
-			// in `node`:
-			auto& sublist = all_var_map[id];
-			std::transform(free_var_ids.begin(),
-				free_var_ids.end(),
-				std::back_inserter(sublist),
-				[](size_t id)
-				{ return std::make_shared<FreeSyntaxNode>(id); });
+	// don't need a fold for this (although we could do it with
+	// one; however that would involve writing a fold-pairs function
+	// for syntax trees.)
 
-			// this is to ensure that we can actually return
-			// something (we must be able to replace this un-subbed
-			// free variable with something, after all).
-			ATP_LOGIC_ASSERT(!sublist.empty());
+	std::list<std::pair<SyntaxNodePtr, SyntaxNodePtr>> stack;
+
+	stack.push_back(std::make_pair(a, b));
+
+	while (!stack.empty())
+	{
+		auto pair = stack.back();
+		stack.pop_back();
+
+		if (pair.first->get_type() != pair.second->get_type())
+			return false;
+
+		switch (pair.first->get_type())
+		{
+		case SyntaxNodeType::EQ:
+		{
+			auto p_first = dynamic_cast<EqSyntaxNode*>(
+				pair.first.get());
+			auto p_second = dynamic_cast<EqSyntaxNode*>(
+				pair.second.get());
+
+			ATP_LOGIC_ASSERT(p_first != nullptr);
+			ATP_LOGIC_ASSERT(p_second != nullptr);
+
+			stack.emplace_back(std::make_pair(
+				p_first->left(), p_second->left()));
+			stack.emplace_back(std::make_pair(
+				p_first->right(), p_second->right()));
 		}
-		// else this free variable has already been covered
+		break;
+		case SyntaxNodeType::FREE:
+		{
+			auto p_first = dynamic_cast<FreeSyntaxNode*>(
+				pair.first.get());
+			auto p_second = dynamic_cast<FreeSyntaxNode*>(
+				pair.second.get());
+
+			ATP_LOGIC_ASSERT(p_first != nullptr);
+			ATP_LOGIC_ASSERT(p_second != nullptr);
+
+			if (p_first->get_free_id() != p_second->get_free_id())
+				return false;
+		}
+		break;
+		case SyntaxNodeType::CONSTANT:
+		{
+			auto p_first = dynamic_cast<ConstantSyntaxNode*>(
+				pair.first.get());
+			auto p_second = dynamic_cast<ConstantSyntaxNode*>(
+				pair.second.get());
+
+			ATP_LOGIC_ASSERT(p_first != nullptr);
+			ATP_LOGIC_ASSERT(p_second != nullptr);
+
+			if (p_first->get_symbol_id() !=
+				p_second->get_symbol_id())
+				return false;
+		}
+		break;
+		case SyntaxNodeType::FUNC:
+		{
+			auto p_first = dynamic_cast<FuncSyntaxNode*>(
+				pair.first.get());
+			auto p_second = dynamic_cast<FuncSyntaxNode*>(
+				pair.second.get());
+
+			ATP_LOGIC_ASSERT(p_first != nullptr);
+			ATP_LOGIC_ASSERT(p_second != nullptr);
+
+			if (p_first->get_symbol_id() !=
+				p_second->get_symbol_id())
+				return false;
+
+			// these statements have been type-checked, thus if two
+			// functions agree on their symbols, they must also agree
+			// on their arity!
+			ATP_LOGIC_ASSERT(p_first->get_arity() ==
+				p_second->get_arity());
+
+			// add all pairs of children to the stack
+			std::transform(boost::make_zip_iterator(
+				boost::make_tuple(p_first->begin(),
+					p_second->begin())),
+
+				boost::make_zip_iterator(
+					boost::make_tuple(p_first->end(),
+						p_second->end())),
+
+				std::back_inserter(stack),
+
+				[](boost::tuple<SyntaxNodePtr, SyntaxNodePtr> tup)
+				{ return std::make_pair(tup.get<0>(),
+					tup.get<1>()); });
+		}
+		break;
+		}
 	}
 
-	typedef std::list<SyntaxNodePtr> ResultT;
-
-	auto eq_constructor = [](ResultT lhs, ResultT rhs)
-		-> ResultT
-	{
-		ResultT result;
-
-		// cartesian product
-		for (auto l : lhs)
-			for (auto r : rhs)
-				result.emplace_back(std::make_shared<EqSyntaxNode>(
-					l, r));
-		return result;
-	};
-
-	auto free_constructor = [&all_var_map](size_t id)
-		-> ResultT
-	{
-		auto iter = all_var_map.find(id);
-
-		// we should've assigned every free variable a sub:
-		ATP_LOGIC_ASSERT(iter != all_var_map.end());
-
-		return iter->second;
-	};
-
-	auto const_constructor = [](size_t id)
-		-> ResultT
-	{
-		return { std::make_shared<ConstantSyntaxNode>(id) };
-	};
-
-	// unfortunately this constructor is really long because we have
-	// to take a cartesian product of the list of lists given to us.
-	auto func_constructor = [](size_t id,
-		std::list<ResultT>::iterator begin,
-		std::list<ResultT>::iterator end)
-		-> ResultT
-	{
-		// none of them should be empty
-		ATP_LOGIC_ASSERT(std::none_of(begin, end,
-			boost::bind(&ResultT::empty, _1)));
-
-		// need to take the cartesian product of the elements
-		
-		// stores the tuple (current-iterator, begin-iterator,
-		// end-iterator)
-		std::list<boost::tuple<ResultT::iterator,
-			const ResultT::iterator,
-			const ResultT::iterator>> iter_begin_end;
-		ResultT result;
-
-		for (auto iter = begin; iter != end; ++iter)
-		{
-			// we start at the begin, hence the first element
-			// is always begin()
-			iter_begin_end.push_back(boost::make_tuple(
-				iter->begin(), iter->begin(), iter->end()));
-		}
-
-		while (true)
-		{
-			// get the next element which is not an end iterator,
-			// and in the process, reset any elements which are
-			// already end iterators
-			// if they are all end iterators then we are done
-			
-			// none of these should point to and end-iterator
-			ATP_LOGIC_ASSERT(std::none_of(iter_begin_end.begin(),
-				iter_begin_end.end(), [](auto tup)
-				{ return tup.get<0>() == tup.get<2>(); }));
-
-			// now add the result under the current list of
-			// iterators:
-
-			ResultT current_child_list;
-			for (auto iter : iter_begin_end)
-				current_child_list.push_back(*iter.get<0>());
-
-			// and finally construct the function:
-			result.emplace_back(
-				std::make_shared<FuncSyntaxNode>(id,
-				current_child_list.begin(),
-				current_child_list.end()));
-
-
-			// increment front iterator:
-			++iter_begin_end.front().get<0>();
-
-			auto ibe_iter = iter_begin_end.begin();
-			while (ibe_iter != iter_begin_end.end() &&
-				ibe_iter->get<0>() == ibe_iter->get<2>())
-			{
-				// reset back to begin
-				ibe_iter->get<0>() = ibe_iter->get<1>();
-
-				// move to next digit
-				++ibe_iter;
-
-				// try to carry forward the bit, if we've not already
-				// reached the end!
-				if (ibe_iter == iter_begin_end.end())
-				{
-					// we have exhausted all possibilities and now we
-					// are done!
-					return result;
-				}
-				else
-				{
-					// carry forward:
-					++ibe_iter->get<0>();
-				}
-			}
-
-		}
-	};
-
-	return fold_syntax_tree<ResultT>(eq_constructor,
-		free_constructor, const_constructor, func_constructor, node);
+	return true;
 }
 
 

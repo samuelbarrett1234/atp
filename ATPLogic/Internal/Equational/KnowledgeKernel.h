@@ -129,12 +129,14 @@ public:
 		return iter.base()->get_right();
 	}
 
+	// return a list of all constant symbol IDs
+	std::vector<size_t> constant_symbol_ids() const;
+
 private:
 	// returns true iff `stmt` is equivalent to one of the given
 	// equality rules, allowing substitutions in the rules
 	bool is_equivalent_to_a_rule(const Statement& stmt) const;
 
-private:
 	// a version of "symbol_id" which doesn't check for
 	// is_defined(str) or anything like that
 	inline size_t _get_id_from_str(std::string str) const

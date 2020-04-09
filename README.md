@@ -2,6 +2,10 @@
 
 An automated theorem prover in C++, geared towards proving mathematical statements, but without limiting itself to human-readable proofs.
 
+## Documentation
+
+Documentation pages can be found at https://samuelbarrett1234.github.io/atp/
+
 ## Navigation
 
 This repository has four projects:

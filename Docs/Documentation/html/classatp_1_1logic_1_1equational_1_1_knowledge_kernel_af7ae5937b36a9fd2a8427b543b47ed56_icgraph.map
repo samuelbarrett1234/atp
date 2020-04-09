@@ -1,8 +1,10 @@
 <map id="atp::logic::equational::KnowledgeKernel::is_defined" name="atp::logic::equational::KnowledgeKernel::is_defined">
-<area shape="rect" id="node1" title=" " alt="" coords="739,20,887,76"/>
-<area shape="rect" id="node2" href="$_language_tests_8cpp.html#a8613a27b01ffcb4a199d800a865c0c17" title=" " alt="" coords="500,5,691,32"/>
-<area shape="rect" id="node3" href="$namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title=" " alt="" coords="524,57,667,98"/>
-<area shape="rect" id="node4" href="$_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="259,35,449,61"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title=" " alt="" coords="256,86,452,127"/>
-<area shape="rect" id="node6" href="$struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,79,208,135"/>
+<area shape="rect" id="node1" title=" " alt="" coords="744,41,892,97"/>
+<area shape="rect" id="node2" href="$_language_tests_8cpp.html#a8613a27b01ffcb4a199d800a865c0c17" title=" " alt="" coords="505,27,696,53"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title="Convert a parse tree into a syntax tree." alt="" coords="529,78,672,119"/>
+<area shape="rect" id="node4" href="$_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="261,5,452,32"/>
+<area shape="rect" id="node5" href="$_semantics_helper_tests_8cpp.html#ad59a5db95d75209c7d2b8c6efe611f09" title=" " alt="" coords="261,56,452,83"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="259,107,455,149"/>
+<area shape="rect" id="node8" href="$struct_semantics_helper_tests_fixture.html#a5748077825546fdbb31d0ecf060df206" title=" " alt="" coords="256,173,457,214"/>
+<area shape="rect" id="node7" href="$struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,100,208,156"/>
 </map>

@@ -82,7 +82,7 @@ Inheritance diagram for atp::logic::equational::KnowledgeKernel:</div>
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel__inherit__graph.png" border="0" usemap="#atp_1_1logic_1_1equational_1_1_knowledge_kernel_inherit__map" alt="Inheritance graph"/></div>
 <map name="atp_1_1logic_1_1equational_1_1_knowledge_kernel_inherit__map" id="atp_1_1logic_1_1equational_1_1_knowledge_kernel_inherit__map">
 <area shape="rect" title=" " alt="" coords="27,80,170,121"/>
-<area shape="rect" href="classatp_1_1logic_1_1_i_knowledge_kernel.html" title="Object for logical inference on statement arrays. In the comments below, &quot;one step&quot; refers to a singl..." alt="" coords="5,5,192,32"/>
+<area shape="rect" href="classatp_1_1logic_1_1_i_knowledge_kernel.html" title="Represents a collection of definitions and axioms, associated with a particular ILanguage,..." alt="" coords="5,5,192,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -91,21 +91,26 @@ Collaboration diagram for atp::logic::equational::KnowledgeKernel:</div>
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel__coll__graph.png" border="0" usemap="#atp_1_1logic_1_1equational_1_1_knowledge_kernel_coll__map" alt="Collaboration graph"/></div>
 <map name="atp_1_1logic_1_1equational_1_1_knowledge_kernel_coll__map" id="atp_1_1logic_1_1equational_1_1_knowledge_kernel_coll__map">
 <area shape="rect" title=" " alt="" coords="27,80,170,121"/>
-<area shape="rect" href="classatp_1_1logic_1_1_i_knowledge_kernel.html" title="Object for logical inference on statement arrays. In the comments below, &quot;one step&quot; refers to a singl..." alt="" coords="5,5,192,32"/>
+<area shape="rect" href="classatp_1_1logic_1_1_i_knowledge_kernel.html" title="Represents a collection of definitions and axioms, associated with a particular ILanguage,..." alt="" coords="5,5,192,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4c122c0c52a6dc8b77975749d2710535"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a4c122c0c52a6dc8b77975749d2710535">get_integrity_code</a> () const override</td></tr>
+<tr class="memdesc:a4c122c0c52a6dc8b77975749d2710535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Characterises the information provided to this knowledge kernel in a single integer code.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a4c122c0c52a6dc8b77975749d2710535">More...</a><br /></td></tr>
 <tr class="separator:a4c122c0c52a6dc8b77975749d2710535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a093f40d4912048fb60afec984de0cfd4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4">succs</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts) const override</td></tr>
+<tr class="memdesc:a093f40d4912048fb60afec984de0cfd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the next logical steps of an array of statements.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4">More...</a><br /></td></tr>
 <tr class="separator:a093f40d4912048fb60afec984de0cfd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a560f1112eae424e10182acb1577cb387"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387">valid</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts) const override</td></tr>
+<tr class="memdesc:a560f1112eae424e10182acb1577cb387"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-check the given statements.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387">More...</a><br /></td></tr>
 <tr class="separator:a560f1112eae424e10182acb1577cb387"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a272cdcabd05bc5bc78cb6dc0420b336e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e">follows</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_premise, <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_concl) const override</td></tr>
+<tr class="memdesc:a272cdcabd05bc5bc78cb6dc0420b336e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the conclusions follow in one logical step from the corresponding premises.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e">More...</a><br /></td></tr>
 <tr class="separator:a272cdcabd05bc5bc78cb6dc0420b336e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c6e59a58b672521c15be26ec87e5c3f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0">StmtForm</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0c6e59a58b672521c15be26ec87e5c3f">get_form</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts) const override</td></tr>
+<tr class="memdesc:a0c6e59a58b672521c15be26ec87e5c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine what form each statement is in (trivial or nontrivial, etc.)  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0c6e59a58b672521c15be26ec87e5c3f">More...</a><br /></td></tr>
 <tr class="separator:a0c6e59a58b672521c15be26ec87e5c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a156b634acaff683f7c974ed6fdaea2c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a156b634acaff683f7c974ed6fdaea2c1">define_symbol</a> (std::string name, size_t arity)</td></tr>
 <tr class="separator:a156b634acaff683f7c974ed6fdaea2c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,11 +128,30 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac6039360852cfb5619615af8bf2d2072"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c79856d76a1a635cf421de681daeb14"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a2c79856d76a1a635cf421de681daeb14">symbol_name</a> (size_t id) const</td></tr>
 <tr class="separator:a2c79856d76a1a635cf421de681daeb14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0e952154342825eac94e19b4e4faedc"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae0e952154342825eac94e19b4e4faedc">constant_symbol_ids</a> () const</td></tr>
+<tr class="separator:ae0e952154342825eac94e19b4e4faedc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classatp_1_1logic_1_1_i_knowledge_kernel"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classatp_1_1logic_1_1_i_knowledge_kernel')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">atp::logic::IKnowledgeKernel</a></td></tr>
 <tr class="memitem:a9f3e4e715333bba2b48ff18b232c97ba inherit pub_methods_classatp_1_1logic_1_1_i_knowledge_kernel"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a9f3e4e715333bba2b48ff18b232c97ba">~IKnowledgeKernel</a> ()=default</td></tr>
 <tr class="separator:a9f3e4e715333bba2b48ff18b232c97ba inherit pub_methods_classatp_1_1logic_1_1_i_knowledge_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae0e952154342825eac94e19b4e4faedc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0e952154342825eac94e19b4e4faedc">&#9670;&nbsp;</a></span>constant_symbol_ids()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; size_t &gt; atp::logic::equational::KnowledgeKernel::constant_symbol_ids </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af5e57fcdf5183b77602c249a4560b5ea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af5e57fcdf5183b77602c249a4560b5ea">&#9670;&nbsp;</a></span>define_eq_rules()</h2>
 
@@ -143,13 +167,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd>valid(p_rules)</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>as of yet, there is no way to "undefine" these rules, which is useful for streaming theorems in and out of memory, for example. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_cgraph">
 <area shape="rect" title=" " alt="" coords="5,45,177,101"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="225,53,388,94"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title="Type&#45;check the given statements." alt="" coords="225,53,388,94"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="452,5,600,61"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="436,85,616,141"/>
 </map>
@@ -159,8 +185,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_icgraph">
-<area shape="rect" title=" " alt="" coords="256,5,428,61"/>
+<area shape="rect" title=" " alt="" coords="256,43,428,99"/>
 <area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,5,208,61"/>
+<area shape="rect" href="struct_semantics_helper_tests_fixture.html#a5748077825546fdbb31d0ecf060df206" title=" " alt="" coords="6,86,207,127"/>
 </map>
 </div>
 
@@ -199,19 +226,22 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd>!is_defined(name)</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>if <code>name</code> happens to share a hash code with another already-defined symbol name (which is incredibly unlikely) then it will throw. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a156b634acaff683f7c974ed6fdaea2c1_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a156b634acaff683f7c974ed6fdaea2c1_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a156b634acaff683f7c974ed6fdaea2c1_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a156b634acaff683f7c974ed6fdaea2c1_icgraph">
-<area shape="rect" title=" " alt="" coords="263,209,435,265"/>
+<area shape="rect" title=" " alt="" coords="263,243,435,299"/>
 <area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="9,5,211,61"/>
 <area shape="rect" href="struct_language_tests_fixture.html#a0a581d1aedecd0d8c6665b7c1f1f105c" title=" " alt="" coords="31,86,189,127"/>
 <area shape="rect" href="struct_parse_tree_to_syntax_tree_fixture.html#a7fd840e22d7777134310e1c928f20492" title=" " alt="" coords="5,151,215,193"/>
-<area shape="rect" href="struct_semantics_tests_fixture.html#a9244f3aa92c593e6e8b20b75f34ec15b" title=" " alt="" coords="28,217,192,258"/>
-<area shape="rect" href="struct_statement_array_tests_fixture.html#aa55a2a36d6a2a17805d65454dbcd273b" title=" " alt="" coords="13,282,207,323"/>
-<area shape="rect" href="struct_statement_tests_fixture.html#a56a26f698b8cd8da5c1e79a1c47ceaf7" title=" " alt="" coords="29,347,191,389"/>
-<area shape="rect" href="struct_syntax_tree_fold_tests_fixture.html#a2d86d9a7c5f4d4952c97bf9d2b7ca1d4" title=" " alt="" coords="13,413,207,454"/>
+<area shape="rect" href="struct_semantics_helper_tests_fixture.html#a5748077825546fdbb31d0ecf060df206" title=" " alt="" coords="9,217,211,258"/>
+<area shape="rect" href="struct_semantics_tests_fixture.html#a9244f3aa92c593e6e8b20b75f34ec15b" title=" " alt="" coords="28,282,192,323"/>
+<area shape="rect" href="struct_statement_array_tests_fixture.html#aa55a2a36d6a2a17805d65454dbcd273b" title=" " alt="" coords="13,347,207,389"/>
+<area shape="rect" href="struct_statement_tests_fixture.html#a56a26f698b8cd8da5c1e79a1c47ceaf7" title=" " alt="" coords="29,413,191,454"/>
+<area shape="rect" href="struct_syntax_tree_fold_tests_fixture.html#a2d86d9a7c5f4d4952c97bf9d2b7ca1d4" title=" " alt="" coords="13,478,207,519"/>
 </map>
 </div>
 
@@ -251,14 +281,18 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Check if the conclusions follow in one logical step from the corresponding premises. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>p_premise-&gt;size() == p_concl.size() and valid(p_premise) and valid(p_concl)</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>For each (premise, conclusion) pair, returns true if that conclusion follows from that premise in exactly one step (equivalently, if the conclusion is a successor of the premise.) </dd></dl>
+
 <p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a73ef978d8dcea85093149574ca51bbd5">atp::logic::IKnowledgeKernel</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a272cdcabd05bc5bc78cb6dc0420b336e_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a272cdcabd05bc5bc78cb6dc0420b336e_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a272cdcabd05bc5bc78cb6dc0420b336e_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a272cdcabd05bc5bc78cb6dc0420b336e_cgraph">
-<area shape="rect" title=" " alt="" coords="5,53,183,94"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="231,53,393,94"/>
+<area shape="rect" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="5,53,183,94"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title="Type&#45;check the given statements." alt="" coords="231,53,393,94"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="457,5,605,61"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="441,85,621,141"/>
 </map>
@@ -290,17 +324,21 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Determine what form each statement is in (trivial or nontrivial, etc.) </p>
+<dl class="section pre"><dt>Precondition</dt><dd>valid(p_stmts)</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>returns an array of size p_stmts-&gt;size() which contains the form of each statement in the array (telling you if the statements are trivially true / trivially false / not canonical.) </dd></dl>
+
 <p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a25a73e5f0aa4756889e7397f513c76c1">atp::logic::IKnowledgeKernel</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0c6e59a58b672521c15be26ec87e5c3f_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0c6e59a58b672521c15be26ec87e5c3f_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0c6e59a58b672521c15be26ec87e5c3f_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0c6e59a58b672521c15be26ec87e5c3f_cgraph">
-<area shape="rect" title=" " alt="" coords="5,39,193,80"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a36dd38214bd3efb430f116eb9e40fc64" title=" " alt="" coords="241,39,443,80"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a22d63685a82821176f481186ee17bed6" title=" " alt="" coords="495,5,641,47"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title=" " alt="" coords="491,71,645,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title=" " alt="" coords="693,5,840,47"/>
+<area shape="rect" title="Determine what form each statement is in (trivial or nontrivial, etc.)" alt="" coords="5,39,193,80"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a36dd38214bd3efb430f116eb9e40fc64" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="241,39,443,80"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a22d63685a82821176f481186ee17bed6" title="Returns true iff the two syntax trees are identical (i.e. same free variable IDs, same orientation ab..." alt="" coords="495,5,641,47"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title="Reflect the statement about the equals sign (so &quot;f(x)=g(x)&quot; becomes &quot;g(x)=f(x)&quot;)" alt="" coords="491,71,645,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title="Perform a fold over pairs of syntax trees, where the fold constructor is dependent on the node types ..." alt="" coords="693,5,840,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5" title=" " alt="" coords="695,71,838,112"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a5b39be718d2816106293f4aa47f16824" title=" " alt="" coords="695,136,838,177"/>
 </map>
@@ -331,13 +369,16 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Characterises the information provided to this knowledge kernel in a single integer code. </p>
+<p>\detailed If two knowledge kernels agree on their code, then they agree on the return results of all the functions below. (This code is computed similarly to a hash code of all the user definitions, axioms, and available theorems.) </p>
+
 <p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a26a0b198729c2ffbd5ff8c144a60491a">atp::logic::IKnowledgeKernel</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a4c122c0c52a6dc8b77975749d2710535_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a4c122c0c52a6dc8b77975749d2710535_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a4c122c0c52a6dc8b77975749d2710535_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a4c122c0c52a6dc8b77975749d2710535_icgraph">
-<area shape="rect" title=" " alt="" coords="244,5,400,61"/>
+<area shape="rect" title="Characterises the information provided to this knowledge kernel in a single integer code." alt="" coords="244,5,400,61"/>
 <area shape="rect" href="_language_tests_8cpp.html#a29781dffcb6632930478d93135f9aa0b" title=" " alt="" coords="5,20,196,47"/>
 </map>
 </div>
@@ -372,12 +413,13 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ab75821a304cd2a2653ad550c76929504_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ab75821a304cd2a2653ad550c76929504_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ab75821a304cd2a2653ad550c76929504_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ab75821a304cd2a2653ad550c76929504_icgraph">
-<area shape="rect" title=" " alt="" coords="692,79,840,135"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="481,86,644,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="259,5,431,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title=" " alt="" coords="256,86,433,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title=" " alt="" coords="258,151,431,193"/>
+<area shape="rect" title=" " alt="" coords="692,115,840,171"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title="Type&#45;check the given statements." alt="" coords="481,122,644,163"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="259,41,431,97"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="256,122,433,163"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title="Get the next logical steps of an array of statements." alt="" coords="258,187,431,229"/>
 <area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,5,208,61"/>
+<area shape="rect" href="struct_semantics_helper_tests_fixture.html#a5748077825546fdbb31d0ecf060df206" title=" " alt="" coords="6,86,207,127"/>
 </map>
 </div>
 
@@ -411,12 +453,14 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af7ae5937b36a9fd2a8427b543b47ed56_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af7ae5937b36a9fd2a8427b543b47ed56_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af7ae5937b36a9fd2a8427b543b47ed56_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af7ae5937b36a9fd2a8427b543b47ed56_icgraph">
-<area shape="rect" title=" " alt="" coords="739,20,887,76"/>
-<area shape="rect" href="_language_tests_8cpp.html#a8613a27b01ffcb4a199d800a865c0c17" title=" " alt="" coords="500,5,691,32"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title=" " alt="" coords="524,57,667,98"/>
-<area shape="rect" href="_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="259,35,449,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title=" " alt="" coords="256,86,452,127"/>
-<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,79,208,135"/>
+<area shape="rect" title=" " alt="" coords="744,41,892,97"/>
+<area shape="rect" href="_language_tests_8cpp.html#a8613a27b01ffcb4a199d800a865c0c17" title=" " alt="" coords="505,27,696,53"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title="Convert a parse tree into a syntax tree." alt="" coords="529,78,672,119"/>
+<area shape="rect" href="_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="261,5,452,32"/>
+<area shape="rect" href="_semantics_helper_tests_8cpp.html#ad59a5db95d75209c7d2b8c6efe611f09" title=" " alt="" coords="261,56,452,83"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="259,107,455,149"/>
+<area shape="rect" href="struct_semantics_helper_tests_fixture.html#a5748077825546fdbb31d0ecf060df206" title=" " alt="" coords="256,173,457,214"/>
+<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,100,208,156"/>
 </map>
 </div>
 
@@ -446,14 +490,18 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Get the next logical steps of an array of statements. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>valid(p_stmts)</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>For each statement in the input array, we return an array of statements which logically follow in a single step from it. </dd></dl>
+
 <p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a196077c27e6fd6bd0ea40265c3592a3c">atp::logic::IKnowledgeKernel</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a093f40d4912048fb60afec984de0cfd4_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a093f40d4912048fb60afec984de0cfd4_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a093f40d4912048fb60afec984de0cfd4_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a093f40d4912048fb60afec984de0cfd4_cgraph">
-<area shape="rect" title=" " alt="" coords="5,53,179,94"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="227,53,389,94"/>
+<area shape="rect" title="Get the next logical steps of an array of statements." alt="" coords="5,53,179,94"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title="Type&#45;check the given statements." alt="" coords="227,53,389,94"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="453,5,601,61"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="437,85,617,141"/>
 </map>
@@ -489,12 +537,13 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ae31fdddded9c89577b18e63ef3544113_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ae31fdddded9c89577b18e63ef3544113_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ae31fdddded9c89577b18e63ef3544113_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ae31fdddded9c89577b18e63ef3544113_icgraph">
-<area shape="rect" title=" " alt="" coords="692,79,872,135"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title=" " alt="" coords="481,86,644,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="259,5,431,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title=" " alt="" coords="256,86,433,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title=" " alt="" coords="258,151,431,193"/>
+<area shape="rect" title=" " alt="" coords="692,115,872,171"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title="Type&#45;check the given statements." alt="" coords="481,122,644,163"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="259,41,431,97"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="256,122,433,163"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title="Get the next logical steps of an array of statements." alt="" coords="258,187,431,229"/>
 <area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,5,208,61"/>
+<area shape="rect" href="struct_semantics_helper_tests_fixture.html#a5748077825546fdbb31d0ecf060df206" title=" " alt="" coords="6,86,207,127"/>
 </map>
 </div>
 
@@ -528,11 +577,13 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6817a1e4df3b10bd9bed1126aa35304_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6817a1e4df3b10bd9bed1126aa35304_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6817a1e4df3b10bd9bed1126aa35304_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6817a1e4df3b10bd9bed1126aa35304_icgraph">
-<area shape="rect" title=" " alt="" coords="691,20,871,76"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title=" " alt="" coords="500,27,643,69"/>
-<area shape="rect" href="_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="259,5,449,32"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title=" " alt="" coords="256,57,452,98"/>
-<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,49,208,105"/>
+<area shape="rect" title=" " alt="" coords="696,71,876,127"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title="Convert a parse tree into a syntax tree." alt="" coords="505,78,648,119"/>
+<area shape="rect" href="_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="261,5,452,32"/>
+<area shape="rect" href="_semantics_helper_tests_8cpp.html#ad59a5db95d75209c7d2b8c6efe611f09" title=" " alt="" coords="261,56,452,83"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="259,107,455,149"/>
+<area shape="rect" href="struct_semantics_helper_tests_fixture.html#a5748077825546fdbb31d0ecf060df206" title=" " alt="" coords="256,173,457,214"/>
+<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,100,208,156"/>
 </map>
 </div>
 
@@ -561,17 +612,21 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd>is_defined(name)</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>returns a hash-code like value of the name (if two symbols agree on their hash code, they agree on their string name.) </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6039360852cfb5619615af8bf2d2072_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6039360852cfb5619615af8bf2d2072_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6039360852cfb5619615af8bf2d2072_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6039360852cfb5619615af8bf2d2072_icgraph">
-<area shape="rect" title=" " alt="" coords="712,61,909,102"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title=" " alt="" coords="511,27,653,69"/>
-<area shape="rect" href="struct_semantics_tests_fixture.html#a9244f3aa92c593e6e8b20b75f34ec15b" title=" " alt="" coords="500,93,664,134"/>
-<area shape="rect" href="_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="259,5,449,32"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title=" " alt="" coords="256,57,452,98"/>
-<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,49,208,105"/>
+<area shape="rect" title=" " alt="" coords="717,111,915,153"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title="Convert a parse tree into a syntax tree." alt="" coords="516,78,659,119"/>
+<area shape="rect" href="struct_semantics_tests_fixture.html#a9244f3aa92c593e6e8b20b75f34ec15b" title=" " alt="" coords="505,143,669,185"/>
+<area shape="rect" href="_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="261,5,452,32"/>
+<area shape="rect" href="_semantics_helper_tests_8cpp.html#ad59a5db95d75209c7d2b8c6efe611f09" title=" " alt="" coords="261,56,452,83"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="259,107,455,149"/>
+<area shape="rect" href="struct_semantics_helper_tests_fixture.html#a5748077825546fdbb31d0ecf060df206" title=" " alt="" coords="256,173,457,214"/>
+<area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,100,208,156"/>
 </map>
 </div>
 
@@ -607,7 +662,7 @@ Here is the caller graph for this function:</div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a2c79856d76a1a635cf421de681daeb14_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a2c79856d76a1a635cf421de681daeb14_icgraph">
 <area shape="rect" title=" " alt="" coords="427,5,645,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#aa6f01c3b5f507cf2003f352dc58f3e58" title=" " alt="" coords="236,5,379,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a7836b8070b045f8d65f5f1b8e61b1e35" title=" " alt="" coords="5,5,188,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a7836b8070b045f8d65f5f1b8e61b1e35" title="Save an array of statements." alt="" coords="5,5,188,47"/>
 </map>
 </div>
 
@@ -637,13 +692,16 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Type-check the given statements. </p>
+<dl class="section post"><dt>Postcondition</dt><dd>for each statement, check whether it is valid in terms of the logic, axioms and definitions in this knowledge kernel. Statements are only allowed to be used if they are valid. Return true iff ALL statements in the array are valid. Note that a necessary condition for validity is that they must be using the same language as that which created this knowledge kernel. </dd></dl>
+
 <p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a1b2e18ce433fee2d9d28bccd45de2def">atp::logic::IKnowledgeKernel</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_cgraph">
-<area shape="rect" title=" " alt="" coords="5,53,168,94"/>
+<area shape="rect" title="Type&#45;check the given statements." alt="" coords="5,53,168,94"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="232,5,380,61"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="216,85,396,141"/>
 </map>
@@ -653,11 +711,12 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_icgraph">
-<area shape="rect" title=" " alt="" coords="481,86,644,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="259,5,431,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title=" " alt="" coords="256,86,433,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title=" " alt="" coords="258,151,431,193"/>
+<area shape="rect" title="Type&#45;check the given statements." alt="" coords="481,122,644,163"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="259,41,431,97"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="256,122,433,163"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title="Get the next logical steps of an array of statements." alt="" coords="258,187,431,229"/>
 <area shape="rect" href="struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,5,208,61"/>
+<area shape="rect" href="struct_semantics_helper_tests_fixture.html#a5748077825546fdbb31d0ecf060df206" title=" " alt="" coords="6,86,207,127"/>
 </map>
 </div>
 

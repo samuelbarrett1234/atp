@@ -41,7 +41,7 @@ namespace semantics
 \brief Contains data used in some functions below, bundled together
     for efficiency reasons.
 
-\detailed The `immediate_applications` and `substitute_tree`
+\details The `immediate_applications` and `substitute_tree`
     functions below require a lot of data to run, so to save having
 	lots of arguments, and to save recomputing some information
 	several times, we bundle it up in this struct which is shared
@@ -78,7 +78,7 @@ struct ATP_LOGIC_API SubstitutionInfo
 \brief Try to apply each rule at the subtree rooted at the given node
     without trying tp apply it deeper in the tree (hence "immediate")
 
-\detailed The term "immediate" comes from the fact that this tries to
+\details The term "immediate" comes from the fact that this tries to
     match the rules to the subtree rooted at `node`. So, if `node` is
 	a function node with symbol "f", the only rules that can be
 	applied are ones which have "f" as their outermost symbol on one
@@ -89,8 +89,7 @@ struct ATP_LOGIC_API SubstitutionInfo
 
 \pre node->get_type() != SyntaxNodeType::EQ
 
-\param sub_info The substitution data (\see SubstitutionInfo for more
-    details on what is in this)
+\see SubstitutionInfo
 
 \returns All of the possible ways of applying each rule to this
     subtree (for each rule, for each side of the equation, for each
@@ -121,12 +120,14 @@ ATP_LOGIC_API std::list<SyntaxNodePtr> immediate_applications(
 	things, like free variables which already existed in the (non-
 	rule) statement, and constants. This is of course non-exhaustive
 	and could make a lot of proofs much harder, especially without an
-	array of "helper-theorems".
+	array of "helper-theorems". This is kind of important, and might
+	be the reason why the prover is failing to prove something that
+	should be easy.
 
 \param node The subtree we want to substitute, which should be the
     other side of the rule equation that was matched. See the remark.
 
-\param sub_info \see SubstitutionInfo
+\see SubstitutionInfo
 
 \param free_var_map The free variable assignment (this doesn't
     necessarily have to assign all variables; that is the first thing
@@ -164,19 +165,29 @@ try_build_map(SyntaxNodePtr expr_premise,
 	SyntaxNodePtr expr_concl);
 
 
-// returns true iff the two given syntax trees are identical
+/**
+\returns True iff the two given syntax trees are identical
+*/
 ATP_LOGIC_API bool syntax_tree_identical(SyntaxNodePtr a,
 	SyntaxNodePtr b);
 
 
-// get a list containing the LHS and RHS of each statement given as
-// input (breaks each statement in half along the equals sign)
+/**
+\brief Get a list containing the LHS and RHS of each statement given
+    as input (breaks each statement in half along the equals sign).
+*/
 ATP_LOGIC_API std::vector<std::pair<SyntaxNodePtr, SyntaxNodePtr>>
 	get_statement_sides(const std::vector<Statement>& stmts);
 
 
-// get the free variable IDs present in the subtree rooted at this
-// node
+/**
+\brief Get the free variable IDs present in the subtree rooted at
+    this node.
+
+\todo Since we know the free variable IDs are dense (quite bounded)
+    a `std::set` might not be the best datastructure for this. We
+	would be better off using a bitmap datastructure instead.
+*/
 ATP_LOGIC_API std::set<size_t> get_free_var_ids(SyntaxNodePtr node);
 
 

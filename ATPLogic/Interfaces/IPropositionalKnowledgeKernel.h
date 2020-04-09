@@ -10,7 +10,7 @@
 \brief Contains a common specialisation of the IKnowledgeKernel
     interface.
 
-\detailed Most logics support at least propositional logic (and /
+\details Most logics support at least propositional logic (and /
     or / not), thus we provide this extended interface for such
 	logics, to support special search algorithms which require
 	this structure.
@@ -36,7 +36,7 @@ namespace logic
 
 \interface IPropositionalKnowledgeKernel
 
-\detailed A knowledge kernel which supports propositional logic, thus
+\details A knowledge kernel which supports propositional logic, thus
     provides functions for the search algorithms to manipulate
     statements using propositional logic.
 */

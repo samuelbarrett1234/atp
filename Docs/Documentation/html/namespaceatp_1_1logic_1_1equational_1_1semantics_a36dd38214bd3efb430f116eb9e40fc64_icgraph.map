@@ -1,4 +1,4 @@
 <map id="atp::logic::equational::semantics::true_by_reflexivity" name="atp::logic::equational::semantics::true_by_reflexivity">
-<area shape="rect" id="node1" title=" " alt="" coords="241,5,443,47"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0c6e59a58b672521c15be26ec87e5c3f" title=" " alt="" coords="5,5,193,47"/>
+<area shape="rect" id="node1" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="241,5,443,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0c6e59a58b672521c15be26ec87e5c3f" title="Determine what form each statement is in (trivial or nontrivial, etc.)" alt="" coords="5,5,193,47"/>
 </map>

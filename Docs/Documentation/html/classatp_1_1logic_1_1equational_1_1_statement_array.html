@@ -85,7 +85,7 @@ Inheritance diagram for atp::logic::equational::StatementArray:</div>
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_array__inherit__graph.png" border="0" usemap="#atp_1_1logic_1_1equational_1_1_statement_array_inherit__map" alt="Inheritance graph"/></div>
 <map name="atp_1_1logic_1_1equational_1_1_statement_array_inherit__map" id="atp_1_1logic_1_1equational_1_1_statement_array_inherit__map">
 <area shape="rect" title=" " alt="" coords="23,80,165,121"/>
-<area shape="rect" href="classatp_1_1logic_1_1_i_statement_array.html" title="A 1&#45;dimensional array of IStatement objects. This is an immutable collection (you cannot modify the s..." alt="" coords="5,5,183,32"/>
+<area shape="rect" href="classatp_1_1logic_1_1_i_statement_array.html" title=" " alt="" coords="5,5,183,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -94,7 +94,7 @@ Collaboration diagram for atp::logic::equational::StatementArray:</div>
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_array__coll__graph.png" border="0" usemap="#atp_1_1logic_1_1equational_1_1_statement_array_coll__map" alt="Collaboration graph"/></div>
 <map name="atp_1_1logic_1_1equational_1_1_statement_array_coll__map" id="atp_1_1logic_1_1equational_1_1_statement_array_coll__map">
 <area shape="rect" title=" " alt="" coords="23,80,165,121"/>
-<area shape="rect" href="classatp_1_1logic_1_1_i_statement_array.html" title="A 1&#45;dimensional array of IStatement objects. This is an immutable collection (you cannot modify the s..." alt="" coords="5,5,183,32"/>
+<area shape="rect" href="classatp_1_1logic_1_1_i_statement_array.html" title=" " alt="" coords="5,5,183,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -165,6 +165,7 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section remark"><dt>Remarks</dt><dd>we definitely want to be using a vector of <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> objects, not a vector of StatementPtrs. </dd></dl>
 
 </div>
 </div>
@@ -213,7 +214,7 @@ Here is the call graph for this function:</div>
 <map name="classatp_1_1logic_1_1equational_1_1_statement_array_a427d3b1b8f56c9593fffc55ef3ce11e0_cgraph" id="classatp_1_1logic_1_1equational_1_1_statement_array_a427d3b1b8f56c9593fffc55ef3ce11e0_cgraph">
 <area shape="rect" title=" " alt="" coords="5,5,225,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612" title=" " alt="" coords="273,5,427,47"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d" title=" " alt="" coords="475,5,620,47"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d" title="Helper function for computing the number of elements in slices." alt="" coords="475,5,620,47"/>
 </map>
 </div>
 
@@ -243,6 +244,7 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd>i &lt; <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612">size()</a> </dd></dl>
 
 <p>Implements <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html#a8a33d818e65d53febe4e62eb875d18e7">atp::logic::IStatementArray</a>.</p>
 
@@ -364,7 +366,7 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_array_ada8f04815314efc4e444cce3d22db612_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_array_ada8f04815314efc4e444cce3d22db612_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_statement_array_ada8f04815314efc4e444cce3d22db612_cgraph" id="classatp_1_1logic_1_1equational_1_1_statement_array_ada8f04815314efc4e444cce3d22db612_cgraph">
 <area shape="rect" title=" " alt="" coords="5,5,159,47"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d" title=" " alt="" coords="207,5,352,47"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d" title="Helper function for computing the number of elements in slices." alt="" coords="207,5,352,47"/>
 </map>
 </div>
 <div class="dynheader">
@@ -420,6 +422,8 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd>start &lt;= end and end &lt;= <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612">size()</a> and start &lt; <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612">size()</a> and step &gt; 0</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>returns the statements starting at and including the one at 'start' and finishing at but NOT including the one at 'end', going in steps of 'step'. </dd></dl>
 
 <p>Implements <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html#a83c8348e4cde2b418f47e1e46247072a">atp::logic::IStatementArray</a>.</p>
 <div class="dynheader">
@@ -428,7 +432,7 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_array_a88936889bc98a77d1f0ccc070e5728e6_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_array_a88936889bc98a77d1f0ccc070e5728e6_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_statement_array_a88936889bc98a77d1f0ccc070e5728e6_cgraph" id="classatp_1_1logic_1_1equational_1_1_statement_array_a88936889bc98a77d1f0ccc070e5728e6_cgraph">
 <area shape="rect" title=" " alt="" coords="5,25,161,67"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d" title=" " alt="" coords="411,29,556,71"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d" title="Helper function for computing the number of elements in slices." alt="" coords="411,29,556,71"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ab8073b727ebfc42d10950517d7fb92e8" title=" " alt="" coords="211,25,361,67"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612" title=" " alt="" coords="209,91,363,132"/>
 </map>
@@ -484,7 +488,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_array_a8b3c78a186b26edcc519caad57901111_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_array_a8b3c78a186b26edcc519caad57901111_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_statement_array_a8b3c78a186b26edcc519caad57901111_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_array_a8b3c78a186b26edcc519caad57901111_icgraph">
 <area shape="rect" title=" " alt="" coords="415,5,559,61"/>
-<area shape="rect" href="namespaceatp_1_1logic.html#aa0bf7e3fc379b924cf7031f1110c685d" title=" " alt="" coords="244,20,367,47"/>
+<area shape="rect" href="namespaceatp_1_1logic.html#aa0bf7e3fc379b924cf7031f1110c685d" title="Concatenate two statement arrays of the same type." alt="" coords="244,20,367,47"/>
 <area shape="rect" href="_statement_array_tests_8cpp.html#ab4e77a8340023c96b2acd036cc82d26e" title=" " alt="" coords="5,20,196,47"/>
 </map>
 </div>
@@ -546,7 +550,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_array_adf522fe07d480a831d66789e32c2705e_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_array_adf522fe07d480a831d66789e32c2705e_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_statement_array_adf522fe07d480a831d66789e32c2705e_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_array_adf522fe07d480a831d66789e32c2705e_icgraph">
 <area shape="rect" title=" " alt="" coords="227,5,371,61"/>
-<area shape="rect" href="namespaceatp_1_1logic.html#a1c89562065d65fe74e21d8b7415d2176" title=" " alt="" coords="5,20,179,47"/>
+<area shape="rect" href="namespaceatp_1_1logic.html#a1c89562065d65fe74e21d8b7415d2176" title="Create a singleton statment array from a given statement." alt="" coords="5,20,179,47"/>
 </map>
 </div>
 

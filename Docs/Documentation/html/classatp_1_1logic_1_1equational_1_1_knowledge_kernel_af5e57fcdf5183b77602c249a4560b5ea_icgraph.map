@@ -1,4 +1,5 @@
 <map id="atp::logic::equational::KnowledgeKernel::define_eq_rules" name="atp::logic::equational::KnowledgeKernel::define_eq_rules">
-<area shape="rect" id="node1" title=" " alt="" coords="256,5,428,61"/>
+<area shape="rect" id="node1" title=" " alt="" coords="256,43,428,99"/>
 <area shape="rect" id="node2" href="$struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,5,208,61"/>
+<area shape="rect" id="node3" href="$struct_semantics_helper_tests_fixture.html#a5748077825546fdbb31d0ecf060df206" title=" " alt="" coords="6,86,207,127"/>
 </map>

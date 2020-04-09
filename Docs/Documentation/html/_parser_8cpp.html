@@ -75,22 +75,22 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="_parser_8h.html">Parser.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_grammar_8h.html">Grammar.h</a>&quot;</code><br />
 <code>#include &lt;boost/spirit/include/qi.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="_grammar_8h.html">Grammar.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Parser.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="_parser_8cpp__incl.png" border="0" usemap="#_a_t_p_logic_2_internal_2_equational_2_parser_8cpp" alt=""/></div>
 <map name="_a_t_p_logic_2_internal_2_equational_2_parser_8cpp" id="_a_t_p_logic_2_internal_2_equational_2_parser_8cpp">
 <area shape="rect" title=" " alt="" coords="573,5,762,47"/>
-<area shape="rect" href="_parser_8h.html" title=" " alt="" coords="245,95,316,121"/>
-<area shape="rect" href="_grammar_8h.html" title=" " alt="" coords="624,95,711,121"/>
+<area shape="rect" href="_parser_8h.html" title="Contains the functions for turning a string into a parse tree of expressions (note that parse trees a..." alt="" coords="245,95,316,121"/>
 <area shape="rect" title=" " alt="" coords="838,169,969,211"/>
+<area shape="rect" href="_grammar_8h.html" title="Contains the Boost Spirit and Boost Qi grammar specifications for the equational logic parsing." alt="" coords="624,95,711,121"/>
 <area shape="rect" title=" " alt="" coords="25,177,91,203"/>
 <area shape="rect" title=" " alt="" coords="440,259,479,285"/>
 <area shape="rect" title=" " alt="" coords="352,259,407,285"/>
 <area shape="rect" title=" " alt="" coords="115,177,243,203"/>
-<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title=" " alt="" coords="15,259,149,285"/>
+<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="15,259,149,285"/>
 <area shape="rect" href="_parse_nodes_8h.html" title=" " alt="" coords="318,177,422,203"/>
 <area shape="rect" title=" " alt="" coords="49,333,115,360"/>
 <area shape="rect" title=" " alt="" coords="258,259,327,285"/>
@@ -104,18 +104,25 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceatp"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp.html">atp</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceatp_1_1logic"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html">atp::logic</a></td></tr>
+<tr class="memdesc:namespaceatp_1_1logic"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace of the ATPLogic library. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceatp_1_1logic_1_1equational"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html">atp::logic::equational</a></td></tr>
+<tr class="memdesc:namespaceatp_1_1logic_1_1equational"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace for the equational logic implementation. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a328cf188236eb9da94082159cb4ab37b"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; std::list&lt; ParseNodePtr &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b">atp::logic::equational::parse_statements</a> (std::istream &amp;in)</td></tr>
+<tr class="memdesc:a328cf188236eb9da94082159cb4ab37b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a stream of line separated statements, and return the list of their parse trees, or None if an error occurred with any of them.  <a href="namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b">More...</a><br /></td></tr>
 <tr class="separator:a328cf188236eb9da94082159cb4ab37b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35ac987bc45033e4e25c7419d62f7107"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; std::list&lt; std::pair&lt; std::string, size_t &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a35ac987bc45033e4e25c7419d62f7107">atp::logic::equational::parse_definitions</a> (std::istream &amp;in)</td></tr>
+<tr class="memdesc:a35ac987bc45033e4e25c7419d62f7107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a stream of line separated definitions, where a definition is a (string, int) pair, representing the symbol name and the symbol arity, respectively.  <a href="namespaceatp_1_1logic_1_1equational.html#a35ac987bc45033e4e25c7419d62f7107">More...</a><br /></td></tr>
 <tr class="separator:a35ac987bc45033e4e25c7419d62f7107"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Samuel Barrett</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_grammar_8h.html" title="Contains the Boost Spirit and Boost Qi grammar specifications for the equational logic parsing.">Grammar.h</a> <a class="el" href="_grammar_8cpp.html">Grammar.cpp</a> </dd></dl>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

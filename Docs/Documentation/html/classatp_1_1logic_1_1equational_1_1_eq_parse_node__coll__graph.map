@@ -1,4 +1,4 @@
 <map id="atp::logic::equational::EqParseNode" name="atp::logic::equational::EqParseNode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,95,148,136"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_i_parse_node.html" title=" " alt="" coords="5,5,148,47"/>
+<area shape="rect" id="node1" title="Represents the &#39;=&#39; sign at the top of a statement, which has a LHS and a RHS." alt="" coords="5,95,148,136"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_i_parse_node.html" title="Base parse node interface." alt="" coords="5,5,148,47"/>
 </map>

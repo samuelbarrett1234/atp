@@ -97,33 +97,33 @@ Include dependency graph for KnowledgeKernelInferenceTests.cpp:</div>
 <area shape="rect" title=" " alt="" coords="1637,102,1765,129"/>
 <area shape="rect" title=" " alt="" coords="1789,102,1896,129"/>
 <area shape="rect" title=" " alt="" coords="1920,95,2067,136"/>
-<area shape="rect" href="_knowledge_kernel_8h.html" title=" " alt="" coords="1047,95,1185,136"/>
-<area shape="rect" href="_statement_8h.html" title=" " alt="" coords="1359,273,1452,300"/>
-<area shape="rect" href="_statement_array_8h.html" title=" " alt="" coords="1103,191,1227,218"/>
-<area shape="rect" href="_language_8h.html" title=" " alt="" coords="105,184,234,225"/>
-<area shape="rect" href="_semantics_8h.html" title=" " alt="" coords="1425,95,1554,136"/>
+<area shape="rect" href="_knowledge_kernel_8h.html" title="Implementation of the IKnowledgeKernel for equational logic." alt="" coords="1047,95,1185,136"/>
+<area shape="rect" href="_statement_8h.html" title="Contains the implementation of the IStatement interface for equational logic." alt="" coords="1359,273,1452,300"/>
+<area shape="rect" href="_statement_array_8h.html" title="Contains the class implementing the IStatementArray for equational logic." alt="" coords="1103,191,1227,218"/>
+<area shape="rect" href="_language_8h.html" title="Implementation of the ILanguage interface for equational logic." alt="" coords="105,184,234,225"/>
+<area shape="rect" href="_semantics_8h.html" title="Several useful functions on Statements, including logical inference and logical equivalence." alt="" coords="1425,95,1554,136"/>
 <area shape="rect" href="_test_8h.html" title=" " alt="" coords="2107,102,2178,129"/>
 <area shape="rect" title=" " alt="" coords="1354,191,1401,218"/>
 <area shape="rect" title=" " alt="" coords="910,661,965,688"/>
 <area shape="rect" title=" " alt="" coords="1730,661,1769,688"/>
 <area shape="rect" title=" " alt="" coords="909,191,1027,218"/>
-<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title=" " alt="" coords="430,661,565,688"/>
-<area shape="rect" href="_i_knowledge_kernel_8h.html" title=" " alt="" coords="686,348,858,389"/>
+<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="430,661,565,688"/>
+<area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="686,348,858,389"/>
 <area shape="rect" title=" " alt="" coords="465,736,530,763"/>
 <area shape="rect" title=" " alt="" coords="1224,661,1293,688"/>
-<area shape="rect" href="_i_statement_8h.html" title=" " alt="" coords="531,512,627,539"/>
-<area shape="rect" href="_i_statement_array_8h.html" title=" " alt="" coords="683,437,810,464"/>
+<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="531,512,627,539"/>
+<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="683,437,810,464"/>
 <area shape="rect" title=" " alt="" coords="1928,437,2003,464"/>
 <area shape="rect" title=" " alt="" coords="2064,355,2104,382"/>
 <area shape="rect" title=" " alt="" coords="1655,348,1774,389"/>
 <area shape="rect" href="_syntax_nodes_8h.html" title=" " alt="" coords="1342,512,1453,539"/>
-<area shape="rect" href="_syntax_tree_fold_8h.html" title=" " alt="" coords="1507,355,1631,382"/>
+<area shape="rect" href="_syntax_tree_fold_8h.html" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="1507,355,1631,382"/>
 <area shape="rect" href="_parse_nodes_8h.html" title=" " alt="" coords="1163,587,1267,613"/>
 <area shape="rect" title=" " alt="" coords="1776,437,1853,464"/>
 <area shape="rect" title=" " alt="" coords="1669,437,1752,464"/>
 <area shape="rect" href="_syntax_tree_traversal_8h.html" title=" " alt="" coords="1494,437,1645,464"/>
 <area shape="rect" title=" " alt="" coords="1038,273,1101,300"/>
-<area shape="rect" href="_i_language_8h.html" title=" " alt="" coords="81,273,257,300"/>
+<area shape="rect" href="_i_language_8h.html" title="Contains the ILanguage interface." alt="" coords="81,273,257,300"/>
 <area shape="rect" title=" " alt="" coords="137,355,202,382"/>
 <area shape="rect" title=" " alt="" coords="43,355,112,382"/>
 <area shape="rect" title=" " alt="" coords="1628,191,1756,218"/>
@@ -149,16 +149,36 @@ Functions</h2></td></tr>
 <tr class="separator:a1d45c6389fedad978f4da790368ee9bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a965a9a2aac472cc8616f92c06a950bed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_knowledge_kernel_inference_tests_8cpp.html#a965a9a2aac472cc8616f92c06a950bed">BOOST_FIXTURE_TEST_SUITE</a> (KnowledgeKernelInferenceTests, <a class="el" href="struct_knowledge_kernel_inference_tests_fixture.html">KnowledgeKernelInferenceTestsFixture</a>, *boost::unit_test_framework::depends_on(&quot;EquationalTests/SemanticsTests&quot;) *boost::unit_test_framework::depends_on(&quot;EquationalTests/LanguageTests&quot;) *boost::unit_test_framework::depends_on(&quot;EquationalTests/StatementTests&quot;) *boost::unit_test_framework::depends_on(&quot;EquationalTests/StatementArrayTests&quot;) *boost::unit_test_framework::depends_on(&quot;EquationalTests/KnowledgeKernelDefinitionsTests&quot;))</td></tr>
 <tr class="separator:a965a9a2aac472cc8616f92c06a950bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c6c646c73c8454c568bb8db11054a0d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_knowledge_kernel_inference_tests_8cpp.html#a3c6c646c73c8454c568bb8db11054a0d">BOOST_DATA_TEST_CASE</a> (test_form_canonical_true, boost::unit_test::data::make({ &quot;*(*(x, y), z) = *(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, *(y, z))&quot;, &quot;e = e&quot;, &quot;<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a> = <a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>&quot;, &quot;i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>) = i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>)&quot;, &quot;e = *(i(y), y)&quot;, &quot;*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y) = *(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y)&quot;, &quot;*(i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>), i(i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>))) = e&quot;, &quot;*(e, e) = e&quot;, }), stmt)</td></tr>
+<tr class="memitem:a3c6c646c73c8454c568bb8db11054a0d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_knowledge_kernel_inference_tests_8cpp.html#a3c6c646c73c8454c568bb8db11054a0d">BOOST_DATA_TEST_CASE</a> (test_form_canonical_true, boost::unit_test::data::make({ &quot;*(*(x, y), z) = *(x, *(y, z))&quot;, &quot;e = e&quot;, &quot;x = x&quot;, &quot;i(x) = i(x)&quot;, &quot;e = *(i(y), y)&quot;, &quot;*(x, y) = *(x, y)&quot;, &quot;*(i(x), i(i(x))) = e&quot;, &quot;*(e, e) = e&quot;, }), stmt)</td></tr>
 <tr class="separator:a3c6c646c73c8454c568bb8db11054a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada000a8c4ebb0e3a83028d34b2bbe417"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_knowledge_kernel_inference_tests_8cpp.html#ada000a8c4ebb0e3a83028d34b2bbe417">BOOST_DATA_TEST_CASE</a> (test_form_not_canonical, boost::unit_test::data::make({ &quot;i(e) = e&quot;, &quot;*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y) = *(y, <a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>)&quot; }), stmt)</td></tr>
+<tr class="memitem:ada000a8c4ebb0e3a83028d34b2bbe417"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_knowledge_kernel_inference_tests_8cpp.html#ada000a8c4ebb0e3a83028d34b2bbe417">BOOST_DATA_TEST_CASE</a> (test_form_not_canonical, boost::unit_test::data::make({ &quot;i(e) = e&quot;, &quot;*(x, y) = *(y, x)&quot; }), stmt)</td></tr>
 <tr class="separator:ada000a8c4ebb0e3a83028d34b2bbe417"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27dfd7d24e5d5dbe999481e9c4d0bad1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_knowledge_kernel_inference_tests_8cpp.html#a27dfd7d24e5d5dbe999481e9c4d0bad1">BOOST_DATA_TEST_CASE</a> (test_is_a_succ, boost::unit_test::data::make({ &quot;x = i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>)&quot;, &quot;<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a> = *(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>))&quot;, &quot;*(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y), i(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y))) = *(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y), *(i(y), i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>)))&quot;, &quot;*(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y), i(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y))) = *(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>))&quot;, }) ^ boost::unit_test::data::make({ &quot;x = *(e, i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>))&quot;, &quot;<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a> = e&quot;, &quot;*(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y), i(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y))) = *(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, *(y, *(i(y), i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>))))&quot;, &quot;*(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y), i(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y))) = *(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, *(e, i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>)))&quot;, }), stmt, succ_stmt)</td></tr>
+<tr class="memitem:a27dfd7d24e5d5dbe999481e9c4d0bad1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_knowledge_kernel_inference_tests_8cpp.html#a27dfd7d24e5d5dbe999481e9c4d0bad1">BOOST_DATA_TEST_CASE</a> (test_is_a_succ, boost::unit_test::data::make({ &quot;x = i(x)&quot;, &quot;x = *(x, i(x))&quot;, &quot;*(*(x, y), i(*(x, y))) = *(*(x, y), *(i(y), i(x)))&quot;, &quot;*(*(x, y), i(*(x, y))) = *(x, i(x))&quot;, }) ^ boost::unit_test::data::make({ &quot;x = *(e, i(x))&quot;, &quot;x = e&quot;, &quot;*(*(x, y), i(*(x, y))) = *(x, *(y, *(i(y), i(x))))&quot;, &quot;*(*(x, y), i(*(x, y))) = *(x, *(e, i(x)))&quot;, }), stmt, succ_stmt)</td></tr>
 <tr class="separator:a27dfd7d24e5d5dbe999481e9c4d0bad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a19038ea2b2815d2f4910c50f598871"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_knowledge_kernel_inference_tests_8cpp.html#a2a19038ea2b2815d2f4910c50f598871">BOOST_AUTO_TEST_CASE</a> (test_tricky_proof)</td></tr>
+<tr class="separator:a2a19038ea2b2815d2f4910c50f598871"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7f71af5c6c124222dd1c42c5df892f4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_knowledge_kernel_inference_tests_8cpp.html#af7f71af5c6c124222dd1c42c5df892f4">BOOST_AUTO_TEST_SUITE_END</a> ()</td></tr>
 <tr class="separator:af7f71af5c6c124222dd1c42c5df892f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a2a19038ea2b2815d2f4910c50f598871"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a19038ea2b2815d2f4910c50f598871">&#9670;&nbsp;</a></span>BOOST_AUTO_TEST_CASE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BOOST_AUTO_TEST_CASE </td>
+          <td>(</td>
+          <td class="paramtype">test_tricky_proof&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1d45c6389fedad978f4da790368ee9bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d45c6389fedad978f4da790368ee9bf">&#9670;&nbsp;</a></span>BOOST_AUTO_TEST_SUITE()</h2>
 
@@ -209,7 +229,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">boost::unit_test::data::make({ &quot;*(*(x, y), z) = *(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, *(y, z))&quot;, &quot;e = e&quot;, &quot;<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a> = <a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>&quot;, &quot;i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>) = i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>)&quot;, &quot;e = *(i(y), y)&quot;, &quot;*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y) = *(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y)&quot;, &quot;*(i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>), i(i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>))) = e&quot;, &quot;*(e, e) = e&quot;, })&#160;</td>
+          <td class="paramtype">boost::unit_test::data::make({ &quot;*(*(x, y), z) = *(x, *(y, z))&quot;, &quot;e = e&quot;, &quot;x = x&quot;, &quot;i(x) = i(x)&quot;, &quot;e = *(i(y), y)&quot;, &quot;*(x, y) = *(x, y)&quot;, &quot;*(i(x), i(i(x))) = e&quot;, &quot;*(e, e) = e&quot;, })&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -243,7 +263,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">boost::unit_test::data::make({ &quot;i(e) = e&quot;, &quot;*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y) = *(y, <a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>)&quot; })&#160;</td>
+          <td class="paramtype">boost::unit_test::data::make({ &quot;i(e) = e&quot;, &quot;*(x, y) = *(y, x)&quot; })&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -277,7 +297,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">boost::unit_test::data::make({ &quot;x = i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>)&quot;, &quot;<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a> = *(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>))&quot;, &quot;*(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y), i(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y))) = *(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y), *(i(y), i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>)))&quot;, &quot;*(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y), i(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y))) = *(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>))&quot;, }) ^ boost::unit_test::data::make({ &quot;x = *(e, i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>))&quot;, &quot;<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a> = e&quot;, &quot;*(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y), i(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y))) = *(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, *(y, *(i(y), i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>))))&quot;, &quot;*(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y), i(*(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, y))) = *(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>, *(e, i(<a class="el" href="group__theory__rules_8txt.html#ada5c5f3c15b1aa65d2ed9e5fa97a38d5">x</a>)))&quot;, })&#160;</td>
+          <td class="paramtype">boost::unit_test::data::make({ &quot;x = i(x)&quot;, &quot;x = *(x, i(x))&quot;, &quot;*(*(x, y), i(*(x, y))) = *(*(x, y), *(i(y), i(x)))&quot;, &quot;*(*(x, y), i(*(x, y))) = *(x, i(x))&quot;, }) ^ boost::unit_test::data::make({ &quot;x = *(e, i(x))&quot;, &quot;x = e&quot;, &quot;*(*(x, y), i(*(x, y))) = *(x, *(y, *(i(y), i(x))))&quot;, &quot;*(*(x, y), i(*(x, y))) = *(x, *(e, i(x)))&quot;, })&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>

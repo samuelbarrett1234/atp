@@ -4,12 +4,12 @@
 <area shape="rect" id="node15" title=" " alt="" coords="156,80,221,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="189,528,244,555"/>
 <area shape="rect" id="node4" title=" " alt="" coords="91,453,147,480"/>
-<area shape="rect" id="node5" href="$_a_t_p_logic_8h.html" title=" " alt="" coords="223,155,312,181"/>
-<area shape="rect" id="node6" href="$_a_t_p_logic_a_p_i_8h.html" title=" " alt="" coords="579,528,689,555"/>
-<area shape="rect" id="node8" href="$_i_statement_8h.html" title=" " alt="" coords="339,453,495,480"/>
-<area shape="rect" id="node9" href="$_i_statement_array_8h.html" title=" " alt="" coords="207,379,394,405"/>
-<area shape="rect" id="node11" href="$_i_knowledge_kernel_8h.html" title=" " alt="" coords="259,304,455,331"/>
-<area shape="rect" id="node12" href="$_i_language_8h.html" title=" " alt="" coords="467,229,619,256"/>
+<area shape="rect" id="node5" href="$_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="223,155,312,181"/>
+<area shape="rect" id="node6" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="579,528,689,555"/>
+<area shape="rect" id="node8" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="339,453,495,480"/>
+<area shape="rect" id="node9" href="$_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="207,379,394,405"/>
+<area shape="rect" id="node11" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="259,304,455,331"/>
+<area shape="rect" id="node12" href="$_i_language_8h.html" title="Contains the ILanguage interface." alt="" coords="467,229,619,256"/>
 <area shape="rect" id="node7" title=" " alt="" coords="601,603,667,629"/>
 <area shape="rect" id="node10" title=" " alt="" coords="519,453,589,480"/>
 <area shape="rect" id="node13" title=" " alt="" coords="675,304,740,331"/>

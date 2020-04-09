@@ -11,7 +11,7 @@
     collection of definitions and axioms, and can perform logical
 	deduction.
 
-\detailed This file contains an interface representing the core
+\details This file contains an interface representing the core
     inference rules of the logical system. It aims to be vectorised
 	and lazy where possible.
 
@@ -38,7 +38,7 @@ namespace logic
 \brief Represents a collection of definitions and axioms, associated
     with a particular ILanguage, and performs logical deduction.
 
-\detailed The knowledge kernel contains all logical rules,
+\details The knowledge kernel contains all logical rules,
 	axioms, and available theorems.
 	Note that every kernel state is associated with a kind of
 	hash-code; this is useful because the code is designed such that
@@ -57,7 +57,7 @@ public:
 	\brief Characterises the information provided to this knowledge
 	    kernel in a single integer code.
 
-	\detailed If two knowledge kernels agree on their code, then
+	\details If two knowledge kernels agree on their code, then
 	    they agree on the return results of all the functions
 		below. (This code is computed similarly to a hash code of all
 		the user definitions, axioms, and available theorems.)

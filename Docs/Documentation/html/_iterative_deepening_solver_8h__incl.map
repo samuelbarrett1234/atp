@@ -4,14 +4,14 @@
 <area shape="rect" id="node3" title=" " alt="" coords="318,95,357,121"/>
 <area shape="rect" id="node4" title=" " alt="" coords="469,468,525,495"/>
 <area shape="rect" id="node5" title=" " alt="" coords="549,169,677,196"/>
-<area shape="rect" id="node6" href="$_a_t_p_logic_8h.html" title=" " alt="" coords="337,169,426,196"/>
+<area shape="rect" id="node6" href="$_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="337,169,426,196"/>
 <area shape="rect" id="node16" href="$_a_t_p_search_a_p_i_8h.html" title=" " alt="" coords="181,169,313,196"/>
 <area shape="rect" id="node17" href="$_i_solver_8h.html" title=" " alt="" coords="433,95,575,121"/>
-<area shape="rect" id="node7" href="$_a_t_p_logic_a_p_i_8h.html" title=" " alt="" coords="314,543,425,569"/>
-<area shape="rect" id="node9" href="$_i_statement_8h.html" title=" " alt="" coords="173,468,329,495"/>
-<area shape="rect" id="node11" href="$_i_statement_array_8h.html" title=" " alt="" coords="288,393,475,420"/>
-<area shape="rect" id="node12" href="$_i_knowledge_kernel_8h.html" title=" " alt="" coords="246,319,442,345"/>
-<area shape="rect" id="node13" href="$_i_language_8h.html" title=" " alt="" coords="425,244,577,271"/>
+<area shape="rect" id="node7" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="314,543,425,569"/>
+<area shape="rect" id="node9" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="173,468,329,495"/>
+<area shape="rect" id="node11" href="$_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="288,393,475,420"/>
+<area shape="rect" id="node12" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="246,319,442,345"/>
+<area shape="rect" id="node13" href="$_i_language_8h.html" title="Contains the ILanguage interface." alt="" coords="425,244,577,271"/>
 <area shape="rect" id="node8" title=" " alt="" coords="154,617,219,644"/>
 <area shape="rect" id="node10" title=" " alt="" coords="223,543,278,569"/>
 <area shape="rect" id="node14" title=" " alt="" coords="561,319,626,345"/>

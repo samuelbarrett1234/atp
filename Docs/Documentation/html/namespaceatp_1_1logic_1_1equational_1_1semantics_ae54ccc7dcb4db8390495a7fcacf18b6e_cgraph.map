@@ -1,10 +1,10 @@
 <map id="atp::logic::equational::semantics::get_successors" name="atp::logic::equational::semantics::get_successors">
-<area shape="rect" id="node1" title=" " alt="" coords="5,104,196,145"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5" title=" " alt="" coords="282,5,425,47"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a0fca33627b31e864cd20e2790f7a27f5" title=" " alt="" coords="270,71,437,112"/>
-<area shape="rect" id="node4" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a40425067eae7d797dad76414395d111f" title=" " alt="" coords="244,136,463,177"/>
-<area shape="rect" id="node5" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#ae0456a9a03e6184a8e3fac5e2d1b2dec" title="Try to apply each rule at the subtree rooted at the given node and return the results" alt="" coords="274,202,433,258"/>
-<area shape="rect" id="node6" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a4f78bc586866b17a46fff175435f8518" title="Apply a substitution to the subtree rooted at the given node (Of course there may be many ways to do ..." alt="" coords="511,176,695,217"/>
-<area shape="rect" id="node7" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5ee534f535e78d33ff14b3b175757626" title=" " alt="" coords="513,241,692,283"/>
-<area shape="rect" id="node8" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a539527954e81b682d6e2f1dc67c4a395" title=" " alt="" coords="743,234,909,290"/>
+<area shape="rect" id="node1" title="Try applying each rule to the statement to get a list of successor statements. Note that each rule ma..." alt="" coords="5,108,196,149"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5" title=" " alt="" coords="256,5,399,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a0fca33627b31e864cd20e2790f7a27f5" title=" " alt="" coords="244,71,411,112"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a61a0139e27f7fc1b2949255647fc2882" title="Try to apply each rule at the subtree rooted at the given node without trying tp apply it deeper in t..." alt="" coords="248,137,407,193"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a5b39be718d2816106293f4aa47f16824" title=" " alt="" coords="256,217,399,259"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5dfad4fb61d23f262bfb9f487d548694" title="Once we have chosen a rule and found a free variable mapping which matches them, this performs the su..." alt="" coords="459,112,643,153"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5ee534f535e78d33ff14b3b175757626" title="Try to build a substitution of free variables in the premise expression, to make it identical to the ..." alt="" coords="461,177,640,219"/>
+<area shape="rect" id="node7" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a539527954e81b682d6e2f1dc67c4a395" title=" " alt="" coords="691,170,857,226"/>
 </map>

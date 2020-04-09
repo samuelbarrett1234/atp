@@ -1,5 +1,5 @@
 <map id="atp::logic::equational::semantics::transpose" name="atp::logic::equational::semantics::transpose">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,160,80"/>
+<area shape="rect" id="node1" title="Reflect the statement about the equals sign (so &quot;f(x)=g(x)&quot; becomes &quot;g(x)=f(x)&quot;)" alt="" coords="5,39,160,80"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5" title=" " alt="" coords="208,5,351,47"/>
 <area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a5b39be718d2816106293f4aa47f16824" title=" " alt="" coords="208,71,351,112"/>
 </map>

@@ -1,4 +1,4 @@
 <map id="atp::logic::equational::StatementArray::try_from_stmt" name="atp::logic::equational::StatementArray::try_from_stmt">
 <area shape="rect" id="node1" title=" " alt="" coords="227,5,371,61"/>
-<area shape="rect" id="node2" href="$namespaceatp_1_1logic.html#a1c89562065d65fe74e21d8b7415d2176" title=" " alt="" coords="5,20,179,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic.html#a1c89562065d65fe74e21d8b7415d2176" title="Create a singleton statment array from a given statement." alt="" coords="5,20,179,47"/>
 </map>

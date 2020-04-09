@@ -113,7 +113,7 @@ public:
 	Statement adjoin_rhs(const Statement& other) const;
 
 	/**
-	\see atp::logic::fold_syntax_tree
+	\see atp::logic::equational::fold_syntax_tree
 	*/
 	template<typename ResultT, typename EqFuncT,
 		typename FreeFuncT, typename ConstFuncT,
@@ -136,27 +136,27 @@ public:
 	    type.)
 	
 	\tparam EqPairFuncT The function operating on pairs of equality
-	    nodes, must have signature ResultT x ResultT -> ResultT
+	    nodes, must have signature `ResultT x ResultT -> ResultT`
 
 	\tparam FreePairFuncT The function operating on pairs of free
 	    variable nodes, must have signature
-		size_t x size_t -> ResultT where the two given integers are
+		`size_t x size_t -> ResultT` where the two given integers are
 		the free variable IDs in the pair.
 
 	\tparam ConstPairFuncT The function operating on pairs of
-	    constants, must have signature size_t x size_t -> ResultT
+	    constants, must have signature `size_t x size_t -> ResultT`
 		where the two integers are the symbol IDs of the constants
 
 	\tparam FuncPairFuncT The function operating on pairs of function
-	    nodes, must have signature size_t x size_t x std::list<
-		ResultT>::iterator x std::list<ResultT>::iterator -> ResultT
+	    nodes, must have signature `size_t x size_t x std::list<
+		ResultT>::iterator x std::list<ResultT>::iterator -> ResultT`
 		where the two integers are the symbol IDs of the functions
 		and the two iterators are the begin and end iterators of the
 		function arguments' results.
 
 	\tparam DefaultPairFuncT This is called when a pair of nodes are
 	    encountered but don't have the same type, and it must have
-		signature SyntaxNodePtr x SyntaxNodePtr -> ResultT, where the
+		signature `SyntaxNodePtr x SyntaxNodePtr -> ResultT`, where the
 		two arguments are just the two nodes.
 
 	\param other The other statement to fold with, which can be

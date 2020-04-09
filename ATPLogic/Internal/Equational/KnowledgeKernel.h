@@ -9,7 +9,7 @@
 
 \brief Implementation of the IKnowledgeKernel for equational logic
 
-\detailed The Knowledge Kernel object contains the functions which
+\details The Knowledge Kernel object contains the functions which
     tell you what is/isn't allowed in equational logic, and functions
 	for logical inference etc. Currently, proofs in equational logic
 	operate only in "iff" steps, so proofs can be read in both

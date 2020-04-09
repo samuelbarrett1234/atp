@@ -1,4 +1,4 @@
 <map id="atp::logic::equational::Statement::adjoin_rhs" name="atp::logic::equational::Statement::adjoin_rhs">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,163,47"/>
+<area shape="rect" id="node1" title="create a new statement obtained by replacing the RHS of this statement with the RHS of the other stat..." alt="" coords="5,5,163,47"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a818d63d44af5db1a1201f5a6a80707dc" title=" " alt="" coords="211,5,369,47"/>
 </map>

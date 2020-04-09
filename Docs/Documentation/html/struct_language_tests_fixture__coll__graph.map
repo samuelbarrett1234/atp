@@ -1,7 +1,7 @@
 <map id="LanguageTestsFixture" name="LanguageTestsFixture">
 <area shape="rect" id="node1" title=" " alt="" coords="111,185,261,212"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_language.html" title=" " alt="" coords="12,81,155,123"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1_i_language.html" title="Object for serialising statements, and constructing knowledge kernels." alt="" coords="5,5,148,32"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1_i_language.html" title="Manages knowledge kernels within a logical language framework." alt="" coords="5,5,148,32"/>
 <area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html" title=" " alt="" coords="189,81,332,123"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1_i_knowledge_kernel.html" title="Object for logical inference on statement arrays. In the comments below, &quot;one step&quot; refers to a singl..." alt="" coords="173,5,359,32"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1_i_knowledge_kernel.html" title="Represents a collection of definitions and axioms, associated with a particular ILanguage,..." alt="" coords="173,5,359,32"/>
 </map>

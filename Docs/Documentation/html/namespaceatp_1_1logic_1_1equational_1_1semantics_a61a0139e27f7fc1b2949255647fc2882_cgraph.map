@@ -1,0 +1,6 @@
+<map id="atp::logic::equational::semantics::immediate_applications" name="atp::logic::equational::semantics::immediate_applications">
+<area shape="rect" id="node1" title="Try to apply each rule at the subtree rooted at the given node without trying tp apply it deeper in t..." alt="" coords="5,31,164,87"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5dfad4fb61d23f262bfb9f487d548694" title="Once we have chosen a rule and found a free variable mapping which matches them, this performs the su..." alt="" coords="212,5,396,47"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5ee534f535e78d33ff14b3b175757626" title="Try to build a substitution of free variables in the premise expression, to make it identical to the ..." alt="" coords="215,71,393,112"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a539527954e81b682d6e2f1dc67c4a395" title=" " alt="" coords="444,63,611,119"/>
+</map>

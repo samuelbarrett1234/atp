@@ -9,7 +9,7 @@
 
 \brief Main include file for the ATPLogic library
 
-\detailed This is the main file for the ATPLogic library, where it
+\details This is the main file for the ATPLogic library, where it
     should be possible to use all of the library from just this
 	include file, unless you are wanting details of particular logics
 
@@ -55,7 +55,7 @@ enum class LangType
 \brief Allocates a new language object for a particular logical
     language.
 
-\detailed Allocates a new language object for a particular logical
+\details Allocates a new language object for a particular logical
     language. Should only have to do this once per language type,
 	because these objects hold little, if any, state.
 

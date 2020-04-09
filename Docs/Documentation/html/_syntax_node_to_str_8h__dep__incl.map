@@ -1,7 +1,8 @@
 <map id="ATPLogicTests/Equational/SyntaxNodeToStr.h" name="ATPLogicTests/Equational/SyntaxNodeToStr.h">
-<area shape="rect" id="node1" title=" " alt="" coords="303,5,477,47"/>
-<area shape="rect" id="node2" href="$_semantics_tests_8cpp.html" title=" " alt="" coords="5,95,180,136"/>
-<area shape="rect" id="node3" href="$_statement_tests_8cpp.html" title=" " alt="" coords="204,95,379,136"/>
-<area shape="rect" id="node4" href="$_syntax_node_to_str_8cpp.html" title=" " alt="" coords="403,95,577,136"/>
-<area shape="rect" id="node5" href="$_syntax_tree_fold_tests_8cpp.html" title=" " alt="" coords="601,95,776,136"/>
+<area shape="rect" id="node1" title=" " alt="" coords="411,5,585,47"/>
+<area shape="rect" id="node2" href="$_semantics_helper_tests_8cpp.html" title=" " alt="" coords="5,95,188,136"/>
+<area shape="rect" id="node3" href="$_semantics_tests_8cpp.html" title=" " alt="" coords="212,95,387,136"/>
+<area shape="rect" id="node4" href="$_statement_tests_8cpp.html" title=" " alt="" coords="411,95,585,136"/>
+<area shape="rect" id="node5" href="$_syntax_node_to_str_8cpp.html" title=" " alt="" coords="609,95,784,136"/>
+<area shape="rect" id="node6" href="$_syntax_tree_fold_tests_8cpp.html" title=" " alt="" coords="808,95,983,136"/>
 </map>

@@ -75,16 +75,13 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>A 1-dimensional array of <a class="el" href="classatp_1_1logic_1_1_i_statement.html" title="Statement objects are immutable. They might be useful for exploring the ASTs, or viewing them as a st...">IStatement</a> objects. This is an immutable collection (you cannot modify the shape or contents once created). It also contains strictly contiguous types (every statement in this array is the same derived type).  
- <a href="classatp_1_1logic_1_1_i_statement_array.html#details">More...</a></p>
-
 <p><code>#include &lt;IStatementArray.h&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for atp::logic::IStatementArray:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1_i_statement_array__inherit__graph.png" border="0" usemap="#atp_1_1logic_1_1_i_statement_array_inherit__map" alt="Inheritance graph"/></div>
 <map name="atp_1_1logic_1_1_i_statement_array_inherit__map" id="atp_1_1logic_1_1_i_statement_array_inherit__map">
-<area shape="rect" title="A 1&#45;dimensional array of IStatement objects. This is an immutable collection (you cannot modify the s..." alt="" coords="5,5,183,32"/>
+<area shape="rect" title=" " alt="" coords="5,5,183,32"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html" title=" " alt="" coords="23,80,165,121"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -100,9 +97,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a83c8348e4cde2b418f47e1e46247072a"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_statement_array.html#a83c8348e4cde2b418f47e1e46247072a">slice</a> (size_t start, size_t end, size_t step=1) const =0</td></tr>
 <tr class="separator:a83c8348e4cde2b418f47e1e46247072a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A 1-dimensional array of <a class="el" href="classatp_1_1logic_1_1_i_statement.html" title="Statement objects are immutable. They might be useful for exploring the ASTs, or viewing them as a st...">IStatement</a> objects. This is an immutable collection (you cannot modify the shape or contents once created). It also contains strictly contiguous types (every statement in this array is the same derived type). </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a351e3fcbaf129e1b896a8535d47e4d78"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a351e3fcbaf129e1b896a8535d47e4d78">&#9670;&nbsp;</a></span>~IStatementArray()</h2>
 
@@ -152,6 +147,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd>i &lt; <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html#adb5c5df8c6691e4b91f7811a60e11483">size()</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a16de5334040d700bba07845349c1f3cc">atp::logic::equational::StatementArray</a>.</p>
 
@@ -223,6 +219,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd>start &lt;= end and end &lt;= <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html#adb5c5df8c6691e4b91f7811a60e11483">size()</a> and start &lt; <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html#adb5c5df8c6691e4b91f7811a60e11483">size()</a> and step &gt; 0</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>returns the statements starting at and including the one at 'start' and finishing at but NOT including the one at 'end', going in steps of 'step'. </dd></dl>
 
 <p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a88936889bc98a77d1f0ccc070e5728e6">atp::logic::equational::StatementArray</a>.</p>
 

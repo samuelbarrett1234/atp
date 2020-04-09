@@ -10,7 +10,7 @@
 \brief This is the common header file to all parts of this library.
     It defines several macros used throughout the library.
 
-\detailed This file contains macro definitions for precondition
+\details This file contains macro definitions for precondition
     checking, assertion checking, and DLL-export/import specification
     which is necessary to export and import functions and classes
     from this library.
@@ -47,6 +47,7 @@ be DLL-exported.
 #ifdef _DEBUG
 
 /**
+\def ATP_LOGIC_DEFENSIVE
 Define this if we should be checking things defensively (this can be
 expensive, however.) If defensive mode is enabled, you should also
 enable the assertions and preconditions, if they are not already.
@@ -59,6 +60,7 @@ enable the assertions and preconditions, if they are not already.
 #ifdef ATP_LOGIC_DEFENSIVE
 
 /**
+\def ATP_LOGIC_ASSERT
 Assert the truth of a given expression. This macro should be used in
 cases where the expression should never be false, even if the library
 user abuses preconditions etc. In other words, an assertion is, in a
@@ -67,6 +69,7 @@ sense, stronger than a precondition.
 #define ATP_LOGIC_ASSERT(expr) assert(expr)
 
 /**
+\def ATP_LOGIC_PRECOND
 Check that a given precondition holds. It might be desirable to leave
 this macro enabled in release builds, to check that library users
 aren't abusing preconditions etc.

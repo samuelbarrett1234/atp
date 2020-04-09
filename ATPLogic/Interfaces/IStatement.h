@@ -9,7 +9,7 @@
 
 \brief Contains the IStatement interface for logical statements
 
-\detailed This file contains an interface to a class representing a
+\details This file contains an interface to a class representing a
     single statement (for example, an odd number plus an odd
     number is even.) These can be thought of as abstract syntax
     trees (ASTs). A canonical statement is either the statement
@@ -56,7 +56,7 @@ enum class StmtForm
 
 \brief Represents a single, syntactically correct logical statement.
 
-\detailed Represents a single, syntactically correct logical
+\details Represents a single, syntactically correct logical
     statement, which is associated with a context (of user-defined
 	constants and functions). These objects are designed to be
 	immutable; once created, they cannot be modified.

@@ -1,5 +1,5 @@
 <map id="atp::logic::equational::StatementArray::try_concat" name="atp::logic::equational::StatementArray::try_concat">
 <area shape="rect" id="node1" title=" " alt="" coords="415,5,559,61"/>
-<area shape="rect" id="node2" href="$namespaceatp_1_1logic.html#aa0bf7e3fc379b924cf7031f1110c685d" title=" " alt="" coords="244,20,367,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic.html#aa0bf7e3fc379b924cf7031f1110c685d" title="Concatenate two statement arrays of the same type." alt="" coords="244,20,367,47"/>
 <area shape="rect" id="node3" href="$_statement_array_tests_8cpp.html#ab4e77a8340023c96b2acd036cc82d26e" title=" " alt="" coords="5,20,196,47"/>
 </map>

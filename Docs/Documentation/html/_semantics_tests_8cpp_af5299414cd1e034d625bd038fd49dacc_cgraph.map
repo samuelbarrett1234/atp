@@ -1,10 +1,10 @@
 <map id="BOOST_AUTO_TEST_CASE" name="BOOST_AUTO_TEST_CASE">
 <area shape="rect" id="node1" title=" " alt="" coords="5,150,196,177"/>
-<area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a96e2fb0e710fba0160a233bb86803863" title=" " alt="" coords="244,71,399,112"/>
-<area shape="rect" id="node7" href="$namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b" title=" " alt="" coords="250,143,393,184"/>
-<area shape="rect" id="node8" href="$namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title=" " alt="" coords="250,219,393,260"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title=" " alt="" coords="472,5,619,47"/>
-<area shape="rect" id="node4" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title=" " alt="" coords="468,71,623,112"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a96e2fb0e710fba0160a233bb86803863" title="Returns true iff the syntax trees are equal up to swapping of free variable names and reflection abou..." alt="" coords="244,71,399,112"/>
+<area shape="rect" id="node7" href="$namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b" title="Read a stream of line separated statements, and return the list of their parse trees,..." alt="" coords="250,143,393,184"/>
+<area shape="rect" id="node8" href="$namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title="Convert a parse tree into a syntax tree." alt="" coords="250,219,393,260"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title="Perform a fold over pairs of syntax trees, where the fold constructor is dependent on the node types ..." alt="" coords="472,5,619,47"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title="Reflect the statement about the equals sign (so &quot;f(x)=g(x)&quot; becomes &quot;g(x)=f(x)&quot;)" alt="" coords="468,71,623,112"/>
 <area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5" title=" " alt="" coords="692,37,835,79"/>
 <area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a5b39be718d2816106293f4aa47f16824" title=" " alt="" coords="692,103,835,144"/>
 <area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af7ae5937b36a9fd2a8427b543b47ed56" title=" " alt="" coords="471,137,619,193"/>

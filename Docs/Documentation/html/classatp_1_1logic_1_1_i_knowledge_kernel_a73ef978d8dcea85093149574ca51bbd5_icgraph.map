@@ -1,4 +1,4 @@
 <map id="atp::logic::IKnowledgeKernel::follows" name="atp::logic::IKnowledgeKernel::follows">
-<area shape="rect" id="node1" title=" " alt="" coords="187,5,373,47"/>
+<area shape="rect" id="node1" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="187,5,373,47"/>
 <area shape="rect" id="node2" href="$namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34" title=" " alt="" coords="5,5,139,47"/>
 </map>

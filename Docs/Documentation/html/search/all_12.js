@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['test_2eh_275',['Test.h',['../_test_8h.html',1,'']]],
-  ['text_276',['TEXT',['../namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7a61a96ffcb251bb9bf0abf8fec19d0ea8',1,'atp::logic']]],
-  ['to_5fstr_277',['to_str',['../classatp_1_1logic_1_1_i_statement.html#a81d57614488ab4a94f3a848b30334581',1,'atp::logic::IStatement::to_str()'],['../classatp_1_1logic_1_1equational_1_1_statement.html#aa6f01c3b5f507cf2003f352dc58f3e58',1,'atp::logic::equational::Statement::to_str()']]],
+  ['test_2eh_274',['Test.h',['../_test_8h.html',1,'']]],
+  ['text_275',['TEXT',['../namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7a61a96ffcb251bb9bf0abf8fec19d0ea8',1,'atp::logic']]],
+  ['to_5fstr_276',['to_str',['../classatp_1_1logic_1_1_i_statement.html#a81d57614488ab4a94f3a848b30334581',1,'atp::logic::IStatement::to_str()'],['../classatp_1_1logic_1_1equational_1_1_statement.html#aa6f01c3b5f507cf2003f352dc58f3e58',1,'atp::logic::equational::Statement::to_str()']]],
+  ['todo_20list_277',['Todo List',['../todo.html',1,'']]],
   ['transpose_278',['transpose',['../namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a',1,'atp::logic::equational::semantics']]],
   ['true_5fby_5freflexivity_279',['true_by_reflexivity',['../namespaceatp_1_1logic_1_1equational_1_1semantics.html#a36dd38214bd3efb430f116eb9e40fc64',1,'atp::logic::equational::semantics']]],
   ['try_5fbuild_5fmap_280',['try_build_map',['../namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5ee534f535e78d33ff14b3b175757626',1,'atp::logic::equational::semantics']]],

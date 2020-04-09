@@ -1,5 +1,5 @@
 <map id="ATPLogic/Internal/Equational/Grammar.h" name="ATPLogic/Internal/Equational/Grammar.h">
-<area shape="rect" id="node1" title=" " alt="" coords="135,5,325,47"/>
+<area shape="rect" id="node1" title="Contains the Boost Spirit and Boost Qi grammar specifications for the equational logic parsing." alt="" coords="135,5,325,47"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,184,60,211"/>
 <area shape="rect" id="node3" title=" " alt="" coords="84,184,123,211"/>
 <area shape="rect" id="node4" title=" " alt="" coords="255,102,309,129"/>
@@ -7,6 +7,6 @@
 <area shape="rect" id="node6" title=" " alt="" coords="488,95,625,136"/>
 <area shape="rect" id="node7" href="$_parse_nodes_8h.html" title=" " alt="" coords="127,102,231,129"/>
 <area shape="rect" id="node8" title=" " alt="" coords="147,184,217,211"/>
-<area shape="rect" id="node9" href="$_a_t_p_logic_a_p_i_8h.html" title=" " alt="" coords="241,184,376,211"/>
+<area shape="rect" id="node9" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="241,184,376,211"/>
 <area shape="rect" id="node10" title=" " alt="" coords="276,259,341,285"/>
 </map>

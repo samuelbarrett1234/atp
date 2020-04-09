@@ -9,7 +9,7 @@
 
 \brief Contains the definitions of the syntax tree classes
 
-\detailed A syntax tree represents an expression, which has been
+\details A syntax tree represents an expression, which has been
     type-checked, and may contain user-defined constants and
 	functions, and free variables. In this equational logic, an
 	"expression" is what you would find on either side of an equals

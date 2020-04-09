@@ -44,7 +44,7 @@ namespace equational
 	std::list<ResultT>::iterator x std::list<ResultT>::iterator
 	-> ResultT
 
-\detailed Folds are a special kind of concept, prominent in
+\details Folds are a special kind of concept, prominent in
     functional programming. Applying a fold to a tree like this one
 	can be a useful way of computing/aggregating information over the
 	tree without having to write boilerplate code. A fold basically

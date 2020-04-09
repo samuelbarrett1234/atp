@@ -74,6 +74,9 @@ $(function() {
 <div class="title">ParseTreeFold.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Provides a templated implementation of a fold over parse trees.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;set&gt;</code><br />
 <code>#include &lt;list&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
@@ -86,7 +89,7 @@ Include dependency graph for ParseTreeFold.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_parse_tree_fold_8h__incl.png" border="0" usemap="#_a_t_p_logic_2_internal_2_equational_2_parse_tree_fold_8h" alt=""/></div>
 <map name="_a_t_p_logic_2_internal_2_equational_2_parse_tree_fold_8h" id="_a_t_p_logic_2_internal_2_equational_2_parse_tree_fold_8h">
-<area shape="rect" title=" " alt="" coords="128,5,317,47"/>
+<area shape="rect" title="Provides a templated implementation of a fold over parse trees." alt="" coords="128,5,317,47"/>
 <area shape="rect" title=" " alt="" coords="5,95,45,121"/>
 <area shape="rect" title=" " alt="" coords="55,169,94,196"/>
 <area shape="rect" title=" " alt="" coords="118,169,173,196"/>
@@ -95,7 +98,7 @@ Include dependency graph for ParseTreeFold.h:</div>
 <area shape="rect" title=" " alt="" coords="499,95,581,121"/>
 <area shape="rect" href="_parse_nodes_8h.html" title=" " alt="" coords="171,95,275,121"/>
 <area shape="rect" title=" " alt="" coords="197,169,267,196"/>
-<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title=" " alt="" coords="291,169,426,196"/>
+<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="291,169,426,196"/>
 <area shape="rect" title=" " alt="" coords="326,244,391,271"/>
 </map>
 </div>
@@ -104,7 +107,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_parse_tree_fold_8h__dep__incl.png" border="0" usemap="#_a_t_p_logic_2_internal_2_equational_2_parse_tree_fold_8hdep" alt=""/></div>
 <map name="_a_t_p_logic_2_internal_2_equational_2_parse_tree_fold_8hdep" id="_a_t_p_logic_2_internal_2_equational_2_parse_tree_fold_8hdep">
-<area shape="rect" title=" " alt="" coords="108,5,297,47"/>
+<area shape="rect" title="Provides a templated implementation of a fold over parse trees." alt="" coords="108,5,297,47"/>
 <area shape="rect" href="_syntax_nodes_8cpp.html" title=" " alt="" coords="5,95,195,136"/>
 <area shape="rect" href="_parse_tree_fold_tests_8cpp.html" title=" " alt="" coords="219,95,394,136"/>
 </map>
@@ -115,17 +118,23 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceatp"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp.html">atp</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceatp_1_1logic"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html">atp::logic</a></td></tr>
+<tr class="memdesc:namespaceatp_1_1logic"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace of the ATPLogic library. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceatp_1_1logic_1_1equational"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html">atp::logic::equational</a></td></tr>
+<tr class="memdesc:namespaceatp_1_1logic_1_1equational"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace for the equational logic implementation. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac5f7bc7ced86a79f9e8f436630704152"><td class="memTemplParams" colspan="2">template&lt;typename ResultT , typename EqFuncT , typename IdentifierFuncT &gt; </td></tr>
 <tr class="memitem:ac5f7bc7ced86a79f9e8f436630704152"><td class="memTemplItemLeft" align="right" valign="top">ResultT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#ac5f7bc7ced86a79f9e8f436630704152">atp::logic::equational::fold_parse_tree</a> (EqFuncT eq_func, IdentifierFuncT identifier_func, ParseNodePtr p_root)</td></tr>
+<tr class="memdesc:ac5f7bc7ced86a79f9e8f436630704152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a fold operation over a given parse tree.  <a href="namespaceatp_1_1logic_1_1equational.html#ac5f7bc7ced86a79f9e8f436630704152">More...</a><br /></td></tr>
 <tr class="separator:ac5f7bc7ced86a79f9e8f436630704152"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Provides a templated implementation of a fold over parse trees. </p>
+<dl class="section author"><dt>Author</dt><dd>Samuel Barrett </dd></dl>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

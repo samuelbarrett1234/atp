@@ -1,5 +1,5 @@
 <map id="SyntaxTreeFoldTestsFixture" name="SyntaxTreeFoldTestsFixture">
 <area shape="rect" id="node1" title=" " alt="" coords="6,185,191,212"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html" title=" " alt="" coords="27,81,170,123"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1_i_knowledge_kernel.html" title="Object for logical inference on statement arrays. In the comments below, &quot;one step&quot; refers to a singl..." alt="" coords="5,5,192,32"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1_i_knowledge_kernel.html" title="Represents a collection of definitions and axioms, associated with a particular ILanguage,..." alt="" coords="5,5,192,32"/>
 </map>

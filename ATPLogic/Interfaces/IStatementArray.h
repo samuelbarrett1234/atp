@@ -7,11 +7,13 @@
 
 \author Samuel Barrett
 
-\brief Provides the IStatmentArray interface for collections of statement objects
+\brief Provides the IStatementArray interface for collections of
+    statement objects
 
-\detailed This file contains an interface to a class representing a one-dimensional array of statements.
-    This interface is mostly useful for efficiency purposes - arrays of IStatement objects can be slow.
-    It can also implement lazy semantics where possible.
+\details This file contains an interface to a class representing
+    a one-dimensional array of statements. This interface is mostly
+	useful for efficiency purposes - arrays of IStatement objects can
+	be slow. Ideally uses lazy semantics where possible.
 
 */
 
@@ -34,7 +36,7 @@ typedef std::shared_ptr<IStatementArray> StatementArrayPtr;
 
 /**
 
-\interface IStatmentArray
+\interface IStatementArray
 
 An immutable 1-dimensional array of IStatement objects.
 Being an immutable collection, you cannot modify the

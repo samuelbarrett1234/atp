@@ -32,9 +32,6 @@ namespace equational
 {
 
 
-// Helper function for computing the number of elements in a slice.
-// Precondition: start <= end and step > 0
-// Postcondition: returns the size of the set
 // { k >= 0 s.t. start + k * step < end }
 /**
 
@@ -243,18 +240,25 @@ public:
 	};
 
 public:
-	// these functions return nullptr if the statement types given as
-	// argument are not equational (thus this class isn't responsible
-	// for handling them). Returning nullptr is NOT an error.
+	/**
+	\details These functions return nullptr if the statement types
+	given asargument are not equational (thus this class isn't
+	responsible for handling them). Returning nullptr is \b not an
+	error.
+	*/
+	///@{
 	static StatementArrayPtr try_from_stmt(const IStatement& stmt);
 	static StatementArrayPtr try_concat(const IStatementArray& l,
 		const IStatementArray& r);
 	static StatementArrayPtr try_concat(
 		const std::vector<StatementArrayPtr>& stmts);
+	///@}
 
 public:
-	// start/end/step are like the parameters given to slice() and
-	// they follow the same preconditions.
+	/**
+	\pre The same as `slice`
+	\see atp::logic::IStatementArray::slice
+	*/
 	StatementArray(ArrPtr p_array = ArrPtr(),
 		size_t start = 0, size_t end = static_cast<size_t>(-1),
 		size_t step = 1);
@@ -263,25 +267,35 @@ public:
 	{
 		return compute_slice_size(m_start, m_stop, m_step);
 	}
+
+	// interface `at` implementation
 	const IStatement& at(size_t i) const override
+	{
+		return static_cast<const IStatement&>(
+			my_at(i));
+	}
+
+	// special addressing implementation to return an
+	// equational::Statement type
+	const Statement& my_at(size_t i) const
 	{
 		ATP_LOGIC_PRECOND(i < size());
 		ATP_LOGIC_ASSERT(m_array != nullptr);
-		return static_cast<const IStatement&>(
-			m_array->at(m_start + i * m_step));
+		const size_t true_idx = m_start + i * m_step;
+		ATP_LOGIC_ASSERT(true_idx < m_array->size());
+		return m_array->at(true_idx);
 	}
-	const Statement& my_at(size_t i) const
-	{
-		return m_array->at(m_start + i * m_step);
-	}
+
 	inline iterator begin() const
 	{
 		return iterator(this, 0);
 	}
+
 	inline iterator end() const
 	{
 		return iterator(this);
 	}
+
 	StatementArrayPtr slice(size_t start, size_t end,
 		size_t step = 1) const override;
 

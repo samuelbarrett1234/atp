@@ -1,7 +1,7 @@
 <map id="BOOST_AUTO_TEST_CASE" name="BOOST_AUTO_TEST_CASE">
 <area shape="rect" id="node1" title=" " alt="" coords="5,100,196,127"/>
-<area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b" title=" " alt="" coords="244,27,387,69"/>
-<area shape="rect" id="node3" href="$namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title=" " alt="" coords="244,93,387,134"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b" title="Read a stream of line separated statements, and return the list of their parse trees,..." alt="" coords="244,27,387,69"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title="Convert a parse tree into a syntax tree." alt="" coords="244,93,387,134"/>
 <area shape="rect" id="node7" href="$_syntax_node_to_str_8cpp.html#a3c784b45883147965f75cb7287148ea5" title=" " alt="" coords="250,159,381,185"/>
 <area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af7ae5937b36a9fd2a8427b543b47ed56" title=" " alt="" coords="459,5,607,61"/>
 <area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ac6817a1e4df3b10bd9bed1126aa35304" title=" " alt="" coords="443,85,623,141"/>

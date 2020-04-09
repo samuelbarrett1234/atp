@@ -42,7 +42,7 @@ enum class StmtFormat
 
 \brief Manages knowledge kernels within a logical language framework
 
-\detailed This file represents the syntax of the logic and axiom set being
+\details This file represents the syntax of the logic and axiom set being
     used in a particular context. In particular, it constructs, builds
     and loads knowledge kernels. It is also responsible for serialising
     statement arrays.

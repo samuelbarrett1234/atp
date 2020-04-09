@@ -1,7 +1,8 @@
 <map id="atp::logic::equational::KnowledgeKernel::valid" name="atp::logic::equational::KnowledgeKernel::valid">
-<area shape="rect" id="node1" title=" " alt="" coords="481,86,644,127"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="259,5,431,61"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title=" " alt="" coords="256,86,433,127"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title=" " alt="" coords="258,151,431,193"/>
+<area shape="rect" id="node1" title="Type&#45;check the given statements." alt="" coords="481,122,644,163"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="259,41,431,97"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="256,122,433,163"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title="Get the next logical steps of an array of statements." alt="" coords="258,187,431,229"/>
 <area shape="rect" id="node3" href="$struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,5,208,61"/>
+<area shape="rect" id="node4" href="$struct_semantics_helper_tests_fixture.html#a5748077825546fdbb31d0ecf060df206" title=" " alt="" coords="6,86,207,127"/>
 </map>

@@ -1,8 +1,8 @@
 <map id="atp::logic::equational::semantics::implies" name="atp::logic::equational::semantics::implies">
-<area shape="rect" id="node1" title=" " alt="" coords="5,79,148,120"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title=" " alt="" coords="206,5,353,47"/>
+<area shape="rect" id="node1" title="Returns true iff there exists a substitution in the premmise which would produce the conclusion." alt="" coords="5,79,148,120"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title="Perform a fold over pairs of syntax trees, where the fold constructor is dependent on the node types ..." alt="" coords="206,5,353,47"/>
 <area shape="rect" id="node3" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a539527954e81b682d6e2f1dc67c4a395" title=" " alt="" coords="196,71,363,127"/>
-<area shape="rect" id="node4" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title=" " alt="" coords="202,152,357,193"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title="Reflect the statement about the equals sign (so &quot;f(x)=g(x)&quot; becomes &quot;g(x)=f(x)&quot;)" alt="" coords="202,152,357,193"/>
 <area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5" title=" " alt="" coords="411,119,553,160"/>
 <area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a5b39be718d2816106293f4aa47f16824" title=" " alt="" coords="411,184,553,225"/>
 </map>

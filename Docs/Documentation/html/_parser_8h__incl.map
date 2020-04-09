@@ -1,10 +1,10 @@
 <map id="ATPLogic/Internal/Equational/Parser.h" name="ATPLogic/Internal/Equational/Parser.h">
-<area shape="rect" id="node1" title=" " alt="" coords="109,5,298,47"/>
+<area shape="rect" id="node1" title="Contains the functions for turning a string into a parse tree of expressions (note that parse trees a..." alt="" coords="109,5,298,47"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,95,71,121"/>
 <area shape="rect" id="node3" title=" " alt="" coords="72,169,111,196"/>
 <area shape="rect" id="node4" title=" " alt="" coords="135,169,189,196"/>
 <area shape="rect" id="node5" title=" " alt="" coords="375,95,503,121"/>
-<area shape="rect" id="node6" href="$_a_t_p_logic_a_p_i_8h.html" title=" " alt="" coords="308,169,443,196"/>
+<area shape="rect" id="node6" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="308,169,443,196"/>
 <area shape="rect" id="node8" href="$_parse_nodes_8h.html" title=" " alt="" coords="197,95,301,121"/>
 <area shape="rect" id="node7" title=" " alt="" coords="343,244,408,271"/>
 <area shape="rect" id="node9" title=" " alt="" coords="214,169,283,196"/>

@@ -1,4 +1,4 @@
 <map id="atp::logic::IPropositionalKnowledgeKernel" name="atp::logic::IPropositionalKnowledgeKernel">
-<area shape="rect" id="node1" title="A knowledge kernel which supports propositional logic, thus provides functions for the search algorit..." alt="" coords="18,80,179,121"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1_i_knowledge_kernel.html" title="Object for logical inference on statement arrays. In the comments below, &quot;one step&quot; refers to a singl..." alt="" coords="5,5,192,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="18,80,179,121"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1_i_knowledge_kernel.html" title="Represents a collection of definitions and axioms, associated with a particular ILanguage,..." alt="" coords="5,5,192,32"/>
 </map>

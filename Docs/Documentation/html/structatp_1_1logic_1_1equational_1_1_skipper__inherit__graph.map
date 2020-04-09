@@ -1,4 +1,4 @@
 <map id="atp::logic::equational::Skipper" name="atp::logic::equational::Skipper">
-<area shape="rect" id="node1" title=" " alt="" coords="26,95,169,136"/>
+<area shape="rect" id="node1" title="This is the skip parser, which tells the parser what to ignore (what is not code)." alt="" coords="26,95,169,136"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,5,189,47"/>
 </map>

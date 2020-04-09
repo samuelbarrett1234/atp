@@ -71,8 +71,8 @@ ATP_LOGIC_API bool identical(const Statement& a,
 
 
 /**
-\brief Reflect the statement about the equals sign (so "f(x)=g(x)"
-    becomes "g(x)=f(x)")
+\brief Reflect the statement about the equals sign (so `f(x)=g(x)`
+    becomes `g(x)=f(x)`)
 */
 ATP_LOGIC_API Statement transpose(const Statement& stmt);
 

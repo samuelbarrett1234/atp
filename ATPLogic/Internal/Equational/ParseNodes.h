@@ -9,7 +9,7 @@
 
 \brief Contains the classes that form the parse tree
 
-\detailed This file contains the different kinds of nodes that can
+\details This file contains the different kinds of nodes that can
     occur in an equational logic parse tree. There are only two
 	kinds: equals nodes (which have an LHS and an RHS) and an
 	identifier node (which can have children or siblings of other
@@ -88,7 +88,7 @@ private:
 
 
 /**
-\detailed Identifiers always have a string storing their name. If an
+\details Identifiers always have a string storing their name. If an
     identifier has no children, it is just a constant, 'x'. If an
 	identifier has a list of children, it is a function, and those
 	child expressions are its arguments (in order).

@@ -1,5 +1,5 @@
 <map id="atp::logic::equational::StatementArray::iterator" name="atp::logic::equational::StatementArray::iterator">
 <area shape="rect" id="node1" title=" " alt="" coords="5,200,175,241"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html" title=" " alt="" coords="19,81,161,123"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1_i_statement.html" title="Statement objects are immutable. They might be useful for exploring the ASTs, or viewing them as a st..." alt="" coords="17,5,163,32"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1_i_statement.html" title="Represents a single, syntactically correct logical statement." alt="" coords="17,5,163,32"/>
 </map>

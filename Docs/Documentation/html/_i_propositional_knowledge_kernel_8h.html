@@ -74,6 +74,9 @@ $(function() {
 <div class="title">IPropositionalKnowledgeKernel.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Contains a common specialisation of the IKnowledgeKernel interface.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="_a_t_p_logic_a_p_i_8h.html">../ATPLogicAPI.h</a>&quot;</code><br />
@@ -85,13 +88,13 @@ Include dependency graph for IPropositionalKnowledgeKernel.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_i_propositional_knowledge_kernel_8h__incl.png" border="0" usemap="#_a_t_p_logic_2_interfaces_2_i_propositional_knowledge_kernel_8h" alt=""/></div>
 <map name="_a_t_p_logic_2_interfaces_2_i_propositional_knowledge_kernel_8h" id="_a_t_p_logic_2_interfaces_2_i_propositional_knowledge_kernel_8h">
-<area shape="rect" title=" " alt="" coords="98,5,313,47"/>
+<area shape="rect" title="Contains a common specialisation of the IKnowledgeKernel interface." alt="" coords="98,5,313,47"/>
 <area shape="rect" title=" " alt="" coords="43,244,112,271"/>
 <area shape="rect" title=" " alt="" coords="223,244,279,271"/>
-<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title=" " alt="" coords="175,319,297,345"/>
-<area shape="rect" href="_i_knowledge_kernel_8h.html" title=" " alt="" coords="85,95,221,121"/>
-<area shape="rect" href="_i_statement_8h.html" title=" " alt="" coords="388,244,484,271"/>
-<area shape="rect" href="_i_statement_array_8h.html" title=" " alt="" coords="289,169,415,196"/>
+<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="175,319,297,345"/>
+<area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="85,95,221,121"/>
+<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="388,244,484,271"/>
+<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="289,169,415,196"/>
 <area shape="rect" title=" " alt="" coords="203,393,269,420"/>
 <area shape="rect" title=" " alt="" coords="409,319,463,345"/>
 </map>
@@ -99,8 +102,7 @@ Include dependency graph for IPropositionalKnowledgeKernel.h:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html">atp::logic::IPropositionalKnowledgeKernel</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A knowledge kernel which supports propositional logic, thus provides functions for the search algorithms to manipulate statements using propositional logic.  <a href="classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html">atp::logic::IPropositionalKnowledgeKernel</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -108,9 +110,14 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceatp"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp.html">atp</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceatp_1_1logic"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html">atp::logic</a></td></tr>
+<tr class="memdesc:namespaceatp_1_1logic"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace of the ATPLogic library. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Contains a common specialisation of the IKnowledgeKernel interface. </p>
+<dl class="section author"><dt>Author</dt><dd>Samuel Barrett</dd></dl>
+<p>\detailed Most logics support at least propositional logic (and / or / not), thus we provide this extended interface for such logics, to support special search algorithms which require this structure. </p>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

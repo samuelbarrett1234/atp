@@ -1,5 +1,5 @@
 <map id="atp::logic::equational::ptree_to_stree" name="atp::logic::equational::ptree_to_stree">
-<area shape="rect" id="node1" title=" " alt="" coords="5,93,148,134"/>
+<area shape="rect" id="node1" title="Convert a parse tree into a syntax tree." alt="" coords="5,93,148,134"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af7ae5937b36a9fd2a8427b543b47ed56" title=" " alt="" coords="221,5,369,61"/>
 <area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ac6817a1e4df3b10bd9bed1126aa35304" title=" " alt="" coords="205,85,385,141"/>
 <area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ac6039360852cfb5619615af8bf2d2072" title=" " alt="" coords="196,166,393,207"/>

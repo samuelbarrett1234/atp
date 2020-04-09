@@ -1,5 +1,5 @@
 <map id="atp::logic::equational::compute_slice_size" name="atp::logic::equational::compute_slice_size">
-<area shape="rect" id="node1" title=" " alt="" coords="713,35,859,76"/>
+<area shape="rect" id="node1" title="Helper function for computing the number of elements in slices." alt="" coords="713,35,859,76"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612" title=" " alt="" coords="512,64,665,105"/>
 <area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a88936889bc98a77d1f0ccc070e5728e6" title=" " alt="" coords="276,5,432,47"/>
 <area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a427d3b1b8f56c9593fffc55ef3ce11e0" title=" " alt="" coords="244,71,464,112"/>

@@ -1,27 +1,14 @@
 #pragma once
 
 
-/*
+/**
 
-SyntaxTreeFold.h
+\file
 
-This file contains a (templated) implementation of a fold over syntax
-trees. Folds are a special kind of concept, prominent in functional
-programming. Applying a fold to a tree like this one can be a useful
-way of computing/aggregating information over the tree without having
-to write boilerplate code.
+\author Samuel Barrett
 
-A fold basically works by specifying a function to apply for each
-kind of node, and the fold then handles the rest of the recursion for
-you.
-
-However, recursion is inefficient, so we use a stack instead. In
-particular, we use two stacks: one for keeping track of which nodes
-we are yet to examine, and which results we are yet to use. Some
-nodes need to be examined twice (the first time, we push its children
-onto the stack. the second time, we combine the results of its
-children and push our result to the results_stack) thus we have a set
-of seen nodes too.
+\brief Provides a templated implementation of a fold over syntax
+    trees.
 
 */
 
@@ -43,14 +30,39 @@ namespace equational
 {
 
 
-// perform a fold on syntax trees!
-// this is very handy for computing functions of the trees, and just
-// traversing the trees in general.
-// EqFuncT : should be of type (ResultT, ResultT) -> ResultT
-// FreeFuncT : should be of type (size_t) -> ResultT
-// ConstFuncT : should be of type (size_t) -> ResultT
-// FFuncT : should be of type (size_t, std::list<ResultT>::iterator,
-//                             std::list<ResultT>::iterator) -> ResultT
+/**
+
+\brief Perform a fold operation over a given syntax tree
+
+\tparam ResultT The return type of this operation.
+
+\tparam EqFuncT The function to use as the equality node constructor,
+	which must have type ResultT x ResultT -> ResultT
+
+\tparam FreeFuncT The function to use as the free variable node
+    constructor, with type size_t -> ResultT
+
+\tparam ConstFuncT The function to use as the constant node
+	constructor, with type size_t -> ResultT
+
+\tparam FFuncT The function to use as the function node constructor,
+    with type size_t x std::list<ResultT>::iterator x
+    std::list<ResultT>::iterator -> ResultT
+
+\detailed Folds are a special kind of concept, prominent in
+	functional programming. Applying a fold to a tree like this one
+	can be a useful way of computing/aggregating information over the
+	tree without having to write boilerplate code. A fold basically
+	works by specifying a function to apply for each kind of node, and
+	the fold then handles the rest of the recursion for you. However,
+	recursion is inefficient, so we use a stack instead. In
+	particular, we use two stacks: one for keeping track of which
+	nodes we are yet to examine, and which results we are yet to use.
+	Some nodes need to be examined twice (the first time, we push its
+	children onto the stack. the second time, we combine the results
+	of its children and push our result to the results_stack) thus we
+	have a set of seen nodes too.
+*/
 template<typename ResultT, typename EqFuncT,
 typename FreeFuncT, typename ConstFuncT, typename FFuncT>
 ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
@@ -74,7 +86,8 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 		std::function<ResultT(size_t,
 			typename std::list<ResultT>::iterator,
 			typename std::list<ResultT>::iterator)>>::value,
-		"FFuncT should be of type (size_t, std::list<ResultT>::iterator,"
+		"FFuncT should be of type (size_t, "
+		"std::list<ResultT>::iterator,"
 		" std::list<ResultT>::iterator) -> ResultT");
 
 	// now proceed with the function:
@@ -153,20 +166,23 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 				{
 					ATP_LOGIC_ASSERT(result_stack.size() >= 2);
 
-					// note that we have to pop left and right in this
-					// order, because we initially pushed left then right
-					// but since then, they have both been popped from
-					// the todo_stack and pushed to the result_stack,
-					// thus their order has been inverted (so: inverted
-					// twice means left the same!)
-					// [check unit tests for evidence]
+					/*
+					Note that we have to pop left and right in this
+					order, because we initially pushed left then
+					right, but since then, they have both been popped
+					from the todo_stack and pushed to the
+					result_stack thus their order has been inverted
+					(so: inverted twice means left the same!)
+					[see the unit tests for more].
+					*/
 					auto left_result = result_stack.back();
 					result_stack.pop_back();
 					auto right_result = result_stack.back();
 					result_stack.pop_back();
 
 					// compute function of eq for its children:
-					result_stack.push_back(eq_func(std::move(left_result),
+					result_stack.push_back(eq_func(
+						std::move(left_result),
 						std::move(right_result)));
 				},
 				// if FREE...

@@ -1,13 +1,14 @@
 #pragma once
 
 
-/*
+/**
 
-Semantics.h
+\file
 
-This file contains code for performing logical inference in
-equational logic statements, and also for various other
-operations on statements, like checking logical equivalence.
+\author Samuel Barrett
+
+\brief Several useful functions on Statements, including logical
+    inference and logical equivalence.
 
 */
 
@@ -21,6 +22,16 @@ operations on statements, like checking logical equivalence.
 #include "StatementArray.h"
 
 
+/**
+
+\namespace atp::logic::equational::semantics
+
+\brief Contains all the functions relating to the semantics (logical
+    inference etc) of equational logic.
+
+*/
+
+
 namespace atp
 {
 namespace logic
@@ -31,41 +42,56 @@ namespace semantics
 {
 
 
-// Try applying each given equality rule to the given statement, to
-// produce other logically equivalent statements which are
-// "adjacent" to `stmt`. Note that the statements returned are "iff".
+/**
+\brief Try applying each rule to the statement to get a list of
+    successor statements. Note that each rule may generate many
+	possible successors, or none.
+
+\remark The successors returned here are all "iff" in the sense that
+    `stmt` will also appear in \a their successors.
+*/
 ATP_LOGIC_API StatementArray get_successors(const Statement& stmt,
 	const std::vector<Statement>& rules);
 
 
-// returns true iff a and b are equal as syntax trees,
-// which means that they are basically identical except UP TO
-// swapping around the names of the free variables.
-// this DOES include swapping the equals sign around!
+/**
+\brief Returns true iff the syntax trees are equal up to swapping
+    of free variable names and reflection about the equals sign
+*/
 ATP_LOGIC_API bool equivalent(const Statement& a,
 	const Statement& b);
 
 
-// returns true iff a and b are identical (i.e. without allowing
-// permutations of the free variables.)
+/**
+\brief Returns true iff the two syntax trees are identical (i.e. same
+    free variable IDs, same orientation about equals sign, etc.)
+*/
 ATP_LOGIC_API bool identical(const Statement& a,
 	const Statement& b);
 
 
-// reflect a statement about its equals sign (so "f(x)=g(x)"
-// becomes "g(x)=f(x)"
+/**
+\brief Reflect the statement about the equals sign (so "f(x)=g(x)"
+    becomes "g(x)=f(x)")
+*/
 ATP_LOGIC_API Statement transpose(const Statement& stmt);
 
 
-// returns true iff the statement is trivially true by reflexivity
-// of the equals sign (i.e. `stmt` has exactly the same stuff on
-// both sides of the equation.)
+/**
+\brief Returns true iff the statement is symmetric about the equals
+    sign (thus trivially true by reflexivity of '=').
+*/
 ATP_LOGIC_API bool true_by_reflexivity(const Statement& stmt);
 
 
-// returns true iff there exists a substitution in the premise
-// which would produce the conclusion (note that this is NOT used
-// in finding proofs, because it is a one-way implication.)
+/**
+\brief Returns true iff there exists a substitution in the premmise
+    which would produce the conclusion
+
+\warning This is not used in finding proofs, because in this
+    implementation of equational logic, proofs are "iff", i.e.
+    readable in both directions.
+*/
 ATP_LOGIC_API bool implies(const Statement& premise,
 	const Statement& concl);
 

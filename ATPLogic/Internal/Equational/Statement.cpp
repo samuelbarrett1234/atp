@@ -1,7 +1,13 @@
+/**
+
+\file
+
+\author Samuel Barrett
+
+*/
+
+
 #include "Statement.h"
-#include "SyntaxTreeFold.h"
-#include "KnowledgeKernel.h"
-#include "SemanticsHelper.h"
 #include <set>
 #include <list>
 #include <boost/lexical_cast.hpp>
@@ -10,6 +16,9 @@
 #include <boost/range.hpp>
 #include <boost/bind.hpp>
 #include <boost/phoenix.hpp>
+#include "SyntaxTreeFold.h"
+#include "KnowledgeKernel.h"
+#include "SemanticsHelper.h"
 
 
 namespace atp

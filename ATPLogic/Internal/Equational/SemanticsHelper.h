@@ -1,12 +1,14 @@
 #pragma once
 
 
-/*
+/**
 
-SemanticsHelper.h
+\file
 
-Provides several helper functions for the code in Semantics.h /
-Semantics.cpp
+\author Samuel Barrett
+
+\brief Helper functions for the implementations of the Semantics
+    functions
 
 */
 
@@ -35,6 +37,16 @@ namespace semantics
 // This structure holds lots of information for some of the functions
 // below (since so much information is required, and caching a lot of
 // it is important for performance).
+/**
+\brief Contains data used in some functions below, bundled together
+    for efficiency reasons.
+
+\detailed The `immediate_applications` and `substitute_tree`
+    functions below require a lot of data to run, so to save having
+	lots of arguments, and to save recomputing some information
+	several times, we bundle it up in this struct which is shared
+	between the function calls.
+*/
 struct ATP_LOGIC_API SubstitutionInfo
 {
 	SubstitutionInfo(const KnowledgeKernel& kernel,
@@ -62,24 +74,71 @@ struct ATP_LOGIC_API SubstitutionInfo
 };
 
 
-// Try to apply each rule at the subtree rooted at the given node
-// and return the results
+/**
+\brief Try to apply each rule at the subtree rooted at the given node
+    without trying tp apply it deeper in the tree (hence "immediate")
+
+\detailed The term "immediate" comes from the fact that this tries to
+    match the rules to the subtree rooted at `node`. So, if `node` is
+	a function node with symbol "f", the only rules that can be
+	applied are ones which have "f" as their outermost symbol on one
+	of their equation sides (in other words, if "f" is a direct child
+	of the equality syntax node.)
+
+\param node The subtree root for which we should try a substitution
+
+\pre node->get_type() != SyntaxNodeType::EQ
+
+\param sub_info The substitution data (\see SubstitutionInfo for more
+    details on what is in this)
+
+\returns All of the possible ways of applying each rule to this
+    subtree (for each rule, for each side of the equation, for each
+	assignment of free variables in the rule, ... etc)
+*/
 ATP_LOGIC_API std::list<SyntaxNodePtr> immediate_applications(
 	SyntaxNodePtr node,
 	const SubstitutionInfo& sub_info);
 
 
-/// <summary>
-/// Apply a substitution to the subtree rooted at the given node
-/// (Of course there may be many ways to do this, so we return a
-/// list.)
-/// Particular attention must be paid to the case when the
-/// substitution would introduce new free variables, as we would then
-/// need to patch those up with previously existing free variables.
-/// </summary>
-/// <param name="node">The node to substitute into (typically this
-/// is the other side of the rule that was matched; see this
-/// function's usage in `immediate_applications`.</param>
+
+/**
+\brief Once we have chosen a rule and found a free variable mapping
+    which matches them, this performs the substitution.
+
+\remark Once a free variable mapping has been found which matches a
+    side of a rule equation to the subtree given in
+	`immediate_applications`, those two expressions would become
+	equal, so it would make sense that the only thing we would ever
+	want to substitute is the other side of the rule equation! See
+	the usage of this function in `immediate_applications`.
+
+\warning This function gets tricky when the substitution doesn't
+    provide a value for all free variables. Due to the way we build
+	proofs in this equational logic, we cannot introduce new free
+	variables in a substitution. Hence if a substitution doesn't
+	assign all free variables, we replace the missing ones with other
+	things, like free variables which already existed in the (non-
+	rule) statement, and constants. This is of course non-exhaustive
+	and could make a lot of proofs much harder, especially without an
+	array of "helper-theorems".
+
+\param node The subtree we want to substitute, which should be the
+    other side of the rule equation that was matched. See the remark.
+
+\param sub_info \see SubstitutionInfo
+
+\param free_var_map The free variable assignment (this doesn't
+    necessarily have to assign all variables; that is the first thing
+	to be addressed in the implementation of this function!)
+
+\param rule_idx The index of the rule we are using to substitute in
+    the rule array in `sub_info`.
+
+\returns The (potentially many) possible ways of doing this. If all
+    free variables are already mapped in `free_var_map` then there
+	should only be one way to do the substitution.
+*/
 ATP_LOGIC_API std::list<SyntaxNodePtr> substitute_tree(
 	SyntaxNodePtr node,
 	const SubstitutionInfo& sub_info,
@@ -87,9 +146,19 @@ ATP_LOGIC_API std::list<SyntaxNodePtr> substitute_tree(
 	size_t rule_idx);
 
 
-// try to obtain a free variable mapping which makes the premise
-// expression be identical to the conclusion expression (note
-// the word "expression" here is meant to mean "without an = sign").
+/**
+\brief Try to build a substitution of free variables in the premise
+    expression, to make it identical to the conclusion expression.
+
+\note "Expression" here is meant to denote the fact that they don't
+    have equals signs in them.
+
+\pre expr_premise->get_type() != SyntaxNodeType::EQ and
+    expr_concl->get_type() != SyntaxNodeType::EQ
+
+\returns None if no matching substitution was possible, otherwise
+    returns the (potentially empty) mapping if one was possible.
+*/
 ATP_LOGIC_API boost::optional<std::map<size_t, SyntaxNodePtr>>
 try_build_map(SyntaxNodePtr expr_premise,
 	SyntaxNodePtr expr_concl);
@@ -101,12 +170,13 @@ ATP_LOGIC_API bool syntax_tree_identical(SyntaxNodePtr a,
 
 
 // get a list containing the LHS and RHS of each statement given as
-// input
+// input (breaks each statement in half along the equals sign)
 ATP_LOGIC_API std::vector<std::pair<SyntaxNodePtr, SyntaxNodePtr>>
 	get_statement_sides(const std::vector<Statement>& stmts);
 
 
-// get the free variable IDs present in this node
+// get the free variable IDs present in the subtree rooted at this
+// node
 ATP_LOGIC_API std::set<size_t> get_free_var_ids(SyntaxNodePtr node);
 
 

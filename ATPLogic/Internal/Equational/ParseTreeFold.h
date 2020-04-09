@@ -1,27 +1,14 @@
 #pragma once
 
 
-/*
+/**
 
-EquationalParseTreeFold.h
+\file
 
-This file contains a (templated) implementation of a fold over parse
-trees. Folds are a special kind of concept, prominent in functional
-programming. Applying a fold to a tree like this one can be a useful
-way of computing/aggregating information over the tree without having
-to write boilerplate code.
+\author Samuel Barrett
 
-A fold basically works by specifying a function to apply for each
-kind of node, and the fold then handles the rest of the recursion for
-you.
+\brief Provides a templated implementation of a fold over parse trees
 
-However, recursion is inefficient, so we use a stack instead. In
-particular, we use two stacks: one for keeping track of which nodes
-we are yet to examine, and which results we are yet to use. Some
-nodes need to be examined twice (the first time, we push its children
-onto the stack. the second time, we combine the results of its
-children and push our result to the results_stack) thus we have a set
-of seen nodes too.
 
 */
 
@@ -43,13 +30,34 @@ namespace equational
 {
 
 
-// perform a fold on parse trees!
-// this is very handy for computing functions of the trees, and just
-// traversing the trees in general.
-// EqFuncT : should be of type (ResultT, ResultT) -> ResultT
-// IdentifierFuncT : should be of type (string,
-//                   std::list<ResultT>::iterator,
-//                   std::list<ResultT>::iterator)
+/**
+
+\brief Perform a fold operation over a given parse tree
+
+\tparam ResultT The return type of this operation.
+
+\tparam EqFuncT The function to use as the equality node constructor,
+    which must have type ResultT x ResultT -> ResultT
+
+\tparam IdentifierFuncT The function to use as the identifier node
+    constructor, which must have type std::string x
+	std::list<ResultT>::iterator x std::list<ResultT>::iterator
+	-> ResultT
+
+\detailed Folds are a special kind of concept, prominent in
+    functional programming. Applying a fold to a tree like this one
+	can be a useful way of computing/aggregating information over the
+	tree without having to write boilerplate code. A fold basically
+	works by specifying a function to apply for each kind of node, and
+	the fold then handles the rest of the recursion for you. However,
+	recursion is inefficient, so we use a stack instead. In
+	particular, we use two stacks: one for keeping track of which
+	nodes we are yet to examine, and which results we are yet to use.
+	Some nodes need to be examined twice (the first time, we push its
+	children onto the stack. the second time, we combine the results
+	of its children and push our result to the results_stack) thus we
+	have a set of seen nodes too.
+*/
 template<typename ResultT, typename EqFuncT,
 	typename IdentifierFuncT>
 ResultT fold_parse_tree(EqFuncT eq_func,
@@ -150,13 +158,15 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 
 				ATP_LOGIC_ASSERT(result_stack.size() >= 2);
 
-				// note that we have to pop left and right in this
-				// order, because we initially pushed left then right
-				// but since then, they have both been popped from
-				// the todo_stack and pushed to the result_stack,
-				// thus their order has been inverted (so: inverted
-				// twice means left the same!)
-				// [check unit tests for evidence]
+				/*
+				Note that we have to pop left and right in this
+				order, because we initially pushed left then
+				right, but since then, they have both been popped
+				from the todo_stack and pushed to the
+				result_stack thus their order has been inverted
+				(so: inverted twice means left the same!)
+				[see the unit tests for more].
+				*/
 				auto left_result = result_stack.back();
 				result_stack.pop_back();
 				auto right_result = result_stack.back();
@@ -179,6 +189,10 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 				ATP_LOGIC_ASSERT(arity > 0);
 				ATP_LOGIC_ASSERT(result_stack.size() >= arity);
 
+#ifdef ATP_LOGIC_DEFENSIVE
+				const size_t size_before = result_stack.size();
+#endif
+
 				// find list of child results:
 				auto result_iter = result_stack.rbegin();
 				std::advance(result_iter, arity);
@@ -190,6 +204,12 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 				// now remove the child results and add ours:
 				result_stack.erase(result_iter.base(),
 					result_stack.end());
+
+#ifdef ATP_LOGIC_DEFENSIVE
+				ATP_LOGIC_ASSERT(result_stack.size() + arity
+					== size_before);
+#endif
+
 				result_stack.push_back(result);
 			}
 			}

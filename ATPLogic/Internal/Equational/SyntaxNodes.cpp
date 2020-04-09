@@ -1,9 +1,18 @@
+/**
+
+\file
+
+\author Samuel Barrett
+
+*/
+
+
 #include "SyntaxNodes.h"
-#include "ParseTreeFold.h"
-#include "KnowledgeKernel.h"
+#include <map>
 #include <boost/bind.hpp>
 #include <boost/phoenix.hpp>
-#include <map>
+#include "ParseTreeFold.h"
+#include "KnowledgeKernel.h"
 
 
 namespace atp

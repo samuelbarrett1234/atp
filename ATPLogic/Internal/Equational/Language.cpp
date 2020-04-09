@@ -1,3 +1,11 @@
+/**
+
+\file
+
+\author Samuel Barrett
+
+*/
+
 #include "Language.h"
 #include "Parser.h"
 #include "SyntaxNodes.h"

@@ -1,27 +1,29 @@
 #pragma once
 
 
-/*
+/**
 
-Statement.h
+\file
 
-Implementation of the IStatement interface for equational logic. In
-equational logic, the main idea is to try to deduce if two things are
-equal using a set of equality rules given in a definition file.
+\author Samuel Barrett
 
-If it comes the time to optimise the equational logic statements to
-make search faster, here is the place to do it - at the moment the
-Statement objects store the syntax trees internally. We do this
-because it is simple and convenient, however it is inefficient.
-Syntax trees are a good intermediate format (to pass between parsing
-and the Statement object).
+\brief Contains the implementation of the IStatement interface for
+    equational logic.
 
-Note that an equational statement is trivially true if and only if it
-is of the form "x = x", with some substitution for "x", or is equivalent
-to one of the axioms in the equality rules. Thus, to check
-if a statement is trivial, we check if the left hand side and right
-hand side are identical (without allowing free variables to be
-swapped; this is obvious because f(x,y) /= f(y,x) in general.)
+\todo If it comes the time to optimise the equational logic
+    statements to make search faster, here is a good place to do it.
+	At the moment the Statement objects store the syntax trees
+	internally. We do this because it is simple and convenient, however
+	it is inefficient. Syntax trees are a good intermediate format
+	(to pass between parsing and the Statement object).
+
+\note An equational statement is trivially true if and only if it
+    is of the form "x = x", with some substitution for "x", or is
+	equivalent to one of the axioms in the equality rules. Thus, to
+	check if a statement is trivial, we check if the left hand side
+	and right hand side are identical (without allowing free
+	variables to be swapped; this is obvious because f(x,y) /= f(y,x)
+	in general.)
 
 */
 
@@ -39,6 +41,15 @@ swapped; this is obvious because f(x,y) /= f(y,x) in general.)
 #include "SyntaxTreeFold.h"
 
 
+/**
+
+\namespace atp::logic::equational
+
+\brief The namespace for the equational logic implementation
+
+*/
+
+
 namespace atp
 {
 namespace logic
@@ -50,12 +61,21 @@ namespace equational
 class KnowledgeKernel;  // forward definition
 
 
+/**
+Implementation of the IStatement interface for equational logic.
+
+\todo This class definitely needs some optimisation.
+
+\note As much as this class is supposed to be immutable, in order
+    to be usable in standard containers like std::vector, it needs
+	a copy constructor and an assignment operator.
+*/
 class ATP_LOGIC_API Statement : public IStatement
 {
 public:
-	// precondition: !equational::needs_free_var_id_rebuild(p_root)
-	// and p_root must be an eq node, with no other eq nodes in the
-	// tree.
+	/**
+	\pre p_root->get_type() == SyntaxNodeType::EQ
+	*/
 	Statement(const KnowledgeKernel& ker,
 		SyntaxNodePtr p_root);
 	Statement(const Statement& other);
@@ -68,7 +88,7 @@ public:
 	// objects into a vector... try to avoid using this otherwise!
 	Statement& operator= (const Statement& other);
 
-	// implemented by another fold
+	// implemented by a fold
 	std::string to_str() const override;
 
 	inline size_t num_free_vars() const
@@ -86,11 +106,15 @@ public:
 		return m_ker;
 	}
 
-	// return a new statement obtained by replacing the RHS
-	// of this statement with the RHS of the statement `other`:
+	/**
+	\brief create a new statement obtained by replacing the RHS of
+	    this statement with the RHS of the `other` statement.
+	*/
 	Statement adjoin_rhs(const Statement& other) const;
 
-	// perform a fold operation over the syntax tree
+	/**
+	\see atp::logic::fold_syntax_tree
+	*/
 	template<typename ResultT, typename EqFuncT,
 		typename FreeFuncT, typename ConstFuncT,
 		typename FFuncT>
@@ -102,13 +126,42 @@ public:
 			const_func, f_func, m_root);
 	}
 
-	// perform a fold over a pair of syntax trees (where
-	// there are five functions: one function for each type
-	// of syntax node, which is invoked when both syntax
-	// trees have the same type, then a default version where
-	// the nodes have different type).
-	// IMPORTANT NOTE: default_func is also called when we are
-	// comparing two function nodes with different arity!
+	/**
+	\brief Perform a fold over pairs of syntax trees, where the fold
+	    constructor is dependent on the node types of the pair. There
+		are functions for pairs of matching types, and then a default
+		function for when the pairs do not match.
+
+	\tparam ResultT The return type (all functions must return this
+	    type.)
+	
+	\tparam EqPairFuncT The function operating on pairs of equality
+	    nodes, must have signature ResultT x ResultT -> ResultT
+
+	\tparam FreePairFuncT The function operating on pairs of free
+	    variable nodes, must have signature
+		size_t x size_t -> ResultT where the two given integers are
+		the free variable IDs in the pair.
+
+	\tparam ConstPairFuncT The function operating on pairs of
+	    constants, must have signature size_t x size_t -> ResultT
+		where the two integers are the symbol IDs of the constants
+
+	\tparam FuncPairFuncT The function operating on pairs of function
+	    nodes, must have signature size_t x size_t x std::list<
+		ResultT>::iterator x std::list<ResultT>::iterator -> ResultT
+		where the two integers are the symbol IDs of the functions
+		and the two iterators are the begin and end iterators of the
+		function arguments' results.
+
+	\tparam DefaultPairFuncT This is called when a pair of nodes are
+	    encountered but don't have the same type, and it must have
+		signature SyntaxNodePtr x SyntaxNodePtr -> ResultT, where the
+		two arguments are just the two nodes.
+
+	\param other The other statement to fold with, which can be
+	    thought of as appearing on the RHS of the pair fold.
+	*/
 	template<typename ResultT, typename EqPairFuncT,
 		typename FreePairFuncT, typename ConstPairFuncT,
 		typename FuncPairFuncT, typename DefaultPairFuncT>
@@ -324,8 +377,10 @@ public:
 	}
 
 private:
+	// statements store references to their creator
 	const KnowledgeKernel& m_ker;
 	SyntaxNodePtr m_root;
+	// cache this
 	std::set<size_t> m_free_var_ids;
 };
 

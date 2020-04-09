@@ -3,15 +3,18 @@
 
 /*
 
-EquationalSyntaxNodes.h
+\file
 
-A syntax tree represents an expression, which has been type-checked,
-and may contain user-defined constants and functions, and free
-variables. In this equational logic, an "expression" is what you
-would find on either side of an equals rule or a rewrite rule.
+\author Samuel Barrett
 
-This file contains information about the nodes in a syntax tree, and
-a data structure for storing and querying many trees at once.
+\brief Contains the definitions of the syntax tree classes
+
+\detailed A syntax tree represents an expression, which has been
+    type-checked, and may contain user-defined constants and
+	functions, and free variables. In this equational logic, an
+	"expression" is what you would find on either side of an equals
+	rule or a rewrite rule. This file contains information about the
+	nodes in a syntax tree.
 
 */
 
@@ -96,16 +99,10 @@ public:
 		return m_id;
 	}
 
-	// sometimes one needs to "rebuild" free variable IDs, after
-	// substitutions etc. this function helps do that.
-	inline void rebuild_free_id(size_t id)
-	{
-		m_id = id;
-	}
 private:
 	// a 0-indexed ID for each free variable (because storing strings
 	// isn't very efficient!)
-	size_t m_id;
+	const size_t m_id;
 };
 
 
@@ -132,7 +129,7 @@ protected:
 	// an ID for the symbol given to us by the kernel (because
 	// actually storing the symbol names isn't very efficient!)
 	// [not necessarily zero-indexed].
-	size_t m_symbol_id;
+	const size_t m_symbol_id;
 };
 
 
@@ -188,8 +185,15 @@ private:
 };
 
 
-// convert a parse_statements tree to a syntax tree
-// returns nullptr iff type checking failed
+/**
+
+\brief Convert a parse tree into a syntax tree
+
+\note This performs type checking, which is why we require the kernel
+
+\returns nullptr if failed, otherwise returns the root to the syntax
+    tree.
+*/
 ATP_LOGIC_API SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 	const KnowledgeKernel& ker);
 

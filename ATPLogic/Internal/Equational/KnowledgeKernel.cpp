@@ -1,12 +1,21 @@
+/**
+
+\file
+
+\author Samuel Barrett
+
+*/
+
+
 #include "KnowledgeKernel.h"
-#include "StatementArray.h"
-#include "Semantics.h"
 #include <functional>
 #include <boost/functional/hash.hpp>
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/phoenix.hpp>
 #include <boost/bind.hpp>
 #include <boost/mpl/identity.hpp>
+#include "StatementArray.h"
+#include "Semantics.h"
 
 
 namespace atp

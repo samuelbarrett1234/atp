@@ -1,24 +1,28 @@
 #pragma once
 
 
-/*
+/**
 
-EquationalGrammar.h
+\file
 
-This file contains the parser for the equational logic statements,
-using Boost Spirit for constructing the parser from a CFG. This
-can then produce a parse tree, which can then be turned into a
-syntax tree.
+\author Samuel Barrett
 
-Note that Boost's Qi library doesn't seem to let us export the
-parsers, so they aren't being exported here.
+\brief Contains the Boost Spirit and Boost Qi grammar specifications
+    for the equational logic parsing.
+
+\detailed This file contains the parser for the equational logic
+statements, using Boost Spirit for constructing the parser from a
+CFG. This can then produce a parse tree, which can then be turned
+into a syntax tree.
+
+\note Boost's Qi library doesn't seem to let us export the
+    parsers, so they aren't being exported here.
+
+\note Using this prints out parsing info to std::cout to help
+	debug parser errors: #define BOOST_SPIRIT_DEBUG
 
 */
 
-
-// Uncommenting this prints out parsing info to std::cout to help
-// debug parser errors
-// #define BOOST_SPIRIT_DEBUG
 
 #include <string>
 #include <list>
@@ -36,9 +40,17 @@ namespace equational
 {
 
 
+// we will be iterating over input streams
 typedef boost::spirit::istream_iterator QiParseIterator;
 
 
+/**
+\brief This is the skip parser, which tells the parser what to ignore
+    (what is not code).
+
+\detailed We skip whitespace (of course) but this also includes
+    comments.
+*/
 struct Skipper :
 	public boost::spirit::qi::grammar<QiParseIterator>
 {
@@ -48,8 +60,13 @@ struct Skipper :
 };
 
 
-// This class represents the grammar for parsing statements into
-// a parse tree.
+/**
+\brief Grammar for statement objects (producing parse trees)
+
+\detailed This is the grammar for an array of statements (which
+    involve equality signs, i.e. "A=B" is a statement). It turns them
+    into a "parse tree".
+*/
 struct StatementGrammar :
 	public boost::spirit::qi::grammar<QiParseIterator, std::list<ParseNodePtr>(),
 		Skipper>
@@ -65,9 +82,13 @@ struct StatementGrammar :
 };
 
 
-// This class represents the grammar for parsing definition files,
-// which is basically just a list of (symbol name, symbol arity)
-// pairs.
+/**
+\brief Grammar for definition files (producing name-arity pairs.)
+
+\detailed This class represents the grammar for parsing definition
+    files, which is basically just a list of (symbol name, symbol
+	arity) pairs.
+*/
 struct DefinitionGrammar :
 	public boost::spirit::qi::grammar<QiParseIterator,
 		std::list<std::pair<std::string, size_t>>(),
@@ -87,7 +108,12 @@ struct DefinitionGrammar :
 };
 
 
-// This is the rule for parsing an "identifier"
+/**
+\brief Parse rule for identifiers
+
+\detailed An identifier is a kind of name, for a free variable,
+    constant or function. Includes alphanumeric and some symbols.
+*/
 boost::spirit::qi::rule<QiParseIterator, std::string(),
 	Skipper> Identifier();
 

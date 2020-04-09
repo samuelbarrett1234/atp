@@ -1,3 +1,12 @@
+/**
+
+\file
+
+\author Samuel Barrett
+
+*/
+
+
 #include "StatementArray.h"
 #include <algorithm>
 #include <initializer_list>

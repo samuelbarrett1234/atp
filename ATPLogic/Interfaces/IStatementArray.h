@@ -1,13 +1,17 @@
 #pragma once
 
 
-/*
+/**
 
-IStatementArray.h
+\file
 
-This file contains an interface to a class representing an N-dimensional array of statements.
-This class is necessary for efficiency purposes only - arrays of IStatement objects are too slow.
-It can also implement lazy semantics where possible.
+\author Samuel Barrett
+
+\brief Provides the IStatmentArray interface for collections of statement objects
+
+\detailed This file contains an interface to a class representing a one-dimensional array of statements.
+    This interface is mostly useful for efficiency purposes - arrays of IStatement objects can be slow.
+    It can also implement lazy semantics where possible.
 
 */
 
@@ -28,13 +32,17 @@ class ATP_LOGIC_API IStatementArray;
 typedef std::shared_ptr<IStatementArray> StatementArrayPtr;
 
 
-/// <summary>
-/// A 1-dimensional array of IStatement objects.
-/// This is an immutable collection (you cannot modify
-/// the shape or contents once created).
-/// It also contains strictly contiguous types (every
-/// statement in this array is the same derived type).
-/// </summary>
+/**
+
+\interface IStatmentArray
+
+An immutable 1-dimensional array of IStatement objects.
+Being an immutable collection, you cannot modify the
+shape or contents once created.
+It also contains strictly contiguous types (every
+statement in this array is the same derived type).
+
+*/
 class ATP_LOGIC_API IStatementArray
 {
 public:
@@ -42,14 +50,19 @@ public:
 
 	virtual size_t size() const = 0;
 
-	// Precondition: i < size()
+	/**
+	\pre i < size()
+	*/
 	virtual const IStatement& at(size_t i) const = 0;
 
-	// Precondition: start <= end, end <= size(),
-	// start < size(), step > 0.
-	// Postcondition: returns the statements starting at and including
-	// the one at 'start' and finishing at but NOT including the one at
-	// 'end', going in steps of 'step'.
+	/**
+	\pre start <= end and end <= size() and start < size() and
+	    step > 0
+
+	\post returns the statements starting at and including the one
+	    at 'start' and finishing at but NOT including the one at
+	    'end', going in steps of 'step'.
+	*/
 	virtual StatementArrayPtr slice(size_t start, size_t end,
 		size_t step = 1) const = 0;
 };

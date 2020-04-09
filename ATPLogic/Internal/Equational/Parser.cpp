@@ -1,6 +1,17 @@
+/**
+
+\file
+
+\author Samuel Barrett
+
+\see Grammar.h Grammar.cpp
+
+*/
+
+
 #include "Parser.h"
-#include "Grammar.h"
 #include <boost/spirit/include/qi.hpp>
+#include "Grammar.h"
 
 
 namespace atp

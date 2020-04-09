@@ -1,7 +1,13 @@
+/**
+
+\file
+
+\author Samuel Barrett
+
+*/
+
+
 #include "SemanticsHelper.h"
-#include "SyntaxTreeFold.h"
-#include "SyntaxTreeTraversal.h"
-#include "KnowledgeKernel.h"
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/range/adaptor/indexed.hpp>
@@ -9,6 +15,9 @@
 #include <boost/bimap.hpp>
 #include <boost/phoenix.hpp>
 #include <boost/bind.hpp>
+#include "SyntaxTreeFold.h"
+#include "SyntaxTreeTraversal.h"
+#include "KnowledgeKernel.h"
 
 
 namespace atp
@@ -84,6 +93,11 @@ std::list<SyntaxNodePtr> substitute_tree(
 	std::map<size_t, std::list<SyntaxNodePtr>> all_var_map;
 	for (const auto& sub : free_var_map)
 		all_var_map[sub.first] = { sub.second };
+
+	// note that we are iterating over the RULE's free IDs, and
+	// adding mappings to the OTHER STATEMENT's free IDs (this
+	// is because `node` should be the other side of the rule that
+	// was substituted.)
 	for (const auto id : sub_info.rule_free_vars[rule_idx])
 	{
 		auto map_iter = all_var_map.find(id);

@@ -1,3 +1,12 @@
+/*
+
+\file
+
+\author Samuel Barrett
+
+*/
+
+
 #include "ATPLogic.h"
 #include "Internal/Equational/StatementArray.h"
 #include "Internal/Equational/Language.h"

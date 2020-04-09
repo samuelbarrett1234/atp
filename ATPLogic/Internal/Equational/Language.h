@@ -1,14 +1,13 @@
 #pragma once
 
 
-/*
+/**
 
-Language.h
+\file
 
-Implementation of the ILanguage interface for equational logic. Note
-that equational logic does NOT support \not (thus it cannot prove
-that two expressions are not equal)! Thus its knowledge kernels do
-not provide the propositional interface.
+\author Samuel Barrett
+
+\brief Implementation of the ILanguage interface for equational logic
 
 */
 

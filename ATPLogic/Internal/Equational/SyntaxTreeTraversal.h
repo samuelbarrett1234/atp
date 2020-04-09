@@ -3,9 +3,12 @@
 
 /*
 
-EquationalSyntaxTreeTraversal.h
+\file
 
-Contains templated helper functions for traversing syntax trees.
+\author Samuel Barrett
+
+\brief Contains a templated helper function for applying a function
+    to a syntax node, without having to know its type.
 
 */
 
@@ -21,13 +24,21 @@ namespace equational
 {
 
 
-// For functional programmers: this is just a map operation on syntax
-// trees! (It applies the correct argument function to the type of
-// tree given).
-// EqFuncT : should be of type (EqSyntaxNode&) -> ResultT
-// FreeFuncT : should be of type (FreeSyntaxNode&) -> ResultT
-// ConstFuncT : should be of type (ConstantSyntaxNode&) -> ResultT
-// FFuncT : should be of type (FuncSyntaxNode&) -> ResultT
+/**
+\brief Apply a different function depending on the node type
+
+\note This is just a `map` operation from functional programming
+
+\tparam ResultT the return result type
+
+\tparam EqFuncT should be of type EqSyntaxNode& -> ResultT
+
+\tparam FreeFuncT should be of type FreeSyntaxNode& -> ResultT
+
+\tparam ConstFuncT should be of type ConstantSyntaxNode& -> ResultT
+
+\tparam FFuncT should be of type FuncSyntaxNode& -> ResultT
+*/
 template<typename ResultT,
 	typename EqFuncT, typename FreeFuncT,
 	typename ConstFuncT, typename FFuncT>

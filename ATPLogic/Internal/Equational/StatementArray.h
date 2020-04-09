@@ -1,15 +1,17 @@
 #pragma once
 
 
-/*
+/**
 
-StatementArray.h
+\file
 
-Implementation of the IStatementArray interface for equational logic.
-This class tries to be as lazy as possible, for example by sharing a
-pointer to the original array. Note that this has the downside of
-potentially keeping around more memory than necessary, but I think
-this is worth the speedup.
+\author Samuel Barrett
+
+\brief Contains the class implementing the IStatementArray for
+    equational logic.
+
+\todo We could make some efficiency improvements here by vectorising
+    some of the operations on the individual Statement objects.
 
 */
 
@@ -34,6 +36,15 @@ namespace equational
 // Precondition: start <= end and step > 0
 // Postcondition: returns the size of the set
 // { k >= 0 s.t. start + k * step < end }
+/**
+
+\brief Helper function for computing the number of elements in slices
+
+\pre start <= end and step > 0
+
+\post returns the number of integers k >= 0 such that
+    start + k * step < end.
+*/
 ATP_LOGIC_API size_t compute_slice_size(size_t start, size_t end,
 	size_t step);
 
@@ -41,16 +52,25 @@ ATP_LOGIC_API size_t compute_slice_size(size_t start, size_t end,
 class ATP_LOGIC_API StatementArray : public IStatementArray
 {
 public:
-	// We DEFINITELY want to be using a vector of the derived type
-	// Statement here, not a pointer to the base type
-	// IStatement.
+	/**
+	\remark we definitely want to be using a vector of Statement
+	    objects, not a vector of StatementPtrs.
+	*/
 	typedef std::vector<Statement> ArrType;
 	typedef std::shared_ptr<ArrType> ArrPtr;
 
 public:
+	/**
+	\note We don't need a separate const iterator because the array
+	    is immutable already.
+	
+	\note This iterator is a random access iterator.
+	*/
 	class ATP_LOGIC_API iterator
 	{
 	public:
+		// conforming to the standard iterator template interface
+
 		typedef std::random_access_iterator_tag iterator_category;
 		typedef Statement value_type;
 		typedef const Statement& reference;
@@ -268,13 +288,16 @@ public:
 private:
 	ArrPtr m_array;
 
-	// invariant: m_start >= 0, m_stop <= m_array->size(),
-	// m_step >= 1
+	/**
+	\invariant m_start >= 0, m_stop <= m_array->size(), m_step >= 1
+	*/
 	const size_t m_start, m_stop, m_step;
 
-	// invariant: the elements represented by this array are given by
-	// the indices m_start + k * m_step for k >= 0 whenever that
-	// index is < m_stop.
+	/**
+	\invariant The elements represented by this array are given by
+	    the indices m_start + k * m_step for k >= 0 whenever that
+		index is < m_stop.
+	*/
 };
 
 

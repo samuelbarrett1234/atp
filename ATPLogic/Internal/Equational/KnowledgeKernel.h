@@ -1,17 +1,24 @@
 #pragma once
 
 
-/*
+/**
 
-KnowledgeKernel.h
+\file
 
-Implementation of the IKnowledgeKernel for equational logic. This
-object contains the functions which tell you what is/isn't allowed
-in equational logic.
+\author Samuel Barrett
 
-Currently, proofs in equational logic operate only in "iff" steps,
-so proofs can be read in both directions. This is for simplicity
-but can be a bit limiting.
+\brief Implementation of the IKnowledgeKernel for equational logic
+
+\detailed The Knowledge Kernel object contains the functions which
+    tell you what is/isn't allowed in equational logic, and functions
+	for logical inference etc. Currently, proofs in equational logic
+	operate only in "iff" steps, so proofs can be read in both
+	directions. This is for simplicity but can be a bit limiting.
+	Furthermore, we don't support propositional operators (yet) so
+	there is no support for and/or/not. Finally, there is no support
+	for showing that two expressions are NOT equal; in other words,
+	we cannot prove a statement to be false, only find a proof if it
+	is true.
 
 */
 
@@ -58,9 +65,13 @@ public:
 	std::vector<StmtForm> get_form(
 		StatementArrayPtr p_stmts) const override;
 
-	// precondition: !is_defined(name)
-	// (warning: if 'name' happens to share a hash code with another
-	// symbol name, which is incredibly unlikely, it will throw.)
+	/**
+	\pre !is_defined(name)
+
+	\warning if `name` happens to share a hash code with another
+	    already-defined symbol name (which is incredibly unlikely)
+		then it will throw.
+	*/
 	inline void define_symbol(std::string name, size_t arity)
 	{
 		ATP_LOGIC_PRECOND(!is_defined(name));
@@ -74,10 +85,13 @@ public:
 		m_id_to_arity[id] = arity;
 	}
 
-	// note: as of yet, there is no way of "undefining" these rules,
-	// if you wanted to stream theorems in and out of memory (for
-	// example.)
-	// precondition: valid(p_rules)
+	/**
+	\pre valid(p_rules)
+
+	\todo as of yet, there is no way to "undefine" these rules, which
+	    is useful for streaming theorems in and out of memory, for
+		example.
+	*/
 	void define_eq_rules(StatementArrayPtr p_rules);
 
 	// check if a given identifier has been defined already or not
@@ -92,24 +106,26 @@ public:
 		return (m_id_to_name.left.find(id) != m_id_to_name.left.end());
 	}
 
-	// precondition: is_defined(name)
+	// \pre is_defined(name)
 	inline size_t symbol_arity_from_name(std::string name) const
 	{
 		ATP_LOGIC_PRECOND(is_defined(name));
 		return m_name_to_arity.at(name);
 	}
 	
-	// precondition: id_is_defined(id)
+	// \pre id_is_defined(id)
 	inline size_t symbol_arity_from_id(size_t id) const
 	{
 		ATP_LOGIC_PRECOND(id_is_defined(id));
 		return m_id_to_arity.at(id);
 	}
 
-	// precondition: is_defined(name)
-	// postcondition: returns (basically) a hash of the name. It
-	// should be assumed that if two symbol names agree on their
-	// hash, they agree on their symbol name too.
+	/**
+	\pre is_defined(name)
+	
+	\post returns a hash-code like value of the name (if two symbols
+	    agree on their hash code, they agree on their string name.)
+	*/
 	inline size_t symbol_id(std::string name) const
 	{
 		ATP_LOGIC_PRECOND(is_defined(name));
@@ -121,7 +137,7 @@ public:
 		return id;
 	}
 
-	// precondition: 'id' is a valid symbol ID
+	// \pre 'id' is a valid symbol ID
 	inline std::string symbol_name(size_t id) const
 	{
 		auto iter = m_id_to_name.left.find(id);
@@ -129,7 +145,7 @@ public:
 		return iter.base()->get_right();
 	}
 
-	// return a list of all constant symbol IDs
+	// \returns a list of all constant symbol IDs
 	std::vector<size_t> constant_symbol_ids() const;
 
 private:

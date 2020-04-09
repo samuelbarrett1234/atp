@@ -1,12 +1,21 @@
+/**
+
+\file
+
+\author Samuel Barrett
+
+*/
+
+
 #include "Semantics.h"
-#include "SemanticsHelper.h"
-#include "SyntaxTreeFold.h"
-#include "SyntaxTreeTraversal.h"
+#include <list>
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/phoenix.hpp>
 #include <boost/bind.hpp>
 #include <boost/bimap.hpp>
-#include <list>
+#include "SemanticsHelper.h"
+#include "SyntaxTreeFold.h"
+#include "SyntaxTreeTraversal.h"
 
 
 namespace phx = boost::phoenix;

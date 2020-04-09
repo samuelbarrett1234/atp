@@ -3,12 +3,17 @@
 
 /*
 
-EquationalParseNodes.h
+\file
 
-This file contains the different kinds of nodes that can occur in an
-equational logic parse tree. There are only two kinds: equals nodes
-(which have an LHS and an RHS) and an identifier node (which can have
-children or siblings of other identifier nodes).
+\author Samuel Barrett
+
+\brief Contains the classes that form the parse tree
+
+\detailed This file contains the different kinds of nodes that can
+    occur in an equational logic parse tree. There are only two
+	kinds: equals nodes (which have an LHS and an RHS) and an
+	identifier node (which can have children or siblings of other
+	identifier nodes).
 
 */
 
@@ -33,7 +38,11 @@ enum class ParseNodeType
 };
 
 
-// base parse node type
+/**
+\interface IParseNode
+
+\brief Base parse node interface
+*/
 class ATP_LOGIC_API IParseNode
 {
 public:
@@ -44,8 +53,10 @@ public:
 typedef std::shared_ptr<IParseNode> ParseNodePtr;
 
 
-// represents the '=' sign at the top of a statement, which has
-// a LHS and a RHS.
+/**
+\brief Represents the '=' sign at the top of a statement, which has
+    a LHS and a RHS.
+*/
 class ATP_LOGIC_API EqParseNode :
 	public IParseNode
 {
@@ -76,10 +87,12 @@ private:
 };
 
 
-// identifiers always have a string (their name).
-// if an identifier has no children, it is just a constant, 'x'.
-// if an identifier has a list of children, it is a function, and
-// those child expressions are its arguments (in order).
+/**
+\detailed Identifiers always have a string storing their name. If an
+    identifier has no children, it is just a constant, 'x'. If an
+	identifier has a list of children, it is a function, and those
+	child expressions are its arguments (in order).
+*/
 class ATP_LOGIC_API IdentifierParseNode :
 	public IParseNode
 {

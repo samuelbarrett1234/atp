@@ -1,5 +1,5 @@
 <map id="atp::logic::equational::semantics::transpose" name="atp::logic::equational::semantics::transpose">
-<area shape="rect" id="node1" title="Reflect the statement about the equals sign (so &quot;f(x)=g(x)&quot; becomes &quot;g(x)=f(x)&quot;)" alt="" coords="493,71,648,112"/>
+<area shape="rect" id="node1" title="Reflect the statement about the equals sign (so f(x)=g(x) becomes g(x)=f(x))" alt="" coords="493,71,648,112"/>
 <area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a96e2fb0e710fba0160a233bb86803863" title="Returns true iff the syntax trees are equal up to swapping of free variable names and reflection abou..." alt="" coords="267,5,422,47"/>
 <area shape="rect" id="node4" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a4ad7a8fc57a584113220b028ccf51cd0" title="Returns true iff there exists a substitution in the premmise which would produce the conclusion." alt="" coords="273,71,416,112"/>
 <area shape="rect" id="node5" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a36dd38214bd3efb430f116eb9e40fc64" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="244,136,445,177"/>

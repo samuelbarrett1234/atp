@@ -4,7 +4,7 @@
 <area shape="rect" id="node3" title=" " alt="" coords="111,169,167,196"/>
 <area shape="rect" id="node4" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="211,244,333,271"/>
 <area shape="rect" id="node6" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="324,169,420,196"/>
-<area shape="rect" id="node8" href="$_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="122,95,249,121"/>
+<area shape="rect" id="node8" href="$_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="122,95,249,121"/>
 <area shape="rect" id="node5" title=" " alt="" coords="239,319,305,345"/>
 <area shape="rect" id="node7" title=" " alt="" coords="358,244,413,271"/>
 </map>

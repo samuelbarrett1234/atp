@@ -1,5 +1,5 @@
 <map id="ATPLogic/Interfaces/IStatementArray.h" name="ATPLogic/Interfaces/IStatementArray.h">
-<area shape="rect" id="node1" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="87,5,225,47"/>
+<area shape="rect" id="node1" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="87,5,225,47"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,95,61,121"/>
 <area shape="rect" id="node3" title=" " alt="" coords="85,95,155,121"/>
 <area shape="rect" id="node4" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="131,169,253,196"/>

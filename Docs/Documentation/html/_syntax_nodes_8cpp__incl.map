@@ -22,7 +22,7 @@
 <area shape="rect" id="node23" href="$_statement_8h.html" title="Contains the implementation of the IStatement interface for equational logic." alt="" coords="1072,244,1165,271"/>
 <area shape="rect" id="node27" href="$_statement_array_8h.html" title="Contains the class implementing the IStatementArray for equational logic." alt="" coords="1517,169,1641,196"/>
 <area shape="rect" id="node21" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="1416,483,1512,509"/>
-<area shape="rect" id="node22" href="$_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="1502,408,1629,435"/>
+<area shape="rect" id="node22" href="$_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="1502,408,1629,435"/>
 <area shape="rect" id="node24" title=" " alt="" coords="1059,319,1178,360"/>
 <area shape="rect" id="node25" href="$_syntax_tree_fold_8h.html" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="687,326,811,353"/>
 <area shape="rect" id="node26" href="$_syntax_tree_traversal_8h.html" title=" " alt="" coords="718,408,869,435"/>

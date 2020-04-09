@@ -70,12 +70,14 @@ $(function() {
 <div class="textblock"><dl class="reflist">
 <dt>Member <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea">atp::logic::equational::KnowledgeKernel::define_eq_rules</a>  (StatementArrayPtr p_rules)</dt>
 <dd><a class="anchor" id="_todo000001"></a>as of yet, there is no way to "undefine" these rules, which is useful for streaming theorems in and out of memory, for example.  </dd>
+<dt>Member <a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a653fe721ab470173678797fadf4adcaa">atp::logic::equational::semantics::get_free_var_ids</a>  (SyntaxNodePtr node)</dt>
+<dd><a class="anchor" id="_todo000002"></a>Since we know the free variable IDs are dense (quite bounded) a <code>std::set</code> might not be the best datastructure for this. We would be better off using a bitmap datastructure instead.  </dd>
 <dt>Class <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">atp::logic::equational::Statement</a>  </dt>
-<dd><a class="anchor" id="_todo000003"></a>This class definitely needs some optimisation. </dd>
+<dd><a class="anchor" id="_todo000004"></a>This class definitely needs some optimisation. </dd>
 <dt>File <a class="el" href="_statement_8h.html">Statement.h</a>  </dt>
-<dd><a class="anchor" id="_todo000002"></a>If it comes the time to optimise the equational logic statements to make search faster, here is a good place to do it. At the moment the <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> objects store the syntax trees internally. We do this because it is simple and convenient, however it is inefficient. Syntax trees are a good intermediate format (to pass between parsing and the <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> object). </dd>
+<dd><a class="anchor" id="_todo000003"></a>If it comes the time to optimise the equational logic statements to make search faster, here is a good place to do it. At the moment the <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> objects store the syntax trees internally. We do this because it is simple and convenient, however it is inefficient. Syntax trees are a good intermediate format (to pass between parsing and the <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> object). </dd>
 <dt>File <a class="el" href="_statement_array_8h.html">StatementArray.h</a>  </dt>
-<dd><a class="anchor" id="_todo000004"></a>We could make some efficiency improvements here by vectorising some of the operations on the individual <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> objects.</dd>
+<dd><a class="anchor" id="_todo000005"></a>We could make some efficiency improvements here by vectorising some of the operations on the individual <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> objects.</dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

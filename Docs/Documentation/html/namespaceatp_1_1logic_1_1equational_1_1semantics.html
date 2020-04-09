@@ -93,7 +93,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a22d63685a82821176f481186ee17bed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true iff the two syntax trees are identical (i.e. same free variable IDs, same orientation about equals sign, etc.)  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a22d63685a82821176f481186ee17bed6">More...</a><br /></td></tr>
 <tr class="separator:a22d63685a82821176f481186ee17bed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f646b9ba7f7d5eea23bd3b2e15de39a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a">transpose</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;stmt)</td></tr>
-<tr class="memdesc:a3f646b9ba7f7d5eea23bd3b2e15de39a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reflect the statement about the equals sign (so "f(x)=g(x)" becomes "g(x)=f(x)")  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a">More...</a><br /></td></tr>
+<tr class="memdesc:a3f646b9ba7f7d5eea23bd3b2e15de39a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reflect the statement about the equals sign (so <code>f(x)=g(x)</code> becomes <code>g(x)=f(x)</code>)  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a">More...</a><br /></td></tr>
 <tr class="separator:a3f646b9ba7f7d5eea23bd3b2e15de39a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36dd38214bd3efb430f116eb9e40fc64"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a36dd38214bd3efb430f116eb9e40fc64">true_by_reflexivity</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;stmt)</td></tr>
 <tr class="memdesc:a36dd38214bd3efb430f116eb9e40fc64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity of '=').  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a36dd38214bd3efb430f116eb9e40fc64">More...</a><br /></td></tr>
@@ -116,9 +116,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a539527954e81b682d6e2f1dc67c4a395"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a539527954e81b682d6e2f1dc67c4a395">syntax_tree_identical</a> (<a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> a, <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> b)</td></tr>
 <tr class="separator:a539527954e81b682d6e2f1dc67c4a395"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40425067eae7d797dad76414395d111f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a>, <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a40425067eae7d797dad76414395d111f">get_statement_sides</a> (const std::vector&lt; <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &gt; &amp;stmts)</td></tr>
+<tr class="memdesc:a40425067eae7d797dad76414395d111f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a list containing the LHS and RHS of each statement given as input (breaks each statement in half along the equals sign).  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a40425067eae7d797dad76414395d111f">More...</a><br /></td></tr>
 <tr class="separator:a40425067eae7d797dad76414395d111f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b283877dd4cea4cad9e3e55b768ef34"><td class="memItemLeft" align="right" valign="top">std::set&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a8b283877dd4cea4cad9e3e55b768ef34">get_free_var_ids</a> (<a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> p_node)</td></tr>
-<tr class="separator:a8b283877dd4cea4cad9e3e55b768ef34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a653fe721ab470173678797fadf4adcaa"><td class="memItemLeft" align="right" valign="top">std::set&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a653fe721ab470173678797fadf4adcaa">get_free_var_ids</a> (<a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> node)</td></tr>
+<tr class="memdesc:a653fe721ab470173678797fadf4adcaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the free variable IDs present in the subtree rooted at this node.  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a653fe721ab470173678797fadf4adcaa">More...</a><br /></td></tr>
+<tr class="separator:a653fe721ab470173678797fadf4adcaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains all the functions relating to the semantics (logical inference etc) of equational logic. </p>
@@ -157,7 +159,7 @@ Here is the call graph for this function:</div>
 <map name="namespaceatp_1_1logic_1_1equational_1_1semantics_a96e2fb0e710fba0160a233bb86803863_cgraph" id="namespaceatp_1_1logic_1_1equational_1_1semantics_a96e2fb0e710fba0160a233bb86803863_cgraph">
 <area shape="rect" title="Returns true iff the syntax trees are equal up to swapping of free variable names and reflection abou..." alt="" coords="5,39,160,80"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title="Perform a fold over pairs of syntax trees, where the fold constructor is dependent on the node types ..." alt="" coords="212,5,359,47"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title="Reflect the statement about the equals sign (so &quot;f(x)=g(x)&quot; becomes &quot;g(x)=f(x)&quot;)" alt="" coords="208,71,363,112"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title="Reflect the statement about the equals sign (so f(x)=g(x) becomes g(x)=f(x))" alt="" coords="208,71,363,112"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5" title=" " alt="" coords="411,37,553,79"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a5b39be718d2816106293f4aa47f16824" title=" " alt="" coords="411,103,553,144"/>
 </map>
@@ -174,8 +176,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a8b283877dd4cea4cad9e3e55b768ef34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b283877dd4cea4cad9e3e55b768ef34">&#9670;&nbsp;</a></span>get_free_var_ids()</h2>
+<a id="a653fe721ab470173678797fadf4adcaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a653fe721ab470173678797fadf4adcaa">&#9670;&nbsp;</a></span>get_free_var_ids()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -184,17 +186,20 @@ Here is the caller graph for this function:</div>
           <td class="memname"><a class="el" href="_a_t_p_logic_a_p_i_8h.html#a193fc37208eae7f616325dca675bae63">ATP_LOGIC_API</a> std::set&lt; size_t &gt; atp::logic::equational::semantics::get_free_var_ids </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a>&#160;</td>
-          <td class="paramname"><em>p_node</em></td><td>)</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get the free variable IDs present in the subtree rooted at this node. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Since we know the free variable IDs are dense (quite bounded) a <code>std::set</code> might not be the best datastructure for this. We would be better off using a bitmap datastructure instead. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1logic_1_1equational_1_1semantics_a8b283877dd4cea4cad9e3e55b768ef34_cgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_1_1semantics_a8b283877dd4cea4cad9e3e55b768ef34_cgraph" alt=""/></div>
-<map name="namespaceatp_1_1logic_1_1equational_1_1semantics_a8b283877dd4cea4cad9e3e55b768ef34_cgraph" id="namespaceatp_1_1logic_1_1equational_1_1semantics_a8b283877dd4cea4cad9e3e55b768ef34_cgraph">
-<area shape="rect" title=" " alt="" coords="5,31,149,87"/>
+<div class="center"><img src="namespaceatp_1_1logic_1_1equational_1_1semantics_a653fe721ab470173678797fadf4adcaa_cgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_1_1semantics_a653fe721ab470173678797fadf4adcaa_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1logic_1_1equational_1_1semantics_a653fe721ab470173678797fadf4adcaa_cgraph" id="namespaceatp_1_1logic_1_1equational_1_1semantics_a653fe721ab470173678797fadf4adcaa_cgraph">
+<area shape="rect" title="Get the free variable IDs present in the subtree rooted at this node." alt="" coords="5,31,149,87"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#ab387f330c6f631916a017bf368a24845" title=" " alt="" coords="201,5,344,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a725fafce5637f9a5b1862f9e04baddea" title=" " alt="" coords="197,71,348,112"/>
 </map>
@@ -217,6 +222,8 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get a list containing the LHS and RHS of each statement given as input (breaks each statement in half along the equals sign). </p>
 
 </div>
 </div>
@@ -342,7 +349,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Try to apply each rule at the subtree rooted at the given node without trying tp apply it deeper in the tree (hence "immediate") </p>
-<p>\detailed The term "immediate" comes from the fact that this tries to match the rules to the subtree rooted at <code>node</code>. So, if <code>node</code> is a function node with symbol "f", the only rules that can be applied are ones which have "f" as their outermost symbol on one of their equation sides (in other words, if "f" is a direct child of the equality syntax node.)</p>
+<p>The term "immediate" comes from the fact that this tries to match the rules to the subtree rooted at <code>node</code>. So, if <code>node</code> is a function node with symbol "f", the only rules that can be applied are ones which have "f" as their outermost symbol on one of their equation sides (in other words, if "f" is a direct child of the equality syntax node.)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">node</td><td>The subtree root for which we should try a substitution</td></tr>
@@ -350,13 +357,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <dl class="section pre"><dt>Precondition</dt><dd>node-&gt;get_type() != <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a04726a5939dff190edd4935738778459a2dcbad7477fd40561e8b8198f173bd47">SyntaxNodeType::EQ</a></dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sub_info</td><td>The substitution data (</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html" title="Contains data used in some functions below, bundled together for efficiency reasons.">SubstitutionInfo</a> for more details on what is in this)</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html" title="Contains data used in some functions below, bundled together for efficiency reasons.">SubstitutionInfo</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>All of the possible ways of applying each rule to this subtree (for each rule, for each side of the equation, for each assignment of free variables in the rule, ... etc) </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
@@ -417,7 +418,7 @@ Here is the call graph for this function:</div>
 <area shape="rect" title="Returns true iff there exists a substitution in the premmise which would produce the conclusion." alt="" coords="5,79,148,120"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title="Perform a fold over pairs of syntax trees, where the fold constructor is dependent on the node types ..." alt="" coords="206,5,353,47"/>
 <area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a539527954e81b682d6e2f1dc67c4a395" title=" " alt="" coords="196,71,363,127"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title="Reflect the statement about the equals sign (so &quot;f(x)=g(x)&quot; becomes &quot;g(x)=f(x)&quot;)" alt="" coords="202,152,357,193"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title="Reflect the statement about the equals sign (so f(x)=g(x) becomes g(x)=f(x))" alt="" coords="202,152,357,193"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5" title=" " alt="" coords="411,119,553,160"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a5b39be718d2816106293f4aa47f16824" title=" " alt="" coords="411,184,553,225"/>
 </map>
@@ -465,11 +466,10 @@ Here is the call graph for this function:</div>
 
 <p>Once we have chosen a rule and found a free variable mapping which matches them, this performs the substitution. </p>
 <dl class="section remark"><dt>Remarks</dt><dd>Once a free variable mapping has been found which matches a side of a rule equation to the subtree given in <code>immediate_applications</code>, those two expressions would become equal, so it would make sense that the only thing we would ever want to substitute is the other side of the rule equation! See the usage of this function in <code>immediate_applications</code>.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>This function gets tricky when the substitution doesn't provide a value for all free variables. Due to the way we build proofs in this equational logic, we cannot introduce new free variables in a substitution. Hence if a substitution doesn't assign all free variables, we replace the missing ones with other things, like free variables which already existed in the (non- rule) statement, and constants. This is of course non-exhaustive and could make a lot of proofs much harder, especially without an array of "helper-theorems".</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This function gets tricky when the substitution doesn't provide a value for all free variables. Due to the way we build proofs in this equational logic, we cannot introduce new free variables in a substitution. Hence if a substitution doesn't assign all free variables, we replace the missing ones with other things, like free variables which already existed in the (non- rule) statement, and constants. This is of course non-exhaustive and could make a lot of proofs much harder, especially without an array of "helper-theorems". This is kind of important, and might be the reason why the prover is failing to prove something that should be easy.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">node</td><td>The subtree we want to substitute, which should be the other side of the rule equation that was matched. See the remark.</td></tr>
-    <tr><td class="paramname">sub_info</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -520,6 +520,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>True iff the two given syntax trees are identical </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -552,13 +553,13 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Reflect the statement about the equals sign (so "f(x)=g(x)" becomes "g(x)=f(x)") </p>
+<p>Reflect the statement about the equals sign (so <code>f(x)=g(x)</code> becomes <code>g(x)=f(x)</code>) </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1logic_1_1equational_1_1semantics_a3f646b9ba7f7d5eea23bd3b2e15de39a_cgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_1_1semantics_a3f646b9ba7f7d5eea23bd3b2e15de39a_cgraph" alt=""/></div>
 <map name="namespaceatp_1_1logic_1_1equational_1_1semantics_a3f646b9ba7f7d5eea23bd3b2e15de39a_cgraph" id="namespaceatp_1_1logic_1_1equational_1_1semantics_a3f646b9ba7f7d5eea23bd3b2e15de39a_cgraph">
-<area shape="rect" title="Reflect the statement about the equals sign (so &quot;f(x)=g(x)&quot; becomes &quot;g(x)=f(x)&quot;)" alt="" coords="5,39,160,80"/>
+<area shape="rect" title="Reflect the statement about the equals sign (so f(x)=g(x) becomes g(x)=f(x))" alt="" coords="5,39,160,80"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5" title=" " alt="" coords="208,5,351,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a5b39be718d2816106293f4aa47f16824" title=" " alt="" coords="208,71,351,112"/>
 </map>
@@ -568,7 +569,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1logic_1_1equational_1_1semantics_a3f646b9ba7f7d5eea23bd3b2e15de39a_icgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_1_1semantics_a3f646b9ba7f7d5eea23bd3b2e15de39a_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1logic_1_1equational_1_1semantics_a3f646b9ba7f7d5eea23bd3b2e15de39a_icgraph" id="namespaceatp_1_1logic_1_1equational_1_1semantics_a3f646b9ba7f7d5eea23bd3b2e15de39a_icgraph">
-<area shape="rect" title="Reflect the statement about the equals sign (so &quot;f(x)=g(x)&quot; becomes &quot;g(x)=f(x)&quot;)" alt="" coords="493,71,648,112"/>
+<area shape="rect" title="Reflect the statement about the equals sign (so f(x)=g(x) becomes g(x)=f(x))" alt="" coords="493,71,648,112"/>
 <area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a96e2fb0e710fba0160a233bb86803863" title="Returns true iff the syntax trees are equal up to swapping of free variable names and reflection abou..." alt="" coords="267,5,422,47"/>
 <area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a4ad7a8fc57a584113220b028ccf51cd0" title="Returns true iff there exists a substitution in the premmise which would produce the conclusion." alt="" coords="273,71,416,112"/>
 <area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a36dd38214bd3efb430f116eb9e40fc64" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="244,136,445,177"/>
@@ -603,7 +604,7 @@ Here is the call graph for this function:</div>
 <map name="namespaceatp_1_1logic_1_1equational_1_1semantics_a36dd38214bd3efb430f116eb9e40fc64_cgraph" id="namespaceatp_1_1logic_1_1equational_1_1semantics_a36dd38214bd3efb430f116eb9e40fc64_cgraph">
 <area shape="rect" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="5,39,207,80"/>
 <area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a22d63685a82821176f481186ee17bed6" title="Returns true iff the two syntax trees are identical (i.e. same free variable IDs, same orientation ab..." alt="" coords="259,5,405,47"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title="Reflect the statement about the equals sign (so &quot;f(x)=g(x)&quot; becomes &quot;g(x)=f(x)&quot;)" alt="" coords="255,71,409,112"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title="Reflect the statement about the equals sign (so f(x)=g(x) becomes g(x)=f(x))" alt="" coords="255,71,409,112"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title="Perform a fold over pairs of syntax trees, where the fold constructor is dependent on the node types ..." alt="" coords="457,5,604,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5" title=" " alt="" coords="459,71,602,112"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a5b39be718d2816106293f4aa47f16824" title=" " alt="" coords="459,136,602,177"/>

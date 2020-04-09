@@ -5,7 +5,7 @@
 <area shape="rect" id="node27" href="$_language_8h.html" title="Implementation of the ILanguage interface for equational logic." alt="" coords="214,169,343,211"/>
 <area shape="rect" id="node3" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="586,572,697,599"/>
 <area shape="rect" id="node5" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="481,497,637,524"/>
-<area shape="rect" id="node7" href="$_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="632,423,819,449"/>
+<area shape="rect" id="node7" href="$_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="632,423,819,449"/>
 <area shape="rect" id="node10" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="509,348,705,375"/>
 <area shape="rect" id="node11" href="$_i_language_8h.html" title="Contains the ILanguage interface." alt="" coords="203,266,355,293"/>
 <area shape="rect" id="node4" title=" " alt="" coords="609,647,674,673"/>

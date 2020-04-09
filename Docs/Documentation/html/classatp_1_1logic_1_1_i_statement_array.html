@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>atp: atp::logic::IStatementArray Class Reference</title>
+<title>atp: atp::logic::IStatementArray Interface Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classatp_1_1logic_1_1_i_statement_array-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">atp::logic::IStatementArray Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">atp::logic::IStatementArray Interface Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -97,7 +97,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a83c8348e4cde2b418f47e1e46247072a"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_statement_array.html#a83c8348e4cde2b418f47e1e46247072a">slice</a> (size_t start, size_t end, size_t step=1) const =0</td></tr>
 <tr class="separator:a83c8348e4cde2b418f47e1e46247072a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>An immutable 1-dimensional array of <a class="el" href="classatp_1_1logic_1_1_i_statement.html" title="Represents a single, syntactically correct logical statement.">IStatement</a> objects. Being an immutable collection, you cannot modify the shape or contents once created. It also contains strictly contiguous types (every statement in this array is the same derived type). </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a351e3fcbaf129e1b896a8535d47e4d78"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a351e3fcbaf129e1b896a8535d47e4d78">&#9670;&nbsp;</a></span>~IStatementArray()</h2>
 
@@ -226,7 +228,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this interface was generated from the following file:<ul>
 <li>ATPLogic/Interfaces/<a class="el" href="_i_statement_array_8h.html">IStatementArray.h</a></li>
 </ul>
 </div><!-- contents -->

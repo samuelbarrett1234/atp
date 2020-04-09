@@ -838,7 +838,6 @@ INPUT                  = . \
                          ATPLogic/Interfaces \
                          ATPLogic/Internal \
                          ATPLogic/Internal/Equational \
-                         ATPLogicTests/Equational \
                          ATPSearch/Interfaces \
                          ATPSearch/Internal
 

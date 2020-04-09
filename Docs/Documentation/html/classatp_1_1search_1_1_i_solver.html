@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>atp: atp::search::ISolver Class Reference</title>
+<title>atp: atp::search::ISolver Interface Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,11 +71,11 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classatp_1_1search_1_1_i_solver-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">atp::search::ISolver Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">atp::search::ISolver Interface Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A generic interface for proving statements. Solvers are given a fixed language and knowledge kernel during initialisation, which remains fixed throughout the object's lifetime.  
+<p>A generic interface for proving statements.  
  <a href="classatp_1_1search_1_1_i_solver.html#details">More...</a></p>
 
 <p><code>#include &lt;ISolver.h&gt;</code></p>
@@ -84,7 +84,7 @@ Inheritance diagram for atp::search::ISolver:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1search_1_1_i_solver__inherit__graph.png" border="0" usemap="#atp_1_1search_1_1_i_solver_inherit__map" alt="Inheritance graph"/></div>
 <map name="atp_1_1search_1_1_i_solver_inherit__map" id="atp_1_1search_1_1_i_solver_inherit__map">
-<area shape="rect" title="A generic interface for proving statements. Solvers are given a fixed language and knowledge kernel d..." alt="" coords="39,5,172,32"/>
+<area shape="rect" title="A generic interface for proving statements." alt="" coords="39,5,172,32"/>
 <area shape="rect" href="classatp_1_1search_1_1_iterative_deepening_solver.html" title=" " alt="" coords="5,80,205,121"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -115,7 +115,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3c24b0c36e95cebde3239a803d02c244"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A generic interface for proving statements. Solvers are given a fixed language and knowledge kernel during initialisation, which remains fixed throughout the object's lifetime. </p>
+<div class="textblock"><p>A generic interface for proving statements. </p>
+<p>Solvers are given a fixed language and knowledge kernel during initialisation, which remains fixed throughout the object's lifetime. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a37e3870bd6bb754c838fba5439748f7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a37e3870bd6bb754c838fba5439748f7d">&#9670;&nbsp;</a></span>~ISolver()</h2>
@@ -165,6 +166,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged()</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>!any(<a class="el" href="classatp_1_1search_1_1_i_solver.html#af36d825f96aa9469e4c6b7a063ab2015">get_states()</a> == UNFINISHED)</code> </dd></dl>
 
 <p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a6b834361f285583a72d8e95a2f81ffca">atp::search::IterativeDeepeningSolver</a>.</p>
 
@@ -192,6 +195,10 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section post"><dt>Postcondition</dt><dd>Removes statement targets and performance information and intermediate search states (basically resets to the state immediately after initialisation.)</dd>
+<dd>
+<a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged()</a> will subsequently return false.</dd></dl>
+<dl class="section remark"><dt>Remarks</dt><dd>This function is idempotent - it does nothing when not already engaged. </dd></dl>
 
 <p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#ab83bc6528bfa468c5949c3e9f8889089">atp::search::IterativeDeepeningSolver</a>.</p>
 
@@ -219,8 +226,9 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true iff the solver currently has target statements set (regardless of whether or not those proofs have terminated.) </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#ac9b42536b5e5d868f45ba637a99d5265">atp::search::IterativeDeepeningSolver</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a9af0cb86fdf04b46f076f3c742d14f4a">atp::search::IterativeDeepeningSolver</a>.</p>
 
 </div>
 </div>
@@ -246,8 +254,10 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged()</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The total amount of time spent proving each target statement thus far. </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a9b27db1c029e454d7276e880381b9949">atp::search::IterativeDeepeningSolver</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#acaed4a7ced124d815722aee8a947400c">atp::search::IterativeDeepeningSolver</a>.</p>
 
 </div>
 </div>
@@ -273,8 +283,10 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged()</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The largest number of nodes stored at any one time in the search trees for each proof. </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a4dc9d5aeea9b30da2b845e4c9315acfb">atp::search::IterativeDeepeningSolver</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a614cf8ac5c32aeff4a5b0cb69fd23f2b">atp::search::IterativeDeepeningSolver</a>.</p>
 
 </div>
 </div>
@@ -300,8 +312,10 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged()</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of node expansions performed in the searching process for each proof. </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#ad8454b7b515f6b27cb0581acbf7802b3">atp::search::IterativeDeepeningSolver</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#adb742591d013b9c1275efcdf8897b60b">atp::search::IterativeDeepeningSolver</a>.</p>
 
 </div>
 </div>
@@ -327,8 +341,10 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged()</a></dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>For each target, returns a proof iff that proof actually terminated and the theorem was true when it terminated. A proof constitutes a sequence of statements which are each deduced from the last using exactly one step from the knowledge kernel. </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a09fc3f3b3488624b75ae7e46487817dc">atp::search::IterativeDeepeningSolver</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a15adc113d9229b15ff13f720f34c7666">atp::search::IterativeDeepeningSolver</a>.</p>
 
 </div>
 </div>
@@ -354,8 +370,10 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged()</a></dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>returns the status of each proof (returning an array of size equal to the number of set target statements.) </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#acae8e74c20b76679afad28d64a029caf">atp::search::IterativeDeepeningSolver</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a5d761a6f70f3b247270d436001f4295f">atp::search::IterativeDeepeningSolver</a>.</p>
 
 </div>
 </div>
@@ -382,6 +400,10 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd>p_stmts is valid within the knowledge base and is nonempty</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>calls <a class="el" href="classatp_1_1search_1_1_i_solver.html#a9105e16d58feeb08c77d7be4156c533d">clear()</a> then sets these statements as the new ones to be targeted for proving.</dd>
+<dd>
+<a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged()</a> will subsequently return true. </dd></dl>
 
 <p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#ae3208d7d1d583d723e9a91424c7493cd">atp::search::IterativeDeepeningSolver</a>.</p>
 
@@ -410,12 +432,14 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged()</a> and n &gt; 0</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>applies n proof steps to each target statement. This function does nothing if all proofs have already terminated. </dd></dl>
 
 <p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a790f51cb03fa66252f77e9d9424698a9">atp::search::IterativeDeepeningSolver</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this interface was generated from the following file:<ul>
 <li>ATPSearch/Interfaces/<a class="el" href="_i_solver_8h.html">ISolver.h</a></li>
 </ul>
 </div><!-- contents -->

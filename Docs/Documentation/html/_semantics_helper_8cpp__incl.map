@@ -27,7 +27,7 @@
 <area shape="rect" id="node16" title=" " alt="" coords="781,423,856,449"/>
 <area shape="rect" id="node18" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="1215,497,1395,524"/>
 <area shape="rect" id="node19" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="1295,333,1467,375"/>
-<area shape="rect" id="node20" href="$_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="1387,423,1514,449"/>
+<area shape="rect" id="node20" href="$_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="1387,423,1514,449"/>
 <area shape="rect" id="node22" title=" " alt="" coords="245,423,323,449"/>
 <area shape="rect" id="node23" title=" " alt="" coords="347,423,429,449"/>
 <area shape="rect" id="node32" href="$_statement_array_8h.html" title="Contains the class implementing the IStatementArray for equational logic." alt="" coords="1443,184,1567,211"/>

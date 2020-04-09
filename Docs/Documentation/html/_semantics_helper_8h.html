@@ -111,7 +111,7 @@ Include dependency graph for SemanticsHelper.h:</div>
 <area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="974,423,1154,449"/>
 <area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="931,259,1103,300"/>
 <area shape="rect" href="_syntax_tree_fold_8h.html" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="551,177,675,203"/>
-<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="926,348,1053,375"/>
+<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="926,348,1053,375"/>
 <area shape="rect" title=" " alt="" coords="523,266,600,293"/>
 <area shape="rect" title=" " alt="" coords="624,266,707,293"/>
 <area shape="rect" href="_syntax_tree_traversal_8h.html" title=" " alt="" coords="347,266,498,293"/>
@@ -164,9 +164,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a539527954e81b682d6e2f1dc67c4a395"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a539527954e81b682d6e2f1dc67c4a395">atp::logic::equational::semantics::syntax_tree_identical</a> (SyntaxNodePtr a, SyntaxNodePtr b)</td></tr>
 <tr class="separator:a539527954e81b682d6e2f1dc67c4a395"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40425067eae7d797dad76414395d111f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; SyntaxNodePtr, SyntaxNodePtr &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a40425067eae7d797dad76414395d111f">atp::logic::equational::semantics::get_statement_sides</a> (const std::vector&lt; Statement &gt; &amp;stmts)</td></tr>
+<tr class="memdesc:a40425067eae7d797dad76414395d111f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a list containing the LHS and RHS of each statement given as input (breaks each statement in half along the equals sign).  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a40425067eae7d797dad76414395d111f">More...</a><br /></td></tr>
 <tr class="separator:a40425067eae7d797dad76414395d111f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b283877dd4cea4cad9e3e55b768ef34"><td class="memItemLeft" align="right" valign="top">std::set&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a8b283877dd4cea4cad9e3e55b768ef34">atp::logic::equational::semantics::get_free_var_ids</a> (SyntaxNodePtr p_node)</td></tr>
-<tr class="separator:a8b283877dd4cea4cad9e3e55b768ef34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a653fe721ab470173678797fadf4adcaa"><td class="memItemLeft" align="right" valign="top">std::set&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a653fe721ab470173678797fadf4adcaa">atp::logic::equational::semantics::get_free_var_ids</a> (SyntaxNodePtr node)</td></tr>
+<tr class="memdesc:a653fe721ab470173678797fadf4adcaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the free variable IDs present in the subtree rooted at this node.  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a653fe721ab470173678797fadf4adcaa">More...</a><br /></td></tr>
+<tr class="separator:a653fe721ab470173678797fadf4adcaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Helper functions for the implementations of the Semantics functions. </p>

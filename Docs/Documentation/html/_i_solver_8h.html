@@ -76,6 +76,9 @@ $(function() {
 <div class="title">ISolver.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Interface for proof solving strategies.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;boost/optional.hpp&gt;</code><br />
 <code>#include &lt;<a class="el" href="_a_t_p_logic_8h.html">ATPLogic.h</a>&gt;</code><br />
@@ -85,14 +88,14 @@ Include dependency graph for ISolver.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_i_solver_8h__incl.png" border="0" usemap="#_a_t_p_search_2_interfaces_2_i_solver_8h" alt=""/></div>
 <map name="_a_t_p_search_2_interfaces_2_i_solver_8h" id="_a_t_p_search_2_interfaces_2_i_solver_8h">
-<area shape="rect" title=" " alt="" coords="629,5,777,47"/>
+<area shape="rect" title="Interface for proof solving strategies." alt="" coords="629,5,777,47"/>
 <area shape="rect" title=" " alt="" coords="447,393,517,420"/>
 <area shape="rect" title=" " alt="" coords="589,95,717,121"/>
 <area shape="rect" href="_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="312,95,401,121"/>
-<area shape="rect" href="_a_t_p_search_a_p_i_8h.html" title=" " alt="" coords="792,169,924,196"/>
+<area shape="rect" href="_a_t_p_search_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="792,169,924,196"/>
 <area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="449,468,560,495"/>
 <area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="5,393,161,420"/>
-<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="121,319,307,345"/>
+<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="121,319,307,345"/>
 <area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="184,244,380,271"/>
 <area shape="rect" href="_i_language_8h.html" title="Contains the ILanguage interface." alt="" coords="342,169,494,196"/>
 <area shape="rect" title=" " alt="" coords="689,543,755,569"/>
@@ -107,9 +110,9 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_i_solver_8h__dep__incl.png" border="0" usemap="#_a_t_p_search_2_interfaces_2_i_solver_8hdep" alt=""/></div>
 <map name="_a_t_p_search_2_interfaces_2_i_solver_8hdep" id="_a_t_p_search_2_interfaces_2_i_solver_8hdep">
-<area shape="rect" title=" " alt="" coords="127,5,275,47"/>
-<area shape="rect" href="_a_t_p_search_8h.html" title=" " alt="" coords="15,102,184,129"/>
-<area shape="rect" href="_iterative_deepening_solver_8h.html" title=" " alt="" coords="215,95,392,136"/>
+<area shape="rect" title="Interface for proof solving strategies." alt="" coords="127,5,275,47"/>
+<area shape="rect" href="_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="15,102,184,129"/>
+<area shape="rect" href="_iterative_deepening_solver_8h.html" title="Contains a basic uninformed search strategy, IDS." alt="" coords="215,95,392,136"/>
 <area shape="rect" href="_a_t_p_search_8cpp.html" title=" " alt="" coords="5,191,188,218"/>
 <area shape="rect" href="_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="212,184,403,225"/>
 </map>
@@ -117,8 +120,8 @@ This graph shows which files directly or indirectly include this file:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_solver.html">atp::search::ISolver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generic interface for proving statements. Solvers are given a fixed language and knowledge kernel during initialisation, which remains fixed throughout the object's lifetime.  <a href="classatp_1_1search_1_1_i_solver.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_solver.html">atp::search::ISolver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generic interface for proving statements.  <a href="classatp_1_1search_1_1_i_solver.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -126,6 +129,7 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceatp"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp.html">atp</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceatp_1_1search"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html">atp::search</a></td></tr>
+<tr class="memdesc:namespaceatp_1_1search"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace of the ATPSearch library. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -139,10 +143,13 @@ Enumerations</h2></td></tr>
 <a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a73778060f46ee0e2e5604affc11bdf41">atp::search::ProofState::DONE_TRUE</a>, 
 <a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a978362c1902466dc4d7473f4f87942db">atp::search::ProofState::DONE_FALSE</a>
  }</td></tr>
-<tr class="memdesc:a36be60a7ec75a7743bfcc38cd0c3aac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proofs can either be finished or unfinished; and if they are finished, the result can either be that the theorem was true or it was false.  <a href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5">More...</a><br /></td></tr>
 <tr class="separator:a36be60a7ec75a7743bfcc38cd0c3aac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Interface for proof solving strategies. </p>
+<dl class="section author"><dt>Author</dt><dd>Samuel Barrett</dd></dl>
+<p>Solvers are the core interface for the search procedure. They are given a fixed language and knowledge kernel, and then you can set target statements for them, which they will attempt to prove by using the reductions available from the knowledge kernel. Solvers are vectorised for efficiency; each thread is thus trying to prove many statements at once. Furthermore, solvers are designed to work in 'steps', allowing you to execute arbitrary code in-between. </p>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

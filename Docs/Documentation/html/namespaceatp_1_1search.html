@@ -76,13 +76,17 @@ $(function() {
 <div class="title">atp::search Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The namespace of the ATPSearch library.  
+<a href="namespaceatp_1_1search.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_solver.html">ISolver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generic interface for proving statements. Solvers are given a fixed language and knowledge kernel during initialisation, which remains fixed throughout the object's lifetime.  <a href="classatp_1_1search_1_1_i_solver.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_solver.html">ISolver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generic interface for proving statements.  <a href="classatp_1_1search_1_1_i_solver.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_statement_heuristic.html">IStatementHeuristic</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_statement_heuristic.html">IStatementHeuristic</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basically represents a function from statements to floats.  <a href="classatp_1_1search_1_1_i_statement_heuristic.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html">IterativeDeepeningSolver</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -100,22 +104,26 @@ Typedefs</h2></td></tr>
 Enumerations</h2></td></tr>
 <tr class="memitem:a772d34d3808e2ae0ae90ff694d3dd868"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a772d34d3808e2ae0ae90ff694d3dd868">SolverType</a> { <a class="el" href="namespaceatp_1_1search.html#a772d34d3808e2ae0ae90ff694d3dd868a0191b4ccaee6c402a9068c5505a047b7">SolverType::ITERATIVE_DEEPENING_UNINFORMED</a>
  }</td></tr>
+<tr class="memdesc:a772d34d3808e2ae0ae90ff694d3dd868"><td class="mdescLeft">&#160;</td><td class="mdescRight">The class of different solvers available.  <a href="namespaceatp_1_1search.html#a772d34d3808e2ae0ae90ff694d3dd868">More...</a><br /></td></tr>
 <tr class="separator:a772d34d3808e2ae0ae90ff694d3dd868"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36be60a7ec75a7743bfcc38cd0c3aac5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5">ProofState</a> { <a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a6f8eb84e55e2f1c21cb428ae5b644a6e">ProofState::UNFINISHED</a>, 
 <a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a73778060f46ee0e2e5604affc11bdf41">ProofState::DONE_TRUE</a>, 
 <a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a978362c1902466dc4d7473f4f87942db">ProofState::DONE_FALSE</a>
  }</td></tr>
-<tr class="memdesc:a36be60a7ec75a7743bfcc38cd0c3aac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proofs can either be finished or unfinished; and if they are finished, the result can either be that the theorem was true or it was false.  <a href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5">More...</a><br /></td></tr>
 <tr class="separator:a36be60a7ec75a7743bfcc38cd0c3aac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a81a1148bbe8feeb07174aaa62d83da34"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34">simple_check_proof</a> (<a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">logic::IKnowledgeKernel</a> &amp;ker, <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">logic::StatementArrayPtr</a> proof)</td></tr>
+<tr class="memdesc:a81a1148bbe8feeb07174aaa62d83da34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the given proof from front to back (the front element is expected to be trivially true).  <a href="namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34">More...</a><br /></td></tr>
 <tr class="separator:a81a1148bbe8feeb07174aaa62d83da34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b40d4181a2dd192daae05f8ebc7c42e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> <a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">SolverPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a3b40d4181a2dd192daae05f8ebc7c42e">create_solver</a> (<a class="el" href="namespaceatp_1_1search.html#a772d34d3808e2ae0ae90ff694d3dd868">SolverType</a> st, <a class="el" href="namespaceatp_1_1search.html#a7926bd62ba8aa9635c64e4ce8247406e">HeuristicCollection</a> ms)</td></tr>
+<tr class="memdesc:a3b40d4181a2dd192daae05f8ebc7c42e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate a new solver object of a given specified type.  <a href="namespaceatp_1_1search.html#a3b40d4181a2dd192daae05f8ebc7c42e">More...</a><br /></td></tr>
 <tr class="separator:a3b40d4181a2dd192daae05f8ebc7c42e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Typedef Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The namespace of the ATPSearch library. </p>
+</div><h2 class="groupheader">Typedef Documentation</h2>
 <a id="a7926bd62ba8aa9635c64e4ce8247406e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7926bd62ba8aa9635c64e4ce8247406e">&#9670;&nbsp;</a></span>HeuristicCollection</h2>
 
@@ -178,8 +186,7 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Proofs can either be finished or unfinished; and if they are finished, the result can either be that the theorem was true or it was false. </p>
+<p>Proofs can either be finished or unfinished; and if they are finished, the result can either be that the theorem was true or false. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a36be60a7ec75a7743bfcc38cd0c3aac5a6f8eb84e55e2f1c21cb428ae5b644a6e"></a>UNFINISHED&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a36be60a7ec75a7743bfcc38cd0c3aac5a73778060f46ee0e2e5604affc11bdf41"></a>DONE_TRUE&#160;</td><td class="fielddoc"></td></tr>
@@ -207,6 +214,8 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>The class of different solvers available. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a772d34d3808e2ae0ae90ff694d3dd868a0191b4ccaee6c402a9068c5505a047b7"></a>ITERATIVE_DEEPENING_UNINFORMED&#160;</td><td class="fielddoc"></td></tr>
 </table>
@@ -240,6 +249,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Allocate a new solver object of a given specified type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ms</td><td>Some solvers may need specific heuristic functions, which can be provided through this argument. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a81a1148bbe8feeb07174aaa62d83da34"></a>
@@ -267,12 +284,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Checks the given proof from front to back (the front element is expected to be trivially true). </p>
+<dl class="section pre"><dt>Precondition</dt><dd>ker.valid(proof)</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True iff the proof is correct (if each step follows from the last.)</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This function is called "simple" for two reasons: firstly, if the kernel doesn't have <b>all</b> proven theorems available to it it may return an incorrect result, because the kernel's <code>follows</code> function depends on having those theorems loaded (if the kernel doesn't know about a theorem, how could it know that line followed from the last?) Finally, it may be quite a slow function as it tries to check the whole proof at once and doesn't allow checking it in parts. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1search_a81a1148bbe8feeb07174aaa62d83da34_cgraph.png" border="0" usemap="#namespaceatp_1_1search_a81a1148bbe8feeb07174aaa62d83da34_cgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_a81a1148bbe8feeb07174aaa62d83da34_cgraph" id="namespaceatp_1_1search_a81a1148bbe8feeb07174aaa62d83da34_cgraph">
-<area shape="rect" title=" " alt="" coords="5,39,139,80"/>
+<area shape="rect" title="Checks the given proof from front to back (the front element is expected to be trivially true)." alt="" coords="5,39,139,80"/>
 <area shape="rect" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a73ef978d8dcea85093149574ca51bbd5" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="187,5,373,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a25a73e5f0aa4756889e7397f513c76c1" title="Determine what form each statement is in (trivial or nontrivial, etc.)" alt="" coords="187,71,373,112"/>
 </map>

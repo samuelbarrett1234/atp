@@ -112,7 +112,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a collection of definitions and axioms, associated with a particular <a class="el" href="classatp_1_1logic_1_1_i_language.html" title="Manages knowledge kernels within a logical language framework.">ILanguage</a>, and performs logical deduction. </p>
-<p>\detailed The knowledge kernel contains all logical rules, axioms, and available theorems. Note that every kernel state is associated with a kind of hash-code; this is useful because the code is designed such that if two kernels agree on their code, they agree on the return results for all of their functions (assuming no hash collisions). Knowledge kernels are also associated with a language object. </p>
+<p>The knowledge kernel contains all logical rules, axioms, and available theorems. Note that every kernel state is associated with a kind of hash-code; this is useful because the code is designed such that if two kernels agree on their code, they agree on the return results for all of their functions (assuming no hash collisions). Knowledge kernels are also associated with a language object. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9f3e4e715333bba2b48ff18b232c97ba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9f3e4e715333bba2b48ff18b232c97ba">&#9670;&nbsp;</a></span>~IKnowledgeKernel()</h2>
@@ -185,7 +185,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classatp_1_1logic_1_1_i_knowledge_kernel_a73ef978d8dcea85093149574ca51bbd5_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1_i_knowledge_kernel_a73ef978d8dcea85093149574ca51bbd5_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1_i_knowledge_kernel_a73ef978d8dcea85093149574ca51bbd5_icgraph" id="classatp_1_1logic_1_1_i_knowledge_kernel_a73ef978d8dcea85093149574ca51bbd5_icgraph">
 <area shape="rect" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="187,5,373,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34" title=" " alt="" coords="5,5,139,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34" title="Checks the given proof from front to back (the front element is expected to be trivially true)." alt="" coords="5,5,139,47"/>
 </map>
 </div>
 
@@ -226,7 +226,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classatp_1_1logic_1_1_i_knowledge_kernel_a25a73e5f0aa4756889e7397f513c76c1_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1_i_knowledge_kernel_a25a73e5f0aa4756889e7397f513c76c1_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1_i_knowledge_kernel_a25a73e5f0aa4756889e7397f513c76c1_icgraph" id="classatp_1_1logic_1_1_i_knowledge_kernel_a25a73e5f0aa4756889e7397f513c76c1_icgraph">
 <area shape="rect" title="Determine what form each statement is in (trivial or nontrivial, etc.)" alt="" coords="187,5,373,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34" title=" " alt="" coords="5,5,139,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34" title="Checks the given proof from front to back (the front element is expected to be trivially true)." alt="" coords="5,5,139,47"/>
 </map>
 </div>
 
@@ -256,7 +256,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Characterises the information provided to this knowledge kernel in a single integer code. </p>
-<p>\detailed If two knowledge kernels agree on their code, then they agree on the return results of all the functions below. (This code is computed similarly to a hash code of all the user definitions, axioms, and available theorems.) </p>
+<p>If two knowledge kernels agree on their code, then they agree on the return results of all the functions below. (This code is computed similarly to a hash code of all the user definitions, axioms, and available theorems.) </p>
 
 <p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a4c122c0c52a6dc8b77975749d2710535">atp::logic::equational::KnowledgeKernel</a>.</p>
 

@@ -1,4 +1,4 @@
 <map id="atp::logic::IKnowledgeKernel::get_form" name="atp::logic::IKnowledgeKernel::get_form">
 <area shape="rect" id="node1" title="Determine what form each statement is in (trivial or nontrivial, etc.)" alt="" coords="187,5,373,47"/>
-<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34" title=" " alt="" coords="5,5,139,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34" title="Checks the given proof from front to back (the front element is expected to be trivially true)." alt="" coords="5,5,139,47"/>
 </map>

@@ -74,6 +74,9 @@ $(function() {
 <div class="title">IterativeDeepeningSolver.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Contains a basic uninformed search strategy, IDS.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;list&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
@@ -86,17 +89,17 @@ Include dependency graph for IterativeDeepeningSolver.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_iterative_deepening_solver_8h__incl.png" border="0" usemap="#_a_t_p_search_2_internal_2_iterative_deepening_solver_8h" alt=""/></div>
 <map name="_a_t_p_search_2_internal_2_iterative_deepening_solver_8h" id="_a_t_p_search_2_internal_2_iterative_deepening_solver_8h">
-<area shape="rect" title=" " alt="" coords="415,5,593,47"/>
+<area shape="rect" title="Contains a basic uninformed search strategy, IDS." alt="" coords="415,5,593,47"/>
 <area shape="rect" title=" " alt="" coords="731,468,800,495"/>
 <area shape="rect" title=" " alt="" coords="318,95,357,121"/>
 <area shape="rect" title=" " alt="" coords="469,468,525,495"/>
 <area shape="rect" title=" " alt="" coords="549,169,677,196"/>
 <area shape="rect" href="_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="337,169,426,196"/>
-<area shape="rect" href="_a_t_p_search_a_p_i_8h.html" title=" " alt="" coords="181,169,313,196"/>
-<area shape="rect" href="_i_solver_8h.html" title=" " alt="" coords="433,95,575,121"/>
+<area shape="rect" href="_a_t_p_search_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="181,169,313,196"/>
+<area shape="rect" href="_i_solver_8h.html" title="Interface for proof solving strategies." alt="" coords="433,95,575,121"/>
 <area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="314,543,425,569"/>
 <area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="173,468,329,495"/>
-<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="288,393,475,420"/>
+<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="288,393,475,420"/>
 <area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="246,319,442,345"/>
 <area shape="rect" href="_i_language_8h.html" title="Contains the ILanguage interface." alt="" coords="425,244,577,271"/>
 <area shape="rect" title=" " alt="" coords="154,617,219,644"/>
@@ -110,7 +113,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_iterative_deepening_solver_8h__dep__incl.png" border="0" usemap="#_a_t_p_search_2_internal_2_iterative_deepening_solver_8hdep" alt=""/></div>
 <map name="_a_t_p_search_2_internal_2_iterative_deepening_solver_8hdep" id="_a_t_p_search_2_internal_2_iterative_deepening_solver_8hdep">
-<area shape="rect" title=" " alt="" coords="12,5,189,47"/>
+<area shape="rect" title="Contains a basic uninformed search strategy, IDS." alt="" coords="12,5,189,47"/>
 <area shape="rect" href="_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="5,95,196,136"/>
 </map>
 </div>
@@ -125,9 +128,14 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceatp"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp.html">atp</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceatp_1_1search"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html">atp::search</a></td></tr>
+<tr class="memdesc:namespaceatp_1_1search"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace of the ATPSearch library. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Contains a basic uninformed search strategy, IDS. </p>
+<dl class="section author"><dt>Author</dt><dd>Samuel Barrett</dd></dl>
+<p>This is an uninformed search strategy for finding proofs. It remains relatively low memory by mimicking depth first search, but limits the depth and iteratively increases it. Being an uninformed strategy, it is likely not very good, and will likely serve as a minimal viable product component. </p>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

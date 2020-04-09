@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>atp: atp::search::IStatementHeuristic Class Reference</title>
+<title>atp: atp::search::IStatementHeuristic Interface Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,9 +71,12 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classatp_1_1search_1_1_i_statement_heuristic-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">atp::search::IStatementHeuristic Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">atp::search::IStatementHeuristic Interface Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Basically represents a function from statements to floats.  
+ <a href="classatp_1_1search_1_1_i_statement_heuristic.html#details">More...</a></p>
 
 <p><code>#include &lt;IStatementHeuristic.h&gt;</code></p>
 <table class="memberdecls">
@@ -82,9 +85,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aafa1fa8f0687acc025911add1cb60c06"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_statement_heuristic.html#aafa1fa8f0687acc025911add1cb60c06">~IStatementHeuristic</a> ()=default</td></tr>
 <tr class="separator:aafa1fa8f0687acc025911add1cb60c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69449836c7459a08586c9838b213e787"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_statement_heuristic.html#a69449836c7459a08586c9838b213e787">predict</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">logic::StatementArrayPtr</a> p_stmts)=0</td></tr>
+<tr class="memdesc:a69449836c7459a08586c9838b213e787"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate the function on this array of statements.  <a href="classatp_1_1search_1_1_i_statement_heuristic.html#a69449836c7459a08586c9838b213e787">More...</a><br /></td></tr>
 <tr class="separator:a69449836c7459a08586c9838b213e787"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Basically represents a function from statements to floats. </p>
+<dl class="section note"><dt>Note</dt><dd>This function has been vectorised (it operates on several statements, and returns a float for each of them).</dd>
+<dd>
+This is an object, not just a function, because the model might need to store state e.g. access to GPU. </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aafa1fa8f0687acc025911add1cb60c06"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aafa1fa8f0687acc025911add1cb60c06">&#9670;&nbsp;</a></span>~IStatementHeuristic()</h2>
 
@@ -135,9 +144,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Evaluate the function on this array of statements. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>Some heuristic implementations may be tied to a particular knowledge kernel, in which case <code>p_stmts</code> needs to be valid in the context of that kernel. </dd></dl>
+
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this interface was generated from the following file:<ul>
 <li>ATPSearch/Interfaces/<a class="el" href="_i_statement_heuristic_8h.html">IStatementHeuristic.h</a></li>
 </ul>
 </div><!-- contents -->

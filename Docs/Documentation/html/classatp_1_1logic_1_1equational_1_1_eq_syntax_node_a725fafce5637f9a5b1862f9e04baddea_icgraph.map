@@ -1,5 +1,5 @@
 <map id="atp::logic::equational::EqSyntaxNode::right" name="atp::logic::equational::EqSyntaxNode::right">
 <area shape="rect" id="node1" title=" " alt="" coords="197,43,348,84"/>
 <area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational.html#a56781fb4943ed73eaf36ccac9d19d54f" title="Perform a fold operation over a given syntax tree." alt="" coords="6,5,149,47"/>
-<area shape="rect" id="node3" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a8b283877dd4cea4cad9e3e55b768ef34" title=" " alt="" coords="5,71,149,127"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a653fe721ab470173678797fadf4adcaa" title="Get the free variable IDs present in the subtree rooted at this node." alt="" coords="5,71,149,127"/>
 </map>

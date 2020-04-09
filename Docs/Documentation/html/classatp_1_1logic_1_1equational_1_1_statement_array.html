@@ -71,7 +71,6 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classatp_1_1logic_1_1equational_1_1_statement_array-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">atp::logic::equational::StatementArray Class Reference</div>  </div>
@@ -132,6 +131,7 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:adf522fe07d480a831d66789e32c2705e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#adf522fe07d480a831d66789e32c2705e">try_from_stmt</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;stmt)</td></tr>
 <tr class="separator:adf522fe07d480a831d66789e32c2705e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b3c78a186b26edcc519caad57901111"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a8b3c78a186b26edcc519caad57901111">try_concat</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">IStatementArray</a> &amp;l, const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">IStatementArray</a> &amp;r)</td></tr>
@@ -207,6 +207,8 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section pre"><dt>Precondition</dt><dd>The same as <code>slice</code> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classatp_1_1logic_1_1_i_statement_array.html#a83c8348e4cde2b418f47e1e46247072a">atp::logic::IStatementArray::slice</a> </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -544,6 +546,7 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>These functions return nullptr if the statement types given asargument are not equational (thus this class isn't responsible for handling them). Returning nullptr is <b>not</b> an error. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

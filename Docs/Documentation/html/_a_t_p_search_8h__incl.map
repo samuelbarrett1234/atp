@@ -1,15 +1,15 @@
 <map id="ATPSearch/ATPSearch.h" name="ATPSearch/ATPSearch.h">
-<area shape="rect" id="node1" title=" " alt="" coords="155,5,325,32"/>
-<area shape="rect" id="node2" href="$_a_t_p_search_a_p_i_8h.html" title=" " alt="" coords="5,155,125,181"/>
-<area shape="rect" id="node4" href="$_i_solver_8h.html" title=" " alt="" coords="175,80,305,107"/>
-<area shape="rect" id="node17" href="$_i_statement_heuristic_8h.html" title=" " alt="" coords="494,80,701,107"/>
+<area shape="rect" id="node1" title="Main include file for the ATPSearch library." alt="" coords="155,5,325,32"/>
+<area shape="rect" id="node2" href="$_a_t_p_search_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="5,155,125,181"/>
+<area shape="rect" id="node4" href="$_i_solver_8h.html" title="Interface for proof solving strategies." alt="" coords="175,80,305,107"/>
+<area shape="rect" id="node17" href="$_i_statement_heuristic_8h.html" title="Interfaces for search heuristic functions." alt="" coords="494,80,701,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="223,603,289,629"/>
 <area shape="rect" id="node5" title=" " alt="" coords="412,453,481,480"/>
 <area shape="rect" id="node6" title=" " alt="" coords="200,155,328,181"/>
 <area shape="rect" id="node7" href="$_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="511,155,601,181"/>
 <area shape="rect" id="node8" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="370,528,481,555"/>
 <area shape="rect" id="node9" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="782,453,938,480"/>
-<area shape="rect" id="node11" href="$_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="585,379,772,405"/>
+<area shape="rect" id="node11" href="$_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="585,379,772,405"/>
 <area shape="rect" id="node13" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="677,304,873,331"/>
 <area shape="rect" id="node14" href="$_i_language_8h.html" title="Contains the ILanguage interface." alt="" coords="391,229,543,256"/>
 <area shape="rect" id="node10" title=" " alt="" coords="833,528,887,555"/>

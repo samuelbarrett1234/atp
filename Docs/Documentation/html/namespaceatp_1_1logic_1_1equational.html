@@ -441,7 +441,7 @@ template&lt;typename ResultT , typename EqFuncT , typename IdentifierFuncT &gt; 
   </table>
   </dd>
 </dl>
-<p>\detailed Folds are a special kind of concept, prominent in functional programming. Applying a fold to a tree like this one can be a useful way of computing/aggregating information over the tree without having to write boilerplate code. A fold basically works by specifying a function to apply for each kind of node, and the fold then handles the rest of the recursion for you. However, recursion is inefficient, so we use a stack instead. In particular, we use two stacks: one for keeping track of which nodes we are yet to examine, and which results we are yet to use. Some nodes need to be examined twice (the first time, we push its children onto the stack. the second time, we combine the results of its children and push our result to the results_stack) thus we have a set of seen nodes too. </p>
+<p>Folds are a special kind of concept, prominent in functional programming. Applying a fold to a tree like this one can be a useful way of computing/aggregating information over the tree without having to write boilerplate code. A fold basically works by specifying a function to apply for each kind of node, and the fold then handles the rest of the recursion for you. However, recursion is inefficient, so we use a stack instead. In particular, we use two stacks: one for keeping track of which nodes we are yet to examine, and which results we are yet to use. Some nodes need to be examined twice (the first time, we push its children onto the stack. the second time, we combine the results of its children and push our result to the results_stack) thus we have a set of seen nodes too. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -518,7 +518,7 @@ template&lt;typename ResultT , typename EqFuncT , typename FreeFuncT , typename 
   </table>
   </dd>
 </dl>
-<p>\detailed Folds are a special kind of concept, prominent in functional programming. Applying a fold to a tree like this one can be a useful way of computing/aggregating information over the tree without having to write boilerplate code. A fold basically works by specifying a function to apply for each kind of node, and the fold then handles the rest of the recursion for you. However, recursion is inefficient, so we use a stack instead. In particular, we use two stacks: one for keeping track of which nodes we are yet to examine, and which results we are yet to use. Some nodes need to be examined twice (the first time, we push its children onto the stack. the second time, we combine the results of its children and push our result to the results_stack) thus we have a set of seen nodes too. </p>
+<p>Folds are a special kind of concept, prominent in functional programming. Applying a fold to a tree like this one can be a useful way of computing/aggregating information over the tree without having to write boilerplate code. A fold basically works by specifying a function to apply for each kind of node, and the fold then handles the rest of the recursion for you. However, recursion is inefficient, so we use a stack instead. In particular, we use two stacks: one for keeping track of which nodes we are yet to examine, and which results we are yet to use. Some nodes need to be examined twice (the first time, we push its children onto the stack. the second time, we combine the results of its children and push our result to the results_stack) thus we have a set of seen nodes too. </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -548,7 +548,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Parse rule for identifiers. </p>
-<p>\detailed An identifier is a kind of name, for a free variable, constant or function. Includes alphanumeric and some symbols. </p>
+<p>An identifier is a kind of name, for a free variable, constant or function. Includes alphanumeric and some symbols. </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

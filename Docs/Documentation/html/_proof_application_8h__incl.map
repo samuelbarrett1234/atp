@@ -5,7 +5,7 @@
 <area shape="rect" id="node4" href="$_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="234,80,323,107"/>
 <area shape="rect" id="node5" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="590,453,701,480"/>
 <area shape="rect" id="node7" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="350,379,506,405"/>
-<area shape="rect" id="node8" href="$_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="219,304,405,331"/>
+<area shape="rect" id="node8" href="$_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="219,304,405,331"/>
 <area shape="rect" id="node10" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="270,229,466,256"/>
 <area shape="rect" id="node11" href="$_i_language_8h.html" title="Contains the ILanguage interface." alt="" coords="479,155,631,181"/>
 <area shape="rect" id="node6" title=" " alt="" coords="613,528,678,555"/>

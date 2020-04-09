@@ -1,5 +1,5 @@
 <map id="atp::search::simple_check_proof" name="atp::search::simple_check_proof">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,139,80"/>
+<area shape="rect" id="node1" title="Checks the given proof from front to back (the front element is expected to be trivially true)." alt="" coords="5,39,139,80"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1_i_knowledge_kernel.html#a73ef978d8dcea85093149574ca51bbd5" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="187,5,373,47"/>
 <area shape="rect" id="node3" href="$classatp_1_1logic_1_1_i_knowledge_kernel.html#a25a73e5f0aa4756889e7397f513c76c1" title="Determine what form each statement is in (trivial or nontrivial, etc.)" alt="" coords="187,71,373,112"/>
 </map>

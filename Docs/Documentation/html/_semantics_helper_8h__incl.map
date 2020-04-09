@@ -18,7 +18,7 @@
 <area shape="rect" id="node17" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="974,423,1154,449"/>
 <area shape="rect" id="node18" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="931,259,1103,300"/>
 <area shape="rect" id="node20" href="$_syntax_tree_fold_8h.html" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="551,177,675,203"/>
-<area shape="rect" id="node19" href="$_i_statement_array_8h.html" title="Provides the IStatmentArray interface for collections of statement objects." alt="" coords="926,348,1053,375"/>
+<area shape="rect" id="node19" href="$_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="926,348,1053,375"/>
 <area shape="rect" id="node21" title=" " alt="" coords="523,266,600,293"/>
 <area shape="rect" id="node22" title=" " alt="" coords="624,266,707,293"/>
 <area shape="rect" id="node23" href="$_syntax_tree_traversal_8h.html" title=" " alt="" coords="347,266,498,293"/>

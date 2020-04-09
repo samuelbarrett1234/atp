@@ -1,17 +1,19 @@
 #pragma once
 
 
-/*
+/**
 
+\file
 
-IterativeDeepeningSolver.h
+\author Samuel Barrett
 
+\brief Contains a basic uninformed search strategy, IDS.
 
-This is an uninformed search strategy for finding proofs. It remains
-relatively low memory by mimicking depth first search, but limits the
-depth and iteratively increases it. Being an uninformed strategy, it
-is likely not very good, and will likely serve as a minimal viable
-product component.
+\details This is an uninformed search strategy for finding proofs. It
+    remains relatively low memory by mimicking depth first search,
+	but limits the depth and iteratively increases it. Being an
+	uninformed strategy, it is likely not very good, and will likely
+	serve as a minimal viable product component.
 
 */
 
@@ -40,45 +42,51 @@ private:
 		size_t m_idx;
 	};
 public:
-	// max_depth : the ultimate depth limit of search
-	// starting_depth : the depth limit for the very first search on
-	// a new batch of target statements.
-	// Preconditions: starting_depth > 1 and
-	// starting_depth < max_depth
+	/**
+
+	\param max_depth The ultimate depth limit of search (if a proof
+	    is not found at this depth, the search terminates.)
+
+	\param starting_depth The depth limit of the very first search
+	    iteration.
+
+	\pre 1 < starting_depth < max_depth
+
+	*/
 	IterativeDeepeningSolver(logic::KnowledgeKernelPtr p_kernel,
 		size_t max_depth,
 		size_t starting_depth = 3);
 
-	virtual void set_targets(logic::StatementArrayPtr p_stmts) override;
+	void set_targets(logic::StatementArrayPtr p_stmts) override;
 
-	virtual void step(size_t n = 1) override;
+	void step(size_t n = 1) override;
 
-	virtual void clear() override;
+	void clear() override;
 
-	virtual inline std::vector<ProofState> get_states() const override
+	inline std::vector<ProofState> get_states() const override
 	{
 		return m_pf_states;
 	}
 
-	virtual inline std::vector<boost::optional<logic::StatementArrayPtr>>
+	inline std::vector<boost::optional<logic::StatementArrayPtr>>
 		get_proofs() const override
 	{
 		return m_proofs;
 	}
 
-	virtual bool any_proof_not_done() const override;
+	bool any_proof_not_done() const override;
 
-	virtual inline bool engaged() const override
+	inline bool engaged() const override
 	{
 		return !m_stacks.empty();
 	}
 
-	virtual inline std::vector<float> get_agg_time() const override
+	inline std::vector<float> get_agg_time() const override
 	{
 		return m_agg_time;
 	}
 
-	virtual inline std::vector<size_t> get_max_mem() const override
+	inline std::vector<size_t> get_max_mem() const override
 	{
 		// One advantage of this approach is that the max memory
 		// usage is easy to track; it is just the current depth,
@@ -87,7 +95,7 @@ public:
 		return m_cur_depth_limits;
 	}
 
-	virtual inline std::vector<size_t> get_num_expansions() const override
+	inline std::vector<size_t> get_num_expansions() const override
 	{
 		return m_num_node_exps;
 	}
@@ -114,49 +122,81 @@ private:
 
 	logic::KnowledgeKernelPtr m_kernel;
 
-	// a different depth limit for each proof
-	// this is iteratively increased as the full tree up to that
-	// depth limit is explored.
-	// invariant: m_cur_depth_limits[i] <= m_max_depth
+	/**
+	\brief Depth limit for each target statement
+
+	\details This is iteratively increased as the search progresses
+	    until the ultimate depth limit has been reached.
+
+	\invariant m_cur_depth_limits[i] <= m_max_depth
+
+	*/
 	std::vector<size_t> m_cur_depth_limits;
 
-	// we store a stack for each target.
-	// invariant: m_stacks[i].size() <= m_cur_depth_limits[i]
-	// m_stacks[i].back().m_stmts[m_stacks[i].m_idx] is the next
-	// element to be expanded, provided depth limits permit.
-	// also invariant: m_stacks[i].size() > 0 iff we are still
-	// actively trying to prove it (if empty, we have given up.)
+	/**
+
+	\brief We store a stack for each target statement.
+
+	\invariant m_stacks[i].size() <= m_cur_depth_limits[i]
+
+	\invariant m_stacks[i].size() > 0 iff we are still
+	    actively trying to prove it (if empty, we have given up.)
+
+	\details m_stacks[i].back().m_stmts[m_stacks[i].m_idx] is the
+	    next element to be expanded, provided depth limits permit.
+
+	*/
 	std::vector<
 		std::list<StackFrame>
 	> m_stacks;
 
-	// invariant: m_targets->size() == m_stacks.size()
+
+	/**
+	\invariant m_targets->size() == m_stacks.size()
+	*/
 	logic::StatementArrayPtr m_targets;
 
-	// invariant: m_proofs.size() == m_stacks.size()
-	// and m_proofs[i].has_value() is true iff m_pf_states[i]
-	// != ProofState::UNFINISHED
-	// and m_stacks[i].empty() => !m_proofs[i].has_value()
+	
+	/**
+	\invariant m_proofs.size() == m_stacks.size()
+	    and m_proofs[i].has_value() is true iff m_pf_states[i]
+		!= ProofState::UNFINISHED
+		and m_stacks[i].empty() => !m_proofs[i].has_value()
+	*/
 	std::vector<boost::optional<logic::StatementArrayPtr>> m_proofs;
 
-	// invariant: m_proofs.size() == m_stacks.size()
-	// and m_stacks[i].empty() => m_pf_states[i] == UNFINISHED
+
+	/**
+	\invariant m_proofs.size() == m_stacks.size()
+	    and m_stacks[i].empty() => m_pf_states[i] == UNFINISHED
+	*/
 	std::vector<ProofState> m_pf_states;
 
-	// invariant: m_agg_time.size() == m_stacks.size()
-	// and m_agg_time[i] >= 0 for all i
-	// (this is just tracking the total time each proof has taken
-	// so far. 'Agg' for aggregation.)
+
+	/**
+	\invariant m_agg_time.size() == m_stacks.size()
+	    and m_agg_time[i] >= 0 for all i
+
+	\brief Tracks the total time each proof has taken so far, with
+	    "agg" meaning "aggregated".
+	*/
 	std::vector<float> m_agg_time;
 
-	// invariant: m_num_node_exps.size() == m_stacks.size()
-	// (this tracks the number of nodes (statements) expanded during
-	// the proof process.)
-	// note that if the knowledge kernel uses lazy evaluation for
-	// succs(), this is also equal to the number of nodes allocated.
+	
+	/**
+	\invariant m_num_node_exps.size() == m_stacks.size()
+
+	\brief Tracks the number of nodes (statements) expanded during
+	    the proof process.
+
+	\details If the knowledge kernel uses lazy evaluation for `succs`
+	    then this is also equal to the number of nodes allocated.
+	*/
 	std::vector<size_t> m_num_node_exps;
 
-	// invariant: engaged iff !m_stacks.empty()
+	/**
+	\invariant engaged iff !m_stacks.empty()
+	*/
 };
 
 

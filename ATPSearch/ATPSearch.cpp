@@ -1,3 +1,12 @@
+/**
+
+\file
+
+\author Samuel Barrett
+
+*/
+
+
 #include "ATPSearch.h"
 #include <algorithm>
 

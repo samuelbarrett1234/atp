@@ -1,3 +1,12 @@
+/**
+
+\file
+
+\author Samuel Barrett
+
+*/
+
+
 #include "IterativeDeepeningSolver.h"
 #include <boost/timer/timer.hpp>
 

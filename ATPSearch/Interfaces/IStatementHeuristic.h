@@ -1,15 +1,20 @@
 #pragma once
 
 
-/*
+/**
 
 
-Uninformed search strategies won't get very far, thus we use a
-heuristic function (or several) to help guide the search.
-Heuristic functions are represented as objects because they might
-need persistent information, like model parameters or even just the
-knowledge kernel. Their operations are also vectorised.
+\file
 
+\author Samuel Barrett
+
+\brief Interfaces for search heuristic functions
+
+\details Uninformed search strategies won't get very far, thus we
+    use a heuristic function (or several) to help guide the search.
+    Heuristic functions are represented as objects because they might
+    need persistent information, like model parameters or even just
+    the knowledge kernel. Their operations are also vectorised.
 
 */
 
@@ -27,18 +32,29 @@ namespace search
 {
 
 
-// Basically a persistent function from to floats which has been
-// vectorised. It is assumed that if the heuristic needs access
-// to the knowledge kernel then it was given it in its constructor.
+/**
+\interface IStatementHeuristic
+
+\brief Basically represents a function from statements to floats
+
+\note This function has been vectorised (it operates on several
+    statements, and returns a float for each of them).
+
+\note This is an object, not just a function, because the model
+    might need to store state e.g. access to GPU.
+*/
 class ATP_SEARCH_API IStatementHeuristic
 {
 public:
 	virtual ~IStatementHeuristic() = default;
 
-	// evaluate on this array of statements
-	// (if this heuristic uses a knowledge kernel, the kernel may
-	// assert that p_stmts is valid. Check the implementation for
-	// this.)
+	/**
+	\brief Evaluate the function on this array of statements
+
+	\pre Some heuristic implementations may be tied to a particular
+	    knowledge kernel, in which case `p_stmts` needs to be valid
+		in the context of that kernel.
+	*/
 	virtual std::vector<float> predict(
 		logic::StatementArrayPtr p_stmts) = 0;
 };

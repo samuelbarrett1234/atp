@@ -18,9 +18,10 @@
 #include <boost/spirit/include/phoenix.hpp>
 
 
+namespace qi = boost::spirit::qi;
 // we will be iterating over input streams
 typedef boost::spirit::istream_iterator QiParseIterator;
-typedef boost::spirit::qi::space_type SkipType;
+typedef qi::blank_type SkipType;
 typedef std::pair<std::string, std::string> KeyValuePair;
 typedef std::list<KeyValuePair> KeyValueList;
 
@@ -29,35 +30,36 @@ typedef std::list<KeyValuePair> KeyValueList;
 \brief A grammar for a file of "x=y" pairs
 */
 struct ContextFileGrammar :
-	public boost::spirit::qi::grammar<QiParseIterator,
+	public qi::grammar<QiParseIterator,
 	KeyValueList(),
 	SkipType>
 {
 	ContextFileGrammar() :
 		ContextFileGrammar::base_type(assignment_list)
 	{
-		assignment_list = +assignment;
+		assignment_list = assignment % qi::eol;
 
 		assignment = identifier >>
 			'=' >> identifier;
 
-		auto char_type = +(boost::spirit::qi::alnum
-			| boost::spirit::qi::char_('/')
-			| boost::spirit::qi::char_('\\')
-			| boost::spirit::qi::char_('.'));
+		auto char_type = (qi::alnum
+			| qi::char_('/')
+			| qi::char_('\\')
+			| qi::char_('.')
+			| qi::char_('_'));
 
-		identifier = +char_type |
-			'"' >> boost::spirit::qi::lexeme[
-				+char_type] >> '"';
+		identifier = qi::lexeme[+char_type]
+			|
+			'"' >> qi::lexeme[+(char_type | ' ')] >> '"';
 	}
 
-	boost::spirit::qi::rule<QiParseIterator,
+	qi::rule<QiParseIterator,
 		KeyValuePair(),
 		SkipType> assignment;
-	boost::spirit::qi::rule<QiParseIterator,
+	qi::rule<QiParseIterator,
 		KeyValueList(),
 		SkipType> assignment_list;
-	boost::spirit::qi::rule<QiParseIterator,
+	qi::rule<QiParseIterator,
 		std::string(), SkipType> identifier;
 };
 
@@ -65,16 +67,18 @@ struct ContextFileGrammar :
 boost::optional<ContextFile> parse_context_file(
 	std::istream& in)
 {
+	in >> std::noskipws;
+
 	QiParseIterator begin(in), end;
 
 	KeyValueList output;
-	const bool ok = boost::spirit::qi::phrase_parse(
+	const bool ok = qi::phrase_parse(
 		begin, end, ContextFileGrammar(),
-		boost::spirit::qi::space,
+		qi::blank,
 		output
 	);
 
-	if (!ok)
+	if (!ok || begin != end)
 	{
 		return boost::none;
 	}

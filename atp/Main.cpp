@@ -33,12 +33,22 @@ int main(int argc, const char* const argv[])
 
 	// parse the arguments:
 	po::variables_map vm;
-	po::store(po::command_line_parser(argc, argv)
-		.options(desc).run(), vm);
-	po::notify(vm);
+	try
+	{
+		po::store(po::command_line_parser(argc, argv)
+			.options(desc).run(), vm);
+		po::notify(vm);
+	}
+	catch(std::exception& ex)
+	{
+		std::cout << "An error occurred while parsing the"
+			<< " command line arguments: " << ex.what()
+			<< std::endl;
+		return -1;
+	}
 
 	// if we are asked to prove some statements...
-	if (!vm.count("prove"))
+	if (!vm.count("P"))
 	{
 		return run_proof_application(vm);
 	}

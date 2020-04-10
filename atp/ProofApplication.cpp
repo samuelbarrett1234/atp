@@ -38,6 +38,10 @@ bool ProofApplication::set_context_file(std::string path)
 		return false;
 	}
 
+	// get the folder that the context file is in
+	const auto working_folder = boost::filesystem::path(
+		path).parent_path();
+
 	auto maybe_ctx_file = parse_context_file(ctx_in);
 
 	if (!maybe_ctx_file)
@@ -50,26 +54,34 @@ bool ProofApplication::set_context_file(std::string path)
 
 	// else proceed loading the language and knowledge kernel etc
 
+	// get definition file and axiom file paths relative to the
+	// context file directory
+	auto def_file_path = working_folder
+		/ maybe_ctx_file->definition_file_path;
+	auto ax_file_path = working_folder
+		/ maybe_ctx_file->axiom_file_path;
+	
 	if (!boost::filesystem::is_regular_file(
-		maybe_ctx_file->definition_file_path))
+		def_file_path))
 	{
 		m_out << "Error: definition file \"" <<
-			maybe_ctx_file->definition_file_path <<
+			def_file_path.string() <<
 			"\" does not exist (as a file)." << std::endl;
 		return false;
 	}
 
 	if (!boost::filesystem::is_regular_file(
-		maybe_ctx_file->axiom_file_path))
+		ax_file_path))
 	{
 		m_out << "Error: axiom file \"" <<
-			maybe_ctx_file->axiom_file_path <<
+			ax_file_path.string() <<
 			"\" does not exist (as a file)." << std::endl;
 		return false;
 	}
 
-	std::ifstream def_in(maybe_ctx_file->definition_file_path),
-		ax_in(maybe_ctx_file->axiom_file_path);
+	// open the definition and axiom files
+	std::ifstream def_in(def_file_path.string()),
+		ax_in(ax_file_path.string());
 
 	if (!def_in)
 	{

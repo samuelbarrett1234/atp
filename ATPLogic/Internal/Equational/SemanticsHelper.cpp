@@ -115,14 +115,14 @@ std::list<SyntaxNodePtr> substitute_tree(
 				sub_info.free_var_ids.end(),
 				std::back_inserter(sublist),
 				[](size_t id)
-				{ return std::make_shared<FreeSyntaxNode>(id); });
+				{ return FreeSyntaxNode::construct(id); });
 
 			// create constants
 			std::transform(sub_info.const_symbol_ids.begin(),
 				sub_info.const_symbol_ids.end(),
 				std::back_inserter(sublist),
 				[](size_t id)
-				{ return std::make_shared<ConstantSyntaxNode>(id); });
+				{ return ConstantSyntaxNode::construct(id); });
 
 			// this is to ensure that we can actually return
 			// something (we must be able to replace this un-subbed
@@ -142,7 +142,7 @@ std::list<SyntaxNodePtr> substitute_tree(
 		// cartesian product
 		for (auto l : lhs)
 			for (auto r : rhs)
-				result.emplace_back(std::make_shared<EqSyntaxNode>(
+				result.emplace_back(EqSyntaxNode::construct(
 					l, r));
 		return result;
 	};
@@ -161,7 +161,7 @@ std::list<SyntaxNodePtr> substitute_tree(
 	auto const_constructor = [](size_t id)
 		-> ResultT
 	{
-		return { std::make_shared<ConstantSyntaxNode>(id) };
+		return { ConstantSyntaxNode::construct(id) };
 	};
 
 	// unfortunately this constructor is really long because we have
@@ -213,7 +213,7 @@ std::list<SyntaxNodePtr> substitute_tree(
 
 			// and finally construct the function:
 			result.emplace_back(
-				std::make_shared<FuncSyntaxNode>(id,
+				FuncSyntaxNode::construct(id,
 				current_child_list.begin(),
 				current_child_list.end()));
 
@@ -507,14 +507,14 @@ get_statement_sides(const std::vector<Statement>& stmts)
 	auto free_constructor = [](size_t id)
 	{
 		return std::make_pair(
-			std::make_shared<FreeSyntaxNode>(id),
+			FreeSyntaxNode::construct(id),
 			SyntaxNodePtr());
 	};
 
 	auto const_constructor = [](size_t id)
 	{
 		return std::make_pair(
-			std::make_shared<ConstantSyntaxNode>(id),
+			ConstantSyntaxNode::construct(id),
 			SyntaxNodePtr());
 	};
 
@@ -528,7 +528,7 @@ get_statement_sides(const std::vector<Statement>& stmts)
 			boost::make_transform_iterator(end, map_first));
 
 		return std::make_pair(
-			std::make_shared<FuncSyntaxNode>(id, children.begin(),
+			FuncSyntaxNode::construct(id, children.begin(),
 				children.end()), SyntaxNodePtr());
 	};
 

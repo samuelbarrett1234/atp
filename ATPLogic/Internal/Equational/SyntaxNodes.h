@@ -64,6 +64,13 @@ public:
 		ATP_LOGIC_PRECOND(m_left->get_type() != SyntaxNodeType::EQ);
 		ATP_LOGIC_PRECOND(m_right->get_type() != SyntaxNodeType::EQ);
 	}
+
+	/**
+	\brief Optimised allocation function
+	*/
+	static SyntaxNodePtr construct(SyntaxNodePtr lhs,
+		SyntaxNodePtr rhs);
+
 	inline SyntaxNodeType get_type() const override
 	{
 		return SyntaxNodeType::EQ;
@@ -76,6 +83,7 @@ public:
 	{
 		return m_right;
 	}
+
 private:
 	SyntaxNodePtr m_left, m_right;
 };
@@ -89,6 +97,8 @@ public:
 	FreeSyntaxNode(size_t id) :
 		m_id(id)
 	{ }
+
+	static SyntaxNodePtr construct(size_t id);
 
 	inline SyntaxNodeType get_type() const override
 	{
@@ -116,6 +126,11 @@ public:
 		m_symbol_id(symb_id)
 	{ }
 
+	/**
+	\brief Optimised allocation function
+	*/
+	static SyntaxNodePtr construct(size_t symb_id);
+
 	// need virtual so that FuncSyntaxNode can override
 	virtual inline SyntaxNodeType get_type() const override
 	{
@@ -125,6 +140,7 @@ public:
 	{
 		return m_symbol_id;
 	}
+
 protected:
 	// an ID for the symbol given to us by the kernel (because
 	// actually storing the symbol names isn't very efficient!)
@@ -140,14 +156,6 @@ class ATP_LOGIC_API FuncSyntaxNode :
 	// inherits from constant symbol above!
 public:
 	FuncSyntaxNode(size_t symb_id,
-		std::list<SyntaxNodePtr> arg_children) :
-		ConstantSyntaxNode(symb_id),
-		m_children(arg_children)
-	{
-		// functions always need arguments
-		ATP_LOGIC_PRECOND(!m_children.empty());
-	}
-	FuncSyntaxNode(size_t symb_id,
 		std::list<SyntaxNodePtr>::iterator begin,
 		std::list<SyntaxNodePtr>::iterator end) :
 		ConstantSyntaxNode(symb_id),
@@ -156,6 +164,14 @@ public:
 		// functions always need arguments
 		ATP_LOGIC_PRECOND(!m_children.empty());
 	}
+
+	/**
+	\brief Optimised allocation function
+	*/
+	static SyntaxNodePtr construct(size_t symb_id,
+		std::list<SyntaxNodePtr>::iterator begin,
+		std::list<SyntaxNodePtr>::iterator end);
+
 	inline SyntaxNodeType get_type() const override
 	{
 		return SyntaxNodeType::FUNC;
@@ -180,6 +196,7 @@ public:
 	{
 		return m_children.rend();
 	}
+
 private:
 	std::list<SyntaxNodePtr> m_children;
 };

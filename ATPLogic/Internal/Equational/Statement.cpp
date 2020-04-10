@@ -108,7 +108,7 @@ Statement Statement::adjoin_rhs(const Statement& other) const
 	ATP_LOGIC_ASSERT(p_eq != nullptr);
 	ATP_LOGIC_ASSERT(p_other_eq != nullptr);
 
-	auto p_new_eq = std::make_shared<EqSyntaxNode>(p_eq->left(),
+	auto p_new_eq = EqSyntaxNode::construct(p_eq->left(),
 		p_other_eq->right());
 
 	return Statement(m_ker, p_new_eq);

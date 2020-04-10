@@ -11,6 +11,7 @@
 #include <map>
 #include <boost/bind.hpp>
 #include <boost/phoenix.hpp>
+#include <boost/pool/pool_alloc.hpp>
 #include "ParseTreeFold.h"
 #include "KnowledgeKernel.h"
 
@@ -41,7 +42,7 @@ SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 				num_eq_signs_encountered > 1)
 				return SyntaxNodePtr();
 
-			return std::make_shared<EqSyntaxNode>(lhs, rhs);
+			return EqSyntaxNode::construct(lhs, rhs);
 		},
 		[&free_var_ids, &next_free_id, &ker](std::string name,
 			std::list<SyntaxNodePtr>::iterator child_begin,
@@ -64,14 +65,14 @@ SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 					// encountered a new free variable:
 					free_var_ids[name] = next_free_id;
 					next_free_id++;
-					return std::make_shared<FreeSyntaxNode>(
+					return FreeSyntaxNode::construct(
 						next_free_id - 1
 						);
 				}
 				else
 				{
 					// reuse ID from old free variable:
-					return std::make_shared<FreeSyntaxNode>(
+					return FreeSyntaxNode::construct(
 						name_id_iter->second
 						);
 				}
@@ -86,7 +87,7 @@ SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 
 				const size_t symbol_id = ker.symbol_id(name);
 
-				return std::make_shared<ConstantSyntaxNode>(
+				return ConstantSyntaxNode::construct(
 					symbol_id);
 			}
 			else  // if a user defined function...
@@ -104,12 +105,55 @@ SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 
 				const size_t symbol_id = ker.symbol_id(name);
 
-				return std::make_shared<FuncSyntaxNode>(
+				return FuncSyntaxNode::construct(
 					symbol_id, child_begin, child_end);
 			}
 		},
 		ptree
 	);
+}
+
+
+SyntaxNodePtr EqSyntaxNode::construct(SyntaxNodePtr lhs,
+	SyntaxNodePtr rhs)
+{
+	static boost::pool_allocator<EqSyntaxNode> eq_alloc;
+
+	return std::allocate_shared<EqSyntaxNode,
+		boost::pool_allocator<EqSyntaxNode>>(eq_alloc,
+			lhs, rhs);
+}
+
+
+SyntaxNodePtr FreeSyntaxNode::construct(size_t id)
+{
+	static boost::pool_allocator<FreeSyntaxNode> free_alloc;
+
+	return std::allocate_shared<FreeSyntaxNode,
+		boost::pool_allocator<FreeSyntaxNode>>(free_alloc,
+			id);
+}
+
+
+SyntaxNodePtr ConstantSyntaxNode::construct(size_t symb_id)
+{
+	static boost::pool_allocator<ConstantSyntaxNode> const_alloc;
+
+	return std::allocate_shared<ConstantSyntaxNode,
+		boost::pool_allocator<ConstantSyntaxNode>>(const_alloc,
+			symb_id);
+}
+
+
+SyntaxNodePtr FuncSyntaxNode::construct(size_t symb_id,
+	std::list<SyntaxNodePtr>::iterator begin,
+	std::list<SyntaxNodePtr>::iterator end)
+{
+	static boost::pool_allocator<FuncSyntaxNode> func_alloc;
+
+	return std::allocate_shared<FuncSyntaxNode,
+		boost::pool_allocator<FuncSyntaxNode>>(func_alloc,
+			symb_id, begin, end);
 }
 
 

@@ -109,18 +109,16 @@ Statement transpose(const Statement& stmt)
 	// reflect the statement about the equals sign
 
 	auto eq_func = [](SyntaxNodePtr lhs, SyntaxNodePtr rhs)
-	{ return std::make_shared<EqSyntaxNode>(rhs, lhs); };
+	{ return EqSyntaxNode::construct(rhs, lhs); };
 
 	auto free_func = boost::bind(
-		&std::make_shared<FreeSyntaxNode, size_t>, _1);
+		&FreeSyntaxNode::construct, _1);
 	
 	auto const_func = boost::bind(
-		&std::make_shared<ConstantSyntaxNode, size_t>, _1);
+		&ConstantSyntaxNode::construct, _1);
 
 	auto f_func = boost::bind(
-		&std::make_shared<FuncSyntaxNode, size_t,
-		std::list<SyntaxNodePtr>::iterator,
-		std::list<SyntaxNodePtr>::iterator>, _1, _2, _3);
+		&FuncSyntaxNode::construct, _1, _2, _3);
 
 	auto syntax_tree = stmt.fold<SyntaxNodePtr>(eq_func,
 		free_func, const_func, f_func);
@@ -149,7 +147,7 @@ StatementArray get_successors(const Statement& stmt,
 	auto eq_constructor = [](const SubResults& lhs,
 		const SubResults& rhs) -> SubResults
 	{
-		auto me = std::make_shared<EqSyntaxNode>(lhs.first,
+		auto me = EqSyntaxNode::construct(lhs.first,
 			rhs.first);
 
 		std::list<SyntaxNodePtr> sub_results;
@@ -158,13 +156,13 @@ StatementArray get_successors(const Statement& stmt,
 		std::transform(lhs.second.begin(), lhs.second.end(),
 			std::back_inserter(sub_results),
 			[&rhs](SyntaxNodePtr lhs)
-			{ return std::make_shared<EqSyntaxNode>(lhs, rhs.first); });
+			{ return EqSyntaxNode::construct(lhs, rhs.first); });
 
 		// add right-hand results, keep LHS constant
 		std::transform(rhs.second.begin(), rhs.second.end(),
 			std::back_inserter(sub_results),
 			[&lhs](SyntaxNodePtr rhs)
-			{ return std::make_shared<EqSyntaxNode>(lhs.first, rhs); });
+			{ return EqSyntaxNode::construct(lhs.first, rhs); });
 
 		return std::make_pair(me, sub_results);
 	};
@@ -172,7 +170,7 @@ StatementArray get_successors(const Statement& stmt,
 	auto free_constructor = [&sub_info]
 		(size_t id) -> SubResults
 	{
-		auto me = std::make_shared<FreeSyntaxNode>(id);
+		auto me = FreeSyntaxNode::construct(id);
 
 		return std::make_pair(me,
 			immediate_applications(me, sub_info));
@@ -181,7 +179,7 @@ StatementArray get_successors(const Statement& stmt,
 	auto const_constructor = [&sub_info]
 		(size_t id) -> SubResults
 	{
-		auto me = std::make_shared<ConstantSyntaxNode>(id);
+		auto me = ConstantSyntaxNode::construct(id);
 
 		return std::make_pair(me,
 			immediate_applications(me, sub_info));
@@ -199,7 +197,7 @@ StatementArray get_successors(const Statement& stmt,
 			boost::make_transform_iterator(begin, map_first),
 			boost::make_transform_iterator(end, map_first));
 
-		auto me = std::make_shared<FuncSyntaxNode>(id,
+		auto me = FuncSyntaxNode::construct(id,
 			unmodified_children.begin(), unmodified_children.end());
 
 		auto sub_results = immediate_applications(me,
@@ -230,7 +228,7 @@ StatementArray get_successors(const Statement& stmt,
 
 				// now build a function node out of it:
 				sub_results.push_back(
-					std::make_shared<FuncSyntaxNode>(
+					FuncSyntaxNode::construct(
 					id, new_child_list.begin(),
 						new_child_list.end()));
 			}
@@ -306,7 +304,7 @@ bool implies(const Statement& premise, const Statement& concl)
 	{
 		// just map id_a to the free variable with id_b
 		FreeVarMap map = FreeVarMap::value_type();
-		map.get()[id_a] = std::make_shared<FreeSyntaxNode>(id_b);
+		map.get()[id_a] = FreeSyntaxNode::construct(id_b);
 		return map;
 	};
 

@@ -149,7 +149,7 @@ BOOST_DATA_TEST_CASE(test_get_statement_sides,
 	BOOST_REQUIRE(sides.size() == 1);
 
 	// stitch back together and check identical to original
-	auto stree2 = std::make_shared<EqSyntaxNode>(sides.front().first,
+	auto stree2 = EqSyntaxNode::construct(sides.front().first,
 		sides.front().second);
 
 	BOOST_TEST(semantics::syntax_tree_identical(stree, stree2));

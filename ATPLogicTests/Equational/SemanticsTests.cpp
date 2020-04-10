@@ -393,12 +393,12 @@ Statement map_free_ids(
 	// Otherwise it keeps the ID as-is.
 
 	auto eq_constructor = boost::bind(
-		&std::make_shared<EqSyntaxNode, SyntaxNodePtr, SyntaxNodePtr>,
+		&EqSyntaxNode::construct,
 		_1, _2);
 
 	// (using function composition via nested boost::bind)
 	auto free_constructor = boost::bind(
-		&std::make_shared<FreeSyntaxNode, size_t>,
+		&FreeSyntaxNode::construct,
 		boost::bind<size_t>([&free_id_map](size_t id) -> size_t
 		{
 			auto iter = free_id_map.find(id);
@@ -409,12 +409,10 @@ Statement map_free_ids(
 		}, _1));
 
 	auto const_constructor = boost::bind(
-		&std::make_shared<ConstantSyntaxNode, size_t>, _1);
+		&ConstantSyntaxNode::construct, _1);
 
 	auto func_constructor = boost::bind(
-		&std::make_shared<FuncSyntaxNode, size_t,
-		std::list<SyntaxNodePtr>::iterator,
-		std::list<SyntaxNodePtr>::iterator>, _1, _2, _3);
+		&FuncSyntaxNode::construct, _1, _2, _3);
 
 	return Statement(stmt.kernel(), stmt.fold<SyntaxNodePtr>(eq_constructor,
 		free_constructor, const_constructor, func_constructor));

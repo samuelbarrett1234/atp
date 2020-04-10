@@ -73,11 +73,12 @@ Documentation</h1>
 <p>Documentation pages can be found at <a href="https://samuelbarrett1234.github.io/atp/">https://samuelbarrett1234.github.io/atp/</a></p>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Navigation</h1>
-<p>This repository has four projects:</p><ul>
+<p>Directory list:</p><ul>
 <li><code>atp</code> : the command line application for running the theorem prover,</li>
 <li><code>ATPLogic</code> : the library which contains the logical inference code, and also the parsers,</li>
 <li><code>ATPLogicTests</code> : the unit tests for the logic library,</li>
 <li><code>ATPSearch</code> : the library of search algorithms for finding proofs,</li>
+<li><code>ATPSearchTests</code> : the unit tests for the search library,</li>
 <li><code>ATPDatabase</code> : the library for the management of proven theorems and also concurrent process management,</li>
 <li><code>Docs</code> : specifications, documentation, and example code,</li>
 <li><code>Data</code> : definition files, theorem databases.</li>
@@ -86,14 +87,17 @@ Navigation</h1>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Installation</h1>
 <p>The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. This project uses the Boost C++ libaries. Please ensure that they are installed, and that the environment variable <code>BOOST_DIR</code> to be set to the root of Boost's installation directory.</p>
+<p>After installation, try building the library and running the unit tests to check everything is working correctly.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Running the client</h1>
-<p>TODO.</p>
+<p>At the moment, the application only supports a single <code>prove</code> mode. Usage:</p>
+<p><code>atp --context &lt;context-filename&gt; --prove &lt;statement-filename&gt;</code></p>
+<p>Note that, in the above example, you may need to change <code>atp</code> to <code>atp_Releasex64</code> or something similar, depending on your build settings. Check the <code>Output</code> folder to see which versions of the application you have built.</p>
 <h1><a class="anchor" id="autotoc_md5"></a>
-TODO beyond minimum viable product</h1>
+TODO (beyond minimum viable product)</h1>
 <p>At the moment the project is working towards a minimum viable product, using only equational logic and uninformed search strategies. This repository still needs the following:</p><ul>
 <li>a statistics and machine learning library, for modelling the statements and searches, so we can start to use informed search strategies,</li>
-<li>a networking library so the application can be run in a server mode (for delivering reports over the web, or for remote monitoring and control.)</li>
+<li>a networking component so the application can be run in a server mode (for delivering reports over the web, or for remote monitoring and control.)</li>
 <li>the <code>ATPLogic</code> library needs implementations of other kinds of logic (e.g. first order logic, second order logic.)</li>
 <li>the <code>ATPSearch</code> library needs to use some more sophisticated, informed search strategies. </li>
 </ul>

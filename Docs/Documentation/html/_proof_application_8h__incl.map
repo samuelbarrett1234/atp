@@ -1,5 +1,5 @@
 <map id="atp/ProofApplication.h" name="atp/ProofApplication.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,155,32"/>
+<area shape="rect" id="node1" title="Contains the simple command line application for doing a proof." alt="" coords="5,5,155,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="201,453,255,480"/>
 <area shape="rect" id="node3" title=" " alt="" coords="103,379,159,405"/>
 <area shape="rect" id="node4" href="$_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="234,80,323,107"/>

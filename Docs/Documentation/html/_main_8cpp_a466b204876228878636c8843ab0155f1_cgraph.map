@@ -1,6 +1,11 @@
 <map id="run_proof_application" name="run_proof_application">
-<area shape="rect" id="node1" title=" " alt="" coords="5,71,149,98"/>
-<area shape="rect" id="node2" href="$class_proof_application.html#a6ef09aab15e935fc8cbd9e8126a707c5" title=" " alt="" coords="197,5,343,47"/>
-<area shape="rect" id="node3" href="$class_proof_application.html#aec7c01567bc1f21daa4d124c1347d716" title=" " alt="" coords="199,71,341,98"/>
-<area shape="rect" id="node4" href="$class_proof_application.html#abaf8da21de83b7d7a1a75f1b79fc8d4e" title=" " alt="" coords="199,123,341,164"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,79,149,105"/>
+<area shape="rect" id="node2" href="$class_proof_application.html#a6ef09aab15e935fc8cbd9e8126a707c5" title="Add a new one/many target statements, to attempt to prove when run is called." alt="" coords="197,13,343,54"/>
+<area shape="rect" id="node3" href="$class_proof_application.html#a639f78f2c935cb9208dfd675207a7388" title="Run all proofs that have been set." alt="" coords="199,79,341,105"/>
+<area shape="rect" id="node7" href="$class_proof_application.html#abaf8da21de83b7d7a1a75f1b79fc8d4e" title="Loads the language and knowledge kernel from a given context file." alt="" coords="199,137,341,178"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1logic.html#aa0bf7e3fc379b924cf7031f1110c685d" title="Concatenate two statement arrays of the same type." alt="" coords="395,20,517,47"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1search.html#af7053dacc77fd0f95c563de4beb13e90" title="Allocate a new solver object of a given specified type." alt="" coords="391,71,521,113"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a8b3c78a186b26edcc519caad57901111" title=" " alt="" coords="569,5,713,61"/>
+<area shape="rect" id="node8" href="$namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="397,137,515,178"/>
+<area shape="rect" id="node9" href="$_parse_context_file_8cpp.html#a672ab2a861a648b7cd814aeed325b905" title=" " alt="" coords="393,203,519,229"/>
 </map>

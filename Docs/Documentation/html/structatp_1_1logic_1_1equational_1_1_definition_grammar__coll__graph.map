@@ -1,4 +1,6 @@
 <map id="atp::logic::equational::DefinitionGrammar" name="atp::logic::equational::DefinitionGrammar">
-<area shape="rect" id="node1" title="Grammar for definition files (producing name&#45;arity pairs.)" alt="" coords="229,27,372,69"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,181,91"/>
+<area shape="rect" id="node1" title="Grammar for definition files (producing name&#45;arity pairs.)" alt="" coords="492,58,635,99"/>
+<area shape="rect" id="node2" title=" " alt="" coords="239,5,415,91"/>
+<area shape="rect" id="node3" href="$structatp_1_1logic_1_1equational_1_1_skipper.html" title="This is the skip parser, which tells the parser what to ignore (what is not code)." alt="" coords="255,115,398,157"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,115,189,157"/>
 </map>

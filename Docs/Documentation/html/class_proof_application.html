@@ -71,17 +71,53 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>The simple command-line application for proving a small set of statements.  
+ <a href="class_proof_application.html#details">More...</a></p>
+
 <p><code>#include &lt;ProofApplication.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a8e42bcfb6e109d3be37ec5a23f630107"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_proof_application.html#a8e42bcfb6e109d3be37ec5a23f630107">ProofApplication</a> (std::ostream &amp;out)</td></tr>
+<tr class="separator:a8e42bcfb6e109d3be37ec5a23f630107"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abaf8da21de83b7d7a1a75f1b79fc8d4e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_proof_application.html#abaf8da21de83b7d7a1a75f1b79fc8d4e">set_context_file</a> (std::string path)</td></tr>
+<tr class="memdesc:abaf8da21de83b7d7a1a75f1b79fc8d4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the language and knowledge kernel from a given context file.  <a href="class_proof_application.html#abaf8da21de83b7d7a1a75f1b79fc8d4e">More...</a><br /></td></tr>
 <tr class="separator:abaf8da21de83b7d7a1a75f1b79fc8d4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ef09aab15e935fc8cbd9e8126a707c5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_proof_application.html#a6ef09aab15e935fc8cbd9e8126a707c5">add_proof_task</a> (std::string path_or_stmt)</td></tr>
+<tr class="memdesc:a6ef09aab15e935fc8cbd9e8126a707c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new one/many target statements, to attempt to prove when <code>run</code> is called.  <a href="class_proof_application.html#a6ef09aab15e935fc8cbd9e8126a707c5">More...</a><br /></td></tr>
 <tr class="separator:a6ef09aab15e935fc8cbd9e8126a707c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec7c01567bc1f21daa4d124c1347d716"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; std::string, std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_proof_application.html#aec7c01567bc1f21daa4d124c1347d716">run</a> (std::ostream &amp;output_stream)</td></tr>
-<tr class="separator:aec7c01567bc1f21daa4d124c1347d716"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a639f78f2c935cb9208dfd675207a7388"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_proof_application.html#a639f78f2c935cb9208dfd675207a7388">run</a> ()</td></tr>
+<tr class="memdesc:a639f78f2c935cb9208dfd675207a7388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run all proofs that have been set.  <a href="class_proof_application.html#a639f78f2c935cb9208dfd675207a7388">More...</a><br /></td></tr>
+<tr class="separator:a639f78f2c935cb9208dfd675207a7388"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The simple command-line application for proving a small set of statements. </p>
+<p>This class encapsulates the following use case: "given a logical language, and a context, try to prove a given set of statements all in one go." It does not store the results in the database; this application is intended to be quick and simple. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a8e42bcfb6e109d3be37ec5a23f630107"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e42bcfb6e109d3be37ec5a23f630107">&#9670;&nbsp;</a></span>ProofApplication()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ProofApplication::ProofApplication </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">out</td><td>The stream to write all application text output. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a6ef09aab15e935fc8cbd9e8126a707c5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6ef09aab15e935fc8cbd9e8126a707c5">&#9670;&nbsp;</a></span>add_proof_task()</h2>
@@ -98,12 +134,22 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Add a new one/many target statements, to attempt to prove when <code>run</code> is called. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path_or_stmt</td><td>Can either be a path to a file of statements or can just be a list of statements represented as a string (in both cases, multiple statements should be line-separated)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True iff success.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>Must've already set the context file successfully. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_proof_application_a6ef09aab15e935fc8cbd9e8126a707c5_icgraph.png" border="0" usemap="#class_proof_application_a6ef09aab15e935fc8cbd9e8126a707c5_icgraph" alt=""/></div>
 <map name="class_proof_application_a6ef09aab15e935fc8cbd9e8126a707c5_icgraph" id="class_proof_application_a6ef09aab15e935fc8cbd9e8126a707c5_icgraph">
-<area shape="rect" title=" " alt="" coords="296,5,441,47"/>
+<area shape="rect" title="Add a new one/many target statements, to attempt to prove when run is called." alt="" coords="296,5,441,47"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
 </map>
@@ -111,27 +157,40 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="aec7c01567bc1f21daa4d124c1347d716"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec7c01567bc1f21daa4d124c1347d716">&#9670;&nbsp;</a></span>run()</h2>
+<a id="a639f78f2c935cb9208dfd675207a7388"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a639f78f2c935cb9208dfd675207a7388">&#9670;&nbsp;</a></span>run()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; std::pair&lt; std::string, std::string &gt; &gt; ProofApplication::run </td>
+          <td class="memname">void ProofApplication::run </td>
           <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>output_stream</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Run all proofs that have been set. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Make the solver configurable </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_proof_application_a639f78f2c935cb9208dfd675207a7388_cgraph.png" border="0" usemap="#class_proof_application_a639f78f2c935cb9208dfd675207a7388_cgraph" alt=""/></div>
+<map name="class_proof_application_a639f78f2c935cb9208dfd675207a7388_cgraph" id="class_proof_application_a639f78f2c935cb9208dfd675207a7388_cgraph">
+<area shape="rect" title="Run all proofs that have been set." alt="" coords="5,49,148,76"/>
+<area shape="rect" href="namespaceatp_1_1logic.html#aa0bf7e3fc379b924cf7031f1110c685d" title="Concatenate two statement arrays of the same type." alt="" coords="200,20,323,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#af7053dacc77fd0f95c563de4beb13e90" title="Allocate a new solver object of a given specified type." alt="" coords="196,71,327,113"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a8b3c78a186b26edcc519caad57901111" title=" " alt="" coords="375,5,519,61"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_proof_application_aec7c01567bc1f21daa4d124c1347d716_icgraph.png" border="0" usemap="#class_proof_application_aec7c01567bc1f21daa4d124c1347d716_icgraph" alt=""/></div>
-<map name="class_proof_application_aec7c01567bc1f21daa4d124c1347d716_icgraph" id="class_proof_application_aec7c01567bc1f21daa4d124c1347d716_icgraph">
-<area shape="rect" title=" " alt="" coords="296,5,439,32"/>
+<div class="center"><img src="class_proof_application_a639f78f2c935cb9208dfd675207a7388_icgraph.png" border="0" usemap="#class_proof_application_a639f78f2c935cb9208dfd675207a7388_icgraph" alt=""/></div>
+<map name="class_proof_application_a639f78f2c935cb9208dfd675207a7388_icgraph" id="class_proof_application_a639f78f2c935cb9208dfd675207a7388_icgraph">
+<area shape="rect" title="Run all proofs that have been set." alt="" coords="296,5,439,32"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,5,248,32"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,5,56,32"/>
 </map>
@@ -154,12 +213,26 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Loads the language and knowledge kernel from a given context file. </p>
+<p>A context file specifies the language, the location of the definition file, and the location of the axiom file.</p>
+<dl class="section return"><dt>Returns</dt><dd>True iff success. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_cgraph.png" border="0" usemap="#class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_cgraph" alt=""/></div>
+<map name="class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_cgraph" id="class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_cgraph">
+<area shape="rect" title="Loads the language and knowledge kernel from a given context file." alt="" coords="5,35,148,76"/>
+<area shape="rect" href="namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="200,5,319,47"/>
+<area shape="rect" href="_parse_context_file_8cpp.html#a672ab2a861a648b7cd814aeed325b905" title=" " alt="" coords="196,71,323,98"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_icgraph.png" border="0" usemap="#class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_icgraph" alt=""/></div>
 <map name="class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_icgraph" id="class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_icgraph">
-<area shape="rect" title=" " alt="" coords="296,5,439,47"/>
+<area shape="rect" title="Loads the language and knowledge kernel from a given context file." alt="" coords="296,5,439,47"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
 </map>

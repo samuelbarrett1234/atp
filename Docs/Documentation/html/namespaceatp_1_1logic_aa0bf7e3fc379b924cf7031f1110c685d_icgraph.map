@@ -1,4 +1,6 @@
 <map id="atp::logic::concat" name="atp::logic::concat">
-<area shape="rect" id="node1" title="Concatenate two statement arrays of the same type." alt="" coords="244,5,367,32"/>
-<area shape="rect" id="node2" href="$_statement_array_tests_8cpp.html#ab4e77a8340023c96b2acd036cc82d26e" title=" " alt="" coords="5,5,196,32"/>
+<area shape="rect" id="node1" title="Concatenate two statement arrays of the same type." alt="" coords="487,5,609,32"/>
+<area shape="rect" id="node2" href="$class_proof_application.html#a639f78f2c935cb9208dfd675207a7388" title="Run all proofs that have been set." alt="" coords="296,5,439,32"/>
+<area shape="rect" id="node3" href="$_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,5,248,32"/>
+<area shape="rect" id="node4" href="$_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,5,56,32"/>
 </map>

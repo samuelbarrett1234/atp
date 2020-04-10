@@ -1,0 +1,6 @@
+<map id="atp::search::create_solver" name="atp::search::create_solver">
+<area shape="rect" id="node1" title="Allocate a new solver object of a given specified type." alt="" coords="487,5,617,47"/>
+<area shape="rect" id="node2" href="$class_proof_application.html#a639f78f2c935cb9208dfd675207a7388" title="Run all proofs that have been set." alt="" coords="296,13,439,39"/>
+<area shape="rect" id="node3" href="$_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
+<area shape="rect" id="node4" href="$_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
+</map>

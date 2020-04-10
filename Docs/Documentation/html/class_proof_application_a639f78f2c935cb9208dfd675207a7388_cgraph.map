@@ -1,0 +1,6 @@
+<map id="ProofApplication::run" name="ProofApplication::run">
+<area shape="rect" id="node1" title="Run all proofs that have been set." alt="" coords="5,49,148,76"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic.html#aa0bf7e3fc379b924cf7031f1110c685d" title="Concatenate two statement arrays of the same type." alt="" coords="200,20,323,47"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1search.html#af7053dacc77fd0f95c563de4beb13e90" title="Allocate a new solver object of a given specified type." alt="" coords="196,71,327,113"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a8b3c78a186b26edcc519caad57901111" title=" " alt="" coords="375,5,519,61"/>
+</map>

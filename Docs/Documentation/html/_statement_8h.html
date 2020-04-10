@@ -154,7 +154,7 @@ Namespaces</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains the implementation of the IStatement interface for equational logic. </p>
 <dl class="section author"><dt>Author</dt><dd>Samuel Barrett</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>If it comes the time to optimise the equational logic statements to make search faster, here is a good place to do it. At the moment the Statement objects store the syntax trees internally. We do this because it is simple and convenient, however it is inefficient. Syntax trees are a good intermediate format (to pass between parsing and the Statement object).</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>If it comes the time to optimise the equational logic statements to make search faster, here is a good place to do it. At the moment the Statement objects store the syntax trees internally. We do this because it is simple and convenient, however it is inefficient. Syntax trees are a good intermediate format (to pass between parsing and the Statement object).</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>An equational statement is trivially true if and only if it is of the form "x = x", with some substitution for "x", or is equivalent to one of the axioms in the equality rules. Thus, to check if a statement is trivial, we check if the left hand side and right hand side are identical (without allowing free variables to be swapped; this is obvious because f(x,y) /= f(y,x) in general.) </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['comments_458',['comments',['../structatp_1_1logic_1_1equational_1_1_skipper.html#a97fa536b4a1f29ba5e886adcff7df439',1,'atp::logic::equational::Skipper']]],
-  ['const_5fsymbol_5fids_459',['const_symbol_ids',['../structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html#a7cdf8f234c1b21b927af6ef934f2c8e0',1,'atp::logic::equational::semantics::SubstitutionInfo']]]
+  ['assignment_480',['assignment',['../struct_context_file_grammar.html#a369208441618c8c34161b1d24b1ce840',1,'ContextFileGrammar']]],
+  ['assignment_5flist_481',['assignment_list',['../struct_context_file_grammar.html#a399458b5f285e4f5c91553034423012b',1,'ContextFileGrammar']]],
+  ['axiom_5ffile_5fpath_482',['axiom_file_path',['../struct_context_file.html#a1420ada703d86a11b8b9970d9e805c49',1,'ContextFile']]]
 ];

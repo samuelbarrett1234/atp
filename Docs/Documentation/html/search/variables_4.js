@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kernel_465',['kernel',['../structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html#af397e3843c74d043b18b152a58e4bd87',1,'atp::logic::equational::semantics::SubstitutionInfo']]]
+  ['free_5fvar_5fids_489',['free_var_ids',['../structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html#aac73d13cff21070fd969995bc9ba7330',1,'atp::logic::equational::semantics::SubstitutionInfo']]]
 ];

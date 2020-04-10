@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['identifier_463',['identifier',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#a158feb75bb47153a05e6207ac1358c9b',1,'atp::logic::equational::StatementGrammar::identifier()'],['../structatp_1_1logic_1_1equational_1_1_definition_grammar.html#af8f0c98a348f3d4d858c1e75eab4c6ef',1,'atp::logic::equational::DefinitionGrammar::identifier()']]],
-  ['istatementarray_464',['IStatementArray',['../namespaceatp_1_1logic.html#a2c04b80c1a885d4670bfe15dd650e6f4',1,'atp::logic']]]
+  ['expression_487',['expression',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#a85b9d2260cf033ebbd94ef811e578da7',1,'atp::logic::equational::StatementGrammar']]],
+  ['expression_5flist_488',['expression_list',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#ac0ba1222f1fdb5118d52e479dc3d4096',1,'atp::logic::equational::StatementGrammar']]]
 ];

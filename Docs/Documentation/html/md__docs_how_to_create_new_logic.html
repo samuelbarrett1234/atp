@@ -68,7 +68,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>This document contains instructions for creating a new type of logic, and rationale behind the architecture decisions.</p>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Main components</h1>
 <ul>
 <li>Parsing,</li>
@@ -76,16 +76,16 @@ Main components</h1>
 <li>The <code>Statement</code> and <code>StatementArray</code> objects,</li>
 <li>The <code>Language</code> and <code>KnowledgeKernel</code> objects.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md11"></a>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Parsing</h1>
 <p>You will need to be able to parse statements which appear in the language, for example "\forall x . \exists y . P(x, y)". You might also want a parser for definition files, where the user defines constants and functions, if applicable.</p>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 Syntax tree building and type checking</h1>
 <p>This will involve things like: checking functions have the right arity, checking we're not quantifying over a user-defined constant, etc.</p>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 Statements</h1>
 <p>This will involve implementing the <code>IStatement</code> and <code>IStatementArray</code> interfaces for your kind of logic.</p>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 Languages and KnowledgeKernel</h1>
 <p>This will involve implementing the <code>ILanguage</code> and <code>IKnowledgeKernel</code> interfaces for your kind of logic. In the implementation of the language, you will likely be invoking your parsers mentioned earlier. </p>
 </div></div><!-- contents -->

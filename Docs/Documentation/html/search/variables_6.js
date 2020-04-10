@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['m_5fsymbol_5fid_549',['m_symbol_id',['../classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#a2edb63bc9e6888d56f763ff3e547f050',1,'atp::logic::equational::ConstantSyntaxNode']]]
+  ['pointer_467',['pointer',['../classatp_1_1logic_1_1equational_1_1_statement_array_1_1iterator.html#a1ec1d7896a30ec52f76c12c22fea6d49',1,'atp::logic::equational::StatementArray::iterator']]]
 ];

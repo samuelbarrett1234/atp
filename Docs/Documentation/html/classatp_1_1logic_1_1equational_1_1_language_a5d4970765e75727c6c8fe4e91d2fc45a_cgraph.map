@@ -1,0 +1,4 @@
+<map id="atp::logic::equational::Language::load_kernel_definitions" name="atp::logic::equational::Language::load_kernel_definitions">
+<area shape="rect" id="node1" title="Load the definitions into the knowledge kernel." alt="" coords="5,5,165,61"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational.html#a35ac987bc45033e4e25c7419d62f7107" title="Read a stream of line separated definitions, where a definition is a (string, int) pair,..." alt="" coords="213,13,356,54"/>
+</map>

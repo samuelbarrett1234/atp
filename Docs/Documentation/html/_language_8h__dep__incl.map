@@ -1,8 +1,5 @@
 <map id="ATPLogic/Internal/Equational/Language.h" name="ATPLogic/Internal/Equational/Language.h">
-<area shape="rect" id="node1" title="Implementation of the ILanguage interface for equational logic." alt="" coords="428,5,617,47"/>
+<area shape="rect" id="node1" title="Implementation of the ILanguage interface for equational logic." alt="" coords="92,5,281,47"/>
 <area shape="rect" id="node2" href="$_a_t_p_logic_8cpp.html" title=" " alt="" coords="5,102,168,129"/>
 <area shape="rect" id="node3" href="$_language_8cpp.html" title=" " alt="" coords="192,95,381,136"/>
-<area shape="rect" id="node4" href="$_knowledge_kernel_inference_tests_8cpp.html" title=" " alt="" coords="405,95,640,136"/>
-<area shape="rect" id="node5" href="$_language_tests_8cpp.html" title=" " alt="" coords="665,95,839,136"/>
-<area shape="rect" id="node6" href="$_statement_array_tests_8cpp.html" title=" " alt="" coords="863,95,1038,136"/>
 </map>

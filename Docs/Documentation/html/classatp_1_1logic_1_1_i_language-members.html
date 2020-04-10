@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">atp
-   &#160;<span id="projectnumber">Pre-alpha</span>
+   &#160;<span id="projectnumber">Alpha</span>
    </div>
    <div id="projectbrief">An automated theorem prover in C++.</div>
   </td>
@@ -76,9 +76,10 @@ $(function() {
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html#aa32d63f80dd645223a1559ec3d678e58">create_empty_kernel</a>() const =0</td><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html">atp::logic::ILanguage</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html#a9c5aaf7f3ce929503541fc4e96b23235">deserialise_stmts</a>(std::istream &amp;in, StmtFormat input_format, const IKnowledgeKernel &amp;ker) const =0</td><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html">atp::logic::ILanguage</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html#ac11ce20dff7d2f9cc6523da880d22ef4">load_kernel</a>(IKnowledgeKernel &amp;ker, std::istream &amp;in) const =0</td><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html">atp::logic::ILanguage</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html#a432c41810c239fc23d3ffce7875bac21">serialise_stmts</a>(std::ostream &amp;out, StatementArrayPtr p_stmts, StmtFormat output_format) const =0</td><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html">atp::logic::ILanguage</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html#adde55c22349d717241f06a65fc4bd275">~ILanguage</a>()=default</td><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html">atp::logic::ILanguage</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html#a269225417695d3e1a7f3dd526417afa8">load_kernel_axioms</a>(IKnowledgeKernel &amp;ker, std::istream &amp;in) const =0</td><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html">atp::logic::ILanguage</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html#afa0991af54a180e720ca5e703960c057">load_kernel_definitions</a>(IKnowledgeKernel &amp;ker, std::istream &amp;in) const =0</td><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html">atp::logic::ILanguage</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html#a432c41810c239fc23d3ffce7875bac21">serialise_stmts</a>(std::ostream &amp;out, StatementArrayPtr p_stmts, StmtFormat output_format) const =0</td><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html">atp::logic::ILanguage</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html#adde55c22349d717241f06a65fc4bd275">~ILanguage</a>()=default</td><td class="entry"><a class="el" href="classatp_1_1logic_1_1_i_language.html">atp::logic::ILanguage</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

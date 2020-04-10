@@ -1,43 +1,30 @@
 <map id="ATPLogic/Interfaces/IStatementArray.h" name="ATPLogic/Interfaces/IStatementArray.h">
-<area shape="rect" id="node1" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="1803,5,1942,47"/>
-<area shape="rect" id="node2" href="$_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="826,370,975,397"/>
-<area shape="rect" id="node16" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="1601,95,1741,136"/>
-<area shape="rect" id="node23" href="$_statement_array_8h.html" title="Contains the class implementing the IStatementArray for equational logic." alt="" coords="2665,273,2854,315"/>
-<area shape="rect" id="node41" href="$_i_propositional_knowledge_kernel_8h.html" title="Contains a common specialisation of the IKnowledgeKernel interface." alt="" coords="2560,184,2775,225"/>
-<area shape="rect" id="node3" href="$_main_8cpp.html" title=" " alt="" coords="1015,549,1112,575"/>
-<area shape="rect" id="node4" href="$_proof_application_8h.html" title=" " alt="" coords="877,459,1026,486"/>
-<area shape="rect" id="node6" href="$_a_t_p_logic_8cpp.html" title=" " alt="" coords="1151,459,1314,486"/>
-<area shape="rect" id="node7" href="$_i_solver_8h.html" title="Interface for proof solving strategies." alt="" coords="120,452,268,493"/>
-<area shape="rect" id="node10" href="$_iterative_deepening_solver_8h.html" title="Contains a basic uninformed search strategy, IDS." alt="" coords="12,541,189,583"/>
-<area shape="rect" id="node12" href="$_i_statement_heuristic_8h.html" title="Interfaces for search heuristic functions." alt="" coords="292,452,443,493"/>
-<area shape="rect" id="node13" href="$_parse_definitions_tests_8cpp.html" title=" " alt="" coords="467,452,644,493"/>
-<area shape="rect" id="node14" href="$_parse_statements_tests_8cpp.html" title=" " alt="" coords="669,452,853,493"/>
-<area shape="rect" id="node15" href="$_statement_array_tests_8cpp.html" title=" " alt="" coords="1339,452,1513,493"/>
-<area shape="rect" id="node5" href="$_proof_application_8cpp.html" title=" " alt="" coords="827,549,990,575"/>
-<area shape="rect" id="node8" href="$_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="245,549,415,575"/>
-<area shape="rect" id="node9" href="$_a_t_p_search_8cpp.html" title=" " alt="" coords="239,638,421,665"/>
-<area shape="rect" id="node11" href="$_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="5,631,196,672"/>
-<area shape="rect" id="node17" href="$_i_language_8h.html" title="Contains the ILanguage interface." alt="" coords="963,273,1102,315"/>
-<area shape="rect" id="node22" href="$_statement_8h.html" title="Contains the implementation of the IStatement interface for equational logic." alt="" coords="2346,184,2535,225"/>
-<area shape="rect" id="node24" href="$_knowledge_kernel_8h.html" title="Implementation of the IKnowledgeKernel for equational logic." alt="" coords="2401,363,2590,404"/>
-<area shape="rect" id="node18" href="$_language_8h.html" title="Implementation of the ILanguage interface for equational logic." alt="" coords="1514,363,1703,404"/>
-<area shape="rect" id="node19" href="$_language_8cpp.html" title=" " alt="" coords="1538,452,1727,493"/>
-<area shape="rect" id="node20" href="$_knowledge_kernel_inference_tests_8cpp.html" title=" " alt="" coords="3131,452,3366,493"/>
-<area shape="rect" id="node21" href="$_language_tests_8cpp.html" title=" " alt="" coords="2932,452,3107,493"/>
-<area shape="rect" id="node27" href="$_statement_8cpp.html" title=" " alt="" coords="3867,452,4057,493"/>
-<area shape="rect" id="node34" href="$_statement_tests_8cpp.html" title=" " alt="" coords="1703,541,1877,583"/>
-<area shape="rect" id="node37" href="$_semantics_8h.html" title="Several useful functions on Statements, including logical inference and logical equivalence." alt="" coords="3193,363,3382,404"/>
-<area shape="rect" id="node40" href="$_semantics_helper_8h.html" title="Helper functions for the implementations of the Semantics functions." alt="" coords="3867,363,4057,404"/>
-<area shape="rect" id="node25" href="$_knowledge_kernel_8cpp.html" title=" " alt="" coords="3390,452,3579,493"/>
-<area shape="rect" id="node31" href="$_semantics_helper_tests_8cpp.html" title=" " alt="" coords="3621,541,3804,583"/>
-<area shape="rect" id="node39" href="$_statement_array_8cpp.html" title=" " alt="" coords="2979,363,3169,404"/>
-<area shape="rect" id="node26" href="$_semantics_helper_8cpp.html" title=" " alt="" coords="3654,452,3843,493"/>
-<area shape="rect" id="node28" href="$_syntax_nodes_8cpp.html" title=" " alt="" coords="1903,452,2093,493"/>
-<area shape="rect" id="node29" href="$_knowledge_kernel_definitions_tests_8cpp.html" title=" " alt="" coords="2117,452,2359,493"/>
-<area shape="rect" id="node30" href="$_parse_tree_to_syntax_tree_tests_8cpp.html" title=" " alt="" coords="2384,452,2607,493"/>
-<area shape="rect" id="node32" href="$_syntax_node_to_str_8h.html" title=" " alt="" coords="2631,452,2805,493"/>
-<area shape="rect" id="node33" href="$_semantics_tests_8cpp.html" title=" " alt="" coords="2792,541,2967,583"/>
-<area shape="rect" id="node36" href="$_syntax_tree_fold_tests_8cpp.html" title=" " alt="" coords="2179,541,2353,583"/>
-<area shape="rect" id="node35" href="$_syntax_node_to_str_8cpp.html" title=" " alt="" coords="2593,541,2768,583"/>
-<area shape="rect" id="node38" href="$_semantics_8cpp.html" title=" " alt="" coords="4081,452,4270,493"/>
+<area shape="rect" id="node1" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="1139,5,1277,47"/>
+<area shape="rect" id="node2" href="$_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="1423,281,1572,307"/>
+<area shape="rect" id="node13" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="1066,95,1206,136"/>
+<area shape="rect" id="node18" href="$_statement_array_8h.html" title="Contains the class implementing the IStatementArray for equational logic." alt="" coords="351,273,540,315"/>
+<area shape="rect" id="node28" href="$_i_propositional_knowledge_kernel_8h.html" title="Contains a common specialisation of the IKnowledgeKernel interface." alt="" coords="1245,184,1459,225"/>
+<area shape="rect" id="node3" href="$_main_8cpp.html" title=" " alt="" coords="1473,459,1570,486"/>
+<area shape="rect" id="node4" href="$_proof_application_8h.html" title=" " alt="" coords="1335,370,1484,397"/>
+<area shape="rect" id="node6" href="$_a_t_p_logic_8cpp.html" title=" " alt="" coords="1092,370,1255,397"/>
+<area shape="rect" id="node7" href="$_i_solver_8h.html" title="Interface for proof solving strategies." alt="" coords="1610,363,1758,404"/>
+<area shape="rect" id="node10" href="$_iterative_deepening_solver_8h.html" title="Contains a basic uninformed search strategy, IDS." alt="" coords="1594,452,1771,493"/>
+<area shape="rect" id="node12" href="$_i_statement_heuristic_8h.html" title="Interfaces for search heuristic functions." alt="" coords="1793,363,1943,404"/>
+<area shape="rect" id="node5" href="$_proof_application_8cpp.html" title=" " alt="" coords="1285,459,1448,486"/>
+<area shape="rect" id="node8" href="$_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="1795,459,1965,486"/>
+<area shape="rect" id="node9" href="$_a_t_p_search_8cpp.html" title=" " alt="" coords="1795,549,1978,575"/>
+<area shape="rect" id="node11" href="$_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="1581,541,1771,583"/>
+<area shape="rect" id="node14" href="$_i_language_8h.html" title="Contains the ILanguage interface." alt="" coords="1031,184,1169,225"/>
+<area shape="rect" id="node17" href="$_statement_8h.html" title="Contains the implementation of the IStatement interface for equational logic." alt="" coords="529,184,719,225"/>
+<area shape="rect" id="node19" href="$_knowledge_kernel_8h.html" title="Implementation of the IKnowledgeKernel for equational logic." alt="" coords="828,363,1017,404"/>
+<area shape="rect" id="node15" href="$_language_8h.html" title="Implementation of the ILanguage interface for equational logic." alt="" coords="1079,273,1268,315"/>
+<area shape="rect" id="node16" href="$_language_8cpp.html" title=" " alt="" coords="1072,452,1261,493"/>
+<area shape="rect" id="node22" href="$_statement_8cpp.html" title=" " alt="" coords="432,452,621,493"/>
+<area shape="rect" id="node24" href="$_semantics_8h.html" title="Several useful functions on Statements, including logical inference and logical equivalence." alt="" coords="87,363,276,404"/>
+<area shape="rect" id="node27" href="$_semantics_helper_8h.html" title="Helper functions for the implementations of the Semantics functions." alt="" coords="615,363,804,404"/>
+<area shape="rect" id="node20" href="$_knowledge_kernel_8cpp.html" title=" " alt="" coords="219,452,408,493"/>
+<area shape="rect" id="node26" href="$_statement_array_8cpp.html" title=" " alt="" coords="351,363,540,404"/>
+<area shape="rect" id="node21" href="$_semantics_helper_8cpp.html" title=" " alt="" coords="645,452,835,493"/>
+<area shape="rect" id="node23" href="$_syntax_nodes_8cpp.html" title=" " alt="" coords="859,452,1048,493"/>
+<area shape="rect" id="node25" href="$_semantics_8cpp.html" title=" " alt="" coords="5,452,195,493"/>
 </map>

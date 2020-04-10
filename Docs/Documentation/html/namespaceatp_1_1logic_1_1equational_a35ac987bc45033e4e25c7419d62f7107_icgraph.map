@@ -1,5 +1,4 @@
 <map id="atp::logic::equational::parse_definitions" name="atp::logic::equational::parse_definitions">
-<area shape="rect" id="node1" title="Read a stream of line separated definitions, where a definition is a (string, int) pair,..." alt="" coords="244,27,387,69"/>
-<area shape="rect" id="node2" href="$_parse_definitions_tests_8cpp.html#aba48693f13a58a46c98f513043484e86" title=" " alt="" coords="5,5,196,32"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_language.html#ae71040498b42b9764a6523734d748613" title="Load the knowledge kernel from a given stream (of e.g. definitions.)" alt="" coords="21,57,181,98"/>
+<area shape="rect" id="node1" title="Read a stream of line separated definitions, where a definition is a (string, int) pair,..." alt="" coords="213,13,356,54"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_language.html#a5d4970765e75727c6c8fe4e91d2fc45a" title="Load the definitions into the knowledge kernel." alt="" coords="5,5,165,61"/>
 </map>

@@ -1,9 +1,7 @@
 <map id="atp::logic::equational::KnowledgeKernel::id_is_defined" name="atp::logic::equational::KnowledgeKernel::id_is_defined">
-<area shape="rect" id="node1" title=" " alt="" coords="692,115,840,171"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title="Type&#45;check the given statements." alt="" coords="481,122,644,163"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="259,41,431,97"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="256,122,433,163"/>
-<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title="Get the next logical steps of an array of statements." alt="" coords="258,187,431,229"/>
-<area shape="rect" id="node4" href="$struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,5,208,61"/>
-<area shape="rect" id="node5" href="$struct_semantics_helper_tests_fixture.html#a5748077825546fdbb31d0ecf060df206" title=" " alt="" coords="6,86,207,127"/>
+<area shape="rect" id="node1" title=" " alt="" coords="441,79,589,135"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title="Type&#45;check the given statements." alt="" coords="231,86,393,127"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="8,5,180,61"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="5,86,183,127"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title="Get the next logical steps of an array of statements." alt="" coords="7,151,181,193"/>
 </map>

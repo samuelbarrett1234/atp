@@ -1,4 +1,4 @@
 <map id="atp::logic::equational::Language::deserialise_stmts" name="atp::logic::equational::Language::deserialise_stmts">
-<area shape="rect" id="node1" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="256,13,452,54"/>
-<area shape="rect" id="node2" href="$struct_knowledge_kernel_inference_tests_fixture.html#ad46a85e1930b051fdff80bc0769cb404" title=" " alt="" coords="5,5,208,61"/>
+<area shape="rect" id="node1" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="213,13,409,54"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_language.html#a878c3308b460de418c927fa02a4cfd01" title="Load the axioms into the knowledge kernel." alt="" coords="5,5,165,61"/>
 </map>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">atp
-   &#160;<span id="projectnumber">Pre-alpha</span>
+   &#160;<span id="projectnumber">Alpha</span>
    </div>
    <div id="projectbrief">An automated theorem prover in C++.</div>
   </td>
@@ -108,7 +108,7 @@ Enumerations</h2></td></tr>
 <tr class="separator:a772d34d3808e2ae0ae90ff694d3dd868"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36be60a7ec75a7743bfcc38cd0c3aac5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5">ProofState</a> { <a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a6f8eb84e55e2f1c21cb428ae5b644a6e">ProofState::UNFINISHED</a>, 
 <a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a73778060f46ee0e2e5604affc11bdf41">ProofState::DONE_TRUE</a>, 
-<a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a978362c1902466dc4d7473f4f87942db">ProofState::DONE_FALSE</a>
+<a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a09913a60b8195c3622265fc75766f6ff">ProofState::NO_PROOF</a>
  }</td></tr>
 <tr class="separator:a36be60a7ec75a7743bfcc38cd0c3aac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -186,11 +186,11 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Proofs can either be finished or unfinished; and if they are finished, the result can either be that the theorem was true or false. </p>
+<p>Proofs can either be finished or unfinished; and if they are finished, the result can either be that the theorem was true or that we couldn't find a proof (of course, no proof does not imply the theorem is false, unless the proof system is complete). </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a36be60a7ec75a7743bfcc38cd0c3aac5a6f8eb84e55e2f1c21cb428ae5b644a6e"></a>UNFINISHED&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a36be60a7ec75a7743bfcc38cd0c3aac5a73778060f46ee0e2e5604affc11bdf41"></a>DONE_TRUE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a36be60a7ec75a7743bfcc38cd0c3aac5a978362c1902466dc4d7473f4f87942db"></a>DONE_FALSE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a36be60a7ec75a7743bfcc38cd0c3aac5a09913a60b8195c3622265fc75766f6ff"></a>NO_PROOF&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

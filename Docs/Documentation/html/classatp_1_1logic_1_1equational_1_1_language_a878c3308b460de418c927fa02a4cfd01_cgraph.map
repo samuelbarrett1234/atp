@@ -1,0 +1,9 @@
+<map id="atp::logic::equational::Language::load_kernel_axioms" name="atp::logic::equational::Language::load_kernel_axioms">
+<area shape="rect" id="node1" title="Load the axioms into the knowledge kernel." alt="" coords="5,53,165,109"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="213,61,409,102"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b" title="Read a stream of line separated statements, and return the list of their parse trees,..." alt="" coords="457,27,600,69"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title="Convert a parse tree into a syntax tree." alt="" coords="457,93,600,134"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af7ae5937b36a9fd2a8427b543b47ed56" title=" " alt="" coords="673,5,821,61"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ac6817a1e4df3b10bd9bed1126aa35304" title=" " alt="" coords="657,85,837,141"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ac6039360852cfb5619615af8bf2d2072" title=" " alt="" coords="648,166,845,207"/>
+</map>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">atp
-   &#160;<span id="projectnumber">Pre-alpha</span>
+   &#160;<span id="projectnumber">Alpha</span>
    </div>
    <div id="projectbrief">An automated theorem prover in C++.</div>
   </td>
@@ -93,9 +93,12 @@ Inheritance diagram for atp::logic::ILanguage:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:adde55c22349d717241f06a65fc4bd275"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#adde55c22349d717241f06a65fc4bd275">~ILanguage</a> ()=default</td></tr>
 <tr class="separator:adde55c22349d717241f06a65fc4bd275"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac11ce20dff7d2f9cc6523da880d22ef4"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#ac11ce20dff7d2f9cc6523da880d22ef4">load_kernel</a> (<a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;ker, std::istream &amp;in) const =0</td></tr>
-<tr class="memdesc:ac11ce20dff7d2f9cc6523da880d22ef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the knowledge kernel from a given stream (of e.g. definitions.)  <a href="classatp_1_1logic_1_1_i_language.html#ac11ce20dff7d2f9cc6523da880d22ef4">More...</a><br /></td></tr>
-<tr class="separator:ac11ce20dff7d2f9cc6523da880d22ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa0991af54a180e720ca5e703960c057"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#afa0991af54a180e720ca5e703960c057">load_kernel_definitions</a> (<a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;ker, std::istream &amp;in) const =0</td></tr>
+<tr class="memdesc:afa0991af54a180e720ca5e703960c057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the definitions into the knowledge kernel.  <a href="classatp_1_1logic_1_1_i_language.html#afa0991af54a180e720ca5e703960c057">More...</a><br /></td></tr>
+<tr class="separator:afa0991af54a180e720ca5e703960c057"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a269225417695d3e1a7f3dd526417afa8"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#a269225417695d3e1a7f3dd526417afa8">load_kernel_axioms</a> (<a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;ker, std::istream &amp;in) const =0</td></tr>
+<tr class="memdesc:a269225417695d3e1a7f3dd526417afa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the axioms into the knowledge kernel.  <a href="classatp_1_1logic_1_1_i_language.html#a269225417695d3e1a7f3dd526417afa8">More...</a><br /></td></tr>
+<tr class="separator:a269225417695d3e1a7f3dd526417afa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa32d63f80dd645223a1559ec3d678e58"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">KnowledgeKernelPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#aa32d63f80dd645223a1559ec3d678e58">create_empty_kernel</a> () const =0</td></tr>
 <tr class="separator:aa32d63f80dd645223a1559ec3d678e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c5aaf7f3ce929503541fc4e96b23235"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#a9c5aaf7f3ce929503541fc4e96b23235">deserialise_stmts</a> (std::istream &amp;in, <a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7">StmtFormat</a> input_format, const <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;ker) const =0</td></tr>
@@ -215,8 +218,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac11ce20dff7d2f9cc6523da880d22ef4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac11ce20dff7d2f9cc6523da880d22ef4">&#9670;&nbsp;</a></span>load_kernel()</h2>
+<a id="a269225417695d3e1a7f3dd526417afa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a269225417695d3e1a7f3dd526417afa8">&#9670;&nbsp;</a></span>load_kernel_axioms()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,7 +228,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool atp::logic::ILanguage::load_kernel </td>
+          <td class="memname">virtual bool atp::logic::ILanguage::load_kernel_axioms </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;&#160;</td>
           <td class="paramname"><em>ker</em>, </td>
@@ -249,13 +252,71 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Load the knowledge kernel from a given stream (of e.g. definitions.) </p>
+<p>Load the axioms into the knowledge kernel. </p>
+<p>Axioms meaning a relatively small collection of statements which are assumed to be true.</p>
 <dl class="section note"><dt>Note</dt><dd>Changes the position of the input stream</dd>
 <dd>
 If operation failed, the kernel is left unchanged, but the stream may have been moved.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd><code>ker</code> was created within this language. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>ker</code> was created within this language.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>This input should follow the statement format of the particular language being used. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#ae71040498b42b9764a6523734d748613">atp::logic::equational::Language</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#a878c3308b460de418c927fa02a4cfd01">atp::logic::equational::Language</a>.</p>
+
+</div>
+</div>
+<a id="afa0991af54a180e720ca5e703960c057"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa0991af54a180e720ca5e703960c057">&#9670;&nbsp;</a></span>load_kernel_definitions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool atp::logic::ILanguage::load_kernel_definitions </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;&#160;</td>
+          <td class="paramname"><em>ker</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>in</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Load the definitions into the knowledge kernel. </p>
+<p>Here, "definitions" means "user-defined constants" etc, <b>not</b> axioms.</p>
+<dl class="section note"><dt>Note</dt><dd>Changes the position of the input stream</dd>
+<dd>
+If operation failed, the kernel is left unchanged, but the stream may have been moved.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>ker</code> was created within this language.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>This input should follow the definition file format of the particular language being used. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#a5d4970765e75727c6c8fe4e91d2fc45a">atp::logic::equational::Language</a>.</p>
 
 </div>
 </div>

@@ -257,7 +257,7 @@ void ProofApplication::run()
 			m_out << "Proof of \"" << tasks->at(i).to_str()
 				<< "\" was successful." << std::endl;
 
-			m_out << "Total time taken: " << times[i] << "ns"
+			m_out << "Total time taken: " << times[i] << "s"
 				<< std::endl;
 			m_out << "Max nodes in memory: " << mems[i]
 				<< std::endl;

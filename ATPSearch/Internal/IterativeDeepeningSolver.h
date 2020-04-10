@@ -88,11 +88,7 @@ public:
 
 	inline std::vector<size_t> get_max_mem() const override
 	{
-		// One advantage of this approach is that the max memory
-		// usage is easy to track; it is just the current depth,
-		// as this is the largest the stack frame is allowed to
-		// grow.
-		return m_cur_depth_limits;
+		return m_max_mem;
 	}
 
 	inline std::vector<size_t> get_num_expansions() const override
@@ -148,6 +144,11 @@ private:
 	// only include successors which are not canonically false
 	logic::StatementArrayPtr filter_succs(
 		logic::StatementArrayPtr succs) const;
+
+	/**
+	\brief Count the number of nodes stored in the stack of target i
+	*/
+	size_t count_mem(size_t i) const;
 
 private:
 	const size_t m_max_depth;  // ultimate depth limit
@@ -226,6 +227,19 @@ private:
 	    then this is also equal to the number of nodes allocated.
 	*/
 	std::vector<size_t> m_num_node_exps;
+
+
+	/**
+	\invariant m_max_mem.size() == m_stacks.size()
+
+	\brief Tracks the maximum number of node stored at once by each
+	    proof.
+
+	\details If the knowledge kernel uses lazy evaluation for `succs`
+		then this a loose upper bound, and the true value is just the
+		depth (the stack size).
+	*/
+	std::vector<size_t> m_max_mem;
 
 	/**
 	\invariant engaged iff !m_stacks.empty()

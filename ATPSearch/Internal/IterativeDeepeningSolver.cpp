@@ -48,7 +48,9 @@ void IterativeDeepeningSolver::set_targets(
 	m_agg_time.resize(m_stacks.size(), 0.0f);
 	m_proofs.resize(m_stacks.size());
 	m_pf_states.resize(m_stacks.size(), ProofState::UNFINISHED);
+
 	// 1 for the root node:
+	m_max_mem.resize(m_stacks.size(), 1);
 	m_num_node_exps.resize(m_stacks.size(), 1);
 
 	// construct root nodes for each stack
@@ -89,7 +91,8 @@ void IterativeDeepeningSolver::step(size_t n)
 			// add the total time to our tracker:
 			timer.stop();
 			auto time = timer.elapsed();
-			m_agg_time[i] += time.user + time.system;
+			m_agg_time[i] += static_cast<float>(time.user
+				+ time.system) * 1.0e-9f;  // convert to seconds
 		}
 #ifdef ATP_SEARCH_DEFENSIVE
 		else  // check the state is all consistent
@@ -111,6 +114,7 @@ void IterativeDeepeningSolver::clear()
 	m_pf_states.clear();
 	m_agg_time.clear();
 	m_num_node_exps.clear();
+	m_max_mem.clear();
 }
 
 
@@ -163,6 +167,11 @@ void IterativeDeepeningSolver::step_proof(size_t i, size_t n)
 			}
 			// else if st.empty() we are done (given up)
 		}
+
+		// update max mem count for this proof
+		const auto mem_count = count_mem(i);
+		if (mem_count > m_max_mem[i])
+			m_max_mem[i] = mem_count;
 
 		if (check_finished(i))
 			return;
@@ -335,6 +344,19 @@ logic::StatementArrayPtr IterativeDeepeningSolver::filter_succs(
 	}
 
 	return logic::concat(filtered);
+}
+
+
+size_t IterativeDeepeningSolver::count_mem(size_t i) const
+{
+	size_t count = 0;
+
+	for (const auto& st_frame : m_stacks[i])
+	{
+		count += st_frame.m_stmts->size();
+	}
+
+	return count;
 }
 
 

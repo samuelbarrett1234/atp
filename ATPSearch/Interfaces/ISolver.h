@@ -141,7 +141,7 @@ public:
 	\pre engaged()
 
 	\returns The total amount of time spent proving each target
-	    statement thus far.
+	    statement thus far, in seconds.
 	*/
 	virtual std::vector<float> get_agg_time() const = 0;
 

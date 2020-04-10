@@ -11,7 +11,6 @@
 #include <boost/timer/timer.hpp>
 #include <boost/bind.hpp>
 #include <boost/phoenix.hpp>
-#include <sstream>  // temp
 
 
 namespace phxarg = boost::phoenix::arg_names;

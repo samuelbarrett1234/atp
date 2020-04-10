@@ -22,7 +22,8 @@ namespace equational
 {
 
 
-boost::optional<std::list<ParseNodePtr>> parse_statements(std::istream& in)
+boost::optional<std::list<ParseNodePtr>> parse_statements(
+	std::istream& in)
 {
 	QiParseIterator begin(in), end;
 

@@ -17,6 +17,7 @@
 
 
 #include "ATPSearchAPI.h"
+#include <ATPLogic.h>
 #include "Interfaces/ISolver.h"
 #include "Interfaces/IStatementHeuristic.h"
 
@@ -49,8 +50,13 @@ enum class SolverType
 
 \param ms Some solvers may need specific heuristic functions,
     which can be provided through this argument.
+
+\todo We perhaps need a better way of supplying auxiliary
+    parameters to the solvers.
 */
-ATP_SEARCH_API SolverPtr create_solver(SolverType st,
+ATP_SEARCH_API SolverPtr create_solver(
+    logic::KnowledgeKernelPtr p_ker,
+    SolverType st,
 	HeuristicCollection ms);
 
 

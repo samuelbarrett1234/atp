@@ -170,9 +170,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ParseContextFile.cpp" />
     <ClCompile Include="ProofApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ParseContextFile.h" />
     <ClInclude Include="ProofApplication.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

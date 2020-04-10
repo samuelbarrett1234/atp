@@ -68,7 +68,8 @@ struct Skipper :
     into a "parse tree".
 */
 struct StatementGrammar :
-	public boost::spirit::qi::grammar<QiParseIterator, std::list<ParseNodePtr>(),
+	public boost::spirit::qi::grammar<QiParseIterator,
+	std::list<ParseNodePtr>(),
 		Skipper>
 {
 	StatementGrammar();

@@ -1,4 +1,18 @@
 # try to prove these!
-i(*(x, y)) = *(i(y), i(x))
-i(i(x)) = x
+
+# easy section
+
 i(e) = e
+*(i(*(x, y)), *(x, y)) = e
+*(e, e) = e
+e = *(i(x), i(i(x)))
+
+# medium section
+
+i(i(x)) = x
+i(i(i(x))) = i(x)
+
+# hard section
+
+i(*(x, y)) = *(i(y), i(x))
+

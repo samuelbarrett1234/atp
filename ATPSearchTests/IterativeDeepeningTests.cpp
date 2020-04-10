@@ -68,8 +68,10 @@ BOOST_FIXTURE_TEST_SUITE(IterativeDeepeningSolverTests,
 	IterativeDeepeningSolverTestsFixture);
 
 
-BOOST_AUTO_TEST_CASE(simple_proof_test
-	// \todo: add a timeout to this test
+BOOST_AUTO_TEST_CASE(simple_proof_test,
+	// a relatively big timeout because debug builds might struggle
+	// (timeout given in seconds)
+	* boost::unit_test::timeout(60 * 10)
 	)
 {
 	// provide the system with an array of statements to try to prove

@@ -42,15 +42,15 @@ struct ContextFileGrammar :
 		assignment = identifier >>
 			'=' >> identifier;
 
-		auto char_type = (qi::alnum
+		identifier = qi::lexeme[+char_type]
+			|
+			'"' >> qi::lexeme[+(char_type | ' ')] >> '"';
+
+		char_type = (qi::alnum
 			| qi::char_('/')
 			| qi::char_('\\')
 			| qi::char_('.')
 			| qi::char_('_'));
-
-		identifier = qi::lexeme[+char_type]
-			|
-			'"' >> qi::lexeme[+(char_type | ' ')] >> '"';
 	}
 
 	qi::rule<QiParseIterator,
@@ -61,6 +61,8 @@ struct ContextFileGrammar :
 		SkipType> assignment_list;
 	qi::rule<QiParseIterator,
 		std::string(), SkipType> identifier;
+	qi::rule<QiParseIterator,
+		char()> char_type;
 };
 
 

@@ -235,12 +235,12 @@ void ProofApplication::run()
 
 
 	m_out << "Done! Results:" << std::endl
-		<< '\t' << num_true << " theorems were proven true,"
+		<< '\t' << num_true << " theorem(s) were proven true,"
 		<< std::endl
-		<< '\t' << num_failed << " theorems have no proof,"
+		<< '\t' << num_failed << " theorem(s) have no proof,"
 		<< std::endl
 		<< '\t' << num_unfinished <<
-		" theorems did not finish in the allotted time."
+		" theorem(s) did not finish in the allotted time."
 		<< std::endl;
 
 	m_out << "More details:" << std::endl;
@@ -259,9 +259,9 @@ void ProofApplication::run()
 
 			m_out << "Total time taken: " << times[i] << "ns"
 				<< std::endl;
-			m_out << "Max nodes in memory: " << mems[i] << "ns"
+			m_out << "Max nodes in memory: " << mems[i]
 				<< std::endl;
-			m_out << "Total node expansions: " << exps[i] << "ns"
+			m_out << "Total node expansions: " << exps[i]
 				<< std::endl;
 				
 			m_out << "Proof:" << std::endl;

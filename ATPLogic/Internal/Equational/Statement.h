@@ -168,8 +168,8 @@ public:
 		where the two integers are the symbol IDs of the constants
 
 	\tparam FuncPairFuncT The function operating on pairs of function
-	    nodes, must have signature `size_t x size_t x std::list<
-		ResultT>::iterator x std::list<ResultT>::iterator -> ResultT`
+	    nodes, must have signature `size_t x size_t x std::vector<
+		ResultT>::iterator x std::vector<ResultT>::iterator -> ResultT`
 		where the two integers are the symbol IDs of the functions
 		and the two iterators are the begin and end iterators of the
 		function arguments' results.
@@ -202,8 +202,8 @@ public:
 			"ConstFuncT should be of type (size_t, size_t) -> ResultT");
 		static_assert(std::is_convertible<FuncPairFuncT,
 			std::function<ResultT(size_t, size_t,
-				typename std::list<ResultT>::iterator,
-				typename std::list<ResultT>::iterator)>>::value,
+				typename std::vector<ResultT>::iterator,
+				typename std::vector<ResultT>::iterator)>>::value,
 			"FFuncT should be of type (size_t, size_t, "
 			"std::list<ResultT>::iterator,"
 			" std::list<ResultT>::iterator) -> ResultT");
@@ -214,8 +214,8 @@ public:
 
 		// we will proceed similarly to the normal fold function,
 		// but iterating over pairs instead of just singletons
-		std::list<std::pair<SyntaxNodePtr, SyntaxNodePtr>> todo_stack;
-		std::list<ResultT> result_stack;
+		std::vector<std::pair<SyntaxNodePtr, SyntaxNodePtr>> todo_stack;
+		std::vector<ResultT> result_stack;
 		std::vector<bool> seen_stack;
 
 		todo_stack.push_back(std::make_pair(m_root, other.m_root));
@@ -268,9 +268,9 @@ public:
 				{
 					ATP_LOGIC_ASSERT(result_stack.size() >= 2);
 
-					auto left_result = result_stack.back();
+					ResultT left_result = result_stack.back();
 					result_stack.pop_back();
-					auto right_result = result_stack.back();
+					ResultT right_result = result_stack.back();
 					result_stack.pop_back();
 
 					result_stack.push_back(eq_func(left_result,
@@ -400,6 +400,7 @@ private:
 	// statements store references to their creator
 	const KnowledgeKernel& m_ker;
 	SyntaxNodePtr m_root;
+
 	// cache this
 	std::set<size_t> m_free_var_ids;
 };

@@ -45,8 +45,8 @@ SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 			return EqSyntaxNode::construct(lhs, rhs);
 		},
 		[&free_var_ids, &next_free_id, &ker](std::string name,
-			std::list<SyntaxNodePtr>::iterator child_begin,
-			std::list<SyntaxNodePtr>::iterator child_end)
+			std::vector<SyntaxNodePtr>::iterator child_begin,
+			std::vector<SyntaxNodePtr>::iterator child_end)
 			-> SyntaxNodePtr
 		{
 			const auto arity = std::distance(child_begin, child_end);
@@ -146,8 +146,8 @@ SyntaxNodePtr ConstantSyntaxNode::construct(size_t symb_id)
 
 
 SyntaxNodePtr FuncSyntaxNode::construct(size_t symb_id,
-	std::list<SyntaxNodePtr>::iterator begin,
-	std::list<SyntaxNodePtr>::iterator end)
+	FuncSyntaxNode::Container::iterator begin,
+	FuncSyntaxNode::Container::iterator end)
 {
 	static boost::pool_allocator<FuncSyntaxNode> func_alloc;
 

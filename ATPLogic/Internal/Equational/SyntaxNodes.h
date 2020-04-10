@@ -19,7 +19,7 @@
 */
 
 
-#include <list>
+#include <vector>
 #include <memory>
 #include "../../ATPLogicAPI.h"
 #include "ParseNodes.h"
@@ -155,9 +155,12 @@ class ATP_LOGIC_API FuncSyntaxNode :
 {
 	// inherits from constant symbol above!
 public:
+	// The container for the child nodes
+	typedef std::vector<SyntaxNodePtr> Container;
+
 	FuncSyntaxNode(size_t symb_id,
-		std::list<SyntaxNodePtr>::iterator begin,
-		std::list<SyntaxNodePtr>::iterator end) :
+		Container::iterator begin,
+		Container::iterator end) :
 		ConstantSyntaxNode(symb_id),
 		m_children(begin, end)
 	{
@@ -169,8 +172,8 @@ public:
 	\brief Optimised allocation function
 	*/
 	static SyntaxNodePtr construct(size_t symb_id,
-		std::list<SyntaxNodePtr>::iterator begin,
-		std::list<SyntaxNodePtr>::iterator end);
+		Container::iterator begin,
+		Container::iterator end);
 
 	inline SyntaxNodeType get_type() const override
 	{
@@ -180,25 +183,25 @@ public:
 	{
 		return m_children.size();
 	}
-	inline std::list<SyntaxNodePtr>::const_iterator begin() const
+	inline Container::const_iterator begin() const
 	{
 		return m_children.begin();
 	}
-	inline std::list<SyntaxNodePtr>::const_iterator end() const
+	inline Container::const_iterator end() const
 	{
 		return m_children.end();
 	}
-	inline std::list<SyntaxNodePtr>::const_reverse_iterator rbegin() const
+	inline Container::const_reverse_iterator rbegin() const
 	{
 		return m_children.rbegin();
 	}
-	inline std::list<SyntaxNodePtr>::const_reverse_iterator rend() const
+	inline Container::const_reverse_iterator rend() const
 	{
 		return m_children.rend();
 	}
 
 private:
-	std::list<SyntaxNodePtr> m_children;
+	Container m_children;
 };
 
 

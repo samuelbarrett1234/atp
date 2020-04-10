@@ -41,7 +41,7 @@ namespace equational
 
 \tparam IdentifierFuncT The function to use as the identifier node
     constructor, which must have type std::string x
-	std::list<ResultT>::iterator x std::list<ResultT>::iterator
+	std::vector<ResultT>::iterator x std::vector<ResultT>::iterator
 	-> ResultT
 
 \details Folds are a special kind of concept, prominent in
@@ -74,27 +74,32 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 		"EqFuncT should be of type (ResultT, ResultT) -> ResultT");
 	static_assert(std::is_convertible<IdentifierFuncT,
 		std::function<ResultT(std::string,
-			typename std::list<ResultT>::iterator,
-			typename std::list<ResultT>::iterator)>>::value,
+			typename std::vector<ResultT>::iterator,
+			typename std::vector<ResultT>::iterator)>>::value,
 		"IdentifierFuncT should be of type (std::string, "
-		"std::list<ResultT>::iterator,"
-		" std::list<ResultT>::iterator) -> ResultT");
+		"std::vector<ResultT>::iterator,"
+		" std::vector<ResultT>::iterator) -> ResultT");
 	
 	// now proceed with the function:
 
-	std::list<ResultT> result_stack;
-	std::list<IParseNode*> todo_stack;
-	std::set<IParseNode*> seen;
+	std::vector<ResultT> result_stack;
+	std::vector<IParseNode*> todo_stack;
+	std::vector<bool> seen_stack;
 
 	todo_stack.push_back(p_root.get());
+	seen_stack.push_back(false);
 
 	while (!todo_stack.empty())
 	{
+		ATP_LOGIC_ASSERT(seen_stack.size() == todo_stack.size());
+
 		IParseNode* p_node = todo_stack.back();
 		todo_stack.pop_back();
+		const bool seen = seen_stack.back();
+		seen_stack.pop_back();
 
 		// first occurences:
-		if (seen.find(p_node) == seen.end())
+		if (!seen)
 		{
 			switch (p_node->get_type())
 			{
@@ -105,11 +110,13 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 
 				// revisit it later
 				todo_stack.push_back(p_node);
-				seen.insert(p_node);
+				seen_stack.push_back(true);
 
 				// add children
 				todo_stack.push_back(p_eq->left().get());
 				todo_stack.push_back(p_eq->right().get());
+				seen_stack.push_back(false);
+				seen_stack.push_back(false);
 			}
 				break;
 			case ParseNodeType::IDENTIFIER:
@@ -125,7 +132,7 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 				{
 					// handle now:
 
-					std::list<ResultT> empty_list;
+					std::vector<ResultT> empty_list;
 
 					result_stack.push_back(
 						identifier_func(p_id->get_name(),
@@ -136,13 +143,17 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 				{
 					// re-add ourselves and check again later:
 					todo_stack.push_back(p_node);
-					seen.insert(p_node);
+					seen_stack.push_back(true);
 
 					// add children in reverse order:
 					std::transform(p_id->rbegin(), p_id->rend(),
 						std::back_inserter(todo_stack),
 						[](ParseNodePtr p_node)
 						{ return p_node.get(); });
+
+					// extend by "arity", taking values "false"
+					seen_stack.resize(seen_stack.size() + arity,
+						false);
 				}
 			}
 			}
@@ -167,9 +178,9 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 				(so: inverted twice means left the same!)
 				[see the unit tests for more].
 				*/
-				auto left_result = result_stack.back();
+				ResultT left_result = result_stack.back();
 				result_stack.pop_back();
-				auto right_result = result_stack.back();
+				ResultT right_result = result_stack.back();
 				result_stack.pop_back();
 
 				// compute function of eq for its children:

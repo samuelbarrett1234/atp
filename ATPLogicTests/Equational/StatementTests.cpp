@@ -134,8 +134,8 @@ BOOST_DATA_TEST_CASE(test_string_fold_is_inverse_to_parser,
 	auto const_to_str = boost::bind(&KnowledgeKernel::symbol_name,
 		boost::ref(ker), _1);
 	auto func_to_str = [this](size_t symb_id,
-		std::list<std::string>::iterator begin,
-		std::list<std::string>::iterator end) -> std::string
+		std::vector<std::string>::iterator begin,
+		std::vector<std::string>::iterator end) -> std::string
 	{
 		return ker.symbol_name(symb_id) + '(' + boost::algorithm::join(
 			boost::make_iterator_range(begin, end), ", "
@@ -168,8 +168,8 @@ BOOST_AUTO_TEST_CASE(
 	auto const_to_str = boost::bind(&KnowledgeKernel::symbol_name,
 		boost::ref(ker), _1);
 	auto func_to_str = [this](size_t symb_id,
-		std::list<std::string>::iterator begin,
-		std::list<std::string>::iterator end) -> std::string
+		std::vector<std::string>::iterator begin,
+		std::vector<std::string>::iterator end) -> std::string
 	{
 		return ker.symbol_name(symb_id) + '(' + boost::algorithm::join(
 			boost::make_iterator_range(begin, end), ", "
@@ -281,8 +281,8 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_by_converting_pair_to_str)
 				ker.symbol_name(id2) + "]");;
 	};
 	auto f_func = [this](size_t id1, size_t id2,
-		std::list<std::string>::iterator begin,
-		std::list<std::string>::iterator end)
+		std::vector<std::string>::iterator begin,
+		std::vector<std::string>::iterator end)
 	{
 		// might as well test the arity here:
 		BOOST_TEST(std::distance(begin, end)

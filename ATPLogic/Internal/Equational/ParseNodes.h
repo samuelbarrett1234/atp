@@ -20,7 +20,7 @@
 
 #include <string>
 #include <memory>
-#include <list>
+#include <vector>
 #include "../../ATPLogicAPI.h"
 
 
@@ -97,7 +97,7 @@ class ATP_LOGIC_API IdentifierParseNode :
 	public IParseNode
 {
 public:
-	typedef std::list<ParseNodePtr> ArgArray;
+	typedef std::vector<ParseNodePtr> ArgArray;
 
 public:
 	IdentifierParseNode(std::string name,

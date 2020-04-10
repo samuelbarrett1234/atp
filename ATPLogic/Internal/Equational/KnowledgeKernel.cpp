@@ -93,8 +93,8 @@ bool KnowledgeKernel::valid(
 	};
 
 	auto func_valid = [this](size_t symb_id,
-			std::list<bool>::iterator child_begin,
-			std::list<bool>::iterator child_end)
+			std::vector<bool>::iterator child_begin,
+			std::vector<bool>::iterator child_end)
 	{
 		const size_t implied_arity = std::distance(child_begin,
 			child_end);

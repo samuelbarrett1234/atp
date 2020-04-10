@@ -46,8 +46,8 @@ namespace equational
 	constructor, with type size_t -> ResultT
 
 \tparam FFuncT The function to use as the function node constructor,
-    with type size_t x std::list<ResultT>::iterator x
-    std::list<ResultT>::iterator -> ResultT
+    with type size_t x std::vector<ResultT>::iterator x
+    std::vector<ResultT>::iterator -> ResultT
 
 \details Folds are a special kind of concept, prominent in
 	functional programming. Applying a fold to a tree like this one
@@ -84,16 +84,16 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 		"ConstFuncT should be of type (size_t) -> ResultT");
 	static_assert(std::is_convertible<FFuncT,
 		std::function<ResultT(size_t,
-			typename std::list<ResultT>::iterator,
-			typename std::list<ResultT>::iterator)>>::value,
+			typename std::vector<ResultT>::iterator,
+			typename std::vector<ResultT>::iterator)>>::value,
 		"FFuncT should be of type (size_t, "
-		"std::list<ResultT>::iterator,"
-		" std::list<ResultT>::iterator) -> ResultT");
+		"std::vector<ResultT>::iterator,"
+		" std::vector<ResultT>::iterator) -> ResultT");
 
 	// now proceed with the function:
 
-	std::list<ResultT> result_stack;
-	std::list<ISyntaxNode*> todo_stack;
+	std::vector<ResultT> result_stack;
+	std::vector<ISyntaxNode*> todo_stack;
 	std::vector<bool> seen_stack;
 
 	todo_stack.push_back(p_root.get());
@@ -175,9 +175,9 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 					(so: inverted twice means left the same!)
 					[see the unit tests for more].
 					*/
-					auto left_result = result_stack.back();
+					ResultT left_result = result_stack.back();
 					result_stack.pop_back();
-					auto right_result = result_stack.back();
+					ResultT right_result = result_stack.back();
 					result_stack.pop_back();
 
 					// compute function of eq for its children:

@@ -32,8 +32,8 @@ static std::string stmts[] =
 // helper functions for converting parse nodes to string:
 static std::string eq_to_str(std::string lhs, std::string rhs);
 static std::string identifier_to_str(std::string name,
-	std::list<std::string>::iterator arg_begin,
-	std::list<std::string>::iterator arg_end);
+	std::vector<std::string>::iterator arg_begin,
+	std::vector<std::string>::iterator arg_end);
 
 
 BOOST_AUTO_TEST_SUITE(EquationalTests);
@@ -78,8 +78,8 @@ std::string eq_to_str(std::string lhs, std::string rhs)
 
 
 std::string identifier_to_str(std::string name,
-	std::list<std::string>::iterator arg_begin,
-	std::list<std::string>::iterator arg_end)
+	std::vector<std::string>::iterator arg_begin,
+	std::vector<std::string>::iterator arg_end)
 {
 	if (arg_begin == arg_end)
 	{

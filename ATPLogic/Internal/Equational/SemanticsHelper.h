@@ -95,7 +95,7 @@ struct ATP_LOGIC_API SubstitutionInfo
     subtree (for each rule, for each side of the equation, for each
 	assignment of free variables in the rule, ... etc)
 */
-ATP_LOGIC_API std::list<SyntaxNodePtr> immediate_applications(
+ATP_LOGIC_API std::vector<SyntaxNodePtr> immediate_applications(
 	SyntaxNodePtr node,
 	const SubstitutionInfo& sub_info);
 
@@ -140,7 +140,7 @@ ATP_LOGIC_API std::list<SyntaxNodePtr> immediate_applications(
     free variables are already mapped in `free_var_map` then there
 	should only be one way to do the substitution.
 */
-ATP_LOGIC_API std::list<SyntaxNodePtr> substitute_tree(
+ATP_LOGIC_API std::vector<SyntaxNodePtr> substitute_tree(
 	SyntaxNodePtr node,
 	const SubstitutionInfo& sub_info,
 	const std::map<size_t, SyntaxNodePtr>& free_var_map,

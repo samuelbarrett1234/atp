@@ -50,14 +50,14 @@ SubstitutionInfo::SubstitutionInfo(const KnowledgeKernel& kernel,
 }
 
 
-std::list<SyntaxNodePtr> immediate_applications(
+std::vector<SyntaxNodePtr> immediate_applications(
 	SyntaxNodePtr node,
 	const SubstitutionInfo& sub_info)
 {
 	ATP_LOGIC_PRECOND(node->get_type()
 		!= SyntaxNodeType::EQ);
 
-	std::list<SyntaxNodePtr> results;
+	std::vector<SyntaxNodePtr> results;
 	for (auto rule_pair_and_idx : 
 		sub_info.rule_exprs | boost::adaptors::indexed())
 	{
@@ -71,15 +71,18 @@ std::list<SyntaxNodePtr> immediate_applications(
 
 		if (lhs_match)
 		{
-			results.splice(results.end(),
-				substitute_tree(rule_pair.second, sub_info,
-					lhs_match.get(), idx));
+			auto subs = substitute_tree(rule_pair.second, sub_info,
+				lhs_match.get(), idx);
+
+			results.insert(results.end(),
+				subs.begin(), subs.end());
 		}
 		if (rhs_match)
 		{
-			results.splice(results.end(),
-				substitute_tree(rule_pair.first, sub_info,
-					rhs_match.get(), idx));
+			auto subs = substitute_tree(rule_pair.first, sub_info,
+				rhs_match.get(), idx);
+			results.insert(results.end(),
+				subs.begin(), subs.end());
 		}
 	}
 
@@ -87,7 +90,7 @@ std::list<SyntaxNodePtr> immediate_applications(
 }
 
 
-std::list<SyntaxNodePtr> substitute_tree(
+std::vector<SyntaxNodePtr> substitute_tree(
 	SyntaxNodePtr node,
 	const SubstitutionInfo& sub_info,
 	const std::map<size_t, SyntaxNodePtr>& free_var_map,
@@ -95,7 +98,7 @@ std::list<SyntaxNodePtr> substitute_tree(
 {
 	// rebuild the free variable mapping but include what to do for
 	// all the non-mapped free variables
-	std::map<size_t, std::list<SyntaxNodePtr>> all_var_map;
+	std::map<size_t, std::vector<SyntaxNodePtr>> all_var_map;
 	for (const auto& sub : free_var_map)
 		all_var_map[sub.first] = { sub.second };
 
@@ -137,7 +140,7 @@ std::list<SyntaxNodePtr> substitute_tree(
 		// else this free variable has already been covered
 	}
 
-	typedef std::list<SyntaxNodePtr> ResultT;
+	typedef std::vector<SyntaxNodePtr> ResultT;
 
 	auto eq_constructor = [](ResultT lhs, ResultT rhs)
 		-> ResultT
@@ -172,8 +175,8 @@ std::list<SyntaxNodePtr> substitute_tree(
 	// unfortunately this constructor is really long because we have
 	// to take a cartesian product of the list of lists given to us.
 	auto func_constructor = [](size_t id,
-		std::list<ResultT>::iterator begin,
-		std::list<ResultT>::iterator end)
+		std::vector<ResultT>::iterator begin,
+		std::vector<ResultT>::iterator end)
 		-> ResultT
 	{
 		// none of them should be empty
@@ -496,7 +499,7 @@ bool syntax_tree_identical(SyntaxNodePtr a, SyntaxNodePtr b)
 
 std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node)
 {
-	std::list<SyntaxNodePtr> stack;
+	std::vector<SyntaxNodePtr> stack;
 	std::set<size_t> var_ids;
 
 	stack.push_back(p_node);

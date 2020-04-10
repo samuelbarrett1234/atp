@@ -8,7 +8,6 @@
 
 
 #include "Semantics.h"
-#include <list>
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/phoenix.hpp>
 #include <boost/bind.hpp>
@@ -64,8 +63,8 @@ bool equivalent(const Statement& a, const Statement& b)
 	auto const_func = (phxarg::arg1 == phxarg::arg2);
 
 	auto f_func = [](size_t id1, size_t id2,
-		std::list<bool>::iterator begin,
-		std::list<bool>::iterator end)
+		std::vector<bool>::iterator begin,
+		std::vector<bool>::iterator end)
 	{
 		return id1 == id2 && std::all_of(begin, end,
 			phxarg::arg1);
@@ -90,8 +89,8 @@ bool identical(const Statement& a, const Statement& b)
 	auto const_func = (phxarg::arg1 == phxarg::arg2);
 
 	auto f_func = [](size_t id1, size_t id2,
-		std::list<bool>::iterator begin,
-		std::list<bool>::iterator end)
+		std::vector<bool>::iterator begin,
+		std::vector<bool>::iterator end)
 	{
 		return id1 == id2 && std::all_of(begin, end,
 			phxarg::arg1);
@@ -115,7 +114,7 @@ StatementArray get_successors(const Statement& stmt,
 {
 	// this pair can be thought of as a node saying: "<me, and all of
 	// the ways the subtree rooted at me look after substitution>"
-	typedef std::pair<SyntaxNodePtr, std::list<SyntaxNodePtr>>
+	typedef std::pair<SyntaxNodePtr, std::vector<SyntaxNodePtr>>
 		SubResults;
 
 	SubstitutionInfo sub_info(stmt.kernel(), rules,
@@ -127,7 +126,7 @@ StatementArray get_successors(const Statement& stmt,
 		auto me = EqSyntaxNode::construct(lhs.first,
 			rhs.first);
 
-		std::list<SyntaxNodePtr> sub_results;
+		std::vector<SyntaxNodePtr> sub_results;
 
 		// add left-hand results, keep RHS constant
 		std::transform(lhs.second.begin(), lhs.second.end(),
@@ -163,14 +162,14 @@ StatementArray get_successors(const Statement& stmt,
 	};
 
 	auto func_constructor = [&sub_info]
-		(size_t id, std::list<SubResults>::iterator begin,
-		std::list<SubResults>::iterator end) -> SubResults
+		(size_t id, std::vector<SubResults>::iterator begin,
+		std::vector<SubResults>::iterator end) -> SubResults
 	{
 		// Get the children, unmodified, i.e. without the
 		// substitutions. This is just the first element of
 		// the pairs of the given list
 		auto map_first = boost::bind(&SubResults::first, _1);
-		std::list<SyntaxNodePtr> unmodified_children(
+		std::vector<SyntaxNodePtr> unmodified_children(
 			boost::make_transform_iterator(begin, map_first),
 			boost::make_transform_iterator(end, map_first));
 
@@ -288,8 +287,8 @@ bool implies(const Statement& premise, const Statement& concl)
 	auto const_constructor = phx::val(FreeVarMap::value_type());
 
 	auto func_constructor = [&try_union](size_t id1, size_t id2,
-		std::list<FreeVarMap>::iterator begin,
-		std::list<FreeVarMap>::iterator end)
+		std::vector<FreeVarMap>::iterator begin,
+		std::vector<FreeVarMap>::iterator end)
 		-> FreeVarMap
 	{
 		// if the function names don't agree then we can't save

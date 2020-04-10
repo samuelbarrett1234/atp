@@ -46,8 +46,8 @@ static std::string const_node_to_str(const KnowledgeKernel& ker,
 
 // function to be used as the FuncSyntaxNode fold constructor
 static std::string func_node_to_str(const KnowledgeKernel& ker,
-	size_t symbol_id, std::list<std::string>::iterator begin,
-	std::list<std::string>::iterator end);
+	size_t symbol_id, std::vector<std::string>::iterator begin,
+	std::vector<std::string>::iterator end);
 
 
 /////////////////////////////////////////////////////////////////////
@@ -107,8 +107,8 @@ std::string const_node_to_str(const KnowledgeKernel& ker,
 
 
 std::string func_node_to_str(const KnowledgeKernel& ker,
-	size_t symbol_id, std::list<std::string>::iterator begin,
-	std::list<std::string>::iterator end)
+	size_t symbol_id, std::vector<std::string>::iterator begin,
+	std::vector<std::string>::iterator end)
 {
 	// might as well test the arity here:
 	BOOST_TEST(std::distance(begin, end)

@@ -84,8 +84,8 @@ std::string Statement::to_str() const
 		return m_ker.symbol_name(symb_id);
 	};
 	auto func_fold = [this](size_t symb_id,
-		std::list<std::string>::iterator begin,
-		std::list<std::string>::iterator end) -> std::string
+		std::vector<std::string>::iterator begin,
+		std::vector<std::string>::iterator end) -> std::string
 	{
 		return m_ker.symbol_name(symb_id) + '(' +
 			boost::algorithm::join(

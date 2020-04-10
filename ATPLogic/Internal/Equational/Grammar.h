@@ -77,7 +77,9 @@ struct StatementGrammar :
 	boost::spirit::qi::rule<QiParseIterator, ParseNodePtr(), Skipper>
 		statement, expression;
 	boost::spirit::qi::rule<QiParseIterator, std::list<ParseNodePtr>(),
-		Skipper> start, expression_list;
+		Skipper> start;
+	boost::spirit::qi::rule<QiParseIterator, std::vector<ParseNodePtr>(),
+		Skipper> expression_list;
 	boost::spirit::qi::rule<QiParseIterator, std::string(),
 		Skipper> identifier;
 	Skipper skpr;

@@ -80,6 +80,7 @@ struct StatementGrammar :
 		Skipper> start, expression_list;
 	boost::spirit::qi::rule<QiParseIterator, std::string(),
 		Skipper> identifier;
+	Skipper skpr;
 };
 
 
@@ -106,6 +107,8 @@ struct DefinitionGrammar :
 
 	boost::spirit::qi::rule<QiParseIterator, std::string(),
 		Skipper> identifier;
+
+	Skipper skpr;
 };
 
 

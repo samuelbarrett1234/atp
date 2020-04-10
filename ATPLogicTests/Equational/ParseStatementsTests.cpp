@@ -267,5 +267,18 @@ BOOST_AUTO_TEST_CASE(test_no_partial_load)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_lots_of_newlines_and_comments)
+{
+	s << "\n\n\n\n\n";
+	s << "# this is a comment on a line by itself.\n\n";
+	s << "x = y\n";
+	s << "# this is a comment at the end";
+
+	auto result = parse_statements(s);
+
+	BOOST_TEST(result.has_value());
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();  // ParseStatementTests
 BOOST_AUTO_TEST_SUITE_END();  // EquationalTests

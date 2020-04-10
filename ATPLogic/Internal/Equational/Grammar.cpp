@@ -36,10 +36,14 @@ Skipper::Skipper() :
 StatementGrammar::StatementGrammar() :
 	StatementGrammar::base_type(start)
 {
-	// statements are line-separated, by any number of lines
-	// (always read end of input at the end, to prevent partial
-	// parses - see the test `test_no_partial_load`.
-	start = statement % (+qi::eol) >> *qi::eol >> qi::eoi;
+	// statements are separated by any number of lines, maybe
+	// with comments in between the newlines.
+	// at the very end and start, there will be potentially many
+	// newlines or comments, and finally we must reach the end of
+	// the input.
+	start = *(skpr | qi::eol) >>
+		(statement % (+(-skpr >> qi::eol)))
+		>> *(skpr | qi::eol) >> qi::eoi;
 
 	// a statement is an equality of two expressions
 	statement = (expression >> '=' >> expression)
@@ -84,10 +88,14 @@ StatementGrammar::StatementGrammar() :
 DefinitionGrammar::DefinitionGrammar() :
 	DefinitionGrammar::base_type(symbol_def_list)
 {
-	// definitions are line-separated, by any number of lines
-	// (always read end of input at the end, to prevent partial
-	// parses - see the test `test_no_partial_load`.
-	symbol_def_list = symbol_def % (+qi::eol) >> *qi::eol >> qi::eoi;
+	// definitions are separated by any number of lines, maybe
+	// with comments in between the newlines.
+	// at the very end and start, there will be potentially many
+	// newlines or comments, and finally we must reach the end of
+	// the input.
+	symbol_def_list = *(skpr | qi::eol)
+		>> (symbol_def % (+(-skpr >> qi::eol)))
+		>> *(skpr | qi::eol) >> qi::eoi;
 
 	symbol_def = identifier >> qi::uint_;
 

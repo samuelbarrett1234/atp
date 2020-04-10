@@ -122,6 +122,19 @@ BOOST_DATA_TEST_CASE(parse_definitions_returns_none_when_incorrect,
 }
 
 
+BOOST_AUTO_TEST_CASE(test_lots_of_newlines_and_comments)
+{
+	s << "\n\n\n\n\n";
+	s << "# this is a comment on a line by itself.\n\n";
+	s << "e 0\n";
+	s << "# this is a comment at the end";
+
+	auto result = parse_definitions(s);
+
+	BOOST_TEST(result.has_value());
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();  // ParseDefinitionsTests
 BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
 

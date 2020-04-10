@@ -25,6 +25,8 @@ namespace equational
 boost::optional<std::list<ParseNodePtr>> parse_statements(
 	std::istream& in)
 {
+	in >> std::noskipws;
+
 	QiParseIterator begin(in), end;
 
 	// no input at all is not an error, so don't return boost::none,
@@ -38,7 +40,7 @@ boost::optional<std::list<ParseNodePtr>> parse_statements(
 		output
 	);
 
-	if (!ok)
+	if (!ok || begin != end)
 	{
 		return boost::none;
 	}
@@ -53,6 +55,8 @@ boost::optional<std::list<ParseNodePtr>> parse_statements(
 boost::optional<std::list<std::pair<std::string, size_t>>>
 	parse_definitions(std::istream& in)
 {
+	in >> std::noskipws;
+
 	QiParseIterator begin(in), end;
 
 	// no input at all is not an error, so don't return boost::none,
@@ -67,7 +71,7 @@ boost::optional<std::list<std::pair<std::string, size_t>>>
 		output
 	);
 
-	if (!ok)
+	if (!ok || begin != end)
 	{
 		return boost::none;
 	}

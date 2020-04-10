@@ -34,7 +34,6 @@ SubstitutionInfo::SubstitutionInfo(const KnowledgeKernel& kernel,
 	const std::vector<Statement>& rules,
 	const std::set<size_t>& stmt_free_var_ids) :
 	kernel(kernel), free_var_ids(stmt_free_var_ids),
-	rule_exprs(get_statement_sides(rules)),
 	const_symbol_ids(kernel.constant_symbol_ids())
 {
 	// compute the free variable IDs used in each rule
@@ -42,6 +41,12 @@ SubstitutionInfo::SubstitutionInfo(const KnowledgeKernel& kernel,
 	std::transform(rules.begin(), rules.end(),
 		std::back_inserter(rule_free_vars),
 		boost::bind(&Statement::free_var_ids, _1));
+
+	// compute the LHS and RHS of each rule
+	rule_exprs.reserve(rules.size());
+	std::transform(rules.begin(), rules.end(),
+		std::back_inserter(rule_exprs),
+		boost::bind(&Statement::get_sides, _1));
 }
 
 
@@ -486,68 +491,6 @@ bool syntax_tree_identical(SyntaxNodePtr a, SyntaxNodePtr b)
 	}
 
 	return true;
-}
-
-
-std::vector<std::pair<SyntaxNodePtr, SyntaxNodePtr>>
-get_statement_sides(const std::vector<Statement>& stmts)
-{
-	// for most of the tree, this pair only stores something in its
-	// .first and its .second is empty. The only exception is the =
-	// nodes, which require both.
-	typedef std::pair<SyntaxNodePtr, SyntaxNodePtr> PairSyntaxTree;
-
-	auto eq_constructor = [](PairSyntaxTree a,
-		PairSyntaxTree b)
-	{
-		// combine results into a pair, don't create an eq node
-		return std::make_pair(a.first, b.first);
-	};
-
-	auto free_constructor = [](size_t id)
-	{
-		return std::make_pair(
-			FreeSyntaxNode::construct(id),
-			SyntaxNodePtr());
-	};
-
-	auto const_constructor = [](size_t id)
-	{
-		return std::make_pair(
-			ConstantSyntaxNode::construct(id),
-			SyntaxNodePtr());
-	};
-
-	auto func_constructor = [](size_t id,
-		std::list<PairSyntaxTree>::iterator begin,
-		std::list<PairSyntaxTree>::iterator end)
-	{
-		auto map_first = boost::bind(&PairSyntaxTree::first, _1);
-		std::list<SyntaxNodePtr> children(
-			boost::make_transform_iterator(begin, map_first),
-			boost::make_transform_iterator(end, map_first));
-
-		return std::make_pair(
-			FuncSyntaxNode::construct(id, children.begin(),
-				children.end()), SyntaxNodePtr());
-	};
-
-	// convert all the rules to expressions representing their LHS
-	// and RHS respectively
-	std::vector<PairSyntaxTree> exprs;
-	exprs.reserve(stmts.size());
-
-	std::transform(stmts.begin(), stmts.end(),
-		std::back_inserter(exprs),
-		[&eq_constructor, &const_constructor,
-		&free_constructor, &func_constructor](const Statement& stmt)
-		{
-			return stmt.fold<PairSyntaxTree>(eq_constructor,
-				free_constructor, const_constructor,
-				func_constructor);
-		});
-
-	return exprs;
 }
 
 

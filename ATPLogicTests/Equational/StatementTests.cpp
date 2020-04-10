@@ -20,6 +20,7 @@ equational::semantics namespace.
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/Parser.h>
 #include <Internal/Equational/SyntaxNodes.h>
+#include <Internal/Equational/Semantics.h>
 #include "../Test.h"
 #include "SyntaxNodeToStr.h"
 
@@ -31,8 +32,10 @@ using atp::logic::equational::Statement;
 using atp::logic::equational::parse_statements;
 using atp::logic::equational::ptree_to_stree;
 using atp::logic::equational::SyntaxNodeType;
+using atp::logic::equational::EqSyntaxNode;
 using atp::logic::equational::FuncSyntaxNode;
 using atp::logic::equational::SyntaxNodePtr;
+namespace semantics = atp::logic::equational::semantics;
 namespace phx = boost::phoenix;
 namespace phxargs = phx::arg_names;
 
@@ -336,6 +339,66 @@ BOOST_AUTO_TEST_CASE(test_adjoint_rhs)
 	BOOST_TEST((adjoin_as_str ==
 		"*(x0, x1) = i(*(i(x0), x1))" || adjoin_as_str
 		== "*(x1, x0) = i(*(i(x1), x0))"));
+}
+
+
+BOOST_DATA_TEST_CASE(test_transpose,
+	boost::unit_test::data::make({ "x0 = i(x0)",
+		"i(x0) = *(x0, x1)", "*(x0, x0) = i(*(x0, x0))",
+		"*( i(x), i(i(x)) ) = e" }) ^
+	boost::unit_test::data::make({
+		"i(x0) = x0", "*(x0, x1) = i(x0)",
+		"i(*(x0, x0)) = *(x0, x0)",
+		"e = *( i(x), i(i(x)) )" }),
+		original, target)
+{
+	// create statements from the "original" and
+	// "target" strings
+	s << original << "\n" << target;
+	auto results = parse_statements(s);
+	BOOST_REQUIRE(results.has_value());
+	BOOST_REQUIRE(results.get().size() == 2);
+	auto stree1 = ptree_to_stree(results.get().front(), ker);
+	auto stree2 = ptree_to_stree(results.get().back(), ker);
+	BOOST_REQUIRE(stree1 != nullptr);
+	BOOST_REQUIRE(stree2 != nullptr);
+	auto stmt1 = Statement(ker, stree1);
+	auto stmt2 = Statement(ker, stree2);
+	// check that the transpose of one of them is identical
+	// to the other one
+	BOOST_TEST(semantics::identical(stmt1,
+		stmt2.transpose()));
+	BOOST_TEST(semantics::identical(stmt2,
+		stmt1.transpose()));
+}
+
+
+// the data for the test case below (these will appear as the
+// different sides of the equation)
+const char* stmt_sides_data[] =
+{
+	"x0", "e", "i(x0)",
+	"*(x0, x0)", "*(x0, *(x0, x0))",
+	"*(i(x0), i(x0))", "i(*(x0, x0))"
+};
+BOOST_DATA_TEST_CASE(test_get_statement_sides,
+	boost::unit_test::data::make(stmt_sides_data)
+	* boost::unit_test::data::make(stmt_sides_data),
+	side1, side2)
+{
+	s << side1 << " = " << side2;
+	auto ptree = parse_statements(s);
+	BOOST_REQUIRE(ptree.has_value());
+	BOOST_REQUIRE(ptree->size() == 1);
+	auto stree = ptree_to_stree(ptree->front(), ker);
+	auto stmt = Statement(ker, stree);
+
+	auto sides = stmt.get_sides();
+
+	BOOST_TEST(syntax_tree_to_str(ker, sides.first)
+		== side1);
+	BOOST_TEST(syntax_tree_to_str(ker, sides.second)
+		== side2);
 }
 
 

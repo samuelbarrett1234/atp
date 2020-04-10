@@ -70,36 +70,6 @@ std::string syntax_tree_to_str(const KnowledgeKernel& ker,
 }
 
 
-bool exists_free_var_assignment(const KnowledgeKernel& ker,
-	SyntaxNodePtr p_tree, std::string test_stmt,
-	size_t num_free_vars)
-{
-	std::vector<size_t> free_var_assignments;
-	free_var_assignments.resize(num_free_vars);
-	for (size_t i = 0; i < num_free_vars; i++)
-		free_var_assignments[i] = i;
-
-	// iterate through possible permutations:
-	do
-	{
-		// build a map from the vector
-		std::map<size_t, size_t> free_id_map;
-		for (size_t i = 0; i < num_free_vars; i++)
-			free_id_map[i] = free_var_assignments[i];
-
-		std::string str = syntax_tree_to_str(ker,
-			p_tree, free_id_map);
-
-		if (str == test_stmt)
-			return true;
-
-	} while (std::next_permutation(free_var_assignments.begin(),
-		free_var_assignments.end()));
-
-	return false;
-}
-
-
 std::string eq_node_to_str(std::string lhs, std::string rhs)
 {
 	return lhs + " = " + rhs;

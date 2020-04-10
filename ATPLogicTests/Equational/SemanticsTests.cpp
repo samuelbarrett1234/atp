@@ -99,37 +99,6 @@ BOOST_DATA_TEST_CASE(test_true_by_reflexivity_works_on_examples,
 }
 
 
-BOOST_DATA_TEST_CASE(test_transpose,
-	boost::unit_test::data::make({ "x0 = i(x0)",
-		"i(x0) = *(x0, x1)", "*(x0, x0) = i(*(x0, x0))",
-		"*( i(x), i(i(x)) ) = e" }) ^
-	boost::unit_test::data::make({
-		"i(x0) = x0", "*(x0, x1) = i(x0)",
-		"i(*(x0, x0)) = *(x0, x0)",
-		"e = *( i(x), i(i(x)) )" }),
-		original, target)
-{
-	// create statements from the "original" and
-	// "target" strings
-	s << original << "\n" << target;
-	auto results = parse_statements(s);
-	BOOST_REQUIRE(results.has_value());
-	BOOST_REQUIRE(results.get().size() == 2);
-	auto stree1 = ptree_to_stree(results.get().front(), ker);
-	auto stree2 = ptree_to_stree(results.get().back(), ker);
-	BOOST_REQUIRE(stree1 != nullptr);
-	BOOST_REQUIRE(stree2 != nullptr);
-	auto stmt1 = Statement(ker, stree1);
-	auto stmt2 = Statement(ker, stree2);
-	// check that the transpose of one of them is identical
-	// to the other one
-	BOOST_TEST(semantics::identical(stmt1,
-		semantics::transpose(stmt2)));
-	BOOST_TEST(semantics::identical(stmt2,
-		semantics::transpose(stmt1)));
-}
-
-
 // firstly we will test the `identical` and `equivalent` functions
 // in scenarios where they both should return the same value:
 BOOST_DATA_TEST_CASE(test_identical_and_equivalent,

@@ -91,6 +91,26 @@ public:
 	// implemented by a fold
 	std::string to_str() const override;
 
+	/**
+	\brief Transpose the statement (flip it around the equals sign)
+
+	\details This can be implemented using a fold, but doing so is
+	    very slow as it requires reallocating and rebuilding the
+		whole tree.
+	*/
+	Statement transpose() const;
+
+	/**
+	\brief Get the LHS and RHS of this statement
+
+	\returns A pair (LHS, RHS)
+
+	\details This can be implemented using a fold, but doing so is
+		very slow as it requires reallocating and rebuilding the
+		whole tree.
+	*/
+	std::pair<SyntaxNodePtr, SyntaxNodePtr> get_sides() const;
+
 	inline size_t num_free_vars() const
 	{
 		return m_free_var_ids.size();

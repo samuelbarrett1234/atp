@@ -173,14 +173,6 @@ ATP_LOGIC_API bool syntax_tree_identical(SyntaxNodePtr a,
 
 
 /**
-\brief Get a list containing the LHS and RHS of each statement given
-    as input (breaks each statement in half along the equals sign).
-*/
-ATP_LOGIC_API std::vector<std::pair<SyntaxNodePtr, SyntaxNodePtr>>
-	get_statement_sides(const std::vector<Statement>& stmts);
-
-
-/**
 \brief Get the free variable IDs present in the subtree rooted at
     this node.
 

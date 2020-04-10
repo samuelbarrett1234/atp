@@ -97,6 +97,29 @@ std::string Statement::to_str() const
 }
 
 
+Statement Statement::transpose() const
+{
+	auto p_eq = dynamic_cast<const EqSyntaxNode*>(m_root.get());
+
+	ATP_LOGIC_ASSERT(p_eq != nullptr);
+
+	auto p_new_eq = EqSyntaxNode::construct(p_eq->right(),
+		p_eq->left());
+
+	return Statement(m_ker, p_new_eq);
+}
+
+
+std::pair<SyntaxNodePtr, SyntaxNodePtr> Statement::get_sides() const
+{
+	auto p_eq = dynamic_cast<const EqSyntaxNode*>(m_root.get());
+
+	ATP_LOGIC_ASSERT(p_eq != nullptr);
+
+	return std::make_pair(p_eq->left(), p_eq->right());
+}
+
+
 Statement Statement::adjoin_rhs(const Statement& other) const
 {
 	ATP_LOGIC_PRECOND(&m_ker == &other.m_ker);

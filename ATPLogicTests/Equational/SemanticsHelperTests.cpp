@@ -122,40 +122,6 @@ BOOST_DATA_TEST_CASE(test_syntax_tree_identical,
 }
 
 
-// the data for the test case below (these will appear as the
-// different sides of the equation)
-const char* stmt_sides_data[] =
-{
-	"x", "y", "z", "e", "i(x)",
-	"*(x, y)", "*(x, *(y, z))",
-	"*(i(y), i(x))", "i(*(y, z))"
-};
-BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
-	"EquationalTests/SemanticsHelperTests/test_syntax_tree_identical"))
-BOOST_DATA_TEST_CASE(test_get_statement_sides,
-	boost::unit_test::data::make(stmt_sides_data)
-	* boost::unit_test::data::make(stmt_sides_data),
-	side1, side2)
-{
-	s << side1 << " = " << side2;
-	auto ptree = parse_statements(s);
-	BOOST_REQUIRE(ptree.has_value());
-	BOOST_REQUIRE(ptree->size() == 1);
-	auto stree = ptree_to_stree(ptree->front(), ker);
-	auto stmt = Statement(ker, stree);
-
-	auto sides = semantics::get_statement_sides({ stmt });
-
-	BOOST_REQUIRE(sides.size() == 1);
-
-	// stitch back together and check identical to original
-	auto stree2 = EqSyntaxNode::construct(sides.front().first,
-		sides.front().second);
-
-	BOOST_TEST(semantics::syntax_tree_identical(stree, stree2));
-}
-
-
 BOOST_DATA_TEST_CASE(test_get_free_var_ids,
 	boost::unit_test::data::make({
 		"*(x, y) = *(y, x)",
@@ -182,8 +148,6 @@ BOOST_DATA_TEST_CASE(test_get_free_var_ids,
 BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 	"EquationalTests/SemanticsHelperTests/test_syntax_tree_identical"))
 BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
-	"EquationalTests/SemanticsHelperTests/test_get_statement_sides"))
-BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 	"EquationalTests/SemanticsHelperTests/test_get_free_var_ids"))
 BOOST_AUTO_TEST_CASE(test_try_build_map_positive)
 {
@@ -199,8 +163,7 @@ BOOST_AUTO_TEST_CASE(test_try_build_map_positive)
 	auto stree = ptree_to_stree(ptree->front(), ker);
 
 	// get LHS and RHS of the syntax tree we just built
-	auto sides = semantics::get_statement_sides({
-		Statement(ker, stree) })[0];
+	auto sides = Statement(ker, stree).get_sides();
 
 	auto mapping = semantics::try_build_map(sides.first,
 		sides.second);
@@ -214,8 +177,6 @@ BOOST_AUTO_TEST_CASE(test_try_build_map_positive)
 
 BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 	"EquationalTests/SemanticsHelperTests/test_syntax_tree_identical"))
-	BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
-		"EquationalTests/SemanticsHelperTests/test_get_statement_sides"))
 	BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 		"EquationalTests/SemanticsHelperTests/test_get_free_var_ids"))
 	BOOST_AUTO_TEST_CASE(test_try_build_map_negative)
@@ -232,8 +193,7 @@ BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 	auto stree = ptree_to_stree(ptree->front(), ker);
 
 	// get LHS and RHS of the syntax tree we just built
-	auto sides = semantics::get_statement_sides({
-		Statement(ker, stree) })[0];
+	auto sides = Statement(ker, stree).get_sides();
 
 	auto mapping = semantics::try_build_map(sides.first,
 		sides.second);
@@ -245,8 +205,6 @@ BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 
 BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 	"EquationalTests/SemanticsHelperTests/test_syntax_tree_identical"))
-	BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
-		"EquationalTests/SemanticsHelperTests/test_get_statement_sides"))
 	BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 		"EquationalTests/SemanticsHelperTests/test_get_free_var_ids"))
 	BOOST_AUTO_TEST_CASE(test_try_build_map_empty)
@@ -266,8 +224,7 @@ BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 	auto stree = ptree_to_stree(ptree->front(), ker);
 
 	// get LHS and RHS of the syntax tree we just built
-	auto sides = semantics::get_statement_sides({
-		Statement(ker, stree) })[0];
+	auto sides = Statement(ker, stree).get_sides();
 
 	auto mapping = semantics::try_build_map(sides.first,
 		sides.second);
@@ -281,8 +238,6 @@ BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 
 BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 	"EquationalTests/SemanticsHelperTests/test_syntax_tree_identical"))
-BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
-	"EquationalTests/SemanticsHelperTests/test_get_statement_sides"))
 BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 	"EquationalTests/SemanticsHelperTests/test_get_free_var_ids"))
 BOOST_AUTO_TEST_CASE(test_substitute_tree_with_new_free_var)
@@ -299,8 +254,7 @@ BOOST_AUTO_TEST_CASE(test_substitute_tree_with_new_free_var)
 	auto premise_stree = ptree_to_stree(ptrees->front(), ker);
 	auto rule_stree = ptree_to_stree(ptrees->back(), ker);
 
-	auto rule_sides = semantics::get_statement_sides({
-		Statement(ker, rule_stree) })[0];
+	auto rule_sides = Statement(ker, rule_stree).get_sides();
 
 	semantics::SubstitutionInfo sub_info(ker,
 		{ Statement(ker, rule_stree) },

@@ -76,7 +76,7 @@ bool equivalent(const Statement& a, const Statement& b)
 	return a.fold_pair<bool>(eq_func, free_func, const_func,
 		f_func, default_func, b) ||
 	a.fold_pair<bool>(eq_func, free_func, const_func,
-		f_func, default_func, transpose(b));
+		f_func, default_func, b.transpose());
 }
 
 
@@ -104,32 +104,9 @@ bool identical(const Statement& a, const Statement& b)
 }
 
 
-Statement transpose(const Statement& stmt)
-{
-	// reflect the statement about the equals sign
-
-	auto eq_func = [](SyntaxNodePtr lhs, SyntaxNodePtr rhs)
-	{ return EqSyntaxNode::construct(rhs, lhs); };
-
-	auto free_func = boost::bind(
-		&FreeSyntaxNode::construct, _1);
-	
-	auto const_func = boost::bind(
-		&ConstantSyntaxNode::construct, _1);
-
-	auto f_func = boost::bind(
-		&FuncSyntaxNode::construct, _1, _2, _3);
-
-	auto syntax_tree = stmt.fold<SyntaxNodePtr>(eq_func,
-		free_func, const_func, f_func);
-
-	return Statement(stmt.kernel(), syntax_tree);
-}
-
-
 bool true_by_reflexivity(const Statement& stmt)
 {
-	return identical(stmt, transpose(stmt));
+	return identical(stmt, stmt.transpose());
 }
 
 
@@ -358,7 +335,7 @@ bool implies(const Statement& premise, const Statement& concl)
 		default_constructor, concl).has_value()
 		|| premise.fold_pair<FreeVarMap>(eq_constructor,
 			free_constructor, const_constructor, func_constructor,
-			default_constructor, transpose(concl)).has_value();
+			default_constructor, concl.transpose()).has_value();
 }
 
 

@@ -8,7 +8,7 @@ Documentation pages can be found at https://samuelbarrett1234.github.io/atp/
 
 ## Navigation
 
-This repository has four projects:
+Directory list:
 - `atp` : the command line application for running the theorem prover,
 - `ATPLogic` : the library which contains the logical inference code, and also the parsers,
 - `ATPLogicTests` : the unit tests for the logic library,

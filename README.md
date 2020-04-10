@@ -28,12 +28,16 @@ After installation, try building the library and running the unit tests to check
 
 ## Running the client
 
-TODO.
+At the moment, the application only supports a single `prove` mode. Usage:
+
+`atp --context <context-filename> --prove <statement-filename>`
+
+Note that, in the above example, you may need to change `atp` to `atp_Releasex64` or something similar, depending on your build settings. Check the `Output` folder to see which versions of the application you have built.
 
 ## TODO (beyond minimum viable product)
 
 At the moment the project is working towards a minimum viable product, using only equational logic and uninformed search strategies. This repository still needs the following:
 - a statistics and machine learning library, for modelling the statements and searches, so we can start to use informed search strategies,
-- a networking library so the application can be run in a server mode (for delivering reports over the web, or for remote monitoring and control.)
+- a networking component so the application can be run in a server mode (for delivering reports over the web, or for remote monitoring and control.)
 - the `ATPLogic` library needs implementations of other kinds of logic (e.g. first order logic, second order logic.)
 - the `ATPSearch` library needs to use some more sophisticated, informed search strategies.

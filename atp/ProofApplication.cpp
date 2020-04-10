@@ -201,14 +201,14 @@ void ProofApplication::run()
 	m_out << "Solver initialised; starting proofs..." << std::endl;
 
 	// run for at most 100 iterations (temp)
-	for (size_t i = 0; i < 100
+	for (size_t i = 0; i < 1000
 		&& p_solver->any_proof_not_done(); ++i)
 	{
-		// 10 proof steps per update
-		p_solver->step(10);
+		// num proof steps per update
+		p_solver->step(100);
 
 		const auto states = p_solver->get_states();
-		m_out << 10 * (i + 1) << '/' << 100 * 10 << " : " <<
+		m_out << 100 * (i + 1) << '/' << 100 * 1000 << " : " <<
 			std::count(states.begin(), states.end(),
 				atp::search::ProofState::UNFINISHED) <<
 			" proof(s) remaining." << std::endl;

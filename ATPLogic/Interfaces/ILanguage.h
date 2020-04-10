@@ -53,8 +53,10 @@ public:
 	virtual ~ILanguage() = default;
 
 	/**
-	\brief Load the knowledge kernel from a given stream (of e.g.
-	    definitions.)
+	\brief Load the definitions into the knowledge kernel.
+
+	\details Here, "definitions" means "user-defined constants" etc,
+	    \b not axioms.
 
 	\note Changes the position of the input stream
 
@@ -62,8 +64,30 @@ public:
 	    stream may have been moved.
 
 	\pre `ker` was created within this language.
+
+	\param in This input should follow the definition file format of
+	    the particular language being used.
 	*/
-	virtual bool load_kernel(IKnowledgeKernel& ker,
+	virtual bool load_kernel_definitions(IKnowledgeKernel& ker,
+		std::istream& in) const = 0;
+
+	/**
+	\brief Load the axioms into the knowledge kernel.
+
+	\details Axioms meaning a relatively small collection of
+	    statements which are assumed to be true.
+
+	\note Changes the position of the input stream
+
+	\note If operation failed, the kernel is left unchanged, but the
+		stream may have been moved.
+
+	\pre `ker` was created within this language.
+
+	\param in This input should follow the statement format of
+		the particular language being used.
+	*/
+	virtual bool load_kernel_axioms(IKnowledgeKernel& ker,
 		std::istream& in) const = 0;
 
 	virtual KnowledgeKernelPtr create_empty_kernel() const = 0;

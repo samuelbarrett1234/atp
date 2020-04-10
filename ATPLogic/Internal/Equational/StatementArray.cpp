@@ -121,7 +121,7 @@ StatementArrayPtr StatementArray::try_concat(
 		// know that stmt_arr is of the StatementArray
 		// type!
 		const auto& stmt_arr = reinterpret_cast<
-			const StatementArray&>(_stmt_arr);
+			const StatementArray&>(*_stmt_arr.get());
 
 		for (size_t i = 0; i < stmt_arr.size(); i++)
 		{

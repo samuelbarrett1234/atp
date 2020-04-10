@@ -100,21 +100,54 @@ public:
 		return m_num_node_exps;
 	}
 
-private:
-	// functions which form part of the step() function:
-
-	// step an individual proof i for n steps
+private: 
+	/**
+	\brief Step an individual proof i for n steps
+	*/
 	void step_proof(size_t i, size_t n);
 
-	// expand the back of the stack by adding successors using the
-	// kernel. Precondition: st.size() < m_cur_depth_limits[i]
-	void expand_next(size_t i, std::list<StackFrame>& st);
 
-	// when we can't expand any more, we have to delete some end
-	// elements off the stack. in particular, we need to restore
-	// the invariant that st.back().m_stmts.at(st.back().m_idx)
-	// is ready to expand!
-	void trim_expansion(size_t i, std::list<StackFrame>& st);
+	/**
+	\brief Expand the back of the stack by adding successors using
+	    the kernel.
+
+	\pre m_stacks[i].size() < m_cur_depth_limits[i]
+	*/
+	void expand_next(size_t i);
+
+	/**
+	\brief Bring the stack to a ready state by trimming elements at
+	    the back.
+
+	\post Restores the invariant that
+	    `m_stacks[i].back().m_stmts.at(m_stacks[i].back().m_idx)`
+		is ready to expand!
+	*/
+	void trim_expansion(size_t i);
+
+	/**
+	\brief Check if the current search state holds a complete proof
+	    of the target statement
+
+	\param i The index of the target statement (whose stack is
+	    represented by m_stacks[i]).
+
+	\pre Proof i is not already finished (this is the function to use
+	    when you <em>aren't sure</em> whether or not a proof has
+		finished.)
+
+	\post If the proof was finished (and this function returns true)
+	    it updates the variables m_pf_states and m_proofs to contain
+		the correct information.
+
+	\returns True if the proof was complete and finished, false if
+	    there is still work to do.
+	*/
+	bool check_finished(size_t i);
+
+	// only include successors which are not canonically false
+	logic::StatementArrayPtr filter_succs(
+		logic::StatementArrayPtr succs) const;
 
 private:
 	const size_t m_max_depth;  // ultimate depth limit

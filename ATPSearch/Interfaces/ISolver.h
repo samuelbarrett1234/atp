@@ -36,13 +36,19 @@ namespace search
 /**
 \details Proofs can either be finished or unfinished; and if they are
     finished, the result can either be that the theorem was true or
-	false.
+	that we couldn't find a proof (of course, no proof does not imply
+	the theorem is false, unless the proof system is complete).
 */
 enum class ProofState
 {
+	// did not find a proof in the given time
 	UNFINISHED,
+
+	// found a proof
 	DONE_TRUE,
-	DONE_FALSE
+
+	// there does not exist a proof (we did not run out of time)
+	NO_PROOF
 };
 
 

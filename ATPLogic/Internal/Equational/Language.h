@@ -27,7 +27,10 @@ namespace equational
 class ATP_LOGIC_API Language : public ILanguage
 {
 public:
-	bool load_kernel(IKnowledgeKernel& ker,
+	bool load_kernel_definitions(IKnowledgeKernel& ker,
+		std::istream& in) const override;
+
+	bool load_kernel_axioms(IKnowledgeKernel& ker,
 		std::istream& in) const override;
 
 	KnowledgeKernelPtr create_empty_kernel() const override;

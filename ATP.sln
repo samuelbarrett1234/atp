@@ -24,6 +24,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATPLogicTests", "ATPLogicTe
 		{F75FAA5D-B540-453B-9C2E-CD502ECFBC1C} = {F75FAA5D-B540-453B-9C2E-CD502ECFBC1C}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATPSearchTests", "ATPSearchTests\ATPSearchTests.vcxproj", "{19F308F2-EB3B-47B6-80E4-37D4D820F150}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F75FAA5D-B540-453B-9C2E-CD502ECFBC1C} = {F75FAA5D-B540-453B-9C2E-CD502ECFBC1C}
+		{19F1A863-CD69-4BA7-A591-1FE78C107CA6} = {19F1A863-CD69-4BA7-A591-1FE78C107CA6}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -72,6 +78,14 @@ Global
 		{C7343796-47C9-4245-B24C-722BFEFB45AA}.Release|x64.Build.0 = Release|x64
 		{C7343796-47C9-4245-B24C-722BFEFB45AA}.Release|x86.ActiveCfg = Release|Win32
 		{C7343796-47C9-4245-B24C-722BFEFB45AA}.Release|x86.Build.0 = Release|Win32
+		{19F308F2-EB3B-47B6-80E4-37D4D820F150}.Debug|x64.ActiveCfg = Debug|x64
+		{19F308F2-EB3B-47B6-80E4-37D4D820F150}.Debug|x64.Build.0 = Debug|x64
+		{19F308F2-EB3B-47B6-80E4-37D4D820F150}.Debug|x86.ActiveCfg = Debug|Win32
+		{19F308F2-EB3B-47B6-80E4-37D4D820F150}.Debug|x86.Build.0 = Debug|Win32
+		{19F308F2-EB3B-47B6-80E4-37D4D820F150}.Release|x64.ActiveCfg = Release|x64
+		{19F308F2-EB3B-47B6-80E4-37D4D820F150}.Release|x64.Build.0 = Release|x64
+		{19F308F2-EB3B-47B6-80E4-37D4D820F150}.Release|x86.ActiveCfg = Release|Win32
+		{19F308F2-EB3B-47B6-80E4-37D4D820F150}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

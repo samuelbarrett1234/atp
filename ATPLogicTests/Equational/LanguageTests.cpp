@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE(check_definition_loading)
 	KnowledgeKernel empty_ker;
 
 	s << "e 0 \n i 1 \n * 2";
-	BOOST_TEST(lang.load_kernel(empty_ker, s));
+	BOOST_TEST(lang.load_kernel_definitions(empty_ker, s));
 	
 	// check the definitions worked:
 
@@ -98,7 +98,7 @@ BOOST_AUTO_TEST_CASE(check_definition_loading_when_incorrect)
 
 	s << "e \n 1 i";  // bogus definition file
 
-	BOOST_TEST(!lang.load_kernel(empty_ker, s));
+	BOOST_TEST(!lang.load_kernel_definitions(empty_ker, s));
 }
 
 
@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE(check_definition_no_partial_load)
 
 	s << "e 0 \n 1 i";  // first definition correct, second not
 
-	BOOST_TEST(!lang.load_kernel(empty_ker1, s));
+	BOOST_TEST(!lang.load_kernel_definitions(empty_ker1, s));
 
 	BOOST_TEST(!empty_ker1.is_defined("e"));
 	BOOST_TEST(empty_ker1.get_integrity_code() ==

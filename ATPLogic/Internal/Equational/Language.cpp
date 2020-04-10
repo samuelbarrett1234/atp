@@ -24,7 +24,7 @@ namespace equational
 {
 
 
-bool Language::load_kernel(IKnowledgeKernel& _ker,
+bool Language::load_kernel_definitions(IKnowledgeKernel& _ker,
 	std::istream& in) const
 {
 	// check they've given us a valid kernel:
@@ -51,6 +51,29 @@ bool Language::load_kernel(IKnowledgeKernel& _ker,
 		return true;
 	}
 	else return false;
+}
+
+
+bool Language::load_kernel_axioms(IKnowledgeKernel& _ker,
+	std::istream& in) const
+{
+	// check they've given us a valid kernel:
+
+	auto p_ker = dynamic_cast<KnowledgeKernel*>(
+		&_ker
+		);
+
+	ATP_LOGIC_PRECOND(p_ker != nullptr);
+
+	auto p_stmts = deserialise_stmts(in,
+		StmtFormat::TEXT, *p_ker);
+
+	if (!p_stmts)
+		return false;
+
+	p_ker->define_eq_rules(p_stmts);
+
+	return true;
 }
 
 

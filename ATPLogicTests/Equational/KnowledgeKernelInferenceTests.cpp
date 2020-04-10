@@ -201,6 +201,11 @@ boost::unit_test::data::make({
 		// proof that e = i(e)
 		"e = i(e)",
 		"e = *(e, i(e))"
+	},
+	std::list<std::string>{
+		// check for symmetry
+		"*(x, e) = x",
+		"x = *(x, e)"
 	}
 }),
 proof_strs)

@@ -157,7 +157,12 @@ std::vector<bool> KnowledgeKernel::follows(
 
 		return std::any_of(succs.begin(), succs.end(),
 			boost::bind(&semantics::equivalent,
-				boost::ref(p.get<1>()), _1));
+				boost::ref(p.get<1>()), _1)) ||
+			// note: handle this as a special case, and importantly
+			// this special case includes flipping about the equals
+			// sign (i.e. transposition), but is not covered by the
+			// successor-checking above:
+			semantics::equivalent(p.get<0>(), p.get<1>());
 	});
 
 	return follows_result;

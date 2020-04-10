@@ -1,9 +1,11 @@
-/*
+/**
 
-StatementArrayTests.cpp
+\file
 
-This tests the `equational::StatementArray` class, along with its
-iterator `equational::StatementArray::iterator`.
+\author Samuel Barrett
+
+\details This tests the `equational::StatementArray` class, along
+    with its iterator `equational::StatementArray::iterator`.
 
 */
 

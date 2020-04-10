@@ -1,10 +1,12 @@
-/*
+/**
 
-SemanticsTests.cpp
+\file
 
-This suite tests the functions that are found in the Semantics.h/
-Semantics.cpp files. Those files contain an array of helper functions
-and algorithms for dealing with syntax trees.
+\author Samuel Barrett
+
+\details This suite tests the functions that are found in the
+    Semantics.h/Semantics.cpp files. Those files contain an array of
+	helper functions and algorithms for dealing with syntax trees.
 
 */
 

@@ -1,9 +1,10 @@
-/*
+/**
 
-SyntaxTreeFoldTests.cpp
+\file
 
-This file tests the following function:
-- atp::logic::equational::fold_syntax_tree
+\author Samuel Barrett
+
+\brief This file tests atp::logic::equational::fold_syntax_tree 
 
 */
 

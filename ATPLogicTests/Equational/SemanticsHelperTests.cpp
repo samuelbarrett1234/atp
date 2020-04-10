@@ -1,11 +1,14 @@
-/*
+/**
 
-SemanticsHelperTests.cpp
+\file
 
-This suite tests the functions found in SemanticsHelper.h /
-SemanticsHelper.cpp, which are supporting functions for those
-found in Semantics.h / Semantics.cpp. As a result, this suite
-is a dependency for the corresponding SemanticsTests suite.
+\author Samuel Barrett
+
+\details This suite tests the functions found in
+    SemanticsHelper.h/SemanticsHelper.cpp, which are supporting
+	functions for those found in Semantics.h/Semantics.cpp. As a
+	result, this suite is a dependency for the corresponding
+	SemanticsTests suite.
 
 */
 

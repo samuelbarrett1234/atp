@@ -1,11 +1,13 @@
-/*
+/**
 
-StatementTests.cpp
+\file
 
-This file tests the equational::Statement class. Its main job is to
-test the two "fold" functions in the class, because these are used
-as the building blocks of virtually every function in the
-equational::semantics namespace.
+\author
+
+\details This file tests the equational::Statement class. Its main
+    job is to test the two "fold" functions in the class, because
+    these are used as the building blocks of virtually every function
+    in the equational::semantics namespace.
 
 */
 

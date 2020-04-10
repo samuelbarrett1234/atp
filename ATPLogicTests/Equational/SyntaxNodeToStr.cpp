@@ -1,3 +1,11 @@
+/**
+
+\file
+
+\author Samuel Barrett
+
+*/
+
 #include "SyntaxNodeToStr.h"
 #include "../Test.h"
 #include <list>

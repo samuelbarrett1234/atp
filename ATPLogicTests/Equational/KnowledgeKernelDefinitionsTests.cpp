@@ -1,17 +1,18 @@
-/*
+/**
 
-KnowledgeKernelDefinitionsTests.cpp
+\file
 
-This file tests some of the functionality of the Language and
-KnowledgeKernel classes in the equational namespace. It tests
-the functionality for loading definitions etc. It does NOT test
-the functionality for the correctness of the implementation of
-equational logic, as that relies on syntax trees, which in turn
-rely on the functionality tested in this suite.
+\author Samuel Barrett
 
-Basically we are testing the functions in equational::KnowledgeKernel
-which are not present in the interface, IKnowledgeKernel, and which
-doesn't involve the Statement object.
+\details This file tests some of the functionality of the Language
+    and KnowledgeKernel classes in the equational namespace. It tests
+    the functionality for loading definitions etc. It does NOT test
+    the functionality for the correctness of the implementation of
+    equational logic, as that relies on syntax trees, which in turn
+    rely on the functionality tested in this suite.
+    Basically we are testing the functions in equational::KnowledgeKernel
+    which are not present in the interface, IKnowledgeKernel, and which
+    doesn't involve the Statement object.
 
 */
 

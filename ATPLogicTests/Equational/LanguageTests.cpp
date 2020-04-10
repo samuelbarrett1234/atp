@@ -1,8 +1,10 @@
-/*
+/**
 
-LanguageTests.cpp
+\file
 
-This file tests the equational::Language class.
+\author Samuel Barrett
+
+\brief This file tests the equational::Language class.
 
 */
 

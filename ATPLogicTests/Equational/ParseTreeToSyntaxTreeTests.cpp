@@ -1,10 +1,12 @@
-/*
+/**
 
-ParseTreeToSyntaxTreeTests.cpp
+\file
 
-This file tests the conversion of parse trees to syntax trees; in
-particular, it tests the type-checking based on the definitions given
-in the knowledge kernel.
+\author SamuelBarrett
+
+\details This file tests the conversion of parse trees to syntax
+    trees; in particular, it tests the type-checking based on the
+	definitions given in the knowledge kernel.
 
 */
 

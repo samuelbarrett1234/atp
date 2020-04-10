@@ -1,19 +1,19 @@
-/*
+/**
 
-KnowledgeKernelInferenceTests.cpp
+\file
 
-This suite tests the inference capabilities of the knowledge kernel;
-for example, can it accurately generate the successors of a
-particular statement? Can it accurately check the correctness of a
-proof? Etc.
+\author Samuel Barrett
 
-It does not test the definition storage functionality of the
-knowledge kernel; that is done in KnowledgeKernelDefinitionsTests.cpp
-
-More specifically, we are only interested in testing the functions:
-- `succs`
-- `follows`
-- `get_form`
+\details This suite tests the inference capabilities of the
+    knowledge kernel; for example, can it accurately generate the
+	successors of a particular statement? Can it accurately check the
+	correctness of a proof? Etc.
+    It does not test the definition storage functionality of the
+    knowledge kernel; that is done in KnowledgeKernelDefinitionsTests.cpp
+    More specifically, we are only interested in testing the functions:
+     - `succs`
+     - `follows`
+     - `get_form`
 
 */
 

@@ -1,9 +1,10 @@
-/*
+/**
 
-ParseStatementsTests.cpp
+\file
 
-This file will test the function:
-- atp::logic::equational::parse_statements
+\author Samuel Barrett
+
+\brief This suite tests `atp::logic::equational::parse_statements`
 
 */
 

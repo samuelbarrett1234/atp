@@ -1,4 +1,4 @@
-/*
+/**
 
 \file
 
@@ -69,9 +69,8 @@ BOOST_FIXTURE_TEST_SUITE(IterativeDeepeningSolverTests,
 
 
 BOOST_AUTO_TEST_CASE(simple_proof_test,
-	// a relatively big timeout because debug builds might struggle
 	// (timeout given in seconds)
-	* boost::unit_test::timeout(60 * 10)
+	* boost::unit_test::timeout(10)
 	)
 {
 	// provide the system with an array of statements to try to prove
@@ -83,7 +82,7 @@ BOOST_AUTO_TEST_CASE(simple_proof_test,
 	s << "*(x, y) = *(*(x, y), e) \n";  // still easy
 	s << "e = *(i(*(x, y)), *(x, y)) \n";
 	s << "i(e) = e \n";  // still reasonable
-	s << "i(i(x)) = x";  // a bit harder
+	s << "*(x, e) = *(e, x)";  // still reasonable
 
 	auto stmts = p_lang->deserialise_stmts(s,
 		StmtFormat::TEXT, *p_ker);

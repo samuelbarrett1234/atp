@@ -1,9 +1,10 @@
-/*
+/**
 
-ParseDefinitionsTests.cpp
+\file
 
-This file will test the function:
-- atp::logic::equational::parse_definitions
+\author Samuel Barrett
+
+\brief This suite tests `atp::logic::equational::parse_definitions`
 
 */
 

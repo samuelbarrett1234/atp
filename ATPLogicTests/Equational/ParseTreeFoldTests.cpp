@@ -1,9 +1,10 @@
-/*
+/**
 
-ParseTreeFoldTests.cpp
+\file
 
-This file tests the function:
-- atp::logic::equational::fold_parse_tree
+\author Samuel Barrett
+
+\brief This suite tests the function `atp::logic::equational::fold_parse_tree`
 
 */
 

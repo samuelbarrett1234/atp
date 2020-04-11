@@ -356,37 +356,27 @@ Statement map_free_ids(
 	const std::map<size_t, size_t>& free_id_map,
 	Statement stmt)
 {
-	// this is just another fold, where the eq/const/func
-	// constructors are just trivial (they construct said
-	// objects) whereas the free constructor first checks
-	// as to whether the given ID is present in the free_id_map
-	// and if it is, it returns the corresponding mapped ID.
-	// Otherwise it keeps the ID as-is.
+	std::map<size_t, SyntaxNodePtr> new_free_map;
 
-	auto eq_constructor = boost::bind(
-		&EqSyntaxNode::construct,
-		_1, _2);
+	// change it so we map to syntax nodes
+	for (auto pair : free_id_map)
+	{
+		new_free_map[pair.first] =
+			FreeSyntaxNode::construct(pair.second);
+	}
 
-	// (using function composition via nested boost::bind)
-	auto free_constructor = boost::bind(
-		&FreeSyntaxNode::construct,
-		boost::bind<size_t>([&free_id_map](size_t id) -> size_t
+	// make the map total
+	for (auto id : stmt.free_var_ids())
+	{
+		if (new_free_map.find(id) == new_free_map.end())
 		{
-			auto iter = free_id_map.find(id);
-			if (iter != free_id_map.end())
-				return iter->second;
-			else
-				return id;
-		}, _1));
+			new_free_map[id] =
+				FreeSyntaxNode::construct(id);
+		}
+	}
 
-	auto const_constructor = boost::bind(
-		&ConstantSyntaxNode::construct, _1);
-
-	auto func_constructor = boost::bind(
-		&FuncSyntaxNode::construct, _1, _2, _3);
-
-	return Statement(stmt.kernel(), stmt.fold<SyntaxNodePtr>(eq_constructor,
-		free_constructor, const_constructor, func_constructor));
+	// utilise the stmt's helper function for this
+	return stmt.map_free_vars(new_free_map);
 }
 
 

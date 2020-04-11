@@ -315,7 +315,7 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_by_converting_pair_to_str)
 }
 
 
-BOOST_AUTO_TEST_CASE(test_adjoint_rhs)
+BOOST_AUTO_TEST_CASE(test_adjoin_rhs)
 {
 	// stmt1:
 	s << "*(x, y) = e\n";
@@ -401,6 +401,65 @@ BOOST_DATA_TEST_CASE(test_get_statement_sides,
 		== side1);
 	BOOST_TEST(syntax_tree_to_str(ker, sides.second)
 		== side2);
+}
+
+
+BOOST_DATA_TEST_CASE(test_map_free_vars,
+	boost::unit_test::data::make({
+		"*(x0, e) = x0",
+		"*(x0, e) = *(e, x0)",
+		"*(x1, x2) = x0" }) ^
+	boost::unit_test::data::make({
+		// (RHS is ignored here, only LHS is the substitution)
+		"i(x0) = x0",
+		"*(*(x0, x1), x2) = z",
+		"x0 = x0" }) ^
+	boost::unit_test::data::make({
+		"*(i(x0), e) = i(x0)",
+		"*(*(*(x0, x1), x2), e) = *(e, *(*(x0, x1), x2))",
+		"*(x0, x0) = x0" }),
+	original_str, substitution_lhs_str, target_str)
+{
+	s << original_str << "\n" << substitution_lhs_str << "\n"
+		<< target_str;
+
+	// load:
+
+	auto parse_results = parse_statements(s);
+	BOOST_REQUIRE(parse_results.has_value());
+	BOOST_REQUIRE(parse_results->size() == 3);
+	auto iter = parse_results->begin();
+	auto original_stree = ptree_to_stree(*iter, ker);
+	++iter;
+	auto sub_stree = ptree_to_stree(*iter, ker);
+	++iter;
+	auto target_stree = ptree_to_stree(*iter, ker);
+	auto original_stmt = Statement(ker, original_stree);
+	auto sub_stmt = Statement(ker, sub_stree);
+	auto target_stmt = Statement(ker, target_stree);
+
+	// construct free var mapping:
+	std::map<size_t, SyntaxNodePtr> free_var_map;
+	for (auto id : original_stmt.free_var_ids())
+	{
+		// substitute all free variables for the LHS of the
+		// substitution statement (as we said above, we will
+		// ignore the RHS).
+		free_var_map[id] = sub_stmt.get_sides().first;
+	}
+
+	// now test the function
+
+	auto result_stmt = original_stmt.map_free_vars(free_var_map);
+
+	BOOST_TEST(semantics::equivalent(result_stmt, target_stmt));
+
+	// note: we need this check to make sure that, if the
+	// substitution reduced the number of free variables, the set
+	// has updated (because otherwise such an error would not be
+	// caught.)
+	BOOST_TEST(result_stmt.num_free_vars() ==
+		target_stmt.num_free_vars());
 }
 
 

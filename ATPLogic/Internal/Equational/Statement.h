@@ -113,6 +113,18 @@ public:
 	*/
 	std::pair<SyntaxNodePtr, SyntaxNodePtr> get_sides() const;
 
+	/**
+	\brief Substitute the free variables according to the given map
+
+	\param free_map A mapping from free variable IDs to expressions
+	    which will replace them
+
+	\pre All free variables must be assigned a mapping (this mapping
+	    must be total).
+	*/
+	Statement map_free_vars(const std::map<size_t,
+		SyntaxNodePtr> free_map) const;
+
 	inline size_t num_free_vars() const
 	{
 		return m_free_var_ids.size();
@@ -649,6 +661,21 @@ private:
 	*/
 	SyntaxNodePtr to_syntax_tree(size_t idx,
 		SyntaxNodeType type) const;
+
+	/**
+	\brief Fold the given tree, adding any functions to our function
+	    table as we go.
+
+	\details This is useful for adding functions from a tree into
+	    this object's state.
+
+	\pre This tree contains no Eq nodes.
+
+	\returns (ID, Type) pair of the root node, in accordance with the
+	    usage of such a pair in the rest of this class.
+	*/
+	std::pair<size_t,
+		SyntaxNodeType> add_tree_data(SyntaxNodePtr tree);
 
 private:
 	// statements store references to their creator

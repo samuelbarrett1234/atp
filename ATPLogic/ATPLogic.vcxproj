@@ -172,6 +172,7 @@
     <ClInclude Include="Interfaces\IPropositionalKnowledgeKernel.h" />
     <ClInclude Include="Interfaces\IStatement.h" />
     <ClInclude Include="Interfaces\IStatementArray.h" />
+    <ClInclude Include="Internal\Equational\Expression.h" />
     <ClInclude Include="Internal\Equational\Grammar.h" />
     <ClInclude Include="Internal\Equational\KnowledgeKernel.h" />
     <ClInclude Include="Internal\Equational\Language.h" />
@@ -188,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp" />
+    <ClCompile Include="Internal\Equational\Expression.cpp" />
     <ClCompile Include="Internal\Equational\Grammar.cpp" />
     <ClCompile Include="Internal\Equational\KnowledgeKernel.cpp" />
     <ClCompile Include="Internal\Equational\Language.cpp" />

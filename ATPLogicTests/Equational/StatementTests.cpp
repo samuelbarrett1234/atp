@@ -35,6 +35,7 @@ using atp::logic::equational::parse_statements;
 using atp::logic::equational::ptree_to_stree;
 using atp::logic::equational::SyntaxNodeType;
 using atp::logic::equational::EqSyntaxNode;
+using atp::logic::equational::FreeSyntaxNode;
 using atp::logic::equational::FuncSyntaxNode;
 using atp::logic::equational::SyntaxNodePtr;
 namespace semantics = atp::logic::equational::semantics;
@@ -460,6 +461,34 @@ BOOST_DATA_TEST_CASE(test_map_free_vars,
 	// caught.)
 	BOOST_TEST(result_stmt.num_free_vars() ==
 		target_stmt.num_free_vars());
+}
+
+
+BOOST_AUTO_TEST_CASE(
+	test_extra_mapping_doesnt_fool_free_var_tracking)
+{
+	// test that if we apply a map which maps a free variable
+	// "2" say, but 2 didn't exist in the first place, that the
+	// resulting statement doesn't start tracking 2.
+
+	s << "x = x";
+
+	auto parse_tree = parse_statements(s);
+	auto stree = ptree_to_stree(parse_tree->front(), ker);
+	auto stmt = Statement(ker, stree);
+
+	std::map<size_t, SyntaxNodePtr> free_var_map;
+
+	// no matter what ID `stmt` assigned the free variable,
+	// because there is only one of them, then this mapping
+	// will surface the error we are testing for if it exists
+
+	free_var_map[0] = FreeSyntaxNode::construct(1);
+	free_var_map[1] = FreeSyntaxNode::construct(2);
+
+	auto result = stmt.map_free_vars(free_var_map);
+
+	BOOST_TEST(result.num_free_vars() == 1);
 }
 
 

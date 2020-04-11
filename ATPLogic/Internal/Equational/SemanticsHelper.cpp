@@ -47,6 +47,44 @@ SubstitutionInfo::SubstitutionInfo(const KnowledgeKernel& kernel,
 	std::transform(rules.begin(), rules.end(),
 		std::back_inserter(rule_exprs),
 		boost::bind(&Statement::get_sides, _1));
+
+	// note that we are iterating over the RULE's free IDs, and
+	// adding mappings to the OTHER STATEMENT's free IDs (this
+	// is because `node` should be the other side of the rule that
+	// was substituted.)
+	all_var_maps.resize(rules.size());
+	for (size_t rule_idx = 0; rule_idx < rules.size(); ++rule_idx)
+	{
+		auto& all_var_map = all_var_maps[rule_idx];
+		for (const auto id : rule_free_vars[rule_idx])
+		{
+			// if a new free variable is being introduced in this
+			// substitution, which doesn't have any value it is
+			// being substituted for, then we should just substitute
+			// it for ANY free variable which was already existing
+			// in `node`:
+			auto& sublist = all_var_map[id];
+
+			// create free vars
+			std::transform(free_var_ids.begin(),
+				free_var_ids.end(),
+				std::back_inserter(sublist),
+				[](size_t id)
+				{ return FreeSyntaxNode::construct(id); });
+
+			// create constants
+			std::transform(const_symbol_ids.begin(),
+				const_symbol_ids.end(),
+				std::back_inserter(sublist),
+				[](size_t id)
+				{ return ConstantSyntaxNode::construct(id); });
+
+			// this is to ensure that we can actually return
+			// something (we must be able to replace this un-subbed
+			// free variable with something, after all).
+			ATP_LOGIC_ASSERT(!sublist.empty());
+		}
+	}
 }
 
 
@@ -96,49 +134,13 @@ std::vector<SyntaxNodePtr> substitute_tree(
 	const std::map<size_t, SyntaxNodePtr>& free_var_map,
 	size_t rule_idx)
 {
-	// rebuild the free variable mapping but include what to do for
-	// all the non-mapped free variables
-	std::map<size_t, std::vector<SyntaxNodePtr>> all_var_map;
+	// note that `all_var_map` will be initialised so as to cover
+	// all free variables which are not assigned a value through
+	// `free_var_map`, but of course the latter takes priority.
+	std::map<size_t, std::vector<SyntaxNodePtr>> all_var_map
+		= sub_info.all_var_maps[rule_idx];
 	for (const auto& sub : free_var_map)
 		all_var_map[sub.first] = { sub.second };
-
-	// note that we are iterating over the RULE's free IDs, and
-	// adding mappings to the OTHER STATEMENT's free IDs (this
-	// is because `node` should be the other side of the rule that
-	// was substituted.)
-	for (const auto id : sub_info.rule_free_vars[rule_idx])
-	{
-		auto map_iter = all_var_map.find(id);
-		if (map_iter == all_var_map.end())
-		{
-			// if a new free variable is being introduced in this
-			// substitution, which doesn't have any value it is
-			// being substituted for, then we should just substitute
-			// it for ANY free variable which was already existing
-			// in `node`:
-			auto& sublist = all_var_map[id];
-
-			// create free vars
-			std::transform(sub_info.free_var_ids.begin(),
-				sub_info.free_var_ids.end(),
-				std::back_inserter(sublist),
-				[](size_t id)
-				{ return FreeSyntaxNode::construct(id); });
-
-			// create constants
-			std::transform(sub_info.const_symbol_ids.begin(),
-				sub_info.const_symbol_ids.end(),
-				std::back_inserter(sublist),
-				[](size_t id)
-				{ return ConstantSyntaxNode::construct(id); });
-
-			// this is to ensure that we can actually return
-			// something (we must be able to replace this un-subbed
-			// free variable with something, after all).
-			ATP_LOGIC_ASSERT(!sublist.empty());
-		}
-		// else this free variable has already been covered
-	}
 
 	typedef std::vector<SyntaxNodePtr> ResultT;
 

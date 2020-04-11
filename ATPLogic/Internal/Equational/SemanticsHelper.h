@@ -71,6 +71,15 @@ struct ATP_LOGIC_API SubstitutionInfo
 
 	// The symbol ID of every user-defined constant
 	std::vector<size_t> const_symbol_ids;
+
+	// for each rule, create a mapping from every free variable in
+	// that rule to every free variable in `free_var_ids` union with
+	// all possible constants
+	// (this work is done once in the constructor of this object
+	// instead of being recomputed every time for each call to
+	// `substitute_tree`).
+	std::vector<std::map<size_t, std::vector<SyntaxNodePtr>>>
+		all_var_maps;
 };
 
 

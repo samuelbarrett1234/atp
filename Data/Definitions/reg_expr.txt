@@ -1,3 +1,0 @@
-lang=equational
-definitions=reg_expr_definitions.txt
-axioms=reg_expr_rules.txt

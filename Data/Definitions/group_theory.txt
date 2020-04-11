@@ -1,3 +1,0 @@
-lang=equational
-definitions=group_theory_definitions.txt
-axioms=group_theory_rules.txt

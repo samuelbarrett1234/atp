@@ -1,0 +1,15 @@
+{
+	name : "Group Theory",
+	definitions : [
+		{ name : "e", arity : 0 },
+		{ name : "i", arity : 1 },
+		{ name : "*", arity : 2 }
+	],
+	axioms : [
+		"*(*(x, y), z) = *(x, *(y, z))",
+		"*(x, e) = x",
+		"*(e, x) = x",
+		"*(x, i(x)) = e",
+		"*(i(x), x) = e"
+	]
+}

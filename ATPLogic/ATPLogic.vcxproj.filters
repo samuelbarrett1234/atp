@@ -114,6 +114,12 @@
     <ClInclude Include="Internal\Equational\Expression.h">
       <Filter>Header Files\Internal\Equational\Syntax</Filter>
     </ClInclude>
+    <ClInclude Include="Interfaces\IModelContext.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\Equational\ModelContext.h">
+      <Filter>Header Files\Internal\Equational\Implementations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp">
@@ -148,6 +154,9 @@
     </ClCompile>
     <ClCompile Include="Internal\Equational\Expression.cpp">
       <Filter>Source Files\Internal\Equational\Syntax</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\Equational\ModelContext.cpp">
+      <Filter>Source Files\Internal\Equational\Implementations</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

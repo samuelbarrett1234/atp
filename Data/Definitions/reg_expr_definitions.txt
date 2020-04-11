@@ -1,5 +1,0 @@
-+ 2  # string union
-emptyset 0  # empty language
-emptystring 0
-. 2  # string concatenation
-* 1  # Kleene star

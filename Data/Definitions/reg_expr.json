@@ -1,0 +1,25 @@
+{
+	name : "Kozen's Regular Expressions",
+	definitions : [
+		{ name : "emptystring", arity : 0 },
+		{ name : "emptyset", arity : 0 },
+		{ name : "+", arity : 2 }
+		{ name : ".", arity : 2 }
+		{ name : "*", arity : 1 }
+	],
+	axioms : [
+		"+(E, +(F, G)) = +(+(E, F), G)",
+		"+(E, F) = +(F, E)",
+		"+(E, emptyset) = E",
+		"+(E, E) = E",
+		".(.(E, F), G) = .(E, .(F, G))",
+		".(emptystring, E) = E",
+		".(E, emptystring) = E",
+		".(E, +(F, G)) = +(.(E, F), .(E, G))",
+		".(+(F, G), E) = +(.(F, E), .(G, E))",
+		".(E, emptyset) = emptyset",
+		".(emptyset, E) = emptyset",
+		"+(emptystring, .(E, *(E))) = *(E)",
+		"+(emptystring, .(*(E), E)) = *(E)",
+	]
+}

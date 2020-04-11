@@ -40,49 +40,57 @@ ModelContextPtr ModelContext::try_construct(const Language& parent,
     auto p_ctx = std::make_shared<ModelContext>();
     pt::ptree ptree;
 
-    pt::read_json(in, ptree);  // todo: what about exceptions?
-
-    p_ctx->m_name = ptree.get<std::string>("name", "");
-
-    // load definitions
-    if (auto defs = ptree.get_child_optional("definitions"))
+    try
     {
-        for (auto def : defs.get())
+        pt::read_json(in, ptree);  // todo: what about exceptions?
+
+        p_ctx->m_name = ptree.get<std::string>("name", "");
+
+        // load definitions
+        if (auto defs = ptree.get_child_optional("definitions"))
         {
-            std::string def_name =
-                def.second.get<std::string>("name");
-            boost::algorithm::trim<std::string>(def_name);
+            for (auto def : defs.get())
+            {
+                std::string def_name =
+                    def.second.get<std::string>("name");
+                boost::algorithm::trim<std::string>(def_name);
 
-            if (p_ctx->is_defined(def_name))
-                return ModelContextPtr();  // redefinition
+                if (p_ctx->is_defined(def_name))
+                    return ModelContextPtr();  // redefinition
 
-            const size_t def_arity = def.second.get<size_t>("name");
+                const size_t def_arity =
+                    def.second.get<size_t>("name");
 
-            const size_t id = hash_name(def_name);
+                const size_t id = hash_name(def_name);
 
-            p_ctx->m_name_to_id.left.insert(
-                std::make_pair(def_name, id));
+                p_ctx->m_name_to_id.left.insert(
+                    std::make_pair(def_name, id));
 
-            p_ctx->m_id_to_arity[id] = def_arity;
+                p_ctx->m_id_to_arity[id] = def_arity;
 
-            if (def_arity == 0)
-                p_ctx->m_const_ids.push_back(id);
-            else
-                p_ctx->m_func_ids.push_back(id);
+                if (def_arity == 0)
+                    p_ctx->m_const_ids.push_back(id);
+                else
+                    p_ctx->m_func_ids.push_back(id);
+            }
         }
-    }
 
-    // load axioms
-    if (auto axs = ptree.get_child_optional("axioms"))
+        // load axioms
+        if (auto axs = ptree.get_child_optional("axioms"))
+        {
+            for (auto ax : axs.get())
+            {
+                p_ctx->m_axioms.push_back(
+                    ax.second.get_value<std::string>());
+            }
+        }
+
+        return p_ctx;
+    }
+    catch (pt::ptree_error& err)
     {
-        for (auto ax : axs.get())
-        {
-            p_ctx->m_axioms.push_back(
-                ax.second.get_value<std::string>());
-        }
+        return ModelContextPtr();
     }
-
-    return p_ctx;
 }
 
 

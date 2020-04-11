@@ -27,13 +27,11 @@ namespace equational
 class ATP_LOGIC_API Language : public ILanguage
 {
 public:
-	bool load_kernel_definitions(IKnowledgeKernel& ker,
+	ModelContextPtr try_create_context(
 		std::istream& in) const override;
 
-	bool load_kernel_axioms(IKnowledgeKernel& ker,
-		std::istream& in) const override;
-
-	KnowledgeKernelPtr create_empty_kernel() const override;
+	KnowledgeKernelPtr try_create_kernel(
+		const IModelContext& ctx) const override;
 
 	StatementArrayPtr deserialise_stmts(std::istream& in,
 		StmtFormat input_format,

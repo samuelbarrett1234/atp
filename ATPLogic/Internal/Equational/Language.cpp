@@ -11,6 +11,7 @@
 #include "SyntaxNodes.h"
 #include "KnowledgeKernel.h"
 #include "StatementArray.h"
+#include "ModelContext.h"
 #include <boost/phoenix.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/bind.hpp>
@@ -24,62 +25,24 @@ namespace equational
 {
 
 
-bool Language::load_kernel_definitions(IKnowledgeKernel& _ker,
+ModelContextPtr Language::try_create_context(
 	std::istream& in) const
 {
-	// check they've given us a valid kernel:
-
-	auto p_ker = dynamic_cast<KnowledgeKernel*>(
-		&_ker
-		);
-
-	ATP_LOGIC_PRECOND(p_ker != nullptr);
-
-	// parse the definitions, returning (maybe) a list of
-	// (symbol name, symbol arity) pairs:
-	auto result = parse_definitions(in);
-
-	// if parse was successful...
-	if (result.has_value())
-	{
-		// define each value in the kernel:
-		for (auto pair : result.get())
-		{
-			p_ker->define_symbol(pair.first, pair.second);
-		}
-
-		return true;
-	}
-	else return false;
+	return ModelContext::try_construct(*this, in);
 }
 
 
-bool Language::load_kernel_axioms(IKnowledgeKernel& _ker,
-	std::istream& in) const
+KnowledgeKernelPtr Language::try_create_kernel(
+	const IModelContext& _ctx) const
 {
-	// check they've given us a valid kernel:
+	const ModelContext* p_ctx = dynamic_cast<
+		const ModelContext*>(&_ctx);
 
-	auto p_ker = dynamic_cast<KnowledgeKernel*>(
-		&_ker
-		);
+	// check type
+	if (p_ctx == nullptr)
+		return KnowledgeKernelPtr();
 
-	ATP_LOGIC_PRECOND(p_ker != nullptr);
-
-	auto p_stmts = deserialise_stmts(in,
-		StmtFormat::TEXT, *p_ker);
-
-	if (!p_stmts)
-		return false;
-
-	p_ker->define_eq_rules(p_stmts);
-
-	return true;
-}
-
-
-KnowledgeKernelPtr Language::create_empty_kernel() const
-{
-	return std::make_shared<KnowledgeKernel>();
+	return KnowledgeKernel::try_construct(*this, *p_ctx);
 }
 
 

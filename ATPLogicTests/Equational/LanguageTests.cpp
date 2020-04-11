@@ -34,15 +34,32 @@ namespace semantics = atp::logic::equational::semantics;
 struct LanguageTestsFixture
 {
 	std::stringstream s;
-	KnowledgeKernel ker;
 	Language lang;
+
+	std::stringstream ctx_file;
 
 	LanguageTestsFixture()
 	{
-		ker.define_symbol("e", 0);
-		ker.define_symbol("i", 1);
-		ker.define_symbol("*", 2);
 		s << std::noskipws;
+
+		// build the context file for group theory
+		ctx_file << "{" << std::endl;
+		ctx_file << "	name : \"Group Theory\"," << std::endl;
+		ctx_file << "definitions : [" << std::endl;
+		ctx_file << "{ name: \"e\", arity : 0 }," << std::endl;
+		ctx_file << "{ name: \"i\", arity : 1 }," << std::endl;
+		ctx_file << "{ name: \"*\", arity : 2 }";
+		ctx_file << "] ," << std::endl;
+		ctx_file << "axioms : [" << std::endl;
+		ctx_file << "\"*(*(x, y), z) = *(x, *(y, z))\","
+			<< std::endl;
+		ctx_file << "\"*(x, e) = x\"," << std::endl;
+		ctx_file << "\"*(e, x) = x\"," << std::endl;
+		ctx_file << "\"*(x, i(x)) = e\"," << std::endl;
+		ctx_file << "\"*(i(x), x) = e\"" << std::endl;
+		ctx_file << "]" << std::endl;
+		ctx_file << "}";
+	
 	}
 };
 
@@ -64,59 +81,21 @@ BOOST_FIXTURE_TEST_SUITE(LanguageTests,
 		"EquationalTests/SemanticsTests"));
 
 
-BOOST_AUTO_TEST_CASE(check_integrity_of_empty_kernel)
+BOOST_AUTO_TEST_CASE(check_no_ker_when_context_invalid)
 {
-	KnowledgeKernel definitely_empty;
-	auto p_ker = lang.create_empty_kernel();
+	// an invalid axiom is not picked up by context file
+	// loading, but should be picked up when we try to
+	// create a knowledge kernel from that context file
 
-	BOOST_TEST(definitely_empty.get_integrity_code() ==
-		p_ker->get_integrity_code());
-}
+	s << "{ axioms : [ \"x = \" ] }";
 
+	auto p_ctx = lang.try_create_context(s);
 
-BOOST_AUTO_TEST_CASE(check_definition_loading)
-{
-	KnowledgeKernel empty_ker;
+	BOOST_REQUIRE(p_ctx != nullptr);
 
-	s << "e 0 \n i 1 \n * 2";
-	BOOST_TEST(lang.load_kernel_definitions(empty_ker, s));
-	
-	// check the definitions worked:
+	auto p_ker = lang.try_create_kernel(*p_ctx);
 
-	BOOST_TEST(empty_ker.is_defined("e"));
-	BOOST_TEST(empty_ker.is_defined("i"));
-	BOOST_TEST(empty_ker.is_defined("*"));
-
-	// note that the `ker` from the fixture already comes
-	// with the group theory definitions
-	BOOST_TEST(empty_ker.get_integrity_code() ==
-		ker.get_integrity_code());
-}
-
-
-BOOST_AUTO_TEST_CASE(check_definition_loading_when_incorrect)
-{
-	KnowledgeKernel empty_ker;
-
-	s << "e \n 1 i";  // bogus definition file
-
-	BOOST_TEST(!lang.load_kernel_definitions(empty_ker, s));
-}
-
-
-BOOST_AUTO_TEST_CASE(check_definition_no_partial_load)
-{
-	// check that, if any definition fails, the kernel remains
-	// empty
-	KnowledgeKernel empty_ker1, empty_ker2;
-
-	s << "e 0 \n 1 i";  // first definition correct, second not
-
-	BOOST_TEST(!lang.load_kernel_definitions(empty_ker1, s));
-
-	BOOST_TEST(!empty_ker1.is_defined("e"));
-	BOOST_TEST(empty_ker1.get_integrity_code() ==
-		empty_ker2.get_integrity_code());
+	BOOST_TEST(p_ker == nullptr);
 }
 
 
@@ -129,6 +108,13 @@ BOOST_DATA_TEST_CASE(test_text_deserialisation_in_correct_cases,
 		"*(x, y) = i(y) # a comment \n i(x) = i(i(x))"}),
 	stmts)
 {
+	auto p_ctx = lang.try_create_context(ctx_file);
+	BOOST_REQUIRE(p_ctx != nullptr);
+	auto p_ker = lang.try_create_kernel(*p_ctx);
+	BOOST_REQUIRE(p_ker != nullptr);
+	const KnowledgeKernel& ker = dynamic_cast<
+		const KnowledgeKernel&>(*p_ker);
+
 	s << stmts;
 
 	auto _lang_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
@@ -179,6 +165,13 @@ BOOST_DATA_TEST_CASE(test_text_deserialisation_in_incorrect_cases,
 		"*(x, y) = y  # valid \n i(*) = y"}),
 	stmt)
 {
+	auto p_ctx = lang.try_create_context(ctx_file);
+	BOOST_REQUIRE(p_ctx != nullptr);
+	auto p_ker = lang.try_create_kernel(*p_ctx);
+	BOOST_REQUIRE(p_ker != nullptr);
+	const KnowledgeKernel& ker = dynamic_cast<
+		const KnowledgeKernel&>(*p_ker);
+
 	s << stmt;
 	auto lang_results = lang.deserialise_stmts(s,
 		StmtFormat::TEXT, ker);
@@ -199,6 +192,13 @@ BOOST_DATA_TEST_CASE(test_serialisation_in_one_free_variable,
 		"*(x0, i(x0)) = e", "e = e", "*(e, e) = e" }),
 	stmt)
 {
+	auto p_ctx = lang.try_create_context(ctx_file);
+	BOOST_REQUIRE(p_ctx != nullptr);
+	auto p_ker = lang.try_create_kernel(*p_ctx);
+	BOOST_REQUIRE(p_ker != nullptr);
+	const KnowledgeKernel& ker = dynamic_cast<
+		const KnowledgeKernel&>(*p_ker);
+
 	s << stmt;
 	auto stmt_arr = lang.deserialise_stmts(s, StmtFormat::TEXT, ker);
 

@@ -7,7 +7,8 @@
 
 \author Samuel Barrett
 
-\brief Contains the ILanguage interface
+\brief Contains the ILanguage interface which acts as a factory class
+    for each type of logic in the library.
 
 */
 
@@ -18,6 +19,7 @@
 #include "../ATPLogicAPI.h"
 #include "IStatement.h"
 #include "IKnowledgeKernel.h"
+#include "IModelContext.h"
 
 
 namespace atp
@@ -40,12 +42,12 @@ enum class StmtFormat
 
 \interface ILanguage
 
-\brief Manages knowledge kernels within a logical language framework
+\brief Manages model contexts and knowledge kernels within a logical 
+    language framework
 
 \details This file represents the syntax of the logic and axiom set being
     used in a particular context. In particular, it constructs, builds
-    and loads knowledge kernels. It is also responsible for serialising
-    statement arrays.
+    and several classes.
 */
 class ATP_LOGIC_API ILanguage
 {
@@ -53,44 +55,29 @@ public:
 	virtual ~ILanguage() = default;
 
 	/**
-	\brief Load the definitions into the knowledge kernel.
+	\brief Try to create a model context from the given input
 
-	\details Here, "definitions" means "user-defined constants" etc,
-	    \b not axioms.
+	\param in An input stream to the model context file in JSON
 
-	\note Changes the position of the input stream
+	\returns Nullptr on failure, otherwise returns a model context
+	    object.
 
-	\note If operation failed, the kernel is left unchanged, but the
-	    stream may have been moved.
-
-	\pre `ker` was created within this language.
-
-	\param in This input should follow the definition file format of
-	    the particular language being used.
+	\warning Model context objects don't check for syntax errors,
+	    this will occur when a knowledge kernel is constructed.
 	*/
-	virtual bool load_kernel_definitions(IKnowledgeKernel& ker,
+	virtual ModelContextPtr try_create_context(
 		std::istream& in) const = 0;
 
 	/**
-	\brief Load the axioms into the knowledge kernel.
+	\brief Create a knowledge kernel corresponding to a given model
+	    context.
 
-	\details Axioms meaning a relatively small collection of
-	    statements which are assumed to be true.
-
-	\note Changes the position of the input stream
-
-	\note If operation failed, the kernel is left unchanged, but the
-		stream may have been moved.
-
-	\pre `ker` was created within this language.
-
-	\param in This input should follow the statement format of
-		the particular language being used.
+	\returns Nullptr if the axioms or definitions in the model
+	    context contain errors, otherwise returns a KK initialised
+		only with the axioms.
 	*/
-	virtual bool load_kernel_axioms(IKnowledgeKernel& ker,
-		std::istream& in) const = 0;
-
-	virtual KnowledgeKernelPtr create_empty_kernel() const = 0;
+	virtual KnowledgeKernelPtr try_create_kernel(
+		const IModelContext& ctx) const = 0;
 
 	/**
 

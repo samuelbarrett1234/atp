@@ -1,5 +1,6 @@
 <map id="atp::logic::equational::parse_statements" name="atp::logic::equational::parse_statements">
-<area shape="rect" id="node1" title="Read a stream of line separated statements, and return the list of their parse trees,..." alt="" coords="457,13,600,54"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="213,13,409,54"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_language.html#a878c3308b460de418c927fa02a4cfd01" title="Load the axioms into the knowledge kernel." alt="" coords="5,5,165,61"/>
+<area shape="rect" id="node1" title="Read a stream of line separated statements, and return the list of their parse trees,..." alt="" coords="651,13,793,54"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="407,13,603,54"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="205,5,359,61"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,5,157,61"/>
 </map>

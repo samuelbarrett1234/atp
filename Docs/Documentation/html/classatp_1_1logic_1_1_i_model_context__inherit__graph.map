@@ -1,0 +1,4 @@
+<map id="atp::logic::IModelContext" name="atp::logic::IModelContext">
+<area shape="rect" id="node1" title="A model context is a collection of definitions and axioms." alt="" coords="5,5,172,32"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_model_context.html" title="Basic implementation of the model context, for equational logic." alt="" coords="17,80,160,121"/>
+</map>

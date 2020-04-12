@@ -1,7 +1,5 @@
 <map id="atp::logic::equational::semantics::equivalent" name="atp::logic::equational::semantics::equivalent">
 <area shape="rect" id="node1" title="Returns true iff the syntax trees are equal up to swapping of free variable names and reflection abou..." alt="" coords="5,39,160,80"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title="Perform a fold over pairs of syntax trees, where the fold constructor is dependent on the node types ..." alt="" coords="212,5,359,47"/>
-<area shape="rect" id="node3" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title="Reflect the statement about the equals sign (so f(x)=g(x) becomes g(x)=f(x))" alt="" coords="208,71,363,112"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5" title=" " alt="" coords="411,37,553,79"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a5b39be718d2816106293f4aa47f16824" title=" " alt="" coords="411,103,553,144"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title="Perform a fold over pairs of statements, where the fold constructor is dependent on the node types of..." alt="" coords="212,5,359,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a13acf7a88b7439770519e30fcd782732" title="Transpose the statement (flip it around the equals sign)" alt="" coords="208,71,363,112"/>
 </map>

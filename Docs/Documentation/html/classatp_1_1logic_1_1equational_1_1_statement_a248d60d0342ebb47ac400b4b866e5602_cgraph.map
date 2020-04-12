@@ -1,4 +1,8 @@
 <map id="atp::logic::equational::Statement::adjoin_rhs" name="atp::logic::equational::Statement::adjoin_rhs">
-<area shape="rect" id="node1" title="create a new statement obtained by replacing the RHS of this statement with the RHS of the other stat..." alt="" coords="5,5,163,47"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a818d63d44af5db1a1201f5a6a80707dc" title=" " alt="" coords="211,5,369,47"/>
+<area shape="rect" id="node1" title="create a new statement obtained by replacing the RHS of this statement with the RHS of the other stat..." alt="" coords="5,71,163,112"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#add5b2537f752a8c346f1cda80de8be4d" title="Optimised allocation function." alt="" coords="211,5,389,47"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_statement.html#aff32b8cdf54df56212487c5827fb0c77" title="Get the LHS and RHS of this statement." alt="" coords="223,71,377,112"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement.html#acc046492ba2eeefec98417d715dfaceb" title=" " alt="" coords="221,136,379,177"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a9f56f4a204522eacc8516f48dad35a2f" title=" " alt="" coords="437,5,649,47"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a24f905fe30dd3921b6622ef4f036fee1" title=" " alt="" coords="465,136,622,177"/>
 </map>

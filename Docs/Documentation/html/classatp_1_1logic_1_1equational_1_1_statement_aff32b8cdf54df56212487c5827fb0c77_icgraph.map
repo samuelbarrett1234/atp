@@ -1,0 +1,5 @@
+<map id="atp::logic::equational::Statement::get_sides" name="atp::logic::equational::Statement::get_sides">
+<area shape="rect" id="node1" title="Get the LHS and RHS of this statement." alt="" coords="240,43,395,84"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a248d60d0342ebb47ac400b4b866e5602" title="create a new statement obtained by replacing the RHS of this statement with the RHS of the other stat..." alt="" coords="20,5,177,47"/>
+<area shape="rect" id="node3" href="$structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html#a1968e6a58c37555e9ae30dd4f1e5e986" title=" " alt="" coords="5,71,192,127"/>
+</map>

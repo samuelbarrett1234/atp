@@ -87,34 +87,35 @@ $(function() {
 <code>#include &quot;<a class="el" href="_a_t_p_logic_a_p_i_8h.html">../../ATPLogicAPI.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_syntax_nodes_8h.html">SyntaxNodes.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_statement_8h.html">Statement.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_statement_array_8h.html">StatementArray.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for SemanticsHelper.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_semantics_helper_8h__incl.png" border="0" usemap="#_a_t_p_logic_2_internal_2_equational_2_semantics_helper_8h" alt=""/></div>
 <map name="_a_t_p_logic_2_internal_2_equational_2_semantics_helper_8h" id="_a_t_p_logic_2_internal_2_equational_2_semantics_helper_8h">
-<area shape="rect" title="Helper functions for the implementations of the Semantics functions." alt="" coords="799,5,988,47"/>
-<area shape="rect" title=" " alt="" coords="245,177,285,203"/>
-<area shape="rect" title=" " alt="" coords="1198,95,1245,121"/>
-<area shape="rect" title=" " alt="" coords="275,497,314,524"/>
-<area shape="rect" title=" " alt="" coords="741,423,797,449"/>
-<area shape="rect" title=" " alt="" coords="1269,95,1323,121"/>
-<area shape="rect" title=" " alt="" coords="1347,95,1475,121"/>
-<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="1055,497,1190,524"/>
-<area shape="rect" href="_syntax_nodes_8h.html" title=" " alt="" coords="297,348,407,375"/>
-<area shape="rect" href="_statement_8h.html" title="Contains the implementation of the IStatement interface for equational logic." alt="" coords="847,95,940,121"/>
-<area shape="rect" title=" " alt="" coords="1090,572,1155,599"/>
-<area shape="rect" title=" " alt="" coords="488,497,557,524"/>
-<area shape="rect" href="_parse_nodes_8h.html" title=" " alt="" coords="471,423,575,449"/>
-<area shape="rect" title=" " alt="" coords="977,497,1031,524"/>
-<area shape="rect" title=" " alt="" coords="781,266,856,293"/>
-<area shape="rect" title=" " alt="" coords="931,169,1050,211"/>
-<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="974,423,1154,449"/>
-<area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="931,259,1103,300"/>
-<area shape="rect" href="_syntax_tree_fold_8h.html" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="551,177,675,203"/>
-<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="926,348,1053,375"/>
-<area shape="rect" title=" " alt="" coords="523,266,600,293"/>
-<area shape="rect" title=" " alt="" coords="624,266,707,293"/>
-<area shape="rect" href="_syntax_tree_traversal_8h.html" title=" " alt="" coords="347,266,498,293"/>
+<area shape="rect" title="Helper functions for the implementations of the Semantics functions." alt="" coords="768,5,957,47"/>
+<area shape="rect" title=" " alt="" coords="144,326,184,353"/>
+<area shape="rect" title=" " alt="" coords="209,326,255,353"/>
+<area shape="rect" title=" " alt="" coords="1763,95,1802,121"/>
+<area shape="rect" title=" " alt="" coords="169,483,225,509"/>
+<area shape="rect" title=" " alt="" coords="1827,95,1880,121"/>
+<area shape="rect" title=" " alt="" coords="1112,326,1240,353"/>
+<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="1383,483,1518,509"/>
+<area shape="rect" href="_syntax_nodes_8h.html" title=" " alt="" coords="331,326,442,353"/>
+<area shape="rect" href="_statement_8h.html" title="Contains the implementation of the IStatement interface for equational logic." alt="" coords="651,169,744,196"/>
+<area shape="rect" href="_statement_array_8h.html" title="Contains the class implementing the IStatementArray for equational logic." alt="" coords="1266,95,1390,121"/>
+<area shape="rect" title=" " alt="" coords="1418,557,1483,584"/>
+<area shape="rect" title=" " alt="" coords="765,483,835,509"/>
+<area shape="rect" href="_parse_nodes_8h.html" title=" " alt="" coords="412,408,516,435"/>
+<area shape="rect" title=" " alt="" coords="481,483,535,509"/>
+<area shape="rect" title=" " alt="" coords="499,244,573,271"/>
+<area shape="rect" title=" " alt="" coords="467,326,517,353"/>
+<area shape="rect" title=" " alt="" coords="643,319,762,360"/>
+<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="1067,408,1247,435"/>
+<area shape="rect" href="_i_model_context_8h.html" title="Contains the IModelContext interface for managing definitions and axioms." alt="" coords="837,326,1037,353"/>
+<area shape="rect" href="_expression_8h.html" title="Contains the Expression class, which is used in the Statement class. Encapsulates part of a syntax tr..." alt="" coords="648,244,747,271"/>
+<area shape="rect" title=" " alt="" coords="1366,169,1429,196"/>
+<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="1366,319,1535,360"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -151,20 +152,17 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a61a0139e27f7fc1b2949255647fc2882"><td class="memItemLeft" align="right" valign="top">std::list&lt; SyntaxNodePtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a61a0139e27f7fc1b2949255647fc2882">atp::logic::equational::semantics::immediate_applications</a> (SyntaxNodePtr node, const SubstitutionInfo &amp;sub_info)</td></tr>
-<tr class="memdesc:a61a0139e27f7fc1b2949255647fc2882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to apply each rule at the subtree rooted at the given node without trying tp apply it deeper in the tree (hence "immediate")  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a61a0139e27f7fc1b2949255647fc2882">More...</a><br /></td></tr>
-<tr class="separator:a61a0139e27f7fc1b2949255647fc2882"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dfad4fb61d23f262bfb9f487d548694"><td class="memItemLeft" align="right" valign="top">std::list&lt; SyntaxNodePtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5dfad4fb61d23f262bfb9f487d548694">atp::logic::equational::semantics::substitute_tree</a> (SyntaxNodePtr node, const SubstitutionInfo &amp;sub_info, const std::map&lt; size_t, SyntaxNodePtr &gt; &amp;free_var_map, size_t rule_idx)</td></tr>
-<tr class="memdesc:a5dfad4fb61d23f262bfb9f487d548694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Once we have chosen a rule and found a free variable mapping which matches them, this performs the substitution.  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5dfad4fb61d23f262bfb9f487d548694">More...</a><br /></td></tr>
-<tr class="separator:a5dfad4fb61d23f262bfb9f487d548694"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44f47bfb83827a94fcc0d7288ee21a05"><td class="memItemLeft" align="right" valign="top">std::vector&lt; SyntaxNodePtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a44f47bfb83827a94fcc0d7288ee21a05">atp::logic::equational::semantics::immediate_applications</a> (SyntaxNodePtr node, const SubstitutionInfo &amp;sub_info)</td></tr>
+<tr class="memdesc:a44f47bfb83827a94fcc0d7288ee21a05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to apply each rule at the subtree rooted at the given node without trying tp apply it deeper in the tree (hence "immediate")  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a44f47bfb83827a94fcc0d7288ee21a05">More...</a><br /></td></tr>
+<tr class="separator:a44f47bfb83827a94fcc0d7288ee21a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d9ab56d49a203fe98423742f00830b2"><td class="memItemLeft" align="right" valign="top">std::vector&lt; SyntaxNodePtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a9d9ab56d49a203fe98423742f00830b2">atp::logic::equational::semantics::substitute_tree</a> (SyntaxNodePtr node, const SubstitutionInfo &amp;sub_info, const std::map&lt; size_t, SyntaxNodePtr &gt; &amp;free_var_map, size_t rule_idx)</td></tr>
+<tr class="memdesc:a9d9ab56d49a203fe98423742f00830b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Once we have chosen a rule and found a free variable mapping which matches them, this performs the substitution.  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a9d9ab56d49a203fe98423742f00830b2">More...</a><br /></td></tr>
+<tr class="separator:a9d9ab56d49a203fe98423742f00830b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ee534f535e78d33ff14b3b175757626"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; std::map&lt; size_t, SyntaxNodePtr &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5ee534f535e78d33ff14b3b175757626">atp::logic::equational::semantics::try_build_map</a> (SyntaxNodePtr expr_premise, SyntaxNodePtr expr_concl)</td></tr>
 <tr class="memdesc:a5ee534f535e78d33ff14b3b175757626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to build a substitution of free variables in the premise expression, to make it identical to the conclusion expression.  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5ee534f535e78d33ff14b3b175757626">More...</a><br /></td></tr>
 <tr class="separator:a5ee534f535e78d33ff14b3b175757626"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a539527954e81b682d6e2f1dc67c4a395"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a539527954e81b682d6e2f1dc67c4a395">atp::logic::equational::semantics::syntax_tree_identical</a> (SyntaxNodePtr a, SyntaxNodePtr b)</td></tr>
 <tr class="separator:a539527954e81b682d6e2f1dc67c4a395"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40425067eae7d797dad76414395d111f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; SyntaxNodePtr, SyntaxNodePtr &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a40425067eae7d797dad76414395d111f">atp::logic::equational::semantics::get_statement_sides</a> (const std::vector&lt; Statement &gt; &amp;stmts)</td></tr>
-<tr class="memdesc:a40425067eae7d797dad76414395d111f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a list containing the LHS and RHS of each statement given as input (breaks each statement in half along the equals sign).  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a40425067eae7d797dad76414395d111f">More...</a><br /></td></tr>
-<tr class="separator:a40425067eae7d797dad76414395d111f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a653fe721ab470173678797fadf4adcaa"><td class="memItemLeft" align="right" valign="top">std::set&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a653fe721ab470173678797fadf4adcaa">atp::logic::equational::semantics::get_free_var_ids</a> (SyntaxNodePtr node)</td></tr>
 <tr class="memdesc:a653fe721ab470173678797fadf4adcaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the free variable IDs present in the subtree rooted at this node.  <a href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a653fe721ab470173678797fadf4adcaa">More...</a><br /></td></tr>
 <tr class="separator:a653fe721ab470173678797fadf4adcaa"><td class="memSeparator" colspan="2">&#160;</td></tr>

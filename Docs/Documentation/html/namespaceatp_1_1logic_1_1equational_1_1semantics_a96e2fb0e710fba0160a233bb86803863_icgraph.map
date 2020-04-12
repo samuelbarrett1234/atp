@@ -1,4 +1,5 @@
 <map id="atp::logic::equational::semantics::equivalent" name="atp::logic::equational::semantics::equivalent">
-<area shape="rect" id="node1" title="Returns true iff the syntax trees are equal up to swapping of free variable names and reflection abou..." alt="" coords="244,5,399,47"/>
-<area shape="rect" id="node2" href="$_semantics_tests_8cpp.html#af5299414cd1e034d625bd038fd49dacc" title=" " alt="" coords="5,13,196,39"/>
+<area shape="rect" id="node1" title="Returns true iff the syntax trees are equal up to swapping of free variable names and reflection abou..." alt="" coords="448,13,603,54"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="252,5,400,61"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,13,204,54"/>
 </map>

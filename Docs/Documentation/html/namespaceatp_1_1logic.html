@@ -91,10 +91,19 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a collection of definitions and axioms, associated with a particular <a class="el" href="classatp_1_1logic_1_1_i_language.html" title="Manages knowledge kernels within a logical language framework.">ILanguage</a>, and performs logical deduction.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a collection of definitions and axioms, associated with a particular <a class="el" href="classatp_1_1logic_1_1_i_language.html" title="Manages model contexts and knowledge kernels within a logical language framework.">ILanguage</a>, and performs logical deduction.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html">ILanguage</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages knowledge kernels within a logical language framework.  <a href="classatp_1_1logic_1_1_i_language.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages model contexts and knowledge kernels within a logical language framework.  <a href="classatp_1_1logic_1_1_i_language.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_model_context.html">IModelContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A model context is a collection of definitions and axioms.  <a href="classatp_1_1logic_1_1_i_model_context.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_pf_state_succ_iter.html">IPfStateSuccIter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is an interface for enumerating through successors of a proof state.  <a href="classatp_1_1logic_1_1_i_pf_state_succ_iter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_proof_state.html">IProofState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A proof state encapsulates the idea of a proof (which may be a WIP) and contains many different statements.  <a href="classatp_1_1logic_1_1_i_proof_state.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html">IPropositionalKnowledgeKernel</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -110,6 +119,12 @@ Typedefs</h2></td></tr>
 <tr class="separator:a6c3c5ea3013b900b3b7fa9c4de64c357"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbff593c2b97048ded71e59eca8abe75"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="classatp_1_1logic_1_1_i_language.html">ILanguage</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#adbff593c2b97048ded71e59eca8abe75">LanguagePtr</a></td></tr>
 <tr class="separator:adbff593c2b97048ded71e59eca8abe75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adccb0bf82b978a71476e3d2e85e7df6a"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="classatp_1_1logic_1_1_i_model_context.html">IModelContext</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#adccb0bf82b978a71476e3d2e85e7df6a">ModelContextPtr</a></td></tr>
+<tr class="separator:adccb0bf82b978a71476e3d2e85e7df6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3bddbd56434846a909b7320eb7afa63"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="classatp_1_1logic_1_1_i_pf_state_succ_iter.html">IPfStateSuccIter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#af3bddbd56434846a909b7320eb7afa63">PfStateSuccIterPtr</a></td></tr>
+<tr class="separator:af3bddbd56434846a909b7320eb7afa63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94eecbfcb4742ecac021b2a8d2019458"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="classatp_1_1logic_1_1_i_proof_state.html">IProofState</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">ProofStatePtr</a></td></tr>
+<tr class="separator:a94eecbfcb4742ecac021b2a8d2019458"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ed2bd85bb2dfbdf9288beaa94025928"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">IStatementArray</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a></td></tr>
 <tr class="separator:a3ed2bd85bb2dfbdf9288beaa94025928"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -122,11 +137,11 @@ Enumerations</h2></td></tr>
 <a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7a61a96ffcb251bb9bf0abf8fec19d0ea8">StmtFormat::TEXT</a>
  }</td></tr>
 <tr class="separator:a205e6fc78dac09fab6c7207aa37cdee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae25b57b661a1aae85af78eacee99ffc0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0">StmtForm</a> { <a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0ac30950f4c14dd62305a9c73ae1cc4a10">StmtForm::NOT_CANONICAL</a>, 
-<a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0a779db0730846ea4c57bd178deb4709f0">StmtForm::CANONICAL_TRUE</a>, 
-<a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0a0aefba79ec377036888851b91fbf742a">StmtForm::CANONICAL_FALSE</a>
+<tr class="memitem:aba304dd7ca39fd2317110f7095e2f61c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic.html#aba304dd7ca39fd2317110f7095e2f61c">ProofCompletionState</a> { <a class="el" href="namespaceatp_1_1logic.html#aba304dd7ca39fd2317110f7095e2f61caa885063b3c7ad554a74717597f4c1271">ProofCompletionState::PROVEN</a>, 
+<a class="el" href="namespaceatp_1_1logic.html#aba304dd7ca39fd2317110f7095e2f61ca09913a60b8195c3622265fc75766f6ff">ProofCompletionState::NO_PROOF</a>, 
+<a class="el" href="namespaceatp_1_1logic.html#aba304dd7ca39fd2317110f7095e2f61ca6f8eb84e55e2f1c21cb428ae5b644a6e">ProofCompletionState::UNFINISHED</a>
  }</td></tr>
-<tr class="separator:ae25b57b661a1aae85af78eacee99ffc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:aba304dd7ca39fd2317110f7095e2f61c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -179,6 +194,48 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="adccb0bf82b978a71476e3d2e85e7df6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adccb0bf82b978a71476e3d2e85e7df6a">&#9670;&nbsp;</a></span>ModelContextPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="classatp_1_1logic_1_1_i_model_context.html">IModelContext</a>&gt; <a class="el" href="namespaceatp_1_1logic.html#adccb0bf82b978a71476e3d2e85e7df6a">atp::logic::ModelContextPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af3bddbd56434846a909b7320eb7afa63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3bddbd56434846a909b7320eb7afa63">&#9670;&nbsp;</a></span>PfStateSuccIterPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="classatp_1_1logic_1_1_i_pf_state_succ_iter.html">IPfStateSuccIter</a>&gt; <a class="el" href="namespaceatp_1_1logic.html#af3bddbd56434846a909b7320eb7afa63">atp::logic::PfStateSuccIterPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a94eecbfcb4742ecac021b2a8d2019458"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94eecbfcb4742ecac021b2a8d2019458">&#9670;&nbsp;</a></span>ProofStatePtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="classatp_1_1logic_1_1_i_proof_state.html">IProofState</a>&gt; <a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">atp::logic::ProofStatePtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3ed2bd85bb2dfbdf9288beaa94025928"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3ed2bd85bb2dfbdf9288beaa94025928">&#9670;&nbsp;</a></span>StatementArrayPtr</h2>
 
@@ -221,8 +278,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ae25b57b661a1aae85af78eacee99ffc0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae25b57b661a1aae85af78eacee99ffc0">&#9670;&nbsp;</a></span>StmtForm</h2>
+<a id="aba304dd7ca39fd2317110f7095e2f61c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba304dd7ca39fd2317110f7095e2f61c">&#9670;&nbsp;</a></span>ProofCompletionState</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,7 +288,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0">atp::logic::StmtForm</a></td>
+          <td class="memname">enum <a class="el" href="namespaceatp_1_1logic.html#aba304dd7ca39fd2317110f7095e2f61c">atp::logic::ProofCompletionState</a></td>
         </tr>
       </table>
   </td>
@@ -240,11 +297,10 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Every statement is either canonical or not. It is trivially true or false if and only if it is canonical. Non-canonical statements require evaluation to decide if they are true or false - and this is exactly the job of a theorem prover! (Reducing non-canonical statements to canonically true or false.) Canonical statements include axioms and substitutions of the statement "x=x". </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae25b57b661a1aae85af78eacee99ffc0ac30950f4c14dd62305a9c73ae1cc4a10"></a>NOT_CANONICAL&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae25b57b661a1aae85af78eacee99ffc0a779db0730846ea4c57bd178deb4709f0"></a>CANONICAL_TRUE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae25b57b661a1aae85af78eacee99ffc0a0aefba79ec377036888851b91fbf742a"></a>CANONICAL_FALSE&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aba304dd7ca39fd2317110f7095e2f61caa885063b3c7ad554a74717597f4c1271"></a>PROVEN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aba304dd7ca39fd2317110f7095e2f61ca09913a60b8195c3622265fc75766f6ff"></a>NO_PROOF&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aba304dd7ca39fd2317110f7095e2f61ca6f8eb84e55e2f1c21cb428ae5b644a6e"></a>UNFINISHED&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

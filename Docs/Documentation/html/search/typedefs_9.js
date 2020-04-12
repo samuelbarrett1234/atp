@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['value_5ftype_522',['value_type',['../classatp_1_1logic_1_1equational_1_1_statement_array_1_1iterator.html#aaf9e10ae852612652fb37c4e45dd140f',1,'atp::logic::equational::StatementArray::iterator']]]
+  ['parsenodeptr_582',['ParseNodePtr',['../namespaceatp_1_1logic_1_1equational.html#aa4c176681e5964c28c42d71bfdb754ae',1,'atp::logic::equational']]],
+  ['pfstatesucciterptr_583',['PfStateSuccIterPtr',['../namespaceatp_1_1logic.html#af3bddbd56434846a909b7320eb7afa63',1,'atp::logic']]],
+  ['proofstateptr_584',['ProofStatePtr',['../namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458',1,'atp::logic']]]
 ];

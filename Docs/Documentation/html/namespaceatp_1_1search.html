@@ -106,20 +106,12 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a772d34d3808e2ae0ae90ff694d3dd868"><td class="mdescLeft">&#160;</td><td class="mdescRight">The class of different solvers available.  <a href="namespaceatp_1_1search.html#a772d34d3808e2ae0ae90ff694d3dd868">More...</a><br /></td></tr>
 <tr class="separator:a772d34d3808e2ae0ae90ff694d3dd868"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36be60a7ec75a7743bfcc38cd0c3aac5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5">ProofState</a> { <a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a6f8eb84e55e2f1c21cb428ae5b644a6e">ProofState::UNFINISHED</a>, 
-<a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a73778060f46ee0e2e5604affc11bdf41">ProofState::DONE_TRUE</a>, 
-<a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a09913a60b8195c3622265fc75766f6ff">ProofState::NO_PROOF</a>
- }</td></tr>
-<tr class="separator:a36be60a7ec75a7743bfcc38cd0c3aac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af7053dacc77fd0f95c563de4beb13e90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> <a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">SolverPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#af7053dacc77fd0f95c563de4beb13e90">create_solver</a> (<a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a> p_ker, <a class="el" href="namespaceatp_1_1search.html#a772d34d3808e2ae0ae90ff694d3dd868">SolverType</a> st, <a class="el" href="namespaceatp_1_1search.html#a7926bd62ba8aa9635c64e4ce8247406e">HeuristicCollection</a> ms)</td></tr>
 <tr class="memdesc:af7053dacc77fd0f95c563de4beb13e90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate a new solver object of a given specified type.  <a href="namespaceatp_1_1search.html#af7053dacc77fd0f95c563de4beb13e90">More...</a><br /></td></tr>
 <tr class="separator:af7053dacc77fd0f95c563de4beb13e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81a1148bbe8feeb07174aaa62d83da34"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34">simple_check_proof</a> (<a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">logic::IKnowledgeKernel</a> &amp;ker, <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">logic::StatementArrayPtr</a> proof)</td></tr>
-<tr class="memdesc:a81a1148bbe8feeb07174aaa62d83da34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the given proof from front to back (the front element is expected to be trivially true).  <a href="namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34">More...</a><br /></td></tr>
-<tr class="separator:a81a1148bbe8feeb07174aaa62d83da34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The namespace of the ATPSearch library. </p>
@@ -167,34 +159,6 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="a36be60a7ec75a7743bfcc38cd0c3aac5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36be60a7ec75a7743bfcc38cd0c3aac5">&#9670;&nbsp;</a></span>ProofState</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5">atp::search::ProofState</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Proofs can either be finished or unfinished; and if they are finished, the result can either be that the theorem was true or that we couldn't find a proof (of course, no proof does not imply the theorem is false, unless the proof system is complete). </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a36be60a7ec75a7743bfcc38cd0c3aac5a6f8eb84e55e2f1c21cb428ae5b644a6e"></a>UNFINISHED&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a36be60a7ec75a7743bfcc38cd0c3aac5a73778060f46ee0e2e5604affc11bdf41"></a>DONE_TRUE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a36be60a7ec75a7743bfcc38cd0c3aac5a09913a60b8195c3622265fc75766f6ff"></a>NO_PROOF&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
 <a id="a772d34d3808e2ae0ae90ff694d3dd868"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a772d34d3808e2ae0ae90ff694d3dd868">&#9670;&nbsp;</a></span>SolverType</h2>
 
@@ -272,49 +236,6 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="class_proof_application.html#a639f78f2c935cb9208dfd675207a7388" title="Run all proofs that have been set." alt="" coords="296,13,439,39"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a81a1148bbe8feeb07174aaa62d83da34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81a1148bbe8feeb07174aaa62d83da34">&#9670;&nbsp;</a></span>simple_check_proof()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> bool atp::search::simple_check_proof </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">logic::IKnowledgeKernel</a> &amp;&#160;</td>
-          <td class="paramname"><em>ker</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">logic::StatementArrayPtr</a>&#160;</td>
-          <td class="paramname"><em>proof</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks the given proof from front to back (the front element is expected to be trivially true). </p>
-<dl class="section pre"><dt>Precondition</dt><dd>ker.valid(proof)</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>True iff the proof is correct (if each step follows from the last.)</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>This function is called "simple" for two reasons: firstly, if the kernel doesn't have <b>all</b> proven theorems available to it it may return an incorrect result, because the kernel's <code>follows</code> function depends on having those theorems loaded (if the kernel doesn't know about a theorem, how could it know that line followed from the last?) Finally, it may be quite a slow function as it tries to check the whole proof at once and doesn't allow checking it in parts. </dd></dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a81a1148bbe8feeb07174aaa62d83da34_cgraph.png" border="0" usemap="#namespaceatp_1_1search_a81a1148bbe8feeb07174aaa62d83da34_cgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a81a1148bbe8feeb07174aaa62d83da34_cgraph" id="namespaceatp_1_1search_a81a1148bbe8feeb07174aaa62d83da34_cgraph">
-<area shape="rect" title="Checks the given proof from front to back (the front element is expected to be trivially true)." alt="" coords="5,39,139,80"/>
-<area shape="rect" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a73ef978d8dcea85093149574ca51bbd5" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="187,5,373,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a25a73e5f0aa4756889e7397f513c76c1" title="Determine what form each statement is in (trivial or nontrivial, etc.)" alt="" coords="187,71,373,112"/>
 </map>
 </div>
 

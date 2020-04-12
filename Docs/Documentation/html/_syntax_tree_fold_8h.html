@@ -82,6 +82,7 @@ $(function() {
 <code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;type_traits&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;boost/iterator/zip_iterator.hpp&gt;</code><br />
 <code>#include &quot;<a class="el" href="_syntax_nodes_8h.html">SyntaxNodes.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_syntax_tree_traversal_8h.html">SyntaxTreeTraversal.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -89,19 +90,20 @@ Include dependency graph for SyntaxTreeFold.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_syntax_tree_fold_8h__incl.png" border="0" usemap="#_a_t_p_logic_2_internal_2_equational_2_syntax_tree_fold_8h" alt=""/></div>
 <map name="_a_t_p_logic_2_internal_2_equational_2_syntax_tree_fold_8h" id="_a_t_p_logic_2_internal_2_equational_2_syntax_tree_fold_8h">
-<area shape="rect" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="207,5,396,47"/>
-<area shape="rect" title=" " alt="" coords="14,319,53,345"/>
-<area shape="rect" title=" " alt="" coords="273,95,329,121"/>
-<area shape="rect" title=" " alt="" coords="353,95,431,121"/>
-<area shape="rect" title=" " alt="" coords="455,95,537,121"/>
-<area shape="rect" title=" " alt="" coords="561,95,636,121"/>
-<area shape="rect" href="_syntax_nodes_8h.html" title=" " alt="" coords="106,169,217,196"/>
-<area shape="rect" href="_syntax_tree_traversal_8h.html" title=" " alt="" coords="47,95,198,121"/>
-<area shape="rect" title=" " alt="" coords="77,319,147,345"/>
-<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="250,319,385,345"/>
-<area shape="rect" href="_parse_nodes_8h.html" title=" " alt="" coords="148,244,252,271"/>
-<area shape="rect" title=" " alt="" coords="285,393,350,420"/>
-<area shape="rect" title=" " alt="" coords="171,319,226,345"/>
+<area shape="rect" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="221,5,410,47"/>
+<area shape="rect" title=" " alt="" coords="5,102,44,129"/>
+<area shape="rect" title=" " alt="" coords="70,333,126,360"/>
+<area shape="rect" title=" " alt="" coords="346,102,423,129"/>
+<area shape="rect" title=" " alt="" coords="447,102,530,129"/>
+<area shape="rect" title=" " alt="" coords="554,102,629,129"/>
+<area shape="rect" title=" " alt="" coords="653,95,772,136"/>
+<area shape="rect" href="_syntax_nodes_8h.html" title=" " alt="" coords="159,184,269,211"/>
+<area shape="rect" href="_syntax_tree_traversal_8h.html" title=" " alt="" coords="171,102,321,129"/>
+<area shape="rect" title=" " alt="" coords="150,333,219,360"/>
+<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="323,333,457,360"/>
+<area shape="rect" href="_parse_nodes_8h.html" title=" " alt="" coords="221,259,325,285"/>
+<area shape="rect" title=" " alt="" coords="357,408,423,435"/>
+<area shape="rect" title=" " alt="" coords="244,333,299,360"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -109,20 +111,11 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_syntax_tree_fold_8h__dep__incl.png" border="0" usemap="#_a_t_p_logic_2_internal_2_equational_2_syntax_tree_fold_8hdep" alt=""/></div>
 <map name="_a_t_p_logic_2_internal_2_equational_2_syntax_tree_fold_8hdep" id="_a_t_p_logic_2_internal_2_equational_2_syntax_tree_fold_8hdep">
-<area shape="rect" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="1023,5,1212,47"/>
-<area shape="rect" href="_statement_8h.html" title="Contains the implementation of the IStatement interface for equational logic." alt="" coords="888,95,1077,136"/>
-<area shape="rect" href="_semantics_helper_8cpp.html" title=" " alt="" coords="933,363,1123,404"/>
-<area shape="rect" href="_statement_8cpp.html" title=" " alt="" coords="1147,363,1336,404"/>
-<area shape="rect" href="_semantics_8cpp.html" title=" " alt="" coords="5,363,195,404"/>
-<area shape="rect" href="_statement_array_8h.html" title="Contains the class implementing the IStatementArray for equational logic." alt="" coords="443,184,632,225"/>
-<area shape="rect" href="_knowledge_kernel_8h.html" title="Implementation of the IKnowledgeKernel for equational logic." alt="" coords="761,273,951,315"/>
-<area shape="rect" href="_semantics_8h.html" title="Several useful functions on Statements, including logical inference and logical equivalence." alt="" coords="47,273,236,315"/>
-<area shape="rect" href="_semantics_helper_8h.html" title="Helper functions for the implementations of the Semantics functions." alt="" coords="975,273,1164,315"/>
-<area shape="rect" href="_a_t_p_logic_8cpp.html" title=" " alt="" coords="575,281,737,307"/>
-<area shape="rect" href="_knowledge_kernel_8cpp.html" title=" " alt="" coords="219,363,408,404"/>
-<area shape="rect" href="_language_8cpp.html" title=" " alt="" coords="475,363,664,404"/>
-<area shape="rect" href="_statement_array_8cpp.html" title=" " alt="" coords="311,273,500,315"/>
-<area shape="rect" href="_syntax_nodes_8cpp.html" title=" " alt="" coords="720,363,909,404"/>
+<area shape="rect" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="325,5,515,47"/>
+<area shape="rect" href="_expression_8cpp.html" title=" " alt="" coords="5,95,195,136"/>
+<area shape="rect" href="_semantics_8cpp.html" title=" " alt="" coords="219,95,408,136"/>
+<area shape="rect" href="_semantics_helper_8cpp.html" title=" " alt="" coords="432,95,621,136"/>
+<area shape="rect" href="_statement_8cpp.html" title=" " alt="" coords="645,95,835,136"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -143,6 +136,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a56781fb4943ed73eaf36ccac9d19d54f"><td class="memTemplItemLeft" align="right" valign="top">ResultT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a56781fb4943ed73eaf36ccac9d19d54f">atp::logic::equational::fold_syntax_tree</a> (EqFuncT eq_func, FreeFuncT free_func, ConstFuncT const_func, FFuncT f_func, SyntaxNodePtr p_root)</td></tr>
 <tr class="memdesc:a56781fb4943ed73eaf36ccac9d19d54f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a fold operation over a given syntax tree.  <a href="namespaceatp_1_1logic_1_1equational.html#a56781fb4943ed73eaf36ccac9d19d54f">More...</a><br /></td></tr>
 <tr class="separator:a56781fb4943ed73eaf36ccac9d19d54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28b43007ab2f1f5d4849d5b958f376fb"><td class="memTemplParams" colspan="2">template&lt;typename ResultT , typename EqPairFuncT , typename FreePairFuncT , typename ConstPairFuncT , typename FuncPairFuncT , typename DefaultPairFuncT &gt; </td></tr>
+<tr class="memitem:a28b43007ab2f1f5d4849d5b958f376fb"><td class="memTemplItemLeft" align="right" valign="top">ResultT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a28b43007ab2f1f5d4849d5b958f376fb">atp::logic::equational::fold_pair_syntax_tree</a> (EqPairFuncT eq_func, FreePairFuncT free_func, ConstPairFuncT const_func, FuncPairFuncT f_func, DefaultPairFuncT default_func, SyntaxNodePtr a, SyntaxNodePtr b)</td></tr>
+<tr class="memdesc:a28b43007ab2f1f5d4849d5b958f376fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a fold over pairs of syntax trees, where the fold constructor is dependent on the node types of the pair. There are functions for pairs of matching types, and then a default function for when the pairs do not match.  <a href="namespaceatp_1_1logic_1_1equational.html#a28b43007ab2f1f5d4849d5b958f376fb">More...</a><br /></td></tr>
+<tr class="separator:a28b43007ab2f1f5d4849d5b958f376fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides a templated implementation of a fold over syntax trees. </p>

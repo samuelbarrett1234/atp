@@ -1,0 +1,16 @@
+<map id="atp::logic::equational::ptree_to_stree" name="atp::logic::equational::ptree_to_stree">
+<area shape="rect" id="node1" title="Convert a parse tree into a syntax tree." alt="" coords="5,217,148,259"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#add5b2537f752a8c346f1cda80de8be4d" title="Optimised allocation function." alt="" coords="203,5,381,47"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#a6c72e391752c93140d133f17974580cd" title=" " alt="" coords="197,71,387,112"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#aac3333f20bb2a2d8022507d83ad317e6" title="Optimised allocation function." alt="" coords="211,137,373,193"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#ae1e0ab5fc9c74625f9dd82c6c6dce220" title="Optimised allocation function." alt="" coords="196,217,388,259"/>
+<area shape="rect" id="node12" href="$classatp_1_1logic_1_1equational_1_1_model_context.html#a4a13ee6033570021f12adc6dfb82485a" title=" " alt="" coords="204,283,380,324"/>
+<area shape="rect" id="node13" href="$classatp_1_1logic_1_1equational_1_1_model_context.html#a82a047814726e2f1927f0db2209c10fc" title=" " alt="" coords="196,348,388,389"/>
+<area shape="rect" id="node14" href="$classatp_1_1logic_1_1equational_1_1_model_context.html#a675ab83d420a26747e22621cef7b542b" title=" " alt="" coords="203,413,381,455"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a9f56f4a204522eacc8516f48dad35a2f" title=" " alt="" coords="449,5,661,47"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#ac7b032d740a79be5c3b1f4d5eff1ae8b" title=" " alt="" coords="439,71,671,112"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#a1982739f90314f327800f8ab6fa378f9" title=" " alt="" coords="475,137,636,193"/>
+<area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#af8bbe7076bf6e40c8a21bb7325f935be" title=" " alt="" coords="471,217,640,259"/>
+<area shape="rect" id="node10" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#adcfeb259ac22acee62636d3542f462a9" title=" " alt="" coords="476,283,635,324"/>
+<area shape="rect" id="node11" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#afb0281e82dc7cd195276c1ae457d4a6d" title=" " alt="" coords="436,348,675,389"/>
+</map>

@@ -77,7 +77,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Contains the ILanguage interface.  
+<p>Contains the ILanguage interface which acts as a factory class for each type of logic in the library.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;istream&gt;</code><br />
 <code>#include &lt;ostream&gt;</code><br />
@@ -85,22 +85,25 @@ $(function() {
 <code>#include &quot;<a class="el" href="_a_t_p_logic_a_p_i_8h.html">../ATPLogicAPI.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_i_statement_8h.html">IStatement.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_i_knowledge_kernel_8h.html">IKnowledgeKernel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_i_model_context_8h.html">IModelContext.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for ILanguage.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_i_language_8h__incl.png" border="0" usemap="#_a_t_p_logic_2_interfaces_2_i_language_8h" alt=""/></div>
 <map name="_a_t_p_logic_2_interfaces_2_i_language_8h" id="_a_t_p_logic_2_interfaces_2_i_language_8h">
-<area shape="rect" title="Contains the ILanguage interface." alt="" coords="158,5,297,47"/>
+<area shape="rect" title="Contains the ILanguage interface which acts as a factory class for each type of logic in the library." alt="" coords="183,5,322,47"/>
 <area shape="rect" title=" " alt="" coords="5,95,71,121"/>
 <area shape="rect" title=" " alt="" coords="95,95,165,121"/>
-<area shape="rect" title=" " alt="" coords="338,244,407,271"/>
-<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="337,319,459,345"/>
-<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="562,244,658,271"/>
-<area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="314,95,450,121"/>
-<area shape="rect" title=" " alt="" coords="365,393,431,420"/>
-<area shape="rect" title=" " alt="" coords="583,319,637,345"/>
-<area shape="rect" title=" " alt="" coords="431,244,487,271"/>
-<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="443,169,569,196"/>
+<area shape="rect" title=" " alt="" coords="442,244,511,271"/>
+<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="465,319,587,345"/>
+<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="606,244,702,271"/>
+<area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a structure for performing logical deductio..." alt="" coords="409,95,545,121"/>
+<area shape="rect" href="_i_model_context_8h.html" title="Contains the IModelContext interface for managing definitions and axioms." alt="" coords="819,169,935,196"/>
+<area shape="rect" title=" " alt="" coords="493,393,559,420"/>
+<area shape="rect" title=" " alt="" coords="669,319,724,345"/>
+<area shape="rect" title=" " alt="" coords="726,244,782,271"/>
+<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="515,169,641,196"/>
+<area shape="rect" href="_i_proof_state_8h.html" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="341,169,439,196"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -108,29 +111,39 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_i_language_8h__dep__incl.png" border="0" usemap="#_a_t_p_logic_2_interfaces_2_i_language_8hdep" alt=""/></div>
 <map name="_a_t_p_logic_2_interfaces_2_i_language_8hdep" id="_a_t_p_logic_2_interfaces_2_i_language_8hdep">
-<area shape="rect" title="Contains the ILanguage interface." alt="" coords="681,5,819,47"/>
-<area shape="rect" href="_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="474,102,623,129"/>
-<area shape="rect" href="_language_8h.html" title="Implementation of the ILanguage interface for equational logic." alt="" coords="858,95,1047,136"/>
-<area shape="rect" href="_main_8cpp.html" title=" " alt="" coords="5,281,103,307"/>
-<area shape="rect" href="_proof_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="70,191,219,218"/>
-<area shape="rect" href="_parse_context_file_8h.html" title=" " alt="" coords="243,191,398,218"/>
-<area shape="rect" href="_a_t_p_logic_8cpp.html" title=" " alt="" coords="871,191,1034,218"/>
-<area shape="rect" href="_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="455,281,624,307"/>
-<area shape="rect" href="_i_solver_8h.html" title="Interface for proof solving strategies." alt="" coords="648,184,796,225"/>
-<area shape="rect" href="_iterative_deepening_solver_8h.html" title="Contains a basic uninformed search strategy, IDS." alt="" coords="655,273,832,315"/>
-<area shape="rect" href="_i_statement_heuristic_8h.html" title="Interfaces for search heuristic functions." alt="" coords="473,184,624,225"/>
-<area shape="rect" href="_proof_application_8cpp.html" title=" " alt="" coords="125,370,287,397"/>
-<area shape="rect" href="_parse_context_file_8cpp.html" title="Contains context file parser and grammar." alt="" coords="244,281,413,307"/>
-<area shape="rect" href="_a_t_p_search_8cpp.html" title=" " alt="" coords="448,370,631,397"/>
-<area shape="rect" href="_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="655,363,845,404"/>
-<area shape="rect" href="_language_8cpp.html" title=" " alt="" coords="1058,184,1247,225"/>
+<area shape="rect" title="Contains the ILanguage interface which acts as a factory class for each type of logic in the library." alt="" coords="825,5,963,47"/>
+<area shape="rect" href="_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="426,102,575,129"/>
+<area shape="rect" href="_language_8h.html" title="Implementation of the ILanguage interface for equational logic." alt="" coords="1193,95,1382,136"/>
+<area shape="rect" href="_main_8cpp.html" title=" " alt="" coords="459,281,556,307"/>
+<area shape="rect" href="_proof_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="538,191,687,218"/>
+<area shape="rect" href="_parse_context_file_8h.html" title=" " alt="" coords="711,191,866,218"/>
+<area shape="rect" href="_a_t_p_logic_8cpp.html" title=" " alt="" coords="1034,191,1197,218"/>
+<area shape="rect" href="_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="227,281,396,307"/>
+<area shape="rect" href="_i_solver_8h.html" title="Interface for proof solving strategies." alt="" coords="88,184,236,225"/>
+<area shape="rect" href="_iterative_deepening_solver_8h.html" title="Contains a basic uninformed search strategy, IDS." alt="" coords="19,273,196,315"/>
+<area shape="rect" href="_i_statement_heuristic_8h.html" title="Interfaces for search heuristic functions." alt="" coords="312,184,463,225"/>
+<area shape="rect" href="_proof_application_8cpp.html" title=" " alt="" coords="525,370,687,397"/>
+<area shape="rect" href="_parse_context_file_8cpp.html" title="Contains context file parser and grammar." alt="" coords="695,281,864,307"/>
+<area shape="rect" href="_a_t_p_search_8cpp.html" title=" " alt="" coords="220,370,403,397"/>
+<area shape="rect" href="_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="5,363,196,404"/>
+<area shape="rect" href="_model_context_8h.html" title="Contains the equational logic ModelContext which implements the IModelContext interface." alt="" coords="1366,184,1555,225"/>
+<area shape="rect" href="_language_8cpp.html" title=" " alt="" coords="2138,363,2327,404"/>
+<area shape="rect" href="_expression_8cpp.html" title=" " alt="" coords="1102,273,1291,315"/>
+<area shape="rect" href="_knowledge_kernel_8h.html" title="Implementation of the IKnowledgeKernel for equational logic." alt="" coords="1366,273,1555,315"/>
+<area shape="rect" href="_proof_state_8h.html" title=" " alt="" coords="1234,363,1423,404"/>
+<area shape="rect" href="_model_context_8cpp.html" title=" " alt="" coords="1579,273,1769,315"/>
+<area shape="rect" href="_semantics_helper_8cpp.html" title=" " alt="" coords="1793,273,1982,315"/>
+<area shape="rect" href="_statement_8cpp.html" title=" " alt="" coords="2006,273,2195,315"/>
+<area shape="rect" href="_syntax_nodes_8cpp.html" title=" " alt="" coords="889,273,1078,315"/>
+<area shape="rect" href="_knowledge_kernel_8cpp.html" title=" " alt="" coords="1366,452,1555,493"/>
+<area shape="rect" href="_proof_state_8cpp.html" title=" " alt="" coords="1153,452,1342,493"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html">atp::logic::ILanguage</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages knowledge kernels within a logical language framework.  <a href="classatp_1_1logic_1_1_i_language.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages model contexts and knowledge kernels within a logical language framework.  <a href="classatp_1_1logic_1_1_i_language.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -154,7 +167,7 @@ Enumerations</h2></td></tr>
 <tr class="separator:a205e6fc78dac09fab6c7207aa37cdee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Contains the ILanguage interface. </p>
+<div class="textblock"><p>Contains the ILanguage interface which acts as a factory class for each type of logic in the library. </p>
 <dl class="section author"><dt>Author</dt><dd>Samuel Barrett </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->

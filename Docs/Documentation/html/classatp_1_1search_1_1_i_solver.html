@@ -99,10 +99,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1e3b79699336cdff9457bb95d8b3e617"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9105e16d58feeb08c77d7be4156c533d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_solver.html#a9105e16d58feeb08c77d7be4156c533d">clear</a> ()=0</td></tr>
 <tr class="separator:a9105e16d58feeb08c77d7be4156c533d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af36d825f96aa9469e4c6b7a063ab2015"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5">ProofState</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_solver.html#af36d825f96aa9469e4c6b7a063ab2015">get_states</a> () const =0</td></tr>
-<tr class="separator:af36d825f96aa9469e4c6b7a063ab2015"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affd01c8d9c1e4de87dae1034fc61efe6"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; boost::optional&lt; <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">logic::StatementArrayPtr</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_solver.html#affd01c8d9c1e4de87dae1034fc61efe6">get_proofs</a> () const =0</td></tr>
-<tr class="separator:affd01c8d9c1e4de87dae1034fc61efe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83144a6e8b1e7222c922413e98119880"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#aba304dd7ca39fd2317110f7095e2f61c">logic::ProofCompletionState</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_solver.html#a83144a6e8b1e7222c922413e98119880">get_states</a> () const =0</td></tr>
+<tr class="separator:a83144a6e8b1e7222c922413e98119880"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82be0bac621e13662df370208fc85119"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">logic::ProofStatePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_solver.html#a82be0bac621e13662df370208fc85119">get_proofs</a> () const =0</td></tr>
+<tr class="separator:a82be0bac621e13662df370208fc85119"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8783f184c5d37c97b1f13ff0e512f66c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_solver.html#a8783f184c5d37c97b1f13ff0e512f66c">any_proof_not_done</a> () const =0</td></tr>
 <tr class="separator:a8783f184c5d37c97b1f13ff0e512f66c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae828d9ca6d29cab6dac24ceb2484b5c3"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged</a> () const =0</td></tr>
@@ -167,7 +167,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged()</a></dd></dl>
-<dl class="section return"><dt>Returns</dt><dd><code>!any(<a class="el" href="classatp_1_1search_1_1_i_solver.html#af36d825f96aa9469e4c6b7a063ab2015">get_states()</a> == UNFINISHED)</code> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>!any(<a class="el" href="classatp_1_1search_1_1_i_solver.html#a83144a6e8b1e7222c922413e98119880">get_states()</a> == UNFINISHED)</code> </dd></dl>
 
 <p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a6b834361f285583a72d8e95a2f81ffca">atp::search::IterativeDeepeningSolver</a>.</p>
 
@@ -255,7 +255,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged()</a></dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>The total amount of time spent proving each target statement thus far. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The total amount of time spent proving each target statement thus far, in seconds. </dd></dl>
 
 <p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#acaed4a7ced124d815722aee8a947400c">atp::search::IterativeDeepeningSolver</a>.</p>
 
@@ -319,8 +319,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="affd01c8d9c1e4de87dae1034fc61efe6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affd01c8d9c1e4de87dae1034fc61efe6">&#9670;&nbsp;</a></span>get_proofs()</h2>
+<a id="a82be0bac621e13662df370208fc85119"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82be0bac621e13662df370208fc85119">&#9670;&nbsp;</a></span>get_proofs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -329,7 +329,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::vector&lt;boost::optional&lt;<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">logic::StatementArrayPtr</a>&gt; &gt; atp::search::ISolver::get_proofs </td>
+          <td class="memname">virtual std::vector&lt;<a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">logic::ProofStatePtr</a>&gt; atp::search::ISolver::get_proofs </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -342,14 +342,14 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged()</a></dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>For each target, returns a proof iff that proof actually terminated and the theorem was true when it terminated. A proof constitutes a sequence of statements which are each deduced from the last using exactly one step from the knowledge kernel. </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>For each target, returns a proof iff that proof actually terminated and the theorem was true when it terminated. A proof is just represented by a completed proof state. We return null for the entries that did not have a complete proof. </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a15adc113d9229b15ff13f720f34c7666">atp::search::IterativeDeepeningSolver</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#abe28892bef29a946e1275e566a1b9589">atp::search::IterativeDeepeningSolver</a>.</p>
 
 </div>
 </div>
-<a id="af36d825f96aa9469e4c6b7a063ab2015"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af36d825f96aa9469e4c6b7a063ab2015">&#9670;&nbsp;</a></span>get_states()</h2>
+<a id="a83144a6e8b1e7222c922413e98119880"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83144a6e8b1e7222c922413e98119880">&#9670;&nbsp;</a></span>get_states()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -358,7 +358,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::vector&lt;<a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5">ProofState</a>&gt; atp::search::ISolver::get_states </td>
+          <td class="memname">virtual std::vector&lt;<a class="el" href="namespaceatp_1_1logic.html#aba304dd7ca39fd2317110f7095e2f61c">logic::ProofCompletionState</a>&gt; atp::search::ISolver::get_states </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -373,7 +373,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1search_1_1_i_solver.html#ae828d9ca6d29cab6dac24ceb2484b5c3">engaged()</a></dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>returns the status of each proof (returning an array of size equal to the number of set target statements.) </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a5d761a6f70f3b247270d436001f4295f">atp::search::IterativeDeepeningSolver</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a1fc7b66fc7b326bcc44b92c5ca015e95">atp::search::IterativeDeepeningSolver</a>.</p>
 
 </div>
 </div>

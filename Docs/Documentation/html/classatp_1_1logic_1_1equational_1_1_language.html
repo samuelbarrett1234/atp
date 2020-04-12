@@ -82,7 +82,7 @@ Inheritance diagram for atp::logic::equational::Language:</div>
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_language__inherit__graph.png" border="0" usemap="#atp_1_1logic_1_1equational_1_1_language_inherit__map" alt="Inheritance graph"/></div>
 <map name="atp_1_1logic_1_1equational_1_1_language_inherit__map" id="atp_1_1logic_1_1equational_1_1_language_inherit__map">
 <area shape="rect" title=" " alt="" coords="5,80,148,121"/>
-<area shape="rect" href="classatp_1_1logic_1_1_i_language.html" title="Manages knowledge kernels within a logical language framework." alt="" coords="5,5,148,32"/>
+<area shape="rect" href="classatp_1_1logic_1_1_i_language.html" title="Manages model contexts and knowledge kernels within a logical language framework." alt="" coords="5,5,148,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -91,23 +91,21 @@ Collaboration diagram for atp::logic::equational::Language:</div>
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_language__coll__graph.png" border="0" usemap="#atp_1_1logic_1_1equational_1_1_language_coll__map" alt="Collaboration graph"/></div>
 <map name="atp_1_1logic_1_1equational_1_1_language_coll__map" id="atp_1_1logic_1_1equational_1_1_language_coll__map">
 <area shape="rect" title=" " alt="" coords="5,80,148,121"/>
-<area shape="rect" href="classatp_1_1logic_1_1_i_language.html" title="Manages knowledge kernels within a logical language framework." alt="" coords="5,5,148,32"/>
+<area shape="rect" href="classatp_1_1logic_1_1_i_language.html" title="Manages model contexts and knowledge kernels within a logical language framework." alt="" coords="5,5,148,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5d4970765e75727c6c8fe4e91d2fc45a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#a5d4970765e75727c6c8fe4e91d2fc45a">load_kernel_definitions</a> (<a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;ker, std::istream &amp;in) const override</td></tr>
-<tr class="memdesc:a5d4970765e75727c6c8fe4e91d2fc45a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the definitions into the knowledge kernel.  <a href="classatp_1_1logic_1_1equational_1_1_language.html#a5d4970765e75727c6c8fe4e91d2fc45a">More...</a><br /></td></tr>
-<tr class="separator:a5d4970765e75727c6c8fe4e91d2fc45a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a878c3308b460de418c927fa02a4cfd01"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#a878c3308b460de418c927fa02a4cfd01">load_kernel_axioms</a> (<a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;ker, std::istream &amp;in) const override</td></tr>
-<tr class="memdesc:a878c3308b460de418c927fa02a4cfd01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the axioms into the knowledge kernel.  <a href="classatp_1_1logic_1_1equational_1_1_language.html#a878c3308b460de418c927fa02a4cfd01">More...</a><br /></td></tr>
-<tr class="separator:a878c3308b460de418c927fa02a4cfd01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc67e1cd31111e298b33b5d4c953b6c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">KnowledgeKernelPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#adc67e1cd31111e298b33b5d4c953b6c7">create_empty_kernel</a> () const override</td></tr>
-<tr class="separator:adc67e1cd31111e298b33b5d4c953b6c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7d262bb891a260e02cf9236ae494f26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26">deserialise_stmts</a> (std::istream &amp;in, <a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7">StmtFormat</a> input_format, const <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;ker) const override</td></tr>
-<tr class="memdesc:ae7d262bb891a260e02cf9236ae494f26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load an array of statements from an input stream, in the context of a given kernel.  <a href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26">More...</a><br /></td></tr>
-<tr class="separator:ae7d262bb891a260e02cf9236ae494f26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1f255cabd569ea8fdcd332cf61c32d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic.html#adccb0bf82b978a71476e3d2e85e7df6a">ModelContextPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#ac1f255cabd569ea8fdcd332cf61c32d5">try_create_context</a> (std::istream &amp;in) const override</td></tr>
+<tr class="memdesc:ac1f255cabd569ea8fdcd332cf61c32d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create a model context from the given input.  <a href="classatp_1_1logic_1_1equational_1_1_language.html#ac1f255cabd569ea8fdcd332cf61c32d5">More...</a><br /></td></tr>
+<tr class="separator:ac1f255cabd569ea8fdcd332cf61c32d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5e49a1ba6f54c4616f3b8f3021d8c8b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">KnowledgeKernelPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b">try_create_kernel</a> (const <a class="el" href="classatp_1_1logic_1_1_i_model_context.html">IModelContext</a> &amp;ctx) const override</td></tr>
+<tr class="memdesc:ac5e49a1ba6f54c4616f3b8f3021d8c8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a knowledge kernel corresponding to a given model context.  <a href="classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b">More...</a><br /></td></tr>
+<tr class="separator:ac5e49a1ba6f54c4616f3b8f3021d8c8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69f343234c2d15259f98c635a70fd017"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017">deserialise_stmts</a> (std::istream &amp;in, <a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7">StmtFormat</a> input_format, const <a class="el" href="classatp_1_1logic_1_1_i_model_context.html">IModelContext</a> &amp;ctx) const override</td></tr>
+<tr class="memdesc:a69f343234c2d15259f98c635a70fd017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load an array of statements from an input stream, in the given context.  <a href="classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017">More...</a><br /></td></tr>
+<tr class="separator:a69f343234c2d15259f98c635a70fd017"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7836b8070b045f8d65f5f1b8e61b1e35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#a7836b8070b045f8d65f5f1b8e61b1e35">serialise_stmts</a> (std::ostream &amp;out, <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts, <a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7">StmtFormat</a> output_format) const override</td></tr>
 <tr class="memdesc:a7836b8070b045f8d65f5f1b8e61b1e35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save an array of statements.  <a href="classatp_1_1logic_1_1equational_1_1_language.html#a7836b8070b045f8d65f5f1b8e61b1e35">More...</a><br /></td></tr>
 <tr class="separator:a7836b8070b045f8d65f5f1b8e61b1e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -116,35 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:adde55c22349d717241f06a65fc4bd275 inherit pub_methods_classatp_1_1logic_1_1_i_language"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="adc67e1cd31111e298b33b5d4c953b6c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc67e1cd31111e298b33b5d4c953b6c7">&#9670;&nbsp;</a></span>create_empty_kernel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">KnowledgeKernelPtr</a> atp::logic::equational::Language::create_empty_kernel </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_language.html#aa32d63f80dd645223a1559ec3d678e58">atp::logic::ILanguage</a>.</p>
-
-</div>
-</div>
-<a id="ae7d262bb891a260e02cf9236ae494f26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7d262bb891a260e02cf9236ae494f26">&#9670;&nbsp;</a></span>deserialise_stmts()</h2>
+<a id="a69f343234c2d15259f98c635a70fd017"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69f343234c2d15259f98c635a70fd017">&#9670;&nbsp;</a></span>deserialise_stmts()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,8 +138,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;&#160;</td>
-          <td class="paramname"><em>ker</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_model_context.html">IModelContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -183,161 +154,41 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Load an array of statements from an input stream, in the context of a given kernel. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ker</td><td>The knowledge kernel is required for type checking and such (also for distinguishing between variables and constants).</td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Load an array of statements from an input stream, in the given context. </p>
 <dl class="section note"><dt>Note</dt><dd>Returns nullptr if this operation failed, for example if the statements were syntactically incorrect or ill-typed. In this case, the stream can still be modified. </dd></dl>
 
-<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_language.html#a9c5aaf7f3ce929503541fc4e96b23235">atp::logic::ILanguage</a>.</p>
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_language.html#a23e6e5d81320289ebd3e0d49c0d13d1d">atp::logic::ILanguage</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_language_ae7d262bb891a260e02cf9236ae494f26_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_language_ae7d262bb891a260e02cf9236ae494f26_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_language_ae7d262bb891a260e02cf9236ae494f26_cgraph" id="classatp_1_1logic_1_1equational_1_1_language_ae7d262bb891a260e02cf9236ae494f26_cgraph">
-<area shape="rect" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="5,61,201,102"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b" title="Read a stream of line separated statements, and return the list of their parse trees,..." alt="" coords="249,27,392,69"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title="Convert a parse tree into a syntax tree." alt="" coords="249,93,392,134"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af7ae5937b36a9fd2a8427b543b47ed56" title=" " alt="" coords="465,5,613,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ac6817a1e4df3b10bd9bed1126aa35304" title=" " alt="" coords="449,85,629,141"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ac6039360852cfb5619615af8bf2d2072" title=" " alt="" coords="440,166,637,207"/>
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_language_a69f343234c2d15259f98c635a70fd017_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_language_a69f343234c2d15259f98c635a70fd017_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_language_a69f343234c2d15259f98c635a70fd017_cgraph" id="classatp_1_1logic_1_1equational_1_1_language_a69f343234c2d15259f98c635a70fd017_cgraph">
+<area shape="rect" title="Load an array of statements from an input stream, in the given context." alt="" coords="5,185,201,227"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b" title="Read a stream of line separated statements, and return the list of their parse trees,..." alt="" coords="249,152,392,193"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a21fd07efe73f4ffca98e0a24d9d5d6d5" title="Convert a parse tree into a syntax tree." alt="" coords="249,217,392,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#add5b2537f752a8c346f1cda80de8be4d" title="Optimised allocation function." alt="" coords="447,5,625,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#a6c72e391752c93140d133f17974580cd" title=" " alt="" coords="441,71,631,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#aac3333f20bb2a2d8022507d83ad317e6" title="Optimised allocation function." alt="" coords="455,137,617,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#ae1e0ab5fc9c74625f9dd82c6c6dce220" title="Optimised allocation function." alt="" coords="440,217,632,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a4a13ee6033570021f12adc6dfb82485a" title=" " alt="" coords="448,283,624,324"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a82a047814726e2f1927f0db2209c10fc" title=" " alt="" coords="440,348,632,389"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a675ab83d420a26747e22621cef7b542b" title=" " alt="" coords="447,413,625,455"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a9f56f4a204522eacc8516f48dad35a2f" title=" " alt="" coords="693,5,905,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#ac7b032d740a79be5c3b1f4d5eff1ae8b" title=" " alt="" coords="683,71,915,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#a1982739f90314f327800f8ab6fa378f9" title=" " alt="" coords="719,137,880,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#af8bbe7076bf6e40c8a21bb7325f935be" title=" " alt="" coords="715,217,884,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#adcfeb259ac22acee62636d3542f462a9" title=" " alt="" coords="720,283,879,324"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#afb0281e82dc7cd195276c1ae457d4a6d" title=" " alt="" coords="680,348,919,389"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_language_ae7d262bb891a260e02cf9236ae494f26_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_language_ae7d262bb891a260e02cf9236ae494f26_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_language_ae7d262bb891a260e02cf9236ae494f26_icgraph" id="classatp_1_1logic_1_1equational_1_1_language_ae7d262bb891a260e02cf9236ae494f26_icgraph">
-<area shape="rect" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="213,13,409,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a878c3308b460de418c927fa02a4cfd01" title="Load the axioms into the knowledge kernel." alt="" coords="5,5,165,61"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a878c3308b460de418c927fa02a4cfd01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a878c3308b460de418c927fa02a4cfd01">&#9670;&nbsp;</a></span>load_kernel_axioms()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool atp::logic::equational::Language::load_kernel_axioms </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;&#160;</td>
-          <td class="paramname"><em>ker</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>in</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Load the axioms into the knowledge kernel. </p>
-<p>Axioms meaning a relatively small collection of statements which are assumed to be true.</p>
-<dl class="section note"><dt>Note</dt><dd>Changes the position of the input stream</dd>
-<dd>
-If operation failed, the kernel is left unchanged, but the stream may have been moved.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd><code>ker</code> was created within this language.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">in</td><td>This input should follow the statement format of the particular language being used. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_language.html#a269225417695d3e1a7f3dd526417afa8">atp::logic::ILanguage</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_language_a878c3308b460de418c927fa02a4cfd01_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_language_a878c3308b460de418c927fa02a4cfd01_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_language_a878c3308b460de418c927fa02a4cfd01_cgraph" id="classatp_1_1logic_1_1equational_1_1_language_a878c3308b460de418c927fa02a4cfd01_cgraph">
-<area shape="rect" title="Load the axioms into the knowledge kernel." alt="" coords="5,53,165,109"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="213,61,409,102"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b" title="Read a stream of line separated statements, and return the list of their parse trees,..." alt="" coords="457,27,600,69"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title="Convert a parse tree into a syntax tree." alt="" coords="457,93,600,134"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af7ae5937b36a9fd2a8427b543b47ed56" title=" " alt="" coords="673,5,821,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ac6817a1e4df3b10bd9bed1126aa35304" title=" " alt="" coords="657,85,837,141"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ac6039360852cfb5619615af8bf2d2072" title=" " alt="" coords="648,166,845,207"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a5d4970765e75727c6c8fe4e91d2fc45a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d4970765e75727c6c8fe4e91d2fc45a">&#9670;&nbsp;</a></span>load_kernel_definitions()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool atp::logic::equational::Language::load_kernel_definitions </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">IKnowledgeKernel</a> &amp;&#160;</td>
-          <td class="paramname"><em>ker</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>in</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Load the definitions into the knowledge kernel. </p>
-<p>Here, "definitions" means "user-defined constants" etc, <b>not</b> axioms.</p>
-<dl class="section note"><dt>Note</dt><dd>Changes the position of the input stream</dd>
-<dd>
-If operation failed, the kernel is left unchanged, but the stream may have been moved.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd><code>ker</code> was created within this language.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">in</td><td>This input should follow the definition file format of the particular language being used. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_language.html#afa0991af54a180e720ca5e703960c057">atp::logic::ILanguage</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_language_a5d4970765e75727c6c8fe4e91d2fc45a_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_language_a5d4970765e75727c6c8fe4e91d2fc45a_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_language_a5d4970765e75727c6c8fe4e91d2fc45a_cgraph" id="classatp_1_1logic_1_1equational_1_1_language_a5d4970765e75727c6c8fe4e91d2fc45a_cgraph">
-<area shape="rect" title="Load the definitions into the knowledge kernel." alt="" coords="5,5,165,61"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a35ac987bc45033e4e25c7419d62f7107" title="Read a stream of line separated definitions, where a definition is a (string, int) pair,..." alt="" coords="213,13,356,54"/>
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_language_a69f343234c2d15259f98c635a70fd017_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_language_a69f343234c2d15259f98c635a70fd017_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_language_a69f343234c2d15259f98c635a70fd017_icgraph" id="classatp_1_1logic_1_1equational_1_1_language_a69f343234c2d15259f98c635a70fd017_icgraph">
+<area shape="rect" title="Load an array of statements from an input stream, in the given context." alt="" coords="407,13,603,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="205,5,359,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,5,157,61"/>
 </map>
 </div>
 
@@ -394,7 +245,112 @@ Here is the call graph for this function:</div>
 <map name="classatp_1_1logic_1_1equational_1_1_language_a7836b8070b045f8d65f5f1b8e61b1e35_cgraph" id="classatp_1_1logic_1_1equational_1_1_language_a7836b8070b045f8d65f5f1b8e61b1e35_cgraph">
 <area shape="rect" title="Save an array of statements." alt="" coords="5,5,188,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#aa6f01c3b5f507cf2003f352dc58f3e58" title=" " alt="" coords="236,5,379,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a2c79856d76a1a635cf421de681daeb14" title=" " alt="" coords="427,5,645,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#ae740893e400663e8524d7dfc139364bf" title=" " alt="" coords="427,5,625,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ac1f255cabd569ea8fdcd332cf61c32d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1f255cabd569ea8fdcd332cf61c32d5">&#9670;&nbsp;</a></span>try_create_context()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceatp_1_1logic.html#adccb0bf82b978a71476e3d2e85e7df6a">ModelContextPtr</a> atp::logic::equational::Language::try_create_context </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Try to create a model context from the given input. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>An input stream to the model context file in JSON</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Nullptr on failure, otherwise returns a model context object.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Model context objects don't check for syntax errors, this will occur when a knowledge kernel is constructed. </dd></dl>
+
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_language.html#a573ee79af4c9bd9b8ee6e671b46e7dd8">atp::logic::ILanguage</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_language_ac1f255cabd569ea8fdcd332cf61c32d5_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_language_ac1f255cabd569ea8fdcd332cf61c32d5_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_language_ac1f255cabd569ea8fdcd332cf61c32d5_cgraph" id="classatp_1_1logic_1_1equational_1_1_language_ac1f255cabd569ea8fdcd332cf61c32d5_cgraph">
+<area shape="rect" title="Try to create a model context from the given input." alt="" coords="5,5,157,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#af6ef37d9dbe82f505c63621a39173ec4" title="A builder function for this model context implementation." alt="" coords="205,13,400,54"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ac5e49a1ba6f54c4616f3b8f3021d8c8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5e49a1ba6f54c4616f3b8f3021d8c8b">&#9670;&nbsp;</a></span>try_create_kernel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">KnowledgeKernelPtr</a> atp::logic::equational::Language::try_create_kernel </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_model_context.html">IModelContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a knowledge kernel corresponding to a given model context. </p>
+<dl class="section return"><dt>Returns</dt><dd>Nullptr if the axioms or definitions in the model context contain errors, otherwise returns a KK initialised only with the axioms. </dd></dl>
+
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_language.html#a7d5d7f6d78e70e68ae4483a958c07b67">atp::logic::ILanguage</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_language_ac5e49a1ba6f54c4616f3b8f3021d8c8b_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_language_ac5e49a1ba6f54c4616f3b8f3021d8c8b_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_language_ac5e49a1ba6f54c4616f3b8f3021d8c8b_cgraph" id="classatp_1_1logic_1_1equational_1_1_language_ac5e49a1ba6f54c4616f3b8f3021d8c8b_cgraph">
+<area shape="rect" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,178,157,234"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="205,178,359,234"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a4ce77e7f979487c057edec42d3911240" title=" " alt="" coords="419,120,590,161"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="407,185,603,227"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a1e6119c236088e08264271927fcb7c47" title=" " alt="" coords="409,251,601,292"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b" title="Read a stream of line separated statements, and return the list of their parse trees,..." alt="" coords="651,152,793,193"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a21fd07efe73f4ffca98e0a24d9d5d6d5" title="Convert a parse tree into a syntax tree." alt="" coords="651,217,793,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#add5b2537f752a8c346f1cda80de8be4d" title="Optimised allocation function." alt="" coords="848,5,1027,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#a6c72e391752c93140d133f17974580cd" title=" " alt="" coords="843,71,1032,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#aac3333f20bb2a2d8022507d83ad317e6" title="Optimised allocation function." alt="" coords="857,137,1018,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#ae1e0ab5fc9c74625f9dd82c6c6dce220" title="Optimised allocation function." alt="" coords="841,217,1033,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a4a13ee6033570021f12adc6dfb82485a" title=" " alt="" coords="849,283,1025,324"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a82a047814726e2f1927f0db2209c10fc" title=" " alt="" coords="841,348,1033,389"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a675ab83d420a26747e22621cef7b542b" title=" " alt="" coords="849,413,1026,455"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a9f56f4a204522eacc8516f48dad35a2f" title=" " alt="" coords="1095,5,1307,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#ac7b032d740a79be5c3b1f4d5eff1ae8b" title=" " alt="" coords="1085,71,1317,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#a1982739f90314f327800f8ab6fa378f9" title=" " alt="" coords="1120,137,1281,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#af8bbe7076bf6e40c8a21bb7325f935be" title=" " alt="" coords="1116,217,1285,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#adcfeb259ac22acee62636d3542f462a9" title=" " alt="" coords="1121,283,1280,324"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#afb0281e82dc7cd195276c1ae457d4a6d" title=" " alt="" coords="1081,348,1320,389"/>
 </map>
 </div>
 

@@ -91,13 +91,13 @@ Namespaces</h2></td></tr>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html">ConstantSyntaxNode</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structatp_1_1logic_1_1equational_1_1_definition_grammar.html">DefinitionGrammar</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grammar for definition files (producing name-arity pairs.)  <a href="structatp_1_1logic_1_1equational_1_1_definition_grammar.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_eq_parse_node.html">EqParseNode</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the '=' sign at the top of a statement, which has a LHS and a RHS.  <a href="classatp_1_1logic_1_1equational_1_1_eq_parse_node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html">EqSyntaxNode</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An expression is an encapsulation of the part of a syntax tree without an equals sign.  <a href="classatp_1_1logic_1_1equational_1_1_expression.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_free_syntax_node.html">FreeSyntaxNode</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,6 +114,12 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html">Language</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic implementation of the model context, for equational logic.  <a href="classatp_1_1logic_1_1equational_1_1_model_context.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html">ProofState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proof states for equational logic.  <a href="classatp_1_1logic_1_1equational_1_1_proof_state.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structatp_1_1logic_1_1equational_1_1_skipper.html">Skipper</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the skip parser, which tells the parser what to ignore (what is not code).  <a href="structatp_1_1logic_1_1equational_1_1_skipper.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,6 +133,8 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:a8381a48c4405f442446286da942e8139"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a8381a48c4405f442446286da942e8139">ExpressionPtr</a></td></tr>
+<tr class="separator:a8381a48c4405f442446286da942e8139"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae54101c14d30ddb9798a1f747adee92b"><td class="memItemLeft" align="right" valign="top">typedef boost::spirit::istream_iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#ae54101c14d30ddb9798a1f747adee92b">QiParseIterator</a></td></tr>
 <tr class="separator:ae54101c14d30ddb9798a1f747adee92b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4c176681e5964c28c42d71bfdb754ae"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="classatp_1_1logic_1_1equational_1_1_i_parse_node.html">IParseNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#aa4c176681e5964c28c42d71bfdb754ae">ParseNodePtr</a></td></tr>
@@ -155,9 +163,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a328cf188236eb9da94082159cb4ab37b"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; std::list&lt; <a class="el" href="namespaceatp_1_1logic_1_1equational.html#aa4c176681e5964c28c42d71bfdb754ae">ParseNodePtr</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b">parse_statements</a> (std::istream &amp;in)</td></tr>
 <tr class="memdesc:a328cf188236eb9da94082159cb4ab37b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a stream of line separated statements, and return the list of their parse trees, or None if an error occurred with any of them.  <a href="namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b">More...</a><br /></td></tr>
 <tr class="separator:a328cf188236eb9da94082159cb4ab37b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35ac987bc45033e4e25c7419d62f7107"><td class="memItemLeft" align="right" valign="top">boost::optional&lt; std::list&lt; std::pair&lt; std::string, size_t &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a35ac987bc45033e4e25c7419d62f7107">parse_definitions</a> (std::istream &amp;in)</td></tr>
-<tr class="memdesc:a35ac987bc45033e4e25c7419d62f7107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a stream of line separated definitions, where a definition is a (string, int) pair, representing the symbol name and the symbol arity, respectively.  <a href="namespaceatp_1_1logic_1_1equational.html#a35ac987bc45033e4e25c7419d62f7107">More...</a><br /></td></tr>
-<tr class="separator:a35ac987bc45033e4e25c7419d62f7107"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5f7bc7ced86a79f9e8f436630704152"><td class="memTemplParams" colspan="2">template&lt;typename ResultT , typename EqFuncT , typename IdentifierFuncT &gt; </td></tr>
 <tr class="memitem:ac5f7bc7ced86a79f9e8f436630704152"><td class="memTemplItemLeft" align="right" valign="top">ResultT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#ac5f7bc7ced86a79f9e8f436630704152">fold_parse_tree</a> (EqFuncT eq_func, IdentifierFuncT identifier_func, <a class="el" href="namespaceatp_1_1logic_1_1equational.html#aa4c176681e5964c28c42d71bfdb754ae">ParseNodePtr</a> p_root)</td></tr>
 <tr class="memdesc:ac5f7bc7ced86a79f9e8f436630704152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a fold operation over a given parse tree.  <a href="namespaceatp_1_1logic_1_1equational.html#ac5f7bc7ced86a79f9e8f436630704152">More...</a><br /></td></tr>
@@ -165,13 +170,17 @@ Functions</h2></td></tr>
 <tr class="memitem:a600e551abcaab4c45b8e88e7ea3c219d"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d">compute_slice_size</a> (size_t start, size_t end, size_t step)</td></tr>
 <tr class="memdesc:a600e551abcaab4c45b8e88e7ea3c219d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function for computing the number of elements in slices.  <a href="namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d">More...</a><br /></td></tr>
 <tr class="separator:a600e551abcaab4c45b8e88e7ea3c219d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1e9394c32234654be6b72f903c6982d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d">ptree_to_stree</a> (<a class="el" href="namespaceatp_1_1logic_1_1equational.html#aa4c176681e5964c28c42d71bfdb754ae">ParseNodePtr</a> ptree, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html">KnowledgeKernel</a> &amp;ker)</td></tr>
-<tr class="memdesc:ae1e9394c32234654be6b72f903c6982d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a parse tree into a syntax tree.  <a href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d">More...</a><br /></td></tr>
-<tr class="separator:ae1e9394c32234654be6b72f903c6982d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21fd07efe73f4ffca98e0a24d9d5d6d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a21fd07efe73f4ffca98e0a24d9d5d6d5">ptree_to_stree</a> (<a class="el" href="namespaceatp_1_1logic_1_1equational.html#aa4c176681e5964c28c42d71bfdb754ae">ParseNodePtr</a> ptree, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;ctx)</td></tr>
+<tr class="memdesc:a21fd07efe73f4ffca98e0a24d9d5d6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a parse tree into a syntax tree.  <a href="namespaceatp_1_1logic_1_1equational.html#a21fd07efe73f4ffca98e0a24d9d5d6d5">More...</a><br /></td></tr>
+<tr class="separator:a21fd07efe73f4ffca98e0a24d9d5d6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56781fb4943ed73eaf36ccac9d19d54f"><td class="memTemplParams" colspan="2">template&lt;typename ResultT , typename EqFuncT , typename FreeFuncT , typename ConstFuncT , typename FFuncT &gt; </td></tr>
 <tr class="memitem:a56781fb4943ed73eaf36ccac9d19d54f"><td class="memTemplItemLeft" align="right" valign="top">ResultT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a56781fb4943ed73eaf36ccac9d19d54f">fold_syntax_tree</a> (EqFuncT eq_func, FreeFuncT free_func, ConstFuncT const_func, FFuncT f_func, <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> p_root)</td></tr>
 <tr class="memdesc:a56781fb4943ed73eaf36ccac9d19d54f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a fold operation over a given syntax tree.  <a href="namespaceatp_1_1logic_1_1equational.html#a56781fb4943ed73eaf36ccac9d19d54f">More...</a><br /></td></tr>
 <tr class="separator:a56781fb4943ed73eaf36ccac9d19d54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28b43007ab2f1f5d4849d5b958f376fb"><td class="memTemplParams" colspan="2">template&lt;typename ResultT , typename EqPairFuncT , typename FreePairFuncT , typename ConstPairFuncT , typename FuncPairFuncT , typename DefaultPairFuncT &gt; </td></tr>
+<tr class="memitem:a28b43007ab2f1f5d4849d5b958f376fb"><td class="memTemplItemLeft" align="right" valign="top">ResultT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a28b43007ab2f1f5d4849d5b958f376fb">fold_pair_syntax_tree</a> (EqPairFuncT eq_func, FreePairFuncT free_func, ConstPairFuncT const_func, FuncPairFuncT f_func, DefaultPairFuncT default_func, <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> a, <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> b)</td></tr>
+<tr class="memdesc:a28b43007ab2f1f5d4849d5b958f376fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a fold over pairs of syntax trees, where the fold constructor is dependent on the node types of the pair. There are functions for pairs of matching types, and then a default function for when the pairs do not match.  <a href="namespaceatp_1_1logic_1_1equational.html#a28b43007ab2f1f5d4849d5b958f376fb">More...</a><br /></td></tr>
+<tr class="separator:a28b43007ab2f1f5d4849d5b958f376fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ddc1e51442b357251db8433f182cf0d"><td class="memTemplParams" colspan="2">template&lt;typename ResultT , typename EqFuncT , typename FreeFuncT , typename ConstFuncT , typename FFuncT &gt; </td></tr>
 <tr class="memitem:a9ddc1e51442b357251db8433f182cf0d"><td class="memTemplItemLeft" align="right" valign="top">ResultT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a9ddc1e51442b357251db8433f182cf0d">apply_to_syntax_node</a> (EqFuncT eq_func, FreeFuncT free_func, ConstFuncT const_func, FFuncT f_func, <a class="el" href="classatp_1_1logic_1_1equational_1_1_i_syntax_node.html">ISyntaxNode</a> &amp;node)</td></tr>
 <tr class="memdesc:a9ddc1e51442b357251db8433f182cf0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a different function depending on the node type.  <a href="namespaceatp_1_1logic_1_1equational.html#a9ddc1e51442b357251db8433f182cf0d">More...</a><br /></td></tr>
@@ -180,6 +189,20 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The namespace for the equational logic implementation. </p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a8381a48c4405f442446286da942e8139"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8381a48c4405f442446286da942e8139">&#9670;&nbsp;</a></span>ExpressionPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a>&gt; <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a8381a48c4405f442446286da942e8139">atp::logic::equational::ExpressionPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aa4c176681e5964c28c42d71bfdb754ae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa4c176681e5964c28c42d71bfdb754ae">&#9670;&nbsp;</a></span>ParseNodePtr</h2>
 
@@ -388,12 +411,87 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1logic_1_1equational_a600e551abcaab4c45b8e88e7ea3c219d_icgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_a600e551abcaab4c45b8e88e7ea3c219d_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1logic_1_1equational_a600e551abcaab4c45b8e88e7ea3c219d_icgraph" id="namespaceatp_1_1logic_1_1equational_a600e551abcaab4c45b8e88e7ea3c219d_icgraph">
-<area shape="rect" title="Helper function for computing the number of elements in slices." alt="" coords="475,35,620,76"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612" title=" " alt="" coords="273,64,427,105"/>
+<area shape="rect" title="Helper function for computing the number of elements in slices." alt="" coords="475,47,620,88"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612" title=" " alt="" coords="273,79,427,120"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a88936889bc98a77d1f0ccc070e5728e6" title=" " alt="" coords="37,5,193,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a427d3b1b8f56c9593fffc55ef3ce11e0" title=" " alt="" coords="5,71,225,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a4c122c0c52a6dc8b77975749d2710535" title="Characterises the information provided to this knowledge kernel in a single integer code." alt="" coords="37,71,193,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a427d3b1b8f56c9593fffc55ef3ce11e0" title=" " alt="" coords="5,152,225,193"/>
+<area shape="rect" href="structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html#a1968e6a58c37555e9ae30dd4f1e5e986" title=" " alt="" coords="22,218,209,274"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="a28b43007ab2f1f5d4849d5b958f376fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28b43007ab2f1f5d4849d5b958f376fb">&#9670;&nbsp;</a></span>fold_pair_syntax_tree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ResultT , typename EqPairFuncT , typename FreePairFuncT , typename ConstPairFuncT , typename FuncPairFuncT , typename DefaultPairFuncT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">ResultT atp::logic::equational::fold_pair_syntax_tree </td>
+          <td>(</td>
+          <td class="paramtype">EqPairFuncT&#160;</td>
+          <td class="paramname"><em>eq_func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FreePairFuncT&#160;</td>
+          <td class="paramname"><em>free_func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ConstPairFuncT&#160;</td>
+          <td class="paramname"><em>const_func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FuncPairFuncT&#160;</td>
+          <td class="paramname"><em>f_func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DefaultPairFuncT&#160;</td>
+          <td class="paramname"><em>default_func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a>&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a>&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Perform a fold over pairs of syntax trees, where the fold constructor is dependent on the node types of the pair. There are functions for pairs of matching types, and then a default function for when the pairs do not match. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">ResultT</td><td>The return type (all functions must return this type.)</td></tr>
+    <tr><td class="paramname">EqPairFuncT</td><td>The function operating on pairs of equality nodes, must have signature <code>ResultT x ResultT -&gt; ResultT</code></td></tr>
+    <tr><td class="paramname">FreePairFuncT</td><td>The function operating on pairs of free variable nodes, must have signature <code>size_t x size_t -&gt; ResultT</code> where the two given integers are the free variable IDs in the pair.</td></tr>
+    <tr><td class="paramname">ConstPairFuncT</td><td>The function operating on pairs of constants, must have signature <code>size_t x size_t -&gt; ResultT</code> where the two integers are the symbol IDs of the constants</td></tr>
+    <tr><td class="paramname">FuncPairFuncT</td><td>The function operating on pairs of function nodes, must have signature <code>size_t x size_t x std::vector&lt; ResultT&gt;::iterator x std::vector&lt;ResultT&gt;::iterator -&gt; ResultT</code> where the two integers are the symbol IDs of the functions and the two iterators are the begin and end iterators of the function arguments' results.</td></tr>
+    <tr><td class="paramname">DefaultPairFuncT</td><td>This is called when a pair of nodes are encountered but don't have the same type, and it must have signature <code>SyntaxNodePtr x SyntaxNodePtr -&gt; ResultT</code>, where the two arguments are just the two nodes. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -436,7 +534,7 @@ template&lt;typename ResultT , typename EqFuncT , typename IdentifierFuncT &gt; 
   <table class="tparams">
     <tr><td class="paramname">ResultT</td><td>The return type of this operation.</td></tr>
     <tr><td class="paramname">EqFuncT</td><td>The function to use as the equality node constructor, which must have type ResultT x ResultT -&gt; ResultT</td></tr>
-    <tr><td class="paramname">IdentifierFuncT</td><td>The function to use as the identifier node constructor, which must have type std::string x std::list&lt;ResultT&gt;::iterator x std::list&lt;ResultT&gt;::iterator -&gt; ResultT</td></tr>
+    <tr><td class="paramname">IdentifierFuncT</td><td>The function to use as the identifier node constructor, which must have type std::string x std::vector&lt;ResultT&gt;::iterator x std::vector&lt;ResultT&gt;::iterator -&gt; ResultT</td></tr>
   </table>
   </dd>
 </dl>
@@ -513,7 +611,7 @@ template&lt;typename ResultT , typename EqFuncT , typename FreeFuncT , typename 
     <tr><td class="paramname">EqFuncT</td><td>The function to use as the equality node constructor, which must have type ResultT x ResultT -&gt; ResultT</td></tr>
     <tr><td class="paramname">FreeFuncT</td><td>The function to use as the free variable node constructor, with type size_t -&gt; ResultT</td></tr>
     <tr><td class="paramname">ConstFuncT</td><td>The function to use as the constant node constructor, with type size_t -&gt; ResultT</td></tr>
-    <tr><td class="paramname">FFuncT</td><td>The function to use as the function node constructor, with type size_t x std::list&lt;ResultT&gt;::iterator x std::list&lt;ResultT&gt;::iterator -&gt; ResultT</td></tr>
+    <tr><td class="paramname">FFuncT</td><td>The function to use as the function node constructor, with type size_t x std::vector&lt;ResultT&gt;::iterator x std::vector&lt;ResultT&gt;::iterator -&gt; ResultT</td></tr>
   </table>
   </dd>
 </dl>
@@ -553,40 +651,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1logic_1_1equational_a937ec99a9c46acc458fc08b706187350_icgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_a937ec99a9c46acc458fc08b706187350_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1logic_1_1equational_a937ec99a9c46acc458fc08b706187350_icgraph" id="namespaceatp_1_1logic_1_1equational_a937ec99a9c46acc458fc08b706187350_icgraph">
-<area shape="rect" title="Parse rule for identifiers." alt="" coords="265,53,408,94"/>
-<area shape="rect" href="structatp_1_1logic_1_1equational_1_1_definition_grammar.html#ace8b0bd28c3ec798adbbc8b7eca40ed4" title=" " alt="" coords="12,5,211,61"/>
-<area shape="rect" href="structatp_1_1logic_1_1equational_1_1_statement_grammar.html#accc11d7d49fd2976f194ad146bfba551" title=" " alt="" coords="5,85,217,141"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a35ac987bc45033e4e25c7419d62f7107"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35ac987bc45033e4e25c7419d62f7107">&#9670;&nbsp;</a></span>parse_definitions()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="_a_t_p_logic_a_p_i_8h.html#a193fc37208eae7f616325dca675bae63">ATP_LOGIC_API</a> boost::optional&lt; std::list&lt; std::pair&lt; std::string, size_t &gt; &gt; &gt; atp::logic::equational::parse_definitions </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>in</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Read a stream of line separated definitions, where a definition is a (string, int) pair, representing the symbol name and the symbol arity, respectively. </p>
-<dl class="section return"><dt>Returns</dt><dd>The list of (symbol name, symbol arity) pairs if the parse was successful, or None if there was a parser error.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Comments are done using the hashtag # </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1logic_1_1equational_a35ac987bc45033e4e25c7419d62f7107_icgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_a35ac987bc45033e4e25c7419d62f7107_icgraph" alt=""/></div>
-<map name="namespaceatp_1_1logic_1_1equational_a35ac987bc45033e4e25c7419d62f7107_icgraph" id="namespaceatp_1_1logic_1_1equational_a35ac987bc45033e4e25c7419d62f7107_icgraph">
-<area shape="rect" title="Read a stream of line separated definitions, where a definition is a (string, int) pair,..." alt="" coords="213,13,356,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a5d4970765e75727c6c8fe4e91d2fc45a" title="Load the definitions into the knowledge kernel." alt="" coords="5,5,165,61"/>
+<area shape="rect" title="Parse rule for identifiers." alt="" coords="265,13,408,54"/>
+<area shape="rect" href="structatp_1_1logic_1_1equational_1_1_statement_grammar.html#accc11d7d49fd2976f194ad146bfba551" title=" " alt="" coords="5,5,217,61"/>
 </map>
 </div>
 
@@ -615,16 +681,17 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1logic_1_1equational_a328cf188236eb9da94082159cb4ab37b_icgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_a328cf188236eb9da94082159cb4ab37b_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1logic_1_1equational_a328cf188236eb9da94082159cb4ab37b_icgraph" id="namespaceatp_1_1logic_1_1equational_a328cf188236eb9da94082159cb4ab37b_icgraph">
-<area shape="rect" title="Read a stream of line separated statements, and return the list of their parse trees,..." alt="" coords="457,13,600,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="213,13,409,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a878c3308b460de418c927fa02a4cfd01" title="Load the axioms into the knowledge kernel." alt="" coords="5,5,165,61"/>
+<area shape="rect" title="Read a stream of line separated statements, and return the list of their parse trees,..." alt="" coords="651,13,793,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="407,13,603,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="205,5,359,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,5,157,61"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="ae1e9394c32234654be6b72f903c6982d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1e9394c32234654be6b72f903c6982d">&#9670;&nbsp;</a></span>ptree_to_stree()</h2>
+<a id="a21fd07efe73f4ffca98e0a24d9d5d6d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21fd07efe73f4ffca98e0a24d9d5d6d5">&#9670;&nbsp;</a></span>ptree_to_stree()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -638,8 +705,8 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html">KnowledgeKernel</a> &amp;&#160;</td>
-          <td class="paramname"><em>ker</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -650,27 +717,38 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Convert a parse tree into a syntax tree. </p>
-<dl class="section note"><dt>Note</dt><dd>This performs type checking, which is why we require the kernel</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This performs type checking, which is why we require the context</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>nullptr if failed, otherwise returns the root to the syntax tree. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1logic_1_1equational_ae1e9394c32234654be6b72f903c6982d_cgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_ae1e9394c32234654be6b72f903c6982d_cgraph" alt=""/></div>
-<map name="namespaceatp_1_1logic_1_1equational_ae1e9394c32234654be6b72f903c6982d_cgraph" id="namespaceatp_1_1logic_1_1equational_ae1e9394c32234654be6b72f903c6982d_cgraph">
-<area shape="rect" title="Convert a parse tree into a syntax tree." alt="" coords="5,93,148,134"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af7ae5937b36a9fd2a8427b543b47ed56" title=" " alt="" coords="221,5,369,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ac6817a1e4df3b10bd9bed1126aa35304" title=" " alt="" coords="205,85,385,141"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ac6039360852cfb5619615af8bf2d2072" title=" " alt="" coords="196,166,393,207"/>
+<div class="center"><img src="namespaceatp_1_1logic_1_1equational_a21fd07efe73f4ffca98e0a24d9d5d6d5_cgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_a21fd07efe73f4ffca98e0a24d9d5d6d5_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1logic_1_1equational_a21fd07efe73f4ffca98e0a24d9d5d6d5_cgraph" id="namespaceatp_1_1logic_1_1equational_a21fd07efe73f4ffca98e0a24d9d5d6d5_cgraph">
+<area shape="rect" title="Convert a parse tree into a syntax tree." alt="" coords="5,217,148,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#add5b2537f752a8c346f1cda80de8be4d" title="Optimised allocation function." alt="" coords="203,5,381,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#a6c72e391752c93140d133f17974580cd" title=" " alt="" coords="197,71,387,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#aac3333f20bb2a2d8022507d83ad317e6" title="Optimised allocation function." alt="" coords="211,137,373,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#ae1e0ab5fc9c74625f9dd82c6c6dce220" title="Optimised allocation function." alt="" coords="196,217,388,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a4a13ee6033570021f12adc6dfb82485a" title=" " alt="" coords="204,283,380,324"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a82a047814726e2f1927f0db2209c10fc" title=" " alt="" coords="196,348,388,389"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a675ab83d420a26747e22621cef7b542b" title=" " alt="" coords="203,413,381,455"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a9f56f4a204522eacc8516f48dad35a2f" title=" " alt="" coords="449,5,661,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#ac7b032d740a79be5c3b1f4d5eff1ae8b" title=" " alt="" coords="439,71,671,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#a1982739f90314f327800f8ab6fa378f9" title=" " alt="" coords="475,137,636,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#af8bbe7076bf6e40c8a21bb7325f935be" title=" " alt="" coords="471,217,640,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#adcfeb259ac22acee62636d3542f462a9" title=" " alt="" coords="476,283,635,324"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#afb0281e82dc7cd195276c1ae457d4a6d" title=" " alt="" coords="436,348,675,389"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1logic_1_1equational_ae1e9394c32234654be6b72f903c6982d_icgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_ae1e9394c32234654be6b72f903c6982d_icgraph" alt=""/></div>
-<map name="namespaceatp_1_1logic_1_1equational_ae1e9394c32234654be6b72f903c6982d_icgraph" id="namespaceatp_1_1logic_1_1equational_ae1e9394c32234654be6b72f903c6982d_icgraph">
-<area shape="rect" title="Convert a parse tree into a syntax tree." alt="" coords="457,13,600,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="213,13,409,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a878c3308b460de418c927fa02a4cfd01" title="Load the axioms into the knowledge kernel." alt="" coords="5,5,165,61"/>
+<div class="center"><img src="namespaceatp_1_1logic_1_1equational_a21fd07efe73f4ffca98e0a24d9d5d6d5_icgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_a21fd07efe73f4ffca98e0a24d9d5d6d5_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1logic_1_1equational_a21fd07efe73f4ffca98e0a24d9d5d6d5_icgraph" id="namespaceatp_1_1logic_1_1equational_a21fd07efe73f4ffca98e0a24d9d5d6d5_icgraph">
+<area shape="rect" title="Convert a parse tree into a syntax tree." alt="" coords="651,13,793,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="407,13,603,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="205,5,359,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,5,157,61"/>
 </map>
 </div>
 

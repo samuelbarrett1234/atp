@@ -1,5 +1,7 @@
 <map id="atp::logic::equational::Statement::free_var_ids" name="atp::logic::equational::Statement::free_var_ids">
-<area shape="rect" id="node1" title=" " alt="" coords="244,43,411,84"/>
-<area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#ae54ccc7dcb4db8390495a7fcacf18b6e" title="Try applying each rule to the statement to get a list of successor statements. Note that each rule ma..." alt="" coords="5,5,196,47"/>
-<area shape="rect" id="node3" href="$structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html#ae212eb78e5dfd733a5722d1e0e66dde0" title=" " alt="" coords="7,71,194,127"/>
+<area shape="rect" id="node1" title=" " alt="" coords="491,75,657,116"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5f82827babe2c1d0c0f061d451c6d7a4" title="Try applying each rule to the statement to get a list of successor statements. Note that each rule ma..." alt="" coords="252,37,443,79"/>
+<area shape="rect" id="node5" href="$structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html#a1968e6a58c37555e9ae30dd4f1e5e986" title=" " alt="" coords="254,103,441,159"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,5,204,47"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a3095c141a4bfd5609cafba29fdd00b2a" title="Create a new iterator which allows us to enumerate the successors of this class." alt="" coords="22,71,187,112"/>
 </map>

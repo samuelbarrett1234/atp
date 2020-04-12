@@ -1,0 +1,14 @@
+<map id="atp::logic::equational::KnowledgeKernel::is_trivial" name="atp::logic::equational::KnowledgeKernel::is_trivial">
+<area shape="rect" id="node1" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="5,129,153,185"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a2ccb4aef63b072e6a5b61f820d552ab6" title=" " alt="" coords="222,5,382,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#ab8073b727ebfc42d10950517d7fb92e8" title=" " alt="" coords="227,71,377,112"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a96e2fb0e710fba0160a233bb86803863" title="Returns true iff the syntax trees are equal up to swapping of free variable names and reflection abou..." alt="" coords="225,136,379,177"/>
+<area shape="rect" id="node7" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a4ad7a8fc57a584113220b028ccf51cd0" title="Returns true iff there exists a substitution in the premmise which would produce the conclusion." alt="" coords="231,267,373,308"/>
+<area shape="rect" id="node11" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a36dd38214bd3efb430f116eb9e40fc64" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="201,201,403,243"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title="Perform a fold over pairs of statements, where the fold constructor is dependent on the node types of..." alt="" coords="731,139,877,180"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a13acf7a88b7439770519e30fcd782732" title="Transpose the statement (flip it around the equals sign)" alt="" coords="468,204,623,245"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#a6c72e391752c93140d133f17974580cd" title=" " alt="" coords="451,321,640,363"/>
+<area shape="rect" id="node10" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a539527954e81b682d6e2f1dc67c4a395" title=" " alt="" coords="462,387,629,443"/>
+<area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#ac7b032d740a79be5c3b1f4d5eff1ae8b" title=" " alt="" coords="688,321,920,363"/>
+<area shape="rect" id="node12" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a22d63685a82821176f481186ee17bed6" title="Returns true iff the two syntax trees are identical (i.e. same free variable IDs, same orientation ab..." alt="" coords="472,139,619,180"/>
+</map>

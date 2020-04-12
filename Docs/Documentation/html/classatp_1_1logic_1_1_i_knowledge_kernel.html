@@ -75,7 +75,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a collection of definitions and axioms, associated with a particular <a class="el" href="classatp_1_1logic_1_1_i_language.html" title="Manages knowledge kernels within a logical language framework.">ILanguage</a>, and performs logical deduction.  
+<p>Represents a collection of definitions and axioms, associated with a particular <a class="el" href="classatp_1_1logic_1_1_i_language.html" title="Manages model contexts and knowledge kernels within a logical language framework.">ILanguage</a>, and performs logical deduction.  
  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#details">More...</a></p>
 
 <p><code>#include &lt;IKnowledgeKernel.h&gt;</code></p>
@@ -97,22 +97,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a26a0b198729c2ffbd5ff8c144a60491a"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a26a0b198729c2ffbd5ff8c144a60491a">get_integrity_code</a> () const =0</td></tr>
 <tr class="memdesc:a26a0b198729c2ffbd5ff8c144a60491a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Characterises the information provided to this knowledge kernel in a single integer code.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a26a0b198729c2ffbd5ff8c144a60491a">More...</a><br /></td></tr>
 <tr class="separator:a26a0b198729c2ffbd5ff8c144a60491a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a196077c27e6fd6bd0ea40265c3592a3c"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a196077c27e6fd6bd0ea40265c3592a3c">succs</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts) const =0</td></tr>
-<tr class="memdesc:a196077c27e6fd6bd0ea40265c3592a3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the next logical steps of an array of statements.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a196077c27e6fd6bd0ea40265c3592a3c">More...</a><br /></td></tr>
-<tr class="separator:a196077c27e6fd6bd0ea40265c3592a3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b2e18ce433fee2d9d28bccd45de2def"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a1b2e18ce433fee2d9d28bccd45de2def">valid</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts) const =0</td></tr>
-<tr class="memdesc:a1b2e18ce433fee2d9d28bccd45de2def"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-check the given statements.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a1b2e18ce433fee2d9d28bccd45de2def">More...</a><br /></td></tr>
-<tr class="separator:a1b2e18ce433fee2d9d28bccd45de2def"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73ef978d8dcea85093149574ca51bbd5"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a73ef978d8dcea85093149574ca51bbd5">follows</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_premise, <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_concl) const =0</td></tr>
-<tr class="memdesc:a73ef978d8dcea85093149574ca51bbd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the conclusions follow in one logical step from the corresponding premises.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a73ef978d8dcea85093149574ca51bbd5">More...</a><br /></td></tr>
-<tr class="separator:a73ef978d8dcea85093149574ca51bbd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25a73e5f0aa4756889e7397f513c76c1"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0">StmtForm</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a25a73e5f0aa4756889e7397f513c76c1">get_form</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts) const =0</td></tr>
-<tr class="memdesc:a25a73e5f0aa4756889e7397f513c76c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine what form each statement is in (trivial or nontrivial, etc.)  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a25a73e5f0aa4756889e7397f513c76c1">More...</a><br /></td></tr>
-<tr class="separator:a25a73e5f0aa4756889e7397f513c76c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20ac896a2d3869f2c680d35443c8c450"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">ProofStatePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a20ac896a2d3869f2c680d35443c8c450">begin_proof_of</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;stmt) const =0</td></tr>
+<tr class="memdesc:a20ac896a2d3869f2c680d35443c8c450"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new proof state which, initially empty, is set to try and prove <code>stmt</code>.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a20ac896a2d3869f2c680d35443c8c450">More...</a><br /></td></tr>
+<tr class="separator:a20ac896a2d3869f2c680d35443c8c450"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf40e509e80375b2708d3fd2883c6963"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#aaf40e509e80375b2708d3fd2883c6963">is_trivial</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;stmt) const =0</td></tr>
+<tr class="memdesc:aaf40e509e80375b2708d3fd2883c6963"><td class="mdescLeft">&#160;</td><td class="mdescRight">A "trivial" statement is either reflexive or implied directly by one of the axioms.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#aaf40e509e80375b2708d3fd2883c6963">More...</a><br /></td></tr>
+<tr class="separator:aaf40e509e80375b2708d3fd2883c6963"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae22a3cda3d599b8a73f453b63329ffcd"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#ae22a3cda3d599b8a73f453b63329ffcd">add_theorems</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_thms)=0</td></tr>
+<tr class="memdesc:ae22a3cda3d599b8a73f453b63329ffcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the given set of theorems into the knowledge kernel so it can use them in proofs.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#ae22a3cda3d599b8a73f453b63329ffcd">More...</a><br /></td></tr>
+<tr class="separator:ae22a3cda3d599b8a73f453b63329ffcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7695c86f7a5cd80783f1ce4d29e75e76"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a7695c86f7a5cd80783f1ce4d29e75e76">remove_theorems</a> (size_t ref_id)=0</td></tr>
+<tr class="memdesc:a7695c86f7a5cd80783f1ce4d29e75e76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unload the set of previously added theorems.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a7695c86f7a5cd80783f1ce4d29e75e76">More...</a><br /></td></tr>
+<tr class="separator:a7695c86f7a5cd80783f1ce4d29e75e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a collection of definitions and axioms, associated with a particular <a class="el" href="classatp_1_1logic_1_1_i_language.html" title="Manages knowledge kernels within a logical language framework.">ILanguage</a>, and performs logical deduction. </p>
-<p>The knowledge kernel contains all logical rules, axioms, and available theorems. Note that every kernel state is associated with a kind of hash-code; this is useful because the code is designed such that if two kernels agree on their code, they agree on the return results for all of their functions (assuming no hash collisions). Knowledge kernels are also associated with a language object. </p>
+<div class="textblock"><p>Represents a collection of definitions and axioms, associated with a particular <a class="el" href="classatp_1_1logic_1_1_i_language.html" title="Manages model contexts and knowledge kernels within a logical language framework.">ILanguage</a>, and performs logical deduction. </p>
+<p>The knowledge kernel contains all logical rules, axioms, and available theorems. Contrast this system with <a class="el" href="classatp_1_1logic_1_1_i_model_context.html" title="A model context is a collection of definitions and axioms.">IModelContext</a> - the latter object is for storing definitions and axioms in text form, whereas the knowledge kernel, which is created using the model context, condenses the text form into something more efficient and also allows you to load and unload already proven theorems. Note that every kernel state is associated with a kind of hash-code; this is useful because the code is designed such that if two kernels agree on their code, they agree on the return results for all of their functions (assuming no hash collisions). </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9f3e4e715333bba2b48ff18b232c97ba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9f3e4e715333bba2b48ff18b232c97ba">&#9670;&nbsp;</a></span>~IKnowledgeKernel()</h2>
@@ -140,8 +140,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a73ef978d8dcea85093149574ca51bbd5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73ef978d8dcea85093149574ca51bbd5">&#9670;&nbsp;</a></span>follows()</h2>
+<a id="ae22a3cda3d599b8a73f453b63329ffcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae22a3cda3d599b8a73f453b63329ffcd">&#9670;&nbsp;</a></span>add_theorems()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -150,21 +150,11 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::vector&lt;bool&gt; atp::logic::IKnowledgeKernel::follows </td>
+          <td class="memname">virtual size_t atp::logic::IKnowledgeKernel::add_theorems </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
-          <td class="paramname"><em>p_premise</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>p_thms</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
-          <td class="paramname"><em>p_concl</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -174,25 +164,18 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Check if the conclusions follow in one logical step from the corresponding premises. </p>
-<dl class="section pre"><dt>Precondition</dt><dd>p_premise-&gt;size() == p_concl.size() and valid(p_premise) and valid(p_concl)</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>For each (premise, conclusion) pair, returns true if that conclusion follows from that premise in exactly one step (equivalently, if the conclusion is a successor of the premise.) </dd></dl>
+<p>Load the given set of theorems into the knowledge kernel so it can use them in proofs. </p>
+<dl class="section return"><dt>Returns</dt><dd>A reference ID in case you wish to remove these theorems from the kernel in the future (e.g. for streaming).</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The statements are valid within the context of this knowledge kernel (e.g. type-correct.)</dd>
+<dd>
+p_thms-&gt;size() &gt; 0 </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e">atp::logic::equational::KnowledgeKernel</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1_i_knowledge_kernel_a73ef978d8dcea85093149574ca51bbd5_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1_i_knowledge_kernel_a73ef978d8dcea85093149574ca51bbd5_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1_i_knowledge_kernel_a73ef978d8dcea85093149574ca51bbd5_icgraph" id="classatp_1_1logic_1_1_i_knowledge_kernel_a73ef978d8dcea85093149574ca51bbd5_icgraph">
-<area shape="rect" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="187,5,373,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34" title="Checks the given proof from front to back (the front element is expected to be trivially true)." alt="" coords="5,5,139,47"/>
-</map>
-</div>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#aac7698906e4f8ca408c476811c2500be">atp::logic::equational::KnowledgeKernel</a>.</p>
 
 </div>
 </div>
-<a id="a25a73e5f0aa4756889e7397f513c76c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25a73e5f0aa4756889e7397f513c76c1">&#9670;&nbsp;</a></span>get_form()</h2>
+<a id="a20ac896a2d3869f2c680d35443c8c450"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20ac896a2d3869f2c680d35443c8c450">&#9670;&nbsp;</a></span>begin_proof_of()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,10 +184,10 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::vector&lt;<a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0">StmtForm</a>&gt; atp::logic::IKnowledgeKernel::get_form </td>
+          <td class="memname">virtual <a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">ProofStatePtr</a> atp::logic::IKnowledgeKernel::begin_proof_of </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
-          <td class="paramname"><em>p_stmts</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;&#160;</td>
+          <td class="paramname"><em>stmt</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -215,20 +198,10 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Determine what form each statement is in (trivial or nontrivial, etc.) </p>
-<dl class="section pre"><dt>Precondition</dt><dd>valid(p_stmts)</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>returns an array of size p_stmts-&gt;size() which contains the form of each statement in the array (telling you if the statements are trivially true / trivially false / not canonical.) </dd></dl>
+<p>Create a new proof state which, initially empty, is set to try and prove <code>stmt</code>. </p>
+<dl class="section pre"><dt>Precondition</dt><dd><code>stmt</code> is a valid statement within the context of this knowledge kernel. </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0c6e59a58b672521c15be26ec87e5c3f">atp::logic::equational::KnowledgeKernel</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1_i_knowledge_kernel_a25a73e5f0aa4756889e7397f513c76c1_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1_i_knowledge_kernel_a25a73e5f0aa4756889e7397f513c76c1_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1_i_knowledge_kernel_a25a73e5f0aa4756889e7397f513c76c1_icgraph" id="classatp_1_1logic_1_1_i_knowledge_kernel_a25a73e5f0aa4756889e7397f513c76c1_icgraph">
-<area shape="rect" title="Determine what form each statement is in (trivial or nontrivial, etc.)" alt="" coords="187,5,373,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a81a1148bbe8feeb07174aaa62d83da34" title="Checks the given proof from front to back (the front element is expected to be trivially true)." alt="" coords="5,5,139,47"/>
-</map>
-</div>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a944b4138dab6675676fa741ac5a43950">atp::logic::equational::KnowledgeKernel</a>.</p>
 
 </div>
 </div>
@@ -262,8 +235,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a196077c27e6fd6bd0ea40265c3592a3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a196077c27e6fd6bd0ea40265c3592a3c">&#9670;&nbsp;</a></span>succs()</h2>
+<a id="aaf40e509e80375b2708d3fd2883c6963"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf40e509e80375b2708d3fd2883c6963">&#9670;&nbsp;</a></span>is_trivial()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -272,10 +245,10 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::vector&lt;<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&gt; atp::logic::IKnowledgeKernel::succs </td>
+          <td class="memname">virtual bool atp::logic::IKnowledgeKernel::is_trivial </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
-          <td class="paramname"><em>p_stmts</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;&#160;</td>
+          <td class="paramname"><em>stmt</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -286,16 +259,15 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the next logical steps of an array of statements. </p>
-<dl class="section pre"><dt>Precondition</dt><dd>valid(p_stmts)</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>For each statement in the input array, we return an array of statements which logically follow in a single step from it. </dd></dl>
+<p>A "trivial" statement is either reflexive or implied directly by one of the axioms. </p>
+<dl class="section pre"><dt>Precondition</dt><dd><code>stmt</code> is a valid statement within the context of this knowledge kernel. </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4">atp::logic::equational::KnowledgeKernel</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6">atp::logic::equational::KnowledgeKernel</a>.</p>
 
 </div>
 </div>
-<a id="a1b2e18ce433fee2d9d28bccd45de2def"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b2e18ce433fee2d9d28bccd45de2def">&#9670;&nbsp;</a></span>valid()</h2>
+<a id="a7695c86f7a5cd80783f1ce4d29e75e76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7695c86f7a5cd80783f1ce4d29e75e76">&#9670;&nbsp;</a></span>remove_theorems()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -304,11 +276,11 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool atp::logic::IKnowledgeKernel::valid </td>
+          <td class="memname">virtual void atp::logic::IKnowledgeKernel::remove_theorems </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
-          <td class="paramname"><em>p_stmts</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>ref_id</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
@@ -318,10 +290,16 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Type-check the given statements. </p>
-<dl class="section post"><dt>Postcondition</dt><dd>for each statement, check whether it is valid in terms of the logic, axioms and definitions in this knowledge kernel. Statements are only allowed to be used if they are valid. Return true iff ALL statements in the array are valid. Note that a necessary condition for validity is that they must be using the same language as that which created this knowledge kernel. </dd></dl>
+<p>Unload the set of previously added theorems. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ref_id</td><td>The return value of the corresponding <code>add_theorems</code> call made earlier.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>ref_id</code> must have been returned from an earlier call to <code>add_theorems</code>, and must not have already been removed. </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387">atp::logic::equational::KnowledgeKernel</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a5aa3eb3d5134095f32e88047d66b9044">atp::logic::equational::KnowledgeKernel</a>.</p>
 
 </div>
 </div>

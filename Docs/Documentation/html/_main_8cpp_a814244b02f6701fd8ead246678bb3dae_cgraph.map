@@ -3,10 +3,9 @@
 <area shape="rect" id="node2" href="$_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,79,248,105"/>
 <area shape="rect" id="node3" href="$class_proof_application.html#a6ef09aab15e935fc8cbd9e8126a707c5" title="Add a new one/many target statements, to attempt to prove when run is called." alt="" coords="296,13,441,54"/>
 <area shape="rect" id="node4" href="$class_proof_application.html#a639f78f2c935cb9208dfd675207a7388" title="Run all proofs that have been set." alt="" coords="297,79,440,105"/>
-<area shape="rect" id="node8" href="$class_proof_application.html#abaf8da21de83b7d7a1a75f1b79fc8d4e" title="Loads the language and knowledge kernel from a given context file." alt="" coords="297,137,440,178"/>
+<area shape="rect" id="node8" href="$class_proof_application.html#abaf8da21de83b7d7a1a75f1b79fc8d4e" title="Loads the language and knowledge kernel from a given context file." alt="" coords="297,133,440,174"/>
 <area shape="rect" id="node5" href="$namespaceatp_1_1logic.html#aa0bf7e3fc379b924cf7031f1110c685d" title="Concatenate two statement arrays of the same type." alt="" coords="493,20,616,47"/>
 <area shape="rect" id="node7" href="$namespaceatp_1_1search.html#af7053dacc77fd0f95c563de4beb13e90" title="Allocate a new solver object of a given specified type." alt="" coords="489,71,620,113"/>
 <area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a8b3c78a186b26edcc519caad57901111" title=" " alt="" coords="668,5,812,61"/>
 <area shape="rect" id="node9" href="$namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="495,137,614,178"/>
-<area shape="rect" id="node10" href="$_parse_context_file_8cpp.html#a672ab2a861a648b7cd814aeed325b905" title=" " alt="" coords="491,203,618,229"/>
 </map>

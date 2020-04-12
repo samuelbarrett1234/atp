@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['main_2ecpp_327',['Main.cpp',['../_main_8cpp.html',1,'']]]
+  ['knowledgekernel_2ecpp_367',['KnowledgeKernel.cpp',['../_knowledge_kernel_8cpp.html',1,'']]],
+  ['knowledgekernel_2eh_368',['KnowledgeKernel.h',['../_knowledge_kernel_8h.html',1,'']]]
 ];

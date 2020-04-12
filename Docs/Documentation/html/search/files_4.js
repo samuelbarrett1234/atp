@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['knowledgekernel_2ecpp_323',['KnowledgeKernel.cpp',['../_knowledge_kernel_8cpp.html',1,'']]],
-  ['knowledgekernel_2eh_324',['KnowledgeKernel.h',['../_knowledge_kernel_8h.html',1,'']]]
+  ['how_5fto_5fcreate_5fnew_5flogic_2emd_355',['how_to_create_new_logic.md',['../how__to__create__new__logic_8md.html',1,'']]]
 ];

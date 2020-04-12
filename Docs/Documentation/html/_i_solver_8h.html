@@ -70,8 +70,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">ISolver.h File Reference</div>  </div>
 </div><!--header-->
@@ -80,7 +79,6 @@ $(function() {
 <p>Interface for proof solving strategies.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;boost/optional.hpp&gt;</code><br />
 <code>#include &lt;<a class="el" href="_a_t_p_logic_8h.html">ATPLogic.h</a>&gt;</code><br />
 <code>#include &quot;<a class="el" href="_a_t_p_search_a_p_i_8h.html">../ATPSearchAPI.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -88,21 +86,23 @@ Include dependency graph for ISolver.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_i_solver_8h__incl.png" border="0" usemap="#_a_t_p_search_2_interfaces_2_i_solver_8h" alt=""/></div>
 <map name="_a_t_p_search_2_interfaces_2_i_solver_8h" id="_a_t_p_search_2_interfaces_2_i_solver_8h">
-<area shape="rect" title="Interface for proof solving strategies." alt="" coords="629,5,777,47"/>
-<area shape="rect" title=" " alt="" coords="447,393,517,420"/>
-<area shape="rect" title=" " alt="" coords="589,95,717,121"/>
-<area shape="rect" href="_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="312,95,401,121"/>
-<area shape="rect" href="_a_t_p_search_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="792,169,924,196"/>
-<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="449,468,560,495"/>
-<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="5,393,161,420"/>
-<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="121,319,307,345"/>
-<area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a collection of definitions and axioms,..." alt="" coords="184,244,380,271"/>
-<area shape="rect" href="_i_language_8h.html" title="Contains the ILanguage interface." alt="" coords="342,169,494,196"/>
-<area shape="rect" title=" " alt="" coords="689,543,755,569"/>
-<area shape="rect" title=" " alt="" coords="56,468,111,495"/>
-<area shape="rect" title=" " alt="" coords="290,393,346,420"/>
-<area shape="rect" title=" " alt="" coords="549,244,615,271"/>
-<area shape="rect" title=" " alt="" coords="455,244,525,271"/>
+<area shape="rect" title="Interface for proof solving strategies." alt="" coords="499,5,647,47"/>
+<area shape="rect" title=" " alt="" coords="621,408,691,435"/>
+<area shape="rect" href="_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="529,95,618,121"/>
+<area shape="rect" href="_a_t_p_search_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="157,95,289,121"/>
+<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="514,483,625,509"/>
+<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="323,408,479,435"/>
+<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="795,333,981,360"/>
+<area shape="rect" href="_i_language_8h.html" title="Contains the ILanguage interface which acts as a factory class for each type of logic in the library." alt="" coords="249,177,401,203"/>
+<area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a structure for performing logical deductio..." alt="" coords="693,259,829,285"/>
+<area shape="rect" href="_i_proof_state_8h.html" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="521,333,618,360"/>
+<area shape="rect" href="_i_model_context_8h.html" title="Contains the IModelContext interface for managing definitions and axioms." alt="" coords="227,333,343,360"/>
+<area shape="rect" href="_i_propositional_knowledge_kernel_8h.html" title="Contains a common specialisation of the IKnowledgeKernel interface." alt="" coords="904,169,1064,211"/>
+<area shape="rect" title=" " alt="" coords="249,557,314,584"/>
+<area shape="rect" title=" " alt="" coords="214,483,269,509"/>
+<area shape="rect" title=" " alt="" coords="896,408,952,435"/>
+<area shape="rect" title=" " alt="" coords="195,259,261,285"/>
+<area shape="rect" title=" " alt="" coords="285,259,355,285"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -137,14 +137,6 @@ Namespaces</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:a0acdc071811f1c4f3b31d99cd136a683"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; ISolver &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">atp::search::SolverPtr</a></td></tr>
 <tr class="separator:a0acdc071811f1c4f3b31d99cd136a683"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a36be60a7ec75a7743bfcc38cd0c3aac5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5">atp::search::ProofState</a> { <a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a6f8eb84e55e2f1c21cb428ae5b644a6e">atp::search::ProofState::UNFINISHED</a>, 
-<a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a73778060f46ee0e2e5604affc11bdf41">atp::search::ProofState::DONE_TRUE</a>, 
-<a class="el" href="namespaceatp_1_1search.html#a36be60a7ec75a7743bfcc38cd0c3aac5a09913a60b8195c3622265fc75766f6ff">atp::search::ProofState::NO_PROOF</a>
- }</td></tr>
-<tr class="separator:a36be60a7ec75a7743bfcc38cd0c3aac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for proof solving strategies. </p>

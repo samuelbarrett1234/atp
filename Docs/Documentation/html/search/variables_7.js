@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lang_5ftype_493',['lang_type',['../struct_context_file.html#a80011f4c3ab7da91dedc3f187fdfef42',1,'ContextFile']]]
+  ['m_5fsymbol_5fid_560',['m_symbol_id',['../classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#a2edb63bc9e6888d56f763ff3e547f050',1,'atp::logic::equational::ConstantSyntaxNode']]]
 ];

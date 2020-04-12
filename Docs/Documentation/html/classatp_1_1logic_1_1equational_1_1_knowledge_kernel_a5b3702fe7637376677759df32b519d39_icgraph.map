@@ -1,0 +1,5 @@
+<map id="atp::logic::equational::KnowledgeKernel::get_active_rules" name="atp::logic::equational::KnowledgeKernel::get_active_rules">
+<area shape="rect" id="node1" title=" " alt="" coords="252,31,408,87"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,5,204,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a3095c141a4bfd5609cafba29fdd00b2a" title="Create a new iterator which allows us to enumerate the successors of this class." alt="" coords="22,71,187,112"/>
+</map>

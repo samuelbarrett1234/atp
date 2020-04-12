@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['eqparsenode_272',['EqParseNode',['../classatp_1_1logic_1_1equational_1_1_eq_parse_node.html',1,'atp::logic::equational']]],
-  ['eqsyntaxnode_273',['EqSyntaxNode',['../classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html',1,'atp::logic::equational']]]
+  ['freesyntaxnode_307',['FreeSyntaxNode',['../classatp_1_1logic_1_1equational_1_1_free_syntax_node.html',1,'atp::logic::equational']]],
+  ['funcsyntaxnode_308',['FuncSyntaxNode',['../classatp_1_1logic_1_1equational_1_1_func_syntax_node.html',1,'atp::logic::equational']]]
 ];

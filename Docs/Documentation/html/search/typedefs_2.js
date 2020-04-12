@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['heuristiccollection_509',['HeuristicCollection',['../namespaceatp_1_1search.html#a7926bd62ba8aa9635c64e4ce8247406e',1,'atp::search']]]
+  ['difference_5ftype_573',['difference_type',['../classatp_1_1logic_1_1equational_1_1_statement_array_1_1iterator.html#a569c4c729cfff1ebb7eb8bed0f6c4119',1,'atp::logic::equational::StatementArray::iterator']]]
 ];

@@ -77,7 +77,7 @@ $(function() {
 <div class="title">SyntaxNodes.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;list&gt;</code><br />
+<div class="textblock"><code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &quot;<a class="el" href="_a_t_p_logic_a_p_i_8h.html">../../ATPLogicAPI.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_parse_nodes_8h.html">ParseNodes.h</a>&quot;</code><br />
@@ -86,13 +86,13 @@ Include dependency graph for SyntaxNodes.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_syntax_nodes_8h__incl.png" border="0" usemap="#_a_t_p_logic_2_internal_2_equational_2_syntax_nodes_8h" alt=""/></div>
 <map name="_a_t_p_logic_2_internal_2_equational_2_syntax_nodes_8h" id="_a_t_p_logic_2_internal_2_equational_2_syntax_nodes_8h">
-<area shape="rect" title=" " alt="" coords="50,5,239,47"/>
-<area shape="rect" title=" " alt="" coords="5,169,44,196"/>
-<area shape="rect" title=" " alt="" coords="69,169,138,196"/>
-<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="241,169,376,196"/>
-<area shape="rect" href="_parse_nodes_8h.html" title=" " alt="" coords="138,95,242,121"/>
-<area shape="rect" title=" " alt="" coords="276,244,341,271"/>
-<area shape="rect" title=" " alt="" coords="163,169,217,196"/>
+<area shape="rect" title=" " alt="" coords="67,5,256,47"/>
+<area shape="rect" title=" " alt="" coords="5,169,61,196"/>
+<area shape="rect" title=" " alt="" coords="85,169,155,196"/>
+<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="258,169,393,196"/>
+<area shape="rect" href="_parse_nodes_8h.html" title=" " alt="" coords="155,95,259,121"/>
+<area shape="rect" title=" " alt="" coords="293,244,358,271"/>
+<area shape="rect" title=" " alt="" coords="179,169,234,196"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -100,22 +100,26 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_syntax_nodes_8h__dep__incl.png" border="0" usemap="#_a_t_p_logic_2_internal_2_equational_2_syntax_nodes_8hdep" alt=""/></div>
 <map name="_a_t_p_logic_2_internal_2_equational_2_syntax_nodes_8hdep" id="_a_t_p_logic_2_internal_2_equational_2_syntax_nodes_8hdep">
-<area shape="rect" title=" " alt="" coords="1100,5,1289,47"/>
-<area shape="rect" href="_statement_8h.html" title="Contains the implementation of the IStatement interface for equational logic." alt="" coords="1044,273,1233,315"/>
-<area shape="rect" href="_language_8cpp.html" title=" " alt="" coords="219,541,408,583"/>
-<area shape="rect" href="_syntax_nodes_8cpp.html" title=" " alt="" coords="5,541,195,583"/>
-<area shape="rect" href="_semantics_helper_8h.html" title="Helper functions for the implementations of the Semantics functions." alt="" coords="1263,452,1452,493"/>
-<area shape="rect" href="_syntax_tree_fold_8h.html" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="1191,184,1380,225"/>
-<area shape="rect" href="_syntax_tree_traversal_8h.html" title=" " alt="" coords="1460,95,1649,136"/>
-<area shape="rect" href="_statement_array_8h.html" title="Contains the class implementing the IStatementArray for equational logic." alt="" coords="548,363,737,404"/>
-<area shape="rect" href="_knowledge_kernel_8h.html" title="Implementation of the IKnowledgeKernel for equational logic." alt="" coords="284,452,473,493"/>
-<area shape="rect" href="_statement_8cpp.html" title=" " alt="" coords="1075,541,1264,583"/>
-<area shape="rect" href="_semantics_8h.html" title="Several useful functions on Statements, including logical inference and logical equivalence." alt="" coords="948,452,1137,493"/>
-<area shape="rect" href="_a_t_p_logic_8cpp.html" title=" " alt="" coords="761,459,924,486"/>
-<area shape="rect" href="_knowledge_kernel_8cpp.html" title=" " alt="" coords="432,541,621,583"/>
-<area shape="rect" href="_statement_array_8cpp.html" title=" " alt="" coords="548,452,737,493"/>
-<area shape="rect" href="_semantics_helper_8cpp.html" title=" " alt="" coords="1288,541,1477,583"/>
-<area shape="rect" href="_semantics_8cpp.html" title=" " alt="" coords="1501,541,1691,583"/>
+<area shape="rect" title=" " alt="" coords="1141,5,1331,47"/>
+<area shape="rect" href="_statement_8h.html" title="Contains the implementation of the IStatement interface for equational logic." alt="" coords="847,184,1036,225"/>
+<area shape="rect" href="_language_8cpp.html" title=" " alt="" coords="5,452,195,493"/>
+<area shape="rect" href="_semantics_helper_8h.html" title="Helper functions for the implementations of the Semantics functions." alt="" coords="1015,363,1204,404"/>
+<area shape="rect" href="_expression_8h.html" title="Contains the Expression class, which is used in the Statement class. Encapsulates part of a syntax tr..." alt="" coords="1009,95,1199,136"/>
+<area shape="rect" href="_syntax_tree_fold_8h.html" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="1329,363,1519,404"/>
+<area shape="rect" href="_syntax_tree_traversal_8h.html" title=" " alt="" coords="1380,273,1569,315"/>
+<area shape="rect" href="_syntax_nodes_8cpp.html" title=" " alt="" coords="1431,95,1620,136"/>
+<area shape="rect" href="_statement_array_8h.html" title="Contains the class implementing the IStatementArray for equational logic." alt="" coords="601,273,791,315"/>
+<area shape="rect" href="_knowledge_kernel_8h.html" title="Implementation of the IKnowledgeKernel for equational logic." alt="" coords="137,363,327,404"/>
+<area shape="rect" href="_proof_state_8h.html" title=" " alt="" coords="269,452,459,493"/>
+<area shape="rect" href="_semantics_8h.html" title="Several useful functions on Statements, including logical inference and logical equivalence." alt="" coords="801,363,991,404"/>
+<area shape="rect" href="_statement_8cpp.html" title=" " alt="" coords="1156,452,1345,493"/>
+<area shape="rect" href="_a_t_p_logic_8cpp.html" title=" " alt="" coords="615,370,777,397"/>
+<area shape="rect" href="_statement_array_8cpp.html" title=" " alt="" coords="401,363,591,404"/>
+<area shape="rect" href="_knowledge_kernel_8cpp.html" title=" " alt="" coords="269,541,459,583"/>
+<area shape="rect" href="_proof_state_8cpp.html" title=" " alt="" coords="607,541,796,583"/>
+<area shape="rect" href="_semantics_8cpp.html" title=" " alt="" coords="943,452,1132,493"/>
+<area shape="rect" href="_semantics_helper_8cpp.html" title=" " alt="" coords="1369,452,1559,493"/>
+<area shape="rect" href="_expression_8cpp.html" title=" " alt="" coords="1583,452,1772,493"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -159,9 +163,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae1e9394c32234654be6b72f903c6982d"><td class="memItemLeft" align="right" valign="top">SyntaxNodePtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d">atp::logic::equational::ptree_to_stree</a> (ParseNodePtr ptree, const KnowledgeKernel &amp;ker)</td></tr>
-<tr class="memdesc:ae1e9394c32234654be6b72f903c6982d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a parse tree into a syntax tree.  <a href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d">More...</a><br /></td></tr>
-<tr class="separator:ae1e9394c32234654be6b72f903c6982d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21fd07efe73f4ffca98e0a24d9d5d6d5"><td class="memItemLeft" align="right" valign="top">SyntaxNodePtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a21fd07efe73f4ffca98e0a24d9d5d6d5">atp::logic::equational::ptree_to_stree</a> (ParseNodePtr ptree, const ModelContext &amp;ctx)</td></tr>
+<tr class="memdesc:a21fd07efe73f4ffca98e0a24d9d5d6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a parse tree into a syntax tree.  <a href="namespaceatp_1_1logic_1_1equational.html#a21fd07efe73f4ffca98e0a24d9d5d6d5">More...</a><br /></td></tr>
+<tr class="separator:a21fd07efe73f4ffca98e0a24d9d5d6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

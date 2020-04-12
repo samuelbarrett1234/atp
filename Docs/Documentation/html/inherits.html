@@ -70,13 +70,9 @@ $(function() {
 <div class="textblock">
 <p><a href="hierarchy.html">Go to the textual class hierarchy</a></p>
 </div><table border="0" cellspacing="10" cellpadding="0">
-<tr><td><img src="inherit_graph_0.png" border="0" usemap="#atp_1_1logic_1_1equational_1_1_definition_grammar" alt=""/>
-<map name="atp_1_1logic_1_1equational_1_1_definition_grammar" id="atp_1_1logic_1_1equational_1_1_definition_grammar">
-<area shape="rect" title=" " alt="" coords="5,111,79,138"/>
-<area shape="rect" href="structatp_1_1logic_1_1equational_1_1_definition_grammar.html" title="Grammar for definition files (producing name&#45;arity pairs.)" alt="" coords="127,5,270,47"/>
-<area shape="rect" href="structatp_1_1logic_1_1equational_1_1_skipper.html" title="This is the skip parser, which tells the parser what to ignore (what is not code)." alt="" coords="127,71,270,112"/>
-<area shape="rect" href="structatp_1_1logic_1_1equational_1_1_statement_grammar.html" title="Grammar for statement objects (producing parse trees)" alt="" coords="127,136,271,177"/>
-<area shape="rect" href="struct_context_file_grammar.html" title="A grammar for a file of &quot;x=y&quot; pairs." alt="" coords="127,202,270,229"/>
+<tr><td><img src="inherit_graph_0.png" border="0" usemap="#atp_1_1logic_1_1equational_1_1_expression" alt=""/>
+<map name="atp_1_1logic_1_1equational_1_1_expression" id="atp_1_1logic_1_1equational_1_1_expression">
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html" title="An expression is an encapsulation of the part of a syntax tree without an equals sign." alt="" coords="5,5,148,47"/>
 </map>
 </td></tr>
 <tr><td><img src="inherit_graph_1.png" border="0" usemap="#atp_1_1logic_1_1equational_1_1_i_parse_node" alt=""/>
@@ -100,53 +96,79 @@ $(function() {
 <area shape="rect" href="structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html" title="Contains data used in some functions below, bundled together for efficiency reasons." alt="" coords="5,5,192,47"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_4.png" border="0" usemap="#atp_1_1logic_1_1equational_1_1_statement_array_1_1iterator" alt=""/>
+<tr><td><img src="inherit_graph_4.png" border="0" usemap="#atp_1_1logic_1_1equational_1_1_skipper" alt=""/>
+<map name="atp_1_1logic_1_1equational_1_1_skipper" id="atp_1_1logic_1_1equational_1_1_skipper">
+<area shape="rect" title=" " alt="" coords="5,78,79,105"/>
+<area shape="rect" href="structatp_1_1logic_1_1equational_1_1_skipper.html" title="This is the skip parser, which tells the parser what to ignore (what is not code)." alt="" coords="127,5,270,47"/>
+<area shape="rect" href="structatp_1_1logic_1_1equational_1_1_statement_grammar.html" title="Grammar for statement objects (producing parse trees)" alt="" coords="127,71,271,112"/>
+<area shape="rect" href="struct_context_file_grammar.html" title="A grammar for a file of &quot;x=y&quot; pairs." alt="" coords="127,137,270,163"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_5.png" border="0" usemap="#atp_1_1logic_1_1equational_1_1_statement_array_1_1iterator" alt=""/>
 <map name="atp_1_1logic_1_1equational_1_1_statement_array_1_1iterator" id="atp_1_1logic_1_1equational_1_1_statement_array_1_1iterator">
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array_1_1iterator.html" title=" " alt="" coords="5,5,175,47"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_5.png" border="0" usemap="#atp_1_1logic_1_1_i_knowledge_kernel" alt=""/>
+<tr><td><img src="inherit_graph_6.png" border="0" usemap="#atp_1_1logic_1_1_i_knowledge_kernel" alt=""/>
 <map name="atp_1_1logic_1_1_i_knowledge_kernel" id="atp_1_1logic_1_1_i_knowledge_kernel">
 <area shape="rect" href="classatp_1_1logic_1_1_i_knowledge_kernel.html" title="Represents a collection of definitions and axioms, associated with a particular ILanguage,..." alt="" coords="5,46,192,73"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html" title=" " alt="" coords="249,5,392,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html" title=" " alt="" coords="240,71,401,112"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_6.png" border="0" usemap="#atp_1_1logic_1_1_i_language" alt=""/>
+<tr><td><img src="inherit_graph_7.png" border="0" usemap="#atp_1_1logic_1_1_i_language" alt=""/>
 <map name="atp_1_1logic_1_1_i_language" id="atp_1_1logic_1_1_i_language">
-<area shape="rect" href="classatp_1_1logic_1_1_i_language.html" title="Manages knowledge kernels within a logical language framework." alt="" coords="5,13,148,39"/>
+<area shape="rect" href="classatp_1_1logic_1_1_i_language.html" title="Manages model contexts and knowledge kernels within a logical language framework." alt="" coords="5,13,148,39"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html" title=" " alt="" coords="196,5,339,47"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_7.png" border="0" usemap="#atp_1_1logic_1_1_i_statement" alt=""/>
+<tr><td><img src="inherit_graph_8.png" border="0" usemap="#atp_1_1logic_1_1_i_model_context" alt=""/>
+<map name="atp_1_1logic_1_1_i_model_context" id="atp_1_1logic_1_1_i_model_context">
+<area shape="rect" href="classatp_1_1logic_1_1_i_model_context.html" title="A model context is a collection of definitions and axioms." alt="" coords="5,13,172,39"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html" title="Basic implementation of the model context, for equational logic." alt="" coords="220,5,363,47"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_9.png" border="0" usemap="#atp_1_1logic_1_1_i_pf_state_succ_iter" alt=""/>
+<map name="atp_1_1logic_1_1_i_pf_state_succ_iter" id="atp_1_1logic_1_1_i_pf_state_succ_iter">
+<area shape="rect" href="classatp_1_1logic_1_1_i_pf_state_succ_iter.html" title="This is an interface for enumerating through successors of a proof state." alt="" coords="5,13,183,39"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state_1_1_pf_state_succ_iterator.html" title="This object enumerates successors of the equational proof states." alt="" coords="231,5,443,47"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_10.png" border="0" usemap="#atp_1_1logic_1_1_i_proof_state" alt=""/>
+<map name="atp_1_1logic_1_1_i_proof_state" id="atp_1_1logic_1_1_i_proof_state">
+<area shape="rect" href="classatp_1_1logic_1_1_i_proof_state.html" title="A proof state encapsulates the idea of a proof (which may be a WIP) and contains many different state..." alt="" coords="5,13,152,39"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html" title="Proof states for equational logic." alt="" coords="200,5,343,47"/>
+</map>
+</td></tr>
+<tr><td><img src="inherit_graph_11.png" border="0" usemap="#atp_1_1logic_1_1_i_statement" alt=""/>
 <map name="atp_1_1logic_1_1_i_statement" id="atp_1_1logic_1_1_i_statement">
 <area shape="rect" href="classatp_1_1logic_1_1_i_statement.html" title="Represents a single, syntactically correct logical statement." alt="" coords="5,13,152,39"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html" title=" " alt="" coords="200,5,343,47"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_8.png" border="0" usemap="#atp_1_1logic_1_1_i_statement_array" alt=""/>
+<tr><td><img src="inherit_graph_12.png" border="0" usemap="#atp_1_1logic_1_1_i_statement_array" alt=""/>
 <map name="atp_1_1logic_1_1_i_statement_array" id="atp_1_1logic_1_1_i_statement_array">
 <area shape="rect" href="classatp_1_1logic_1_1_i_statement_array.html" title=" " alt="" coords="5,13,183,39"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html" title=" " alt="" coords="231,5,373,47"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_9.png" border="0" usemap="#atp_1_1search_1_1_i_solver" alt=""/>
+<tr><td><img src="inherit_graph_13.png" border="0" usemap="#atp_1_1search_1_1_i_solver" alt=""/>
 <map name="atp_1_1search_1_1_i_solver" id="atp_1_1search_1_1_i_solver">
 <area shape="rect" href="classatp_1_1search_1_1_i_solver.html" title="A generic interface for proving statements." alt="" coords="5,13,139,39"/>
 <area shape="rect" href="classatp_1_1search_1_1_iterative_deepening_solver.html" title=" " alt="" coords="187,5,387,47"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_10.png" border="0" usemap="#atp_1_1search_1_1_i_statement_heuristic" alt=""/>
+<tr><td><img src="inherit_graph_14.png" border="0" usemap="#atp_1_1search_1_1_i_statement_heuristic" alt=""/>
 <map name="atp_1_1search_1_1_i_statement_heuristic" id="atp_1_1search_1_1_i_statement_heuristic">
 <area shape="rect" href="classatp_1_1search_1_1_i_statement_heuristic.html" title="Basically represents a function from statements to floats." alt="" coords="5,5,215,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_11.png" border="0" usemap="#_context_file" alt=""/>
+<tr><td><img src="inherit_graph_15.png" border="0" usemap="#_context_file" alt=""/>
 <map name="_context_file" id="_context_file">
 <area shape="rect" href="struct_context_file.html" title=" " alt="" coords="5,5,93,32"/>
 </map>
 </td></tr>
-<tr><td><img src="inherit_graph_12.png" border="0" usemap="#_proof_application" alt=""/>
+<tr><td><img src="inherit_graph_16.png" border="0" usemap="#_proof_application" alt=""/>
 <map name="_proof_application" id="_proof_application">
 <area shape="rect" href="class_proof_application.html" title="The simple command&#45;line application for proving a small set of statements." alt="" coords="5,5,121,32"/>
 </map>

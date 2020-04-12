@@ -1,0 +1,9 @@
+<map id="ATPLogic/Interfaces/IModelContext.h" name="ATPLogic/Interfaces/IModelContext.h">
+<area shape="rect" id="node1" title="Contains the IModelContext interface for managing definitions and axioms." alt="" coords="123,5,261,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,75,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="99,95,155,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="179,169,234,196"/>
+<area shape="rect" id="node5" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="287,169,409,196"/>
+<area shape="rect" id="node7" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="229,95,325,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="315,244,381,271"/>
+</map>

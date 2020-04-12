@@ -1,0 +1,4 @@
+<map id="atp::logic::equational::ModelContext::try_construct" name="atp::logic::equational::ModelContext::try_construct">
+<area shape="rect" id="node1" title="A builder function for this model context implementation." alt="" coords="205,13,400,54"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_language.html#ac1f255cabd569ea8fdcd332cf61c32d5" title="Try to create a model context from the given input." alt="" coords="5,5,157,61"/>
+</map>

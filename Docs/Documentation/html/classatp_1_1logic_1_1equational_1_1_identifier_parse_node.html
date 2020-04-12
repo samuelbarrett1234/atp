@@ -98,12 +98,12 @@ Collaboration diagram for atp::logic::equational::IdentifierParseNode:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a45d6c9da3b981a854940f2fab7b287d8"><td class="memItemLeft" align="right" valign="top">typedef std::list&lt; <a class="el" href="namespaceatp_1_1logic_1_1equational.html#aa4c176681e5964c28c42d71bfdb754ae">ParseNodePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#a45d6c9da3b981a854940f2fab7b287d8">ArgArray</a></td></tr>
-<tr class="separator:a45d6c9da3b981a854940f2fab7b287d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab07ad5d58c56536110511a5fda1ad69c"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; <a class="el" href="namespaceatp_1_1logic_1_1equational.html#aa4c176681e5964c28c42d71bfdb754ae">ParseNodePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#ab07ad5d58c56536110511a5fda1ad69c">ArgArray</a></td></tr>
+<tr class="separator:ab07ad5d58c56536110511a5fda1ad69c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aaa9dd37fdd19ef7bbc58bec35a392eb4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#aaa9dd37fdd19ef7bbc58bec35a392eb4">IdentifierParseNode</a> (std::string name, <a class="el" href="classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#a45d6c9da3b981a854940f2fab7b287d8">ArgArray</a> children)</td></tr>
+<tr class="memitem:aaa9dd37fdd19ef7bbc58bec35a392eb4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#aaa9dd37fdd19ef7bbc58bec35a392eb4">IdentifierParseNode</a> (std::string name, <a class="el" href="classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#ab07ad5d58c56536110511a5fda1ad69c">ArgArray</a> children)</td></tr>
 <tr class="separator:aaa9dd37fdd19ef7bbc58bec35a392eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc525c154dbeb91baee4ec395a70cbd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a379b0decdece9de86db218c905d4f930">ParseNodeType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#afc525c154dbeb91baee4ec395a70cbd3">get_type</a> () const override</td></tr>
 <tr class="separator:afc525c154dbeb91baee4ec395a70cbd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,14 +124,14 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Identifiers always have a string storing their name. If an identifier has no children, it is just a constant, 'x'. If an identifier has a list of children, it is a function, and those child expressions are its arguments (in order). </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a45d6c9da3b981a854940f2fab7b287d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45d6c9da3b981a854940f2fab7b287d8">&#9670;&nbsp;</a></span>ArgArray</h2>
+<a id="ab07ad5d58c56536110511a5fda1ad69c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab07ad5d58c56536110511a5fda1ad69c">&#9670;&nbsp;</a></span>ArgArray</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::list&lt;<a class="el" href="namespaceatp_1_1logic_1_1equational.html#aa4c176681e5964c28c42d71bfdb754ae">ParseNodePtr</a>&gt; <a class="el" href="classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#a45d6c9da3b981a854940f2fab7b287d8">atp::logic::equational::IdentifierParseNode::ArgArray</a></td>
+          <td class="memname">typedef std::vector&lt;<a class="el" href="namespaceatp_1_1logic_1_1equational.html#aa4c176681e5964c28c42d71bfdb754ae">ParseNodePtr</a>&gt; <a class="el" href="classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#ab07ad5d58c56536110511a5fda1ad69c">atp::logic::equational::IdentifierParseNode::ArgArray</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -157,7 +157,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#a45d6c9da3b981a854940f2fab7b287d8">ArgArray</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html#ab07ad5d58c56536110511a5fda1ad69c">ArgArray</a>&#160;</td>
           <td class="paramname"><em>children</em>&#160;</td>
         </tr>
         <tr>

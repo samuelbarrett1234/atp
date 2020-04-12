@@ -1,0 +1,4 @@
+<map id="atp::logic::IPfStateSuccIter" name="atp::logic::IPfStateSuccIter">
+<area shape="rect" id="node1" title="This is an interface for enumerating through successors of a proof state." alt="" coords="23,5,200,32"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_proof_state_1_1_pf_state_succ_iterator.html" title="This object enumerates successors of the equational proof states." alt="" coords="5,80,217,121"/>
+</map>

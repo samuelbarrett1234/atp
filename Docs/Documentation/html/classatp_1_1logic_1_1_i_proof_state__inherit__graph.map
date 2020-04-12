@@ -1,0 +1,4 @@
+<map id="atp::logic::IProofState" name="atp::logic::IProofState">
+<area shape="rect" id="node1" title="A proof state encapsulates the idea of a proof (which may be a WIP) and contains many different state..." alt="" coords="5,5,152,32"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html" title="Proof states for equational logic." alt="" coords="7,80,150,121"/>
+</map>

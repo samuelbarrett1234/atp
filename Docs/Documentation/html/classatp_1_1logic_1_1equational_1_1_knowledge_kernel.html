@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">atp::logic::equational::KnowledgeKernel Class Reference</div>  </div>
@@ -97,94 +98,57 @@ Collaboration diagram for atp::logic::equational::KnowledgeKernel:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:adb17548ed95f34df46cf64a96b50a534"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#adb17548ed95f34df46cf64a96b50a534">KnowledgeKernel</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;ctx)</td></tr>
+<tr class="separator:adb17548ed95f34df46cf64a96b50a534"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c122c0c52a6dc8b77975749d2710535"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a4c122c0c52a6dc8b77975749d2710535">get_integrity_code</a> () const override</td></tr>
 <tr class="memdesc:a4c122c0c52a6dc8b77975749d2710535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Characterises the information provided to this knowledge kernel in a single integer code.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a4c122c0c52a6dc8b77975749d2710535">More...</a><br /></td></tr>
 <tr class="separator:a4c122c0c52a6dc8b77975749d2710535"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a093f40d4912048fb60afec984de0cfd4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4">succs</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts) const override</td></tr>
-<tr class="memdesc:a093f40d4912048fb60afec984de0cfd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the next logical steps of an array of statements.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4">More...</a><br /></td></tr>
-<tr class="separator:a093f40d4912048fb60afec984de0cfd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a560f1112eae424e10182acb1577cb387"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387">valid</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts) const override</td></tr>
-<tr class="memdesc:a560f1112eae424e10182acb1577cb387"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type-check the given statements.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387">More...</a><br /></td></tr>
-<tr class="separator:a560f1112eae424e10182acb1577cb387"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a272cdcabd05bc5bc78cb6dc0420b336e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e">follows</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_premise, <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_concl) const override</td></tr>
-<tr class="memdesc:a272cdcabd05bc5bc78cb6dc0420b336e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the conclusions follow in one logical step from the corresponding premises.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e">More...</a><br /></td></tr>
-<tr class="separator:a272cdcabd05bc5bc78cb6dc0420b336e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c6e59a58b672521c15be26ec87e5c3f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0">StmtForm</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0c6e59a58b672521c15be26ec87e5c3f">get_form</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts) const override</td></tr>
-<tr class="memdesc:a0c6e59a58b672521c15be26ec87e5c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine what form each statement is in (trivial or nontrivial, etc.)  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0c6e59a58b672521c15be26ec87e5c3f">More...</a><br /></td></tr>
-<tr class="separator:a0c6e59a58b672521c15be26ec87e5c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a156b634acaff683f7c974ed6fdaea2c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a156b634acaff683f7c974ed6fdaea2c1">define_symbol</a> (std::string name, size_t arity)</td></tr>
-<tr class="separator:a156b634acaff683f7c974ed6fdaea2c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5e57fcdf5183b77602c249a4560b5ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea">define_eq_rules</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_rules)</td></tr>
-<tr class="separator:af5e57fcdf5183b77602c249a4560b5ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7ae5937b36a9fd2a8427b543b47ed56"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af7ae5937b36a9fd2a8427b543b47ed56">is_defined</a> (std::string name) const</td></tr>
-<tr class="separator:af7ae5937b36a9fd2a8427b543b47ed56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab75821a304cd2a2653ad550c76929504"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504">id_is_defined</a> (size_t id) const</td></tr>
-<tr class="separator:ab75821a304cd2a2653ad550c76929504"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6817a1e4df3b10bd9bed1126aa35304"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ac6817a1e4df3b10bd9bed1126aa35304">symbol_arity_from_name</a> (std::string name) const</td></tr>
-<tr class="separator:ac6817a1e4df3b10bd9bed1126aa35304"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae31fdddded9c89577b18e63ef3544113"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113">symbol_arity_from_id</a> (size_t id) const</td></tr>
-<tr class="separator:ae31fdddded9c89577b18e63ef3544113"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6039360852cfb5619615af8bf2d2072"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ac6039360852cfb5619615af8bf2d2072">symbol_id</a> (std::string name) const</td></tr>
-<tr class="separator:ac6039360852cfb5619615af8bf2d2072"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c79856d76a1a635cf421de681daeb14"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a2c79856d76a1a635cf421de681daeb14">symbol_name</a> (size_t id) const</td></tr>
-<tr class="separator:a2c79856d76a1a635cf421de681daeb14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0e952154342825eac94e19b4e4faedc"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae0e952154342825eac94e19b4e4faedc">constant_symbol_ids</a> () const</td></tr>
-<tr class="separator:ae0e952154342825eac94e19b4e4faedc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a944b4138dab6675676fa741ac5a43950"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">ProofStatePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a944b4138dab6675676fa741ac5a43950">begin_proof_of</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;stmt) const override</td></tr>
+<tr class="memdesc:a944b4138dab6675676fa741ac5a43950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new proof state which, initially empty, is set to try and prove <code>stmt</code>.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a944b4138dab6675676fa741ac5a43950">More...</a><br /></td></tr>
+<tr class="separator:a944b4138dab6675676fa741ac5a43950"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cef52c01d3e910298cce145ed26a8a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6">is_trivial</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;stmt) const override</td></tr>
+<tr class="memdesc:a0cef52c01d3e910298cce145ed26a8a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A "trivial" statement is either reflexive or implied directly by one of the axioms.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6">More...</a><br /></td></tr>
+<tr class="separator:a0cef52c01d3e910298cce145ed26a8a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac7698906e4f8ca408c476811c2500be"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#aac7698906e4f8ca408c476811c2500be">add_theorems</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_thms) override</td></tr>
+<tr class="memdesc:aac7698906e4f8ca408c476811c2500be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the given set of theorems into the knowledge kernel so it can use them in proofs.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#aac7698906e4f8ca408c476811c2500be">More...</a><br /></td></tr>
+<tr class="separator:aac7698906e4f8ca408c476811c2500be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5aa3eb3d5134095f32e88047d66b9044"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a5aa3eb3d5134095f32e88047d66b9044">remove_theorems</a> (size_t ref_id) override</td></tr>
+<tr class="memdesc:a5aa3eb3d5134095f32e88047d66b9044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unload the set of previously added theorems.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a5aa3eb3d5134095f32e88047d66b9044">More...</a><br /></td></tr>
+<tr class="separator:a5aa3eb3d5134095f32e88047d66b9044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b3702fe7637376677759df32b519d39"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_array.html">StatementArray</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a5b3702fe7637376677759df32b519d39">get_active_rules</a> () const</td></tr>
+<tr class="separator:a5b3702fe7637376677759df32b519d39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classatp_1_1logic_1_1_i_knowledge_kernel"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classatp_1_1logic_1_1_i_knowledge_kernel')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html">atp::logic::IKnowledgeKernel</a></td></tr>
 <tr class="memitem:a9f3e4e715333bba2b48ff18b232c97ba inherit pub_methods_classatp_1_1logic_1_1_i_knowledge_kernel"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a9f3e4e715333bba2b48ff18b232c97ba">~IKnowledgeKernel</a> ()=default</td></tr>
 <tr class="separator:a9f3e4e715333bba2b48ff18b232c97ba inherit pub_methods_classatp_1_1logic_1_1_i_knowledge_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:addf8285cbe27bb9cf0002f07c97f4bd7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">KnowledgeKernelPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7">try_construct</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html">Language</a> &amp;lang, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;ctx)</td></tr>
+<tr class="memdesc:addf8285cbe27bb9cf0002f07c97f4bd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">A builder function for this model context implementation.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7">More...</a><br /></td></tr>
+<tr class="separator:addf8285cbe27bb9cf0002f07c97f4bd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae0e952154342825eac94e19b4e4faedc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0e952154342825eac94e19b4e4faedc">&#9670;&nbsp;</a></span>constant_symbol_ids()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="adb17548ed95f34df46cf64a96b50a534"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb17548ed95f34df46cf64a96b50a534">&#9670;&nbsp;</a></span>KnowledgeKernel()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; size_t &gt; atp::logic::equational::KnowledgeKernel::constant_symbol_ids </td>
+          <td class="memname">atp::logic::equational::KnowledgeKernel::KnowledgeKernel </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af5e57fcdf5183b77602c249a4560b5ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5e57fcdf5183b77602c249a4560b5ea">&#9670;&nbsp;</a></span>define_eq_rules()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void atp::logic::equational::KnowledgeKernel::define_eq_rules </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
-          <td class="paramname"><em>p_rules</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section pre"><dt>Precondition</dt><dd>valid(p_rules)</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>as of yet, there is no way to "undefine" these rules, which is useful for streaming theorems in and out of memory, for example. </dd></dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af5e57fcdf5183b77602c249a4560b5ea_cgraph">
-<area shape="rect" title=" " alt="" coords="5,45,177,101"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title="Type&#45;check the given statements." alt="" coords="225,53,388,94"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="452,5,600,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="436,85,616,141"/>
-</map>
-</div>
 
 </div>
 </div>
-<a id="a156b634acaff683f7c974ed6fdaea2c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a156b634acaff683f7c974ed6fdaea2c1">&#9670;&nbsp;</a></span>define_symbol()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aac7698906e4f8ca408c476811c2500be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac7698906e4f8ca408c476811c2500be">&#9670;&nbsp;</a></span>add_theorems()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -193,21 +157,75 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void atp::logic::equational::KnowledgeKernel::define_symbol </td>
+          <td class="memname">size_t atp::logic::equational::KnowledgeKernel::add_theorems </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
+          <td class="paramname"><em>p_thms</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>arity</em>&#160;</td>
         </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Load the given set of theorems into the knowledge kernel so it can use them in proofs. </p>
+<dl class="section return"><dt>Returns</dt><dd>A reference ID in case you wish to remove these theorems from the kernel in the future (e.g. for streaming).</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The statements are valid within the context of this knowledge kernel (e.g. type-correct.)</dd>
+<dd>
+p_thms-&gt;size() &gt; 0 </dd></dl>
+
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#ae22a3cda3d599b8a73f453b63329ffcd">atp::logic::IKnowledgeKernel</a>.</p>
+
+</div>
+</div>
+<a id="a944b4138dab6675676fa741ac5a43950"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a944b4138dab6675676fa741ac5a43950">&#9670;&nbsp;</a></span>begin_proof_of()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
         <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname"><a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">ProofStatePtr</a> atp::logic::equational::KnowledgeKernel::begin_proof_of </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;&#160;</td>
+          <td class="paramname"><em>stmt</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new proof state which, initially empty, is set to try and prove <code>stmt</code>. </p>
+<dl class="section pre"><dt>Precondition</dt><dd><code>stmt</code> is a valid statement within the context of this knowledge kernel. </dd></dl>
+
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a20ac896a2d3869f2c680d35443c8c450">atp::logic::IKnowledgeKernel</a>.</p>
+
+</div>
+</div>
+<a id="a5b3702fe7637376677759df32b519d39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b3702fe7637376677759df32b519d39">&#9670;&nbsp;</a></span>get_active_rules()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_array.html">StatementArray</a>&amp; atp::logic::equational::KnowledgeKernel::get_active_rules </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -216,105 +234,14 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section pre"><dt>Precondition</dt><dd>!is_defined(name)</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>if <code>name</code> happens to share a hash code with another already-defined symbol name (which is incredibly unlikely) then it will throw. </dd></dl>
-
-</div>
-</div>
-<a id="a272cdcabd05bc5bc78cb6dc0420b336e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a272cdcabd05bc5bc78cb6dc0420b336e">&#9670;&nbsp;</a></span>follows()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; bool &gt; atp::logic::equational::KnowledgeKernel::follows </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
-          <td class="paramname"><em>p_premise</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
-          <td class="paramname"><em>p_concl</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Check if the conclusions follow in one logical step from the corresponding premises. </p>
-<dl class="section pre"><dt>Precondition</dt><dd>p_premise-&gt;size() == p_concl.size() and valid(p_premise) and valid(p_concl)</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>For each (premise, conclusion) pair, returns true if that conclusion follows from that premise in exactly one step (equivalently, if the conclusion is a successor of the premise.) </dd></dl>
-
-<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a73ef978d8dcea85093149574ca51bbd5">atp::logic::IKnowledgeKernel</a>.</p>
 <div class="dynheader">
-Here is the call graph for this function:</div>
+Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a272cdcabd05bc5bc78cb6dc0420b336e_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a272cdcabd05bc5bc78cb6dc0420b336e_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a272cdcabd05bc5bc78cb6dc0420b336e_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a272cdcabd05bc5bc78cb6dc0420b336e_cgraph">
-<area shape="rect" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="5,53,183,94"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title="Type&#45;check the given statements." alt="" coords="231,53,393,94"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="457,5,605,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="441,85,621,141"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a0c6e59a58b672521c15be26ec87e5c3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c6e59a58b672521c15be26ec87e5c3f">&#9670;&nbsp;</a></span>get_form()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#ae25b57b661a1aae85af78eacee99ffc0">StmtForm</a> &gt; atp::logic::equational::KnowledgeKernel::get_form </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
-          <td class="paramname"><em>p_stmts</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Determine what form each statement is in (trivial or nontrivial, etc.) </p>
-<dl class="section pre"><dt>Precondition</dt><dd>valid(p_stmts)</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>returns an array of size p_stmts-&gt;size() which contains the form of each statement in the array (telling you if the statements are trivially true / trivially false / not canonical.) </dd></dl>
-
-<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a25a73e5f0aa4756889e7397f513c76c1">atp::logic::IKnowledgeKernel</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0c6e59a58b672521c15be26ec87e5c3f_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0c6e59a58b672521c15be26ec87e5c3f_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0c6e59a58b672521c15be26ec87e5c3f_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0c6e59a58b672521c15be26ec87e5c3f_cgraph">
-<area shape="rect" title="Determine what form each statement is in (trivial or nontrivial, etc.)" alt="" coords="5,39,193,80"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a36dd38214bd3efb430f116eb9e40fc64" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="241,39,443,80"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a22d63685a82821176f481186ee17bed6" title="Returns true iff the two syntax trees are identical (i.e. same free variable IDs, same orientation ab..." alt="" coords="495,5,641,47"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a3f646b9ba7f7d5eea23bd3b2e15de39a" title="Reflect the statement about the equals sign (so f(x)=g(x) becomes g(x)=f(x))" alt="" coords="491,71,645,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title="Perform a fold over pairs of syntax trees, where the fold constructor is dependent on the node types ..." alt="" coords="693,5,840,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5" title=" " alt="" coords="695,71,838,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a5b39be718d2816106293f4aa47f16824" title=" " alt="" coords="695,136,838,177"/>
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a5b3702fe7637376677759df32b519d39_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a5b3702fe7637376677759df32b519d39_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a5b3702fe7637376677759df32b519d39_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a5b3702fe7637376677759df32b519d39_icgraph">
+<area shape="rect" title=" " alt="" coords="252,31,408,87"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,5,204,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a3095c141a4bfd5609cafba29fdd00b2a" title="Create a new iterator which allows us to enumerate the successors of this class." alt="" coords="22,71,187,112"/>
 </map>
 </div>
 
@@ -347,49 +274,26 @@ Here is the call graph for this function:</div>
 <p>If two knowledge kernels agree on their code, then they agree on the return results of all the functions below. (This code is computed similarly to a hash code of all the user definitions, axioms, and available theorems.) </p>
 
 <p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a26a0b198729c2ffbd5ff8c144a60491a">atp::logic::IKnowledgeKernel</a>.</p>
-
-</div>
-</div>
-<a id="ab75821a304cd2a2653ad550c76929504"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab75821a304cd2a2653ad550c76929504">&#9670;&nbsp;</a></span>id_is_defined()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool atp::logic::equational::KnowledgeKernel::id_is_defined </td>
-          <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 <div class="dynheader">
-Here is the caller graph for this function:</div>
+Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ab75821a304cd2a2653ad550c76929504_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ab75821a304cd2a2653ad550c76929504_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ab75821a304cd2a2653ad550c76929504_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ab75821a304cd2a2653ad550c76929504_icgraph">
-<area shape="rect" title=" " alt="" coords="441,79,589,135"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title="Type&#45;check the given statements." alt="" coords="231,86,393,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="8,5,180,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="5,86,183,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title="Get the next logical steps of an array of statements." alt="" coords="7,151,181,193"/>
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a4c122c0c52a6dc8b77975749d2710535_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a4c122c0c52a6dc8b77975749d2710535_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a4c122c0c52a6dc8b77975749d2710535_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a4c122c0c52a6dc8b77975749d2710535_cgraph">
+<area shape="rect" title="Characterises the information provided to this knowledge kernel in a single integer code." alt="" coords="5,137,161,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a2ccb4aef63b072e6a5b61f820d552ab6" title=" " alt="" coords="209,5,369,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ab8073b727ebfc42d10950517d7fb92e8" title=" " alt="" coords="214,71,365,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#af1918928e989ca7909e0a527236fd875" title=" " alt="" coords="216,137,363,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612" title=" " alt="" coords="213,217,366,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#aa6f01c3b5f507cf2003f352dc58f3e58" title=" " alt="" coords="218,283,361,324"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d" title="Helper function for computing the number of elements in slices." alt="" coords="444,217,589,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#ae740893e400663e8524d7dfc139364bf" title=" " alt="" coords="417,283,616,324"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="af7ae5937b36a9fd2a8427b543b47ed56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7ae5937b36a9fd2a8427b543b47ed56">&#9670;&nbsp;</a></span>is_defined()</h2>
+<a id="a0cef52c01d3e910298cce145ed26a8a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cef52c01d3e910298cce145ed26a8a6">&#9670;&nbsp;</a></span>is_trivial()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -398,47 +302,10 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool atp::logic::equational::KnowledgeKernel::is_defined </td>
+          <td class="memname">bool atp::logic::equational::KnowledgeKernel::is_trivial </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af7ae5937b36a9fd2a8427b543b47ed56_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af7ae5937b36a9fd2a8427b543b47ed56_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af7ae5937b36a9fd2a8427b543b47ed56_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af7ae5937b36a9fd2a8427b543b47ed56_icgraph">
-<area shape="rect" title=" " alt="" coords="648,5,796,61"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title="Convert a parse tree into a syntax tree." alt="" coords="457,13,600,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="213,13,409,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a878c3308b460de418c927fa02a4cfd01" title="Load the axioms into the knowledge kernel." alt="" coords="5,5,165,61"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a093f40d4912048fb60afec984de0cfd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a093f40d4912048fb60afec984de0cfd4">&#9670;&nbsp;</a></span>succs()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> &gt; atp::logic::equational::KnowledgeKernel::succs </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
-          <td class="paramname"><em>p_stmts</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;&#160;</td>
+          <td class="paramname"><em>stmt</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -449,27 +316,43 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the next logical steps of an array of statements. </p>
-<dl class="section pre"><dt>Precondition</dt><dd>valid(p_stmts)</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>For each statement in the input array, we return an array of statements which logically follow in a single step from it. </dd></dl>
+<p>A "trivial" statement is either reflexive or implied directly by one of the axioms. </p>
+<dl class="section pre"><dt>Precondition</dt><dd><code>stmt</code> is a valid statement within the context of this knowledge kernel. </dd></dl>
 
-<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a196077c27e6fd6bd0ea40265c3592a3c">atp::logic::IKnowledgeKernel</a>.</p>
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#aaf40e509e80375b2708d3fd2883c6963">atp::logic::IKnowledgeKernel</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a093f40d4912048fb60afec984de0cfd4_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a093f40d4912048fb60afec984de0cfd4_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a093f40d4912048fb60afec984de0cfd4_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a093f40d4912048fb60afec984de0cfd4_cgraph">
-<area shape="rect" title="Get the next logical steps of an array of statements." alt="" coords="5,53,179,94"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title="Type&#45;check the given statements." alt="" coords="227,53,389,94"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="453,5,601,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="437,85,617,141"/>
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0cef52c01d3e910298cce145ed26a8a6_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0cef52c01d3e910298cce145ed26a8a6_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0cef52c01d3e910298cce145ed26a8a6_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0cef52c01d3e910298cce145ed26a8a6_cgraph">
+<area shape="rect" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="5,129,153,185"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a2ccb4aef63b072e6a5b61f820d552ab6" title=" " alt="" coords="222,5,382,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ab8073b727ebfc42d10950517d7fb92e8" title=" " alt="" coords="227,71,377,112"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a96e2fb0e710fba0160a233bb86803863" title="Returns true iff the syntax trees are equal up to swapping of free variable names and reflection abou..." alt="" coords="225,136,379,177"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a4ad7a8fc57a584113220b028ccf51cd0" title="Returns true iff there exists a substitution in the premmise which would produce the conclusion." alt="" coords="231,267,373,308"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a36dd38214bd3efb430f116eb9e40fc64" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="201,201,403,243"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad991789cf96f1bb4e8d670b1f221128d" title="Perform a fold over pairs of statements, where the fold constructor is dependent on the node types of..." alt="" coords="731,139,877,180"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a13acf7a88b7439770519e30fcd782732" title="Transpose the statement (flip it around the equals sign)" alt="" coords="468,204,623,245"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#a6c72e391752c93140d133f17974580cd" title=" " alt="" coords="451,321,640,363"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a539527954e81b682d6e2f1dc67c4a395" title=" " alt="" coords="462,387,629,443"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#ac7b032d740a79be5c3b1f4d5eff1ae8b" title=" " alt="" coords="688,321,920,363"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a22d63685a82821176f481186ee17bed6" title="Returns true iff the two syntax trees are identical (i.e. same free variable IDs, same orientation ab..." alt="" coords="472,139,619,180"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0cef52c01d3e910298cce145ed26a8a6_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0cef52c01d3e910298cce145ed26a8a6_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0cef52c01d3e910298cce145ed26a8a6_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a0cef52c01d3e910298cce145ed26a8a6_icgraph">
+<area shape="rect" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="252,5,400,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,13,204,54"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="ae31fdddded9c89577b18e63ef3544113"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae31fdddded9c89577b18e63ef3544113">&#9670;&nbsp;</a></span>symbol_arity_from_id()</h2>
+<a id="a5aa3eb3d5134095f32e88047d66b9044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5aa3eb3d5134095f32e88047d66b9044">&#9670;&nbsp;</a></span>remove_theorems()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -478,161 +361,11 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">size_t atp::logic::equational::KnowledgeKernel::symbol_arity_from_id </td>
+          <td class="memname">void atp::logic::equational::KnowledgeKernel::remove_theorems </td>
           <td>(</td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ae31fdddded9c89577b18e63ef3544113_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ae31fdddded9c89577b18e63ef3544113_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ae31fdddded9c89577b18e63ef3544113_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ae31fdddded9c89577b18e63ef3544113_icgraph">
-<area shape="rect" title=" " alt="" coords="441,79,621,135"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387" title="Type&#45;check the given statements." alt="" coords="231,86,393,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="8,5,180,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="5,86,183,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title="Get the next logical steps of an array of statements." alt="" coords="7,151,181,193"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ac6817a1e4df3b10bd9bed1126aa35304"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6817a1e4df3b10bd9bed1126aa35304">&#9670;&nbsp;</a></span>symbol_arity_from_name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t atp::logic::equational::KnowledgeKernel::symbol_arity_from_name </td>
-          <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6817a1e4df3b10bd9bed1126aa35304_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6817a1e4df3b10bd9bed1126aa35304_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6817a1e4df3b10bd9bed1126aa35304_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6817a1e4df3b10bd9bed1126aa35304_icgraph">
-<area shape="rect" title=" " alt="" coords="648,5,828,61"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title="Convert a parse tree into a syntax tree." alt="" coords="457,13,600,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="213,13,409,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a878c3308b460de418c927fa02a4cfd01" title="Load the axioms into the knowledge kernel." alt="" coords="5,5,165,61"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ac6039360852cfb5619615af8bf2d2072"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6039360852cfb5619615af8bf2d2072">&#9670;&nbsp;</a></span>symbol_id()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t atp::logic::equational::KnowledgeKernel::symbol_id </td>
-          <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section pre"><dt>Precondition</dt><dd>is_defined(name)</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>returns a hash-code like value of the name (if two symbols agree on their hash code, they agree on their string name.) </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6039360852cfb5619615af8bf2d2072_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6039360852cfb5619615af8bf2d2072_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6039360852cfb5619615af8bf2d2072_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ac6039360852cfb5619615af8bf2d2072_icgraph">
-<area shape="rect" title=" " alt="" coords="648,13,845,54"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#ae1e9394c32234654be6b72f903c6982d" title="Convert a parse tree into a syntax tree." alt="" coords="457,13,600,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ae7d262bb891a260e02cf9236ae494f26" title="Load an array of statements from an input stream, in the context of a given kernel." alt="" coords="213,13,409,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a878c3308b460de418c927fa02a4cfd01" title="Load the axioms into the knowledge kernel." alt="" coords="5,5,165,61"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a2c79856d76a1a635cf421de681daeb14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c79856d76a1a635cf421de681daeb14">&#9670;&nbsp;</a></span>symbol_name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string atp::logic::equational::KnowledgeKernel::symbol_name </td>
-          <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a2c79856d76a1a635cf421de681daeb14_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a2c79856d76a1a635cf421de681daeb14_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a2c79856d76a1a635cf421de681daeb14_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a2c79856d76a1a635cf421de681daeb14_icgraph">
-<area shape="rect" title=" " alt="" coords="427,5,645,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#aa6f01c3b5f507cf2003f352dc58f3e58" title=" " alt="" coords="236,5,379,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a7836b8070b045f8d65f5f1b8e61b1e35" title="Save an array of statements." alt="" coords="5,5,188,47"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a560f1112eae424e10182acb1577cb387"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a560f1112eae424e10182acb1577cb387">&#9670;&nbsp;</a></span>valid()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool atp::logic::equational::KnowledgeKernel::valid </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
-          <td class="paramname"><em>p_stmts</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"><em>ref_id</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
@@ -642,29 +375,89 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Type-check the given statements. </p>
-<dl class="section post"><dt>Postcondition</dt><dd>for each statement, check whether it is valid in terms of the logic, axioms and definitions in this knowledge kernel. Statements are only allowed to be used if they are valid. Return true iff ALL statements in the array are valid. Note that a necessary condition for validity is that they must be using the same language as that which created this knowledge kernel. </dd></dl>
+<p>Unload the set of previously added theorems. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ref_id</td><td>The return value of the corresponding <code>add_theorems</code> call made earlier.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>ref_id</code> must have been returned from an earlier call to <code>add_theorems</code>, and must not have already been removed. </dd></dl>
 
-<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a1b2e18ce433fee2d9d28bccd45de2def">atp::logic::IKnowledgeKernel</a>.</p>
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a7695c86f7a5cd80783f1ce4d29e75e76">atp::logic::IKnowledgeKernel</a>.</p>
+
+</div>
+</div>
+<a id="addf8285cbe27bb9cf0002f07c97f4bd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addf8285cbe27bb9cf0002f07c97f4bd7">&#9670;&nbsp;</a></span>try_construct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">KnowledgeKernelPtr</a> atp::logic::equational::KnowledgeKernel::try_construct </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html">Language</a> &amp;&#160;</td>
+          <td class="paramname"><em>lang</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A builder function for this model context implementation. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>nullptr</code> on failure, otherwise returns a valid object.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Note that failure can occur due to a model context having ill-formed statements. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_cgraph">
-<area shape="rect" title="Type&#45;check the given statements." alt="" coords="5,53,168,94"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ab75821a304cd2a2653ad550c76929504" title=" " alt="" coords="232,5,380,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae31fdddded9c89577b18e63ef3544113" title=" " alt="" coords="216,85,396,141"/>
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_addf8285cbe27bb9cf0002f07c97f4bd7_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_addf8285cbe27bb9cf0002f07c97f4bd7_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_addf8285cbe27bb9cf0002f07c97f4bd7_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_addf8285cbe27bb9cf0002f07c97f4bd7_cgraph">
+<area shape="rect" title="A builder function for this model context implementation." alt="" coords="5,178,159,234"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a4ce77e7f979487c057edec42d3911240" title=" " alt="" coords="219,120,390,161"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="207,185,403,227"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a1e6119c236088e08264271927fcb7c47" title=" " alt="" coords="209,251,401,292"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b" title="Read a stream of line separated statements, and return the list of their parse trees,..." alt="" coords="451,152,593,193"/>
+<area shape="rect" href="namespaceatp_1_1logic_1_1equational.html#a21fd07efe73f4ffca98e0a24d9d5d6d5" title="Convert a parse tree into a syntax tree." alt="" coords="451,217,593,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#add5b2537f752a8c346f1cda80de8be4d" title="Optimised allocation function." alt="" coords="648,5,827,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#a6c72e391752c93140d133f17974580cd" title=" " alt="" coords="643,71,832,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#aac3333f20bb2a2d8022507d83ad317e6" title="Optimised allocation function." alt="" coords="657,137,818,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#ae1e0ab5fc9c74625f9dd82c6c6dce220" title="Optimised allocation function." alt="" coords="641,217,833,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a4a13ee6033570021f12adc6dfb82485a" title=" " alt="" coords="649,283,825,324"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a82a047814726e2f1927f0db2209c10fc" title=" " alt="" coords="641,348,833,389"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a675ab83d420a26747e22621cef7b542b" title=" " alt="" coords="649,413,826,455"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a9f56f4a204522eacc8516f48dad35a2f" title=" " alt="" coords="895,5,1107,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#ac7b032d740a79be5c3b1f4d5eff1ae8b" title=" " alt="" coords="885,71,1117,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#a1982739f90314f327800f8ab6fa378f9" title=" " alt="" coords="920,137,1081,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#af8bbe7076bf6e40c8a21bb7325f935be" title=" " alt="" coords="916,217,1085,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#adcfeb259ac22acee62636d3542f462a9" title=" " alt="" coords="921,283,1080,324"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#afb0281e82dc7cd195276c1ae457d4a6d" title=" " alt="" coords="881,348,1120,389"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a560f1112eae424e10182acb1577cb387_icgraph">
-<area shape="rect" title="Type&#45;check the given statements." alt="" coords="231,86,393,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5e57fcdf5183b77602c249a4560b5ea" title=" " alt="" coords="8,5,180,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a272cdcabd05bc5bc78cb6dc0420b336e" title="Check if the conclusions follow in one logical step from the corresponding premises." alt="" coords="5,86,183,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a093f40d4912048fb60afec984de0cfd4" title="Get the next logical steps of an array of statements." alt="" coords="7,151,181,193"/>
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_addf8285cbe27bb9cf0002f07c97f4bd7_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_addf8285cbe27bb9cf0002f07c97f4bd7_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_addf8285cbe27bb9cf0002f07c97f4bd7_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_addf8285cbe27bb9cf0002f07c97f4bd7_icgraph">
+<area shape="rect" title="A builder function for this model context implementation." alt="" coords="205,5,359,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,5,157,61"/>
 </map>
 </div>
 

@@ -1,0 +1,11 @@
+<map id="atp::logic::equational::semantics::substitute_tree" name="atp::logic::equational::semantics::substitute_tree">
+<area shape="rect" id="node1" title="Once we have chosen a rule and found a free variable mapping which matches them, this performs the su..." alt="" coords="5,79,189,120"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#add5b2537f752a8c346f1cda80de8be4d" title="Optimised allocation function." alt="" coords="244,5,423,47"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#aac3333f20bb2a2d8022507d83ad317e6" title="Optimised allocation function." alt="" coords="253,71,414,127"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#ae1e0ab5fc9c74625f9dd82c6c6dce220" title="Optimised allocation function." alt="" coords="237,185,429,227"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a9f56f4a204522eacc8516f48dad35a2f" title=" " alt="" coords="491,5,703,47"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#a1982739f90314f327800f8ab6fa378f9" title=" " alt="" coords="516,71,677,127"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#af8bbe7076bf6e40c8a21bb7325f935be" title=" " alt="" coords="512,152,681,193"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#adcfeb259ac22acee62636d3542f462a9" title=" " alt="" coords="517,217,676,259"/>
+<area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#afb0281e82dc7cd195276c1ae457d4a6d" title=" " alt="" coords="477,283,716,324"/>
+</map>

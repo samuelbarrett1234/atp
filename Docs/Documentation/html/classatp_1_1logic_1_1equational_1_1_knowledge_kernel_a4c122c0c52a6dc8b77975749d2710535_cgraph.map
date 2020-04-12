@@ -1,0 +1,10 @@
+<map id="atp::logic::equational::KnowledgeKernel::get_integrity_code" name="atp::logic::equational::KnowledgeKernel::get_integrity_code">
+<area shape="rect" id="node1" title="Characterises the information provided to this knowledge kernel in a single integer code." alt="" coords="5,137,161,193"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a2ccb4aef63b072e6a5b61f820d552ab6" title=" " alt="" coords="209,5,369,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#ab8073b727ebfc42d10950517d7fb92e8" title=" " alt="" coords="214,71,365,112"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_model_context.html#af1918928e989ca7909e0a527236fd875" title=" " alt="" coords="216,137,363,193"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612" title=" " alt="" coords="213,217,366,259"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_statement.html#aa6f01c3b5f507cf2003f352dc58f3e58" title=" " alt="" coords="218,283,361,324"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d" title="Helper function for computing the number of elements in slices." alt="" coords="444,217,589,259"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_model_context.html#ae740893e400663e8524d7dfc139364bf" title=" " alt="" coords="417,283,616,324"/>
+</map>

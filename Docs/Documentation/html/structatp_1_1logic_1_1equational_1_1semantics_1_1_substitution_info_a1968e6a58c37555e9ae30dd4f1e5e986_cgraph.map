@@ -1,0 +1,9 @@
+<map id="atp::logic::equational::semantics::SubstitutionInfo::SubstitutionInfo" name="atp::logic::equational::semantics::SubstitutionInfo::SubstitutionInfo">
+<area shape="rect" id="node1" title=" " alt="" coords="5,129,192,185"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a2ccb4aef63b072e6a5b61f820d552ab6" title=" " alt="" coords="243,5,403,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#ab8073b727ebfc42d10950517d7fb92e8" title=" " alt="" coords="248,71,399,112"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a0fca33627b31e864cd20e2790f7a27f5" title=" " alt="" coords="240,136,407,177"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement.html#aff32b8cdf54df56212487c5827fb0c77" title="Get the LHS and RHS of this statement." alt="" coords="246,201,401,243"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612" title=" " alt="" coords="247,267,400,308"/>
+<area shape="rect" id="node7" href="$namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d" title="Helper function for computing the number of elements in slices." alt="" coords="455,267,600,308"/>
+</map>

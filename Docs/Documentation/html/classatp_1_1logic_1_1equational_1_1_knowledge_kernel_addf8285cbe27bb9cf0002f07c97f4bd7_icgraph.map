@@ -1,0 +1,4 @@
+<map id="atp::logic::equational::KnowledgeKernel::try_construct" name="atp::logic::equational::KnowledgeKernel::try_construct">
+<area shape="rect" id="node1" title="A builder function for this model context implementation." alt="" coords="205,5,359,61"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,5,157,61"/>
+</map>

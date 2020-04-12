@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['valid_470',['valid',['../classatp_1_1logic_1_1_i_knowledge_kernel.html#a1b2e18ce433fee2d9d28bccd45de2def',1,'atp::logic::IKnowledgeKernel::valid()'],['../classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a560f1112eae424e10182acb1577cb387',1,'atp::logic::equational::KnowledgeKernel::valid()']]]
+  ['valid_532',['valid',['../classatp_1_1logic_1_1_i_pf_state_succ_iter.html#ae9795a4557f355ec0bff3fdecdf21b71',1,'atp::logic::IPfStateSuccIter::valid()'],['../classatp_1_1logic_1_1equational_1_1_proof_state_1_1_pf_state_succ_iterator.html#a23d0abbfca67190ebfa9408b24b8f6a7',1,'atp::logic::equational::ProofState::PfStateSuccIterator::valid()']]]
 ];

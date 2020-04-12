@@ -74,7 +74,7 @@
     <ClInclude Include="Equational\DefinitionFileExamples.h">
       <Filter>Header Files\Equational</Filter>
     </ClInclude>
-    <ClInclude Include="Equational\StandardFixture.h">
+    <ClInclude Include="Equational\StandardTestFixture.h">
       <Filter>Header Files\Equational</Filter>
     </ClInclude>
   </ItemGroup>

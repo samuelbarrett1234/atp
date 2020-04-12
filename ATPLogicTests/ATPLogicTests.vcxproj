@@ -187,7 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Equational\DefinitionFileExamples.h" />
-    <ClInclude Include="Equational\StandardFixture.h" />
+    <ClInclude Include="Equational\StandardTestFixture.h" />
     <ClInclude Include="Equational\SyntaxNodeToStr.h" />
     <ClInclude Include="Test.h" />
   </ItemGroup>

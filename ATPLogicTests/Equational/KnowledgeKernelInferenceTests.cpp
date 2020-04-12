@@ -28,7 +28,7 @@
 #include <Internal/Equational/StatementArray.h>
 #include <Internal/Equational/Semantics.h>
 #include "../Test.h"
-#include "StandardFixture.h"
+#include "StandardTestFixture.h"
 
 
 using atp::logic::equational::KnowledgeKernel;

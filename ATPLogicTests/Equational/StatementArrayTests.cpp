@@ -15,7 +15,7 @@
 #include <Internal/Equational/Statement.h>
 #include <ATPLogic.h>
 #include "../Test.h"
-#include "StandardFixture.h"
+#include "StandardTestFixture.h"
 
 
 using atp::logic::equational::Statement;

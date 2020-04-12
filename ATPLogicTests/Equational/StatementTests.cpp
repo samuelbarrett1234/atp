@@ -24,7 +24,7 @@
 #include <Internal/Equational/Semantics.h>
 #include "../Test.h"
 #include "SyntaxNodeToStr.h"
-#include "StandardFixture.h"
+#include "StandardTestFixture.h"
 
 
 using atp::logic::StmtForm;

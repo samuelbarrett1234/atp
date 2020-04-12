@@ -18,6 +18,7 @@
 #include <functional>
 #include <type_traits>
 #include <algorithm>
+#include <boost/iterator/zip_iterator.hpp>
 #include "SyntaxNodes.h"
 #include "SyntaxTreeTraversal.h"
 

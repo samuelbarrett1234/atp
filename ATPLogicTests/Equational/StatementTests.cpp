@@ -103,7 +103,7 @@ BOOST_DATA_TEST_CASE(test_string_fold_is_inverse_to_parser,
 	auto eq_to_str = phxargs::arg1 + " = " + phxargs::arg2;
 	auto free_to_str = [](size_t id)
 	{ return "x" + boost::lexical_cast<std::string>(id); };
-	auto const_to_str = boost::bind(&KnowledgeKernel::symbol_name,
+	auto const_to_str = boost::bind(&ModelContext::symbol_name,
 		boost::ref(ctx), _1);
 	auto func_to_str = [this](size_t symb_id,
 		std::vector<std::string>::iterator begin,

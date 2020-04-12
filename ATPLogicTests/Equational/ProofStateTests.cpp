@@ -47,6 +47,31 @@ static inline ostream& boost_test_print_type(ostream& os,
 }  // namespace std
 
 
+namespace atp
+{
+namespace logic
+{
+static inline std::ostream& boost_test_print_type(std::ostream& os,
+	ProofCompletionState st)
+{
+	switch (st)
+	{
+	case ProofCompletionState::PROVEN:
+		os << "PROVEN";
+		break;
+	case ProofCompletionState::NO_PROOF:
+		os << "NO_PROOF";
+		break;
+	case ProofCompletionState::UNFINISHED:
+		os << "UNFINISHED";
+		break;
+	}
+	return os;
+}
+}  // namespace logic
+}  // namespace atp
+
+
 BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(ProofStateTests,
 	StandardTestFixture,
@@ -65,7 +90,7 @@ BOOST_DATA_TEST_CASE(test_automatically_proven,
 	s << stmt;
 
 	auto p_stmts = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
+		StmtFormat::TEXT, ctx);
 
 	BOOST_REQUIRE(p_stmts->size() == 1);
 
@@ -85,7 +110,7 @@ BOOST_DATA_TEST_CASE(test_not_automatically_proven,
 	s << stmt;
 
 	auto p_stmts = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
+		StmtFormat::TEXT, ctx);
 
 	BOOST_REQUIRE(p_stmts->size() == 1);
 
@@ -118,7 +143,7 @@ BOOST_DATA_TEST_CASE(test_is_a_succ,
 	s << stmt << "\n" << succ_stmt;
 
 	auto p_arr = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
+		StmtFormat::TEXT, ctx);
 
 	BOOST_REQUIRE(p_arr != nullptr);
 	BOOST_REQUIRE(p_arr->size() == 2);

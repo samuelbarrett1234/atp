@@ -93,7 +93,7 @@ BOOST_DATA_TEST_CASE(test_text_deserialisation_in_correct_cases,
 	s << stmts;
 
 	auto _lang_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
-		ker);
+		ctx);
 	auto lang_stmts = dynamic_cast<StatementArray*>(
 		_lang_stmts.get());
 
@@ -117,12 +117,12 @@ BOOST_DATA_TEST_CASE(test_text_deserialisation_in_correct_cases,
 	{
 		// get syntax tree
 		auto stree = ptree_to_stree(ptree,
-			ker);
+			ctx);
 
 		BOOST_REQUIRE(stree != nullptr);
 
 		// get statement
-		auto stmt = Statement(ker, stree);
+		auto stmt = Statement(ctx, stree);
 
 		// test equivalent to the one produced by the language
 		BOOST_TEST(semantics::equivalent(stmt,
@@ -142,11 +142,11 @@ BOOST_DATA_TEST_CASE(test_text_deserialisation_in_incorrect_cases,
 {
 	auto p_ctx = lang.try_create_context(ctx_file);
 	BOOST_REQUIRE(p_ctx != nullptr);
-	const auto& ctx = dynamic_cast<const ModelContext&>(*p_ctx)
+	const auto& ctx = dynamic_cast<const ModelContext&>(*p_ctx);
 
 	s << stmt;
 	auto lang_results = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
+		StmtFormat::TEXT, ctx);
 
 	// if one statement is wrong, no array is returned at all, even
 	// if some statements are correct!
@@ -169,7 +169,7 @@ BOOST_DATA_TEST_CASE(test_serialisation_in_one_free_variable,
 	const auto& ctx = dynamic_cast<const ModelContext&>(*p_ctx);
 
 	s << stmt;
-	auto stmt_arr = lang.deserialise_stmts(s, StmtFormat::TEXT, ker);
+	auto stmt_arr = lang.deserialise_stmts(s, StmtFormat::TEXT, ctx);
 
 	BOOST_REQUIRE(stmt_arr->size() == 1);
 

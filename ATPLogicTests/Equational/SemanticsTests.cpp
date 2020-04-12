@@ -15,6 +15,7 @@
 #include <Internal/Equational/Semantics.h>
 #include <Internal/Equational/Parser.h>
 #include <Internal/Equational/SyntaxNodes.h>
+#include <Internal/Equational/StatementArray.h>
 #include "../Test.h"
 #include "SyntaxNodeToStr.h"
 #include "StandardTestFixture.h"
@@ -22,6 +23,7 @@
 
 using atp::logic::StmtFormat;
 using atp::logic::equational::Statement;
+using atp::logic::equational::StatementArray;
 using atp::logic::equational::SyntaxNodePtr;
 using atp::logic::equational::EqSyntaxNode;
 using atp::logic::equational::FreeSyntaxNode;
@@ -238,11 +240,12 @@ BOOST_DATA_TEST_CASE(test_get_successors,
 	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
 		ctx);
 	auto initial_stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
-	auto rule_stmt = dynamic_cast<const Statement&>(p_stmts->at(1));
+	auto _rule_stmt = p_stmts->slice(1, 2);
+	auto rule_stmt = dynamic_cast<const StatementArray&>(*_rule_stmt);
 	auto target_stmt = dynamic_cast<const Statement&>(p_stmts->at(2));
 
-	auto responses = semantics::get_successors(initial_stmt,
-		StatementArray::try_from_stmt(rule_stmt));
+	auto responses = semantics::get_successors(ctx, initial_stmt,
+		rule_stmt);
 
 	BOOST_TEST(responses.size() != 0);
 

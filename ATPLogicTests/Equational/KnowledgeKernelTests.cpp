@@ -81,7 +81,7 @@ BOOST_DATA_TEST_CASE(test_not_trivial,
 }
 
 
-BOOST_TEST(try_add_theorem)
+BOOST_AUTO_TEST_CASE(try_add_theorem)
 {
 	s << "e = i(e)";
 	auto thms = lang.deserialise_stmts(s, StmtFormat::TEXT,
@@ -91,13 +91,13 @@ BOOST_TEST(try_add_theorem)
 }
 
 
-BOOST_TEST(try_remove_theorem)
+BOOST_AUTO_TEST_CASE(try_remove_theorem)
 {
 	s << "e = i(e)";
 	auto thms = lang.deserialise_stmts(s, StmtFormat::TEXT,
 		ctx);
 	const auto ref = ker.add_theorems(thms);
-	ker.remove_therems(ref);
+	ker.remove_theorems(ref);
 	BOOST_TEST(!ker.is_trivial(thms->at(0)));
 }
 

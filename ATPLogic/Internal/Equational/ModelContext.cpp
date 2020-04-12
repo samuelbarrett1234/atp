@@ -87,7 +87,7 @@ ModelContextPtr ModelContext::try_construct(const Language& parent,
 
         return p_ctx;
     }
-    catch (pt::ptree_error& err)
+    catch (pt::ptree_error&)
     {
         return ModelContextPtr();
     }

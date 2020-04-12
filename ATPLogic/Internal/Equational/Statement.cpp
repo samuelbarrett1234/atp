@@ -16,7 +16,7 @@
 #include <boost/bind.hpp>
 #include <boost/phoenix.hpp>
 #include "SyntaxTreeFold.h"
-#include "KnowledgeKernel.h"
+#include "ModelContext.h"
 #include "SemanticsHelper.h"
 
 
@@ -32,9 +32,9 @@ namespace equational
 
 
 Statement::Statement(
-	const KnowledgeKernel& ker,
+	const ModelContext& ctx,
 	SyntaxNodePtr p_root) :
-	m_ker(ker)
+	m_ctx(ctx)
 {
 	ATP_LOGIC_PRECOND(p_root->get_type() ==
 		SyntaxNodeType::EQ);
@@ -43,8 +43,8 @@ Statement::Statement(
 
 	ATP_LOGIC_ASSERT(p_eq != nullptr);
 
-	m_sides = std::make_pair(Expression::construct(ker,
-		p_eq->left()), Expression::construct(ker,
+	m_sides = std::make_pair(Expression::construct(ctx,
+		p_eq->left()), Expression::construct(ctx,
 			p_eq->right()));
 
 	// collect together the free variable IDs by unioning those
@@ -61,14 +61,14 @@ Statement::Statement(
 
 
 Statement::Statement(const Statement& other) :
-	m_ker(other.m_ker)
+	m_ctx(other.m_ctx)
 {
 	*this = other;
 }
 
 
 Statement::Statement(Statement&& other) noexcept :
-	m_ker(other.m_ker)
+	m_ctx(other.m_ctx)
 {
 	*this = std::move(other);
 }
@@ -78,7 +78,7 @@ Statement& Statement::operator=(const Statement& other)
 {
 	if (this != &other)
 	{
-		ATP_LOGIC_PRECOND(&m_ker == &other.m_ker);
+		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
 		m_sides = other.m_sides;
 		m_free_var_ids = other.m_free_var_ids;
 	}
@@ -90,7 +90,7 @@ Statement& Statement::operator=(Statement&& other) noexcept
 {
 	if (this != &other)
 	{
-		ATP_LOGIC_PRECOND(&m_ker == &other.m_ker);
+		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
 		m_sides = std::move(other.m_sides);
 		m_free_var_ids = std::move(other.m_free_var_ids);
 	}
@@ -113,13 +113,13 @@ std::string Statement::to_str() const
 	};
 	auto const_fold = [this](size_t symb_id) -> std::string
 	{
-		return m_ker.symbol_name(symb_id);
+		return m_ctx.symbol_name(symb_id);
 	};
 	auto func_fold = [this](size_t symb_id,
 		std::vector<std::string>::iterator begin,
 		std::vector<std::string>::iterator end) -> std::string
 	{
-		return m_ker.symbol_name(symb_id) + '(' +
+		return m_ctx.symbol_name(symb_id) + '(' +
 			boost::algorithm::join(
 				boost::make_iterator_range(begin, end), ", ") + ')';
 	};
@@ -156,7 +156,7 @@ std::pair<SyntaxNodePtr, SyntaxNodePtr> Statement::get_sides() const
 
 Statement Statement::adjoin_rhs(const Statement& other) const
 {
-	ATP_LOGIC_PRECOND(&m_ker == &other.m_ker);
+	ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
 
 	// \todo: this could be more efficient I think, but it would
 	// be a considerable amount of effort (perhaps a couple of
@@ -168,7 +168,7 @@ Statement Statement::adjoin_rhs(const Statement& other) const
 	auto new_eq = EqSyntaxNode::construct(my_sides.first,
 		other_sides.second);
 
-	return Statement(m_ker, new_eq);
+	return Statement(m_ctx, new_eq);
 }
 
 

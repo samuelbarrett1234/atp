@@ -242,7 +242,7 @@ BOOST_DATA_TEST_CASE(test_get_successors,
 	auto target_stmt = dynamic_cast<const Statement&>(p_stmts->at(2));
 
 	auto responses = semantics::get_successors(initial_stmt,
-		{ rule_stmt });
+		StatementArray::try_from_stmt(rule_stmt));
 
 	BOOST_TEST(responses.size() != 0);
 

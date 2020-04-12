@@ -206,12 +206,13 @@ BOOST_AUTO_TEST_CASE(test_substitute_tree_with_new_free_var)
 	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
 		ctx);
 	auto premise_stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
-	auto rule_stmt = dynamic_cast<const Statement&>(p_stmts->at(1));
+	auto _rule_stmt = p_stmts->slice(1, 2);
+	auto rule_stmt = dynamic_cast<const StatementArray&>(*_rule_stmt);
 
-	auto rule_sides = rule_stmt.get_sides();
+	auto rule_sides = rule_stmt.my_at(0).get_sides();
 
-	semantics::SubstitutionInfo sub_info(ker,
-		{ rule_stmt },
+	semantics::SubstitutionInfo sub_info(ctx,
+		rule_stmt,
 		premise_stmt.free_var_ids());
 
 	auto sub_tree_results = semantics::substitute_tree(
@@ -292,7 +293,7 @@ BOOST_DATA_TEST_CASE(test_immediate_applications,
 	// create substitution info
 
 	semantics::SubstitutionInfo sub_info(ctx,
-		*p_rules,
+		ker.get_active_rules(),
 		semantics::get_free_var_ids(stmt_stree));
 
 	// get test immediate applications

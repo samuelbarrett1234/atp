@@ -34,7 +34,7 @@ namespace equational
 {
 
 
-class KnowledgeKernel;  // forward definition
+class ModelContext;  // forward definition
 class Expression;  // forward definition
 
 
@@ -53,14 +53,14 @@ class ATP_LOGIC_API Expression
 {
 public:
     static ExpressionPtr construct(
-        const KnowledgeKernel& ker,
+        const ModelContext& ctx,
         SyntaxNodePtr p_root);
 
 public:
     /**
     \pre p_root->get_type() != SyntaxNodePtr::EQ
     */
-    Expression(const KnowledgeKernel& ker,
+    Expression(const ModelContext& ctx,
         SyntaxNodePtr p_root);
 
     Expression(const Expression& other);
@@ -595,7 +595,7 @@ private:
 
 private:
     // expressions store references to their creator
-    const KnowledgeKernel& m_ker;
+    const ModelContext& m_ctx;
 
     /**
     \warning we impose a function arity limit for efficiency!

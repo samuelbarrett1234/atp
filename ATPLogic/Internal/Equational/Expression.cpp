@@ -14,6 +14,7 @@
 #include <boost/bind.hpp>
 #include <boost/phoenix.hpp>
 #include "SyntaxTreeFold.h"
+#include "ModelContext.h"
 
 
 namespace phx = boost::phoenix;
@@ -27,16 +28,16 @@ namespace equational
 {
 
 
-ExpressionPtr Expression::construct(const KnowledgeKernel& ker,
+ExpressionPtr Expression::construct(const ModelContext& ctx,
 	SyntaxNodePtr p_root)
 {
-	return std::make_shared<Expression>(ker, p_root);
+	return std::make_shared<Expression>(ctx, p_root);
 }
 
 
-Expression::Expression(const KnowledgeKernel& ker,
+Expression::Expression(const ModelContext& ctx,
 	SyntaxNodePtr p_root) :
-	m_ker(ker)
+	m_ctx(ctx)
 {
 	ATP_LOGIC_PRECOND(p_root->get_type() !=
 		SyntaxNodeType::EQ);
@@ -49,14 +50,14 @@ Expression::Expression(const KnowledgeKernel& ker,
 
 
 Expression::Expression(const Expression& other) :
-	m_ker(other.m_ker)
+	m_ctx(other.m_ctx)
 {
 	*this = other;
 }
 
 
 Expression::Expression(Expression&& other) noexcept :
-	m_ker(other.m_ker)
+	m_ctx(other.m_ctx)
 {
 	*this = std::move(other);
 }
@@ -66,7 +67,7 @@ Expression& Expression::operator=(const Expression& other)
 {
 	if (this != &other)
 	{
-		ATP_LOGIC_PRECOND(&m_ker == &other.m_ker);
+		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
 		m_root = other.m_root;
 		m_root_type = other.m_root_type;
 		m_func_symb_ids = other.m_func_symb_ids;
@@ -83,7 +84,7 @@ Expression& Expression::operator=(Expression&& other) noexcept
 {
 	if (this != &other)
 	{
-		ATP_LOGIC_PRECOND(&m_ker == &other.m_ker);
+		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
 		m_root = other.m_root;
 		m_root_type = other.m_root_type;
 		m_func_symb_ids = std::move(other.m_func_symb_ids);

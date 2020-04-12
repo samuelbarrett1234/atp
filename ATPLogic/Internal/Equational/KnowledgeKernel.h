@@ -35,11 +35,18 @@ namespace equational
 class ATP_LOGIC_API KnowledgeKernel :
 	public IKnowledgeKernel
 {
-private:
+public:
 	// use builder function instead of constructing this way
 	KnowledgeKernel(const ModelContext& ctx);
 
-public:
+	/**
+	\brief A builder function for this model context implementation.
+
+	\returns `nullptr` on failure, otherwise returns a valid object.
+
+	\note Note that failure can occur due to a model context having
+		ill-formed statements.
+	*/
 	static KnowledgeKernelPtr try_construct(const Language& lang,
 		const ModelContext& ctx);
 

@@ -22,6 +22,7 @@
 #include "../../ATPLogicAPI.h"
 #include "SyntaxNodes.h"
 #include "Statement.h"
+#include "StatementArray.h"
 
 
 namespace atp
@@ -30,6 +31,11 @@ namespace logic
 {
 namespace equational
 {
+
+
+class ModelContext;  // forward declaration
+
+
 namespace semantics
 {
 
@@ -49,12 +55,11 @@ namespace semantics
 */
 struct ATP_LOGIC_API SubstitutionInfo
 {
-	SubstitutionInfo(const KnowledgeKernel& kernel,
-		const std::vector<Statement>& rules,
+	SubstitutionInfo(const ModelContext& ctx,
+		const StatementArray& rules,
 		const std::set<size_t>& stmt_free_var_ids);
 
-	// The knowledge kernel from which we obtained the rules etc
-	const KnowledgeKernel& kernel;
+	const ModelContext& context;
 
 	// A list of (LHS, RHS) pairs for the rules (they're more useful
 	// when split into LHS and RHS)

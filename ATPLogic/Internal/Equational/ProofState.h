@@ -14,6 +14,7 @@
 #include "../../Interfaces/IProofState.h"
 #include "Statement.h"
 #include "KnowledgeKernel.h"
+#include "ModelContext.h"
 
 
 namespace atp
@@ -45,7 +46,6 @@ public:
 	{
 	public:
 		PfStateSuccIterator(const ProofState& parent,
-			const KnowledgeKernel& ker,
 			const Statement& current);
 
 		bool valid() const override;
@@ -53,25 +53,25 @@ public:
 		void advance() override;
 
 	private:
-		const KnowledgeKernel& m_ker;
 		const ProofState& m_parent;
 		size_t m_index;
 		StatementArray m_succs;
 		Statement m_stmt;
 	};
 
-private:
-	ProofState(const KnowledgeKernel& ker,
+public:
+	ProofState(const ModelContext& ctx,
+		const KnowledgeKernel& ker,
 		Statement target, Statement current) :
-		m_ker(ker), m_target(target), m_current(current)
+		m_ctx(ctx), m_ker(ker), m_target(target), m_current(current)
 	{ }
 
-public:
-	ProofState(const KnowledgeKernel& ker,
+	ProofState(const ModelContext& ctx,
+		const KnowledgeKernel& ker,
 		Statement target) :
 		m_target(target),
 		m_current(target),
-		m_ker(ker)
+		m_ker(ker), m_ctx(ctx)
 	{ }
 
 	inline const IStatement& target_stmt() const override
@@ -82,7 +82,7 @@ public:
 	inline SuccIterPtr succ_begin() const override
 	{
 		return std::make_shared<PfStateSuccIterator>(*this,
-			m_ker, m_current);
+			m_current);
 	}
 
 	inline ProofCompletionState completion_state() const override
@@ -103,6 +103,7 @@ public:
 	}
 
 private:
+	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
 	Statement m_target, m_current;
 };

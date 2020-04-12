@@ -109,15 +109,16 @@ bool true_by_reflexivity(const Statement& stmt)
 }
 
 
-StatementArray get_successors(const Statement& stmt,
-	const std::vector<Statement>& rules)
+StatementArray get_successors(const ModelContext& ctx,
+	const Statement& stmt,
+	const StatementArray& rules)
 {
 	// this pair can be thought of as a node saying: "<me, and all of
 	// the ways the subtree rooted at me look after substitution>"
 	typedef std::pair<SyntaxNodePtr, std::vector<SyntaxNodePtr>>
 		SubResults;
 
-	SubstitutionInfo sub_info(stmt.kernel(), rules,
+	SubstitutionInfo sub_info(ctx, rules,
 		stmt.free_var_ids());
 
 	auto eq_constructor = [](const SubResults& lhs,
@@ -225,9 +226,9 @@ StatementArray get_successors(const Statement& stmt,
 	std::transform(fold_results.second.begin(),
 		fold_results.second.end(),
 		std::back_inserter(*p_arr),
-		[&stmt](SyntaxNodePtr p_node)
+		[&stmt, &ctx](SyntaxNodePtr p_node)
 		{
-			return Statement(stmt.kernel(), p_node);
+			return Statement(ctx, p_node);
 		}
 	);
 

@@ -12,7 +12,6 @@
 #include <boost/functional/hash.hpp>
 #include <boost/phoenix.hpp>
 #include <boost/bind.hpp>
-#include <boost/iterator/transform_iterator.hpp>
 #include "Semantics.h"
 #include "ProofState.h"
 
@@ -27,7 +26,8 @@ namespace equational
 
 KnowledgeKernel::KnowledgeKernel(const ModelContext& ctx) :
 	m_context(ctx),
-	m_next_thm_ref_id(1)
+	m_next_thm_ref_id(1),
+	m_active_rules(nullptr)
 { }
 
 
@@ -96,7 +96,8 @@ ProofStatePtr KnowledgeKernel::begin_proof_of(
 	ATP_LOGIC_PRECOND(p_stmt != nullptr);
 	ATP_LOGIC_PRECOND(type_check(m_context, *p_stmt));
 
-	return std::make_shared<ProofState>(*this, *p_stmt);
+	return std::make_shared<ProofState>(m_context,
+		*this, *p_stmt);
 }
 
 
@@ -201,12 +202,10 @@ bool KnowledgeKernel::type_check(const ModelContext& ctx,
 
 void KnowledgeKernel::rebuild_active_rules()
 {
-	auto get_second = boost::bind(&std::pair<size_t,
-		StatementArrayPtr>::second, _1);
-	std::vector<StatementArrayPtr> thms(
-		boost::make_transform_iterator(m_theorems.begin(),
-			get_second), boost::make_transform_iterator(
-				m_theorems.end(), get_second));
+	std::vector<StatementArrayPtr> thms;
+	thms.reserve(m_theorems.size());
+	for (const auto& thm : m_theorems)
+		thms.push_back(thm.second);
 
 	// these shouldn't return nullptr
 	_m_active_rules = StatementArray::try_concat(

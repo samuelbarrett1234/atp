@@ -17,7 +17,7 @@
 #include <boost/bind.hpp>
 #include "SyntaxTreeFold.h"
 #include "SyntaxTreeTraversal.h"
-#include "KnowledgeKernel.h"
+#include "ModelContext.h"
 
 
 namespace atp
@@ -30,11 +30,11 @@ namespace semantics
 {
 
 
-SubstitutionInfo::SubstitutionInfo(const KnowledgeKernel& kernel,
-	const std::vector<Statement>& rules,
+SubstitutionInfo::SubstitutionInfo(const ModelContext& ctx,
+	const StatementArray& rules,
 	const std::set<size_t>& stmt_free_var_ids) :
-	kernel(kernel), free_var_ids(stmt_free_var_ids),
-	const_symbol_ids(kernel.constant_symbol_ids())
+	context(ctx), free_var_ids(stmt_free_var_ids),
+	const_symbol_ids(ctx.all_constant_symbol_ids())
 {
 	// compute the free variable IDs used in each rule
 	rule_free_vars.reserve(rules.size());

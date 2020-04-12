@@ -38,6 +38,11 @@ namespace logic
 {
 namespace equational
 {
+
+
+class ModelContext;  // forward declaration
+
+
 namespace semantics
 {
 
@@ -50,8 +55,9 @@ namespace semantics
 \remark The successors returned here are all "iff" in the sense that
     `stmt` will also appear in \a their successors.
 */
-ATP_LOGIC_API StatementArray get_successors(const Statement& stmt,
-	const std::vector<Statement>& rules);
+ATP_LOGIC_API StatementArray get_successors(const ModelContext& ctx,
+    const Statement& stmt,
+	const StatementArray& rules);
 
 
 /**

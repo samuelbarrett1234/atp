@@ -111,9 +111,6 @@
     <ClInclude Include="Internal\Equational\SemanticsHelper.h">
       <Filter>Header Files\Internal\Equational\Syntax</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\Equational\Expression.h">
-      <Filter>Header Files\Internal\Equational\Syntax</Filter>
-    </ClInclude>
     <ClInclude Include="Interfaces\IModelContext.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
@@ -124,6 +121,9 @@
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Internal\Equational\ProofState.h">
+      <Filter>Header Files\Internal\Equational\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\Equational\Expression.h">
       <Filter>Header Files\Internal\Equational\Implementations</Filter>
     </ClInclude>
   </ItemGroup>
@@ -158,13 +158,13 @@
     <ClCompile Include="Internal\Equational\SemanticsHelper.cpp">
       <Filter>Source Files\Internal\Equational\Syntax</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\Equational\Expression.cpp">
-      <Filter>Source Files\Internal\Equational\Syntax</Filter>
-    </ClCompile>
     <ClCompile Include="Internal\Equational\ModelContext.cpp">
       <Filter>Source Files\Internal\Equational\Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Internal\Equational\ProofState.cpp">
+      <Filter>Source Files\Internal\Equational\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\Equational\Expression.cpp">
       <Filter>Source Files\Internal\Equational\Implementations</Filter>
     </ClCompile>
   </ItemGroup>

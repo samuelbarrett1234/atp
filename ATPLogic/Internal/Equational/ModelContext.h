@@ -37,11 +37,10 @@ namespace equational
 class ATP_LOGIC_API ModelContext :
     public IModelContext
 {
-private:
+public:
     // construct using the builder function!
     ModelContext() = default;
 
-public:
     /**
     \brief A builder function for this model context implementation.
 

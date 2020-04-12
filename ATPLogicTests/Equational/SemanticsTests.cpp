@@ -20,6 +20,7 @@
 #include "StandardTestFixture.h"
 
 
+using atp::logic::StmtFormat;
 using atp::logic::equational::Statement;
 using atp::logic::equational::SyntaxNodePtr;
 using atp::logic::equational::EqSyntaxNode;
@@ -63,17 +64,10 @@ BOOST_DATA_TEST_CASE(test_true_by_reflexivity_works_on_examples,
 	stmt, is_symmetric)
 {
 	s << stmt;
-	auto result = parse_statements(s);
-	
-	BOOST_REQUIRE(result.has_value());
-	BOOST_REQUIRE(result.get().size() == 1);
 
-	auto syntax_tree = ptree_to_stree(result.get().front(),
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
 		ctx);
-
-	BOOST_REQUIRE(syntax_tree != nullptr);
-
-	auto stmt_obj = Statement(ctx, syntax_tree);
+	auto stmt_obj = dynamic_cast<const Statement&>(p_stmts->at(0));
 
 	BOOST_TEST(semantics::true_by_reflexivity(stmt_obj)
 		== is_symmetric);
@@ -102,21 +96,11 @@ BOOST_DATA_TEST_CASE(test_identical_and_equivalent,
 {
 	// parse them both at the same time
 	s << stmt1 << std::endl << stmt2;
-	auto result = parse_statements(s);
 
-	BOOST_REQUIRE(result.has_value());
-	BOOST_REQUIRE(result.get().size() == 2);
-
-	auto syntax_tree_1 = ptree_to_stree(result.get().front(),
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
 		ctx);
-	auto syntax_tree_2 = ptree_to_stree(result.get().back(),
-		ctx);
-
-	BOOST_REQUIRE(syntax_tree_1 != nullptr);
-	BOOST_REQUIRE(syntax_tree_2 != nullptr);
-
-	auto stmt1_obj = Statement(ctx, syntax_tree_1);
-	auto stmt2_obj = Statement(ctx, syntax_tree_2);
+	auto stmt1_obj = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto stmt2_obj = dynamic_cast<const Statement&>(p_stmts->at(1));
 
 	// identical and equivalent
 	// (try calling both ways round)
@@ -141,16 +125,10 @@ BOOST_DATA_TEST_CASE(test_equivalent_but_not_identical,
 		"*(x, y) = i(*(x, y))" }), stmt)
 {
 	s << stmt;
-	auto result = parse_statements(s);
 
-	BOOST_REQUIRE(result.has_value());
-	BOOST_REQUIRE(result.get().size() == 1);
-
-	auto syntax_tree_1 = ptree_to_stree(result.get().front(), ctx);
-
-	BOOST_REQUIRE(syntax_tree_1 != nullptr);
-
-	auto stmt1_obj = Statement(ctx, syntax_tree_1);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt1_obj = dynamic_cast<const Statement&>(p_stmts->at(0));
 
 	// change the free variable IDs so that they are no longer
 	// identical
@@ -181,16 +159,10 @@ BOOST_DATA_TEST_CASE(test_neither_equivalent_nor_identical,
 		"x = y", "i(x) = y", "x = *(e, y)", "*(x, y) = x" }), stmt)
 {
 	s << stmt;
-	auto result = parse_statements(s);
 
-	BOOST_REQUIRE(result.has_value());
-	BOOST_REQUIRE(result.get().size() == 1);
-
-	auto syntax_tree_1 = ptree_to_stree(result.get().front(), ctx);
-
-	BOOST_REQUIRE(syntax_tree_1 != nullptr);
-
-	auto stmt1_obj = Statement(ctx, syntax_tree_1);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt1_obj = dynamic_cast<const Statement&>(p_stmts->at(0));
 
 	// map all used variables to ID 0!
 	std::map<size_t, size_t> free_id_map;
@@ -216,16 +188,11 @@ BOOST_AUTO_TEST_CASE(test_equivalent_invariant_to_reflection)
 	// reflect the statement along the equals sign, should still
 	// be equivalent but not identical
 	s << "*(x, y) = i(*(x, y)) \n i(*(x, y)) = *(x, y)";
-	auto result = parse_statements(s);
-
-	BOOST_REQUIRE(result.has_value());
-	BOOST_REQUIRE(result.get().size() == 2);
-
-	auto stree1 = ptree_to_stree(result.get().front(), ctx);
-	auto stree2 = ptree_to_stree(result.get().back(), ctx);
-
-	auto stmt1 = Statement(ctx, stree1);
-	auto stmt2 = Statement(ctx, stree2);
+	
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt1 = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto stmt2 = dynamic_cast<const Statement&>(p_stmts->at(1));
 
 	BOOST_TEST(semantics::equivalent(stmt1, stmt2));
 }
@@ -268,19 +235,11 @@ BOOST_DATA_TEST_CASE(test_get_successors,
 	// substitution results is equivalent to this).
 	s << a_subst_result;
 
-	auto results = parse_statements(s);
-	BOOST_REQUIRE(results.has_value());
-	BOOST_REQUIRE(results.get().size() == 3);
-
-	auto parse_result_iter = results->begin();
-	auto initial_stmt = Statement(ctx, ptree_to_stree(
-		*parse_result_iter, ctx));
-	++parse_result_iter;
-	auto rule_stmt = Statement(ctx, ptree_to_stree(
-		*parse_result_iter, ctx));
-	++parse_result_iter;
-	auto target_stmt = Statement(ctx, ptree_to_stree(
-		*parse_result_iter, ctx));
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto initial_stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto rule_stmt = dynamic_cast<const Statement&>(p_stmts->at(1));
+	auto target_stmt = dynamic_cast<const Statement&>(p_stmts->at(2));
 
 	auto responses = semantics::get_successors(initial_stmt,
 		{ rule_stmt });
@@ -311,17 +270,11 @@ BOOST_DATA_TEST_CASE(test_implies,
 	premise_stmt, concl_stmt)
 {
 	s << premise_stmt << '\n' << concl_stmt;
-	
-	auto results = parse_statements(s);
 
-	BOOST_REQUIRE(results.has_value());
-	BOOST_REQUIRE(results->size() == 2);
-
-	auto premise_stree = ptree_to_stree(results->front(), ctx);
-	auto concl_stree = ptree_to_stree(results->back(), ctx);
-
-	auto premise = Statement(ctx, premise_stree);
-	auto concl = Statement(ctx, concl_stree);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto premise = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto concl = dynamic_cast<const Statement&>(p_stmts->at(1));
 	
 	BOOST_TEST(semantics::implies(premise, concl));
 }

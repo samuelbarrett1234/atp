@@ -23,6 +23,7 @@
 #include "StandardTestFixture.h"
 
 
+using atp::logic::StmtFormat;
 using atp::logic::equational::Statement;
 using atp::logic::equational::SyntaxNodePtr;
 using atp::logic::equational::EqSyntaxNode;
@@ -120,14 +121,11 @@ BOOST_AUTO_TEST_CASE(test_try_build_map_positive)
 	// which makes the RHS.
 	s << "i(*(x, y)) = i(*(i(z), i(x)))";
 
-	auto ptree = parse_statements(s);
-	BOOST_REQUIRE(ptree.has_value());
-	BOOST_REQUIRE(ptree->size() == 1);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
 
-	auto stree = ptree_to_stree(ptree->front(), ctx);
-
-	// get LHS and RHS of the syntax tree we just built
-	auto sides = Statement(ctx, stree).get_sides();
+	auto sides = stmt.get_sides();
 
 	auto mapping = semantics::try_build_map(sides.first,
 		sides.second);
@@ -150,14 +148,11 @@ BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 	// for the LHS which makes the RHS.
 	s << "i(*(e, y)) = i(*(i(z), i(x)))";
 
-	auto ptree = parse_statements(s);
-	BOOST_REQUIRE(ptree.has_value());
-	BOOST_REQUIRE(ptree->size() == 1);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
 
-	auto stree = ptree_to_stree(ptree->front(), ctx);
-
-	// get LHS and RHS of the syntax tree we just built
-	auto sides = Statement(ctx, stree).get_sides();
+	auto sides = stmt.get_sides();
 
 	auto mapping = semantics::try_build_map(sides.first,
 		sides.second);
@@ -181,14 +176,11 @@ BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 	// which makes the RHS.
 	s << "e = e";
 
-	auto ptree = parse_statements(s);
-	BOOST_REQUIRE(ptree.has_value());
-	BOOST_REQUIRE(ptree->size() == 1);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
 
-	auto stree = ptree_to_stree(ptree->front(), ctx);
-
-	// get LHS and RHS of the syntax tree we just built
-	auto sides = Statement(ctx, stree).get_sides();
+	auto sides = stmt.get_sides();
 
 	auto mapping = semantics::try_build_map(sides.first,
 		sides.second);
@@ -211,18 +203,16 @@ BOOST_AUTO_TEST_CASE(test_substitute_tree_with_new_free_var)
 	// variable is handled correctly
 	s << "x = e \n e = *(x, i(x))";
 
-	auto ptrees = parse_statements(s);
-	BOOST_REQUIRE(ptrees.has_value());
-	BOOST_REQUIRE(ptrees->size() == 2);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto premise_stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto rule_stmt = dynamic_cast<const Statement&>(p_stmts->at(1));
 
-	auto premise_stree = ptree_to_stree(ptrees->front(), ctx);
-	auto rule_stree = ptree_to_stree(ptrees->back(), ctx);
-
-	auto rule_sides = Statement(ctx, rule_stree).get_sides();
+	auto rule_sides = rule_stmt.get_sides();
 
 	semantics::SubstitutionInfo sub_info(ker,
-		{ Statement(ctx, rule_stree) },
-		semantics::get_free_var_ids(premise_stree) );
+		{ rule_stmt },
+		premise_stmt.free_var_ids());
 
 	auto sub_tree_results = semantics::substitute_tree(
 		rule_sides.second, sub_info,

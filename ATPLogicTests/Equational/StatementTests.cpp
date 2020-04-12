@@ -27,11 +27,10 @@
 #include "StandardTestFixture.h"
 
 
-using atp::logic::StmtForm;
+using atp::logic::StmtFormat;
+using atp::logic::equational::ModelContext;
 using atp::logic::equational::StatementArray;
 using atp::logic::equational::Statement;
-using atp::logic::equational::parse_statements;
-using atp::logic::equational::ptree_to_stree;
 using atp::logic::equational::SyntaxNodeType;
 using atp::logic::equational::EqSyntaxNode;
 using atp::logic::equational::FreeSyntaxNode;
@@ -61,11 +60,9 @@ BOOST_DATA_TEST_CASE(test_statement_with_one_var_to_str,
 	// test that .to_str is the inverse of the parser
 
 	s << stmt;
-	auto result = parse_statements(s);
-	BOOST_REQUIRE(result.has_value());
-	BOOST_REQUIRE(result.get().size() == 1);
-	auto stree = ptree_to_stree(result.get().front(), ctx);
-	auto stmt_obj = Statement(ctx, stree);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt_obj = dynamic_cast<const Statement&>(p_stmts->at(0));
 
 	BOOST_TEST(stmt_obj.to_str() == stmt);
 }
@@ -78,11 +75,9 @@ BOOST_DATA_TEST_CASE(num_free_vars_test,
 	stmt, num_free_vars)
 {
 	s << stmt;
-	auto result = parse_statements(s);
-	BOOST_REQUIRE(result.has_value());
-	BOOST_REQUIRE(result.get().size() == 1);
-	auto stree = ptree_to_stree(result.get().front(), ctx);
-	auto stmt_obj = Statement(ctx, stree);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt_obj = dynamic_cast<const Statement&>(p_stmts->at(0));
 
 	BOOST_TEST(stmt_obj.num_free_vars()
 		== num_free_vars);
@@ -99,13 +94,11 @@ BOOST_DATA_TEST_CASE(test_string_fold_is_inverse_to_parser,
 	// by using it as a .to_str() function (of course, the Statement
 	// interface already provides this, but we are doing this to test
 	// the fold function specifically.)
-
+	
 	s << stmt;
-	auto result = parse_statements(s);
-	BOOST_REQUIRE(result.has_value());
-	BOOST_REQUIRE(result.get().size() == 1);
-	auto stree = ptree_to_stree(result.get().front(), ctx);
-	auto stmt_obj = Statement(ctx, stree);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt_obj = dynamic_cast<const Statement&>(p_stmts->at(0));
 
 	auto eq_to_str = phxargs::arg1 + " = " + phxargs::arg2;
 	auto free_to_str = [](size_t id)
@@ -135,11 +128,9 @@ BOOST_AUTO_TEST_CASE(
 	// the fold function specifically.)
 
 	s << "*(x0, x1) = i(*(i(x0), i(x1)))";
-	auto result = parse_statements(s);
-	BOOST_REQUIRE(result.has_value());
-	BOOST_REQUIRE(result.get().size() == 1);
-	auto stree = ptree_to_stree(result.get().front(), ctx);
-	auto stmt_obj = Statement(ctx, stree);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt_obj = dynamic_cast<const Statement&>(p_stmts->at(0));
 
 	auto eq_to_str = phxargs::arg1 + " = " + phxargs::arg2;
 	auto free_to_str = [](size_t id)
@@ -192,16 +183,10 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_with_conflicting_func_arities)
 	s << "i(x) = e \n";
 	s << "*(x, y) = pi";
 
-	auto results = parse_statements(s);
-
-	BOOST_REQUIRE(results.has_value());
-	BOOST_REQUIRE(results.get().size() == 2);
-
-	auto stree1 = ptree_to_stree(results.get().front(), ctx2);
-	auto stree2 = ptree_to_stree(results.get().back(), ctx2);
-
-	auto stmt1 = Statement(ctx2, stree1);
-	auto stmt2 = Statement(ctx2, stree2);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt1 = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto stmt2 = dynamic_cast<const Statement&>(p_stmts->at(1));
 
 	auto eq_func = phxargs::arg1 && phxargs::arg2;
 
@@ -250,16 +235,10 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_by_converting_pair_to_str)
 	s << "*(x, y) = i(*(i(x), i(y))) \n";
 	s << "e = i(*(i(x), i(y)))";
 
-	auto results = parse_statements(s);
-
-	BOOST_REQUIRE(results.has_value());
-	BOOST_REQUIRE(results.get().size() == 2);
-
-	auto stree1 = ptree_to_stree(results.get().front(), ctx);
-	auto stree2 = ptree_to_stree(results.get().back(), ctx);
-
-	auto stmt1 = Statement(ctx, stree1);
-	auto stmt2 = Statement(ctx, stree2);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt1 = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto stmt2 = dynamic_cast<const Statement&>(p_stmts->at(1));
 
 	auto eq_func = phxargs::arg1 + " = " + phxargs::arg2;
 	auto free_func = [](size_t id1, size_t id2)
@@ -322,16 +301,10 @@ BOOST_AUTO_TEST_CASE(test_adjoin_rhs)
 	// stmt2:
 	s << "i(x) = i(*(i(x), y))";
 
-	auto results = parse_statements(s);
-
-	BOOST_REQUIRE(results.has_value());
-	BOOST_REQUIRE(results.get().size() == 2);
-
-	auto stree1 = ptree_to_stree(results->front(), ctx);
-	auto stree2 = ptree_to_stree(results->back(), ctx);
-
-	auto stmt1 = Statement(ctx, stree1);
-	auto stmt2 = Statement(ctx, stree2);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt1 = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto stmt2 = dynamic_cast<const Statement&>(p_stmts->at(1));
 
 	auto stmt_adjoin_result = stmt1.adjoin_rhs(stmt2);
 
@@ -356,15 +329,12 @@ BOOST_DATA_TEST_CASE(test_transpose,
 	// create statements from the "original" and
 	// "target" strings
 	s << original << "\n" << target;
-	auto results = parse_statements(s);
-	BOOST_REQUIRE(results.has_value());
-	BOOST_REQUIRE(results.get().size() == 2);
-	auto stree1 = ptree_to_stree(results.get().front(), ctx);
-	auto stree2 = ptree_to_stree(results.get().back(), ctx);
-	BOOST_REQUIRE(stree1 != nullptr);
-	BOOST_REQUIRE(stree2 != nullptr);
-	auto stmt1 = Statement(ctx, stree1);
-	auto stmt2 = Statement(ctx, stree2);
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt1 = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto stmt2 = dynamic_cast<const Statement&>(p_stmts->at(1));
+
 	// check that the transpose of one of them is identical
 	// to the other one
 	BOOST_TEST(semantics::identical(stmt1,
@@ -388,11 +358,10 @@ BOOST_DATA_TEST_CASE(test_get_statement_sides,
 	side1, side2)
 {
 	s << side1 << " = " << side2;
-	auto ptree = parse_statements(s);
-	BOOST_REQUIRE(ptree.has_value());
-	BOOST_REQUIRE(ptree->size() == 1);
-	auto stree = ptree_to_stree(ptree->front(), ctx);
-	auto stmt = Statement(ctx, stree);
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
 
 	auto sides = stmt.get_sides();
 
@@ -424,18 +393,11 @@ BOOST_DATA_TEST_CASE(test_map_free_vars,
 
 	// load:
 
-	auto parse_results = parse_statements(s);
-	BOOST_REQUIRE(parse_results.has_value());
-	BOOST_REQUIRE(parse_results->size() == 3);
-	auto iter = parse_results->begin();
-	auto original_stree = ptree_to_stree(*iter, ctx);
-	++iter;
-	auto sub_stree = ptree_to_stree(*iter, ctx);
-	++iter;
-	auto target_stree = ptree_to_stree(*iter, ctx);
-	auto original_stmt = Statement(ctx, original_stree);
-	auto sub_stmt = Statement(ctx, sub_stree);
-	auto target_stmt = Statement(ctx, target_stree);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto original_stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto sub_stmt = dynamic_cast<const Statement&>(p_stmts->at(1));
+	auto target_stmt = dynamic_cast<const Statement&>(p_stmts->at(2));
 
 	// construct free var mapping:
 	std::map<size_t, SyntaxNodePtr> free_var_map;
@@ -471,9 +433,9 @@ BOOST_AUTO_TEST_CASE(
 
 	s << "x = x";
 
-	auto parse_tree = parse_statements(s);
-	auto stree = ptree_to_stree(parse_tree->front(), ctx);
-	auto stmt = Statement(ctx, stree);
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
 
 	std::map<size_t, SyntaxNodePtr> free_var_map;
 

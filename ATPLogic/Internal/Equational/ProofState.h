@@ -25,28 +25,6 @@ namespace equational
 
 
 /**
-\brief This object enumerates successors of the equational proof
-	states.
-*/
-class ATP_LOGIC_API PfStateSuccIterator :
-	public ISuccessorIterator
-{
-public:
-	PfStateSuccIterator(const KnowledgeKernel& ker,
-		const Statement& current);
-
-	bool valid() const override;
-	ProofStatePtr get() const override;
-	void advance() override;
-
-private:
-	StatementArray m_succs;
-	const KnowledgeKernel& m_ker;
-	Statement m_stmt;
-};
-
-
-/**
 \brief Proof states for equational logic
 
 \details A proof state in equational logic is just a linked list of
@@ -57,6 +35,37 @@ private:
 class ATP_LOGIC_API ProofState :
 	public IProofState
 {
+public:
+	/**
+	\brief This object enumerates successors of the equational proof
+		states.
+	*/
+	class ATP_LOGIC_API PfStateSuccIterator :
+		public ISuccessorIterator
+	{
+	public:
+		PfStateSuccIterator(const ProofState& parent,
+			const KnowledgeKernel& ker,
+			const Statement& current);
+
+		bool valid() const override;
+		ProofStatePtr get() const override;
+		void advance() override;
+
+	private:
+		const KnowledgeKernel& m_ker;
+		const ProofState& m_parent;
+		size_t m_index;
+		StatementArray m_succs;
+		Statement m_stmt;
+	};
+
+private:
+	ProofState(const KnowledgeKernel& ker,
+		Statement target, Statement current) :
+		m_ker(ker), m_target(target), m_current(current)
+	{ }
+
 public:
 	ProofState(const KnowledgeKernel& ker,
 		Statement target) :
@@ -72,7 +81,8 @@ public:
 
 	inline SuccIterPtr succ_begin() const override
 	{
-		return std::make_shared<PfStateSuccIterator>(m_current);
+		return std::make_shared<PfStateSuccIterator>(*this,
+			m_ker, m_current);
 	}
 
 	inline ProofCompletionState completion_state() const override

@@ -43,6 +43,7 @@ private:
 		logic::ProofStatePtr node;
 		logic::PfStateSuccIterPtr iter;
 	};
+
 public:
 	/**
 

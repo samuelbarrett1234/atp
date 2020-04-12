@@ -51,6 +51,11 @@ public:
 		bool valid() const override;
 		ProofStatePtr get() const override;
 		void advance() override;
+		inline size_t size() const override
+		{
+			// unfortunately this class isn't lazy (yet)
+			return m_succs.size();
+		}
 
 	private:
 		const ProofState& m_parent;

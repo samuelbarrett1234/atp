@@ -21,9 +21,15 @@
     <ClCompile Include="IterativeDeepeningTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DefinitionStrs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DefinitionStrs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

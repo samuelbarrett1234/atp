@@ -10,13 +10,16 @@
 
 
 #include <sstream>
-#include "Test.h"
-#include <Internal/IterativeDeepeningSolver.h>
 #include <ATPLogic.h>
+#include <Internal/IterativeDeepeningSolver.h>
+#include "Test.h"
+#include "DefinitionStrs.h"
+
 
 
 using atp::search::IterativeDeepeningSolver;
 using atp::logic::LanguagePtr;
+using atp::logic::ModelContextPtr;
 using atp::logic::KnowledgeKernelPtr;
 using atp::logic::LangType;
 using atp::logic::StmtFormat;
@@ -27,38 +30,21 @@ struct IterativeDeepeningSolverTestsFixture
 {
 	IterativeDeepeningSolverTestsFixture()
 	{
+		// use group theory context
+		std::stringstream defn_in(group_theory_definition_str);
+
 		p_lang = create_language(LangType::EQUATIONAL_LOGIC);
-		p_ker = p_lang->create_empty_kernel();
-
-		s << std::noskipws;
-
-		// group theory definitions
-		s << "e 0 \n i 1 \n * 2";
-		p_lang->load_kernel_definitions(*p_ker, s);
-
-		// reset this
-		s = std::stringstream();
-		s << std::noskipws;
-
-		// group theory rules
-		s << "x = *(x, e)\n";
-		s << "x = *(e, x)\n";
-		s << "e = *(x, i(x))\n";
-		s << "e = *(i(x), x)\n";
-		s << "*(*(x, y), z) = *(x, *(y, z))";
-		p_lang->load_kernel_axioms(*p_ker, s);
-
-		// reset this
-		s = std::stringstream();
-		s << std::noskipws;
+		p_ctx = p_lang->try_create_context(defn_in);
+		p_ker = p_lang->try_create_kernel(*p_ctx);
 
 		// create solver
 		p_ids = std::make_unique<IterativeDeepeningSolver>(p_ker,
-			/* max_depth */ 100);
+			/* max_depth */ 10);
 	}
 
 	std::stringstream s;
 	LanguagePtr p_lang;
+	ModelContextPtr p_ctx;
 	KnowledgeKernelPtr p_ker;
 	std::unique_ptr<IterativeDeepeningSolver> p_ids;
 };
@@ -80,12 +66,12 @@ BOOST_AUTO_TEST_CASE(simple_proof_test,
 
 	s << "x = *(x, e) \n";  // trivial
 	s << "*(x, y) = *(*(x, y), e) \n";  // still easy
-	s << "e = *(i(*(x, y)), *(x, y)) \n";
-	s << "i(e) = e \n";  // still reasonable
-	s << "*(x, e) = *(e, x)";  // still reasonable
+	s << "e = *(i(*(x, y)), *(x, y)) \n";  // still easy
+	s << "i(e) = e \n";  // reasonable
+	s << "*(x, e) = *(e, x)";  // reasonable
 
 	auto stmts = p_lang->deserialise_stmts(s,
-		StmtFormat::TEXT, *p_ker);
+		StmtFormat::TEXT, *p_ctx);
 
 	BOOST_REQUIRE(stmts != nullptr);
 
@@ -105,12 +91,7 @@ BOOST_AUTO_TEST_CASE(simple_proof_test,
 	BOOST_REQUIRE(proofs.size() == stmts->size());
 
 	for (auto pf : proofs)
-		BOOST_TEST(pf.has_value());
-
-	// just out of interest:
-	auto agg_time = p_ids->get_agg_time();
-	auto max_mem = p_ids->get_max_mem();
-	auto num_expansions = p_ids->get_num_expansions();
+		BOOST_TEST(pf.get() != nullptr);
 
 	BOOST_TEST(p_ids->engaged());
 }

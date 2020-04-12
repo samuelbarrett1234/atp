@@ -29,11 +29,7 @@ BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(StatementArrayTests,
 	StandardTestFixture,
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/StatementTests")
-	* boost::unit_test_framework::depends_on(
-		"EquationalTests/LanguageTests")
-	* boost::unit_test_framework::depends_on(
-		"EquationalTests/ModelContextTests"));
+		"EquationalTests/StatementTests"));
 
 
 BOOST_AUTO_TEST_CASE(size_test)

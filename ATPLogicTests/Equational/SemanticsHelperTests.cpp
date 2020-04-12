@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(SemanticsHelperTests,
 	StandardTestFixture,
 	*boost::unit_test_framework::depends_on(
-		"EquationalTests/ParseTreeToSyntaxTreeTests")
+		"EquationalTests/LanguageTests")
 	* boost::unit_test_framework::depends_on(
 		"EquationalTests/SyntaxTreeFoldTests")
 	* boost::unit_test_framework::depends_on(

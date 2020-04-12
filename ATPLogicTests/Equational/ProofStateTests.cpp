@@ -50,12 +50,8 @@ static inline ostream& boost_test_print_type(ostream& os,
 BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(ProofStateTests,
 	StandardTestFixture,
-	*boost::unit_test_framework::depends_on(
-		"EquationalTests/SemanticsTests")
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/KnowledgeKernelTests")
-	* boost::unit_test_framework::depends_on(
-		"EquationalTests/StatementTests"));
+		"EquationalTests/KnowledgeKernelTests"));
 
 
 BOOST_DATA_TEST_CASE(test_automatically_proven,

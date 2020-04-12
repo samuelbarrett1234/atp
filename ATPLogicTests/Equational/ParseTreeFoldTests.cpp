@@ -38,7 +38,8 @@ static std::string identifier_to_str(std::string name,
 
 BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_AUTO_TEST_SUITE(ParseTreeFoldTests,
-	*boost::unit_test_framework::depends_on("EquationalTests/ParseStatementsTests"));
+	*boost::unit_test_framework::depends_on(
+		"EquationalTests/ParseStatementsTests"));
 
 
 // the idea for this test is to: get a load of statements in string

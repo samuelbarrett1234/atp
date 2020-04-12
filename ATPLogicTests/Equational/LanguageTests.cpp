@@ -56,7 +56,7 @@ BOOST_FIXTURE_TEST_SUITE(LanguageTests,
 	*boost::unit_test_framework::depends_on(
 		"EquationalTests/ParseTreeToSyntaxTreeTests")
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/StatementTests"));
+		"EquationalTests/ParseStatementsTests"));
 
 
 BOOST_AUTO_TEST_CASE(check_no_ker_when_context_invalid)

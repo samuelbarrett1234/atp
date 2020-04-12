@@ -73,6 +73,7 @@ public:
 private:
 	std::ostream& m_out;
 	atp::logic::LanguagePtr m_pLang;
+	atp::logic::ModelContextPtr m_pContext;
 	atp::logic::KnowledgeKernelPtr m_pKnowledgeKernel;
 	std::vector<atp::logic::StatementArrayPtr> m_pTasks;
 };

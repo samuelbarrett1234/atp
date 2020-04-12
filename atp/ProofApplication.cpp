@@ -38,71 +38,9 @@ bool ProofApplication::set_context_file(std::string path)
 		return false;
 	}
 
-	// get the folder that the context file is in
-	const auto working_folder = boost::filesystem::path(
-		path).parent_path();
-
-	auto maybe_ctx_file = parse_context_file(ctx_in);
-
-	if (!maybe_ctx_file)
-	{
-		m_out << "There was a problem parsing the file \"" <<
-			path << "\". Check for syntax mistakes." << std::endl;
-
-		return false;
-	}
-
-	// else proceed loading the language and knowledge kernel etc
-
-	// get definition file and axiom file paths relative to the
-	// context file directory
-	auto def_file_path = working_folder
-		/ maybe_ctx_file->definition_file_path;
-	auto ax_file_path = working_folder
-		/ maybe_ctx_file->axiom_file_path;
-	
-	if (!boost::filesystem::is_regular_file(
-		def_file_path))
-	{
-		m_out << "Error: definition file \"" <<
-			def_file_path.string() <<
-			"\" does not exist (as a file)." << std::endl;
-		return false;
-	}
-
-	if (!boost::filesystem::is_regular_file(
-		ax_file_path))
-	{
-		m_out << "Error: axiom file \"" <<
-			ax_file_path.string() <<
-			"\" does not exist (as a file)." << std::endl;
-		return false;
-	}
-
-	// open the definition and axiom files
-	std::ifstream def_in(def_file_path.string()),
-		ax_in(ax_file_path.string());
-
-	if (!def_in)
-	{
-		m_out << "There was a problem opening the file \"" <<
-			maybe_ctx_file->definition_file_path <<
-			"\"." << std::endl;
-
-		return false;
-	}
-
-	if (!ax_in)
-	{
-		m_out << "There was a problem opening the file \"" <<
-			maybe_ctx_file->axiom_file_path <<
-			"\"." << std::endl;
-
-		return false;
-	}
-
+	// todo: allow the user to specify this
 	m_pLang = atp::logic::create_language(
-		maybe_ctx_file->lang_type);
+		atp::logic::LangType::EQUATIONAL_LOGIC);
 
 	if (m_pLang == nullptr)
 	{
@@ -110,24 +48,26 @@ bool ProofApplication::set_context_file(std::string path)
 		return false;
 	}
 
-	m_pKnowledgeKernel = m_pLang->create_empty_kernel();
+	m_pContext = m_pLang->try_create_context(ctx_in);
 
-	if (!m_pLang->load_kernel_definitions(*m_pKnowledgeKernel,
-		def_in))
+	// if we fail here, it's because the JSON parsing failed
+	if (!m_pContext)
 	{
-		m_out << "There was a problem parsing the file \"" <<
-			maybe_ctx_file->definition_file_path <<
-			"\"." << std::endl;
+		m_out << "There was a problem loading the file \"" <<
+			path << "\". Check for JSON syntax mistakes." << std::endl;
 
 		return false;
 	}
 
-	if (!m_pLang->load_kernel_axioms(*m_pKnowledgeKernel,
-		ax_in))
+	m_pKnowledgeKernel = m_pLang->try_create_kernel(*m_pContext);
+
+	// if we fail here, it's because the logical syntax checking
+	// returned false - note that the axioms aren't checked for
+	// syntax errors until we try to create the kernel.
+	if (!m_pContext)
 	{
-		m_out << "There was a problem parsing the file \"" <<
-			maybe_ctx_file->axiom_file_path <<
-			"\"." << std::endl;
+		m_out << "There was a problem loading the file \"" <<
+			path << "\". Check for Statement syntax mistakes." << std::endl;
 
 		return false;
 	}
@@ -158,7 +98,7 @@ bool ProofApplication::add_proof_task(std::string path_or_stmt)
 
 		p_stmts = m_pLang->deserialise_stmts(in,
 			atp::logic::StmtFormat::TEXT,
-			*m_pKnowledgeKernel);
+			*m_pContext);
 	}
 	else
 	{
@@ -166,12 +106,12 @@ bool ProofApplication::add_proof_task(std::string path_or_stmt)
 
 		p_stmts = m_pLang->deserialise_stmts(s,
 			atp::logic::StmtFormat::TEXT,
-			*m_pKnowledgeKernel);
+			*m_pContext);
 	}
 
 	if (!p_stmts)
 	{
-		m_out << "Failed to parse statements: \"" <<
+		m_out << "Failed to load statements: \"" <<
 			path_or_stmt << "\". Check syntax and types."
 			<< std::endl;
 
@@ -210,7 +150,7 @@ void ProofApplication::run()
 		const auto states = p_solver->get_states();
 		m_out << 100 * (i + 1) << '/' << 100 * 1000 << " : " <<
 			std::count(states.begin(), states.end(),
-				atp::search::ProofState::UNFINISHED) <<
+				atp::logic::ProofCompletionState::UNFINISHED) <<
 			" proof(s) remaining." << std::endl;
 	}
 
@@ -222,13 +162,13 @@ void ProofApplication::run()
 	for (auto st : states)
 		switch (st)
 		{
-		case atp::search::ProofState::DONE_TRUE:
+		case atp::logic::ProofCompletionState::PROVEN:
 			++num_true;
 			break;
-		case atp::search::ProofState::NO_PROOF:
+		case atp::logic::ProofCompletionState::NO_PROOF:
 			++num_failed;
 			break;
-		case atp::search::ProofState::UNFINISHED:
+		case atp::logic::ProofCompletionState::UNFINISHED:
 			++num_unfinished;
 			break;
 		}
@@ -243,35 +183,30 @@ void ProofApplication::run()
 		" theorem(s) did not finish in the allotted time."
 		<< std::endl;
 
-	m_out << "More details:" << std::endl;
-
-	auto proofs = p_solver->get_proofs();
-	auto times = p_solver->get_agg_time();
-	auto mems = p_solver->get_max_mem();
-	auto exps = p_solver->get_num_expansions();
-
-	for (size_t i = 0; i < proofs.size(); i++)
+	if (num_true > 0)
 	{
-		if (states[i] == atp::search::ProofState::DONE_TRUE)
+		m_out << "More details:" << std::endl;
+
+		auto proofs = p_solver->get_proofs();
+		auto times = p_solver->get_agg_time();
+		auto mems = p_solver->get_max_mem();
+		auto exps = p_solver->get_num_expansions();
+
+		for (size_t i = 0; i < proofs.size(); i++)
 		{
-			m_out << "Proof of \"" << tasks->at(i).to_str()
-				<< "\" was successful." << std::endl;
-
-			m_out << "Total time taken: " << times[i] << "s"
-				<< std::endl;
-			m_out << "Max nodes in memory: " << mems[i]
-				<< std::endl;
-			m_out << "Total node expansions: " << exps[i]
-				<< std::endl;
-				
-			m_out << "Proof:" << std::endl;
-
-			auto pf = *proofs[i];
-			for (size_t j = 0; j < pf->size(); ++j)
+			if (states[i] == atp::logic::ProofCompletionState::PROVEN)
 			{
-				m_out << pf->at(j).to_str() << std::endl;
+				m_out << "Proof of \"" << tasks->at(i).to_str()
+					<< "\" was successful; the statement is true."
+					<< std::endl;
+
+				m_out << "Total time taken: " << times[i] << "s"
+					<< std::endl;
+				m_out << "Max nodes in memory: " << mems[i]
+					<< std::endl;
+				m_out << "Total node expansions: " << exps[i]
+					<< std::endl;
 			}
-			m_out << std::endl;
 		}
 	}
 }

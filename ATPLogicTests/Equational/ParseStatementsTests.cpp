@@ -41,7 +41,7 @@ static std::string ill_formed_statements[] =
 	"f(",
 	"f()",
 	"f(,x)",
-	"x=",
+	"x = ",
 	"=x",
 	"f(x=y,z)",
 	"f(x=g(x))",

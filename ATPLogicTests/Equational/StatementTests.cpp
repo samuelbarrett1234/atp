@@ -161,19 +161,19 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_with_conflicting_func_arities)
 	// thus we need a different model context
 	ctx_in = std::stringstream();
 	ctx_in << "{\n"
-		"	name : \"Group Theory\",\n"
-		"definitions : [\n"
-		"{ name: \"e\", arity : 0 },\n"
-		"{ name: \"pi\", arity : 0 },\n"  // the new constant
-		"{ name: \"i\", arity : 1 },\n"
-		"{ name: \"*\", arity : 2 },\n"
+		"	\"name\" : \"Group Theory\",\n"
+		"\"definitions\" : [\n"
+		"{ \"name\": \"e\", \"arity\" : 0 },\n"
+		"{ \"name\": \"pi\", \"arity\" : 0 },\n"  // the new constant
+		"{ \"name\": \"i\", \"arity\" : 1 },\n"
+		"{ \"name\": \"*\", \"arity\" : 2 }\n"
 		"], \n"
-		"axioms : [ \n"
+		"\"axioms\" : [ \n"
 		"\"*(*(x, y), z) = *(x, *(y, z))\",\n"
 		"\"*(x, e) = x\",\n"
 		"\"*(e, x) = x\",\n"
 		"\"*(x, i(x)) = e\",\n"
-		"\"*(i(x), x) = e\",\n"
+		"\"*(i(x), x) = e\"\n"
 		"] }"
 		;
 	p_ctx = lang.try_create_context(ctx_in);
@@ -184,7 +184,7 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_with_conflicting_func_arities)
 	s << "*(x, y) = pi";
 
 	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
-		ctx);
+		ctx2);
 	auto stmt1 = dynamic_cast<const Statement&>(p_stmts->at(0));
 	auto stmt2 = dynamic_cast<const Statement&>(p_stmts->at(1));
 

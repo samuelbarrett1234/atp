@@ -40,7 +40,6 @@ KnowledgeKernelPtr KnowledgeKernel::try_construct(
 
 	for (size_t i = 0; i < ctx.num_axioms(); ++i)
 	{
-		std::stringstream s;
 		s << ctx.axiom_at(i) << std::endl;
 	}
 

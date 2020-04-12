@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_CASE(check_no_ker_when_context_invalid)
 	// loading, but should be picked up when we try to
 	// create a knowledge kernel from that context file
 
-	s << "{ axioms : [ \"x = \" ] }";
+	s << "{ \"axioms\" : [ \"x = \" ] }";
 
 	auto p_ctx = lang.try_create_context(s);
 

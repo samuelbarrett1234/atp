@@ -61,14 +61,13 @@ BOOST_AUTO_TEST_CASE(arity_test)
 
 BOOST_AUTO_TEST_CASE(empty_test)
 {
+	// empty files count as an error
+
 	s << "";
 
 	auto p_ctx = ModelContext::try_construct(lang, s);
 
-	BOOST_REQUIRE(p_ctx != nullptr);
-
-	BOOST_TEST(p_ctx->context_name() == "");
-	BOOST_TEST(p_ctx->num_axioms() == 0);
+	BOOST_REQUIRE(p_ctx == nullptr);
 }
 
 
@@ -98,7 +97,7 @@ BOOST_AUTO_TEST_CASE(axiom_test)
 
 BOOST_AUTO_TEST_CASE(definition_name_trim_test)
 {
-	s << "{ \"definitions\" : [ { \"name\" : \"   e  \t\n \", \"arity\" : 0 } ] }";
+	s << "{ \"definitions\" : [ { \"name\" : \"   e  \", \"arity\" : 0 } ] }";
 
 	auto p_ctx = ModelContext::try_construct(lang, s);
 

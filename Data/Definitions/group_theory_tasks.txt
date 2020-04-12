@@ -9,10 +9,12 @@ e = *(i(x), i(i(x)))
 
 # medium section
 
+*(*(x, e), e) = *(e, x)
+*(*(x, e), e) = *(e, *(e, x))
 i(i(x)) = x
-i(i(i(x))) = i(x)
 
 # hard section
 
+i(i(i(x))) = i(x)
 i(*(x, y)) = *(i(y), i(x))
 

@@ -56,9 +56,9 @@ public:
 
 	void remove_theorems(size_t ref_id) override;
 
-	inline const std::vector<Statement>& get_active_rules() const
+	inline const StatementArray& get_active_rules() const
 	{
-		return m_rules;
+		return *m_active_rules;
 	}
 
 private:
@@ -71,13 +71,25 @@ private:
 	static bool type_check(const ModelContext& ctx,
 		const Statement& stmt);
 
+	void rebuild_active_rules();
+
 private:
 	const ModelContext& m_context;
+	
+	StatementArrayPtr m_axioms;
 
-	// all equality rules (given as axioms)
-	// use vector not StatementArray because we need mutability
-	// (we need to .push_back as we go):
-	std::vector<Statement> m_rules;
+	// mapping from theorem reference ID to the theorem array
+	std::map<size_t, StatementArrayPtr> m_theorems;
+
+	// the next ID to assign when `add_theorems` is called
+	size_t m_next_thm_ref_id;
+
+	// a compilation of all axioms and added theorems (invariant:
+	// this array is always the union of m_axioms and all added
+	// theorems)
+	// see `rebuild_active_rules`
+	StatementArrayPtr _m_active_rules;
+	const StatementArray* m_active_rules;
 };
 
 

@@ -12,6 +12,7 @@
 #include <boost/functional/hash.hpp>
 #include <boost/phoenix.hpp>
 #include <boost/bind.hpp>
+#include <boost/iterator/transform_iterator.hpp>
 #include "Semantics.h"
 #include "ProofState.h"
 
@@ -25,7 +26,8 @@ namespace equational
 
 
 KnowledgeKernel::KnowledgeKernel(const ModelContext& ctx) :
-	m_context(ctx)
+	m_context(ctx),
+	m_next_thm_ref_id(1)
 { }
 
 
@@ -34,26 +36,21 @@ KnowledgeKernelPtr KnowledgeKernel::try_construct(
 {
 	auto p_ker = std::make_shared<KnowledgeKernel>(ctx);
 
-	p_ker->m_rules.reserve(ctx.num_axioms());
+	std::stringstream s;
 
 	for (size_t i = 0; i < ctx.num_axioms(); ++i)
 	{
 		std::stringstream s;
-		s << ctx.axiom_at(i);
-		auto stmts = lang.deserialise_stmts(s,
-			StmtFormat::TEXT, ctx);
-
-		// should be exactly one statement
-		if (stmts == nullptr || stmts->size() != 1)
-			return KnowledgeKernelPtr();
-
-		const Statement* p_stmt = dynamic_cast<const Statement*>(
-			&stmts->at(0));
-
-		ATP_LOGIC_ASSERT(p_stmt != nullptr);
-
-		p_ker->m_rules.push_back(*p_stmt);
+		s << ctx.axiom_at(i) << std::endl;
 	}
+
+	p_ker->m_axioms = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, ctx);
+
+	if (p_ker->m_axioms == nullptr)
+		return KnowledgeKernelPtr();
+
+	p_ker->rebuild_active_rules();
 
 	return p_ker;
 }
@@ -77,8 +74,9 @@ size_t KnowledgeKernel::get_integrity_code() const
 	// this is what we want?
 
 	std::vector<std::string> rules_str;
-	rules_str.reserve(m_rules.size());
-	std::transform(m_rules.begin(), m_rules.end(),
+	rules_str.reserve(m_active_rules->size());
+	std::transform(m_active_rules->begin(),
+		m_active_rules->end(),
 		std::back_inserter(rules_str),
 		boost::bind(&Statement::to_str, _1));
 
@@ -115,10 +113,51 @@ bool KnowledgeKernel::is_trivial(
 	// "equivalent" is necessary for bidirectional truths,
 	// "reflexivity" is for the last case of trivialities
 
-	return std::any_of(m_rules.begin(), m_rules.end(),
+	return std::any_of(m_active_rules->begin(),
+		m_active_rules->end(),
 		boost::bind(&semantics::implies, _1, boost::ref(*p_stmt))
 	|| boost::bind(&semantics::equivalent, _1, boost::ref(*p_stmt)))
 		|| semantics::true_by_reflexivity(*p_stmt);
+}
+
+
+size_t KnowledgeKernel::add_theorems(StatementArrayPtr p_thms)
+{
+	ATP_LOGIC_PRECOND(p_thms->size() > 0);
+	ATP_LOGIC_PRECOND(p_thms != nullptr);
+	ATP_LOGIC_ASSERT(m_theorems.find(m_next_thm_ref_id)
+		== m_theorems.end());
+
+#ifdef ATP_LOGIC_DEFENSIVE
+	// only type-check the theorems in defensive mode because this is
+	// slow
+	for (size_t i = 0; i < p_thms->size(); ++i)
+	{
+		auto p_stmt = dynamic_cast<const Statement*>(&p_thms->at(i));
+
+		ATP_LOGIC_PRECOND(p_stmt != nullptr);
+		ATP_LOGIC_PRECOND(type_check(m_context,
+			*p_stmt));
+	}
+#endif
+
+	m_theorems[m_next_thm_ref_id] = p_thms;
+
+	rebuild_active_rules();
+
+	return m_next_thm_ref_id++;
+}
+
+
+void KnowledgeKernel::remove_theorems(size_t ref_id)
+{
+	auto iter = m_theorems.find(ref_id);
+
+	ATP_LOGIC_PRECOND(iter != m_theorems.end());
+
+	m_theorems.erase(iter);
+
+	rebuild_active_rules();
 }
 
 
@@ -157,6 +196,28 @@ bool KnowledgeKernel::type_check(const ModelContext& ctx,
 
 	return stmt.fold<bool>(eq_valid, free_valid, const_valid,
 		func_valid);
+}
+
+
+void KnowledgeKernel::rebuild_active_rules()
+{
+	auto get_second = boost::bind(&std::pair<size_t,
+		StatementArrayPtr>::second, _1);
+	std::vector<StatementArrayPtr> thms(
+		boost::make_transform_iterator(m_theorems.begin(),
+			get_second), boost::make_transform_iterator(
+				m_theorems.end(), get_second));
+
+	// these shouldn't return nullptr
+	_m_active_rules = StatementArray::try_concat(
+		*m_axioms,
+		*StatementArray::try_concat(
+			thms));
+
+	m_active_rules = dynamic_cast<const StatementArray*>(
+		_m_active_rules.get());
+
+	ATP_LOGIC_ASSERT(m_active_rules != nullptr);
 }
 
 

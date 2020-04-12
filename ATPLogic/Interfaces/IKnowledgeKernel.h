@@ -96,6 +96,8 @@ public:
 
 	\pre The statements are valid within the context of this
 		knowledge kernel (e.g. type-correct.)
+
+	\pre p_thms->size() > 0
 	*/
 	virtual size_t add_theorems(
 		StatementArrayPtr p_thms) = 0;

@@ -18,7 +18,7 @@ representation, done using a fold.
 
 // convert a syntax tree to string using a fold
 std::string syntax_tree_to_str(
-	const atp::logic::equational::KnowledgeKernel& ker,
+	const atp::logic::equational::ModelContext& ctx,
 	atp::logic::equational::SyntaxNodePtr p_tree);
 
 

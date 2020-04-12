@@ -14,14 +14,13 @@
 #include <boost/bind.hpp>
 #include <Internal/Equational/Semantics.h>
 #include <Internal/Equational/Parser.h>
-#include <Internal/Equational/KnowledgeKernel.h>
 #include <Internal/Equational/SyntaxNodes.h>
 #include "../Test.h"
 #include "SyntaxNodeToStr.h"
+#include "StandardFixture.h"
 
 
 using atp::logic::equational::Statement;
-using atp::logic::equational::KnowledgeKernel;
 using atp::logic::equational::SyntaxNodePtr;
 using atp::logic::equational::EqSyntaxNode;
 using atp::logic::equational::FreeSyntaxNode;
@@ -40,28 +39,8 @@ static Statement map_free_ids(
 	Statement stmt);
 
 
-struct SemanticsTestsFixture
-{
-	SemanticsTestsFixture()
-	{
-		// group theory definitions - why not:
-		ker.define_symbol("e", 0);
-		symb_id_to_arity[ker.symbol_id("e")] = 0;
-		ker.define_symbol("i", 1);
-		symb_id_to_arity[ker.symbol_id("i")] = 1;
-		ker.define_symbol("*", 2);
-		symb_id_to_arity[ker.symbol_id("*")] = 2;
-		s << std::noskipws;
-	}
-
-	std::stringstream s;
-	KnowledgeKernel ker;
-	std::map<size_t, size_t> symb_id_to_arity;
-};
-
-
 BOOST_AUTO_TEST_SUITE(EquationalTests);
-BOOST_FIXTURE_TEST_SUITE(SemanticsTests, SemanticsTestsFixture,
+BOOST_FIXTURE_TEST_SUITE(SemanticsTests, StandardTestFixture,
 	*boost::unit_test_framework::depends_on(
 		"EquationalTests/ParseTreeToSyntaxTreeTests")
 	*boost::unit_test_framework::depends_on(
@@ -90,11 +69,11 @@ BOOST_DATA_TEST_CASE(test_true_by_reflexivity_works_on_examples,
 	BOOST_REQUIRE(result.get().size() == 1);
 
 	auto syntax_tree = ptree_to_stree(result.get().front(),
-		ker);
+		ctx);
 
 	BOOST_REQUIRE(syntax_tree != nullptr);
 
-	auto stmt_obj = Statement(ker, syntax_tree);
+	auto stmt_obj = Statement(ctx, syntax_tree);
 
 	BOOST_TEST(semantics::true_by_reflexivity(stmt_obj)
 		== is_symmetric);
@@ -129,15 +108,15 @@ BOOST_DATA_TEST_CASE(test_identical_and_equivalent,
 	BOOST_REQUIRE(result.get().size() == 2);
 
 	auto syntax_tree_1 = ptree_to_stree(result.get().front(),
-		ker);
+		ctx);
 	auto syntax_tree_2 = ptree_to_stree(result.get().back(),
-		ker);
+		ctx);
 
 	BOOST_REQUIRE(syntax_tree_1 != nullptr);
 	BOOST_REQUIRE(syntax_tree_2 != nullptr);
 
-	auto stmt1_obj = Statement(ker, syntax_tree_1);
-	auto stmt2_obj = Statement(ker, syntax_tree_2);
+	auto stmt1_obj = Statement(ctx, syntax_tree_1);
+	auto stmt2_obj = Statement(ctx, syntax_tree_2);
 
 	// identical and equivalent
 	// (try calling both ways round)
@@ -167,11 +146,11 @@ BOOST_DATA_TEST_CASE(test_equivalent_but_not_identical,
 	BOOST_REQUIRE(result.has_value());
 	BOOST_REQUIRE(result.get().size() == 1);
 
-	auto syntax_tree_1 = ptree_to_stree(result.get().front(), ker);
+	auto syntax_tree_1 = ptree_to_stree(result.get().front(), ctx);
 
 	BOOST_REQUIRE(syntax_tree_1 != nullptr);
 
-	auto stmt1_obj = Statement(ker, syntax_tree_1);
+	auto stmt1_obj = Statement(ctx, syntax_tree_1);
 
 	// change the free variable IDs so that they are no longer
 	// identical
@@ -207,11 +186,11 @@ BOOST_DATA_TEST_CASE(test_neither_equivalent_nor_identical,
 	BOOST_REQUIRE(result.has_value());
 	BOOST_REQUIRE(result.get().size() == 1);
 
-	auto syntax_tree_1 = ptree_to_stree(result.get().front(), ker);
+	auto syntax_tree_1 = ptree_to_stree(result.get().front(), ctx);
 
 	BOOST_REQUIRE(syntax_tree_1 != nullptr);
 
-	auto stmt1_obj = Statement(ker, syntax_tree_1);
+	auto stmt1_obj = Statement(ctx, syntax_tree_1);
 
 	// map all used variables to ID 0!
 	std::map<size_t, size_t> free_id_map;
@@ -242,11 +221,11 @@ BOOST_AUTO_TEST_CASE(test_equivalent_invariant_to_reflection)
 	BOOST_REQUIRE(result.has_value());
 	BOOST_REQUIRE(result.get().size() == 2);
 
-	auto stree1 = ptree_to_stree(result.get().front(), ker);
-	auto stree2 = ptree_to_stree(result.get().back(), ker);
+	auto stree1 = ptree_to_stree(result.get().front(), ctx);
+	auto stree2 = ptree_to_stree(result.get().back(), ctx);
 
-	auto stmt1 = Statement(ker, stree1);
-	auto stmt2 = Statement(ker, stree2);
+	auto stmt1 = Statement(ctx, stree1);
+	auto stmt2 = Statement(ctx, stree2);
 
 	BOOST_TEST(semantics::equivalent(stmt1, stmt2));
 }
@@ -294,14 +273,14 @@ BOOST_DATA_TEST_CASE(test_get_successors,
 	BOOST_REQUIRE(results.get().size() == 3);
 
 	auto parse_result_iter = results->begin();
-	auto initial_stmt = Statement(ker, ptree_to_stree(
-		*parse_result_iter, ker));
+	auto initial_stmt = Statement(ctx, ptree_to_stree(
+		*parse_result_iter, ctx));
 	++parse_result_iter;
-	auto rule_stmt = Statement(ker, ptree_to_stree(
-		*parse_result_iter, ker));
+	auto rule_stmt = Statement(ctx, ptree_to_stree(
+		*parse_result_iter, ctx));
 	++parse_result_iter;
-	auto target_stmt = Statement(ker, ptree_to_stree(
-		*parse_result_iter, ker));
+	auto target_stmt = Statement(ctx, ptree_to_stree(
+		*parse_result_iter, ctx));
 
 	auto responses = semantics::get_successors(initial_stmt,
 		{ rule_stmt });
@@ -338,11 +317,11 @@ BOOST_DATA_TEST_CASE(test_implies,
 	BOOST_REQUIRE(results.has_value());
 	BOOST_REQUIRE(results->size() == 2);
 
-	auto premise_stree = ptree_to_stree(results->front(), ker);
-	auto concl_stree = ptree_to_stree(results->back(), ker);
+	auto premise_stree = ptree_to_stree(results->front(), ctx);
+	auto concl_stree = ptree_to_stree(results->back(), ctx);
 
-	auto premise = Statement(ker, premise_stree);
-	auto concl = Statement(ker, concl_stree);
+	auto premise = Statement(ctx, premise_stree);
+	auto concl = Statement(ctx, concl_stree);
 	
 	BOOST_TEST(semantics::implies(premise, concl));
 }

@@ -13,47 +13,27 @@
 #include <sstream>
 #include <Internal/Equational/StatementArray.h>
 #include <Internal/Equational/Statement.h>
-#include <Internal/Equational/Language.h>
-#include <Internal/Equational/KnowledgeKernel.h>
 #include <ATPLogic.h>
 #include "../Test.h"
+#include "StandardFixture.h"
 
 
 using atp::logic::equational::Statement;
 using atp::logic::equational::StatementArray;
-using atp::logic::equational::Language;
-using atp::logic::equational::KnowledgeKernel;
 using atp::logic::StmtFormat;
 using atp::logic::equational::compute_slice_size;
 using atp::logic::concat;
 
 
-struct StatementArrayTestsFixture
-{
-	std::stringstream s;
-	KnowledgeKernel ker;
-	Language lang;
-
-	StatementArrayTestsFixture()
-	{
-		s << std::noskipws;
-
-		ker.define_symbol("e", 0);
-		ker.define_symbol("i", 1);
-		ker.define_symbol("*", 2);
-	}
-};
-
-
 BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(StatementArrayTests,
-	StatementArrayTestsFixture,
+	StandardTestFixture,
 	* boost::unit_test_framework::depends_on(
 		"EquationalTests/StatementTests")
 	* boost::unit_test_framework::depends_on(
 		"EquationalTests/LanguageTests")
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/KnowledgeKernelDefinitionsTests"));
+		"EquationalTests/ModelContextTests"));
 
 
 BOOST_AUTO_TEST_CASE(size_test)
@@ -62,7 +42,7 @@ BOOST_AUTO_TEST_CASE(size_test)
 	s << "x = x \n x = x \n x = x \n x = x \n x = x";
 
 	auto p_arr = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
+		StmtFormat::TEXT, ctx);
 
 	BOOST_TEST(p_arr->size() == 5);
 	
@@ -79,7 +59,7 @@ BOOST_AUTO_TEST_CASE(basic_iterator_tests)
 	s << "x = x \n x = x \n x = x \n x = x \n x = x";
 
 	auto p_arr = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
+		StmtFormat::TEXT, ctx);
 
 	auto stmtarr = dynamic_cast<const StatementArray&>(
 		*p_arr.get());
@@ -140,7 +120,7 @@ BOOST_AUTO_TEST_CASE(test_slice_start_end)
 	s << "i(i(x)) = i(i(x))";
 
 	auto p_arr = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
+		StmtFormat::TEXT, ctx);
 
 	auto stmtarr = dynamic_cast<const StatementArray&>(
 		*p_arr.get());
@@ -158,7 +138,7 @@ BOOST_AUTO_TEST_CASE(test_slice_step)
 	s << "i(i(x)) = i(i(x))";
 
 	auto p_arr = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
+		StmtFormat::TEXT, ctx);
 
 	auto stmtarr = dynamic_cast<const StatementArray&>(
 		*p_arr.get());
@@ -190,7 +170,7 @@ BOOST_AUTO_TEST_CASE(concat_test)
 	s << "x = x \n x = x \n x = x \n x = x \n x = x";
 
 	auto p_arr1 = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
+		StmtFormat::TEXT, ctx);
 
 	// reset stream
 	s = std::stringstream();
@@ -201,7 +181,7 @@ BOOST_AUTO_TEST_CASE(concat_test)
 	s << "x = x \n x = x";
 
 	auto p_arr2 = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
+		StmtFormat::TEXT, ctx);
 
 	auto slice1 = p_arr1->slice(1, 4, 2);
 	BOOST_REQUIRE(slice1->size() == 2);
@@ -224,7 +204,7 @@ BOOST_AUTO_TEST_CASE(test_slice_iterator)
 	s << "i(i(i(x))) = i(i(i(x))) \n i(i(i(i(x)))) = i(i(i(i(x))))";
 
 	auto p_arr = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, ker);
+		StmtFormat::TEXT, ctx);
 
 	auto stmtarr = dynamic_cast<const StatementArray&>(
 		*p_arr.get());

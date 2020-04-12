@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_CASE(redefinition_failure_test)
 }
 
 
-BOOST_AUTO_TEST_SUITE_END();  // KnowledgeKernelDefinitionsTests
+BOOST_AUTO_TEST_SUITE_END();  // ModelContextTests
 BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
 
 

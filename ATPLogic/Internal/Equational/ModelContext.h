@@ -105,12 +105,10 @@ public:
         return m_func_ids;
     }
 
-
     inline size_t num_axioms() const override
     {
         return m_axioms.size();
     }
-
     inline std::string axiom_at(size_t index) const override
     {
         ATP_LOGIC_PRECOND(index < m_axioms.size());

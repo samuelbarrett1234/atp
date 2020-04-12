@@ -71,5 +71,11 @@
     <ClInclude Include="Equational\SyntaxNodeToStr.h">
       <Filter>Header Files\Equational</Filter>
     </ClInclude>
+    <ClInclude Include="Equational\DefinitionFileExamples.h">
+      <Filter>Header Files\Equational</Filter>
+    </ClInclude>
+    <ClInclude Include="Equational\StandardFixture.h">
+      <Filter>Header Files\Equational</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

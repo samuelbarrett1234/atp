@@ -9,7 +9,7 @@
 	successors of a particular statement? Can it accurately check the
 	correctness of a proof? Etc.
     It does not test the definition storage functionality of the
-    knowledge kernel; that is done in KnowledgeKernelDefinitionsTests.cpp
+    knowledge kernel; that is done in ModelContextTests.cpp
     More specifically, we are only interested in testing the functions:
      - `succs`
      - `follows`
@@ -24,15 +24,14 @@
 #include <boost/bind.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <Internal/Equational/KnowledgeKernel.h>
-#include <Internal/Equational/Language.h>
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/StatementArray.h>
 #include <Internal/Equational/Semantics.h>
 #include "../Test.h"
+#include "StandardFixture.h"
 
 
 using atp::logic::equational::KnowledgeKernel;
-using atp::logic::equational::Language;
 using atp::logic::equational::Statement;
 using atp::logic::equational::StatementArray;
 using atp::logic::StatementArrayPtr;
@@ -54,43 +53,9 @@ static inline ostream& boost_test_print_type(ostream& os,
 }  // namespace std
 
 
-struct KnowledgeKernelInferenceTestsFixture
-{
-	Language lang;
-	KnowledgeKernel ker;
-	std::stringstream s;
-
-	KnowledgeKernelInferenceTestsFixture()
-	{
-		s << std::noskipws;
-
-		// group theory definitions
-		ker.define_symbol("e", 0);
-		ker.define_symbol("i", 1);
-		ker.define_symbol("*", 2);
-
-		// group theory rules
-		s << "*(x, e) = x\n";
-		s << "*(e, x) = x\n";
-		s << "*(x, i(x)) = e\n";
-		s << "*(i(x), x) = e\n";
-		s << "*(x, *(y, z)) = *(*(x, y), z)";
-
-		auto arr = lang.deserialise_stmts(s,
-			StmtFormat::TEXT, ker);
-
-		ker.define_eq_rules(arr);
-
-		// reset this
-		s = std::stringstream();
-		s << std::noskipws;
-	}
-};
-
-
 BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(KnowledgeKernelInferenceTests,
-	KnowledgeKernelInferenceTestsFixture,
+	StandardTestFixture,
 	* boost::unit_test_framework::depends_on(
 		"EquationalTests/SemanticsTests")
 	* boost::unit_test_framework::depends_on(
@@ -100,7 +65,7 @@ BOOST_FIXTURE_TEST_SUITE(KnowledgeKernelInferenceTests,
 	* boost::unit_test_framework::depends_on(
 		"EquationalTests/StatementArrayTests")
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/KnowledgeKernelDefinitionsTests"));
+		"EquationalTests/ModelContextTests"));
 
 
 BOOST_DATA_TEST_CASE(test_form_canonical_true,

@@ -17,7 +17,6 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
 #include <boost/algorithm/string/join.hpp>
-#include <Internal/Equational/KnowledgeKernel.h>
 #include <Internal/Equational/StatementArray.h>
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/Parser.h>
@@ -25,9 +24,9 @@
 #include <Internal/Equational/Semantics.h>
 #include "../Test.h"
 #include "SyntaxNodeToStr.h"
+#include "StandardFixture.h"
 
 
-using atp::logic::equational::KnowledgeKernel;
 using atp::logic::StmtForm;
 using atp::logic::equational::StatementArray;
 using atp::logic::equational::Statement;
@@ -43,28 +42,11 @@ namespace phx = boost::phoenix;
 namespace phxargs = phx::arg_names;
 
 
-struct StatementTestsFixture
-{
-	std::stringstream s;
-	KnowledgeKernel ker;
-
-	StatementTestsFixture()
-	{
-		s << std::noskipws;
-
-		// load group theory symbols:
-		ker.define_symbol("e", 0);
-		ker.define_symbol("i", 1);
-		ker.define_symbol("*", 2);
-	}
-};
-
-
 BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(StatementTests,
-	StatementTestsFixture,
+	StandardTestFixture,
 	*boost::unit_test_framework::depends_on(
-		"EquationalTests/KnowledgeKernelDefinitionsTests")
+		"EquationalTests/ModelContextTests")
 	* boost::unit_test_framework::depends_on(
 		"EquationalTests/ParseTreeToSyntaxTreeTests")
 	* boost::unit_test_framework::depends_on(
@@ -86,8 +68,8 @@ BOOST_DATA_TEST_CASE(test_statement_with_one_var_to_str,
 	auto result = parse_statements(s);
 	BOOST_REQUIRE(result.has_value());
 	BOOST_REQUIRE(result.get().size() == 1);
-	auto stree = ptree_to_stree(result.get().front(), ker);
-	auto stmt_obj = Statement(ker, stree);
+	auto stree = ptree_to_stree(result.get().front(), ctx);
+	auto stmt_obj = Statement(ctx, stree);
 
 	BOOST_TEST(stmt_obj.to_str() == stmt);
 }
@@ -103,8 +85,8 @@ BOOST_DATA_TEST_CASE(num_free_vars_test,
 	auto result = parse_statements(s);
 	BOOST_REQUIRE(result.has_value());
 	BOOST_REQUIRE(result.get().size() == 1);
-	auto stree = ptree_to_stree(result.get().front(), ker);
-	auto stmt_obj = Statement(ker, stree);
+	auto stree = ptree_to_stree(result.get().front(), ctx);
+	auto stmt_obj = Statement(ctx, stree);
 
 	BOOST_TEST(stmt_obj.num_free_vars()
 		== num_free_vars);
@@ -126,19 +108,19 @@ BOOST_DATA_TEST_CASE(test_string_fold_is_inverse_to_parser,
 	auto result = parse_statements(s);
 	BOOST_REQUIRE(result.has_value());
 	BOOST_REQUIRE(result.get().size() == 1);
-	auto stree = ptree_to_stree(result.get().front(), ker);
-	auto stmt_obj = Statement(ker, stree);
+	auto stree = ptree_to_stree(result.get().front(), ctx);
+	auto stmt_obj = Statement(ctx, stree);
 
 	auto eq_to_str = phxargs::arg1 + " = " + phxargs::arg2;
 	auto free_to_str = [](size_t id)
 	{ return "x" + boost::lexical_cast<std::string>(id); };
 	auto const_to_str = boost::bind(&KnowledgeKernel::symbol_name,
-		boost::ref(ker), _1);
+		boost::ref(ctx), _1);
 	auto func_to_str = [this](size_t symb_id,
 		std::vector<std::string>::iterator begin,
 		std::vector<std::string>::iterator end) -> std::string
 	{
-		return ker.symbol_name(symb_id) + '(' + boost::algorithm::join(
+		return ctx.symbol_name(symb_id) + '(' + boost::algorithm::join(
 			boost::make_iterator_range(begin, end), ", "
 		) + ')';
 	};
@@ -160,19 +142,19 @@ BOOST_AUTO_TEST_CASE(
 	auto result = parse_statements(s);
 	BOOST_REQUIRE(result.has_value());
 	BOOST_REQUIRE(result.get().size() == 1);
-	auto stree = ptree_to_stree(result.get().front(), ker);
-	auto stmt_obj = Statement(ker, stree);
+	auto stree = ptree_to_stree(result.get().front(), ctx);
+	auto stmt_obj = Statement(ctx, stree);
 
 	auto eq_to_str = phxargs::arg1 + " = " + phxargs::arg2;
 	auto free_to_str = [](size_t id)
 	{ return "x" + boost::lexical_cast<std::string>(id); };
-	auto const_to_str = boost::bind(&KnowledgeKernel::symbol_name,
-		boost::ref(ker), _1);
+	auto const_to_str = boost::bind(&ModelContext::symbol_name,
+		boost::ref(ctx), _1);
 	auto func_to_str = [this](size_t symb_id,
 		std::vector<std::string>::iterator begin,
 		std::vector<std::string>::iterator end) -> std::string
 	{
-		return ker.symbol_name(symb_id) + '(' + boost::algorithm::join(
+		return ctx.symbol_name(symb_id) + '(' + boost::algorithm::join(
 			boost::make_iterator_range(begin, end), ", "
 		) + ')';
 	};
@@ -188,8 +170,28 @@ BOOST_AUTO_TEST_CASE(
 
 BOOST_AUTO_TEST_CASE(test_pair_fold_with_conflicting_func_arities)
 {
-	// define some extra symbol for this test
-	ker.define_symbol("pi", 0);
+	// for this test I want to introduce an additional constant
+	// thus we need a different model context
+	ctx_in = std::stringstream();
+	ctx_in << "{\n"
+		"	name : \"Group Theory\",\n"
+		"definitions : [\n"
+		"{ name: \"e\", arity : 0 },\n"
+		"{ name: \"pi\", arity : 0 },\n"  // the new constant
+		"{ name: \"i\", arity : 1 },\n"
+		"{ name: \"*\", arity : 2 },\n"
+		"], \n"
+		"axioms : [ \n"
+		"\"*(*(x, y), z) = *(x, *(y, z))\",\n"
+		"\"*(x, e) = x\",\n"
+		"\"*(e, x) = x\",\n"
+		"\"*(x, i(x)) = e\",\n"
+		"\"*(i(x), x) = e\",\n"
+		"] }"
+		;
+	p_ctx = lang.try_create_context(ctx_in);
+	const ModelContext& ctx2 = dynamic_cast<
+		const ModelContext&>(*p_ctx);
 
 	s << "i(x) = e \n";
 	s << "*(x, y) = pi";
@@ -199,11 +201,11 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_with_conflicting_func_arities)
 	BOOST_REQUIRE(results.has_value());
 	BOOST_REQUIRE(results.get().size() == 2);
 
-	auto stree1 = ptree_to_stree(results.get().front(), ker);
-	auto stree2 = ptree_to_stree(results.get().back(), ker);
+	auto stree1 = ptree_to_stree(results.get().front(), ctx2);
+	auto stree2 = ptree_to_stree(results.get().back(), ctx2);
 
-	auto stmt1 = Statement(ker, stree1);
-	auto stmt2 = Statement(ker, stree2);
+	auto stmt1 = Statement(ctx2, stree1);
+	auto stmt2 = Statement(ctx2, stree2);
 
 	auto eq_func = phxargs::arg1 && phxargs::arg2;
 
@@ -211,17 +213,17 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_with_conflicting_func_arities)
 	// pair fold:
 	auto free_func = phx::val(false);
 
-	auto const_func = [this](size_t id_lhs, size_t id_rhs)
+	auto const_func = [ctx2](size_t id_lhs, size_t id_rhs)
 	{
-		return (ker.symbol_name(id_lhs) == "e" &&
-			ker.symbol_name(id_rhs) == "pi");
+		return (ctx2.symbol_name(id_lhs) == "e" &&
+			ctx2.symbol_name(id_rhs) == "pi");
 	};
 
 	// when comparing two functions with different arities, it should
 	// use the default comparer
 	auto f_func = phx::val(false);
 
-	auto default_func = [this](SyntaxNodePtr lhs, SyntaxNodePtr rhs)
+	auto default_func = [ctx2](SyntaxNodePtr lhs, SyntaxNodePtr rhs)
 		-> bool
 	{
 		if (lhs->get_type() != SyntaxNodeType::FUNC ||
@@ -234,9 +236,9 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_with_conflicting_func_arities)
 			p_rhs == nullptr)
 			return false;
 
-		if (ker.symbol_name(p_lhs->get_symbol_id()) != "i")
+		if (ctx2.symbol_name(p_lhs->get_symbol_id()) != "i")
 			return false;
-		if (ker.symbol_name(p_rhs->get_symbol_id()) != "*")
+		if (ctx2.symbol_name(p_rhs->get_symbol_id()) != "*")
 			return false;
 
 		return true;  // passed the tests!
@@ -257,11 +259,11 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_by_converting_pair_to_str)
 	BOOST_REQUIRE(results.has_value());
 	BOOST_REQUIRE(results.get().size() == 2);
 
-	auto stree1 = ptree_to_stree(results.get().front(), ker);
-	auto stree2 = ptree_to_stree(results.get().back(), ker);
+	auto stree1 = ptree_to_stree(results.get().front(), ctx);
+	auto stree2 = ptree_to_stree(results.get().back(), ctx);
 
-	auto stmt1 = Statement(ker, stree1);
-	auto stmt2 = Statement(ker, stree2);
+	auto stmt1 = Statement(ctx, stree1);
+	auto stmt2 = Statement(ctx, stree2);
 
 	auto eq_func = phxargs::arg1 + " = " + phxargs::arg2;
 	auto free_func = [](size_t id1, size_t id2)
@@ -274,12 +276,12 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_by_converting_pair_to_str)
 	auto const_func = [this](size_t id1, size_t id2)
 	{
 		// might as well test the arity here:
-		BOOST_TEST(ker.symbol_arity_from_id(id1) == 0);
-		BOOST_TEST(ker.symbol_arity_from_id(id2) == 0);
+		BOOST_TEST(ctx.symbol_arity(id1) == 0);
+		BOOST_TEST(ctx.symbol_arity(id2) == 0);
 
-		return (id1 == id2) ? ker.symbol_name(id1)
-			: ("[" + ker.symbol_name(id1) + ", " +
-				ker.symbol_name(id2) + "]");;
+		return (id1 == id2) ? ctx.symbol_name(id1)
+			: ("[" + ctx.symbol_name(id1) + ", " +
+				ctx.symbol_name(id2) + "]");;
 	};
 	auto f_func = [this](size_t id1, size_t id2,
 		std::vector<std::string>::iterator begin,
@@ -287,13 +289,13 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_by_converting_pair_to_str)
 	{
 		// might as well test the arity here:
 		BOOST_TEST(std::distance(begin, end)
-			== ker.symbol_arity_from_id(id1));
+			== ctx.symbol_arity(id1));
 		BOOST_TEST(std::distance(begin, end)
-			== ker.symbol_arity_from_id(id2));
+			== ctx.symbol_arity(id2));
 
-		auto str_id = (id1 == id2) ? ker.symbol_name(id1)
-			: ("[" + ker.symbol_name(id1) + ", " +
-				ker.symbol_name(id2) + "]");
+		auto str_id = (id1 == id2) ? ctx.symbol_name(id1)
+			: ("[" + ctx.symbol_name(id1) + ", " +
+				ctx.symbol_name(id2) + "]");
 		return str_id + '(' +
 			boost::algorithm::join(
 				boost::make_iterator_range(begin, end),
@@ -302,8 +304,8 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_by_converting_pair_to_str)
 	auto default_func = [this](SyntaxNodePtr p_left,
 		SyntaxNodePtr p_right)
 	{
-		return "[" + syntax_tree_to_str(ker, p_left)
-			+ ", " + syntax_tree_to_str(ker, p_right) + "]";
+		return "[" + syntax_tree_to_str(ctx, p_left)
+			+ ", " + syntax_tree_to_str(ctx, p_right) + "]";
 	};
 
 	auto str_result = stmt1.fold_pair<std::string>(eq_func,
@@ -329,11 +331,11 @@ BOOST_AUTO_TEST_CASE(test_adjoin_rhs)
 	BOOST_REQUIRE(results.has_value());
 	BOOST_REQUIRE(results.get().size() == 2);
 
-	auto stree1 = ptree_to_stree(results->front(), ker);
-	auto stree2 = ptree_to_stree(results->back(), ker);
+	auto stree1 = ptree_to_stree(results->front(), ctx);
+	auto stree2 = ptree_to_stree(results->back(), ctx);
 
-	auto stmt1 = Statement(ker, stree1);
-	auto stmt2 = Statement(ker, stree2);
+	auto stmt1 = Statement(ctx, stree1);
+	auto stmt2 = Statement(ctx, stree2);
 
 	auto stmt_adjoin_result = stmt1.adjoin_rhs(stmt2);
 
@@ -361,12 +363,12 @@ BOOST_DATA_TEST_CASE(test_transpose,
 	auto results = parse_statements(s);
 	BOOST_REQUIRE(results.has_value());
 	BOOST_REQUIRE(results.get().size() == 2);
-	auto stree1 = ptree_to_stree(results.get().front(), ker);
-	auto stree2 = ptree_to_stree(results.get().back(), ker);
+	auto stree1 = ptree_to_stree(results.get().front(), ctx);
+	auto stree2 = ptree_to_stree(results.get().back(), ctx);
 	BOOST_REQUIRE(stree1 != nullptr);
 	BOOST_REQUIRE(stree2 != nullptr);
-	auto stmt1 = Statement(ker, stree1);
-	auto stmt2 = Statement(ker, stree2);
+	auto stmt1 = Statement(ctx, stree1);
+	auto stmt2 = Statement(ctx, stree2);
 	// check that the transpose of one of them is identical
 	// to the other one
 	BOOST_TEST(semantics::identical(stmt1,
@@ -393,14 +395,14 @@ BOOST_DATA_TEST_CASE(test_get_statement_sides,
 	auto ptree = parse_statements(s);
 	BOOST_REQUIRE(ptree.has_value());
 	BOOST_REQUIRE(ptree->size() == 1);
-	auto stree = ptree_to_stree(ptree->front(), ker);
-	auto stmt = Statement(ker, stree);
+	auto stree = ptree_to_stree(ptree->front(), ctx);
+	auto stmt = Statement(ctx, stree);
 
 	auto sides = stmt.get_sides();
 
-	BOOST_TEST(syntax_tree_to_str(ker, sides.first)
+	BOOST_TEST(syntax_tree_to_str(ctx, sides.first)
 		== side1);
-	BOOST_TEST(syntax_tree_to_str(ker, sides.second)
+	BOOST_TEST(syntax_tree_to_str(ctx, sides.second)
 		== side2);
 }
 
@@ -430,14 +432,14 @@ BOOST_DATA_TEST_CASE(test_map_free_vars,
 	BOOST_REQUIRE(parse_results.has_value());
 	BOOST_REQUIRE(parse_results->size() == 3);
 	auto iter = parse_results->begin();
-	auto original_stree = ptree_to_stree(*iter, ker);
+	auto original_stree = ptree_to_stree(*iter, ctx);
 	++iter;
-	auto sub_stree = ptree_to_stree(*iter, ker);
+	auto sub_stree = ptree_to_stree(*iter, ctx);
 	++iter;
-	auto target_stree = ptree_to_stree(*iter, ker);
-	auto original_stmt = Statement(ker, original_stree);
-	auto sub_stmt = Statement(ker, sub_stree);
-	auto target_stmt = Statement(ker, target_stree);
+	auto target_stree = ptree_to_stree(*iter, ctx);
+	auto original_stmt = Statement(ctx, original_stree);
+	auto sub_stmt = Statement(ctx, sub_stree);
+	auto target_stmt = Statement(ctx, target_stree);
 
 	// construct free var mapping:
 	std::map<size_t, SyntaxNodePtr> free_var_map;
@@ -474,8 +476,8 @@ BOOST_AUTO_TEST_CASE(
 	s << "x = x";
 
 	auto parse_tree = parse_statements(s);
-	auto stree = ptree_to_stree(parse_tree->front(), ker);
-	auto stmt = Statement(ker, stree);
+	auto stree = ptree_to_stree(parse_tree->front(), ctx);
+	auto stmt = Statement(ctx, stree);
 
 	std::map<size_t, SyntaxNodePtr> free_var_map;
 

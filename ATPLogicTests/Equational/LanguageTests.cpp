@@ -11,17 +11,18 @@
 
 #include <sstream>
 #include <Internal/Equational/Language.h>
-#include <Internal/Equational/KnowledgeKernel.h>
+#include <Internal/Equational/ModelContext.h>
 #include <Internal/Equational/Parser.h>
 #include <Internal/Equational/SyntaxNodes.h>
 #include <Internal/Equational/StatementArray.h>
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/Semantics.h>
 #include "../Test.h"
+#include "DefinitionFileExamples.h"
 
 
 using atp::logic::equational::Language;
-using atp::logic::equational::KnowledgeKernel;
+using atp::logic::equational::ModelContext;
 using atp::logic::StmtFormat;
 using atp::logic::equational::SyntaxNodePtr;
 using atp::logic::equational::StatementArray;
@@ -42,24 +43,7 @@ struct LanguageTestsFixture
 	{
 		s << std::noskipws;
 
-		// build the context file for group theory
-		ctx_file << "{" << std::endl;
-		ctx_file << "	name : \"Group Theory\"," << std::endl;
-		ctx_file << "definitions : [" << std::endl;
-		ctx_file << "{ name: \"e\", arity : 0 }," << std::endl;
-		ctx_file << "{ name: \"i\", arity : 1 }," << std::endl;
-		ctx_file << "{ name: \"*\", arity : 2 }";
-		ctx_file << "] ," << std::endl;
-		ctx_file << "axioms : [" << std::endl;
-		ctx_file << "\"*(*(x, y), z) = *(x, *(y, z))\","
-			<< std::endl;
-		ctx_file << "\"*(x, e) = x\"," << std::endl;
-		ctx_file << "\"*(e, x) = x\"," << std::endl;
-		ctx_file << "\"*(x, i(x)) = e\"," << std::endl;
-		ctx_file << "\"*(i(x), x) = e\"" << std::endl;
-		ctx_file << "]" << std::endl;
-		ctx_file << "}";
-	
+		ctx_file << group_theory_definition_file;
 	}
 };
 
@@ -68,17 +52,11 @@ BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(LanguageTests,
 	LanguageTestsFixture,
 	*boost::unit_test_framework::depends_on(
-		"EquationalTests/KnowledgeKernelDefinitionsTests")
+		"EquationalTests/ModelContextTests")
 	*boost::unit_test_framework::depends_on(
 		"EquationalTests/ParseTreeToSyntaxTreeTests")
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/ParseDefinitionsTests")
-	* boost::unit_test_framework::depends_on(
-		"EquationalTests/SyntaxTreeFoldTests")
-	* boost::unit_test_framework::depends_on(
-		"EquationalTests/StatementTests")
-	* boost::unit_test_framework::depends_on(
-		"EquationalTests/SemanticsTests"));
+		"EquationalTests/StatementTests"));
 
 
 BOOST_AUTO_TEST_CASE(check_no_ker_when_context_invalid)
@@ -110,10 +88,7 @@ BOOST_DATA_TEST_CASE(test_text_deserialisation_in_correct_cases,
 {
 	auto p_ctx = lang.try_create_context(ctx_file);
 	BOOST_REQUIRE(p_ctx != nullptr);
-	auto p_ker = lang.try_create_kernel(*p_ctx);
-	BOOST_REQUIRE(p_ker != nullptr);
-	const KnowledgeKernel& ker = dynamic_cast<
-		const KnowledgeKernel&>(*p_ker);
+	const auto& ctx = dynamic_cast<const ModelContext&>(*p_ctx);
 
 	s << stmts;
 
@@ -167,10 +142,7 @@ BOOST_DATA_TEST_CASE(test_text_deserialisation_in_incorrect_cases,
 {
 	auto p_ctx = lang.try_create_context(ctx_file);
 	BOOST_REQUIRE(p_ctx != nullptr);
-	auto p_ker = lang.try_create_kernel(*p_ctx);
-	BOOST_REQUIRE(p_ker != nullptr);
-	const KnowledgeKernel& ker = dynamic_cast<
-		const KnowledgeKernel&>(*p_ker);
+	const auto& ctx = dynamic_cast<const ModelContext&>(*p_ctx)
 
 	s << stmt;
 	auto lang_results = lang.deserialise_stmts(s,
@@ -194,10 +166,7 @@ BOOST_DATA_TEST_CASE(test_serialisation_in_one_free_variable,
 {
 	auto p_ctx = lang.try_create_context(ctx_file);
 	BOOST_REQUIRE(p_ctx != nullptr);
-	auto p_ker = lang.try_create_kernel(*p_ctx);
-	BOOST_REQUIRE(p_ker != nullptr);
-	const KnowledgeKernel& ker = dynamic_cast<
-		const KnowledgeKernel&>(*p_ker);
+	const auto& ctx = dynamic_cast<const ModelContext&>(*p_ctx);
 
 	s << stmt;
 	auto stmt_arr = lang.deserialise_stmts(s, StmtFormat::TEXT, ker);

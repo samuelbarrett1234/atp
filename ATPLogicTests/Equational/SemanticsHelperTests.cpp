@@ -16,15 +16,14 @@
 #include <boost/bind.hpp>
 #include <Internal/Equational/SemanticsHelper.h>
 #include <Internal/Equational/Parser.h>
-#include <Internal/Equational/KnowledgeKernel.h>
 #include <Internal/Equational/SyntaxNodes.h>
 #include <Internal/Equational/StatementArray.h>
 #include "../Test.h"
 #include "SyntaxNodeToStr.h"
+#include "StandardFixture.h"
 
 
 using atp::logic::equational::Statement;
-using atp::logic::equational::KnowledgeKernel;
 using atp::logic::equational::SyntaxNodePtr;
 using atp::logic::equational::EqSyntaxNode;
 using atp::logic::equational::FreeSyntaxNode;
@@ -36,47 +35,9 @@ using atp::logic::equational::ptree_to_stree;
 namespace semantics = atp::logic::equational::semantics;
 
 
-struct SemanticsHelperTestsFixture
-{
-	SemanticsHelperTestsFixture()
-	{
-		// group theory definitions - why not:
-		ker.define_symbol("e", 0);
-		ker.define_symbol("i", 1);
-		ker.define_symbol("*", 2);
-		s << std::noskipws;
-
-		// define group theory rules
-		s << "x = *(e, x)\n";
-		s << "x = *(x, e)\n";
-		s << "e = *(x, i(x))\n";
-		s << "e = *(i(x), x)\n";
-		s << "*(x, *(y, z)) = *(*(x, y), z)";
-		auto parse_trees = parse_statements(s);
-		p_rules = std::make_shared<std::vector<Statement>>();
-		for (auto ptree : parse_trees.get())
-		{
-			auto stree = ptree_to_stree(ptree,
-				ker);
-			p_rules->emplace_back(ker, stree);
-		}
-		ker.define_eq_rules(
-			std::make_shared<StatementArray>(p_rules));
-
-		// reset this
-		s = std::stringstream();
-		s << std::noskipws;
-	}
-
-	std::stringstream s;
-	KnowledgeKernel ker;
-	std::shared_ptr<std::vector<Statement>> p_rules;
-};
-
-
 BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(SemanticsHelperTests,
-	SemanticsHelperTestsFixture,
+	StandardTestFixture,
 	*boost::unit_test_framework::depends_on(
 		"EquationalTests/ParseTreeToSyntaxTreeTests")
 	* boost::unit_test_framework::depends_on(
@@ -108,8 +69,8 @@ BOOST_DATA_TEST_CASE(test_syntax_tree_identical,
 	BOOST_REQUIRE(ptrees.has_value());
 	BOOST_REQUIRE(ptrees->size() == 2);
 
-	auto stmt1_stree = ptree_to_stree(ptrees->front(), ker);
-	auto stmt2_stree = ptree_to_stree(ptrees->back(), ker);
+	auto stmt1_stree = ptree_to_stree(ptrees->front(), ctx);
+	auto stmt2_stree = ptree_to_stree(ptrees->back(), ctx);
 
 	// convert the two statements to string (don't use stmt1
 	// and stmt2, because the free variable names might be
@@ -117,8 +78,8 @@ BOOST_DATA_TEST_CASE(test_syntax_tree_identical,
 	// `syntax_tree_to_str` returns the same result, but that
 	// does not hold for the string representations `stmt1`
 	// and `stmt2` in general.)
-	auto stmt1_str = syntax_tree_to_str(ker, stmt1_stree);
-	auto stmt2_str = syntax_tree_to_str(ker, stmt2_stree);
+	auto stmt1_str = syntax_tree_to_str(ctx, stmt1_stree);
+	auto stmt2_str = syntax_tree_to_str(ctx, stmt2_stree);
 
 	BOOST_TEST(semantics::syntax_tree_identical(stmt1_stree,
 		stmt2_stree) == (stmt1_str == stmt2_str));
@@ -136,7 +97,7 @@ BOOST_DATA_TEST_CASE(test_get_free_var_ids,
 	auto ptree = parse_statements(s);
 	BOOST_REQUIRE(ptree.has_value());
 	BOOST_REQUIRE(ptree->size() == 1);
-	auto stree = ptree_to_stree(ptree->front(), ker);
+	auto stree = ptree_to_stree(ptree->front(), ctx);
 	
 	// use testing the size of the ID set returned as a proxy
 	// for checking that the actual IDs returned are correct
@@ -163,10 +124,10 @@ BOOST_AUTO_TEST_CASE(test_try_build_map_positive)
 	BOOST_REQUIRE(ptree.has_value());
 	BOOST_REQUIRE(ptree->size() == 1);
 
-	auto stree = ptree_to_stree(ptree->front(), ker);
+	auto stree = ptree_to_stree(ptree->front(), ctx);
 
 	// get LHS and RHS of the syntax tree we just built
-	auto sides = Statement(ker, stree).get_sides();
+	auto sides = Statement(ctx, stree).get_sides();
 
 	auto mapping = semantics::try_build_map(sides.first,
 		sides.second);
@@ -193,10 +154,10 @@ BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 	BOOST_REQUIRE(ptree.has_value());
 	BOOST_REQUIRE(ptree->size() == 1);
 
-	auto stree = ptree_to_stree(ptree->front(), ker);
+	auto stree = ptree_to_stree(ptree->front(), ctx);
 
 	// get LHS and RHS of the syntax tree we just built
-	auto sides = Statement(ker, stree).get_sides();
+	auto sides = Statement(ctx, stree).get_sides();
 
 	auto mapping = semantics::try_build_map(sides.first,
 		sides.second);
@@ -224,10 +185,10 @@ BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
 	BOOST_REQUIRE(ptree.has_value());
 	BOOST_REQUIRE(ptree->size() == 1);
 
-	auto stree = ptree_to_stree(ptree->front(), ker);
+	auto stree = ptree_to_stree(ptree->front(), ctx);
 
 	// get LHS and RHS of the syntax tree we just built
-	auto sides = Statement(ker, stree).get_sides();
+	auto sides = Statement(ctx, stree).get_sides();
 
 	auto mapping = semantics::try_build_map(sides.first,
 		sides.second);
@@ -254,13 +215,13 @@ BOOST_AUTO_TEST_CASE(test_substitute_tree_with_new_free_var)
 	BOOST_REQUIRE(ptrees.has_value());
 	BOOST_REQUIRE(ptrees->size() == 2);
 
-	auto premise_stree = ptree_to_stree(ptrees->front(), ker);
-	auto rule_stree = ptree_to_stree(ptrees->back(), ker);
+	auto premise_stree = ptree_to_stree(ptrees->front(), ctx);
+	auto rule_stree = ptree_to_stree(ptrees->back(), ctx);
 
-	auto rule_sides = Statement(ker, rule_stree).get_sides();
+	auto rule_sides = Statement(ctx, rule_stree).get_sides();
 
 	semantics::SubstitutionInfo sub_info(ker,
-		{ Statement(ker, rule_stree) },
+		{ Statement(ctx, rule_stree) },
 		semantics::get_free_var_ids(premise_stree) );
 
 	auto sub_tree_results = semantics::substitute_tree(
@@ -277,7 +238,7 @@ BOOST_AUTO_TEST_CASE(test_substitute_tree_with_new_free_var)
 	std::list<std::string> results_as_str;
 	for (auto p_result : sub_tree_results)
 		results_as_str.push_back(syntax_tree_to_str(
-			ker, p_result));
+			ctx, p_result));
 
 	// check the substitution returned each of the results
 	// we were expecting:
@@ -328,8 +289,8 @@ BOOST_DATA_TEST_CASE(test_immediate_applications,
 	BOOST_REQUIRE(ptrees.has_value());
 	BOOST_REQUIRE(ptrees->size() == 2);
 
-	auto stmt_stree = ptree_to_stree(ptrees->front(), ker);
-	auto stmt_imm_app_stree = ptree_to_stree(ptrees->back(), ker);
+	auto stmt_stree = ptree_to_stree(ptrees->front(), ctx);
+	auto stmt_imm_app_stree = ptree_to_stree(ptrees->back(), ctx);
 
 	// get LHSs
 
@@ -340,7 +301,7 @@ BOOST_DATA_TEST_CASE(test_immediate_applications,
 
 	// create substitution info
 
-	semantics::SubstitutionInfo sub_info(ker,
+	semantics::SubstitutionInfo sub_info(ctx,
 		*p_rules,
 		semantics::get_free_var_ids(stmt_stree));
 
@@ -351,7 +312,7 @@ BOOST_DATA_TEST_CASE(test_immediate_applications,
 
 	std::vector<std::string> strs;
 	for (auto i : imm_apps)
-		strs.push_back(syntax_tree_to_str(ker, i));
+		strs.push_back(syntax_tree_to_str(ctx, i));
 
 	// now test that stmt_imm_app_lhs appeared as a result
 

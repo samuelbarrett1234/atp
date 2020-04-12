@@ -12,11 +12,11 @@
 #include <sstream>
 #include <boost/algorithm/string/join.hpp>
 #include <Internal/Equational/SyntaxNodes.h>
-#include <Internal/Equational/KnowledgeKernel.h>
 #include <Internal/Equational/SyntaxTreeFold.h>
 #include <Internal/Equational/Parser.h>
 #include "../Test.h"
 #include "SyntaxNodeToStr.h"
+#include "StandardFixture.h"
 
 
 using atp::logic::equational::fold_syntax_tree;
@@ -24,29 +24,12 @@ using atp::logic::equational::EqSyntaxNode;
 using atp::logic::equational::FreeSyntaxNode;
 using atp::logic::equational::ConstantSyntaxNode;
 using atp::logic::equational::FuncSyntaxNode;
-using atp::logic::equational::KnowledgeKernel;
 using atp::logic::equational::parse_statements;
-
-
-struct SyntaxTreeFoldTestsFixture
-{
-	SyntaxTreeFoldTestsFixture()
-	{
-		// group theory definitions - why not:
-		ker.define_symbol("e", 0);
-		ker.define_symbol("i", 1);
-		ker.define_symbol("*", 2);
-		s << std::noskipws;
-	}
-
-	std::stringstream s;
-	KnowledgeKernel ker;
-};
 
 
 BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(SyntaxTreeFoldTests,
-	SyntaxTreeFoldTestsFixture,
+	StandardTestFixture,
 	*boost::unit_test_framework::depends_on(
 		"EquationalTests/ParseTreeToSyntaxTreeTests"));
 
@@ -72,7 +55,7 @@ BOOST_AUTO_TEST_CASE(test_to_str_is_inverse_to_parser_1)
 	auto parse_tree = result.get().front();
 
 	auto syntax_tree = ptree_to_stree(
-		parse_tree, ker);
+		parse_tree, ctx);
 
 	// should have no problems here
 	BOOST_REQUIRE(syntax_tree != nullptr);
@@ -82,7 +65,7 @@ BOOST_AUTO_TEST_CASE(test_to_str_is_inverse_to_parser_1)
 	// some permutation of the variables ties up with the result
 	// given here:
 
-	auto to_str = syntax_tree_to_str(ker, syntax_tree);
+	auto to_str = syntax_tree_to_str(ctx, syntax_tree);
 
 	BOOST_TEST((to_str == "*(x0, x1) = e" ||
 		to_str == "*(x1, x0) = e"));
@@ -103,7 +86,7 @@ BOOST_AUTO_TEST_CASE(test_to_str_is_inverse_to_parser_2)
 	auto parse_tree = result.get().front();
 
 	auto syntax_tree = ptree_to_stree(
-		parse_tree, ker);
+		parse_tree, ctx);
 
 	// should have no problems here
 	BOOST_REQUIRE(syntax_tree != nullptr);
@@ -113,7 +96,7 @@ BOOST_AUTO_TEST_CASE(test_to_str_is_inverse_to_parser_2)
 	// some permutation of the variables ties up with the result
 	// given here:
 
-	auto to_str = syntax_tree_to_str(ker, syntax_tree);
+	auto to_str = syntax_tree_to_str(ctx, syntax_tree);
 
 	BOOST_TEST(to_str == "i(i(x0)) = x0");
 }
@@ -133,7 +116,7 @@ BOOST_AUTO_TEST_CASE(test_to_str_is_inverse_to_parser_3)
 	auto parse_tree = result.get().front();
 
 	auto syntax_tree = ptree_to_stree(
-		parse_tree, ker);
+		parse_tree, ctx);
 
 	// should have no problems here
 	BOOST_REQUIRE(syntax_tree != nullptr);
@@ -143,7 +126,7 @@ BOOST_AUTO_TEST_CASE(test_to_str_is_inverse_to_parser_3)
 	// some permutation of the variables ties up with the result
 	// given here:
 
-	auto to_str = syntax_tree_to_str(ker, syntax_tree);
+	auto to_str = syntax_tree_to_str(ctx, syntax_tree);
 
 	BOOST_TEST(to_str == "*(e, e) = e");
 }
@@ -167,7 +150,7 @@ BOOST_AUTO_TEST_CASE(test_to_str_is_inverse_to_parser_4)
 	auto parse_tree = result.get().front();
 
 	auto syntax_tree = ptree_to_stree(
-		parse_tree, ker);
+		parse_tree, ctx);
 
 	// should have no problems here
 	BOOST_REQUIRE(syntax_tree != nullptr);
@@ -177,7 +160,7 @@ BOOST_AUTO_TEST_CASE(test_to_str_is_inverse_to_parser_4)
 	// some permutation of the variables ties up with the result
 	// given here:
 
-	auto to_str = syntax_tree_to_str(ker, syntax_tree);
+	auto to_str = syntax_tree_to_str(ctx, syntax_tree);
 
 	BOOST_TEST((to_str == "*(x0, x1) = i(*(i(x0), i(x1)))" ||
 		to_str == "*(x1, x0) = i(*(i(x1), i(x0)))"));

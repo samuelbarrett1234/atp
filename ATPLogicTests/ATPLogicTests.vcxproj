@@ -186,6 +186,8 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Equational\DefinitionFileExamples.h" />
+    <ClInclude Include="Equational\StandardFixture.h" />
     <ClInclude Include="Equational\SyntaxNodeToStr.h" />
     <ClInclude Include="Test.h" />
   </ItemGroup>

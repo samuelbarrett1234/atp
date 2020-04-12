@@ -1,0 +1,34 @@
+#pragma once
+
+
+#include <sstream>
+#include <Internal/Equational/Language.h>
+#include <Internal/Equational/ModelContext.h>
+#include <Internal/Equational/KnowledgeKernel.h>
+#include "DefinitionFileExamples.h"
+
+
+struct StandardTestFixture
+{
+	std::stringstream s,
+		ctx_in;
+	atp::logic::equational::Language lang;
+	atp::logic::ModelContextPtr p_ctx;
+	const atp::logic::equational::ModelContext& ctx;
+	atp::logic::KnowledgeKernelPtr p_ker;
+	const atp::logic::equational::KnowledgeKernel& ker;
+
+	StandardTestFixture() :
+		ctx_in(group_theory_definition_file),
+		p_ctx(lang.try_create_context(ctx_in)),
+		ctx(dynamic_cast<const
+			atp::logic::equational::ModelContext&>(*p_ctx)),
+		p_ker(lang.try_create_kernel(ctx)),
+		ker(dynamic_cast<const
+			atp::logic::equational::KnowledgeKernel&>(*p_ker))
+	{
+		s << std::noskipws;
+	}
+};
+
+

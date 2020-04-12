@@ -15,11 +15,10 @@
 #include <string>
 #include <Internal/Equational/Parser.h>
 #include <Internal/Equational/SyntaxNodes.h>
-#include <Internal/Equational/KnowledgeKernel.h>
 #include "../Test.h"
+#include "StandardFixture.h"
 
 
-using atp::logic::equational::KnowledgeKernel;
 using atp::logic::equational::SyntaxNodeType;
 using atp::logic::equational::EqSyntaxNode;
 using atp::logic::equational::FuncSyntaxNode;
@@ -55,22 +54,6 @@ static inline std::ostream& boost_test_print_type (std::ostream& os,
 }  // namespace equational
 }  // namespace logic
 }  // namespace atp
-
-
-struct ParseTreeToSyntaxTreeFixture
-{
-	ParseTreeToSyntaxTreeFixture()
-	{
-		// group theory definitions - why not:
-		ker.define_symbol("e", 0);
-		ker.define_symbol("i", 1);
-		ker.define_symbol("*", 2);
-		s << std::noskipws;
-	}
-
-	std::stringstream s;
-	KnowledgeKernel ker;
-};
 
 
 // a big list of statements to check whether or not they are valid
@@ -129,11 +112,11 @@ static SyntaxNodeType rhs_types[] =
 
 BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(ParseTreeToSyntaxTreeTests,
-	ParseTreeToSyntaxTreeFixture,
+	StandardTestFixture,
 	*boost::unit_test_framework::depends_on(
 		"EquationalTests/ParseStatementsTests")
 	*boost::unit_test_framework::depends_on(
-		"EquationalTests/KnowledgeKernelDefinitionsTests"));
+		"EquationalTests/ModelContextTests"));
 
 
 BOOST_DATA_TEST_CASE(test_validity,
@@ -154,7 +137,7 @@ BOOST_DATA_TEST_CASE(test_validity,
 	// may or may not return nullptr, depending on the expected
 	// result given in the second element of the pair stmt_and_valid:
 	auto syntax_tree = ptree_to_stree(
-		parse_tree, ker);
+		parse_tree, ctx);
 
 	BOOST_TEST((syntax_tree != nullptr)
 		== is_valid);
@@ -181,7 +164,7 @@ BOOST_DATA_TEST_CASE(test_lhs_rhs_types,
 	auto parse_tree = result.get().front();
 
 	auto syntax_tree = ptree_to_stree(
-		parse_tree, ker);
+		parse_tree, ctx);
 
 	// it should've been type correct:
 	BOOST_REQUIRE(syntax_tree != nullptr);
@@ -221,7 +204,7 @@ BOOST_AUTO_TEST_CASE(test_func_args_typed_correctly)
 	auto parse_tree = result.get().front();
 
 	auto syntax_tree = ptree_to_stree(
-		parse_tree, ker);
+		parse_tree, ctx);
 
 	// it should've been type correct:
 	BOOST_REQUIRE(syntax_tree != nullptr);
@@ -248,9 +231,9 @@ BOOST_AUTO_TEST_CASE(test_func_args_typed_correctly)
 	BOOST_REQUIRE(p_func != nullptr);
 	BOOST_REQUIRE(p_const != nullptr);
 
-	BOOST_TEST(p_const->get_symbol_id() == ker.symbol_id("e"));
+	BOOST_TEST(p_const->get_symbol_id() == ctx.symbol_id("e"));
 
-	BOOST_TEST(p_func->get_symbol_id() == ker.symbol_id("*"));
+	BOOST_TEST(p_func->get_symbol_id() == ctx.symbol_id("*"));
 
 	BOOST_TEST(p_func->get_arity() == 2);
 
@@ -277,7 +260,7 @@ BOOST_AUTO_TEST_CASE(test_func_args_typed_correctly)
 	// one free variable in a statement, it must have free ID 0
 	BOOST_TEST(p_left_arg->get_free_id() == 0);
 
-	BOOST_TEST(p_right_arg->get_symbol_id() == ker.symbol_id("i"));
+	BOOST_TEST(p_right_arg->get_symbol_id() == ctx.symbol_id("i"));
 
 	BOOST_REQUIRE(p_right_arg->get_arity() == 1);
 

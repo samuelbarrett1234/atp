@@ -54,14 +54,14 @@ class ATP_LOGIC_API Expression
 public:
     static ExpressionPtr construct(
         const ModelContext& ctx,
-        SyntaxNodePtr p_root);
+        const SyntaxNodePtr& p_root);
 
 public:
     /**
     \pre p_root->get_type() != SyntaxNodePtr::EQ
     */
     Expression(const ModelContext& ctx,
-        SyntaxNodePtr p_root);
+        const SyntaxNodePtr& p_root);
 
     Expression(const Expression& other);
     Expression(Expression&& other) noexcept;
@@ -175,7 +175,7 @@ public:
 					{
 						ResultT r = free_func(id);
 						free_var_result_cache[id] = r;
-						result_stack.push_back(r);
+						result_stack.emplace_back(std::move(r));
 					}
 					else
 					{
@@ -194,7 +194,7 @@ public:
 					{
 						ResultT r = const_func(id);
 						const_result_cache[id] = r;
-						result_stack.push_back(r);
+						result_stack.emplace_back(std::move(r));
 					}
 					else
 					{
@@ -283,7 +283,7 @@ public:
 					== size_before);
 #endif
 
-				result_stack.push_back(result);
+				result_stack.emplace_back(std::move(result));
 			}
 		}
 
@@ -393,7 +393,7 @@ public:
 
 				// convert both sides to syntax trees and then
 				// push the result
-				result_stack.push_back(default_func(
+				result_stack.emplace_back(default_func(
 					to_syntax_tree(id_pair.first,
 						type_pair.first),
 					other.to_syntax_tree(id_pair.second,
@@ -405,11 +405,11 @@ public:
 				switch (type_pair.first)
 				{
 				case SyntaxNodeType::FREE:
-					result_stack.push_back(free_func(id_pair.first,
+					result_stack.emplace_back(free_func(id_pair.first,
 						id_pair.second));
 					break;
 				case SyntaxNodeType::CONSTANT:
-					result_stack.push_back(const_func(id_pair.first,
+					result_stack.emplace_back(const_func(id_pair.first,
 						id_pair.second));
 					break;
 				case SyntaxNodeType::FUNC:
@@ -423,7 +423,7 @@ public:
 					// arities
 					if (arity_pair.first != arity_pair.second)
 					{
-						result_stack.push_back(default_func(
+						result_stack.emplace_back(default_func(
 							to_syntax_tree(id_pair.first,
 								type_pair.first),
 							other.to_syntax_tree(id_pair.second,
@@ -557,7 +557,7 @@ public:
 					== size_before);
 #endif
 
-				result_stack.push_back(result);
+				result_stack.emplace_back(std::move(result));
 			}
 		}
 
@@ -581,7 +581,7 @@ private:
 		usage of such a pair in the rest of this class.
 	*/
 	std::pair<size_t,
-		SyntaxNodeType> add_tree_data(SyntaxNodePtr tree);
+		SyntaxNodeType> add_tree_data(const SyntaxNodePtr& tree);
 
 
 	/**

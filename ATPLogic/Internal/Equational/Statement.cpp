@@ -33,7 +33,7 @@ namespace equational
 
 Statement::Statement(
 	const ModelContext& ctx,
-	SyntaxNodePtr p_root) :
+	const SyntaxNodePtr& p_root) :
 	m_ctx(ctx)
 {
 	ATP_LOGIC_PRECOND(p_root->get_type() ==
@@ -46,6 +46,8 @@ Statement::Statement(
 	m_sides = std::make_pair(Expression::construct(ctx,
 		p_eq->left()), Expression::construct(ctx,
 			p_eq->right()));
+
+	m_tree_sides = std::make_pair(p_eq->left(), p_eq->right());
 
 	// collect together the free variable IDs by unioning those
 	// of the children:
@@ -80,6 +82,7 @@ Statement& Statement::operator=(const Statement& other)
 	{
 		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
 		m_sides = other.m_sides;
+		m_tree_sides = other.m_tree_sides;
 		m_free_var_ids = other.m_free_var_ids;
 	}
 	return *this;
@@ -92,6 +95,7 @@ Statement& Statement::operator=(Statement&& other) noexcept
 	{
 		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
 		m_sides = std::move(other.m_sides);
+		m_tree_sides = std::move(other.m_tree_sides);
 		m_free_var_ids = std::move(other.m_free_var_ids);
 	}
 	return *this;
@@ -141,16 +145,18 @@ Statement Statement::transpose() const
 
 std::pair<SyntaxNodePtr, SyntaxNodePtr> Statement::get_sides() const
 {
-	auto to_syntax_tree = [this](const Expression& expr)
-		-> SyntaxNodePtr
-	{
-		return expr.fold<SyntaxNodePtr>(&FreeSyntaxNode::construct,
-			&ConstantSyntaxNode::construct,
-			&FuncSyntaxNode::construct);
-	};
+	//auto to_syntax_tree = [this](const Expression& expr)
+	//	-> SyntaxNodePtr
+	//{
+	//	return expr.fold<SyntaxNodePtr>(&FreeSyntaxNode::construct,
+	//		&ConstantSyntaxNode::construct,
+	//		&FuncSyntaxNode::construct);
+	//};
 
-	return std::make_pair(to_syntax_tree(*m_sides.first),
-		to_syntax_tree(*m_sides.second));
+	//return std::make_pair(to_syntax_tree(*m_sides.first),
+	//	to_syntax_tree(*m_sides.second));
+
+	return m_tree_sides;
 }
 
 

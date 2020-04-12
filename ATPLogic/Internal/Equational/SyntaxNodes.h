@@ -58,7 +58,7 @@ class ATP_LOGIC_API EqSyntaxNode :
 	public ISyntaxNode
 {
 public:
-	EqSyntaxNode(SyntaxNodePtr l, SyntaxNodePtr r) :
+	EqSyntaxNode(const SyntaxNodePtr& l, const SyntaxNodePtr& r) :
 		m_left(l), m_right(r)
 	{
 		ATP_LOGIC_PRECOND(m_left->get_type() != SyntaxNodeType::EQ);
@@ -68,18 +68,18 @@ public:
 	/**
 	\brief Optimised allocation function
 	*/
-	static SyntaxNodePtr construct(SyntaxNodePtr lhs,
-		SyntaxNodePtr rhs);
+	static SyntaxNodePtr construct(const SyntaxNodePtr& lhs,
+		const SyntaxNodePtr& rhs);
 
 	inline SyntaxNodeType get_type() const override
 	{
 		return SyntaxNodeType::EQ;
 	}
-	inline SyntaxNodePtr left() const
+	inline const SyntaxNodePtr& left() const
 	{
 		return m_left;
 	}
-	inline SyntaxNodePtr right() const
+	inline const SyntaxNodePtr& right() const
 	{
 		return m_right;
 	}

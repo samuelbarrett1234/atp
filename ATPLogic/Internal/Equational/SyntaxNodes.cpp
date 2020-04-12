@@ -31,7 +31,7 @@ SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 	size_t next_free_id = 0;
 
 	return fold_parse_tree<SyntaxNodePtr>(
-		[](SyntaxNodePtr lhs, SyntaxNodePtr rhs)
+		[](const SyntaxNodePtr& lhs, const SyntaxNodePtr& rhs)
 		-> SyntaxNodePtr
 		{
 			// check for errors:
@@ -110,8 +110,8 @@ SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 }
 
 
-SyntaxNodePtr EqSyntaxNode::construct(SyntaxNodePtr lhs,
-	SyntaxNodePtr rhs)
+SyntaxNodePtr EqSyntaxNode::construct(const SyntaxNodePtr& lhs,
+	const SyntaxNodePtr& rhs)
 {
 	static boost::pool_allocator<EqSyntaxNode> eq_alloc;
 

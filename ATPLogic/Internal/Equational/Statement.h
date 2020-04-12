@@ -79,7 +79,7 @@ public:
 	\pre p_root->get_type() == SyntaxNodeType::EQ
 	*/
 	Statement(const ModelContext& ctx,
-		SyntaxNodePtr p_root);
+		const SyntaxNodePtr& p_root);
 	Statement(const Statement& other);
 
 	// the only reason this is here is so that we can put Statement
@@ -175,7 +175,8 @@ public:
 		ResultT right_result = m_sides.second->fold<ResultT>(
 			free_func, const_func, f_func);
 
-		return eq_func(left_result, right_result);
+		return eq_func(std::move(left_result),
+			std::move(right_result));
 	}
 
 
@@ -237,7 +238,8 @@ public:
 			free_func, const_func, f_func, default_func,
 			*other.m_sides.second);
 
-		return eq_func(left_result, right_result);
+		return eq_func(std::move(left_result),
+			std::move(right_result));
 	}
 
 
@@ -249,6 +251,10 @@ private:
 	// representing the LHS and the second representing the RHS,
 	// appearing on each side of the equals sign.
 	std::pair<ExpressionPtr, ExpressionPtr> m_sides;
+
+	// cache the sides of this statement in a tree representation
+	// for efficiency, because `get_sides` is called a lot.
+	std::pair<SyntaxNodePtr, SyntaxNodePtr> m_tree_sides;
 
 	std::set<size_t> m_free_var_ids;
 };

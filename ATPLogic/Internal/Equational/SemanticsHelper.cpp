@@ -89,7 +89,7 @@ SubstitutionInfo::SubstitutionInfo(const ModelContext& ctx,
 
 
 std::vector<SyntaxNodePtr> immediate_applications(
-	SyntaxNodePtr node,
+	const SyntaxNodePtr& node,
 	const SubstitutionInfo& sub_info)
 {
 	ATP_LOGIC_PRECOND(node->get_type()
@@ -129,7 +129,7 @@ std::vector<SyntaxNodePtr> immediate_applications(
 
 
 std::vector<SyntaxNodePtr> substitute_tree(
-	SyntaxNodePtr node,
+	const SyntaxNodePtr& node,
 	const SubstitutionInfo& sub_info,
 	const std::map<size_t, SyntaxNodePtr>& free_var_map,
 	size_t rule_idx)
@@ -189,9 +189,10 @@ std::vector<SyntaxNodePtr> substitute_tree(
 		
 		// stores the tuple (current-iterator, begin-iterator,
 		// end-iterator)
-		std::list<boost::tuple<ResultT::iterator,
+		std::vector<boost::tuple<ResultT::iterator,
 			const ResultT::iterator,
 			const ResultT::iterator>> iter_begin_end;
+		iter_begin_end.reserve(std::distance(begin, end));
 		ResultT result;
 
 		for (auto iter = begin; iter != end; ++iter)
@@ -266,20 +267,19 @@ std::vector<SyntaxNodePtr> substitute_tree(
 
 
 boost::optional<std::map<size_t, SyntaxNodePtr>>
-try_build_map(SyntaxNodePtr expr_premise, SyntaxNodePtr expr_concl)
+try_build_map(const SyntaxNodePtr& expr_premise, const SyntaxNodePtr& expr_concl)
 {
 	// we're not doing a fold here, but we're implementing something
 	// similar to a fold over pairs of syntax trees.
 
 	std::map<size_t, SyntaxNodePtr> free_var_map;
-	std::list<std::pair<SyntaxNodePtr, SyntaxNodePtr>> stack;
+	std::vector<std::pair<SyntaxNodePtr, SyntaxNodePtr>> stack;
 
-	stack.push_back(std::make_pair(expr_premise,
-		expr_concl));
+	stack.emplace_back(expr_premise, expr_concl);
 
 	while (!stack.empty())
 	{
-		auto pair = stack.back();
+		auto pair = std::move(stack.back());
 		stack.pop_back();
 
 		ATP_LOGIC_PRECOND(pair.first->get_type()
@@ -391,15 +391,15 @@ try_build_map(SyntaxNodePtr expr_premise, SyntaxNodePtr expr_concl)
 }
 
 
-bool syntax_tree_identical(SyntaxNodePtr a, SyntaxNodePtr b)
+bool syntax_tree_identical(const SyntaxNodePtr& a, const SyntaxNodePtr& b)
 {
 	// don't need a fold for this (although we could do it with
 	// one; however that would involve writing a fold-pairs function
 	// for syntax trees.)
 
-	std::list<std::pair<SyntaxNodePtr, SyntaxNodePtr>> stack;
+	std::vector<std::pair<SyntaxNodePtr, SyntaxNodePtr>> stack;
 
-	stack.push_back(std::make_pair(a, b));
+	stack.emplace_back(a, b);
 
 	while (!stack.empty())
 	{
@@ -499,7 +499,7 @@ bool syntax_tree_identical(SyntaxNodePtr a, SyntaxNodePtr b)
 }
 
 
-std::set<size_t> get_free_var_ids(SyntaxNodePtr p_node)
+std::set<size_t> get_free_var_ids(const SyntaxNodePtr& p_node)
 {
 	std::vector<SyntaxNodePtr> stack;
 	std::set<size_t> var_ids;

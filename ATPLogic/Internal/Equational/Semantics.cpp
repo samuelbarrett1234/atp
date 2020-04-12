@@ -132,13 +132,13 @@ StatementArray get_successors(const ModelContext& ctx,
 		// add left-hand results, keep RHS constant
 		std::transform(lhs.second.begin(), lhs.second.end(),
 			std::back_inserter(sub_results),
-			[&rhs](SyntaxNodePtr lhs)
+			[&rhs](const SyntaxNodePtr& lhs)
 			{ return EqSyntaxNode::construct(lhs, rhs.first); });
 
 		// add right-hand results, keep LHS constant
 		std::transform(rhs.second.begin(), rhs.second.end(),
 			std::back_inserter(sub_results),
-			[&lhs](SyntaxNodePtr rhs)
+			[&lhs](const SyntaxNodePtr& rhs)
 			{ return EqSyntaxNode::construct(lhs.first, rhs); });
 
 		return std::make_pair(me, sub_results);
@@ -226,7 +226,7 @@ StatementArray get_successors(const ModelContext& ctx,
 	std::transform(fold_results.second.begin(),
 		fold_results.second.end(),
 		std::back_inserter(*p_arr),
-		[&stmt, &ctx](SyntaxNodePtr p_node)
+		[&stmt, &ctx](const SyntaxNodePtr& p_node)
 		{
 			return Statement(ctx, p_node);
 		}
@@ -310,8 +310,8 @@ bool implies(const Statement& premise, const Statement& concl)
 			FreeVarMap(FreeVarMap::value_type()), try_union);
 	};
 
-	auto default_constructor = [](SyntaxNodePtr a,
-		SyntaxNodePtr b) -> FreeVarMap
+	auto default_constructor = [](const SyntaxNodePtr& a,
+		const SyntaxNodePtr& b) -> FreeVarMap
 	{
 		if (a->get_type() != SyntaxNodeType::FREE)
 			return boost::none;  // cannot do anything here

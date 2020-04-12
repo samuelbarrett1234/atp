@@ -67,7 +67,7 @@ namespace equational
 template<typename ResultT, typename EqFuncT,
 typename FreeFuncT, typename ConstFuncT, typename FFuncT>
 ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
-	ConstFuncT const_func, FFuncT f_func, SyntaxNodePtr p_root
+	ConstFuncT const_func, FFuncT f_func, const SyntaxNodePtr& p_root
 )
 {
 	ATP_LOGIC_PRECOND(p_root != nullptr);
@@ -131,14 +131,14 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 				[&result_stack, &free_func](FreeSyntaxNode& free)
 				{
 					// compute result and add it to result stack:
-					result_stack.push_back(free_func(
+					result_stack.emplace_back(free_func(
 						free.get_free_id()));
 				},
 				// if CONST...
 				[&result_stack, &const_func](ConstantSyntaxNode& c)
 				{
 					// compute result and add it to result stack:
-					result_stack.push_back(const_func(
+					result_stack.emplace_back(const_func(
 						c.get_symbol_id()));
 				},
 				// if FUNC...
@@ -151,7 +151,7 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 					// add children in reverse order
 					std::transform(f.rbegin(), f.rend(),
 						std::back_inserter(todo_stack),
-						[](SyntaxNodePtr p_node)
+						[](const SyntaxNodePtr& p_node)
 						{ return p_node.get(); });
 					seen_stack.resize(seen_stack.size()
 						+ f.get_arity(), false);
@@ -182,7 +182,7 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 					result_stack.pop_back();
 
 					// compute function of eq for its children:
-					result_stack.push_back(eq_func(
+					result_stack.emplace_back(eq_func(
 						std::move(left_result),
 						std::move(right_result)));
 				},
@@ -221,7 +221,7 @@ ResultT fold_syntax_tree(EqFuncT eq_func, FreeFuncT free_func,
 						== size_before);
 #endif
 
-					result_stack.push_back(result);
+					result_stack.emplace_back(std::move(result));
 				},
 				*p_node
 			);
@@ -306,7 +306,7 @@ ResultT fold_pair_syntax_tree(EqPairFuncT eq_func,
 	std::vector<ResultT> result_stack;
 	std::vector<bool> seen_stack;
 
-	todo_stack.push_back(std::make_pair(a, b));
+	todo_stack.emplace_back(std::move(a), std::move(b));
 	seen_stack.push_back(false);
 
 	while (!todo_stack.empty())
@@ -324,7 +324,7 @@ ResultT fold_pair_syntax_tree(EqPairFuncT eq_func,
 		{
 			ATP_LOGIC_ASSERT(!seen_pair);
 
-			result_stack.push_back(default_func(pair.first,
+			result_stack.emplace_back(default_func(pair.first,
 				pair.second));
 		}
 		else switch (pair.first->get_type())
@@ -363,8 +363,9 @@ ResultT fold_pair_syntax_tree(EqPairFuncT eq_func,
 				ResultT right_result = result_stack.back();
 				result_stack.pop_back();
 
-				result_stack.push_back(eq_func(left_result,
-					right_result));
+				result_stack.emplace_back(eq_func(
+					std::move(left_result),
+					std::move(right_result)));
 			}
 		}
 		break;
@@ -378,7 +379,7 @@ ResultT fold_pair_syntax_tree(EqPairFuncT eq_func,
 			ATP_LOGIC_ASSERT(p_first != nullptr);
 			ATP_LOGIC_ASSERT(p_second != nullptr);
 
-			result_stack.push_back(free_func(p_first->get_free_id(),
+			result_stack.emplace_back(free_func(p_first->get_free_id(),
 				p_second->get_free_id()));
 		}
 		break;
@@ -392,7 +393,7 @@ ResultT fold_pair_syntax_tree(EqPairFuncT eq_func,
 			ATP_LOGIC_ASSERT(p_first != nullptr);
 			ATP_LOGIC_ASSERT(p_second != nullptr);
 
-			result_stack.push_back(const_func(
+			result_stack.emplace_back(const_func(
 				p_first->get_symbol_id(),
 				p_second->get_symbol_id()));
 		}
@@ -411,8 +412,8 @@ ResultT fold_pair_syntax_tree(EqPairFuncT eq_func,
 			// have different arity:
 			if (p_first->get_arity() != p_second->get_arity())
 			{
-				result_stack.push_back(default_func(
-					pair.first, pair.second));
+				result_stack.emplace_back(default_func(
+					std::move(pair.first), std::move(pair.second)));
 			}
 			else if (!seen_pair)
 			{
@@ -429,8 +430,8 @@ ResultT fold_pair_syntax_tree(EqPairFuncT eq_func,
 					boost::make_zip_iterator(boost::make_tuple(
 						p_first->rend(), p_second->rend())),
 					std::back_inserter(todo_stack),
-					[](boost::tuple<SyntaxNodePtr,
-						SyntaxNodePtr> tup)
+					[](const boost::tuple<SyntaxNodePtr,
+						SyntaxNodePtr>& tup)
 					{ return std::make_pair(tup.get<0>(),
 						tup.get<1>()); });
 
@@ -473,7 +474,7 @@ ResultT fold_pair_syntax_tree(EqPairFuncT eq_func,
 #endif
 
 				// add our result to the stack
-				result_stack.push_back(func_result);
+				result_stack.emplace_back(std::move(func_result));
 			}
 		}
 		break;

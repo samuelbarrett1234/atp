@@ -134,7 +134,7 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 
 					std::vector<ResultT> empty_list;
 
-					result_stack.push_back(
+					result_stack.emplace_back(
 						identifier_func(p_id->get_name(),
 							empty_list.begin(), empty_list.end())
 					);
@@ -148,7 +148,7 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 					// add children in reverse order:
 					std::transform(p_id->rbegin(), p_id->rend(),
 						std::back_inserter(todo_stack),
-						[](ParseNodePtr p_node)
+						[](const ParseNodePtr& p_node)
 						{ return p_node.get(); });
 
 					// extend by "arity", taking values "false"
@@ -184,7 +184,7 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 				result_stack.pop_back();
 
 				// compute function of eq for its children:
-				result_stack.push_back(eq_func(left_result,
+				result_stack.emplace_back(eq_func(left_result,
 					right_result));
 			}
 			break;
@@ -221,7 +221,7 @@ ResultT fold_parse_tree(EqFuncT eq_func,
 					== size_before);
 #endif
 
-				result_stack.push_back(result);
+				result_stack.emplace_back(std::move(result));
 			}
 			}
 		}

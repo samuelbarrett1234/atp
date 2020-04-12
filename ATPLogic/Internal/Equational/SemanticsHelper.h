@@ -15,7 +15,6 @@
 
 #include <set>
 #include <map>
-#include <list>
 #include <vector>
 #include <utility>
 #include <boost/optional.hpp>
@@ -110,7 +109,7 @@ struct ATP_LOGIC_API SubstitutionInfo
 	assignment of free variables in the rule, ... etc)
 */
 ATP_LOGIC_API std::vector<SyntaxNodePtr> immediate_applications(
-	SyntaxNodePtr node,
+	const SyntaxNodePtr& node,
 	const SubstitutionInfo& sub_info);
 
 
@@ -155,7 +154,7 @@ ATP_LOGIC_API std::vector<SyntaxNodePtr> immediate_applications(
 	should only be one way to do the substitution.
 */
 ATP_LOGIC_API std::vector<SyntaxNodePtr> substitute_tree(
-	SyntaxNodePtr node,
+	const SyntaxNodePtr& node,
 	const SubstitutionInfo& sub_info,
 	const std::map<size_t, SyntaxNodePtr>& free_var_map,
 	size_t rule_idx);
@@ -175,15 +174,15 @@ ATP_LOGIC_API std::vector<SyntaxNodePtr> substitute_tree(
     returns the (potentially empty) mapping if one was possible.
 */
 ATP_LOGIC_API boost::optional<std::map<size_t, SyntaxNodePtr>>
-try_build_map(SyntaxNodePtr expr_premise,
-	SyntaxNodePtr expr_concl);
+try_build_map(const SyntaxNodePtr& expr_premise,
+	const SyntaxNodePtr& expr_concl);
 
 
 /**
 \returns True iff the two given syntax trees are identical
 */
-ATP_LOGIC_API bool syntax_tree_identical(SyntaxNodePtr a,
-	SyntaxNodePtr b);
+ATP_LOGIC_API bool syntax_tree_identical(const SyntaxNodePtr& a,
+	const SyntaxNodePtr& b);
 
 
 /**
@@ -194,7 +193,7 @@ ATP_LOGIC_API bool syntax_tree_identical(SyntaxNodePtr a,
     a `std::set` might not be the best datastructure for this. We
 	would be better off using a bitmap datastructure instead.
 */
-ATP_LOGIC_API std::set<size_t> get_free_var_ids(SyntaxNodePtr node);
+ATP_LOGIC_API std::set<size_t> get_free_var_ids(const SyntaxNodePtr& node);
 
 
 }  // namespace semantics

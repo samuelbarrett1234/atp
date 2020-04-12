@@ -19,14 +19,30 @@ namespace equational
 {
 
 
+ProofState::ProofState(const ModelContext& ctx,
+	const KnowledgeKernel& ker,
+	Statement target, Statement current) :
+	m_ctx(ctx), m_ker(ker), m_target(target),
+	m_current(current)
+{ }
+
+
+ProofState::ProofState(const ModelContext& ctx,
+	const KnowledgeKernel& ker,
+	Statement target) :
+	m_target(target),
+	m_current(target),
+	m_ker(ker), m_ctx(ctx)
+{ }
+
+
 ProofState::PfStateSuccIterator::PfStateSuccIterator(
 	const ProofState& parent,
-	const Statement& stmt) :
+	const Statement& stmt,
+	const StatementArray& succs) :
 	m_parent(parent),
 	m_stmt(stmt),
-	m_succs(semantics::get_successors(
-		parent.m_ctx, stmt,
-		parent.m_ker.get_active_rules())),
+	m_succs(succs),
 	m_index(0)
 { }
 
@@ -54,6 +70,34 @@ void ProofState::PfStateSuccIterator::advance()
 	++m_index;
 }
 
+
+PfStateSuccIterPtr ProofState::succ_begin() const
+{
+	if (m_succs == nullptr)
+		m_succs = std::make_shared<StatementArray>(semantics::get_successors(
+			m_ctx, m_current, m_ker.get_active_rules()));
+
+	return std::make_shared<PfStateSuccIterator>(*this, m_current,
+		dynamic_cast<const StatementArray&>(*m_succs));
+}
+
+
+ProofCompletionState ProofState::completion_state() const
+{
+	if (m_ker.is_trivial(m_current))
+		return ProofCompletionState::PROVEN;
+	else
+	{
+		if (m_succs == nullptr)
+			m_succs = std::make_shared<StatementArray>(semantics::get_successors(
+				m_ctx, m_current, m_ker.get_active_rules()));
+
+		if (m_succs->size() == 0)
+			return ProofCompletionState::NO_PROOF;
+		else
+			return ProofCompletionState::UNFINISHED;
+	}
+}
 
 }  // namespace equational
 }  // namespace logic

@@ -10,6 +10,7 @@
 */
 
 
+#include <boost/optional.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IProofState.h"
 #include "Statement.h"
@@ -46,7 +47,8 @@ public:
 	{
 	public:
 		PfStateSuccIterator(const ProofState& parent,
-			const Statement& current);
+			const Statement& current,
+			const StatementArray& succs);
 
 		bool valid() const override;
 		ProofStatePtr get() const override;
@@ -60,45 +62,27 @@ public:
 	private:
 		const ProofState& m_parent;
 		size_t m_index;
-		StatementArray m_succs;
+		const StatementArray& m_succs;
 		Statement m_stmt;
 	};
 
 public:
 	ProofState(const ModelContext& ctx,
 		const KnowledgeKernel& ker,
-		Statement target, Statement current) :
-		m_ctx(ctx), m_ker(ker), m_target(target), m_current(current)
-	{ }
+		Statement target, Statement current);
 
 	ProofState(const ModelContext& ctx,
 		const KnowledgeKernel& ker,
-		Statement target) :
-		m_target(target),
-		m_current(target),
-		m_ker(ker), m_ctx(ctx)
-	{ }
+		Statement target);
 
 	inline const IStatement& target_stmt() const override
 	{
 		return m_target;
 	}
 
-	inline PfStateSuccIterPtr succ_begin() const override
-	{
-		return std::make_shared<PfStateSuccIterator>(*this,
-			m_current);
-	}
+	PfStateSuccIterPtr succ_begin() const override;
 
-	inline ProofCompletionState completion_state() const override
-	{
-		if (m_ker.is_trivial(m_current))
-			return ProofCompletionState::PROVEN;
-		else if (!succ_begin()->valid())
-			return ProofCompletionState::NO_PROOF;
-		else
-			return ProofCompletionState::UNFINISHED;
-	}
+	ProofCompletionState completion_state() const override;
 
 
 	// not part of the IProofState interface:
@@ -111,6 +95,9 @@ private:
 	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
 	Statement m_target, m_current;
+
+	// successor cache
+	mutable StatementArrayPtr m_succs;
 };
 
 

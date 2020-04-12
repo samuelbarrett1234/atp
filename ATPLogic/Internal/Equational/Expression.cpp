@@ -29,14 +29,14 @@ namespace equational
 
 
 ExpressionPtr Expression::construct(const ModelContext& ctx,
-	SyntaxNodePtr p_root)
+	const SyntaxNodePtr& p_root)
 {
 	return std::make_shared<Expression>(ctx, p_root);
 }
 
 
 Expression::Expression(const ModelContext& ctx,
-	SyntaxNodePtr p_root) :
+	const SyntaxNodePtr& p_root) :
 	m_ctx(ctx)
 {
 	ATP_LOGIC_PRECOND(p_root->get_type() !=
@@ -197,7 +197,7 @@ Expression Expression::map_free_vars(const std::map<size_t,
 
 
 std::pair<size_t, SyntaxNodeType>
-Expression::add_tree_data(SyntaxNodePtr tree)
+Expression::add_tree_data(const SyntaxNodePtr& tree)
 {
 	ATP_LOGIC_PRECOND(tree->get_type() !=
 		SyntaxNodeType::EQ);

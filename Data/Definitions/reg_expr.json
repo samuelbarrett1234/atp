@@ -1,13 +1,13 @@
 {
-	name : "Kozen's Regular Expressions",
-	definitions : [
-		{ name : "emptystring", arity : 0 },
-		{ name : "emptyset", arity : 0 },
-		{ name : "+", arity : 2 }
-		{ name : ".", arity : 2 }
-		{ name : "*", arity : 1 }
+	"name" : "Kozen's Regular Expressions",
+	"definitions" : [
+		{ "name" : "emptystring", "arity" : 0 },
+		{ "name" : "emptyset", "arity" : 0 },
+		{ "name" : "+", "arity" : 2 }
+		{ "name" : ".", "arity" : 2 }
+		{ "name" : "*", "arity" : 1 }
 	],
-	axioms : [
+	"axioms" : [
 		"+(E, +(F, G)) = +(+(E, F), G)",
 		"+(E, F) = +(F, E)",
 		"+(E, emptyset) = E",

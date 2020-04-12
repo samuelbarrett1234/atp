@@ -33,7 +33,7 @@ BOOST_FIXTURE_TEST_SUITE(ModelContextTests,
 
 BOOST_AUTO_TEST_CASE(definition_name_test)
 {
-	s << "{ definitions : [ { name : \"f\", arity : 2 } ] }";
+	s << "{ \"definitions\" : [ { \"name\" : \"f\", \"arity\" : 2 } ] }";
 
 	auto p_ctx = ModelContext::try_construct(lang,
 		s);
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(definition_name_test)
 
 BOOST_AUTO_TEST_CASE(arity_test)
 {
-	s << "{ definitions : [ { name : \"f\", arity : 2 } ] }";
+	s << "{ \"definitions\" : [ { \"name\" : \"f\", \"arity\" : 2 } ] }";
 
 	auto p_ctx = ModelContext::try_construct(lang,
 		s);
@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_CASE(syntax_error_test)
 
 BOOST_AUTO_TEST_CASE(axiom_test)
 {
-	s << "{ axioms : [ \"x=x\" ] }";
+	s << "{ \"axioms\" : [ \"x=x\" ] }";
 
 	auto p_ctx = ModelContext::try_construct(lang, s);
 
@@ -98,7 +98,7 @@ BOOST_AUTO_TEST_CASE(axiom_test)
 
 BOOST_AUTO_TEST_CASE(definition_name_trim_test)
 {
-	s << "{ definitions : [ { name : \"   e  \t\n \", arity : 0 } ] }";
+	s << "{ \"definitions\" : [ { \"name\" : \"   e  \t\n \", \"arity\" : 0 } ] }";
 
 	auto p_ctx = ModelContext::try_construct(lang, s);
 
@@ -111,8 +111,8 @@ BOOST_AUTO_TEST_CASE(definition_name_trim_test)
 
 BOOST_AUTO_TEST_CASE(redefinition_failure_test)
 {
-	s << "{ definitions : [ { name : \"f\", arity : 2 }, "
-		"{ name : \"f\", arity : 2 } ] }";
+	s << "{ \"definitions\" : [ { \"name\" : \"f\", \"arity\" : 2 }, "
+		"{ \"name\" : \"f\", \"arity\" : 2 } ] }";
 
 	auto p_ctx = ModelContext::try_construct(lang, s);
 

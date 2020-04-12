@@ -170,6 +170,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Equational\DefinitionFileExamples.cpp" />
     <ClCompile Include="Equational\ModelContextTests.cpp" />
     <ClCompile Include="Equational\KnowledgeKernelTests.cpp" />
     <ClCompile Include="Equational\LanguageTests.cpp" />

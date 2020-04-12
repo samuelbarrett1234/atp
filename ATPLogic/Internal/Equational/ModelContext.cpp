@@ -59,7 +59,7 @@ ModelContextPtr ModelContext::try_construct(const Language& parent,
                     return ModelContextPtr();  // redefinition
 
                 const size_t def_arity =
-                    def.second.get<size_t>("name");
+                    def.second.get<size_t>("arity");
 
                 const size_t id = hash_name(def_name);
 

@@ -72,6 +72,9 @@
     <ClCompile Include="Equational\SyntaxNodeToStr.cpp">
       <Filter>Source Files\Equational</Filter>
     </ClCompile>
+    <ClCompile Include="Equational\DefinitionFileExamples.cpp">
+      <Filter>Source Files\Equational</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">

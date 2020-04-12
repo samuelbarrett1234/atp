@@ -130,6 +130,9 @@ void IterativeDeepeningSolver::step_proof(size_t i, size_t n)
 	{
 		expand_next(i);
 
+		ATP_SEARCH_ASSERT(m_stacks[i].size() <=
+			m_cur_depth_limits[i]);
+
 		// update max mem count for this proof
 		const auto mem_count = count_mem(i);
 		if (mem_count > m_max_mem[i])
@@ -143,7 +146,6 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 	ATP_SEARCH_PRECOND(i < m_stacks.size());
 	auto& st = m_stacks[i];
 
-	ATP_SEARCH_PRECOND(st.size() < m_cur_depth_limits[i]);
 	ATP_SEARCH_PRECOND(st.back().iter->valid());
 
 	auto expand_candidate = st.back().iter->get();

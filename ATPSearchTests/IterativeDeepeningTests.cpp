@@ -10,6 +10,7 @@
 
 
 #include <sstream>
+#include <boost/phoenix.hpp>
 #include <ATPLogic.h>
 #include <Internal/IterativeDeepeningSolver.h>
 #include "Test.h"
@@ -24,6 +25,8 @@ using atp::logic::KnowledgeKernelPtr;
 using atp::logic::LangType;
 using atp::logic::StmtFormat;
 using atp::logic::create_language;
+using atp::logic::ProofCompletionState;
+namespace phxarg = boost::phoenix::arg_names;
 
 
 struct IterativeDeepeningSolverTestsFixture
@@ -94,6 +97,30 @@ BOOST_AUTO_TEST_CASE(simple_proof_test,
 		BOOST_TEST(pf.get() != nullptr);
 
 	BOOST_TEST(p_ids->engaged());
+}
+
+
+BOOST_AUTO_TEST_CASE(false_statement_test)
+{
+	// a selection of false statements
+	s << "*(x, y) = *(y, x) \n";
+	s << "x = e \n";
+	s << "i(x) = x \n";
+	s << "i(x) = e \n";
+
+	auto stmts = p_lang->deserialise_stmts(s,
+		StmtFormat::TEXT, *p_ctx);
+
+	p_ids->set_targets(stmts);
+
+	// no proof should be found in any of these steps
+	p_ids->step(25);
+
+	auto states = p_ids->get_states();
+
+	BOOST_TEST(std::none_of(states.begin(),
+		states.end(), phxarg::arg1 ==
+		ProofCompletionState::PROVEN));
 }
 
 

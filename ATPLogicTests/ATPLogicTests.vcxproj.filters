@@ -19,49 +19,61 @@
     <Filter Include="Header Files\Equational">
       <UniqueIdentifier>{dc2089c1-1792-479f-8dc5-95badcac6521}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Equational\Parsing">
+      <UniqueIdentifier>{9973066e-5472-47cf-99c3-6e5ff64ea083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Equational\Implementations">
+      <UniqueIdentifier>{62d9e042-2f41-44a4-ac76-2abfb1d809b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Equational\Syntax">
+      <UniqueIdentifier>{85d383f0-e075-4a0e-b9b0-34f8d938fd0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Equational\ParseStatementsTests.cpp">
-      <Filter>Source Files\Equational</Filter>
+    <ClCompile Include="Equational\ModelContextTests.cpp">
+      <Filter>Source Files\Equational\Implementations</Filter>
     </ClCompile>
-    <ClCompile Include="Equational\ParseDefinitionsTests.cpp">
-      <Filter>Source Files\Equational</Filter>
-    </ClCompile>
-    <ClCompile Include="Equational\ParseTreeFoldTests.cpp">
-      <Filter>Source Files\Equational</Filter>
-    </ClCompile>
-    <ClCompile Include="Equational\ParseTreeToSyntaxTreeTests.cpp">
-      <Filter>Source Files\Equational</Filter>
-    </ClCompile>
-    <ClCompile Include="Equational\SyntaxTreeFoldTests.cpp">
-      <Filter>Source Files\Equational</Filter>
-    </ClCompile>
-    <ClCompile Include="Equational\SyntaxNodeToStr.cpp">
-      <Filter>Source Files\Equational</Filter>
-    </ClCompile>
-    <ClCompile Include="Equational\StatementTests.cpp">
-      <Filter>Source Files\Equational</Filter>
+    <ClCompile Include="Equational\KnowledgeKernelTests.cpp">
+      <Filter>Source Files\Equational\Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Equational\LanguageTests.cpp">
-      <Filter>Source Files\Equational</Filter>
+      <Filter>Source Files\Equational\Implementations</Filter>
     </ClCompile>
-    <ClCompile Include="Equational\SemanticsTests.cpp">
-      <Filter>Source Files\Equational</Filter>
+    <ClCompile Include="Equational\ProofStateTests.cpp">
+      <Filter>Source Files\Equational\Implementations</Filter>
     </ClCompile>
-    <ClCompile Include="Equational\KnowledgeKernelInferenceTests.cpp">
-      <Filter>Source Files\Equational</Filter>
+    <ClCompile Include="Equational\StatementTests.cpp">
+      <Filter>Source Files\Equational\Implementations</Filter>
     </ClCompile>
     <ClCompile Include="Equational\StatementArrayTests.cpp">
-      <Filter>Source Files\Equational</Filter>
+      <Filter>Source Files\Equational\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\ParseDefinitionsTests.cpp">
+      <Filter>Source Files\Equational\Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\ParseStatementsTests.cpp">
+      <Filter>Source Files\Equational\Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\ParseTreeFoldTests.cpp">
+      <Filter>Source Files\Equational\Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\ParseTreeToSyntaxTreeTests.cpp">
+      <Filter>Source Files\Equational\Parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\SyntaxNodeToStr.cpp">
+      <Filter>Source Files\Equational\Syntax</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\SyntaxTreeFoldTests.cpp">
+      <Filter>Source Files\Equational\Syntax</Filter>
     </ClCompile>
     <ClCompile Include="Equational\SemanticsHelperTests.cpp">
-      <Filter>Source Files\Equational</Filter>
+      <Filter>Source Files\Equational\Syntax</Filter>
     </ClCompile>
-    <ClCompile Include="Equational\ModelContextTests.cpp">
-      <Filter>Source Files\Equational</Filter>
+    <ClCompile Include="Equational\SemanticsTests.cpp">
+      <Filter>Source Files\Equational\Syntax</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -171,8 +171,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Equational\ModelContextTests.cpp" />
-    <ClCompile Include="Equational\KnowledgeKernelInferenceTests.cpp" />
+    <ClCompile Include="Equational\KnowledgeKernelTests.cpp" />
     <ClCompile Include="Equational\LanguageTests.cpp" />
+    <ClCompile Include="Equational\ProofStateTests.cpp" />
     <ClCompile Include="Equational\SemanticsHelperTests.cpp" />
     <ClCompile Include="Equational\SemanticsTests.cpp" />
     <ClCompile Include="Equational\ParseDefinitionsTests.cpp" />

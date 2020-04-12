@@ -52,37 +52,6 @@ boost::optional<std::list<ParseNodePtr>> parse_statements(
 }
 
 
-boost::optional<std::list<std::pair<std::string, size_t>>>
-	parse_definitions(std::istream& in)
-{
-	in >> std::noskipws;
-
-	QiParseIterator begin(in), end;
-
-	// no input at all is not an error, so don't return boost::none,
-	// so return an empty list instead:
-	if (begin == end)
-		return boost::make_optional(
-			std::list<std::pair<std::string, size_t>>());
-
-	std::list<std::pair<std::string, size_t>> output;
-	const bool ok = boost::spirit::qi::phrase_parse(
-		begin, end, DefinitionGrammar(), Skipper(),
-		output
-	);
-
-	if (!ok || begin != end)
-	{
-		return boost::none;
-	}
-	// else succeeded
-	else
-	{
-		return output;
-	}
-}
-
-
 }  // namespace equational
 }  // namespace logic
 }  // namespace atp

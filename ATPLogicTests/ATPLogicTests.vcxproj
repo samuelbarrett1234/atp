@@ -176,7 +176,6 @@
     <ClCompile Include="Equational\ProofStateTests.cpp" />
     <ClCompile Include="Equational\SemanticsHelperTests.cpp" />
     <ClCompile Include="Equational\SemanticsTests.cpp" />
-    <ClCompile Include="Equational\ParseDefinitionsTests.cpp" />
     <ClCompile Include="Equational\ParseStatementsTests.cpp" />
     <ClCompile Include="Equational\ParseTreeFoldTests.cpp" />
     <ClCompile Include="Equational\ParseTreeToSyntaxTreeTests.cpp" />

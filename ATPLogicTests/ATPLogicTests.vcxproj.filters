@@ -51,9 +51,6 @@
     <ClCompile Include="Equational\StatementArrayTests.cpp">
       <Filter>Source Files\Equational\Implementations</Filter>
     </ClCompile>
-    <ClCompile Include="Equational\ParseDefinitionsTests.cpp">
-      <Filter>Source Files\Equational\Parsing</Filter>
-    </ClCompile>
     <ClCompile Include="Equational\ParseStatementsTests.cpp">
       <Filter>Source Files\Equational\Parsing</Filter>
     </ClCompile>
@@ -63,9 +60,6 @@
     <ClCompile Include="Equational\ParseTreeToSyntaxTreeTests.cpp">
       <Filter>Source Files\Equational\Parsing</Filter>
     </ClCompile>
-    <ClCompile Include="Equational\SyntaxNodeToStr.cpp">
-      <Filter>Source Files\Equational\Syntax</Filter>
-    </ClCompile>
     <ClCompile Include="Equational\SyntaxTreeFoldTests.cpp">
       <Filter>Source Files\Equational\Syntax</Filter>
     </ClCompile>
@@ -74,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="Equational\SemanticsTests.cpp">
       <Filter>Source Files\Equational\Syntax</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\SyntaxNodeToStr.cpp">
+      <Filter>Source Files\Equational</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

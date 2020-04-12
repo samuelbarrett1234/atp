@@ -85,28 +85,6 @@ StatementGrammar::StatementGrammar() :
 }
 
 
-DefinitionGrammar::DefinitionGrammar() :
-	DefinitionGrammar::base_type(symbol_def_list)
-{
-	// definitions are separated by any number of lines, maybe
-	// with comments in between the newlines.
-	// at the very end and start, there will be potentially many
-	// newlines or comments, and finally we must reach the end of
-	// the input.
-	symbol_def_list = *(skpr | qi::eol)
-		>> (symbol_def % (+(-skpr >> qi::eol)))
-		>> *(skpr | qi::eol) >> qi::eoi;
-
-	symbol_def = identifier >> qi::uint_;
-
-	identifier = Identifier();
-
-	BOOST_SPIRIT_DEBUG_NODE(symbol_def_list);
-	BOOST_SPIRIT_DEBUG_NODE(symbol_def);
-	BOOST_SPIRIT_DEBUG_NODE(identifier);
-}
-
-
 qi::rule<QiParseIterator, std::string(), Skipper> Identifier()
 {
 	return qi::lexeme[+(qi::alnum | qi::char_('+') | qi::char_('-')

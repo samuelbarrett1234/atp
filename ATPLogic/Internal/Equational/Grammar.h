@@ -87,34 +87,6 @@ struct StatementGrammar :
 
 
 /**
-\brief Grammar for definition files (producing name-arity pairs.)
-
-\details This class represents the grammar for parsing definition
-    files, which is basically just a list of (symbol name, symbol
-	arity) pairs.
-*/
-struct DefinitionGrammar :
-	public boost::spirit::qi::grammar<QiParseIterator,
-		std::list<std::pair<std::string, size_t>>(),
-		Skipper>
-{
-	DefinitionGrammar();
-
-	boost::spirit::qi::rule<QiParseIterator,
-		std::list<std::pair<std::string, size_t>>(),
-		Skipper> symbol_def_list;
-
-	boost::spirit::qi::rule<QiParseIterator,
-		std::pair<std::string, size_t>(), Skipper> symbol_def;
-
-	boost::spirit::qi::rule<QiParseIterator, std::string(),
-		Skipper> identifier;
-
-	Skipper skpr;
-};
-
-
-/**
 \brief Parse rule for identifiers
 
 \details An identifier is a kind of name, for a free variable,

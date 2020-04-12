@@ -47,21 +47,6 @@ ATP_LOGIC_API boost::optional<std::list<ParseNodePtr>>
 	parse_statements(std::istream& in);
 
 
-/**
-\brief Read a stream of line separated definitions, where a
-    definition is a (string, int) pair, representing the symbol name
-	and the symbol arity, respectively.
-
-\returns The list of (symbol name, symbol arity) pairs if the parse
-    was successful, or None if there was a parser error.
-
-\note Comments are done using the hashtag #
-*/
-ATP_LOGIC_API boost::optional<std::list<
-	std::pair<std::string, size_t>>>
-	parse_definitions(std::istream& in);
-
-
 }  // namespace equational
 }  // namespace logic
 }  // namespace atp

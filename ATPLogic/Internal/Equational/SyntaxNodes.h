@@ -33,7 +33,7 @@ namespace equational
 {
 
 
-class KnowledgeKernel;  // forward definition
+class ModelContext;  // forward definition
 
 
 // The different kinds of node we can have in our syntax tree
@@ -209,13 +209,13 @@ private:
 
 \brief Convert a parse tree into a syntax tree
 
-\note This performs type checking, which is why we require the kernel
+\note This performs type checking, which is why we require the context
 
 \returns nullptr if failed, otherwise returns the root to the syntax
     tree.
 */
 ATP_LOGIC_API SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
-	const KnowledgeKernel& ker);
+	const ModelContext& ctx);
 
 
 }  // namespace equational

@@ -8,14 +8,12 @@
 
 
 #include "KnowledgeKernel.h"
-#include <functional>
+#include <sstream>
 #include <boost/functional/hash.hpp>
-#include <boost/iterator/zip_iterator.hpp>
 #include <boost/phoenix.hpp>
 #include <boost/bind.hpp>
-#include <boost/mpl/identity.hpp>
-#include "StatementArray.h"
 #include "Semantics.h"
+#include "ProofState.h"
 
 
 namespace atp
@@ -26,57 +24,100 @@ namespace equational
 {
 
 
+KnowledgeKernel::KnowledgeKernel(const ModelContext& ctx) :
+	m_context(ctx)
+{ }
+
+
+KnowledgeKernelPtr KnowledgeKernel::try_construct(
+	const Language& lang, const ModelContext& ctx)
+{
+	auto p_ker = std::make_shared<KnowledgeKernel>(ctx);
+
+	p_ker->m_rules.reserve(ctx.num_axioms());
+
+	for (size_t i = 0; i < ctx.num_axioms(); ++i)
+	{
+		std::stringstream s;
+		s << ctx.axiom_at(i);
+		auto stmts = lang.deserialise_stmts(s,
+			StmtFormat::TEXT, ctx);
+
+		// should be exactly one statement
+		if (stmts == nullptr || stmts->size() != 1)
+			return KnowledgeKernelPtr();
+
+		const Statement* p_stmt = dynamic_cast<const Statement*>(
+			&stmts->at(0));
+
+		ATP_LOGIC_ASSERT(p_stmt != nullptr);
+
+		p_ker->m_rules.push_back(*p_stmt);
+	}
+
+	return p_ker;
+}
+
+
 size_t KnowledgeKernel::get_integrity_code() const
 {
-	// this is a temporary and a little bit hacky:
-	// we compute the hash of the defined symbols (this is okay) but
-	// the way we compute the hash of the user-defined equivalences
-	// is a bit crap!
+	// it is important that we include the arity in this check
+	// as well as the name
+
+	const auto& id_to_arity_map = m_context.id_to_arity_map();
 
 	size_t hash = boost::hash_range(
-		m_name_to_arity.begin(), m_name_to_arity.end());
+		id_to_arity_map.begin(), id_to_arity_map.end());
 	
-	hash += m_rules.size() * 31;  // this is the hacky, temporary bit
+	// kind of hacky: convert all theorems to strings, then hash
+	// those strings
+
+	// warning: this is testing for identical rules, not equivalent
+	// rules (which allow free variable permutations). Are we sure
+	// this is what we want?
+
+	std::vector<std::string> rules_str;
+	rules_str.reserve(m_rules.size());
+	std::transform(m_rules.begin(), m_rules.end(),
+		std::back_inserter(rules_str),
+		boost::bind(&Statement::to_str, _1));
+
+	hash += boost::hash_range(rules_str.begin(),
+		rules_str.end());
 
 	return hash;
 }
 
 
-std::vector<StatementArrayPtr> KnowledgeKernel::succs(
-	StatementArrayPtr _p_stmts) const
+ProofStatePtr KnowledgeKernel::begin_proof_of(
+	const IStatement& stmt) const
 {
-	ATP_LOGIC_PRECOND(valid(_p_stmts));  // expensive :(
-
-	auto p_stmts = dynamic_cast<StatementArray*>(
-		_p_stmts.get());
-
-	ATP_LOGIC_PRECOND(p_stmts != nullptr);
-
-	std::vector<StatementArrayPtr> results;
-	results.reserve(p_stmts->size());
-
-	std::transform(p_stmts->begin(), p_stmts->end(),
-		std::back_inserter(results),
-		[this](const Statement& stmt)
-		{
-			return std::make_shared<StatementArray>(
-				semantics::get_successors(stmt,
-					m_rules));
-		});
-
-	return results;
+	return std::make_shared<ProofState>(*this, stmt);
 }
 
 
-bool KnowledgeKernel::valid(
-	StatementArrayPtr _p_stmts) const
+bool KnowledgeKernel::is_trivial(
+	const IStatement& _stmt) const
 {
-	auto p_stmts = dynamic_cast<StatementArray*>(
-		_p_stmts.get());
+	const Statement* p_stmt = dynamic_cast<const Statement*>(
+		&_stmt);
 
-	if (p_stmts == nullptr)
-		return false;
+	ATP_LOGIC_PRECOND(p_stmt != nullptr);
 
+	// "implies" here is necessary for unidirectional truths,
+	// "equivalent" is necessary for bidirectional truths,
+	// "reflexivity" is for the last case of trivialities
+
+	return std::any_of(m_rules.begin(), m_rules.end(),
+		boost::bind(&semantics::implies, _1, boost::ref(*p_stmt))
+	|| boost::bind(&semantics::equivalent, _1, boost::ref(*p_stmt)))
+		|| semantics::true_by_reflexivity(*p_stmt);
+}
+
+
+bool KnowledgeKernel::type_check(const ModelContext& ctx,
+	const Statement& stmt)
+{
 	// we will use a fold to check validity!
 
 	// eq is valid iff both its sides are valid:
@@ -86,162 +127,29 @@ bool KnowledgeKernel::valid(
 	// can't get a free variable wrong:
 	auto free_valid = boost::phoenix::val(true);
 
-	auto const_valid = [this](size_t symb_id)
+	auto const_valid = [&ctx](size_t symb_id)
 	{
-		return id_is_defined(symb_id)
-			&& symbol_arity_from_id(symb_id) == 0;
+		return ctx.is_defined(symb_id)
+			&& ctx.symbol_arity(symb_id) == 0;
 	};
 
-	auto func_valid = [this](size_t symb_id,
-			std::vector<bool>::iterator child_begin,
-			std::vector<bool>::iterator child_end)
+	auto func_valid = [&ctx](size_t symb_id,
+		std::vector<bool>::iterator child_begin,
+		std::vector<bool>::iterator child_end)
 	{
 		const size_t implied_arity = std::distance(child_begin,
 			child_end);
 
-		return id_is_defined(symb_id)
-			&& symbol_arity_from_id(
+		return ctx.is_defined(symb_id)
+			&& ctx.symbol_arity(
 				symb_id) == implied_arity
 			&& std::all_of(child_begin, child_end,
 				// use phoenix for an easy identity function
 				boost::phoenix::arg_names::arg1);
 	};
 
-	auto stmt_valid = [&eq_valid, &free_valid, &const_valid,
-		&func_valid](const Statement& stmt)
-	{
-		return stmt.fold<bool>(eq_valid, free_valid, const_valid,
-			func_valid);
-	};
-
-	return std::all_of(p_stmts->begin(), p_stmts->end(),
-		stmt_valid);
-}
-
-
-std::vector<bool> KnowledgeKernel::follows(
-	StatementArrayPtr _p_premise, StatementArrayPtr _p_concl) const
-{
-	ATP_LOGIC_PRECOND(_p_premise->size() == _p_concl->size());
-
-#ifdef ATP_LOGIC_DEFENSIVE
-	// these are quite expensive checks:
-	ATP_LOGIC_PRECOND(valid(_p_premise));
-	ATP_LOGIC_PRECOND(valid(_p_concl));
-#endif
-
-	auto p_premise = dynamic_cast<StatementArray*>(
-		_p_premise.get());
-	auto p_concl = dynamic_cast<StatementArray*>(
-		_p_concl.get());
-
-	ATP_LOGIC_ASSERT(p_premise != nullptr);
-	ATP_LOGIC_ASSERT(p_concl != nullptr);
-
-	std::vector<bool> follows_result;
-	follows_result.reserve(p_premise->size());
-
-	// call conclusion_statement.follows_from(premise_statement)
-
-	std::transform(boost::make_zip_iterator(
-		boost::make_tuple(p_premise->begin(), p_concl->begin())
-	), boost::make_zip_iterator(
-		boost::make_tuple(p_premise->end(), p_concl->end())
-	), std::back_inserter(follows_result),
-	[this](boost::tuple<Statement, Statement> p)
-	{
-		// we check if it follows by seeing if the conclusion
-		// (p.get<1>()) is a successor of the premise (p.get<0>()).
-
-		auto succs = semantics::get_successors(p.get<0>(), m_rules);
-
-		return std::any_of(succs.begin(), succs.end(),
-			boost::bind(&semantics::equivalent,
-				boost::ref(p.get<1>()), _1)) ||
-			// note: handle this as a special case, and importantly
-			// this special case includes flipping about the equals
-			// sign (i.e. transposition), but is not covered by the
-			// successor-checking above:
-			semantics::equivalent(p.get<0>(), p.get<1>());
-	});
-
-	return follows_result;
-}
-
-
-std::vector<StmtForm> KnowledgeKernel::get_form(
-	StatementArrayPtr _p_stmts) const
-{
-	auto p_stmts = dynamic_cast<StatementArray*>(
-		_p_stmts.get());
-
-	ATP_LOGIC_PRECOND(p_stmts != nullptr);
-
-	std::vector<StmtForm> result;
-	result.reserve(p_stmts->size());
-
-	auto get_form = [this](const Statement& stmt) -> StmtForm
-	{
-		// a statement is trivially true if it is symmetric
-		// about the equals sign (thus is true by reflexivity
-		// of equality) or is a "rule" (which we take as an
-		// axiom).
-		// statements cannot be canonically false.
-
-		if (semantics::true_by_reflexivity(stmt))
-			return StmtForm::CANONICAL_TRUE;
-		else if (is_equivalent_to_a_rule(stmt))
-			return StmtForm::CANONICAL_TRUE;
-		else
-			return StmtForm::NOT_CANONICAL;
-	};
-
-	std::transform(p_stmts->begin(), p_stmts->end(),
-		std::back_inserter(result), get_form);
-
-	return result;
-}
-
-
-void KnowledgeKernel::define_eq_rules(StatementArrayPtr _p_rules)
-{
-	ATP_LOGIC_PRECOND(valid(_p_rules));
-
-	// try casting to equational::StatememtArray
-	auto p_rules = dynamic_cast<const StatementArray*>(
-		_p_rules.get());
-
-	ATP_LOGIC_ASSERT(p_rules != nullptr);
-
-	// construct rule statement from syntax tree
-	m_rules.insert(m_rules.end(), p_rules->begin(),
-		p_rules->end());
-}
-
-
-bool KnowledgeKernel::is_equivalent_to_a_rule(
-	const Statement& stmt) const
-{
-	// crucially, we use "implies" here, not "equivalent"
-	// this is because, if we reduce an equality we want to prove
-	// down to a substitution of a rule, then we want to class this
-	// as a canonical form (since there is no implementation for "un-
-	// substituting" an expression to get back a rule.)
-	return std::any_of(m_rules.begin(), m_rules.end(),
-		boost::bind(&semantics::implies, _1, boost::ref(stmt)));
-}
-
-
-std::vector<size_t> KnowledgeKernel::constant_symbol_ids() const
-{
-	std::vector<size_t> result;
-	result.reserve(m_id_to_arity.size());  // overestimate
-	for (auto id_and_arity : m_id_to_arity)
-	{
-		if (id_and_arity.second == 0)
-			result.push_back(id_and_arity.first);
-	}
-	return result;
+	return stmt.fold<bool>(eq_valid, free_valid, const_valid,
+		func_valid);
 }
 
 

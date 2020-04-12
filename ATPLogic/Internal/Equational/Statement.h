@@ -31,7 +31,7 @@
 #include <boost/iterator/zip_iterator.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IStatement.h"
-#include "../../Interfaces/IKnowledgeKernel.h"
+#include "../../Interfaces/IModelContext.h"
 #include "SyntaxNodes.h"
 #include "Expression.h"
 
@@ -53,7 +53,7 @@ namespace equational
 {
 
 
-class KnowledgeKernel;  // forward definition
+class ModelContext;  // forward definition
 
 
 /**
@@ -68,6 +68,9 @@ Implementation of the IStatement interface for equational logic.
 \note As much as this class is supposed to be immutable, in order
     to be usable in standard containers like std::vector, it needs
 	a copy constructor and an assignment operator.
+
+\note Statement objects are tied to a model context, but not to any
+	particular knowledge kernel.
 */
 class ATP_LOGIC_API Statement : public IStatement
 {
@@ -75,7 +78,7 @@ public:
 	/**
 	\pre p_root->get_type() == SyntaxNodeType::EQ
 	*/
-	Statement(const KnowledgeKernel& ker,
+	Statement(const ModelContext& ctx,
 		SyntaxNodePtr p_root);
 	Statement(const Statement& other);
 
@@ -137,9 +140,9 @@ public:
 		return m_free_var_ids;
 	}
 
-	inline const KnowledgeKernel& kernel() const
+	inline const ModelContext& context() const
 	{
-		return m_ker;
+		return m_ctx;
 	}
 
 
@@ -240,7 +243,7 @@ public:
 
 private:
 	// statements store references to their creator
-	const KnowledgeKernel& m_ker;
+	const ModelContext& m_ctx;
 
 	// a statement is just a pair of expressions, the first of which
 	// representing the LHS and the second representing the RHS,

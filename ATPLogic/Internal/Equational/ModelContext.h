@@ -117,6 +117,13 @@ public:
         return m_axioms.at(index);
     }
 
+    // NOT part of the interface IModelContext:
+
+    inline const std::map<size_t, size_t>& id_to_arity_map() const
+    {
+        return m_id_to_arity;
+    }
+
 private:
     std::string m_name;
     boost::bimap<std::string, size_t> m_name_to_id;

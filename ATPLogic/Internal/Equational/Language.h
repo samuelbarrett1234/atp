@@ -35,7 +35,7 @@ public:
 
 	StatementArrayPtr deserialise_stmts(std::istream& in,
 		StmtFormat input_format,
-		const IKnowledgeKernel& ker) const override;
+		const IModelContext& ctx) const override;
 
 	void serialise_stmts(std::ostream& out,
 		StatementArrayPtr p_stmts,

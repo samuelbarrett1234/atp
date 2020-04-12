@@ -47,11 +47,11 @@ KnowledgeKernelPtr Language::try_create_kernel(
 
 
 StatementArrayPtr Language::deserialise_stmts(std::istream& in,
-	StmtFormat input_format, const IKnowledgeKernel& _ker) const
+	StmtFormat input_format, const IModelContext& _ctx) const
 {
-	const KnowledgeKernel* p_ker =
-		dynamic_cast<const KnowledgeKernel*>(&_ker);
-	ATP_LOGIC_PRECOND(p_ker != nullptr);
+	const ModelContext* p_ctx =
+		dynamic_cast<const ModelContext*>(&_ctx);
+	ATP_LOGIC_PRECOND(p_ctx != nullptr);
 
 	switch (input_format)
 	{
@@ -73,7 +73,7 @@ StatementArrayPtr Language::deserialise_stmts(std::istream& in,
 			parse_nodes.get().end(), std::back_inserter(
 				syntax_nodes
 			), boost::bind(&ptree_to_stree, _1,
-				boost::ref(*p_ker)));
+				boost::ref(*p_ctx)));
 
 		if (std::any_of(syntax_nodes.begin(),
 			syntax_nodes.end(),
@@ -92,7 +92,7 @@ StatementArrayPtr Language::deserialise_stmts(std::istream& in,
 		for (auto iter = syntax_nodes.begin();
 			iter != syntax_nodes.end(); ++iter)
 		{
-			pStmtArr->emplace_back(*p_ker, *iter);
+			pStmtArr->emplace_back(*p_ctx, *iter);
 		}
 
 		return std::make_shared<StatementArray>(pStmtArr);

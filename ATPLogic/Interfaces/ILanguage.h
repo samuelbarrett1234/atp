@@ -82,11 +82,7 @@ public:
 	/**
 
 	\brief Load an array of statements from an input stream, in the
-	    context of a given kernel.
-
-	\param ker The knowledge kernel is required for type checking
-	    and such (also for distinguishing between variables and
-		constants).
+	    given context.
 
 	\note Returns nullptr if this operation failed, for example if
 	    the statements were syntactically incorrect or ill-typed. In
@@ -95,7 +91,7 @@ public:
 	*/
 	virtual StatementArrayPtr deserialise_stmts(std::istream& in,
 		StmtFormat input_format,
-		const IKnowledgeKernel& ker) const = 0;
+		const IModelContext& ctx) const = 0;
 
 	/**
 	\brief Save an array of statements

@@ -170,6 +170,7 @@
     <ClInclude Include="Interfaces\IKnowledgeKernel.h" />
     <ClInclude Include="Interfaces\ILanguage.h" />
     <ClInclude Include="Interfaces\IModelContext.h" />
+    <ClInclude Include="Interfaces\IProofState.h" />
     <ClInclude Include="Interfaces\IPropositionalKnowledgeKernel.h" />
     <ClInclude Include="Interfaces\IStatement.h" />
     <ClInclude Include="Interfaces\IStatementArray.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Internal\Equational\KnowledgeKernel.h" />
     <ClInclude Include="Internal\Equational\Language.h" />
     <ClInclude Include="Internal\Equational\ModelContext.h" />
+    <ClInclude Include="Internal\Equational\ProofState.h" />
     <ClInclude Include="Internal\Equational\Semantics.h" />
     <ClInclude Include="Internal\Equational\ParseNodes.h" />
     <ClInclude Include="Internal\Equational\Parser.h" />
@@ -196,6 +198,7 @@
     <ClCompile Include="Internal\Equational\KnowledgeKernel.cpp" />
     <ClCompile Include="Internal\Equational\Language.cpp" />
     <ClCompile Include="Internal\Equational\ModelContext.cpp" />
+    <ClCompile Include="Internal\Equational\ProofState.cpp" />
     <ClCompile Include="Internal\Equational\Semantics.cpp" />
     <ClCompile Include="Internal\Equational\Parser.cpp" />
     <ClCompile Include="Internal\Equational\SemanticsHelper.cpp" />

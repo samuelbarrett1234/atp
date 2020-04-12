@@ -158,9 +158,14 @@ public:
 	// The container for the child nodes
 	typedef std::vector<SyntaxNodePtr> Container;
 
+	/**
+	\warning Please refrain from using std::make_shared for this
+		class, instead use the static construct functions instead.
+	*/
+	template<typename IterT>
 	FuncSyntaxNode(size_t symb_id,
-		Container::iterator begin,
-		Container::iterator end) :
+		IterT begin,
+		IterT end) :
 		ConstantSyntaxNode(symb_id),
 		m_children(begin, end)
 	{
@@ -169,9 +174,21 @@ public:
 	}
 
 	/**
-	\brief Optimised allocation function
+	\brief Optimised allocation function which copies the child
+		nodes in the [begin,end) range.
 	*/
 	static SyntaxNodePtr construct(size_t symb_id,
+		Container::iterator begin,
+		Container::iterator end);
+
+	/**
+	\brief Optimised allocation function which *MOVES* the child
+		nodes in the [begin,end) range.
+	
+	\warning Only use this variant if you are sure that the
+		[begin,end) range is not going to be used afterwards.
+	*/
+	static SyntaxNodePtr move_construct(size_t symb_id,
 		Container::iterator begin,
 		Container::iterator end);
 

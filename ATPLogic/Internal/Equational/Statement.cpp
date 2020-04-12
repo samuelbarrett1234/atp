@@ -150,7 +150,7 @@ std::pair<SyntaxNodePtr, SyntaxNodePtr> Statement::get_sides() const
 	//{
 	//	return expr.fold<SyntaxNodePtr>(&FreeSyntaxNode::construct,
 	//		&ConstantSyntaxNode::construct,
-	//		&FuncSyntaxNode::construct);
+	//		&FuncSyntaxNode::move_construct);
 	//};
 
 	//return std::make_pair(to_syntax_tree(*m_sides.first),

@@ -9,6 +9,7 @@
 
 #include "SyntaxNodes.h"
 #include <map>
+#include <iterator>
 #include <boost/bind.hpp>
 #include <boost/phoenix.hpp>
 #include <boost/pool/pool_alloc.hpp>
@@ -101,7 +102,7 @@ SyntaxNodePtr ptree_to_stree(ParseNodePtr ptree,
 
 				const size_t symbol_id = ctx.symbol_id(name);
 
-				return FuncSyntaxNode::construct(
+				return FuncSyntaxNode::move_construct(
 					symbol_id, child_begin, child_end);
 			}
 		},
@@ -141,15 +142,29 @@ SyntaxNodePtr ConstantSyntaxNode::construct(size_t symb_id)
 }
 
 
+// use the same allocator for both FuncSyntaxNode construction
+// functions
+static boost::pool_allocator<FuncSyntaxNode> g_func_alloc;
+
+
 SyntaxNodePtr FuncSyntaxNode::construct(size_t symb_id,
 	FuncSyntaxNode::Container::iterator begin,
 	FuncSyntaxNode::Container::iterator end)
 {
-	static boost::pool_allocator<FuncSyntaxNode> func_alloc;
-
 	return std::allocate_shared<FuncSyntaxNode,
-		boost::pool_allocator<FuncSyntaxNode>>(func_alloc,
+		boost::pool_allocator<FuncSyntaxNode>>(g_func_alloc,
 			symb_id, begin, end);
+}
+
+
+SyntaxNodePtr FuncSyntaxNode::move_construct(size_t symb_id,
+	FuncSyntaxNode::Container::iterator begin,
+	FuncSyntaxNode::Container::iterator end)
+{
+	return std::allocate_shared<FuncSyntaxNode,
+		boost::pool_allocator<FuncSyntaxNode>>(g_func_alloc,
+			symb_id, std::make_move_iterator(begin),
+			std::make_move_iterator(end));
 }
 
 

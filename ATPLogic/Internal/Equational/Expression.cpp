@@ -281,12 +281,12 @@ SyntaxNodePtr Expression::to_syntax_tree(size_t id,
 		children.reserve(arity);
 		for (size_t i = 0; i < arity; ++i)
 		{
-			children.push_back(to_syntax_tree(
+			children.emplace_back(to_syntax_tree(
 				m_func_children[id][i],
 				m_func_child_types[id][i]));
 		}
 
-		return FuncSyntaxNode::construct(
+		return FuncSyntaxNode::move_construct(
 			m_func_symb_ids[id],
 			children.begin(), children.end());
 	}

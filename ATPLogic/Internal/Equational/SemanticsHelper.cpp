@@ -380,8 +380,8 @@ try_build_map(const SyntaxNodePtr& expr_premise, const SyntaxNodePtr& expr_concl
 				std::back_inserter(stack),
 
 				[](boost::tuple<SyntaxNodePtr, SyntaxNodePtr> tup)
-				{ return std::make_pair(tup.get<0>(),
-					tup.get<1>()); });
+				{ return std::make_pair(std::move(tup.get<0>()),
+					std::move(tup.get<1>())); });
 		}
 		break;
 		}
@@ -397,9 +397,9 @@ bool syntax_tree_identical(const SyntaxNodePtr& a, const SyntaxNodePtr& b)
 	// one; however that would involve writing a fold-pairs function
 	// for syntax trees.)
 
-	std::vector<std::pair<SyntaxNodePtr, SyntaxNodePtr>> stack;
+	std::vector<std::pair<ISyntaxNode*, ISyntaxNode*>> stack;
 
-	stack.emplace_back(a, b);
+	stack.emplace_back(a.get(), b.get());
 
 	while (!stack.empty())
 	{
@@ -414,25 +414,25 @@ bool syntax_tree_identical(const SyntaxNodePtr& a, const SyntaxNodePtr& b)
 		case SyntaxNodeType::EQ:
 		{
 			auto p_first = dynamic_cast<EqSyntaxNode*>(
-				pair.first.get());
+				pair.first);
 			auto p_second = dynamic_cast<EqSyntaxNode*>(
-				pair.second.get());
+				pair.second);
 
 			ATP_LOGIC_ASSERT(p_first != nullptr);
 			ATP_LOGIC_ASSERT(p_second != nullptr);
 
-			stack.emplace_back(std::make_pair(
-				p_first->left(), p_second->left()));
-			stack.emplace_back(std::make_pair(
-				p_first->right(), p_second->right()));
+			stack.emplace_back(
+				p_first->left().get(), p_second->left().get());
+			stack.emplace_back(
+				p_first->right().get(), p_second->right().get());
 		}
 		break;
 		case SyntaxNodeType::FREE:
 		{
 			auto p_first = dynamic_cast<FreeSyntaxNode*>(
-				pair.first.get());
+				pair.first);
 			auto p_second = dynamic_cast<FreeSyntaxNode*>(
-				pair.second.get());
+				pair.second);
 
 			ATP_LOGIC_ASSERT(p_first != nullptr);
 			ATP_LOGIC_ASSERT(p_second != nullptr);
@@ -444,9 +444,9 @@ bool syntax_tree_identical(const SyntaxNodePtr& a, const SyntaxNodePtr& b)
 		case SyntaxNodeType::CONSTANT:
 		{
 			auto p_first = dynamic_cast<ConstantSyntaxNode*>(
-				pair.first.get());
+				pair.first);
 			auto p_second = dynamic_cast<ConstantSyntaxNode*>(
-				pair.second.get());
+				pair.second);
 
 			ATP_LOGIC_ASSERT(p_first != nullptr);
 			ATP_LOGIC_ASSERT(p_second != nullptr);
@@ -459,9 +459,9 @@ bool syntax_tree_identical(const SyntaxNodePtr& a, const SyntaxNodePtr& b)
 		case SyntaxNodeType::FUNC:
 		{
 			auto p_first = dynamic_cast<FuncSyntaxNode*>(
-				pair.first.get());
+				pair.first);
 			auto p_second = dynamic_cast<FuncSyntaxNode*>(
-				pair.second.get());
+				pair.second);
 
 			ATP_LOGIC_ASSERT(p_first != nullptr);
 			ATP_LOGIC_ASSERT(p_second != nullptr);
@@ -480,16 +480,13 @@ bool syntax_tree_identical(const SyntaxNodePtr& a, const SyntaxNodePtr& b)
 			std::transform(boost::make_zip_iterator(
 				boost::make_tuple(p_first->begin(),
 					p_second->begin())),
-
 				boost::make_zip_iterator(
 					boost::make_tuple(p_first->end(),
 						p_second->end())),
-
 				std::back_inserter(stack),
-
-				[](boost::tuple<SyntaxNodePtr, SyntaxNodePtr> tup)
-				{ return std::make_pair(tup.get<0>(),
-					tup.get<1>()); });
+				[](boost::tuple<const SyntaxNodePtr&, const SyntaxNodePtr&> tup)
+				{ return std::make_pair(tup.get<0>().get(),
+					tup.get<1>().get()); });
 		}
 		break;
 		}
@@ -499,23 +496,23 @@ bool syntax_tree_identical(const SyntaxNodePtr& a, const SyntaxNodePtr& b)
 }
 
 
-std::set<size_t> get_free_var_ids(const SyntaxNodePtr& p_node)
+std::set<size_t> get_free_var_ids(const SyntaxNodePtr& p_root)
 {
-	std::vector<SyntaxNodePtr> stack;
+	std::vector<ISyntaxNode*> stack;
 	std::set<size_t> var_ids;
 
-	stack.push_back(p_node);
+	stack.push_back(p_root.get());
 
 	while (!stack.empty())
 	{
-		p_node = stack.back();
+		auto p_node = stack.back();
 		stack.pop_back();
 
 		apply_to_syntax_node<void>(
 			[&stack](EqSyntaxNode& node)
 			{
-				stack.push_back(node.left());
-				stack.push_back(node.right());
+				stack.push_back(node.left().get());
+				stack.push_back(node.right().get());
 			},
 			[&var_ids](FreeSyntaxNode& node)
 			{
@@ -524,7 +521,13 @@ std::set<size_t> get_free_var_ids(const SyntaxNodePtr& p_node)
 			[](ConstantSyntaxNode&) {},
 			[&stack](FuncSyntaxNode& node)
 			{
-				stack.insert(stack.end(), node.begin(), node.end());
+				// need to be careful about not copying the
+				// SyntaxNodePtrs
+				stack.reserve(stack.size() + node.get_arity());
+				for (auto iter = node.begin(); iter != node.end(); ++iter)
+				{
+					stack.push_back(iter->get());
+				}
 			},
 		*p_node);
 	}

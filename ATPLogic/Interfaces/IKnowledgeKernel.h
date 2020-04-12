@@ -80,9 +80,36 @@ public:
 	/**
 	\brief A "trivial" statement is either reflexive or implied
 		directly by one of the axioms.
+
+	\pre `stmt` is a valid statement within the context of this
+		knowledge kernel.
 	*/
 	virtual bool is_trivial(
 		const IStatement& stmt) const = 0;
+
+	/**
+	\brief Load the given set of theorems into the knowledge kernel
+		so it can use them in proofs.
+
+	\returns A reference ID in case you wish to remove these theorems
+		from the kernel in the future (e.g. for streaming).
+
+	\pre The statements are valid within the context of this
+		knowledge kernel (e.g. type-correct.)
+	*/
+	virtual size_t add_theorems(
+		StatementArrayPtr p_thms) = 0;
+
+	/**
+	\brief Unload the set of previously added theorems.
+
+	\param ref_id The return value of the corresponding
+		`add_theorems` call made earlier.
+
+	\pre `ref_id` must have been returned from an earlier call to
+		`add_theorems`, and must not have already been removed.
+	*/
+	virtual void remove_theorems(size_t ref_id) = 0;
 };
 
 

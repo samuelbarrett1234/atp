@@ -95,6 +95,13 @@ public:
 			return ProofCompletionState::UNFINISHED;
 	}
 
+
+	// not part of the IProofState interface:
+	inline const Statement& forefront() const
+	{
+		return m_current;
+	}
+
 private:
 	const KnowledgeKernel& m_ker;
 	Statement m_target, m_current;

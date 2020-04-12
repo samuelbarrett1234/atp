@@ -90,9 +90,15 @@ size_t KnowledgeKernel::get_integrity_code() const
 
 
 ProofStatePtr KnowledgeKernel::begin_proof_of(
-	const IStatement& stmt) const
+	const IStatement& _stmt) const
 {
-	return std::make_shared<ProofState>(*this, stmt);
+	const Statement* p_stmt = dynamic_cast<const Statement*>(
+		&_stmt);
+
+	ATP_LOGIC_PRECOND(p_stmt != nullptr);
+	ATP_LOGIC_PRECOND(type_check(m_context, *p_stmt));
+
+	return std::make_shared<ProofState>(*this, *p_stmt);
 }
 
 
@@ -103,6 +109,7 @@ bool KnowledgeKernel::is_trivial(
 		&_stmt);
 
 	ATP_LOGIC_PRECOND(p_stmt != nullptr);
+	ATP_LOGIC_PRECOND(type_check(m_context, *p_stmt));
 
 	// "implies" here is necessary for unidirectional truths,
 	// "equivalent" is necessary for bidirectional truths,

@@ -51,6 +51,11 @@ public:
 	bool is_trivial(
 		const IStatement& stmt) const override;
 
+	size_t add_theorems(
+		StatementArrayPtr p_thms) override;
+
+	void remove_theorems(size_t ref_id) override;
+
 	inline const std::vector<Statement>& get_active_rules() const
 	{
 		return m_rules;

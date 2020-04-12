@@ -30,27 +30,6 @@ namespace logic
 
 
 /**
-Every statement is either canonical or not. It is trivially true or
-false if and only if it is canonical. Non-canonical statements
-require evaluation to decide if they are true or false - and this
-is exactly the job of a theorem prover! (Reducing non-canonical
-statements to canonically true or false.)
-Canonical statements include axioms and substitutions of the
-statement "x=x".
-*/
-enum class StmtForm
-{
-	// The statement requires further evaluation to determine if it
-	// is true or false
-	NOT_CANONICAL,
-	// The statement is obviously true
-	CANONICAL_TRUE,
-	// The statement is obviously false
-	CANONICAL_FALSE
-};
-
-
-/**
 
 \interface IStatement
 

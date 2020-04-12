@@ -16,7 +16,7 @@ struct StandardTestFixture
 	atp::logic::ModelContextPtr p_ctx;
 	const atp::logic::equational::ModelContext& ctx;
 	atp::logic::KnowledgeKernelPtr p_ker;
-	const atp::logic::equational::KnowledgeKernel& ker;
+	atp::logic::equational::KnowledgeKernel& ker;
 
 	StandardTestFixture() :
 		ctx_in(group_theory_definition_file),
@@ -24,7 +24,7 @@ struct StandardTestFixture
 		ctx(dynamic_cast<const
 			atp::logic::equational::ModelContext&>(*p_ctx)),
 		p_ker(lang.try_create_kernel(ctx)),
-		ker(dynamic_cast<const
+		ker(dynamic_cast<
 			atp::logic::equational::KnowledgeKernel&>(*p_ker))
 	{
 		s << std::noskipws;

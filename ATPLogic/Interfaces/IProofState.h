@@ -37,8 +37,8 @@ enum class ProofCompletionState
 };
 
 
-class ISuccessorIterator;  // forward declaration
-typedef std::shared_ptr<ISuccessorIterator> SuccIterPtr;
+class IPfStateSuccIter;  // forward declaration
+typedef std::shared_ptr<IPfStateSuccIter> PfStateSuccIterPtr;
 
 
 /**
@@ -84,7 +84,7 @@ public:
         is up to the implementation on whether the iterators utilise
         that.
     */
-    virtual SuccIterPtr succ_begin() const = 0;
+    virtual PfStateSuccIterPtr succ_begin() const = 0;
 
     /**
     \brief Determine whether or not this proof is done
@@ -98,10 +98,10 @@ typedef std::shared_ptr<IProofState> ProofStatePtr;
 \brief This is an interface for enumerating through successors of a
     proof state.
 */
-class ATP_LOGIC_API ISuccessorIterator
+class ATP_LOGIC_API IPfStateSuccIter
 {
 public:
-    virtual ~ISuccessorIterator() = default;
+    virtual ~IPfStateSuccIter() = default;
 
     /**
     \returns True iff this iterator points to a successor (i.e. is
@@ -122,6 +122,18 @@ public:
     \pre valid()
     */
     virtual void advance() = 0;
+
+    /**
+    \brief Get the number of proof states currently held in memory
+        by this iterator
+
+    \note If this iterator lazily evaluates nodes, this will always
+        return 1.
+
+    \details This is only for performance tracking (in the search
+        library.)
+    */
+    virtual size_t size() const = 0;
 };
 
 

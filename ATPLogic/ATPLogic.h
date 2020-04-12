@@ -19,8 +19,11 @@
 #include "ATPLogicAPI.h"
 #include "Interfaces/IStatement.h"
 #include "Interfaces/IStatementArray.h"
-#include "Interfaces/IKnowledgeKernel.h"
 #include "Interfaces/ILanguage.h"
+#include "Interfaces/IModelContext.h"
+#include "Interfaces/IKnowledgeKernel.h"
+#include "Interfaces/IPropositionalKnowledgeKernel.h"
+#include "Interfaces/IProofState.h"
 
 
 /**

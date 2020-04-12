@@ -60,28 +60,6 @@ ATP_SEARCH_API SolverPtr create_solver(
 	HeuristicCollection ms);
 
 
-/**
-\brief Checks the given proof from front to back (the front element
-    is expected to be trivially true).
-
-\pre ker.valid(proof)
-
-\returns True iff the proof is correct (if each step follows from the
-    last.)
-
-\warning This function is called "simple" for two reasons: firstly,
-    if the kernel doesn't have \b all proven theorems available to it
-    it may return an incorrect result, because the kernel's `follows`
-    function depends on having those theorems loaded (if the kernel
-    doesn't know about a theorem, how could it know that line
-    followed from the last?) Finally, it may be quite a slow function
-    as it tries to check the whole proof at once and doesn't allow
-    checking it in parts.
-*/
-ATP_SEARCH_API bool simple_check_proof(logic::IKnowledgeKernel& ker,
-	logic::StatementArrayPtr proof);
-
-
 }  // namespace search
 }  // namespace atp
 

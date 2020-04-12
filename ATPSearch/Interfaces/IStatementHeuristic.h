@@ -52,8 +52,8 @@ public:
 	\brief Evaluate the function on this array of statements
 
 	\pre Some heuristic implementations may be tied to a particular
-	    knowledge kernel, in which case `p_stmts` needs to be valid
-		in the context of that kernel.
+	    model contexts, in which case `p_stmts` needs to be valid
+		in that context.
 	*/
 	virtual std::vector<float> predict(
 		logic::StatementArrayPtr p_stmts) = 0;

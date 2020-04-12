@@ -47,7 +47,8 @@ void IterativeDeepeningSolver::set_targets(
 	m_cur_depth_limits.resize(m_stacks.size(), m_starting_depth);
 	m_agg_time.resize(m_stacks.size(), 0.0f);
 	m_proofs.resize(m_stacks.size());
-	m_pf_states.resize(m_stacks.size(), ProofState::UNFINISHED);
+	m_pf_states.resize(m_stacks.size(),
+		logic::ProofCompletionState::UNFINISHED);
 
 	// 1 for the root node:
 	m_max_mem.resize(m_stacks.size(), 1);
@@ -56,15 +57,7 @@ void IterativeDeepeningSolver::set_targets(
 	// construct root nodes for each stack
 	for (size_t i = 0; i < m_stacks.size(); i++)
 	{
-		m_stacks[i].push_back(
-			StackFrame{
-				m_targets->slice(i, i + 1),
-				0
-			}
-		);
-
-		// handle the case where the target is trivial
-		check_finished(i);
+		init_stack(i);
 	}
 }
 
@@ -79,7 +72,8 @@ void IterativeDeepeningSolver::step(size_t n)
 
 	for (size_t i = 0; i < m_stacks.size(); i++)
 	{
-		if (m_pf_states[i] == ProofState::UNFINISHED)
+		if (m_pf_states[i] ==
+			logic::ProofCompletionState::UNFINISHED)
 		{
 			// start the timer individually for each proof
 			// .start() resets timer to zero whereas .resume()
@@ -98,7 +92,7 @@ void IterativeDeepeningSolver::step(size_t n)
 		else  // check the state is all consistent
 		{
 			ATP_SEARCH_ASSERT(m_stacks[i].empty());
-			ATP_SEARCH_ASSERT(m_proofs[i].has_value());
+			ATP_SEARCH_ASSERT(m_proofs[i] != nullptr);
 		}
 #endif
 	}
@@ -123,227 +117,115 @@ bool IterativeDeepeningSolver::any_proof_not_done() const
 	ATP_SEARCH_PRECOND(engaged());
 	return std::any_of(m_pf_states.begin(),
 		m_pf_states.end(),
-		phxarg::arg1 == ProofState::UNFINISHED);
+		phxarg::arg1 == logic::ProofCompletionState::UNFINISHED);
 }
 
 
 void IterativeDeepeningSolver::step_proof(size_t i, size_t n)
 {
-	auto& st = m_stacks[i];
-
-	if (st.empty())
-		return;
-
-	for (size_t t = 0; t < n; t++)
+	for (size_t t = 0;
+		t < n &&
+		m_pf_states[i] == logic::ProofCompletionState::UNFINISHED;
+		++t)
 	{
-		// expand an element element if depth limit not reached.
-		if (st.size() < m_cur_depth_limits[i])
-		{
-			expand_next(i);
-		}
-		// else pop from the stack and advance
-		else
-		{
-			trim_expansion(i);
-
-			// now we need to pay particular attention to the size of
-			// the stack. This is because it gives us an indication
-			// of what we need to do next.
-
-			if (st.size() > 1)
-			{
-				// next step, explore a new child
-				st.back().m_idx++;
-
-				ATP_SEARCH_ASSERT(st.back().m_idx <
-					st.back().m_stmts->size());
-			}
-			else if (st.size() == 1)
-			{
-				// increment the depth limit by 1 as we have fully
-				// exhausted the previous depth (and have returned
-				// to the root).
-				m_cur_depth_limits[i]++;
-			}
-			// else if st.empty() we are done (given up)
-		}
+		expand_next(i);
 
 		// update max mem count for this proof
 		const auto mem_count = count_mem(i);
 		if (mem_count > m_max_mem[i])
 			m_max_mem[i] = mem_count;
-
-		if (check_finished(i))
-			return;
 	}
 }
 
 
 void IterativeDeepeningSolver::expand_next(size_t i)
 {
-	ATP_LOGIC_PRECOND(i < m_stacks.size());
+	ATP_SEARCH_PRECOND(i < m_stacks.size());
 	auto& st = m_stacks[i];
 
 	ATP_SEARCH_PRECOND(st.size() < m_cur_depth_limits[i]);
-	ATP_SEARCH_PRECOND(st.back().m_idx < st.back().m_stmts->size());
+	ATP_SEARCH_PRECOND(st.back().iter->valid());
 
-	do
+	auto expand_candidate = st.back().iter->get();
+
+	// we have expanded another node:
+	m_num_node_exps[i]++;
+
+	switch (expand_candidate->completion_state())
 	{
-		auto expand_candidate = logic::from_statement(
-			st.back().m_stmts->at(st.back().m_idx)
-		);
+	case logic::ProofCompletionState::PROVEN:
+		finish(i);
+		return;  // EXIT, WE ARE DONE!!!
 
-#ifdef ATP_SEARCH_DEFENSIVE
-		// if we encounter a true statement, then our detection of true
-		// statements has clearly failed!
-		ATP_SEARCH_ASSERT(m_kernel->get_form(expand_candidate)[0]
-			!= logic::StmtForm::CANONICAL_TRUE);
-#endif
+	case logic::ProofCompletionState::NO_PROOF:
+		// try next candidate, this one won't do
+		st.back().iter->advance();
+		break;
 
-		auto succs = m_kernel->succs(expand_candidate);
-
-		// we haven't vectorised this
-		ATP_SEARCH_ASSERT(succs.size() == 1);
-
-		// we have expanded another node:
-		m_num_node_exps[i]++;
-
-		auto succs_to_add = filter_succs(succs[0]);
-
-		// only create a new stack frame if there were any
-		// successors
-		if (succs_to_add->size() > 0)
+	case logic::ProofCompletionState::UNFINISHED:
+		if (st.size() < m_cur_depth_limits[i])
 		{
-			// push new stack frame
-			st.push_back(StackFrame{
-				succs_to_add, 0
+			// explore this candidate if depth limits permit
+			st.push_back({
+				expand_candidate,
+				expand_candidate->succ_begin()
 				});
-
-			// exit, we are done
-			return;
 		}
-		else
+		// else do nothing because we aren't allowed to go any deeper
+
+		break;
+	}
+
+	// if we have exhausted the back frame
+	if (!st.back().iter->valid())
+	{
+		// ensure we haven't invalidated the back iterator, and if we
+		// have, fix it:
+		do
 		{
-			// check out the next node we could expand (if any)
-			++st.back().m_idx;
+			st.pop_back();
+			st.back().iter->advance();
+		} while (!st.empty() && !st.back().iter->valid());
+
+		// now either the stack is empty or the iterator is valid
+		// and pointing to the next node we should expand
+		if (st.empty())
+		{
+			if (m_cur_depth_limits[i] < m_max_depth)
+			{
+				// we have exhausted the search up to the current
+				// depth limit, and found nothing, however we haven't
+				// got to the ultimate depth limit yet, so try again
+				// with more depth:
+
+				++m_cur_depth_limits[i];
+
+				// setup the stack again (because it has been
+				// emptied)
+				init_stack(i);
+			}
+			else
+			{
+				// we have reached the ultimate depth limit with no
+				// proof, so just bail:
+				m_pf_states[i] = logic::ProofCompletionState::NO_PROOF;
+			}
 		}
-
-	} while (st.back().m_idx < st.back().m_stmts->size());
-
-	// if we got here then the proof has failed because there were
-	// no possible further expansions
-
-	m_stacks[i].clear();
-	m_pf_states[i] = ProofState::NO_PROOF;
+		// else we are all good and can handle it on the next step
+	}
 }
 
 
-void IterativeDeepeningSolver::trim_expansion(size_t i)
+void IterativeDeepeningSolver::finish(size_t i)
 {
-	ATP_LOGIC_PRECOND(i < m_stacks.size());
+	ATP_SEARCH_PRECOND(i < m_stacks.size());
 	auto& st = m_stacks[i];
-	auto st_iter = st.rbegin();
+	ATP_SEARCH_PRECOND(st.back().iter->get()->completion_state()
+		== logic::ProofCompletionState::PROVEN);
 
-	// find the next location where we can expand from
-	// (this is effectively going back up the stack to
-	// find a place with a new sibling node we haven't
-	// seen before)
-	while (st_iter != st.rend()
-		&& st_iter->m_idx + 1 == st_iter->m_stmts->size())
-	{
-		st_iter++;
-	}
-
-	// if we found something we haven't finished exploring yet...
-	if (st_iter != st.rend())
-	{
-		// delete all the stuff we've just explored:
-		st.erase(st_iter.base(), st.end());
-	}
-	else
-	{
-		// finished an iteration, time to increase the
-		// depth limit!
-
-		if (m_cur_depth_limits[i] < m_max_depth)
-		{
-			// erase everything except the root node
-			st.erase(std::next(st.begin()), st.end());
-
-			ATP_SEARCH_ASSERT(st.size() == 1);
-		}
-		else
-		{
-			// Oh dear! We have reached the ultimate
-			// depth limit without finding a proof.
-			// There is now nothing we can do, so just
-			// clear the stack to indicate this.
-			st.clear();
-		}
-	}
-}
-
-
-bool IterativeDeepeningSolver::check_finished(size_t i)
-{
-	ATP_LOGIC_PRECOND(i < m_stacks.size());
-	auto& st = m_stacks[i];
-
-	auto forms = m_kernel->get_form(st.back().m_stmts);
-
-	// if any of the current final states are canonically true
-	// then we have a proof
-	auto iter = std::find(forms.begin(), forms.end(),
-		logic::StmtForm::CANONICAL_TRUE);
-	if (iter != forms.end())
-	{
-		const auto idx = std::distance(forms.begin(), iter);
-		// setting this makes it easier to build the proof below
-		// (this is fine because we're about to clear the stack
-		// anyway).
-		st.back().m_idx = idx;
-
-		// build proof
-		std::vector<logic::StatementArrayPtr> proof_steps;
-		proof_steps.reserve(st.size());
-		for (auto st_frame : st)
-		{
-			proof_steps.push_back(st_frame.m_stmts->slice(
-				st_frame.m_idx, st_frame.m_idx + 1));
-		}
-		m_proofs[i] = logic::concat(proof_steps);
-
-		m_pf_states[i] = ProofState::DONE_TRUE;
-		st.clear();
-
-		return true;
-	}
-
-	return false;
-}
-
-
-logic::StatementArrayPtr IterativeDeepeningSolver::filter_succs(
-	logic::StatementArrayPtr succs) const
-{
-	// unfortunately the statement arrays don't have a filter
-	// function so we'll have to do with this:
-
-	if (succs->size() == 0)
-		return succs;  // nothing to do
-
-	auto forms = m_kernel->get_form(succs);
-
-	std::vector<logic::StatementArrayPtr> filtered;
-	filtered.reserve(succs->size());
-
-	for (size_t i = 0; i < succs->size(); ++i)
-	{
-		if (forms[i] != logic::StmtForm::CANONICAL_FALSE)
-			filtered.push_back(succs->slice(i, i + 1));
-	}
-
-	return logic::concat(filtered);
+	m_proofs[i] = st.back().iter->get();
+	m_pf_states[i] = logic::ProofCompletionState::PROVEN;
+	st.clear();
 }
 
 
@@ -353,10 +235,27 @@ size_t IterativeDeepeningSolver::count_mem(size_t i) const
 
 	for (const auto& st_frame : m_stacks[i])
 	{
-		count += st_frame.m_stmts->size();
+		count += st_frame.iter->size();
 	}
 
 	return count;
+}
+
+
+void IterativeDeepeningSolver::init_stack(size_t i)
+{
+	ATP_SEARCH_PRECOND(i < m_stacks.size());
+	ATP_SEARCH_PRECOND(m_stacks[i].empty());
+
+	m_stacks[i].push_back(
+		StackFrame{
+			m_kernel->begin_proof_of(m_targets->at(i)),
+			logic::PfStateSuccIterPtr()
+		}
+	);
+	// start off the iterator
+	m_stacks[i].back().iter =
+		m_stacks[i].back().node->succ_begin();
 }
 
 

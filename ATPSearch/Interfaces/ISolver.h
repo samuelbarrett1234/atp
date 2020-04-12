@@ -22,7 +22,6 @@
 
 
 #include <memory>
-#include <boost/optional.hpp>
 #include <ATPLogic.h>
 #include "../ATPSearchAPI.h"
 
@@ -31,25 +30,6 @@ namespace atp
 {
 namespace search
 {
-
-
-/**
-\details Proofs can either be finished or unfinished; and if they are
-    finished, the result can either be that the theorem was true or
-	that we couldn't find a proof (of course, no proof does not imply
-	the theorem is false, unless the proof system is complete).
-*/
-enum class ProofState
-{
-	// did not find a proof in the given time
-	UNFINISHED,
-
-	// found a proof
-	DONE_TRUE,
-
-	// there does not exist a proof (we did not run out of time)
-	NO_PROOF
-};
 
 
 /**
@@ -106,7 +86,8 @@ public:
 	\post returns the status of each proof (returning an array of
 	    size equal to the number of set target statements.)
 	*/
-	virtual std::vector<ProofState> get_states() const = 0;
+	virtual std::vector<logic::ProofCompletionState> get_states()
+		const = 0;
 
 
 	/**
@@ -114,11 +95,11 @@ public:
 
 	\post For each target, returns a proof iff that proof actually
 	    terminated and the theorem was true when it terminated. A
-		proof constitutes a sequence of statements which are each
-		deduced from the last using exactly one step from the
-		knowledge kernel.
+		proof is just represented by a completed proof state. We
+		return null for the entries that did not have a complete
+		proof.
 	*/
-	virtual std::vector<boost::optional<logic::StatementArrayPtr>>
+	virtual std::vector<logic::ProofStatePtr>
 		get_proofs() const = 0;
 
 	/**

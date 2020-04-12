@@ -42,7 +42,7 @@ public:
 		states.
 	*/
 	class ATP_LOGIC_API PfStateSuccIterator :
-		public ISuccessorIterator
+		public IPfStateSuccIter
 	{
 	public:
 		PfStateSuccIterator(const ProofState& parent,
@@ -79,7 +79,7 @@ public:
 		return m_target;
 	}
 
-	inline SuccIterPtr succ_begin() const override
+	inline PfStateSuccIterPtr succ_begin() const override
 	{
 		return std::make_shared<PfStateSuccIterator>(*this,
 			m_current);

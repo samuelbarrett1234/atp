@@ -38,8 +38,10 @@ class ATP_SEARCH_API IterativeDeepeningSolver : public ISolver
 private:
 	struct StackFrame
 	{
-		logic::StatementArrayPtr m_stmts;
-		size_t m_idx;
+		// `iter` starts off as node->succ_begin()
+
+		logic::ProofStatePtr node;
+		logic::PfStateSuccIterPtr iter;
 	};
 public:
 	/**
@@ -63,12 +65,12 @@ public:
 
 	void clear() override;
 
-	inline std::vector<ProofState> get_states() const override
+	inline std::vector<logic::ProofCompletionState> get_states() const override
 	{
 		return m_pf_states;
 	}
 
-	inline std::vector<boost::optional<logic::StatementArrayPtr>>
+	inline std::vector<logic::ProofStatePtr>
 		get_proofs() const override
 	{
 		return m_proofs;
@@ -104,51 +106,41 @@ private:
 
 
 	/**
-	\brief Expand the back of the stack by adding successors using
-	    the kernel.
+	\brief Expand the next available node (i.e. examine whatever
+		the back iterator is pointing to)
 
-	\pre m_stacks[i].size() < m_cur_depth_limits[i]
+	\pre m_stacks[i].back().iter->valid()
+
+	\post m_stacks[i].back().iter->valid()
 	*/
 	void expand_next(size_t i);
 
 	/**
-	\brief Bring the stack to a ready state by trimming elements at
-	    the back.
-
-	\post Restores the invariant that
-	    `m_stacks[i].back().m_stmts.at(m_stacks[i].back().m_idx)`
-		is ready to expand!
-	*/
-	void trim_expansion(size_t i);
-
-	/**
-	\brief Check if the current search state holds a complete proof
-	    of the target statement
+	\brief Handle the completion of current search of target statement i
 
 	\param i The index of the target statement (whose stack is
 	    represented by m_stacks[i]).
 
-	\pre Proof i is not already finished (this is the function to use
-	    when you <em>aren't sure</em> whether or not a proof has
-		finished.)
-
-	\post If the proof was finished (and this function returns true)
-	    it updates the variables m_pf_states and m_proofs to contain
-		the correct information.
-
-	\returns True if the proof was complete and finished, false if
-	    there is still work to do.
+	\pre m_stacks[i].back().iter->get()->completion_state() == PROVEN
 	*/
-	bool check_finished(size_t i);
-
-	// only include successors which are not canonically false
-	logic::StatementArrayPtr filter_succs(
-		logic::StatementArrayPtr succs) const;
+	void finish(size_t i);
 
 	/**
 	\brief Count the number of nodes stored in the stack of target i
 	*/
 	size_t count_mem(size_t i) const;
+
+	/**
+	\brief Initialise m_stacks[i] with a new proof state targetting
+		m_targets->at(i).
+
+	\pre m_stacks[i].empty()
+
+	\details This has been factored out into a function because there
+		are two places where we initialise the stack, and I wanted to
+		avoid repetition.
+	*/
+	void init_stack(size_t i);
 
 private:
 	const size_t m_max_depth;  // ultimate depth limit
@@ -176,6 +168,8 @@ private:
 	\invariant m_stacks[i].size() > 0 iff we are still
 	    actively trying to prove it (if empty, we have given up.)
 
+	\invariant engaged iff !m_stacks.empty()
+
 	\details m_stacks[i].back().m_stmts[m_stacks[i].m_idx] is the
 	    next element to be expanded, provided depth limits permit.
 
@@ -193,18 +187,17 @@ private:
 	
 	/**
 	\invariant m_proofs.size() == m_stacks.size()
-	    and m_proofs[i].has_value() is true iff m_pf_states[i]
-		!= ProofState::UNFINISHED
-		and m_stacks[i].empty() => !m_proofs[i].has_value()
+	    and m_proofs[i] != nullptr iff m_pf_states[i]
+		!= logic::ProofCompletionState::UNFINISHED
 	*/
-	std::vector<boost::optional<logic::StatementArrayPtr>> m_proofs;
+	std::vector<logic::ProofStatePtr> m_proofs;
 
 
 	/**
 	\invariant m_proofs.size() == m_stacks.size()
 	    and m_stacks[i].empty() => m_pf_states[i] == UNFINISHED
 	*/
-	std::vector<ProofState> m_pf_states;
+	std::vector<logic::ProofCompletionState> m_pf_states;
 
 
 	/**
@@ -240,10 +233,6 @@ private:
 		depth (the stack size).
 	*/
 	std::vector<size_t> m_max_mem;
-
-	/**
-	\invariant engaged iff !m_stacks.empty()
-	*/
 };
 
 

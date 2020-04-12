@@ -11,7 +11,6 @@
 #include <fstream>
 #include <boost/filesystem.hpp>
 #include <ATPSearch.h>
-#include "ParseContextFile.h"
 
 
 ProofApplication::ProofApplication(std::ostream& out) :

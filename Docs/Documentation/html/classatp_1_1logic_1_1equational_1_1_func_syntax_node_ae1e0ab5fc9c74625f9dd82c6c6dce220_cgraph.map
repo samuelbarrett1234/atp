@@ -1,6 +1,6 @@
 <map id="atp::logic::equational::FuncSyntaxNode::construct" name="atp::logic::equational::FuncSyntaxNode::construct">
-<area shape="rect" id="node1" title="Optimised allocation function." alt="" coords="5,71,197,112"/>
+<area shape="rect" id="node1" title="Optimised allocation function which copies the child nodes in the [begin,end) range." alt="" coords="5,71,197,112"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#af8bbe7076bf6e40c8a21bb7325f935be" title=" " alt="" coords="280,5,449,47"/>
 <area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#adcfeb259ac22acee62636d3542f462a9" title=" " alt="" coords="285,71,444,112"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#afb0281e82dc7cd195276c1ae457d4a6d" title=" " alt="" coords="245,136,484,177"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#a33ca218336849cb24abc954865d0e81e" title=" " alt="" coords="245,136,484,177"/>
 </map>

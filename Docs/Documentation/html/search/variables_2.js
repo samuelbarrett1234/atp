@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['definition_5ffile_5fpath_553',['definition_file_path',['../struct_context_file.html#a410b94f3de989d90b5df40d912b4c210',1,'ContextFile']]]
+  ['expression_531',['expression',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#a85b9d2260cf033ebbd94ef811e578da7',1,'atp::logic::equational::StatementGrammar']]],
+  ['expression_5flist_532',['expression_list',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#aa2d45f707419676acd563626abbfe8e1',1,'atp::logic::equational::StatementGrammar']]]
 ];

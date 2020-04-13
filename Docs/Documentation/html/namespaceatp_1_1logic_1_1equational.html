@@ -173,10 +173,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a21fd07efe73f4ffca98e0a24d9d5d6d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a21fd07efe73f4ffca98e0a24d9d5d6d5">ptree_to_stree</a> (<a class="el" href="namespaceatp_1_1logic_1_1equational.html#aa4c176681e5964c28c42d71bfdb754ae">ParseNodePtr</a> ptree, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;ctx)</td></tr>
 <tr class="memdesc:a21fd07efe73f4ffca98e0a24d9d5d6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a parse tree into a syntax tree.  <a href="namespaceatp_1_1logic_1_1equational.html#a21fd07efe73f4ffca98e0a24d9d5d6d5">More...</a><br /></td></tr>
 <tr class="separator:a21fd07efe73f4ffca98e0a24d9d5d6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56781fb4943ed73eaf36ccac9d19d54f"><td class="memTemplParams" colspan="2">template&lt;typename ResultT , typename EqFuncT , typename FreeFuncT , typename ConstFuncT , typename FFuncT &gt; </td></tr>
-<tr class="memitem:a56781fb4943ed73eaf36ccac9d19d54f"><td class="memTemplItemLeft" align="right" valign="top">ResultT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a56781fb4943ed73eaf36ccac9d19d54f">fold_syntax_tree</a> (EqFuncT eq_func, FreeFuncT free_func, ConstFuncT const_func, FFuncT f_func, <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> p_root)</td></tr>
-<tr class="memdesc:a56781fb4943ed73eaf36ccac9d19d54f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a fold operation over a given syntax tree.  <a href="namespaceatp_1_1logic_1_1equational.html#a56781fb4943ed73eaf36ccac9d19d54f">More...</a><br /></td></tr>
-<tr class="separator:a56781fb4943ed73eaf36ccac9d19d54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91b11e0f5e91e0a6368650b5a93fa992"><td class="memTemplParams" colspan="2">template&lt;typename ResultT , typename EqFuncT , typename FreeFuncT , typename ConstFuncT , typename FFuncT &gt; </td></tr>
+<tr class="memitem:a91b11e0f5e91e0a6368650b5a93fa992"><td class="memTemplItemLeft" align="right" valign="top">ResultT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a91b11e0f5e91e0a6368650b5a93fa992">fold_syntax_tree</a> (EqFuncT eq_func, FreeFuncT free_func, ConstFuncT const_func, FFuncT f_func, const <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> &amp;p_root)</td></tr>
+<tr class="memdesc:a91b11e0f5e91e0a6368650b5a93fa992"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a fold operation over a given syntax tree.  <a href="namespaceatp_1_1logic_1_1equational.html#a91b11e0f5e91e0a6368650b5a93fa992">More...</a><br /></td></tr>
+<tr class="separator:a91b11e0f5e91e0a6368650b5a93fa992"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28b43007ab2f1f5d4849d5b958f376fb"><td class="memTemplParams" colspan="2">template&lt;typename ResultT , typename EqPairFuncT , typename FreePairFuncT , typename ConstPairFuncT , typename FuncPairFuncT , typename DefaultPairFuncT &gt; </td></tr>
 <tr class="memitem:a28b43007ab2f1f5d4849d5b958f376fb"><td class="memTemplItemLeft" align="right" valign="top">ResultT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a28b43007ab2f1f5d4849d5b958f376fb">fold_pair_syntax_tree</a> (EqPairFuncT eq_func, FreePairFuncT free_func, ConstPairFuncT const_func, FuncPairFuncT f_func, DefaultPairFuncT default_func, <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> a, <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> b)</td></tr>
 <tr class="memdesc:a28b43007ab2f1f5d4849d5b958f376fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a fold over pairs of syntax trees, where the fold constructor is dependent on the node types of the pair. There are functions for pairs of matching types, and then a default function for when the pairs do not match.  <a href="namespaceatp_1_1logic_1_1equational.html#a28b43007ab2f1f5d4849d5b958f376fb">More...</a><br /></td></tr>
@@ -558,8 +558,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a56781fb4943ed73eaf36ccac9d19d54f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56781fb4943ed73eaf36ccac9d19d54f">&#9670;&nbsp;</a></span>fold_syntax_tree()</h2>
+<a id="a91b11e0f5e91e0a6368650b5a93fa992"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91b11e0f5e91e0a6368650b5a93fa992">&#9670;&nbsp;</a></span>fold_syntax_tree()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -593,7 +593,7 @@ template&lt;typename ResultT , typename EqFuncT , typename FreeFuncT , typename 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> &amp;&#160;</td>
           <td class="paramname"><em>p_root</em>&#160;</td>
         </tr>
         <tr>
@@ -619,11 +619,11 @@ template&lt;typename ResultT , typename EqFuncT , typename FreeFuncT , typename 
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1logic_1_1equational_a56781fb4943ed73eaf36ccac9d19d54f_cgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_a56781fb4943ed73eaf36ccac9d19d54f_cgraph" alt=""/></div>
-<map name="namespaceatp_1_1logic_1_1equational_a56781fb4943ed73eaf36ccac9d19d54f_cgraph" id="namespaceatp_1_1logic_1_1equational_a56781fb4943ed73eaf36ccac9d19d54f_cgraph">
+<div class="center"><img src="namespaceatp_1_1logic_1_1equational_a91b11e0f5e91e0a6368650b5a93fa992_cgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_a91b11e0f5e91e0a6368650b5a93fa992_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1logic_1_1equational_a91b11e0f5e91e0a6368650b5a93fa992_cgraph" id="namespaceatp_1_1logic_1_1equational_a91b11e0f5e91e0a6368650b5a93fa992_cgraph">
 <area shape="rect" title="Perform a fold operation over a given syntax tree." alt="" coords="5,39,148,80"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#ab387f330c6f631916a017bf368a24845" title=" " alt="" coords="200,5,343,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a725fafce5637f9a5b1862f9e04baddea" title=" " alt="" coords="196,71,347,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a7b02313098b774b341ab0d1345e30bf3" title=" " alt="" coords="200,5,343,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a2f67d6c339fae955e0aad941e00f5378" title=" " alt="" coords="196,71,347,112"/>
 </map>
 </div>
 
@@ -725,19 +725,19 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="namespaceatp_1_1logic_1_1equational_a21fd07efe73f4ffca98e0a24d9d5d6d5_cgraph.png" border="0" usemap="#namespaceatp_1_1logic_1_1equational_a21fd07efe73f4ffca98e0a24d9d5d6d5_cgraph" alt=""/></div>
 <map name="namespaceatp_1_1logic_1_1equational_a21fd07efe73f4ffca98e0a24d9d5d6d5_cgraph" id="namespaceatp_1_1logic_1_1equational_a21fd07efe73f4ffca98e0a24d9d5d6d5_cgraph">
 <area shape="rect" title="Convert a parse tree into a syntax tree." alt="" coords="5,217,148,259"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#add5b2537f752a8c346f1cda80de8be4d" title="Optimised allocation function." alt="" coords="203,5,381,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#adb58c20cd665a8b23c60edd5ed75429b" title="Optimised allocation function." alt="" coords="203,5,381,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#a6c72e391752c93140d133f17974580cd" title=" " alt="" coords="197,71,387,112"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#aac3333f20bb2a2d8022507d83ad317e6" title="Optimised allocation function." alt="" coords="211,137,373,193"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#ae1e0ab5fc9c74625f9dd82c6c6dce220" title="Optimised allocation function." alt="" coords="196,217,388,259"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a4a13ee6033570021f12adc6dfb82485a" title=" " alt="" coords="204,283,380,324"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a82a047814726e2f1927f0db2209c10fc" title=" " alt="" coords="196,348,388,389"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a675ab83d420a26747e22621cef7b542b" title=" " alt="" coords="203,413,381,455"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#a9f56f4a204522eacc8516f48dad35a2f" title=" " alt="" coords="449,5,661,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a4a13ee6033570021f12adc6dfb82485a" title=" " alt="" coords="204,217,380,259"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#af53dda859eb584b8d4672af3dd1a6c37" title="Optimised allocation function which MOVES the child nodes in the [begin,end) range." alt="" coords="208,283,376,339"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a82a047814726e2f1927f0db2209c10fc" title=" " alt="" coords="196,364,388,405"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a675ab83d420a26747e22621cef7b542b" title=" " alt="" coords="203,429,381,471"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#adf575b8fe9aecacfcfdcfa7ccc9e99eb" title=" " alt="" coords="449,5,661,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_free_syntax_node.html#ac7b032d740a79be5c3b1f4d5eff1ae8b" title=" " alt="" coords="439,71,671,112"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#a1982739f90314f327800f8ab6fa378f9" title=" " alt="" coords="475,137,636,193"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#af8bbe7076bf6e40c8a21bb7325f935be" title=" " alt="" coords="471,217,640,259"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#adcfeb259ac22acee62636d3542f462a9" title=" " alt="" coords="476,283,635,324"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#afb0281e82dc7cd195276c1ae457d4a6d" title=" " alt="" coords="436,348,675,389"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#af8bbe7076bf6e40c8a21bb7325f935be" title=" " alt="" coords="471,225,640,267"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#adcfeb259ac22acee62636d3542f462a9" title=" " alt="" coords="476,291,635,332"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_func_syntax_node.html#a33ca218336849cb24abc954865d0e81e" title=" " alt="" coords="436,356,675,397"/>
 </map>
 </div>
 <div class="dynheader">

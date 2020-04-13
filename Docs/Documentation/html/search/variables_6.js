@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lang_5ftype_559',['lang_type',['../struct_context_file.html#a80011f4c3ab7da91dedc3f187fdfef42',1,'ContextFile']]]
+  ['pointer_537',['pointer',['../classatp_1_1logic_1_1equational_1_1_statement_array_1_1iterator.html#a1ec1d7896a30ec52f76c12c22fea6d49',1,'atp::logic::equational::StatementArray::iterator']]]
 ];

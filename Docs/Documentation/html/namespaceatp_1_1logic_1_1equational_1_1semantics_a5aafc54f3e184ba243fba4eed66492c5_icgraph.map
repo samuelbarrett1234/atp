@@ -1,0 +1,7 @@
+<map id="atp::logic::equational::semantics::try_build_map" name="atp::logic::equational::semantics::try_build_map">
+<area shape="rect" id="node1" title="Try to build a substitution of free variables in the premise expression, to make it identical to the ..." alt="" coords="697,39,876,80"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a50213a4330f3c63138200b459cb43231" title="Try to apply each rule at the subtree rooted at the given node without trying tp apply it deeper in t..." alt="" coords="491,31,649,87"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5f82827babe2c1d0c0f061d451c6d7a4" title="Try applying each rule to the statement to get a list of successor statements. Note that each rule ma..." alt="" coords="252,39,443,80"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,5,204,47"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a3095c141a4bfd5609cafba29fdd00b2a" title="Create a new iterator which allows us to enumerate the successors of this class." alt="" coords="22,71,187,112"/>
+</map>

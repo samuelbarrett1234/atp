@@ -255,6 +255,34 @@ BOOST_DATA_TEST_CASE(test_get_successors,
 }
 
 
+BOOST_DATA_TEST_CASE(test_not_a_successor,
+	boost::unit_test::data::make({
+		"e = e",
+		"x = e" }) ^
+	boost::unit_test::data::make({
+		"e = *(x, i(y))",
+		"x = *(e, i(x))" }),
+	subst_candidate, not_a_subst_result)
+{
+	// test that the second statement is not a successor of the first
+	// statement
+	s << subst_candidate << "\n";
+	s << not_a_subst_result;
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto initial_stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto target_stmt = dynamic_cast<const Statement&>(p_stmts->at(1));
+
+	auto responses = semantics::get_successors(ctx, initial_stmt,
+		ker.get_active_rules());
+
+	BOOST_TEST(std::none_of(responses.begin(), responses.end(),
+		boost::bind(&semantics::equivalent,
+			boost::ref(target_stmt), _1)));
+}
+
+
 BOOST_DATA_TEST_CASE(test_implies,
 	boost::unit_test::data::make({
 		"*(x, i(x)) = e",

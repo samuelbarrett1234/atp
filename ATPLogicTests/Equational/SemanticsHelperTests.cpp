@@ -313,6 +313,57 @@ BOOST_DATA_TEST_CASE(test_immediate_applications,
 }
 
 
+BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
+	"EquationalTests/SemanticsHelperTests/test_try_build_map_positive"))
+BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
+	"EquationalTests/SemanticsHelperTests/test_try_build_map_negative"))
+BOOST_TEST_DECORATOR(*boost::unit_test_framework::depends_on(
+	"EquationalTests/SemanticsHelperTests/test_try_build_map_empty"))
+BOOST_DATA_TEST_CASE(test_not_an_immediate_application,
+	boost::unit_test::data::make({
+		// we will only look at the LHS of these statements
+		"e = x" }) ^
+	boost::unit_test::data::make({
+		// we will only look at the LHS of these statements
+		"*(e, i(x)) = x" }),
+	stmt, stmt_not_imm_app)
+{
+	s << stmt << "\n" << stmt_not_imm_app;
+
+	auto ptrees = parse_statements(s);
+
+	BOOST_REQUIRE(ptrees.has_value());
+	BOOST_REQUIRE(ptrees->size() == 2);
+
+	auto stmt_stree = ptree_to_stree(ptrees->front(), ctx);
+	auto stmt_not_imm_app_stree = ptree_to_stree(ptrees->back(), ctx);
+
+	// get LHSs
+
+	auto stmt_lhs = dynamic_cast<EqSyntaxNode*>(
+		stmt_stree.get())->left();
+	auto stmt_not_imm_app_lhs = dynamic_cast<EqSyntaxNode*>(
+		stmt_not_imm_app_stree.get())->left();
+
+	// create substitution info
+
+	semantics::SubstitutionInfo sub_info(ctx,
+		ker.get_active_rules(),
+		semantics::get_free_var_ids(stmt_stree));
+
+	// get test immediate applications
+
+	auto imm_apps = semantics::immediate_applications(stmt_lhs,
+		sub_info);
+
+	// now test that stmt_not_imm_app_lhs did not appear as a result
+
+	BOOST_TEST(std::none_of(imm_apps.begin(), imm_apps.end(),
+		boost::bind(&semantics::syntax_tree_identical,
+			stmt_not_imm_app_lhs, _1)));
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();
 BOOST_AUTO_TEST_SUITE_END();
 

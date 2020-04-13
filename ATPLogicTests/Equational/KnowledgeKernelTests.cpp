@@ -71,7 +71,8 @@ BOOST_AUTO_TEST_CASE(trivial_implied_by_axiom_but_transposed)
 
 BOOST_DATA_TEST_CASE(test_not_trivial,
 	boost::unit_test::data::make({
-		"e = i(e)", "*(x, y) = *(y, x)" }),
+		"e = i(e)", "*(x, y) = *(y, x)",
+		"e = *(e, i(x))" }),
 	stmt_txt)
 {
 	s << stmt_txt;

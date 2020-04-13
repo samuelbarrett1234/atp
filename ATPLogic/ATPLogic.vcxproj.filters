@@ -46,6 +46,12 @@
     <Filter Include="Source Files\Internal\Equational\Implementations">
       <UniqueIdentifier>{dbcc2ea2-04c2-4da3-92ca-e9e5fa51eafc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Internal\Equational\Implementations\Successor Iterators">
+      <UniqueIdentifier>{6ebc2fd0-260e-4be0-953b-793dda9bd2a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Internal\Equational\Implementations\Successor Iterators">
+      <UniqueIdentifier>{7b87d50e-e0d9-4da2-9014-ffea75f74d6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -126,6 +132,15 @@
     <ClInclude Include="Internal\Equational\Expression.h">
       <Filter>Header Files\Internal\Equational\Implementations</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\Equational\RuleMatchingIterator.h">
+      <Filter>Header Files\Internal\Equational\Implementations\Successor Iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\Equational\MatchResultsIterator.h">
+      <Filter>Header Files\Internal\Equational\Implementations\Successor Iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\Equational\FreeVarAssignmentIterator.h">
+      <Filter>Header Files\Internal\Equational\Implementations\Successor Iterators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp">
@@ -166,6 +181,15 @@
     </ClCompile>
     <ClCompile Include="Internal\Equational\Expression.cpp">
       <Filter>Source Files\Internal\Equational\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\Equational\RuleMatchingIterator.cpp">
+      <Filter>Source Files\Internal\Equational\Implementations\Successor Iterators</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\Equational\MatchResultsIterator.cpp">
+      <Filter>Source Files\Internal\Equational\Implementations\Successor Iterators</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\Equational\FreeVarAssignmentIterator.cpp">
+      <Filter>Source Files\Internal\Equational\Implementations\Successor Iterators</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

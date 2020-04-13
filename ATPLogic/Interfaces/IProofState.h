@@ -132,6 +132,8 @@ public:
 
     \details This is only for performance tracking (in the search
         library.)
+
+    \pre valid()
     */
     virtual size_t size() const = 0;
 };

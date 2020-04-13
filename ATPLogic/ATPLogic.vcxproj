@@ -179,11 +179,14 @@
     <ClInclude Include="Interfaces\IStatement.h" />
     <ClInclude Include="Interfaces\IStatementArray.h" />
     <ClInclude Include="Internal\Equational\Expression.h" />
+    <ClInclude Include="Internal\Equational\FreeVarAssignmentIterator.h" />
     <ClInclude Include="Internal\Equational\Grammar.h" />
     <ClInclude Include="Internal\Equational\KnowledgeKernel.h" />
     <ClInclude Include="Internal\Equational\Language.h" />
+    <ClInclude Include="Internal\Equational\MatchResultsIterator.h" />
     <ClInclude Include="Internal\Equational\ModelContext.h" />
     <ClInclude Include="Internal\Equational\ProofState.h" />
+    <ClInclude Include="Internal\Equational\RuleMatchingIterator.h" />
     <ClInclude Include="Internal\Equational\Semantics.h" />
     <ClInclude Include="Internal\Equational\ParseNodes.h" />
     <ClInclude Include="Internal\Equational\Parser.h" />
@@ -198,11 +201,14 @@
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp" />
     <ClCompile Include="Internal\Equational\Expression.cpp" />
+    <ClCompile Include="Internal\Equational\FreeVarAssignmentIterator.cpp" />
     <ClCompile Include="Internal\Equational\Grammar.cpp" />
     <ClCompile Include="Internal\Equational\KnowledgeKernel.cpp" />
     <ClCompile Include="Internal\Equational\Language.cpp" />
+    <ClCompile Include="Internal\Equational\MatchResultsIterator.cpp" />
     <ClCompile Include="Internal\Equational\ModelContext.cpp" />
     <ClCompile Include="Internal\Equational\ProofState.cpp" />
+    <ClCompile Include="Internal\Equational\RuleMatchingIterator.cpp" />
     <ClCompile Include="Internal\Equational\Semantics.cpp" />
     <ClCompile Include="Internal\Equational\Parser.cpp" />
     <ClCompile Include="Internal\Equational\SemanticsHelper.cpp" />

@@ -145,6 +145,37 @@ public:
 		return m_ctx;
 	}
 
+	/**
+	\brief Special case of `map_free_vars` for replacing a free
+		variable with another free variable.
+
+	\note This function exists separately to `map_free_vars` because
+		it can be implemented more efficiently, without a fold.
+	*/
+	Statement replace_free_with_free(size_t initial_id,
+		size_t after_id) const;
+
+	/**
+	\brief Special case of `map_free_vars` for replacing a free
+		variable with a user-defined constant.
+
+	\note This function exists separately to `map_free_vars` because
+		it can be implemented more efficiently, without a fold.
+	*/
+	Statement replace_free_with_const(size_t initial_id,
+		size_t const_symb_id) const;
+
+	/**
+	\brief Add a particular value to the ID of every free variable in
+		this statement.
+
+	\details This is useful for ensuring the free variable IDs of two
+		statements do not clash, for example if we know the largest
+		ID in one statement, we can increment the IDs in this
+		statement by that amount + 1, then they won't clash.
+	*/
+	Statement increment_free_var_ids(size_t inc) const;
+
 
 	/**
 	\brief create a new statement obtained by replacing the RHS of

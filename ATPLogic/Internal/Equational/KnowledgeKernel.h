@@ -63,10 +63,20 @@ public:
 
 	void remove_theorems(size_t ref_id) override;
 
+	// not part of the IKnowledgeKernel interface
+
 	inline const StatementArray& get_active_rules() const
 	{
 		return *m_active_rules;
 	}
+
+	/**
+	\brief Returns the largest free variable ID which occurs in any
+		of the rules.
+	*/
+	size_t get_rule_free_id_bound() const;
+
+	size_t num_matching_rules() const;
 
 private:
 	/**

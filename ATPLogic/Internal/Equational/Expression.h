@@ -109,6 +109,351 @@ public:
 	ResultT fold(FreeFuncT free_func,
 		ConstFuncT const_func, FFuncT f_func) const
 	{
+		// fold from the root
+		return fold_from<ResultT>(free_func, const_func, f_func,
+			m_root, m_root_type);
+	}
+
+
+    /**
+    \brief Perform a fold over pairs of expressions.
+
+    \tparam ResultT The return type (all functions must return this
+        type.)
+
+    \tparam FreePairFuncT The function operating on pairs of free
+        variable nodes, must have signature
+        `size_t x size_t -> ResultT` where the two given integers are
+        the free variable IDs in the pair.
+
+    \tparam ConstPairFuncT The function operating on pairs of
+        constants, must have signature `size_t x size_t -> ResultT`
+        where the two integers are the symbol IDs of the constants
+
+    \tparam FuncPairFuncT The function operating on pairs of function
+        nodes, must have signature `size_t x size_t x std::vector<
+        ResultT>::iterator x std::vector<ResultT>::iterator -> ResultT`
+        where the two integers are the symbol IDs of the functions
+        and the two iterators are the begin and end iterators of the
+        function arguments' results.
+
+    \tparam DefaultPairFuncT This is called when a pair of nodes are
+        encountered but don't have the same type, and it must have
+        signature `SyntaxNodePtr x SyntaxNodePtr -> ResultT`, where the
+        two arguments are just the two nodes. NOTE: you can also pass
+		a constant ResultT-convertible value here instead, which is
+		MUCH more efficient as it means the function doesn't have to
+		build a syntax tree for the arguments!
+
+    \param other The other expression to fold with, which can be
+        thought of as appearing on the RHS of the pair fold.
+    */
+	template<typename ResultT, typename FreePairFuncT,
+        typename ConstPairFuncT, typename FuncPairFuncT,
+        typename DefaultPairFuncT>
+	ResultT fold_pair(FreePairFuncT free_func,
+		ConstPairFuncT const_func, FuncPairFuncT f_func,
+		DefaultPairFuncT default_func_or_val,
+        const Expression& other) const
+	{
+		// static assertions on the types of the functions given:
+
+		static_assert(std::is_convertible<FreePairFuncT,
+			std::function<ResultT(size_t, size_t)>>::value,
+			"FreePairFuncT should be of type (size_t, size_t) -> ResultT");
+		static_assert(std::is_convertible<ConstPairFuncT,
+			std::function<ResultT(size_t, size_t)>>::value,
+			"ConstPairFuncT should be of type (size_t, size_t) -> ResultT");
+		static_assert(std::is_convertible<FuncPairFuncT,
+			std::function<ResultT(size_t, size_t,
+				typename std::vector<ResultT>::iterator,
+				typename std::vector<ResultT>::iterator)>>::value,
+			"FuncPairFuncT should be of type (size_t, size_t, "
+			"std::list<ResultT>::iterator,"
+			" std::list<ResultT>::iterator) -> ResultT");
+		static_assert(std::is_convertible<DefaultPairFuncT,
+			std::function<ResultT(SyntaxNodePtr, SyntaxNodePtr)>>::value
+			|| std::is_convertible<DefaultPairFuncT, ResultT>::value,
+			"DefaultPairFuncT should be of type (SyntaxNodePtr, "
+			"SyntaxNodePtr) -> ResultT, or should be a constant ResultT.");
+
+		// now proceed with the function:
+
+		std::vector<ResultT> result_stack;
+		// stores pairs of IDs or indices:
+		std::vector<std::pair<size_t, size_t>> todo_stack;
+		std::vector<std::pair<SyntaxNodeType,
+			SyntaxNodeType>> todo_stack_types;
+		std::vector<bool> seen_stack;
+
+		// we only go as deep as the shallowest tree
+		const size_t height = std::min(m_height, other.m_height);
+		// we know approximately how big the stacks will get in
+		// advance
+		result_stack.reserve(height);
+		todo_stack.reserve(height);
+		todo_stack_types.reserve(height);
+		seen_stack.reserve(height);
+
+		// push the left and right of the equals sign
+		todo_stack.push_back(std::make_pair(m_root,
+			other.m_root));
+		todo_stack_types.push_back(std::make_pair(m_root_type,
+			other.m_root_type));
+		seen_stack.push_back(false);
+
+		while (!todo_stack.empty())
+		{
+			// check stack size invariants
+
+			ATP_LOGIC_ASSERT(todo_stack.size() ==
+				todo_stack_types.size());
+			ATP_LOGIC_ASSERT(todo_stack.size() ==
+				seen_stack.size());
+
+			const std::pair<size_t,
+				size_t> id_pair = todo_stack.back();
+			todo_stack.pop_back();
+			const std::pair<SyntaxNodeType,
+				SyntaxNodeType> type_pair = todo_stack_types.back();
+			todo_stack_types.pop_back();
+			const bool seen = seen_stack.back();
+			seen_stack.pop_back();
+
+			if (type_pair.first != type_pair.second)
+			{
+				ATP_LOGIC_ASSERT(!seen);
+
+				if constexpr (std::is_convertible<DefaultPairFuncT,
+					ResultT>::value)
+				{
+					// just use the constant value given to us
+					result_stack.push_back(default_func_or_val);
+				}
+				else
+				{
+					// convert both sides to syntax trees, call as a
+					// function, then push the result
+					result_stack.emplace_back(default_func_or_val(
+						to_syntax_tree(id_pair.first,
+							type_pair.first),
+						other.to_syntax_tree(id_pair.second,
+							type_pair.second)
+					));
+				}
+			}
+			else if (!seen)  // else if first occurrence
+			{
+				switch (type_pair.first)
+				{
+				case SyntaxNodeType::FREE:
+					result_stack.emplace_back(free_func(id_pair.first,
+						id_pair.second));
+					break;
+				case SyntaxNodeType::CONSTANT:
+					result_stack.emplace_back(const_func(id_pair.first,
+						id_pair.second));
+					break;
+				case SyntaxNodeType::FUNC:
+				{
+					// get arity of both functions
+					const auto arity_pair = std::make_pair(
+						m_func_arity[id_pair.first],
+						other.m_func_arity[id_pair.second]);
+
+					// use default func if they have differing
+					// arities
+					if (arity_pair.first != arity_pair.second)
+					{
+						if constexpr (std::is_convertible<
+							DefaultPairFuncT, ResultT>::value)
+						{
+							// just use the constant value
+							result_stack.push_back(
+								default_func_or_val);
+						}
+						else
+						{
+							// convert both sides to syntax trees,
+							// call as a function, then push the
+							// result
+							result_stack.emplace_back(
+								default_func_or_val(
+								to_syntax_tree(id_pair.first,
+									type_pair.first),
+								other.to_syntax_tree(id_pair.second,
+									type_pair.second)
+							));
+						}
+					}
+					else
+					{
+
+						// firstly, add us back to the stack for
+						// viewing again later once our child nodes
+						// have been visited:
+
+						todo_stack.push_back(id_pair);
+						todo_stack_types.push_back(type_pair);
+						seen_stack.push_back(true);
+
+						// get some info about us:
+
+						const auto arity = arity_pair.first;
+						ATP_LOGIC_ASSERT(arity_pair.first ==
+							arity_pair.second);
+
+						const std::array<size_t, MAX_ARITY>&
+							children_a =
+							m_func_children[id_pair.first];
+						const std::array<SyntaxNodeType, MAX_ARITY>&
+							child_types_a =
+							m_func_child_types[id_pair.first];
+
+						const std::array<size_t, MAX_ARITY>&
+							children_b =
+							other.m_func_children[id_pair.second];
+						const std::array<SyntaxNodeType, MAX_ARITY>&
+							child_types_b =
+							other.m_func_child_types[id_pair.second];
+
+#ifdef ATP_LOGIC_DEFENSIVE
+						const size_t todo_size_before
+							= todo_stack.size();
+#endif
+
+						// now add children (in reverse order!)
+						// (warning: don't forget that those arrays
+						// aren't necessarily full!)
+
+						std::transform(boost::make_zip_iterator(
+							boost::make_tuple(
+								children_a.rbegin()
+								+ (MAX_ARITY - arity),
+								children_b.rbegin()
+								+ (MAX_ARITY - arity))),
+							boost::make_zip_iterator(
+								boost::make_tuple(
+									children_a.rend(),
+									children_b.rend())),
+							std::back_inserter(todo_stack),
+							[](boost::tuple<size_t,
+								size_t> tup)
+							{ return std::make_pair(tup.get<0>(),
+								tup.get<1>()); });
+
+						std::transform(boost::make_zip_iterator(
+							boost::make_tuple(
+								child_types_a.rbegin()
+								+ (MAX_ARITY - arity),
+								child_types_b.rbegin()
+								+ (MAX_ARITY - arity))),
+							boost::make_zip_iterator(
+								boost::make_tuple(
+									child_types_a.rend(),
+									child_types_b.rend())),
+							std::back_inserter(todo_stack_types),
+							[](boost::tuple<SyntaxNodeType,
+								SyntaxNodeType> tup)
+							{ return std::make_pair(tup.get<0>(),
+								tup.get<1>()); });
+
+						seen_stack.resize(seen_stack.size() + arity,
+							false);
+
+#ifdef ATP_LOGIC_DEFENSIVE
+						ATP_LOGIC_ASSERT(todo_stack.size() ==
+							todo_size_before + arity);
+#endif
+					}
+				}
+				break;
+				default:
+					ATP_LOGIC_ASSERT("invalid type detected during"
+						"fold!" && false);
+				}
+			}
+			else
+			{
+				// only functions get put into the stack twice
+				ATP_LOGIC_ASSERT(type_pair.first
+					== SyntaxNodeType::FUNC);
+
+				const size_t arity = m_func_arity[id_pair.first];
+
+				ATP_LOGIC_ASSERT(other.m_func_arity[id_pair.second]
+					== arity);
+
+				ATP_LOGIC_ASSERT(result_stack.size() >= arity);
+
+#ifdef ATP_LOGIC_DEFENSIVE
+				const size_t size_before = result_stack.size();
+#endif
+
+				// find list of child results:
+				auto result_iter = result_stack.rbegin();
+				std::advance(result_iter, arity);
+
+				ATP_LOGIC_ASSERT(std::distance(result_iter.base(),
+					result_stack.end()) == arity);
+
+				// now compute result for p_func:
+				ResultT result = f_func(
+					m_func_symb_ids[id_pair.first],
+					other.m_func_symb_ids[id_pair.second],
+					result_iter.base(),
+					result_stack.end());
+
+				// now remove the child results and add ours:
+				result_stack.erase(result_iter.base(),
+					result_stack.end());
+
+#ifdef ATP_LOGIC_DEFENSIVE
+				ATP_LOGIC_ASSERT(result_stack.size() + arity
+					== size_before);
+#endif
+
+				result_stack.emplace_back(std::move(result));
+			}
+		}
+
+		// should finish with one result corresponding to the root
+		ATP_LOGIC_ASSERT(result_stack.size() == 1);
+
+		return result_stack.back();
+	}
+
+private:
+	/**
+	\brief Perform a fold operation over this expression, starting
+		from a particular part of the tree
+
+	\tparam ResultT The return type of this operation.
+
+	\tparam FreeFuncT The function to use as the free variable node
+		constructor, with type size_t -> ResultT
+
+	\tparam ConstFuncT The function to use as the constant node
+		constructor, with type size_t -> ResultT
+
+	\tparam FFuncT The function to use as the function node
+		constructor, with type size_t x
+		std::vector<ResultT>::iterator x
+		std::vector<ResultT>::iterator -> ResultT
+
+	\param start_id The ID or index of the start node (the meaning of
+		this depends on `start_type`)
+
+	\param start_type The type of the node associated with the ID or
+		index.
+
+	*/
+	template<typename ResultT, typename FreeFuncT,
+		typename ConstFuncT, typename FFuncT>
+		ResultT fold_from(FreeFuncT free_func,
+			ConstFuncT const_func, FFuncT f_func,
+			size_t start_id, SyntaxNodeType start_type) const
+	{
 		// static assertions on the types of the functions given:
 
 		static_assert(std::is_convertible<FreeFuncT,
@@ -132,6 +477,13 @@ public:
 		std::vector<SyntaxNodeType> todo_stack_types;
 		std::vector<bool> seen_stack;
 
+		// we know approximately how big the stacks will get in
+		// advance
+		result_stack.reserve(m_height);
+		todo_stack.reserve(m_height);
+		todo_stack_types.reserve(m_height);
+		seen_stack.reserve(m_height);
+
 		// also cache results about constants and free variables
 		// (because there will be a large ratio of their occurrences
 		// to the number of them there actually are, so we should
@@ -139,9 +491,9 @@ public:
 		std::map<size_t, ResultT> free_var_result_cache,
 			const_result_cache;
 
-		// push the left and right of the equals sign
-		todo_stack.push_back(m_root);
-		todo_stack_types.push_back(m_root_type);
+		// initialise stacks
+		todo_stack.push_back(start_id);
+		todo_stack_types.push_back(start_type);
 		seen_stack.push_back(false);
 
 		while (!todo_stack.empty())
@@ -293,281 +645,6 @@ public:
 		return result_stack.back();
 	}
 
-
-    /**
-    \brief Perform a fold over pairs of expressions.
-
-    \tparam ResultT The return type (all functions must return this
-        type.)
-
-    \tparam FreePairFuncT The function operating on pairs of free
-        variable nodes, must have signature
-        `size_t x size_t -> ResultT` where the two given integers are
-        the free variable IDs in the pair.
-
-    \tparam ConstPairFuncT The function operating on pairs of
-        constants, must have signature `size_t x size_t -> ResultT`
-        where the two integers are the symbol IDs of the constants
-
-    \tparam FuncPairFuncT The function operating on pairs of function
-        nodes, must have signature `size_t x size_t x std::vector<
-        ResultT>::iterator x std::vector<ResultT>::iterator -> ResultT`
-        where the two integers are the symbol IDs of the functions
-        and the two iterators are the begin and end iterators of the
-        function arguments' results.
-
-    \tparam DefaultPairFuncT This is called when a pair of nodes are
-        encountered but don't have the same type, and it must have
-        signature `SyntaxNodePtr x SyntaxNodePtr -> ResultT`, where the
-        two arguments are just the two nodes.
-
-    \param other The other expression to fold with, which can be
-        thought of as appearing on the RHS of the pair fold.
-    */
-	template<typename ResultT, typename FreePairFuncT,
-        typename ConstPairFuncT, typename FuncPairFuncT,
-        typename DefaultPairFuncT>
-	ResultT fold_pair(FreePairFuncT free_func,
-		ConstPairFuncT const_func, FuncPairFuncT f_func,
-		DefaultPairFuncT default_func,
-        const Expression& other) const
-	{
-
-		// static assertions on the types of the functions given:
-
-		static_assert(std::is_convertible<FreePairFuncT,
-			std::function<ResultT(size_t, size_t)>>::value,
-			"FreePairFuncT should be of type (size_t, size_t) -> ResultT");
-		static_assert(std::is_convertible<ConstPairFuncT,
-			std::function<ResultT(size_t, size_t)>>::value,
-			"ConstPairFuncT should be of type (size_t, size_t) -> ResultT");
-		static_assert(std::is_convertible<FuncPairFuncT,
-			std::function<ResultT(size_t, size_t,
-				typename std::vector<ResultT>::iterator,
-				typename std::vector<ResultT>::iterator)>>::value,
-			"FuncPairFuncT should be of type (size_t, size_t, "
-			"std::list<ResultT>::iterator,"
-			" std::list<ResultT>::iterator) -> ResultT");
-		static_assert(std::is_convertible<DefaultPairFuncT,
-			std::function<ResultT(SyntaxNodePtr, SyntaxNodePtr)>>::value,
-			"DefaultPairFuncT should be of type (SyntaxNodePtr, "
-			"SyntaxNodePtr) -> ResultT");
-
-		// now proceed with the function:
-
-		std::vector<ResultT> result_stack;
-		// stores pairs of IDs or indices:
-		std::vector<std::pair<size_t, size_t>> todo_stack;
-		std::vector<std::pair<SyntaxNodeType,
-			SyntaxNodeType>> todo_stack_types;
-		std::vector<bool> seen_stack;
-
-		// push the left and right of the equals sign
-		todo_stack.push_back(std::make_pair(m_root,
-			other.m_root));
-		todo_stack_types.push_back(std::make_pair(m_root_type,
-			other.m_root_type));
-		seen_stack.push_back(false);
-
-		while (!todo_stack.empty())
-		{
-			// check stack size invariants
-
-			ATP_LOGIC_ASSERT(todo_stack.size() ==
-				todo_stack_types.size());
-			ATP_LOGIC_ASSERT(todo_stack.size() ==
-				seen_stack.size());
-
-			const std::pair<size_t,
-				size_t> id_pair = todo_stack.back();
-			todo_stack.pop_back();
-			const std::pair<SyntaxNodeType,
-				SyntaxNodeType> type_pair = todo_stack_types.back();
-			todo_stack_types.pop_back();
-			const bool seen = seen_stack.back();
-			seen_stack.pop_back();
-
-			if (type_pair.first != type_pair.second)
-			{
-				ATP_LOGIC_ASSERT(!seen);
-
-				// convert both sides to syntax trees and then
-				// push the result
-				result_stack.emplace_back(default_func(
-					to_syntax_tree(id_pair.first,
-						type_pair.first),
-					other.to_syntax_tree(id_pair.second,
-						type_pair.second)
-				));
-			}
-			else if (!seen)  // else if first occurrence
-			{
-				switch (type_pair.first)
-				{
-				case SyntaxNodeType::FREE:
-					result_stack.emplace_back(free_func(id_pair.first,
-						id_pair.second));
-					break;
-				case SyntaxNodeType::CONSTANT:
-					result_stack.emplace_back(const_func(id_pair.first,
-						id_pair.second));
-					break;
-				case SyntaxNodeType::FUNC:
-				{
-					// get arity of both functions
-					const auto arity_pair = std::make_pair(
-						m_func_arity[id_pair.first],
-						other.m_func_arity[id_pair.second]);
-
-					// use default func if they have differing
-					// arities
-					if (arity_pair.first != arity_pair.second)
-					{
-						result_stack.emplace_back(default_func(
-							to_syntax_tree(id_pair.first,
-								type_pair.first),
-							other.to_syntax_tree(id_pair.second,
-								type_pair.second)
-						));
-					}
-					else
-					{
-
-						// firstly, add us back to the stack for
-						// viewing again later once our child nodes
-						// have been visited:
-
-						todo_stack.push_back(id_pair);
-						todo_stack_types.push_back(type_pair);
-						seen_stack.push_back(true);
-
-						// get some info about us:
-
-						const auto arity = arity_pair.first;
-						ATP_LOGIC_ASSERT(arity_pair.first ==
-							arity_pair.second);
-
-						const std::array<size_t, MAX_ARITY>&
-							children_a =
-							m_func_children[id_pair.first];
-						const std::array<SyntaxNodeType, MAX_ARITY>&
-							child_types_a =
-							m_func_child_types[id_pair.first];
-
-						const std::array<size_t, MAX_ARITY>&
-							children_b =
-							other.m_func_children[id_pair.second];
-						const std::array<SyntaxNodeType, MAX_ARITY>&
-							child_types_b =
-							other.m_func_child_types[id_pair.second];
-
-#ifdef ATP_LOGIC_DEFENSIVE
-						const size_t todo_size_before
-							= todo_stack.size();
-#endif
-
-						// now add children (in reverse order!)
-						// (warning: don't forget that those arrays
-						// aren't necessarily full!)
-
-						std::transform(boost::make_zip_iterator(
-							boost::make_tuple(
-								children_a.rbegin()
-								+ (MAX_ARITY - arity),
-								children_b.rbegin()
-								+ (MAX_ARITY - arity))),
-							boost::make_zip_iterator(
-								boost::make_tuple(
-									children_a.rend(),
-									children_b.rend())),
-							std::back_inserter(todo_stack),
-							[](boost::tuple<size_t,
-								size_t> tup)
-							{ return std::make_pair(tup.get<0>(),
-								tup.get<1>()); });
-
-						std::transform(boost::make_zip_iterator(
-							boost::make_tuple(
-								child_types_a.rbegin()
-								+ (MAX_ARITY - arity),
-								child_types_b.rbegin()
-								+ (MAX_ARITY - arity))),
-							boost::make_zip_iterator(
-								boost::make_tuple(
-									child_types_a.rend(),
-									child_types_b.rend())),
-							std::back_inserter(todo_stack_types),
-							[](boost::tuple<SyntaxNodeType,
-								SyntaxNodeType> tup)
-							{ return std::make_pair(tup.get<0>(),
-								tup.get<1>()); });
-
-						seen_stack.resize(seen_stack.size() + arity,
-							false);
-
-#ifdef ATP_LOGIC_DEFENSIVE
-						ATP_LOGIC_ASSERT(todo_stack.size() ==
-							todo_size_before + arity);
-#endif
-					}
-				}
-				break;
-				default:
-					ATP_LOGIC_ASSERT("invalid type detected during"
-						"fold!" && false);
-				}
-			}
-			else
-			{
-				// only functions get put into the stack twice
-				ATP_LOGIC_ASSERT(type_pair.first
-					== SyntaxNodeType::FUNC);
-
-				const size_t arity = m_func_arity[id_pair.first];
-
-				ATP_LOGIC_ASSERT(other.m_func_arity[id_pair.second]
-					== arity);
-
-				ATP_LOGIC_ASSERT(result_stack.size() >= arity);
-
-#ifdef ATP_LOGIC_DEFENSIVE
-				const size_t size_before = result_stack.size();
-#endif
-
-				// find list of child results:
-				auto result_iter = result_stack.rbegin();
-				std::advance(result_iter, arity);
-
-				ATP_LOGIC_ASSERT(std::distance(result_iter.base(),
-					result_stack.end()) == arity);
-
-				// now compute result for p_func:
-				ResultT result = f_func(
-					m_func_symb_ids[id_pair.first],
-					other.m_func_symb_ids[id_pair.second],
-					result_iter.base(),
-					result_stack.end());
-
-				// now remove the child results and add ours:
-				result_stack.erase(result_iter.base(),
-					result_stack.end());
-
-#ifdef ATP_LOGIC_DEFENSIVE
-				ATP_LOGIC_ASSERT(result_stack.size() + arity
-					== size_before);
-#endif
-
-				result_stack.emplace_back(std::move(result));
-			}
-		}
-
-		// should finish with one result corresponding to the root
-		ATP_LOGIC_ASSERT(result_stack.size() == 1);
-
-		return result_stack.back();
-	}
-
-private:
 	/**
 	\brief Fold the given tree, adding any functions to our function
 		table as we go.
@@ -596,6 +673,10 @@ private:
 private:
     // expressions store references to their creator
     const ModelContext& m_ctx;
+
+	// height of the syntax tree (this is used to optimise folds
+	// by knowing how big the stack will need to be in advance)
+	size_t m_height;
 
     /**
     \warning we impose a function arity limit for efficiency!

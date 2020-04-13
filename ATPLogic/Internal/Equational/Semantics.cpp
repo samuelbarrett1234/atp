@@ -70,12 +70,10 @@ bool equivalent(const Statement& a, const Statement& b)
 			phxarg::arg1);
 	};
 
-	auto default_func = phx::val(false);
-
 	return a.fold_pair<bool>(eq_func, free_func, const_func,
-		f_func, default_func, b) ||
+		f_func, false, b) ||
 	a.fold_pair<bool>(eq_func, free_func, const_func,
-		f_func, default_func, b.transpose());
+		f_func, false, b.transpose());
 }
 
 
@@ -96,10 +94,8 @@ bool identical(const Statement& a, const Statement& b)
 			phxarg::arg1);
 	};
 
-	auto default_func = phx::val(false);
-
 	return a.fold_pair<bool>(eq_func, free_func, const_func,
-		f_func, default_func, b);
+		f_func, false, b);
 }
 
 
@@ -244,7 +240,8 @@ bool implies(const Statement& premise, const Statement& concl)
 	// return true iff the two free variable mappings don't conflict
 	// (i.e. if they both map some free variable "x" to some
 	// expression, then those expressions are the same.)
-	auto try_union = [](const FreeVarMap& a, const FreeVarMap& b)
+	// (don't pass by const ref to allow move semantics)
+	auto try_union = [](FreeVarMap a, FreeVarMap b)
 		-> FreeVarMap
 	{
 		if (!a.has_value() || !b.has_value())
@@ -304,10 +301,15 @@ bool implies(const Statement& premise, const Statement& concl)
 			return boost::none;
 		}
 
+		// use these in the accumulate function for efficiency
+		auto movable_begin = std::make_move_iterator(begin);
+		auto movable_end = std::make_move_iterator(end);
+
 		// return the union of all the mappings, or boost::none if
 		// they conflict!
-		return std::accumulate(begin, end,
-			FreeVarMap(FreeVarMap::value_type()), try_union);
+		// note that we know [begin,end) is nonempty.
+		return std::accumulate(std::next(movable_begin), movable_end,
+			*movable_begin, try_union);
 	};
 
 	auto default_constructor = [](const SyntaxNodePtr& a,

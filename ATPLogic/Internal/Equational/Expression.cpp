@@ -44,6 +44,15 @@ Expression::Expression(const ModelContext& ctx,
 
 	auto root_data = add_tree_data(p_root);
 
+	// compute height of the syntax tree using a fold
+	m_height = fold_syntax_tree<size_t>([](size_t lhs, size_t rhs)
+		{ return std::max(lhs, rhs) + 1; },
+		phx::val(1), phx::val(1), [](size_t,
+			std::vector<size_t>::iterator begin,
+			std::vector<size_t>::iterator end)
+		{ return *std::max_element(begin, end) + 1; },
+		p_root);
+
 	m_root = root_data.first;
 	m_root_type = root_data.second;
 }
@@ -70,6 +79,7 @@ Expression& Expression::operator=(const Expression& other)
 		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
 		m_root = other.m_root;
 		m_root_type = other.m_root_type;
+		m_height = other.m_height;
 		m_func_symb_ids = other.m_func_symb_ids;
 		m_func_arity = other.m_func_arity;
 		m_func_children = other.m_func_children;
@@ -87,6 +97,7 @@ Expression& Expression::operator=(Expression&& other) noexcept
 		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
 		m_root = other.m_root;
 		m_root_type = other.m_root_type;
+		m_height = other.m_height;
 		m_func_symb_ids = std::move(other.m_func_symb_ids);
 		m_func_arity = std::move(other.m_func_arity);
 		m_func_children = std::move(other.m_func_children);
@@ -265,35 +276,9 @@ Expression::add_tree_data(const SyntaxNodePtr& tree)
 SyntaxNodePtr Expression::to_syntax_tree(size_t id,
 	SyntaxNodeType type) const
 {
-	// \todo don't use recursion here
-
-	switch (type)
-	{
-	case SyntaxNodeType::FREE:
-		return FreeSyntaxNode::construct(id);
-	case SyntaxNodeType::CONSTANT:
-		return ConstantSyntaxNode::construct(id);
-	case SyntaxNodeType::FUNC:
-	{
-		const size_t arity = m_func_arity[id];
-
-		std::vector<SyntaxNodePtr> children;
-		children.reserve(arity);
-		for (size_t i = 0; i < arity; ++i)
-		{
-			children.emplace_back(to_syntax_tree(
-				m_func_children[id][i],
-				m_func_child_types[id][i]));
-		}
-
-		return FuncSyntaxNode::move_construct(
-			m_func_symb_ids[id],
-			children.begin(), children.end());
-	}
-	default:
-		ATP_LOGIC_ASSERT(false && "invalid type.");
-		return SyntaxNodePtr();
-	}
+	return fold_from<SyntaxNodePtr>(&FreeSyntaxNode::construct,
+		&ConstantSyntaxNode::construct, &FuncSyntaxNode::move_construct,
+		id, type);
 }
 
 

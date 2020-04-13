@@ -1,0 +1,9 @@
+{
+	"name" : "Limited Iterative-Deepening Solver",
+	"desc" : "An uninformed iterative deepening solver with low depth settings",
+	"type" : "IterativeDeepeningSolver",
+	"step-size" : 1000,
+	"max-steps" : 10,
+	"max-depth" : 5,
+	"start-depth" : 3
+}

@@ -17,9 +17,9 @@
 
 
 #include "ATPSearchAPI.h"
-#include <ATPLogic.h>
 #include "Interfaces/ISolver.h"
 #include "Interfaces/IStatementHeuristic.h"
+#include "Interfaces/SearchSettings.h"
 
 
 /**
@@ -36,28 +36,7 @@ namespace search
 {
 
 
-/**
-\brief The class of different solvers available
-*/
-enum class SolverType
-{
-	ITERATIVE_DEEPENING_UNINFORMED
-};
 
-
-/**
-\brief Allocate a new solver object of a given specified type
-
-\param ms Some solvers may need specific heuristic functions,
-    which can be provided through this argument.
-
-\todo We perhaps need a better way of supplying auxiliary
-    parameters to the solvers.
-*/
-ATP_SEARCH_API SolverPtr create_solver(
-    logic::KnowledgeKernelPtr p_ker,
-    SolverType st,
-	HeuristicCollection ms);
 
 
 }  // namespace search

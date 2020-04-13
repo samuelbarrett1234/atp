@@ -42,7 +42,7 @@ ModelContextPtr ModelContext::try_construct(const Language& parent,
 
     try
     {
-        pt::read_json(in, ptree);  // todo: what about exceptions?
+        pt::read_json(in, ptree);
 
         p_ctx->m_name = ptree.get<std::string>("name", "");
 

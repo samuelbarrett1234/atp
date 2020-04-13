@@ -60,9 +60,6 @@ public:
 	\param forefront_stmt The statement at the "forefront" of the
 		proof; the one we are producing successors of.
 
-	\param match_subs The substitutions which caused the successful
-		match.
-
 	\param match_results The array of (Expression, Expression Free
 		IDs) which resulted from the matching, and with which we
 		are tasked of iterating over.
@@ -75,7 +72,6 @@ public:
 		const KnowledgeKernel& ker,
 		const Statement& target_stmt,
 		const Statement& forefront_stmt,
-		const std::map<size_t, Expression>& match_subs,
 		const std::vector<std::pair<Expression,
 			std::vector<size_t>>>& match_results,
 		const std::vector<std::pair<size_t,
@@ -92,7 +88,6 @@ public:
 		const KnowledgeKernel& ker,
 		const Statement& target_stmt,
 		const Statement& forefront_stmt,
-		const std::map<size_t, Expression>& match_subs,
 		const std::vector<std::pair<Expression,
 			std::vector<size_t>>>& match_results,
 		const std::vector<std::pair<size_t,
@@ -118,8 +113,6 @@ private:
 	const KnowledgeKernel& m_ker;
 	const Statement& m_target_stmt;
 	const Statement& m_forefront_stmt;
-	
-	const std::map<size_t, Expression>& m_match_subs;
 
 	const std::vector<std::pair<Expression,
 		std::vector<size_t>>>& m_match_results;

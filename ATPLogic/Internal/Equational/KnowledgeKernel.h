@@ -78,6 +78,43 @@ public:
 
 	size_t num_matching_rules() const;
 
+	/**
+	\brief Try to match the given expression to the match rules at
+		the given index.
+
+	\details The match does not attempt to apply rules recursively;
+		instead it tries to apply the rules at the root of `expr`.
+
+	\param match_index The matching rule to try
+
+	\param expr The expression to try matching
+
+	\param p_out_subs An optional output parameter, for extracting
+		the matching if successful.
+
+	\returns True if and only if the match was successful.
+
+	\pre match_index < num_matching_rules()
+	*/
+	bool try_match(size_t match_index,
+		const Expression& expr,
+		std::map<size_t, Expression>* p_out_subs);
+
+	/**
+	\brief Get the possible effects of a given matching and matching
+		substitution. (Returns the results with the substitution
+		applied).
+
+	\pre match_index < num_matching_rules()
+
+	\returns An array of possible resulting matches, where each
+		element is an
+	*/
+	const std::vector<std::pair<Expression,
+		std::vector<size_t>>>& match_results_at(
+			size_t match_index,
+			const std::map<size_t, Expression>& match_subs) const;
+
 private:
 	/**
 	\brief Checks that all symbol IDs and arities agree with those

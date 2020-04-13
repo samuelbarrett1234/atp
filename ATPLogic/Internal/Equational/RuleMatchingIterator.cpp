@@ -72,34 +72,56 @@ bool RuleMatchingIterator::valid() const
 ProofStatePtr RuleMatchingIterator::get() const
 {
 	ATP_LOGIC_PRECOND(valid());
+	ATP_LOGIC_ASSERT(m_cur_matching != nullptr);
 
-	return ProofStatePtr();
+	return m_cur_matching->get();
 }
 
 
 void RuleMatchingIterator::advance()
 {
 	ATP_LOGIC_PRECOND(valid());
+	ATP_LOGIC_ASSERT(m_cur_matching != nullptr);
 
+	m_cur_matching->advance();
+
+	if (!m_cur_matching->valid())
+	{
+		m_cur_matching.reset();
+		++m_match_index;
+		restore_invariant();
+	}
 }
 
 
 size_t RuleMatchingIterator::size() const
 {
 	ATP_LOGIC_PRECOND(valid());
-
-	return size_t();
+	ATP_LOGIC_ASSERT(m_cur_matching != nullptr);
+	return m_cur_matching->size();
 }
+
 
 void RuleMatchingIterator::restore_invariant()
 {
 	ATP_LOGIC_PRECOND(valid());
 	ATP_LOGIC_PRECOND(m_cur_matching == nullptr);
 
-	m_cur_matching = MatchResultsIterator::construct(
-		m_ker, m_ctx, m_target_stmt, m_forefront_stmt,
+	std::map<size_t, Expression> match_subs;
 
-	)
+	// keep trying to match
+	while (valid() && !m_ker.try_match(m_match_index,
+		m_match_expr,
+		&match_subs))
+		++m_match_index;
+
+	if (valid())
+	{
+		m_cur_matching = MatchResultsIterator::construct(
+			m_ctx, m_ker, m_target_stmt, m_forefront_stmt,
+			m_ker.match_results_at(match_subs, m_match_index),
+			m_free_const_enum);
+	}
 }
 
 

@@ -59,7 +59,7 @@ BOOST_FIXTURE_TEST_SUITE(IterativeDeepeningSolverTests,
 
 BOOST_AUTO_TEST_CASE(simple_proof_test,
 	// (timeout given in seconds)
-	* boost::unit_test::timeout(10)
+	* boost::unit_test::timeout(1)
 	)
 {
 	// provide the system with an array of statements to try to prove
@@ -85,10 +85,9 @@ BOOST_AUTO_TEST_CASE(simple_proof_test,
 
 	BOOST_TEST(p_ids->engaged());
 
-	while (p_ids->any_proof_not_done())
-	{
-		p_ids->step(5);
-	}
+	// none of these proofs should take more than 1000 node
+	// expansions (I think)
+	p_ids->step(1000);
 
 	auto proofs = p_ids->get_proofs();
 
@@ -115,7 +114,7 @@ BOOST_AUTO_TEST_CASE(false_statement_test)
 	p_ids->set_targets(stmts);
 
 	// no proof should be found in any of these steps
-	p_ids->step(25);
+	p_ids->step(1000);
 
 	auto states = p_ids->get_states();
 

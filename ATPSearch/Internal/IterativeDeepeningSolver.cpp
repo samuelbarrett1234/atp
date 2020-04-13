@@ -213,9 +213,6 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 				// setup the stack again (because it has been
 				// emptied)
 				init_stack(i);
-
-				ATP_SEARCH_ASSERT(st.size() > 0);
-				ATP_SEARCH_ASSERT(st.back().iter != nullptr);
 			}
 			else
 			{
@@ -269,6 +266,15 @@ void IterativeDeepeningSolver::init_stack(size_t i)
 	// start off the iterator
 	m_stacks[i].back().iter =
 		m_stacks[i].back().node->succ_begin();
+
+	if (!m_stacks[i].back().iter->valid())
+	{
+		// in case there are no successors right away, we need to
+		// update the proof state right away to restore the
+		// invariants
+		m_stacks[i].clear();
+		m_pf_states[i] = logic::ProofCompletionState::NO_PROOF;
+	}
 }
 
 

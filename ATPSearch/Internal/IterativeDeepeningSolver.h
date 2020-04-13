@@ -137,6 +137,8 @@ private:
 
 	\pre m_stacks[i].empty()
 
+	\post !m_stacks[i].empty() or m_pf_states[i] == NO_PROOF
+
 	\details This has been factored out into a function because there
 		are two places where we initialise the stack, and I wanted to
 		avoid repetition.

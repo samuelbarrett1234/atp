@@ -22,7 +22,7 @@ Note that when you build the application, the binaries can be found in the `Outp
 
 ## Installation
 
-The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. This project uses the Boost C++ libaries. Please ensure that they are installed, and that the environment variable `BOOST_DIR` to be set to the root of Boost's installation directory.
+The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. This project uses the Boost C++ libaries. Please ensure that they are installed, and that the environment variable `BOOST_DIR` to be set to the root of Boost's installation directory. Ensure you build Boost with the correct compiler and C++ version, otherwise you may experience compilation errors.
 
 After installation, try building the library and running the unit tests to check everything is working correctly.
 
@@ -30,9 +30,11 @@ After installation, try building the library and running the unit tests to check
 
 At the moment, the application only supports a single `prove` mode. Usage:
 
-`atp --context <context-filename> --prove <statement-filename>`
+`atp --context <context-filename> --search-settings <search-settings> --prove <statement-filename>`
 
 Note that, in the above example, you may need to change `atp` to `atp_Releasex64` or something similar, depending on your build settings. Check the `Output` folder to see which versions of the application you have built.
+
+See `Docs` for documentation about context files and search settings files.
 
 ## TODO (beyond minimum viable product)
 

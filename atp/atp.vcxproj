@@ -177,6 +177,7 @@
     <ClCompile Include="ProofApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ATP.h" />
     <ClInclude Include="ProofApplication.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

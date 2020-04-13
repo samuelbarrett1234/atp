@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 #include <ATPLogic.h>
+#include <ATPSearch.h>
 
 
 /**
@@ -47,6 +48,15 @@ public:
 	*/
 	bool set_context_file(std::string path);
 
+	/**
+	\brief Loads the solver
+
+	\pre The context file was successfully loaded.
+
+	\returns True iff success.
+	*/
+	bool set_search_file(std::string path);
+
 	// add a new set of target statements to the collection of proof
 	// tasks. this can either be a path to a file containing a list
 	// of statements, or it can be a statement itself.
@@ -72,10 +82,12 @@ public:
 
 private:
 	std::ostream& m_out;
-	atp::logic::LanguagePtr m_pLang;
-	atp::logic::ModelContextPtr m_pContext;
-	atp::logic::KnowledgeKernelPtr m_pKnowledgeKernel;
-	std::vector<atp::logic::StatementArrayPtr> m_pTasks;
+	atp::logic::LanguagePtr m_lang;
+	atp::logic::ModelContextPtr m_ctx;
+	atp::logic::KnowledgeKernelPtr m_ker;
+	atp::search::SolverPtr m_solver;
+	size_t m_max_steps, m_step_size;
+	std::vector<atp::logic::StatementArrayPtr> m_tasks;
 };
 
 

@@ -3,21 +3,21 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--context ../Data/Definitions/prop_logic.json --prove "false = true"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--context ../Data/Definitions/group_theory.json --search-settings ../Data/Search/ids_limited.json --prove "i(i(x))=x"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--context ../Data/Definitions/prop_logic.json --prove "false = true"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--context ../Data/Definitions/group_theory.json --search-settings ../Data/Search/ids_limited.json --prove "i(i(x))=x"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--context ../Data/Definitions/prop_logic.json --prove "false = true"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--context ../Data/Definitions/group_theory.json --search-settings ../Data/Search/ids_limited.json --prove "i(i(x))=x"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--context ../Data/Definitions/prop_logic.json --prove "false = true"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--context ../Data/Definitions/group_theory.json --search-settings ../Data/Search/ids_limited.json --prove "i(i(x))=x"</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

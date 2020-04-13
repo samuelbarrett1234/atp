@@ -18,7 +18,12 @@ namespace search
 {
 
 
-
+SolverPtr create_default_solver(
+	logic::KnowledgeKernelPtr p_ker)
+{
+	return std::make_shared<IterativeDeepeningSolver>(
+		p_ker, /* max depth */10, /* starting depth */ 2);
+}
 
 
 }  // namespace search

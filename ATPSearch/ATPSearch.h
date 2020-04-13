@@ -36,7 +36,19 @@ namespace search
 {
 
 
+/**
+\brief Create this library's designated "default solver"
 
+\details This is for library users that don't care about the solver
+	chosen, or that have no information about what solver they want.
+	The returned solver is supposed to be generic and just work "out
+	of the box."
+
+\returns A new solver object.
+
+*/
+ATP_SEARCH_API SolverPtr create_default_solver(
+	logic::KnowledgeKernelPtr p_ker);
 
 
 }  // namespace search

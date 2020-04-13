@@ -22,13 +22,12 @@ int main(int argc, const char* const argv[])
 		("context,ctx", po::value<std::string>(),
 			"Path to the file containing the context for the proofs")
 
+		("search-settings,ss", po::value<std::string>(),
+			"Path to the file containing the search settings")
+
 		("prove,P", po::value<std::vector<std::string>>(),
 			"Path to a file containing statements to prove, or write"
 			" a statement with no spaces f(x)=y to try to prove")
-
-		("search_settings,ss", po::value<std::string>(),
-			"Path to the file containing the settings for the search"
-			" algorithms.")
 	;
 
 	// parse the arguments:
@@ -47,16 +46,7 @@ int main(int argc, const char* const argv[])
 		return -1;
 	}
 
-	// if we are asked to prove some statements...
-	if (!vm.count("P"))
-	{
-		return run_proof_application(vm);
-	}
-	else
-	{
-		std::cout << "No work given." << std::endl;
-		return 0;
-	}
+	return run_proof_application(vm);
 }
 
 
@@ -66,10 +56,39 @@ int run_proof_application(const po::variables_map& vm)
 
 	ProofApplication app(std::cout);
 
+	// check command line arguments
+
+	if (!vm.count("prove"))
+	{
+		// this is not an error.
+		std::cout << "No work to do; terminating." << std::endl;
+		return 0;
+	}
+	if (!vm.count("context"))
+	{
+		std::cout << "Error: need to provide a context file."
+			<< "Use --context <filename>" << std::endl;
+		return -1;
+	}
+	if (!vm.count("search-settings"))
+	{
+		std::cout << "Error: need to provide a search settings file."
+			<< "Use --search-settings <filename>" << std::endl;
+		return -1;
+	}
+
 	std::string ctx_file = vm["context"].as<std::string>();
 
 	// try to load context file
 	if (!app.set_context_file(ctx_file))
+	{
+		return -1;
+	}
+
+	std::string ss_file = vm["search-settings"].as<std::string>();
+
+	// try to load search file
+	if (!app.set_search_file(ss_file))
 	{
 		return -1;
 	}

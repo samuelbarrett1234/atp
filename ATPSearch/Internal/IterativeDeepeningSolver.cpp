@@ -146,6 +146,7 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 	ATP_SEARCH_PRECOND(i < m_stacks.size());
 	auto& st = m_stacks[i];
 
+	ATP_SEARCH_ASSERT(st.back().iter != nullptr);
 	ATP_SEARCH_PRECOND(st.back().iter->valid());
 
 	auto expand_candidate = st.back().iter->get();
@@ -174,6 +175,7 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 				});
 		}
 		// else do nothing because we aren't allowed to go any deeper
+		else st.back().iter->advance();
 
 		break;
 	}
@@ -183,11 +185,17 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 	{
 		// ensure we haven't invalidated the back iterator, and if we
 		// have, fix it:
-		do
+		st.pop_back();
+		while (!st.empty() && !st.back().iter->valid())
 		{
-			st.pop_back();
+			ATP_SEARCH_ASSERT(st.back().iter != nullptr);
+			ATP_SEARCH_ASSERT(st.back().iter->valid());
+
 			st.back().iter->advance();
-		} while (!st.empty() && !st.back().iter->valid());
+
+			if (!st.back().iter->valid())
+				st.pop_back();
+		}
 
 		// now either the stack is empty or the iterator is valid
 		// and pointing to the next node we should expand
@@ -205,6 +213,9 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 				// setup the stack again (because it has been
 				// emptied)
 				init_stack(i);
+
+				ATP_SEARCH_ASSERT(st.size() > 0);
+				ATP_SEARCH_ASSERT(st.back().iter != nullptr);
 			}
 			else
 			{

@@ -132,7 +132,7 @@ void ProofApplication::run()
 		m_pKnowledgeKernel,
 		atp::search::SolverType::ITERATIVE_DEEPENING_UNINFORMED,
 		atp::search::HeuristicCollection());
-	const size_t num_steps_per_update = 10000;
+	const size_t num_steps_per_update = 1000;
 	const size_t max_num_updates = 10;
 
 	// concatenate all the tasks together into one big array
@@ -218,6 +218,8 @@ void ProofApplication::run()
 			<< std::endl;
 		m_out << "Total node expansions: " << exps[i]
 			<< std::endl;
+
+		m_out << std::endl;
 	}
 }
 

@@ -132,6 +132,8 @@ void ProofApplication::run()
 		m_pKnowledgeKernel,
 		atp::search::SolverType::ITERATIVE_DEEPENING_UNINFORMED,
 		atp::search::HeuristicCollection());
+	const size_t num_steps_per_update = 10000;
+	const size_t max_num_updates = 10;
 
 	// concatenate all the tasks together into one big array
 	const auto tasks = atp::logic::concat(m_pTasks);
@@ -139,15 +141,14 @@ void ProofApplication::run()
 
 	m_out << "Solver initialised; starting proofs..." << std::endl;
 
-	// run for at most 100 iterations (temp)
-	for (size_t i = 0; i < 1000
+	for (size_t i = 0; i < max_num_updates
 		&& p_solver->any_proof_not_done(); ++i)
 	{
-		// num proof steps per update
-		p_solver->step(100);
+		p_solver->step(num_steps_per_update);
 
 		const auto states = p_solver->get_states();
-		m_out << 100 * (i + 1) << '/' << 100 * 1000 << " : " <<
+		m_out << (i + 1) << '/'
+			<< max_num_updates << " : " <<
 			std::count(states.begin(), states.end(),
 				atp::logic::ProofCompletionState::UNFINISHED) <<
 			" proof(s) remaining." << std::endl;
@@ -182,31 +183,41 @@ void ProofApplication::run()
 		" theorem(s) did not finish in the allotted time."
 		<< std::endl;
 
-	if (num_true > 0)
+	m_out << "More details:" << std::endl;
+
+	auto proofs = p_solver->get_proofs();
+	auto times = p_solver->get_agg_time();
+	auto mems = p_solver->get_max_mem();
+	auto exps = p_solver->get_num_expansions();
+
+	for (size_t i = 0; i < proofs.size(); i++)
 	{
-		m_out << "More details:" << std::endl;
-
-		auto proofs = p_solver->get_proofs();
-		auto times = p_solver->get_agg_time();
-		auto mems = p_solver->get_max_mem();
-		auto exps = p_solver->get_num_expansions();
-
-		for (size_t i = 0; i < proofs.size(); i++)
+		switch (states[i])
 		{
-			if (states[i] == atp::logic::ProofCompletionState::PROVEN)
-			{
-				m_out << "Proof of \"" << tasks->at(i).to_str()
-					<< "\" was successful; the statement is true."
-					<< std::endl;
-
-				m_out << "Total time taken: " << times[i] << "s"
-					<< std::endl;
-				m_out << "Max nodes in memory: " << mems[i]
-					<< std::endl;
-				m_out << "Total node expansions: " << exps[i]
-					<< std::endl;
-			}
+		case atp::logic::ProofCompletionState::PROVEN:
+			m_out << "Proof of \"" << tasks->at(i).to_str()
+				<< "\" was successful; the statement is true."
+				<< std::endl;
+			break;
+		case atp::logic::ProofCompletionState::NO_PROOF:
+			m_out << "Proof of \"" << tasks->at(i).to_str()
+				<< "\" was unsuccessful; it was impossible to prove"
+				<< "using the given solver and the current settings."
+				<< std::endl;
+			break;
+		case atp::logic::ProofCompletionState::UNFINISHED:
+			m_out << "Proof of \"" << tasks->at(i).to_str()
+				<< "\" was unsuccessful; not enough time allocated."
+				<< std::endl;
+			break;
 		}
+
+		m_out << "Total time taken: " << times[i] << "s"
+			<< std::endl;
+		m_out << "Max nodes in memory: " << mems[i]
+			<< std::endl;
+		m_out << "Total node expansions: " << exps[i]
+			<< std::endl;
 	}
 }
 

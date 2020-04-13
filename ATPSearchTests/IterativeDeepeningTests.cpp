@@ -71,7 +71,8 @@ BOOST_AUTO_TEST_CASE(simple_proof_test,
 	s << "*(x, y) = *(*(x, y), e) \n";  // still easy
 	s << "e = *(i(*(x, y)), *(x, y)) \n";  // still easy
 	s << "i(e) = e \n";  // reasonable
-	s << "*(x, e) = *(e, x)";  // reasonable
+	s << "*(x, e) = *(e, x) \n";  // reasonable
+	s << "*(*(x, e), e) = *(e, x)";  // harder but still reasonable
 
 	auto stmts = p_lang->deserialise_stmts(s,
 		StmtFormat::TEXT, *p_ctx);

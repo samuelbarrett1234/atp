@@ -8,7 +8,6 @@
 
 
 #include "ProofState.h"
-#include "Semantics.h"
 #include "SubExprMatchingIterator.h"
 
 

@@ -17,7 +17,6 @@
 #include <boost/phoenix.hpp>
 #include "SyntaxTreeFold.h"
 #include "ModelContext.h"
-#include "SemanticsHelper.h"
 
 
 namespace phx = boost::phoenix;
@@ -61,7 +60,7 @@ Statement::Statement(
 
 
 Statement::Statement(const ModelContext& ctx, Expression lhs,
-	Expression rhs),
+	Expression rhs) :
 	m_ctx(ctx),
 	m_sides(Expression::construct(std::move(lhs)),
 		Expression::construct(std::move(rhs)))

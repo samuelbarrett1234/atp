@@ -14,6 +14,7 @@
 
 #include <memory>
 #include <vector>
+#include <array>
 #include "../../ATPLogicAPI.h"
 #include "SyntaxNodes.h"
 
@@ -24,6 +25,12 @@ namespace logic
 {
 namespace equational
 {
+
+
+/**
+\warning we impose a function arity limit for efficiency!
+*/
+static const constexpr size_t MAX_ARITY = 5;
 
 
 /**
@@ -38,12 +45,6 @@ namespace equational
 */
 class ATP_LOGIC_API ExprTreeFlyweight
 {
-public:
-    /**
-    \warning we impose a function arity limit for efficiency!
-    */
-    static const constexpr size_t MAX_ARITY = 5;
-
 public:
     ExprTreeFlyweight();
     ExprTreeFlyweight(const ExprTreeFlyweight& other);
@@ -128,19 +129,19 @@ public:
         ATP_LOGIC_PRECOND(std::distance(child_type_begin,
             child_type_end) == arity);
 
-        m_func_arity->push_back(arity);
-        m_func_symb_ids->push_back(symb_id);
+        m_func_arity.push_back(arity);
+        m_func_symb_ids.push_back(symb_id);
 
-        m_func_children->emplace_back();
-        m_func_child_types->emplace_back();
+        m_func_children.emplace_back();
+        m_func_child_types.emplace_back();
 
         std::copy(child_begin, child_end,
-            m_func_children->back().begin());
+            m_func_children.back().begin());
 
         std::copy(child_type_begin, child_type_end,
-            m_func_child_types->back().begin());
+            m_func_child_types.back().begin());
 
-        return m_func_children->size() - 1;
+        return m_func_children.size() - 1;
     }
         
     /**
@@ -187,7 +188,7 @@ public:
 #endif
 
         ATP_LOGIC_PRECOND(func_index < m_func_arity.size());
-        ATP_LOGIC_PRECOND(arg_index < m_func_arity[func_index]);
+        ATP_LOGIC_PRECOND(arg_index < m_func_arity.at(func_index));
         ATP_LOGIC_PRECOND(new_type != SyntaxNodeType::EQ);
 
         // check that if we are setting it to a function, then the
@@ -195,8 +196,8 @@ public:
         ATP_LOGIC_PRECOND(new_type != SyntaxNodeType::FUNC ||
             new_id < m_func_arity.size());
 
-        m_func_children.at(func_index)[arg_index] = new_id;
-        m_func_child_types.at(func_index)[arg_index] = new_type;
+        m_func_children.at(func_index).at(arg_index) = new_id;
+        m_func_child_types.at(func_index).at(arg_index) = new_type;
     }
 
     /**

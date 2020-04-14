@@ -16,7 +16,6 @@
 
 #include <memory>
 #include <vector>
-#include <array>
 #include <map>
 #include <set>
 #include <boost/iterator/zip_iterator.hpp>
@@ -75,6 +74,14 @@ public:
 				arg_idx(arg_idx), is_root(is_root)
 			{ }
 
+			bool operator == (const StackFrame& other) const
+			{
+				return (id == other.id && type == other.type &&
+					func_idx == other.func_idx &&
+					arg_idx == other.arg_idx &&
+					is_root == other.is_root);
+			}
+
 			// id/type pair, which is consistent with its usage
 			// throughout the rest of the Expression code
 
@@ -111,7 +118,7 @@ public:
 			m_stack(other.m_stack),
 			m_parent(other.m_parent),
 			m_my_value(std::make_unique<Expression>(
-				other.m_my_value))
+				*other.m_my_value))
 		{ }
 		inline iterator(iterator&& other) noexcept :
 			m_stack(std::move(other.m_stack)),

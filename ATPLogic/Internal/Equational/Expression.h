@@ -23,6 +23,7 @@
 #include <boost/optional.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IStatement.h"
+#include "ExprTreeFlyweight.h"
 #include "SyntaxNodes.h"
 
 
@@ -81,8 +82,8 @@ public:
 		{
 			ATP_LOGIC_PRECOND(m_parent != nullptr);
 			m_stack.reserve(m_parent->m_height);
-			m_stack.emplace_back(m_parent->m_root,
-				m_parent->m_root_type);
+			m_stack.emplace_back(m_parent->m_tree.root_id(),
+				m_parent->m_tree.root_type());
 		}
 		inline iterator(const iterator& other) :
 			m_stack(other.m_stack),
@@ -133,7 +134,7 @@ public:
 				SyntaxNodeType::FUNC)
 			{
 				const size_t idx = m_stack.back().first;
-				const size_t arity = m_parent->m_func_arity->at(idx);
+				const size_t arity = m_parent->m_tree.func_arity(idx);
 
 				// remove ourselves from the stack
 				m_stack.pop_back();
@@ -144,8 +145,8 @@ public:
 				{
 					const size_t j = arity - i;
 					m_stack.emplace_back(
-						m_parent->m_func_children->at(idx)[j],
-						m_parent->m_func_child_types->at(idx)[j]);
+						m_parent->m_tree.func_children(idx)[j],
+						m_parent->m_tree.func_child_types(idx)[j]);
 				}
 			}
 			// else we have no children so just remove ourselves from
@@ -178,10 +179,38 @@ public:
 		{
 			return !(*this == iter);
 		}
+
+		// not part of the standard iterator interface
 		inline bool is_end_iterator() const
 		{
 			return m_stack.empty();
 		}
+
+		/**
+		\brief Does this iterator come from the given expression?
+		*/
+		inline bool belongs_to(const Expression* expr) const
+		{
+			return m_parent == expr;
+		}
+
+		/**
+		\brief Get the function index containing the sub-expression
+			pointed to currently by this iterator.
+
+		\pre This iterator isn't pointing to the root, and isn't an
+			end iterator.
+		*/
+		size_t parent_func_idx() const;
+
+		/**
+		\brief Get which argument of the parent function this
+			iterator is pointing to.
+
+		\pre This iterator isn't pointing to the root, and isn't
+			and end iterator.
+		*/
+		size_t parent_arg_idx() const;
 
 	private:
 		// this is a stack of (ID, Type) pairs, for exploring the
@@ -349,7 +378,7 @@ public:
 	{
 		// fold from the root
 		return fold_from<ResultT>(free_func, const_func, f_func,
-			m_root, m_root_type);
+			m_tree.root_id(), m_tree.root_type());
 	}
 
     /**
@@ -432,10 +461,10 @@ public:
 		seen_stack.reserve(height);
 
 		// push the left and right of the equals sign
-		todo_stack.push_back(std::make_pair(m_root,
-			other.m_root));
-		todo_stack_types.push_back(std::make_pair(m_root_type,
-			other.m_root_type));
+		todo_stack.push_back(std::make_pair(m_tree.root_id(),
+			other.m_tree.root_id()));
+		todo_stack_types.push_back(std::make_pair(m_tree.root_type(),
+			other.m_tree.root_type()));
 		seen_stack.push_back(false);
 
 		while (!todo_stack.empty())
@@ -494,8 +523,8 @@ public:
 				{
 					// get arity of both functions
 					const auto arity_pair = std::make_pair(
-						m_func_arity[id_pair.first],
-						other.m_func_arity[id_pair.second]);
+						m_tree.func_arity(id_pair.first),
+						other.m_tree.func_arity(id_pair.second));
 
 					// use default func if they have differing
 					// arities
@@ -541,17 +570,18 @@ public:
 
 						const std::array<size_t, MAX_ARITY>&
 							children_a =
-							m_func_children[id_pair.first];
+							m_tree.func_children(id_pair.first);
 						const std::array<SyntaxNodeType, MAX_ARITY>&
 							child_types_a =
-							m_func_child_types[id_pair.first];
+							m_tree.func_child_types(id_pair.first);
 
 						const std::array<size_t, MAX_ARITY>&
-							children_b =
-							other.m_func_children[id_pair.second];
+							children_b = other.m_tree.func_children(
+								id_pair.second);
 						const std::array<SyntaxNodeType, MAX_ARITY>&
 							child_types_b =
-							other.m_func_child_types[id_pair.second];
+							other.m_tree.func_child_types(
+								id_pair.second);
 
 #ifdef ATP_LOGIC_DEFENSIVE
 						const size_t todo_size_before
@@ -615,9 +645,9 @@ public:
 				ATP_LOGIC_ASSERT(type_pair.first
 					== SyntaxNodeType::FUNC);
 
-				const size_t arity = m_func_arity[id_pair.first];
+				const size_t arity = m_tree.func_arity(id_pair.first);
 
-				ATP_LOGIC_ASSERT(other.m_func_arity[id_pair.second]
+				ATP_LOGIC_ASSERT(other.m_tree.func_arity(id_pair.second)
 					== arity);
 
 				ATP_LOGIC_ASSERT(result_stack.size() >= arity);
@@ -635,8 +665,8 @@ public:
 
 				// now compute result for p_func:
 				ResultT result = f_func(
-					m_func_symb_ids[id_pair.first],
-					other.m_func_symb_ids[id_pair.second],
+					m_tree.func_symb_id(id_pair.first),
+					other.m_tree.func_symb_id(id_pair.second),
 					result_iter.base(),
 					result_stack.end());
 
@@ -803,11 +833,11 @@ private:
 
 					// get some info about us:
 
-					const size_t arity = m_func_arity[id];
+					const size_t arity = m_tree.func_arity(id);
 					const std::array<size_t, MAX_ARITY>&
-						children = m_func_children[id];
+						children = m_tree.func_children(id);
 					const std::array<SyntaxNodeType, MAX_ARITY>&
-						child_types = m_func_child_types[id];
+						child_types = m_tree.func_child_types(id);
 
 #ifdef ATP_LOGIC_DEFENSIVE
 					const size_t todo_size_before
@@ -842,7 +872,7 @@ private:
 				// only functions get put into the stack twice
 				ATP_LOGIC_ASSERT(type == SyntaxNodeType::FUNC);
 
-				const size_t arity = m_func_arity[id];
+				const size_t arity = m_tree.func_arity(id);
 
 				ATP_LOGIC_ASSERT(result_stack.size() >= arity);
 
@@ -858,7 +888,7 @@ private:
 					result_stack.end()) == arity);
 
 				// now compute result for p_func:
-				ResultT result = f_func(m_func_symb_ids[id],
+				ResultT result = f_func(m_tree.func_symb_id(id),
 					result_iter.base(),
 					result_stack.end());
 
@@ -896,12 +926,6 @@ private:
 	std::pair<size_t,
 		SyntaxNodeType> add_tree_data(const SyntaxNodePtr& tree);
 
-	/**
-	\brief Create a copy of this expression which does NOT share the
-		arrays with this object (so can safely be modified).
-	*/
-	Expression duplicate() const;
-
 private:
     // expressions store references to their creator
     const ModelContext& m_ctx;
@@ -910,36 +934,9 @@ private:
 	// by knowing how big the stack will need to be in advance)
 	size_t m_height;
 
-    /**
-    \warning we impose a function arity limit for efficiency!
-    */
-    static const constexpr size_t MAX_ARITY = 5;
-
-    // the root ID/index and the type of the root node
-    size_t m_root;
-    SyntaxNodeType m_root_type;
-
-    // m_func_symb_ids->at(i) is the symbol ID of the ith function node
-    std::shared_ptr<std::vector<size_t>> m_func_symb_ids;
-
-    // m_func_arity->at(i) is the arity of the ith function
-    std::shared_ptr<std::vector<size_t>> m_func_arity;
-
-    // m_func_children->at(i) is the array of size `m_func_arity->at(i)` of
-    // children of that function, and m_func_child_types->at(i) the
-    // corresponding types.
-    // if m_func_child_types->at(i)[j] == SyntaxNodeType::FREE,
-    // then m_func_children->at(i)[j] is the free variable ID.
-    // if m_func_child_types->at(i)[j] == SyntaxNodeType::CONSTANT,
-    // then m_func_children->at(i)[j] is the constant symbol ID.
-    // if m_func_child_types->at(i)[j] == SyntaxNodeType::FUNC,
-    // then m_func_children->at(i)[j] is the index of the function in
-    // these arrays.
-
-    std::shared_ptr<std::vector<std::array<size_t,
-        MAX_ARITY>>> m_func_children;
-    std::shared_ptr<std::vector<std::array<SyntaxNodeType,
-        MAX_ARITY>>> m_func_child_types;
+	// an efficient encapsulation of the storage of the expression
+	// tree
+	ExprTreeFlyweight m_tree;
 
 	std::shared_ptr<std::set<size_t>> m_free_var_ids;
 };

@@ -35,6 +35,12 @@ ExpressionPtr Expression::construct(const ModelContext& ctx,
 }
 
 
+ExpressionPtr Expression::construct(Expression&& expr)
+{
+	return std::make_shared<Expression>(std::move(expr));
+}
+
+
 Expression::Expression(const ModelContext& ctx,
 	const SyntaxNodePtr& p_root) :
 	m_ctx(ctx)
@@ -44,8 +50,9 @@ Expression::Expression(const ModelContext& ctx,
 
 	auto root_data = add_tree_data(p_root);
 
-	m_root = root_data.first;
-	m_root_type = root_data.second;
+	// it is important we set this, or `m_tree` will be left in an
+	// invalid state
+	m_tree.set_root(root_data.first, root_data.second);
 
 	// compute height of the syntax tree using a fold
 	m_height = fold<size_t>(
@@ -57,17 +64,19 @@ Expression::Expression(const ModelContext& ctx,
 
 
 Expression::Expression(const Expression& other) :
-	m_ctx(other.m_ctx)
-{
-	*this = other;
-}
+	m_ctx(other.m_ctx),
+	m_height(other.m_height),
+	m_tree(other.m_tree),
+	m_free_var_ids(other.m_free_var_ids)
+{ }
 
 
 Expression::Expression(Expression&& other) noexcept :
-	m_ctx(other.m_ctx)
-{
-	*this = std::move(other);
-}
+	m_ctx(other.m_ctx),
+	m_height(other.m_height),
+	m_tree(std::move(other.m_tree)),
+	m_free_var_ids(std::move(other.m_free_var_ids))
+{ }
 
 
 Expression& Expression::operator=(const Expression& other)
@@ -75,13 +84,8 @@ Expression& Expression::operator=(const Expression& other)
 	if (this != &other)
 	{
 		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
-		m_root = other.m_root;
-		m_root_type = other.m_root_type;
 		m_height = other.m_height;
-		m_func_symb_ids = other.m_func_symb_ids;
-		m_func_arity = other.m_func_arity;
-		m_func_children = other.m_func_children;
-		m_func_child_types = other.m_func_child_types;
+		m_tree = other.m_tree;
 		m_free_var_ids = other.m_free_var_ids;
 	}
 	return *this;
@@ -93,13 +97,8 @@ Expression& Expression::operator=(Expression&& other) noexcept
 	if (this != &other)
 	{
 		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
-		m_root = other.m_root;
-		m_root_type = other.m_root_type;
 		m_height = other.m_height;
-		m_func_symb_ids = std::move(other.m_func_symb_ids);
-		m_func_arity = std::move(other.m_func_arity);
-		m_func_children = std::move(other.m_func_children);
-		m_func_child_types = std::move(other.m_func_child_types);
+		m_tree = std::move(other.m_tree);
 		m_free_var_ids = std::move(other.m_free_var_ids);
 	}
 	return *this;
@@ -115,95 +114,139 @@ Expression Expression::map_free_vars(const std::map<size_t,
 		[&free_map](size_t id)
 		{ return free_map.find(id) != free_map.end(); }));
 
-	// it is CRUCIAL that we duplicate this rather than
-	// just say new_expr = *this
-	Expression new_expr = duplicate();
-
-	// clear this, as it will automatically be rebuilt below during
-	// the substitutions
-	new_expr.m_free_var_ids->clear();
-
-	// firstly, create a new mapping which doesn't use syntax trees:
-	std::map<size_t, std::pair<size_t, SyntaxNodeType>> our_free_map;
-
-	// build the new map:
-
-	for (const auto& sub : free_map)
+	switch (m_tree.root_type())
 	{
-		// we are only concerned with free variable mappings that are
-		// assigned to free variables that actually exist; see the
-		// unit test:
-		// `test_extra_mapping_doesnt_fool_free_var_tracking`
+	case SyntaxNodeType::CONSTANT:
+		return *this;  // unchanged
+	case SyntaxNodeType::FREE:
+		return free_map.at(m_tree.root_id());
+	case SyntaxNodeType::FUNC:
+	{
+		// strategy: concatenate all of the arrays in the free
+		// map expressions by merging them into `new_expr`
 
-		if (m_free_var_ids->find(sub.first)
-			!= m_free_var_ids->end())
+		// note that this merge operation will change what we
+		// want the substitutions to point to, thus create a
+		// `new_map` which maps the root IDs of the `free_map`
+		// to the root IDs which should set in `new_expr`.
+
+		// finally, looping through the portion of the function
+		// arrays in `new_expr` that were present BEFORE the
+		// concatenation, we need to update all free variables in
+		// that with their substitutions.
+
+		Expression new_expr = *this;
+
+		const size_t size_before = new_expr.m_tree.size();
+
+		std::map<size_t, size_t> new_map;
+		for (const auto& pair : free_map)
 		{
-			ATP_LOGIC_ASSERT(sub.second->get_type()
-				!= SyntaxNodeType::EQ);
-
-			// note that the call to add_tree_data below will do a few
-			// other things to `new_stmt`:
-			// - it will add free variables to the free variable ID set,
-			// - it will (recursively) add function data to the table
-			//   so it can be referenced below.
-
-			our_free_map[sub.first] =
-				new_expr.add_tree_data(sub.second);
+			new_map[pair.first] = new_expr.m_tree.merge_from(
+				pair.second.m_tree);
 		}
-	}
-
-	// now it's a relatively easy case of just directly mapping the
-	// results over the arrays in `new_expr`!
-
-	// note: of course, we don't want to apply the mapping to the new
-	// functions we just created! Since the new functions are all
-	// guaranteed to be at the end of the array, simply only update
-	// the ones that came directly from the `this` object:
-	const size_t num_funcs_to_update = m_func_symb_ids->size();
-	for (size_t i = 0; i < num_funcs_to_update; ++i)
-	{
-		// for each child of the function
-		for (size_t j = 0; j < new_expr.m_func_arity->at(i); ++j)
+		
+		for (size_t i = 0; i < size_before; ++i)
 		{
-			if (new_expr.m_func_child_types->at(i)[j]
-				== SyntaxNodeType::FREE)
+			const size_t arity = new_expr.m_tree.func_arity(i);
+			const auto& children = new_expr.m_tree.func_children(i);
+			const auto& child_types =
+				new_expr.m_tree.func_child_types(i);
+			for (size_t j = 0; j < arity; ++j)
 			{
-				// find the substitution for this free variable
-				auto sub_iter = our_free_map.find(
-					new_expr.m_func_children->at(i)[j]);
+				if (child_types[j] == SyntaxNodeType::FREE)
+				{
+					// will need to substitute
+					auto id_iter = new_map.find(children[j]);
+					auto expr_iter = free_map.find(children[j]);
 
-				// mapping should be total
-				ATP_LOGIC_ASSERT(sub_iter != our_free_map.end());
+					ATP_LOGIC_ASSERT(id_iter != new_map.end());
+					ATP_LOGIC_ASSERT(expr_iter != free_map.end());
 
-				// substitution data
-				const size_t new_id = sub_iter->second.first;
-				const SyntaxNodeType new_type =
-					sub_iter->second.second;
+					// note that sub_id is the `new_map` transformation
+					// of expr_iter->second.m_tree.root_id()
+					auto sub_id = id_iter->second;
+					auto sub_type = expr_iter->second.m_tree.root_type();
 
-				// update `new_expr`
-
-				new_expr.m_func_children->at(i)[j] = new_id;
-				new_expr.m_func_child_types->at(i)[j] = new_type;
+					new_expr.m_tree.update_func_child(i, j,
+						sub_id, sub_type);
+				}
 			}
 		}
+
+		return new_expr;
 	}
+	default:
+		ATP_LOGIC_ASSERT(false && "invalid syntax node type.");
+		throw std::exception();
+	}
+}
 
-	// and make sure to handle root as a special case:
 
-	if (new_expr.m_root_type == SyntaxNodeType::FREE)
+Expression Expression::replace(const iterator& pos,
+	const Expression& sub_expr) const
+{
+	ATP_LOGIC_PRECOND(!pos.is_end_iterator());
+	ATP_LOGIC_PRECOND(pos.belongs_to(this));
+
+	// handle root position as a special case:
+	if (pos == begin())
 	{
-		// find the substitution for this free variable
-		auto sub_iter = our_free_map.find(m_root);
-
-		// mapping should be total
-		ATP_LOGIC_ASSERT(sub_iter != our_free_map.end());
-
-		new_expr.m_root = sub_iter->second.first;
-		new_expr.m_root_type = sub_iter->second.second;
+		return sub_expr;
 	}
+	else
+	{
+		Expression result_expr = *this;
 
-	// done:
-	return new_expr;
+		switch (sub_expr.m_tree.root_type())
+		{
+		case SyntaxNodeType::FREE:
+		case SyntaxNodeType::CONSTANT:
+			// for frees and constants it's as easy as just directly
+			// substituting in the free/constant ID into a duplicate
+			// expression.
+
+			result_expr.m_tree.update_func_child(
+				pos.parent_func_idx(), pos.parent_arg_idx(),
+				sub_expr.m_tree.root_id(), sub_expr.m_tree.root_type());
+
+		case SyntaxNodeType::FUNC:
+		{
+			// for functions, we need to concatenate the arrays of
+			// `sub_expr` and `result_expr`, and then update the
+			// information at the `pos` iterator similarly to how
+			// we did so for frees and constants
+
+			const size_t new_root_id = result_expr.m_tree.merge_from(
+				sub_expr.m_tree);
+
+			// warning: we can't use `sub_expr.m_tree.root_id()`
+			// because that may not be correct anymore
+
+			result_expr.m_tree.update_func_child(
+				pos.parent_func_idx(), pos.parent_arg_idx(),
+				new_root_id, sub_expr.m_tree.root_type());
+		}
+		default:
+			ATP_LOGIC_ASSERT(false && "invalid syntax node type.");
+			throw std::exception();
+		}
+
+		// rebuild the free variable IDs, as they might've been
+		// broken by the substitution
+		result_expr.m_free_var_ids->clear();
+		for (auto iter = result_expr.begin();
+			iter != result_expr.end(); ++iter)
+		{
+			if (iter->m_tree.root_type() == SyntaxNodeType::FREE)
+			{
+				result_expr.m_free_var_ids->insert(
+					iter->m_tree.root_id());
+			}
+		}
+
+		return result_expr;
+	}
 }
 
 
@@ -239,31 +282,22 @@ Expression::add_tree_data(const SyntaxNodePtr& tree)
 		std::vector<NodePair>::iterator begin,
 		std::vector<NodePair>::iterator end) -> NodePair
 	{
-		// when we add a new element to all the vectors, the index
-		// will be the newsize-1, which is just the oldsize.
-		const size_t func_idx = m_func_children->size();
-
 		const size_t arity = std::distance(begin, end);
-
-		// arity limit!!!
-		ATP_LOGIC_PRECOND(arity < MAX_ARITY);
-
-		m_func_arity->push_back(arity);
-		m_func_symb_ids->push_back(symb_id);
 
 		auto map_first = boost::bind(&NodePair::first, _1);
 		auto map_second = boost::bind(&NodePair::second, _1);
 
-		m_func_children->emplace_back();
-		m_func_child_types->emplace_back();
+		auto child_begin = boost::make_transform_iterator(begin,
+			map_first);
+		auto child_end = boost::make_transform_iterator(end,
+			map_first);
+		auto child_type_begin = boost::make_transform_iterator(begin,
+			map_second);
+		auto child_type_end = boost::make_transform_iterator(end,
+			map_second);
 
-		std::copy(boost::make_transform_iterator(begin, map_first),
-			boost::make_transform_iterator(end, map_first),
-			m_func_children->back().begin());
-
-		std::copy(boost::make_transform_iterator(begin, map_second),
-			boost::make_transform_iterator(end, map_second),
-			m_func_child_types->back().begin());
+		const size_t func_idx = m_tree.add_func(symb_id, arity,
+			child_begin, child_end, child_type_begin, child_type_end);
 
 		return std::make_pair(func_idx, SyntaxNodeType::FUNC);
 	};

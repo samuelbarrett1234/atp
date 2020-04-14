@@ -38,35 +38,6 @@ class ATP_LOGIC_API ProofState :
 	public IProofState
 {
 public:
-	/**
-	\brief This object enumerates successors of the equational proof
-		states.
-	*/
-	class ATP_LOGIC_API PfStateSuccIterator :
-		public IPfStateSuccIter
-	{
-	public:
-		PfStateSuccIterator(const ProofState& parent,
-			const Statement& current,
-			const StatementArray& succs);
-
-		bool valid() const override;
-		ProofStatePtr get() const override;
-		void advance() override;
-		inline size_t size() const override
-		{
-			// unfortunately this class isn't lazy (yet)
-			return m_succs.size();
-		}
-
-	private:
-		const ProofState& m_parent;
-		size_t m_index;
-		const StatementArray& m_succs;
-		Statement m_stmt;
-	};
-
-public:
 	ProofState(const ModelContext& ctx,
 		const KnowledgeKernel& ker,
 		Statement target, Statement current);
@@ -95,9 +66,6 @@ private:
 	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
 	Statement m_target, m_current;
-
-	// successor cache
-	mutable StatementArrayPtr m_succs;
 };
 
 

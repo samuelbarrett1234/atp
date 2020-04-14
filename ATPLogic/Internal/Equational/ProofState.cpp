@@ -9,6 +9,7 @@
 
 #include "ProofState.h"
 #include "Semantics.h"
+#include "SubExprMatchingIterator.h"
 
 
 namespace atp
@@ -36,49 +37,10 @@ ProofState::ProofState(const ModelContext& ctx,
 { }
 
 
-ProofState::PfStateSuccIterator::PfStateSuccIterator(
-	const ProofState& parent,
-	const Statement& stmt,
-	const StatementArray& succs) :
-	m_parent(parent),
-	m_stmt(stmt),
-	m_succs(succs),
-	m_index(0)
-{ }
-
-
-bool ProofState::PfStateSuccIterator::valid() const
-{
-	return (m_index < m_succs.size());
-}
-
-
-ProofStatePtr ProofState::PfStateSuccIterator::get() const
-{
-	ATP_LOGIC_PRECOND(valid());
-
-	return std::make_shared<ProofState>(
-		m_parent.m_ctx, m_parent.m_ker, m_parent.m_target,
-		m_succs.my_at(m_index));
-}
-
-
-void ProofState::PfStateSuccIterator::advance()
-{
-	ATP_LOGIC_PRECOND(valid());
-
-	++m_index;
-}
-
-
 PfStateSuccIterPtr ProofState::succ_begin() const
 {
-	if (m_succs == nullptr)
-		m_succs = std::make_shared<StatementArray>(semantics::get_successors(
-			m_ctx, m_current, m_ker.get_active_rules()));
-
-	return std::make_shared<PfStateSuccIterator>(*this, m_current,
-		dynamic_cast<const StatementArray&>(*m_succs));
+	return SubExprMatchingIterator::construct(m_ctx, m_ker,
+		m_target, m_current);
 }
 
 
@@ -86,17 +48,10 @@ ProofCompletionState ProofState::completion_state() const
 {
 	if (m_ker.is_trivial(m_current))
 		return ProofCompletionState::PROVEN;
+	else if (!succ_begin()->valid())
+		return ProofCompletionState::NO_PROOF;
 	else
-	{
-		if (m_succs == nullptr)
-			m_succs = std::make_shared<StatementArray>(semantics::get_successors(
-				m_ctx, m_current, m_ker.get_active_rules()));
-
-		if (m_succs->size() == 0)
-			return ProofCompletionState::NO_PROOF;
-		else
-			return ProofCompletionState::UNFINISHED;
-	}
+		return ProofCompletionState::UNFINISHED;
 }
 
 }  // namespace equational

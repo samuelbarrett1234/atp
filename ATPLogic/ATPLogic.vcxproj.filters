@@ -144,6 +144,9 @@
     <ClInclude Include="Internal\Equational\SubExprMatchingIterator.h">
       <Filter>Header Files\Internal\Equational\Implementations\Successor Iterators</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\Equational\ExprTreeFlyweight.h">
+      <Filter>Header Files\Internal\Equational\Implementations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp">
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="Internal\Equational\SubExprMatchingIterator.cpp">
       <Filter>Source Files\Internal\Equational\Implementations\Successor Iterators</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\Equational\ExprTreeFlyweight.cpp">
+      <Filter>Source Files\Internal\Equational</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

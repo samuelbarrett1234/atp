@@ -179,6 +179,7 @@
     <ClInclude Include="Interfaces\IStatement.h" />
     <ClInclude Include="Interfaces\IStatementArray.h" />
     <ClInclude Include="Internal\Equational\Expression.h" />
+    <ClInclude Include="Internal\Equational\ExprTreeFlyweight.h" />
     <ClInclude Include="Internal\Equational\FreeVarAssignmentIterator.h" />
     <ClInclude Include="Internal\Equational\Grammar.h" />
     <ClInclude Include="Internal\Equational\KnowledgeKernel.h" />
@@ -202,6 +203,7 @@
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp" />
     <ClCompile Include="Internal\Equational\Expression.cpp" />
+    <ClCompile Include="Internal\Equational\ExprTreeFlyweight.cpp" />
     <ClCompile Include="Internal\Equational\FreeVarAssignmentIterator.cpp" />
     <ClCompile Include="Internal\Equational\Grammar.cpp" />
     <ClCompile Include="Internal\Equational\KnowledgeKernel.cpp" />

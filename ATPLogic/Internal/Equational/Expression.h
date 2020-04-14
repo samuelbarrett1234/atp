@@ -66,6 +66,28 @@ public:
 	*/
 	class ATP_LOGIC_API iterator
 	{
+	private:
+		struct StackFrame
+		{
+			StackFrame(size_t id, SyntaxNodeType type,
+				size_t func_idx, size_t arg_idx, bool is_root) :
+				id(id), type(type), func_idx(func_idx),
+				arg_idx(arg_idx), is_root(is_root)
+			{ }
+
+			// id/type pair, which is consistent with its usage
+			// throughout the rest of the Expression code
+
+			size_t id;
+			SyntaxNodeType type;
+
+			// these two help identify the "location" of an element
+			// on the stack, and are only needed for non-root
+			// elements:
+			size_t func_idx, arg_idx;
+			bool is_root;
+		};
+
 	public:
 		// conforming to the standard iterator template interface
 
@@ -83,7 +105,7 @@ public:
 			ATP_LOGIC_PRECOND(m_parent != nullptr);
 			m_stack.reserve(m_parent->m_height);
 			m_stack.emplace_back(m_parent->m_tree.root_id(),
-				m_parent->m_tree.root_type());
+				m_parent->m_tree.root_type(), 0, 0, true);
 		}
 		inline iterator(const iterator& other) :
 			m_stack(other.m_stack),
@@ -130,12 +152,14 @@ public:
 		{
 			ATP_LOGIC_PRECOND(!is_end_iterator());
 			
-			if (m_stack.back().second ==
+			if (m_stack.back().type ==
 				SyntaxNodeType::FUNC)
 			{
-				const size_t idx = m_stack.back().first;
-				const size_t arity = m_parent->m_tree.func_arity(idx);
-
+				// the ID of a function is just its array index
+				const size_t func_idx = m_stack.back().id;
+				const size_t arity = m_parent->m_tree.func_arity(
+					func_idx);
+				
 				// remove ourselves from the stack
 				m_stack.pop_back();
 
@@ -144,9 +168,15 @@ public:
 					++i)
 				{
 					const size_t j = arity - i;
+
+					// note that `func_id` and `j` are enough to
+					// compute the location of the child:
 					m_stack.emplace_back(
-						m_parent->m_tree.func_children(idx)[j],
-						m_parent->m_tree.func_child_types(idx)[j]);
+						m_parent->m_tree.func_children(func_idx)[j],
+						m_parent->m_tree.func_child_types(
+							func_idx)[j],
+						func_idx, j,
+						/* children are not roots */ false);
 				}
 			}
 			// else we have no children so just remove ourselves from
@@ -156,8 +186,8 @@ public:
 			// rebuild this
 			// create sub expression from the parent
 			m_my_value = std::make_unique<Expression>(
-				m_parent->sub_expression(m_stack.back().first,
-					m_stack.back().second));
+				m_parent->sub_expression(m_stack.back().id,
+					m_stack.back().type));
 
 			return *this;
 		}
@@ -201,7 +231,12 @@ public:
 		\pre This iterator isn't pointing to the root, and isn't an
 			end iterator.
 		*/
-		size_t parent_func_idx() const;
+		inline size_t parent_func_idx() const
+		{
+			ATP_LOGIC_PRECOND(!is_end_iterator());
+			ATP_LOGIC_PRECOND(!m_stack.back().is_root);
+			return m_stack.back().func_idx;
+		}
 
 		/**
 		\brief Get which argument of the parent function this
@@ -210,21 +245,34 @@ public:
 		\pre This iterator isn't pointing to the root, and isn't
 			and end iterator.
 		*/
-		size_t parent_arg_idx() const;
+		inline size_t parent_arg_idx() const
+		{
+			ATP_LOGIC_PRECOND(!is_end_iterator());
+			ATP_LOGIC_PRECOND(!m_stack.back().is_root);
+			return m_stack.back().arg_idx;
+		}
 
 	private:
-		// this is a stack of (ID, Type) pairs, for exploring the
-		// expression tree
 		// if it is empty then we are done
 		// the stack represents the nodes left to explore, and the
 		// back element is the one we're currently looking at.
-		std::vector<std::pair<size_t, SyntaxNodeType>> m_stack;
+		std::vector<StackFrame> m_stack;
 		const Expression* m_parent;
 
 		// it is easier to create a copy of the expression here, and
 		// just return references and pointers to it
 		std::unique_ptr<Expression> m_my_value;
 	};
+
+private:
+	/**
+	\pre root_type == FREE or CONSTANT
+
+	\brief Used internally for construction of very simple
+		expressions.
+	*/
+	Expression(const ModelContext& ctx,
+		size_t root_id, SyntaxNodeType root_type);
 
 public:
     /**
@@ -281,6 +329,9 @@ public:
 
 	\note This function exists separately to `map_free_vars` because
 		it can be implemented more efficiently, without a fold.
+
+	\pre `initial_id` is a free variable ID present in this
+		expression.
 	*/
 	Expression replace_free_with_free(size_t initial_id,
 		size_t after_id) const;
@@ -291,6 +342,9 @@ public:
 
 	\note This function exists separately to `map_free_vars` because
 		it can be implemented more efficiently, without a fold.
+
+	\pre `initial_id` is a free variable ID present in this
+		expression.
 	*/
 	Expression replace_free_with_const(size_t initial_id,
 		size_t const_symb_id) const;

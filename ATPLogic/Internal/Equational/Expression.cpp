@@ -13,11 +13,13 @@
 #include <boost/range.hpp>
 #include <boost/bind.hpp>
 #include <boost/phoenix.hpp>
+#include <boost/bimap.hpp>
 #include "SyntaxTreeFold.h"
 #include "ModelContext.h"
 
 
 namespace phx = boost::phoenix;
+namespace phxarg = boost::phoenix::arg_names;
 
 
 namespace atp
@@ -38,6 +40,20 @@ ExpressionPtr Expression::construct(const ModelContext& ctx,
 ExpressionPtr Expression::construct(Expression&& expr)
 {
 	return std::make_shared<Expression>(std::move(expr));
+}
+
+
+Expression::Expression(const ModelContext& ctx,
+	size_t root_id, SyntaxNodeType root_type) :
+	m_ctx(ctx), m_height(1)
+{
+	ATP_LOGIC_PRECOND(root_type != SyntaxNodeType::FUNC);
+
+	m_tree.set_root(root_id, root_type);
+
+	m_free_var_ids = std::make_shared<std::set<size_t>>();
+	if (root_type == SyntaxNodeType::FREE)
+		m_free_var_ids->insert(root_id);
 }
 
 
@@ -247,6 +263,261 @@ Expression Expression::replace(const iterator& pos,
 
 		return result_expr;
 	}
+}
+
+
+Expression Expression::replace_free_with_free(
+	size_t initial_id, size_t after_id) const
+{
+	ATP_LOGIC_PRECOND(m_free_var_ids->find(initial_id) !=
+		m_free_var_ids->end());
+
+	Expression new_exp = *this;
+
+	for (size_t i = 0; i < new_exp.m_tree.size(); ++i)
+	{
+		const size_t arity = new_exp.m_tree.func_arity(i);
+		const auto& children = new_exp.m_tree.func_children(i);
+		const auto& child_types = new_exp.m_tree.func_child_types(i);
+		for (size_t j = 0; j < arity; ++j)
+		{
+			if (child_types[j] == SyntaxNodeType::FREE &&
+				children[j] == initial_id)
+			{
+				new_exp.m_tree.update_func_child(i, j, after_id,
+					SyntaxNodeType::FREE);
+			}
+		}
+	}
+
+	return new_exp;
+}
+
+
+Expression Expression::replace_free_with_const(
+	size_t initial_id, size_t const_symb_id) const
+{
+	ATP_LOGIC_PRECOND(m_free_var_ids->find(initial_id) !=
+		m_free_var_ids->end());
+
+#ifdef ATP_LOGIC_DEFENSIVE
+	// check the constant symbol ID is valid
+	const auto symb_ids = m_ctx.all_constant_symbol_ids();
+	ATP_LOGIC_PRECOND((std::find(symb_ids.begin(),
+		symb_ids.end(), const_symb_id) != symb_ids.end()));
+#endif
+
+	Expression new_exp = *this;
+
+	for (size_t i = 0; i < new_exp.m_tree.size(); ++i)
+	{
+		const size_t arity = new_exp.m_tree.func_arity(i);
+		const auto& children = new_exp.m_tree.func_children(i);
+		const auto& child_types = new_exp.m_tree.func_child_types(i);
+		for (size_t j = 0; j < arity; ++j)
+		{
+			if (child_types[j] == SyntaxNodeType::FREE &&
+				children[j] == initial_id)
+			{
+				new_exp.m_tree.update_func_child(i, j, const_symb_id,
+					SyntaxNodeType::CONSTANT);
+			}
+		}
+	}
+
+	return new_exp;
+}
+
+
+Expression Expression::increment_free_var_ids(size_t inc) const
+{
+	// handle this special case more efficiently:
+	if (inc == 0)
+		return *this;
+
+	Expression new_exp = *this;
+
+	for (size_t i = 0; i < new_exp.m_tree.size(); ++i)
+	{
+		const size_t arity = new_exp.m_tree.func_arity(i);
+		const auto& children = new_exp.m_tree.func_children(i);
+		const auto& child_types = new_exp.m_tree.func_child_types(i);
+		for (size_t j = 0; j < arity; ++j)
+		{
+			if (child_types[j] == SyntaxNodeType::FREE)
+			{
+				new_exp.m_tree.update_func_child(i, j,
+					children[j] + inc, SyntaxNodeType::FREE);
+			}
+		}
+	}
+
+	return new_exp;
+}
+
+
+Expression Expression::sub_expression(size_t id, SyntaxNodeType type) const
+{
+	switch (type)
+	{
+	case SyntaxNodeType::FREE:
+	case SyntaxNodeType::CONSTANT:
+		return Expression(m_ctx, id, type);
+	case SyntaxNodeType::FUNC:
+	{
+		ATP_LOGIC_PRECOND(id < m_tree.size());
+
+		Expression new_expr = *this;
+		new_expr.m_tree.set_root(id, type);
+		return new_expr;
+	}
+	default:
+		ATP_LOGIC_ASSERT(false && "invalid syntax node type");
+		throw std::exception();
+	}
+}
+
+
+bool Expression::equivalent(const Expression& other) const
+{
+	// build up a bijection between IDs as we go
+	boost::bimap<size_t, size_t> id_map;
+
+	auto free_func = [&id_map](size_t id1, size_t id2)
+	{
+		auto left_iter = id_map.left.find(id1);
+		auto right_iter = id_map.right.find(id2);
+
+		if (left_iter == id_map.left.end() &&
+			right_iter == id_map.right.end())
+		{
+			id_map.left.insert(std::make_pair(id1, id2));
+			return true;
+		}
+		else if (left_iter != id_map.left.end())
+		{
+			return left_iter->second == id2;
+		}
+		else
+		{
+			return right_iter->second == id1;
+		}
+	};
+
+	auto const_func = (phxarg::arg1 == phxarg::arg2);
+
+	auto f_func = [](size_t id1, size_t id2,
+		std::vector<bool>::iterator begin,
+		std::vector<bool>::iterator end)
+	{
+		return id1 == id2 && std::all_of(begin, end,
+			phxarg::arg1);
+	};
+
+	return fold_pair<bool>(free_func, const_func, f_func, false,
+		other);
+}
+
+
+bool Expression::identical(const Expression& other) const
+{
+	auto free_func = (phxarg::arg1 == phxarg::arg2);
+
+	auto const_func = (phxarg::arg1 == phxarg::arg2);
+
+	auto f_func = [](size_t id1, size_t id2,
+		std::vector<bool>::iterator begin,
+		std::vector<bool>::iterator end)
+	{
+		return id1 == id2 && std::all_of(begin, end,
+			phxarg::arg1);
+	};
+
+	return fold_pair<bool>(free_func, const_func, f_func, false,
+		other);
+}
+
+
+bool Expression::try_match(const Expression& expr,
+	std::map<size_t, Expression>* p_out_subs) const
+{
+	// if p_out_subs is null then, to avoid repeating code, we create
+	// a map to put there instead
+	// (use a unique_ptr for the placeholder to ensure it gets
+	// deleted if it exists).
+	std::unique_ptr<std::map<size_t, Expression>> _p_placeholder;
+	if (p_out_subs == nullptr)
+	{
+		_p_placeholder = std::make_unique<
+			std::map<size_t, Expression>>();
+		p_out_subs = _p_placeholder.get();
+	}
+	else p_out_subs->clear();  // clear this to begin with
+
+	auto free_constructor = [this, p_out_subs](size_t id_a,
+		size_t id_b)
+		-> bool
+	{
+		auto iter = p_out_subs->find(id_a);
+
+		// this variable hasn't been mapped yet, we are free to
+		// assign it any value we like
+		if (iter == p_out_subs->end())
+		{
+			p_out_subs->at(id_a) = Expression(m_ctx,
+				id_b, SyntaxNodeType::FREE);
+			return true;
+		}
+		// this variable has already been mapped; check that the
+		// value it was mapped to agrees with this
+		else return iter->second.equivalent(Expression(m_ctx,
+			id_b, SyntaxNodeType::FREE));
+	};
+
+	// both constants must agree in order for a mapping to exist,
+	// even if they don't influence what that mapping is
+	auto const_constructor = (phxarg::arg1 == phxarg::arg2);
+
+	auto func_constructor = [](size_t id_a, size_t id_b,
+		std::vector<bool>::iterator child_begin,
+		std::vector<bool>::iterator child_end)
+	{
+		return (id_a == id_b) && std::all_of(child_begin,
+			child_end, phxarg::arg1);
+	};
+
+	auto default_constructor = [this, p_out_subs](Expression
+		expr_left, Expression expr_right)
+	{
+		if (expr_left.m_tree.root_type() != SyntaxNodeType::FREE)
+			return false;
+
+		const size_t free_id = expr_left.m_tree.root_id();
+
+		auto iter = p_out_subs->find(free_id);
+
+		// this variable hasn't been mapped yet, we are free to
+		// assign it any value we like
+		if (iter == p_out_subs->end())
+		{
+			p_out_subs->at(free_id) = expr_right;
+			return true;
+		}
+		// this variable has already been mapped; check that the
+		// value it was mapped to agrees with this
+		else return iter->second.equivalent(expr_right);
+	};
+
+	const bool success = fold_pair<bool>(free_constructor,
+		const_constructor, func_constructor, default_constructor,
+		expr);
+
+	// ensure that we don't leave any garbage data in the user output
+	// if we fail to build a mapping
+	if (!success)
+		p_out_subs->clear();
+
+	return success;
 }
 
 

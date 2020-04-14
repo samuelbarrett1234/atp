@@ -111,12 +111,6 @@
     <ClInclude Include="Internal\Equational\SyntaxTreeTraversal.h">
       <Filter>Header Files\Internal\Equational\Syntax</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\Equational\Semantics.h">
-      <Filter>Header Files\Internal\Equational\Syntax</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\Equational\SemanticsHelper.h">
-      <Filter>Header Files\Internal\Equational\Syntax</Filter>
-    </ClInclude>
     <ClInclude Include="Interfaces\IModelContext.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
@@ -171,12 +165,6 @@
       <Filter>Source Files\Internal\Equational\Parsing</Filter>
     </ClCompile>
     <ClCompile Include="Internal\Equational\SyntaxNodes.cpp">
-      <Filter>Source Files\Internal\Equational\Syntax</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\Equational\Semantics.cpp">
-      <Filter>Source Files\Internal\Equational\Syntax</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\Equational\SemanticsHelper.cpp">
       <Filter>Source Files\Internal\Equational\Syntax</Filter>
     </ClCompile>
     <ClCompile Include="Internal\Equational\ModelContext.cpp">

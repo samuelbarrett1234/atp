@@ -68,7 +68,7 @@ public:
 		const KnowledgeKernel& ker,
 		const Statement& target_stmt,
 		const Statement& forefront_stmt,
-		Statement::iterator sub_expr,
+		const Statement::iterator& sub_expr,
 		const std::vector<std::pair<size_t,
 			SyntaxNodeType>>& free_const_enum);
 

@@ -32,6 +32,16 @@ namespace equational
 {
 
 
+/**
+\brief IKnowledgeKernel implementation for equational logic
+
+\details Basically acts as an optimised expression-matcher. **Note**:
+	every time you call `add_theorems` or `remove_theorems`, it
+	forces a "matching rule rebuild", which is an O(n^2) operation in
+	the total number of theorems and axioms, and it builds a set of
+	expression matching rules to make it efficient to iterate over
+	successor statements etc.
+*/
 class ATP_LOGIC_API KnowledgeKernel :
 	public IKnowledgeKernel
 {
@@ -74,9 +84,15 @@ public:
 	\brief Returns the largest free variable ID which occurs in any
 		of the rules.
 	*/
-	size_t get_rule_free_id_bound() const;
+	inline size_t get_rule_free_id_bound() const
+	{
+		return m_rule_free_id_bound;
+	}
 
-	size_t num_matching_rules() const;
+	inline size_t num_matching_rules() const
+	{
+		return m_num_matching_rules;
+	}
 
 	/**
 	\brief Try to match the given expression to the match rules at
@@ -106,16 +122,18 @@ public:
 
 	/**
 	\brief Get the possible effects of a given matching and matching
-		substitution. (Returns the results with the substitution
-		applied).
+		substitution. (**Returns the results with the substitution
+		applied**).
 
 	\pre match_index < num_matching_rules()
 
 	\returns An array of possible resulting matches, where each
-		element is an
+		element is an expression (with `match_subs` applied) followed
+		by an array of all free variable IDs in the expression
+		**which were not substituted**.
 	*/
-	const std::vector<std::pair<Expression,
-		std::vector<size_t>>>& match_results_at(
+	std::vector<std::pair<Expression,
+		std::vector<size_t>>> match_results_at(
 			size_t match_index,
 			const std::map<size_t, Expression>& match_subs) const;
 
@@ -129,7 +147,15 @@ private:
 	static bool type_check(const ModelContext& ctx,
 		const Statement& stmt);
 
-	void rebuild_active_rules();
+	/**
+	\brief Compile the axioms and theorems into an optimised storage
+		of matching rules.
+
+	\post Clears `m_active_rules` and `m_matches` and rebuilds them
+		all from scratch. Also updates `m_num_matching_rules` and
+		`m_rule_free_id_bound`.
+	*/
+	void rebuild_matchings();
 
 private:
 	const ModelContext& m_context;
@@ -148,6 +174,14 @@ private:
 	// see `rebuild_active_rules`
 	StatementArrayPtr _m_active_rules;
 	const StatementArray* m_active_rules;
+
+	size_t m_num_matching_rules, m_rule_free_id_bound;
+
+	// an optimised storage of m_active_rules
+	typedef std::vector<std::pair<Expression, std::vector<size_t>>>
+		MatchResults;
+	typedef std::pair<Expression, MatchResults> MatchRule;
+	std::vector<MatchRule> m_matches;
 };
 
 

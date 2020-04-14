@@ -216,6 +216,15 @@ public:
 		return m_ctx;
 	}
 
+	inline Expression lhs() const
+	{
+		return *m_sides.first;
+	}
+	inline Expression rhs() const
+	{
+		return *m_sides.second;
+	}
+
 	/**
 	\brief Substitute the free variables according to the given map
 

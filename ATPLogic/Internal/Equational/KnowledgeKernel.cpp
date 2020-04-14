@@ -12,7 +12,6 @@
 #include <boost/functional/hash.hpp>
 #include <boost/phoenix.hpp>
 #include <boost/bind.hpp>
-#include "Semantics.h"
 #include "ProofState.h"
 
 
@@ -49,7 +48,7 @@ KnowledgeKernelPtr KnowledgeKernel::try_construct(
 	if (p_ker->m_axioms == nullptr)
 		return KnowledgeKernelPtr();
 
-	p_ker->rebuild_active_rules();
+	p_ker->rebuild_matchings();
 
 	return p_ker;
 }
@@ -115,9 +114,9 @@ bool KnowledgeKernel::is_trivial(
 
 	return std::any_of(m_active_rules->begin(),
 		m_active_rules->end(),
-		boost::bind(&semantics::implies, _1, boost::ref(*p_stmt))
-	|| boost::bind(&semantics::equivalent, _1, boost::ref(*p_stmt)))
-		|| semantics::true_by_reflexivity(*p_stmt);
+		boost::bind(&Statement::implies, _1, boost::ref(*p_stmt))
+	|| boost::bind(&Statement::equivalent, _1, boost::ref(*p_stmt)))
+		|| p_stmt->true_by_reflexivity();
 }
 
 
@@ -143,7 +142,7 @@ size_t KnowledgeKernel::add_theorems(StatementArrayPtr p_thms)
 
 	m_theorems[m_next_thm_ref_id] = p_thms;
 
-	rebuild_active_rules();
+	rebuild_matchings();
 
 	return m_next_thm_ref_id++;
 }
@@ -157,7 +156,43 @@ void KnowledgeKernel::remove_theorems(size_t ref_id)
 
 	m_theorems.erase(iter);
 
-	rebuild_active_rules();
+	rebuild_matchings();
+}
+
+
+bool KnowledgeKernel::try_match(size_t match_index,
+	const Expression& expr,
+	std::map<size_t, Expression>* p_out_subs) const
+{
+	// just delegate this to the Expression::try_match function
+	return m_matches.at(match_index).first.try_match(expr,
+		p_out_subs);
+}
+
+
+std::vector<std::pair<Expression, std::vector<size_t>>>
+KnowledgeKernel::match_results_at(size_t match_index,
+	const std::map<size_t, Expression>& match_subs) const
+{
+	ATP_LOGIC_PRECOND(match_index < m_matches.size());
+
+	auto results = m_matches.at(match_index).second;
+
+	for (size_t i = 0; i < results.size(); ++i)
+	{
+		// apply the substitution to the result
+		results[i].first = results[i].first.map_free_vars(
+			match_subs);
+
+		// remove any free variables that were substituted
+		results[i].second.erase(std::remove_if(
+			results[i].second.begin(), results[i].second.end(),
+			[&match_subs](size_t idx)
+			{ return match_subs.find(idx) != match_subs.end(); }),
+			results[i].second.end());
+	}
+
+	return results;
 }
 
 
@@ -199,8 +234,17 @@ bool KnowledgeKernel::type_check(const ModelContext& ctx,
 }
 
 
-void KnowledgeKernel::rebuild_active_rules()
+void KnowledgeKernel::rebuild_matchings()
 {
+	// reset info
+
+	m_active_rules = nullptr;
+	_m_active_rules.reset();
+	m_num_matching_rules = 0;
+	m_rule_free_id_bound = 0;
+
+	// compute m_active_rules array
+
 	std::vector<StatementArrayPtr> thms;
 	thms.reserve(m_theorems.size());
 	for (const auto& thm : m_theorems)
@@ -216,6 +260,44 @@ void KnowledgeKernel::rebuild_active_rules()
 		_m_active_rules.get());
 
 	ATP_LOGIC_ASSERT(m_active_rules != nullptr);
+
+	// now it's time to compress m_active_rules into a more optimised
+	// storage mechanism
+
+	auto match_add = [this](const Expression& match,
+		const Expression& rule)
+	{
+		auto match_iter = std::find_if(m_matches.begin(),
+			m_matches.end(), [&match](const MatchRule& mr)
+			{
+				return match.equivalent(mr.first);
+			});
+
+		std::vector<size_t> rule_free_var_ids(
+			rule.free_var_ids().begin(), rule.free_var_ids().end());
+
+		if (match_iter != m_matches.end())
+		{
+			// add the result to an already existing rule
+			match_iter->second.emplace_back(rule, rule_free_var_ids);
+		}
+		else
+		{
+			// got a brand new rule
+			m_matches.emplace_back(match, MatchResults{
+				std::make_pair(rule, rule_free_var_ids) });
+		}
+	};
+
+	for (auto rule_iter = m_active_rules->begin();
+		rule_iter != m_active_rules->end(); ++rule_iter)
+	{
+		auto lhs = rule_iter->lhs();
+		auto rhs = rule_iter->rhs();
+
+		match_add(lhs, rhs);
+		match_add(rhs, lhs);
+	}
 }
 
 

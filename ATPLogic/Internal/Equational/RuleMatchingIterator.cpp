@@ -27,7 +27,7 @@ PfStateSuccIterPtr RuleMatchingIterator::construct(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
 	const Statement& target_stmt,
 	const Statement& forefront_stmt,
-	Statement::iterator sub_expr,
+	const Statement::iterator& sub_expr,
 	const std::vector<std::pair<size_t,
 	 SyntaxNodeType>>& free_const_enum)
 {
@@ -40,7 +40,7 @@ RuleMatchingIterator::RuleMatchingIterator(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
 	const Statement& target_stmt,
 	const Statement& forefront_stmt,
-	Statement::iterator sub_expr,
+	const Statement::iterator& sub_expr,
 	const std::vector<std::pair<size_t,
 	 SyntaxNodeType>>& free_const_enum) :
 	m_ctx(ctx), m_ker(ker), m_target_stmt(target_stmt),
@@ -100,7 +100,7 @@ void RuleMatchingIterator::restore_invariant()
 
 	// keep trying to match
 	while (valid() && !m_ker.try_match(m_match_index,
-		m_match_expr,
+		*m_sub_expr_iter,
 		&match_subs))
 		++m_match_index;
 
@@ -108,8 +108,8 @@ void RuleMatchingIterator::restore_invariant()
 	{
 		m_cur_matching = MatchResultsIterator::construct(
 			m_ctx, m_ker, m_target_stmt, m_forefront_stmt,
-			m_ker.match_results_at(match_subs, m_match_index),
-			m_free_const_enum);
+			m_ker.match_results_at(m_match_index, match_subs),
+			m_sub_expr_iter, m_free_const_enum);
 	}
 }
 

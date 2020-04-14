@@ -66,7 +66,7 @@ public:
 	class ATP_LOGIC_API iterator
 	{
 	private:
-		struct StackFrame
+		struct ATP_LOGIC_API StackFrame
 		{
 			StackFrame(size_t id, SyntaxNodeType type,
 				size_t func_idx, size_t arg_idx, bool is_root) :
@@ -135,7 +135,7 @@ public:
 				*other.m_my_value);
 			return *this;
 		}
-		inline iterator& operator =(iterator&& other)
+		inline iterator& operator =(iterator&& other) noexcept
 		{
 			m_stack = std::move(other.m_stack);
 			m_parent = other.m_parent;
@@ -301,9 +301,26 @@ public:
 		return iterator();
 	}
 
+	std::string to_str() const;
+
 	inline const std::set<size_t>& free_var_ids() const
 	{
 		return *m_free_var_ids;
+	}
+
+	/**
+	\brief Get the symbol or free ID of the root of this expression
+	*/
+	inline size_t root_id() const
+	{
+		if (m_tree.root_type() != SyntaxNodeType::FUNC)
+			return m_tree.root_id();
+		else
+			return m_tree.func_symb_id(m_tree.root_id());
+	}
+	inline SyntaxNodeType root_type() const
+	{
+		return m_tree.root_type();
 	}
 
     /**

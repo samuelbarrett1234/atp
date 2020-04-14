@@ -38,8 +38,12 @@ ProofState::ProofState(const ModelContext& ctx,
 
 PfStateSuccIterPtr ProofState::succ_begin() const
 {
+	// we need to increment the free variable IDs in `m_current` so
+	// that they are guaranteed not to clash with any of the matching
+	// rules in the knowledge kernel
 	return SubExprMatchingIterator::construct(m_ctx, m_ker,
-		m_target, m_current);
+		m_target, m_current.increment_free_var_ids(
+			m_ker.get_rule_free_id_bound()));
 }
 
 

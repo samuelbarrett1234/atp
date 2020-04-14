@@ -28,6 +28,9 @@
     <Filter Include="Source Files\Equational\Syntax">
       <UniqueIdentifier>{85d383f0-e075-4a0e-b9b0-34f8d938fd0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Equational\Implementations\Successor Iterators">
+      <UniqueIdentifier>{6933fcee-8e00-4572-b6d4-4d24af1478f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -63,17 +66,29 @@
     <ClCompile Include="Equational\SyntaxTreeFoldTests.cpp">
       <Filter>Source Files\Equational\Syntax</Filter>
     </ClCompile>
-    <ClCompile Include="Equational\SemanticsHelperTests.cpp">
-      <Filter>Source Files\Equational\Syntax</Filter>
-    </ClCompile>
-    <ClCompile Include="Equational\SemanticsTests.cpp">
-      <Filter>Source Files\Equational\Syntax</Filter>
-    </ClCompile>
     <ClCompile Include="Equational\SyntaxNodeToStr.cpp">
       <Filter>Source Files\Equational</Filter>
     </ClCompile>
     <ClCompile Include="Equational\DefinitionFileExamples.cpp">
       <Filter>Source Files\Equational</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\ExprTreeFlyweightTests.cpp">
+      <Filter>Source Files\Equational\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\ExpressionTests.cpp">
+      <Filter>Source Files\Equational\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\FreeVarAssignmentIteratorTests.cpp">
+      <Filter>Source Files\Equational\Implementations\Successor Iterators</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\RuleMatchingIteratorTests.cpp">
+      <Filter>Source Files\Equational\Implementations\Successor Iterators</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\SubExprMatchingIterator.cpp">
+      <Filter>Source Files\Equational\Implementations\Successor Iterators</Filter>
+    </ClCompile>
+    <ClCompile Include="Equational\MatchResultsIteratorTests.cpp">
+      <Filter>Source Files\Equational\Implementations\Successor Iterators</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

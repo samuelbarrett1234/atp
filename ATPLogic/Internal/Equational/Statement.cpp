@@ -118,32 +118,8 @@ Statement& Statement::operator=(Statement&& other) noexcept
 
 std::string Statement::to_str() const
 {
-	// this is a fold!
-
-	auto eq_fold = [](std::string lhs, std::string rhs)
-		-> std::string
-	{
-		return lhs + " = " + rhs;
-	};
-	auto free_var_fold = [](size_t free_var_id) -> std::string
-	{
-		return "x" + boost::lexical_cast<std::string>(free_var_id);
-	};
-	auto const_fold = [this](size_t symb_id) -> std::string
-	{
-		return m_ctx.symbol_name(symb_id);
-	};
-	auto func_fold = [this](size_t symb_id,
-		std::vector<std::string>::iterator begin,
-		std::vector<std::string>::iterator end) -> std::string
-	{
-		return m_ctx.symbol_name(symb_id) + '(' +
-			boost::algorithm::join(
-				boost::make_iterator_range(begin, end), ", ") + ')';
-	};
-
-	return fold<std::string>(eq_fold, free_var_fold,
-		const_fold, func_fold);
+	return m_sides.first->to_str() + " = " +
+		m_sides.second->to_str();
 }
 
 

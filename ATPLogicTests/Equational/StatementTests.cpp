@@ -4,10 +4,7 @@
 
 \author
 
-\details This file tests the equational::Statement class. Its main
-    job is to test the two "fold" functions in the class, because
-    these are used as the building blocks of virtually every function
-    in the equational::semantics namespace.
+\details This file tests the equational::Statement class.
 
 */
 
@@ -19,9 +16,7 @@
 #include <boost/algorithm/string/join.hpp>
 #include <Internal/Equational/StatementArray.h>
 #include <Internal/Equational/Statement.h>
-#include <Internal/Equational/Parser.h>
 #include <Internal/Equational/SyntaxNodes.h>
-#include <Internal/Equational/Semantics.h>
 #include "../Test.h"
 #include "SyntaxNodeToStr.h"
 #include "StandardTestFixture.h"
@@ -32,13 +27,19 @@ using atp::logic::equational::ModelContext;
 using atp::logic::equational::StatementArray;
 using atp::logic::equational::Statement;
 using atp::logic::equational::SyntaxNodeType;
-using atp::logic::equational::EqSyntaxNode;
 using atp::logic::equational::FreeSyntaxNode;
 using atp::logic::equational::FuncSyntaxNode;
-using atp::logic::equational::SyntaxNodePtr;
-namespace semantics = atp::logic::equational::semantics;
+using atp::logic::equational::Expression;
 namespace phx = boost::phoenix;
 namespace phxargs = phx::arg_names;
+
+
+// apply the following map to free variable IDs (IDs not present
+// in the map are left unchanged - so for example, were the map to
+// be empty, this would be the identity function.)
+static Statement map_free_ids(
+	const std::map<size_t, size_t>& free_id_map,
+	Statement stmt);
 
 
 BOOST_AUTO_TEST_SUITE(EquationalTests);
@@ -46,8 +47,67 @@ BOOST_FIXTURE_TEST_SUITE(StatementTests,
 	StandardTestFixture,
 	*boost::unit_test_framework::depends_on(
 		"EquationalTests/LanguageTests")
-	* boost::unit_test_framework::depends_on(
-		"EquationalTests/SyntaxTreeFoldTests"));
+	*boost::unit_test_framework::depends_on(
+		"EquationalTests/SyntaxTreeFoldTests")
+	*boost::unit_test_framework::depends_on(
+		"EquationalTests/ExpressionTests"));
+
+
+// the data for the test case below (using the * cartesian
+// product operator, we will consider all pairs of statements
+// in this list.)
+const char* identical_stmt_data[] =
+{
+	"x = x", "e = e",
+	"i(x) = x", "*(x, y) = *(y, x)",
+	"*(i(y), i(x)) = i(*(x, y))",
+	"*(*(x, y), z) = *(x, *(y, z))",
+	"y = y", "x = e", "i(x) = y",
+	"z = i(y)", "z = i(z)"
+};
+BOOST_DATA_TEST_CASE(test_identical,
+	boost::unit_test::data::make(identical_stmt_data)
+	* boost::unit_test::data::make(identical_stmt_data),
+	stmt1, stmt2)
+{
+	s << stmt1 << '\n' << stmt2;
+
+	auto p_stmts = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, m_ctx);
+
+	const auto& stmt1 = dynamic_cast<const Statement&>(
+		p_stmts->at(0));
+	const auto& stmt2 = dynamic_cast<const Statement&>(
+		p_stmts->at(1));
+
+	// test returns the correct value
+	BOOST_TEST(stmt1.identical(stmt2) == (stmt1_str == stmt2_str));
+
+	// test symmetric
+	BOOST_TEST(stmt1.identical(stmt2) == stmt2.identical(stmt1));
+
+	// test reflexive
+	BOOST_TEST(stmt1.identical(stmt1));
+}
+
+
+BOOST_DATA_TEST_CASE(test_num_free_vars,
+	boost::unit_test::data::make({
+		"*(x, y) = *(y, x)",
+		"*(*(x, y), z) = *(x, *(y, z))",
+		"i(i(x)) = e" }) ^ boost::unit_test::data::make({
+		2, 3, 1 }), stmt_txt, num_free)
+{
+	s << stmt_txt;
+
+	auto p_stmts = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, m_ctx);
+
+	const auto& stmt1 = dynamic_cast<const Statement&>(
+		p_stmts->at(0));
+
+	BOOST_TEST(stmt1.num_free_vars() == num_free);
+}
 
 
 // only test this with one free variable due to naming issues
@@ -204,22 +264,16 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_with_conflicting_func_arities)
 	// use the default comparer
 	auto f_func = phx::val(false);
 
-	auto default_func = [ctx2](SyntaxNodePtr lhs, SyntaxNodePtr rhs)
+	auto default_func = [ctx2](Expression lhs, Expression rhs)
 		-> bool
 	{
-		if (lhs->get_type() != SyntaxNodeType::FUNC ||
-			rhs->get_type() != SyntaxNodeType::FUNC)
-			return false;
-		auto p_lhs = dynamic_cast<FuncSyntaxNode*>(lhs.get());
-		auto p_rhs = dynamic_cast<FuncSyntaxNode*>(rhs.get());
-
-		if (p_lhs == nullptr ||
-			p_rhs == nullptr)
+		if (lhs.root_type() != SyntaxNodeType::FUNC ||
+			rhs.root_type() != SyntaxNodeType::FUNC)
 			return false;
 
-		if (ctx2.symbol_name(p_lhs->get_symbol_id()) != "i")
+		if (ctx2.symbol_name(lhs.root_id()) != "i")
 			return false;
-		if (ctx2.symbol_name(p_rhs->get_symbol_id()) != "*")
+		if (ctx2.symbol_name(rhs.root_id()) != "*")
 			return false;
 
 		return true;  // passed the tests!
@@ -276,11 +330,10 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_by_converting_pair_to_str)
 				boost::make_iterator_range(begin, end),
 				", ") + ')';
 	};
-	auto default_func = [this](SyntaxNodePtr p_left,
-		SyntaxNodePtr p_right)
+	auto default_func = [this](Expression lhs,
+		Expression rhs)
 	{
-		return "[" + syntax_tree_to_str(ctx, p_left)
-			+ ", " + syntax_tree_to_str(ctx, p_right) + "]";
+		return "[" + lhs.to_str() + ", " + rhs.to_str() + "]";
 	};
 
 	auto str_result = stmt1.fold_pair<std::string>(eq_func,
@@ -290,29 +343,6 @@ BOOST_AUTO_TEST_CASE(test_pair_fold_by_converting_pair_to_str)
 	BOOST_TEST((str_result ==
 		"[*(x0, x1), e] = i(*(i(x0), i(x1)))" ||
 		str_result == "[*(x1, x0), e] = i(*(i(x1), i(x0)))"));
-}
-
-
-BOOST_AUTO_TEST_CASE(test_adjoin_rhs)
-{
-	// stmt1:
-	s << "*(x, y) = e\n";
-
-	// stmt2:
-	s << "i(x) = i(*(i(x), y))";
-
-	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
-		ctx);
-	auto stmt1 = dynamic_cast<const Statement&>(p_stmts->at(0));
-	auto stmt2 = dynamic_cast<const Statement&>(p_stmts->at(1));
-
-	auto stmt_adjoin_result = stmt1.adjoin_rhs(stmt2);
-
-	auto adjoin_as_str = stmt_adjoin_result.to_str();
-
-	BOOST_TEST((adjoin_as_str ==
-		"*(x0, x1) = i(*(i(x0), x1))" || adjoin_as_str
-		== "*(x1, x0) = i(*(i(x1), x0))"));
 }
 
 
@@ -337,10 +367,11 @@ BOOST_DATA_TEST_CASE(test_transpose,
 
 	// check that the transpose of one of them is identical
 	// to the other one
-	BOOST_TEST(semantics::identical(stmt1,
-		stmt2.transpose()));
-	BOOST_TEST(semantics::identical(stmt2,
-		stmt1.transpose()));
+	BOOST_TEST(stmt1.identical(stmt2.transpose()));
+	BOOST_TEST(stmt2.identical(stmt1.transpose()));
+	// also test their sides
+	BOOST_TEST(stmt1.lhs().identical(stmt2.rhs()));
+	BOOST_TEST(stmt2.lhs().identical(stmt1.rhs()));
 }
 
 
@@ -352,7 +383,7 @@ const char* stmt_sides_data[] =
 	"*(x0, x0)", "*(x0, *(x0, x0))",
 	"*(i(x0), i(x0))", "i(*(x0, x0))"
 };
-BOOST_DATA_TEST_CASE(test_get_statement_sides,
+BOOST_DATA_TEST_CASE(test_statement_lhs_rhs,
 	boost::unit_test::data::make(stmt_sides_data)
 	* boost::unit_test::data::make(stmt_sides_data),
 	side1, side2)
@@ -363,12 +394,8 @@ BOOST_DATA_TEST_CASE(test_get_statement_sides,
 		ctx);
 	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
 
-	auto sides = stmt.get_sides();
-
-	BOOST_TEST(syntax_tree_to_str(ctx, sides.first)
-		== side1);
-	BOOST_TEST(syntax_tree_to_str(ctx, sides.second)
-		== side2);
+	BOOST_TEST(stmt.lhs().to_str() == side1);
+	BOOST_TEST(stmt.rhs().to_str() == side2);
 }
 
 
@@ -400,20 +427,20 @@ BOOST_DATA_TEST_CASE(test_map_free_vars,
 	auto target_stmt = dynamic_cast<const Statement&>(p_stmts->at(2));
 
 	// construct free var mapping:
-	std::map<size_t, SyntaxNodePtr> free_var_map;
+	std::map<size_t, Expression> free_var_map;
 	for (auto id : original_stmt.free_var_ids())
 	{
 		// substitute all free variables for the LHS of the
 		// substitution statement (as we said above, we will
 		// ignore the RHS).
-		free_var_map[id] = sub_stmt.get_sides().first;
+		free_var_map[id] = sub_stmt.lhs();
 	}
 
 	// now test the function
 
 	auto result_stmt = original_stmt.map_free_vars(free_var_map);
 
-	BOOST_TEST(semantics::equivalent(result_stmt, target_stmt));
+	BOOST_TEST(result_stmt.equivalent(target_stmt));
 
 	// note: we need this check to make sure that, if the
 	// substitution reduced the number of free variables, the set
@@ -437,14 +464,14 @@ BOOST_AUTO_TEST_CASE(
 		ctx);
 	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
 
-	std::map<size_t, SyntaxNodePtr> free_var_map;
+	std::map<size_t, Expression> free_var_map;
 
 	// no matter what ID `stmt` assigned the free variable,
 	// because there is only one of them, then this mapping
 	// will surface the error we are testing for if it exists
 
-	free_var_map[0] = FreeSyntaxNode::construct(1);
-	free_var_map[1] = FreeSyntaxNode::construct(2);
+	free_var_map[0] = Expression(ctx, FreeSyntaxNode::construct(1));
+	free_var_map[1] = Expression(ctx, FreeSyntaxNode::construct(2));
 
 	auto result = stmt.map_free_vars(free_var_map);
 
@@ -452,7 +479,207 @@ BOOST_AUTO_TEST_CASE(
 }
 
 
+BOOST_DATA_TEST_CASE(test_true_by_reflexivity_works_on_examples,
+	boost::unit_test::data::make({
+		// some statements to test on:
+		"x=x", "x=y", "i(x)=x", "x=e", "e=e", "i(x)=i(x)",
+		"*(x, y)=*(x, y)", "*(x, y)=*(y, x)" }) ^
+	boost::unit_test::data::make({
+		// whether or not those statements are symmetric in the
+		// equals sign
+		true, false, false, false, true, true, true, false }),
+	stmt, is_symmetric)
+{
+	s << stmt;
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt_obj = dynamic_cast<const Statement&>(p_stmts->at(0));
+
+	BOOST_TEST(stmt_obj.true_by_reflexivity() == is_symmetric);
+}
+
+
+// firstly we will test the `identical` and `equivalent` functions
+// in scenarios where they both should return the same value:
+BOOST_DATA_TEST_CASE(test_identical_and_equivalent,
+	boost::unit_test::data::make({
+		// first list of statements
+		"x = x", "i(x) = x", "x = e", "e = e",
+		"*(x, x) = *( i(x), i(i(x)) )" }) ^
+	boost::unit_test::data::make({
+		// second list of statements
+		"y = y", "i(y) = y", "e = e", "e = e",
+		"*(x, x) = *( x, i(x) )" }) ^
+	boost::unit_test::data::make({
+		// whether or not those statements are equivalent
+		// (and also identical - it makes no difference here) and
+		// note that "x=x" and "y=y" are identical because, once
+		// the statements are parsed, both have 0 as their free
+		// variable IDs.
+		true, true, false, true, false }),
+	stmt1, stmt2, is_equivalent_and_identical)
+{
+	// parse them both at the same time
+	s << stmt1 << std::endl << stmt2;
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt1_obj = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto stmt2_obj = dynamic_cast<const Statement&>(p_stmts->at(1));
+
+	// identical and equivalent
+	// (try calling both ways round)
+
+	BOOST_TEST(stmt1_obj.identical(stmt2_obj)
+		== is_equivalent_and_identical);
+	BOOST_TEST(stmt2_obj.identical(stmt1_obj)
+		== is_equivalent_and_identical);
+
+	BOOST_TEST(stmt1_obj.equivalent(stmt2_obj)
+		== is_equivalent_and_identical);
+	BOOST_TEST(stmt2_obj.equivalent(stmt1_obj)
+		== is_equivalent_and_identical);
+}
+
+
+// now we will apply both functions to an example where the two
+// statements are equivalent but not identical (we will obtain
+// the second statement from the ones given in the list by
+// remapping the free variable IDs.)
+BOOST_DATA_TEST_CASE(test_equivalent_but_not_identical,
+	boost::unit_test::data::make({
+		"x = x", "i(x) = x", "x = e", "*(x, y) = x",
+		"*(x, y) = i(*(x, y))" }), stmt)
+{
+	s << stmt;
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt1_obj = dynamic_cast<const Statement&>(p_stmts->at(0));
+
+	// change the free variable IDs so that they are no longer
+	// identical
+	std::map<size_t, size_t> free_id_map;
+	free_id_map[0] = 1;  free_id_map[1] = 2;
+
+	auto stmt2_obj = map_free_ids(free_id_map, stmt1_obj);
+
+	// not identical, but equivalent
+	// (try calling both ways round)
+
+	BOOST_TEST(!stmt1_obj.identical(stmt2_obj));
+	BOOST_TEST(!stmt2_obj.identical(stmt1_obj));
+
+	BOOST_TEST(stmt1_obj.equivalent(stmt2_obj));
+	BOOST_TEST(stmt2_obj.equivalent(stmt1_obj));
+}
+
+
+// finally we will consider cases in which the statements are
+// neither equivalent nor identical (we will obtain
+// the second statement from the ones given in the list by
+// remapping the free variable IDs.)
+BOOST_DATA_TEST_CASE(test_neither_equivalent_nor_identical,
+	boost::unit_test::data::make({
+		"x = y", "i(x) = y", "x = *(e, y)", "*(x, y) = x" }), stmt)
+{
+	s << stmt;
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt1_obj = dynamic_cast<const Statement&>(p_stmts->at(0));
+
+	// map all used variables to ID 0!
+	std::map<size_t, size_t> free_id_map;
+	free_id_map[1] = 0;
+
+	auto stmt2_obj = map_free_ids(free_id_map, stmt1_obj);
+
+	// not identical nor equivalent
+	// (try calling both ways round)
+
+	BOOST_TEST(!stmt1_obj.identical(stmt2_obj));
+	BOOST_TEST(!stmt2_obj.identical(stmt1_obj));
+
+	BOOST_TEST(!stmt1_obj.equivalent(stmt2_obj));
+	BOOST_TEST(!stmt2_obj.equivalent(stmt1_obj));
+}
+
+
+BOOST_AUTO_TEST_CASE(test_equivalent_invariant_to_reflection)
+{
+	// reflect the statement along the equals sign, should still
+	// be equivalent but not identical
+	s << "*(x, y) = i(*(x, y)) \n i(*(x, y)) = *(x, y)";
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt1 = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto stmt2 = dynamic_cast<const Statement&>(p_stmts->at(1));
+
+	BOOST_TEST(stmt1.equivalent(stmt2));
+	BOOST_TEST(stmt2.equivalent(stmt1));
+}
+
+
+BOOST_DATA_TEST_CASE(test_implies,
+	boost::unit_test::data::make({
+		"*(x, i(x)) = e",
+		"*(x, y) = *(y, x)",
+		"x = x",
+		"x = x",
+		"x = i(x)",
+		"*(*(x, y), z) = *(x, *(y, z))" }) ^
+	boost::unit_test::data::make({
+		"*(i(x), i(i(x))) = e",
+		"*(x, i(x)) = *(i(x), x)",
+		"e = e",
+		"i(x) = i(x)",
+		"i(e) = e",
+		"*(x, *(i(x), x)) = *(*(x, i(x)), x)" }),
+	premise_stmt, concl_stmt)
+{
+	s << premise_stmt << '\n' << concl_stmt;
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto premise = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto concl = dynamic_cast<const Statement&>(p_stmts->at(1));
+
+	BOOST_TEST(premise.implies(concl));
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();  // StatementTests
 BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
+
+
+Statement map_free_ids(
+	const std::map<size_t, size_t>& free_id_map,
+	Statement stmt)
+{
+	std::map<size_t, Expression> new_free_map;
+
+	// change it so we map to expressions
+	for (auto pair : free_id_map)
+	{
+		new_free_map[pair.first] = Expression(stmt.context(),
+			FreeSyntaxNode::construct(pair.second));
+	}
+
+	// make the map total
+	for (auto id : stmt.free_var_ids())
+	{
+		if (new_free_map.find(id) == new_free_map.end())
+		{
+			new_free_map[id] = Expression(stmt.context(),
+				FreeSyntaxNode::construct(id));
+		}
+	}
+
+	// utilise the stmt's helper function for this
+	return stmt.map_free_vars(new_free_map);
+}
 
 

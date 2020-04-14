@@ -120,6 +120,29 @@ Expression& Expression::operator=(Expression&& other) noexcept
 	return *this;
 }
 
+std::string Expression::to_str() const
+{
+	// this is a fold!
+
+	auto free_var_fold = [](size_t free_var_id) -> std::string
+	{
+		return "x" + boost::lexical_cast<std::string>(free_var_id);
+	};
+	auto const_fold = [this](size_t symb_id) -> std::string
+	{
+		return m_ctx.symbol_name(symb_id);
+	};
+	auto func_fold = [this](size_t symb_id,
+		std::vector<std::string>::iterator begin,
+		std::vector<std::string>::iterator end) -> std::string
+	{
+		return m_ctx.symbol_name(symb_id) + '(' +
+			boost::algorithm::join(
+				boost::make_iterator_range(begin, end), ", ") + ')';
+	};
+	return fold<std::string>(free_var_fold, const_fold, func_fold);
+}
+
 
 Expression Expression::map_free_vars(const std::map<size_t,
 	Expression> free_map) const

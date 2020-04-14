@@ -175,17 +175,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Equational\DefinitionFileExamples.cpp" />
+    <ClCompile Include="Equational\ExpressionTests.cpp" />
+    <ClCompile Include="Equational\ExprTreeFlyweightTests.cpp" />
+    <ClCompile Include="Equational\FreeVarAssignmentIteratorTests.cpp" />
+    <ClCompile Include="Equational\MatchResultsIteratorTests.cpp" />
     <ClCompile Include="Equational\ModelContextTests.cpp" />
     <ClCompile Include="Equational\KnowledgeKernelTests.cpp" />
     <ClCompile Include="Equational\LanguageTests.cpp" />
     <ClCompile Include="Equational\ProofStateTests.cpp" />
-    <ClCompile Include="Equational\SemanticsHelperTests.cpp" />
-    <ClCompile Include="Equational\SemanticsTests.cpp" />
+    <ClCompile Include="Equational\RuleMatchingIteratorTests.cpp" />
     <ClCompile Include="Equational\ParseStatementsTests.cpp" />
     <ClCompile Include="Equational\ParseTreeFoldTests.cpp" />
     <ClCompile Include="Equational\ParseTreeToSyntaxTreeTests.cpp" />
     <ClCompile Include="Equational\StatementArrayTests.cpp" />
     <ClCompile Include="Equational\StatementTests.cpp" />
+    <ClCompile Include="Equational\SubExprMatchingIterator.cpp" />
     <ClCompile Include="Equational\SyntaxNodeToStr.cpp" />
     <ClCompile Include="Equational\SyntaxTreeFoldTests.cpp" />
     <ClCompile Include="Main.cpp" />

@@ -189,7 +189,7 @@
       <Filter>Source Files\Internal\Equational\Implementations\Successor Iterators</Filter>
     </ClCompile>
     <ClCompile Include="Internal\Equational\ExprTreeFlyweight.cpp">
-      <Filter>Source Files\Internal\Equational</Filter>
+      <Filter>Source Files\Internal\Equational\Implementations</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

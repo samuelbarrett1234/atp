@@ -26,39 +26,28 @@ namespace equational
 PfStateSuccIterPtr RuleMatchingIterator::construct(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
 	const Statement& target_stmt,
-	const Statement& forefront_stmt)
+	const Statement& forefront_stmt,
+	Statement::iterator sub_expr,
+	const std::vector<std::pair<size_t,
+	 SyntaxNodeType>>& free_const_enum)
 {
 	return std::make_shared<RuleMatchingIterator>(ctx, ker,
-		target_stmt, forefront_stmt);
+		target_stmt, forefront_stmt, sub_expr, free_const_enum);
 }
 
 
 RuleMatchingIterator::RuleMatchingIterator(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
 	const Statement& target_stmt,
-	const Statement& forefront_stmt) :
+	const Statement& forefront_stmt,
+	Statement::iterator sub_expr,
+	const std::vector<std::pair<size_t,
+	 SyntaxNodeType>>& free_const_enum) :
 	m_ctx(ctx), m_ker(ker), m_target_stmt(target_stmt),
-	m_forefront_stmt(forefront_stmt),
-	m_match_index(0)
+	m_forefront_stmt(forefront_stmt), m_sub_expr_iter(sub_expr),
+	m_match_index(0), m_free_const_enum(free_const_enum)
 {
-	// build the enumeration of free variable IDs in the forefront
-	// and constant symbol IDs
-	
-	const auto free_ids = forefront_stmt.free_var_ids();
-	const auto const_ids = ctx.all_constant_symbol_ids();
-
-	m_free_const_enum.reserve(
-		free_ids.size() + const_ids.size());
-
-	for (auto id : free_ids)
-		m_free_const_enum.emplace_back(id,
-			SyntaxNodeType::FREE);
-
-	for (auto id : const_ids)
-		m_free_const_enum.emplace_back(id,
-			SyntaxNodeType::CONSTANT);
-
-	// now construct m_cur_matching
+	// construct m_cur_matching
 	restore_invariant();
 }
 

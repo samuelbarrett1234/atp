@@ -17,6 +17,8 @@
 #include <vector>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IProofState.h"
+#include "Expression.h"
+#include "Statement.h"
 #include "SyntaxNodes.h"
 
 
@@ -28,8 +30,6 @@ namespace equational
 {
 
 
-class Expression;  // forward declaration
-class Statement;  // forward declaration
 class ModelContext;  // forward declaration
 class KnowledgeKernel;  // forward declaration
 
@@ -64,6 +64,9 @@ public:
 		IDs) which resulted from the matching, and with which we
 		are tasked of iterating over.
 
+	\param sub_expr The iterator of the sub-expression that has been
+		matched.
+
 	\param free_const_enum An enumeration of all free variable IDs
 		found in `forefront_stmt`, and all constant symbols.
 	*/
@@ -74,6 +77,7 @@ public:
 		const Statement& forefront_stmt,
 		const std::vector<std::pair<Expression,
 			std::vector<size_t>>>& match_results,
+		const Statement::iterator& sub_expr,
 		const std::vector<std::pair<size_t,
 			SyntaxNodeType>>& free_const_enum);
 
@@ -90,6 +94,7 @@ public:
 		const Statement& forefront_stmt,
 		const std::vector<std::pair<Expression,
 			std::vector<size_t>>>& match_results,
+		const Statement::iterator& sub_expr,
 		const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& free_const_enum);
 
@@ -119,6 +124,8 @@ private:
 
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& m_free_const_enum;
+
+	const Statement::iterator& m_sub_expr_iter;
 
 	// invariant: this index is the result we are currently pointing
 	// to, and if it is out-of-bounds then this iterator is invalid.

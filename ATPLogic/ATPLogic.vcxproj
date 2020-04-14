@@ -194,6 +194,7 @@
     <ClInclude Include="Internal\Equational\SemanticsHelper.h" />
     <ClInclude Include="Internal\Equational\Statement.h" />
     <ClInclude Include="Internal\Equational\StatementArray.h" />
+    <ClInclude Include="Internal\Equational\SubExprMatchingIterator.h" />
     <ClInclude Include="Internal\Equational\SyntaxTreeFold.h" />
     <ClInclude Include="Internal\Equational\SyntaxNodes.h" />
     <ClInclude Include="Internal\Equational\SyntaxTreeTraversal.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="Internal\Equational\SemanticsHelper.cpp" />
     <ClCompile Include="Internal\Equational\Statement.cpp" />
     <ClCompile Include="Internal\Equational\StatementArray.cpp" />
+    <ClCompile Include="Internal\Equational\SubExprMatchingIterator.cpp" />
     <ClCompile Include="Internal\Equational\SyntaxNodes.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

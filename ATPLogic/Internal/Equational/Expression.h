@@ -55,6 +55,147 @@ public:
     static ExpressionPtr construct(
         const ModelContext& ctx,
         const SyntaxNodePtr& p_root);
+	static ExpressionPtr construct(
+		Expression&& expr);
+
+public:
+	/**
+	\brief For iterating over all subtrees (subexpressions) of a
+		given expression in pre-order traversal
+	*/
+	class ATP_LOGIC_API iterator
+	{
+	public:
+		// conforming to the standard iterator template interface
+
+		typedef std::forward_iterator_tag iterator_category;
+		typedef Expression value_type;
+		typedef const Expression& reference;
+		typedef const Expression* pointer;
+		typedef size_t difference_type;
+
+		inline iterator() : m_parent(nullptr) {}
+		inline iterator(const Expression* parent) :
+			m_parent(parent),
+			m_my_value(std::make_unique<Expression>(*parent))
+		{
+			ATP_LOGIC_PRECOND(m_parent != nullptr);
+			m_stack.reserve(m_parent->m_height);
+			m_stack.emplace_back(m_parent->m_root,
+				m_parent->m_root_type);
+		}
+		inline iterator(const iterator& other) :
+			m_stack(other.m_stack),
+			m_parent(other.m_parent),
+			m_my_value(std::make_unique<Expression>(
+				other.m_my_value))
+		{ }
+		inline iterator(iterator&& other) noexcept :
+			m_stack(std::move(other.m_stack)),
+			m_parent(other.m_parent),
+			m_my_value(std::move(other.m_my_value))
+		{
+			other.m_parent = nullptr;
+		}
+		inline iterator& operator =(const iterator& other)
+		{
+			m_stack = other.m_stack;
+			m_parent = other.m_parent;
+			m_my_value = std::make_unique<Expression>(
+				*other.m_my_value);
+			return *this;
+		}
+		inline iterator& operator =(iterator&& other)
+		{
+			m_stack = std::move(other.m_stack);
+			m_parent = other.m_parent;
+			other.m_parent = nullptr;
+			m_my_value = std::move(other.m_my_value);
+			return *this;
+		}
+		inline reference operator*() const
+		{
+			ATP_LOGIC_PRECOND(m_parent != nullptr);
+			ATP_LOGIC_PRECOND(!m_stack.empty());
+			return *m_my_value;
+		}
+		inline pointer operator->() const
+		{
+			ATP_LOGIC_PRECOND(m_parent != nullptr);
+			ATP_LOGIC_PRECOND(!m_stack.empty());
+			return m_my_value.get();
+		}
+		inline iterator& operator++()
+		{
+			ATP_LOGIC_PRECOND(!is_end_iterator());
+			
+			if (m_stack.back().second ==
+				SyntaxNodeType::FUNC)
+			{
+				const size_t idx = m_stack.back().first;
+				const size_t arity = m_parent->m_func_arity->at(idx);
+
+				// remove ourselves from the stack
+				m_stack.pop_back();
+
+				// push children onto the stack in *reverse* order
+				for (size_t i = 1; i <= arity;
+					++i)
+				{
+					const size_t j = arity - i;
+					m_stack.emplace_back(
+						m_parent->m_func_children->at(idx)[j],
+						m_parent->m_func_child_types->at(idx)[j]);
+				}
+			}
+			// else we have no children so just remove ourselves from
+			// the stack
+			else m_stack.pop_back();
+
+			// rebuild this
+			// create sub expression from the parent
+			m_my_value = std::make_unique<Expression>(
+				m_parent->sub_expression(m_stack.back().first,
+					m_stack.back().second));
+
+			return *this;
+		}
+		inline iterator operator++(int)
+		{
+			iterator temp = *this;
+			++(*this);
+			return temp;
+		}
+		inline bool operator==(const iterator& iter) const
+		{
+			// end iterators don't necessarily agree on their parents
+			// and this is fine, but we still need to check parents
+			// agree when it's not an end iterator.
+			return (m_stack == iter.m_stack) &&
+				(is_end_iterator() || m_parent == iter.m_parent);
+		}
+		inline bool operator!=(const iterator& iter) const
+		{
+			return !(*this == iter);
+		}
+		inline bool is_end_iterator() const
+		{
+			return m_stack.empty();
+		}
+
+	private:
+		// this is a stack of (ID, Type) pairs, for exploring the
+		// expression tree
+		// if it is empty then we are done
+		// the stack represents the nodes left to explore, and the
+		// back element is the one we're currently looking at.
+		std::vector<std::pair<size_t, SyntaxNodeType>> m_stack;
+		const Expression* m_parent;
+
+		// it is easier to create a copy of the expression here, and
+		// just return references and pointers to it
+		std::unique_ptr<Expression> m_my_value;
+	};
 
 public:
     /**
@@ -62,12 +203,24 @@ public:
     */
     Expression(const ModelContext& ctx,
         const SyntaxNodePtr& p_root);
-
     Expression(const Expression& other);
     Expression(Expression&& other) noexcept;
     Expression& operator= (const Expression& other);
     Expression& operator= (Expression&& other) noexcept;
 
+	inline iterator begin() const
+	{
+		return iterator(this);
+	}
+	inline iterator end() const
+	{
+		return iterator();
+	}
+
+	inline const std::set<size_t>& free_var_ids() const
+	{
+		return *m_free_var_ids;
+	}
 
     /**
     \brief Substitute the free variables according to the given map
@@ -79,7 +232,19 @@ public:
         must be total).
     */
     Expression map_free_vars(const std::map<size_t,
-        SyntaxNodePtr> free_map) const;
+        Expression> free_map) const;
+
+	/**
+	\brief Replace the expression rooted at the given position iter
+		with the given new expression
+
+	\returns A new expression containing the result
+
+	\pre `pos` must be an iterator belonging to this class, and must
+		not be an end iterator.
+	*/
+	Expression replace(const iterator& pos,
+		const Expression& new_expr) const;
 
 	/**
 	\brief Special case of `map_free_vars` for replacing a free
@@ -112,12 +277,54 @@ public:
 	*/
 	Expression increment_free_var_ids(size_t inc) const;
 
+	/**
+	\brief Given an (id, type) pair, return a new expression which
+		represents the sub-expression of this parent expression.
 
-	inline const std::set<size_t>& free_var_ids() const
-	{
-		return m_free_var_ids;
-	}
+	\note If type is just FREE or CONSTANT, this implementation is
+		quite trivial and boring. It is only really interesting
+		when type is FUNC.
 
+	\pre `type` is not EQ, and if `type` is FUNC then `id` must be a
+		valid index, and if `type` is FREE then `id` must be a free
+		variable ID in this expression, and if `type` is CONSTANT
+		then `id` must be a constant symbol ID in the model context.
+
+	\returns A new expression, which shares as much information as
+		possible with the parent.
+	*/
+	Expression sub_expression(size_t id, SyntaxNodeType type) const;
+
+	/**
+	\brief Returns true iff the expressions are equal up to swapping
+		of free variable names
+	*/
+	bool equivalent(const Expression& other) const;
+
+	/**
+	\brief Returns true iff the two expressions are identical (i.e.
+		same free variable IDs)
+	*/
+	bool identical(const Expression& other) const;
+
+	/**
+	\brief Try to match this expression to the given expression.
+
+	\details This function looks for a substitution of this node's
+		free variables which creates a statement identical to `expr`
+
+	\param expr The expression to try matching
+
+	\param p_out_subs An optional output parameter, for extracting
+		the matching if successful.
+
+	\returns True if and only if the match was successful.
+
+	\post p_out_subs, if not null, will be given a mapping which is
+		total with respect to our free variables.
+	*/
+	bool try_match(const Expression& expr,
+		std::map<size_t, Expression>* p_out_subs) const;
 
     /**
     \brief Perform a fold operation over this expression.
@@ -145,7 +352,6 @@ public:
 			m_root, m_root_type);
 	}
 
-
     /**
     \brief Perform a fold over pairs of expressions.
 
@@ -170,11 +376,10 @@ public:
 
     \tparam DefaultPairFuncT This is called when a pair of nodes are
         encountered but don't have the same type, and it must have
-        signature `SyntaxNodePtr x SyntaxNodePtr -> ResultT`, where the
-        two arguments are just the two nodes. NOTE: you can also pass
-		a constant ResultT-convertible value here instead, which is
-		MUCH more efficient as it means the function doesn't have to
-		build a syntax tree for the arguments!
+        signature `Expression x Expression -> ResultT`, where the
+        two arguments are just the two nodes. **NOTE**: you can also
+		pass a constant ResultT-convertible value instead, which is
+		more efficient.
 
     \param other The other expression to fold with, which can be
         thought of as appearing on the RHS of the pair fold.
@@ -203,10 +408,10 @@ public:
 			"std::list<ResultT>::iterator,"
 			" std::list<ResultT>::iterator) -> ResultT");
 		static_assert(std::is_convertible<DefaultPairFuncT,
-			std::function<ResultT(SyntaxNodePtr, SyntaxNodePtr)>>::value
+			std::function<ResultT(Expression, Expression)>>::value
 			|| std::is_convertible<DefaultPairFuncT, ResultT>::value,
-			"DefaultPairFuncT should be of type (SyntaxNodePtr, "
-			"SyntaxNodePtr) -> ResultT, or should be a constant ResultT.");
+			"DefaultPairFuncT should be of type (Expression, "
+			"Expression) -> ResultT, or should be a constant ResultT.");
 
 		// now proceed with the function:
 
@@ -266,9 +471,9 @@ public:
 					// convert both sides to syntax trees, call as a
 					// function, then push the result
 					result_stack.emplace_back(default_func_or_val(
-						to_syntax_tree(id_pair.first,
+						sub_expression(id_pair.first,
 							type_pair.first),
-						other.to_syntax_tree(id_pair.second,
+						other.sub_expression(id_pair.second,
 							type_pair.second)
 					));
 				}
@@ -310,9 +515,9 @@ public:
 							// result
 							result_stack.emplace_back(
 								default_func_or_val(
-								to_syntax_tree(id_pair.first,
+								sub_expression(id_pair.first,
 									type_pair.first),
-								other.to_syntax_tree(id_pair.second,
+								other.sub_expression(id_pair.second,
 									type_pair.second)
 							));
 						}
@@ -481,9 +686,9 @@ private:
 	*/
 	template<typename ResultT, typename FreeFuncT,
 		typename ConstFuncT, typename FFuncT>
-		ResultT fold_from(FreeFuncT free_func,
-			ConstFuncT const_func, FFuncT f_func,
-			size_t start_id, SyntaxNodeType start_type) const
+	ResultT fold_from(FreeFuncT free_func,
+		ConstFuncT const_func, FFuncT f_func,
+		size_t start_id, SyntaxNodeType start_type) const
 	{
 		// static assertions on the types of the functions given:
 
@@ -691,15 +896,11 @@ private:
 	std::pair<size_t,
 		SyntaxNodeType> add_tree_data(const SyntaxNodePtr& tree);
 
-
 	/**
-	\brief Convert the given (node ID, node type) pair to a syntax
-	    tree, where "ID" represents either a free variable ID, a
-		constant symbol ID, or a function index, as per the rest of
-		this structure.
+	\brief Create a copy of this expression which does NOT share the
+		arrays with this object (so can safely be modified).
 	*/
-	SyntaxNodePtr to_syntax_tree(size_t id,
-		SyntaxNodeType type) const;
+	Expression duplicate() const;
 
 private:
     // expressions store references to their creator
@@ -718,29 +919,29 @@ private:
     size_t m_root;
     SyntaxNodeType m_root_type;
 
-    // m_func_symb_ids[i] is the symbol ID of the ith function node
-    std::vector<size_t> m_func_symb_ids;
+    // m_func_symb_ids->at(i) is the symbol ID of the ith function node
+    std::shared_ptr<std::vector<size_t>> m_func_symb_ids;
 
-    // m_func_arity[i] is the arity of the ith function
-    std::vector<size_t> m_func_arity;
+    // m_func_arity->at(i) is the arity of the ith function
+    std::shared_ptr<std::vector<size_t>> m_func_arity;
 
-    // m_func_children[i] is the array of size `m_func_arity[i]` of
-    // children of that function, and m_func_child_types[i] the
+    // m_func_children->at(i) is the array of size `m_func_arity->at(i)` of
+    // children of that function, and m_func_child_types->at(i) the
     // corresponding types.
-    // if m_func_child_types[i][j] == SyntaxNodeType::FREE,
-    // then m_func_children[i][j] is the free variable ID.
-    // if m_func_child_types[i][j] == SyntaxNodeType::CONSTANT,
-    // then m_func_children[i][j] is the constant symbol ID.
-    // if m_func_child_types[i][j] == SyntaxNodeType::FUNC,
-    // then m_func_children[i][j] is the index of the function in
+    // if m_func_child_types->at(i)[j] == SyntaxNodeType::FREE,
+    // then m_func_children->at(i)[j] is the free variable ID.
+    // if m_func_child_types->at(i)[j] == SyntaxNodeType::CONSTANT,
+    // then m_func_children->at(i)[j] is the constant symbol ID.
+    // if m_func_child_types->at(i)[j] == SyntaxNodeType::FUNC,
+    // then m_func_children->at(i)[j] is the index of the function in
     // these arrays.
 
-    std::vector<std::array<size_t,
-        MAX_ARITY>> m_func_children;
-    std::vector<std::array<SyntaxNodeType,
-        MAX_ARITY>> m_func_child_types;
+    std::shared_ptr<std::vector<std::array<size_t,
+        MAX_ARITY>>> m_func_children;
+    std::shared_ptr<std::vector<std::array<SyntaxNodeType,
+        MAX_ARITY>>> m_func_child_types;
 
-	std::set<size_t> m_free_var_ids;
+	std::shared_ptr<std::set<size_t>> m_free_var_ids;
 };
 
 

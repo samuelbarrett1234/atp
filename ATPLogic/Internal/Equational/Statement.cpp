@@ -47,8 +47,25 @@ Statement::Statement(
 		p_eq->left()), Expression::construct(ctx,
 			p_eq->right()));
 
-	m_tree_sides = std::make_pair(p_eq->left(), p_eq->right());
+	// collect together the free variable IDs by unioning those
+	// of the children:
 
+	const auto& first_ids = m_sides.first->free_var_ids();
+	const auto& second_ids = m_sides.second->free_var_ids();
+
+	std::set_union(first_ids.begin(), first_ids.end(),
+		second_ids.begin(), second_ids.end(),
+		std::inserter(m_free_var_ids,
+			m_free_var_ids.end()));
+}
+
+
+Statement::Statement(const ModelContext& ctx, Expression lhs,
+	Expression rhs),
+	m_ctx(ctx),
+	m_sides(Expression::construct(std::move(lhs)),
+		Expression::construct(std::move(rhs)))
+{
 	// collect together the free variable IDs by unioning those
 	// of the children:
 
@@ -82,7 +99,6 @@ Statement& Statement::operator=(const Statement& other)
 	{
 		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
 		m_sides = other.m_sides;
-		m_tree_sides = other.m_tree_sides;
 		m_free_var_ids = other.m_free_var_ids;
 	}
 	return *this;
@@ -95,7 +111,6 @@ Statement& Statement::operator=(Statement&& other) noexcept
 	{
 		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
 		m_sides = std::move(other.m_sides);
-		m_tree_sides = std::move(other.m_tree_sides);
 		m_free_var_ids = std::move(other.m_free_var_ids);
 	}
 	return *this;
@@ -133,53 +148,8 @@ std::string Statement::to_str() const
 }
 
 
-Statement Statement::transpose() const
-{
-	Statement tr = *this;
-
-	std::swap(tr.m_sides.first, tr.m_sides.second);
-
-	return tr;
-}
-
-
-std::pair<SyntaxNodePtr, SyntaxNodePtr> Statement::get_sides() const
-{
-	//auto to_syntax_tree = [this](const Expression& expr)
-	//	-> SyntaxNodePtr
-	//{
-	//	return expr.fold<SyntaxNodePtr>(&FreeSyntaxNode::construct,
-	//		&ConstantSyntaxNode::construct,
-	//		&FuncSyntaxNode::move_construct);
-	//};
-
-	//return std::make_pair(to_syntax_tree(*m_sides.first),
-	//	to_syntax_tree(*m_sides.second));
-
-	return m_tree_sides;
-}
-
-
-Statement Statement::adjoin_rhs(const Statement& other) const
-{
-	ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
-
-	// \todo: this could be more efficient I think, but it would
-	// be a considerable amount of effort (perhaps a couple of
-	// hundred lines?)
-
-	auto my_sides = get_sides();
-	auto other_sides = other.get_sides();
-
-	auto new_eq = EqSyntaxNode::construct(my_sides.first,
-		other_sides.second);
-
-	return Statement(m_ctx, new_eq);
-}
-
-
 Statement Statement::map_free_vars(const std::map<size_t,
-	SyntaxNodePtr> free_map) const
+	Expression> free_map) const
 {
 	// check that this map is total
 	ATP_LOGIC_PRECOND(std::all_of(m_free_var_ids.begin(),
@@ -212,6 +182,111 @@ Statement Statement::map_free_vars(const std::map<size_t,
 			new_stmt.m_free_var_ids.end()));
 
 	return new_stmt;
+}
+
+
+Statement Statement::replace(const iterator& pos,
+	const Expression& expr) const
+{
+	ATP_LOGIC_PRECOND(pos != end());
+	if (pos.m_left != m_sides.first->end())
+	{
+		auto expr_lhs = m_sides.first->replace(
+			pos.m_left, expr);
+		return Statement(m_ctx, std::move(expr_lhs),
+			*m_sides.second);
+	}
+	else
+	{
+		auto expr_rhs = m_sides.second->replace(
+			pos.m_right, expr);
+		return Statement(m_ctx, *m_sides.first,
+			std::move(expr_rhs));
+	}
+}
+
+
+Statement Statement::replace_free_with_free(
+	size_t initial_id, size_t after_id) const
+{
+	return Statement(m_ctx, m_sides.first->replace_free_with_free(
+		initial_id, after_id),
+		m_sides.second->replace_free_with_free(initial_id,
+			after_id));
+}
+
+
+Statement Statement::replace_free_with_const(
+	size_t initial_id, size_t const_symb_id) const
+{
+	return Statement(m_ctx, m_sides.first->replace_free_with_const(
+		initial_id, const_symb_id),
+		m_sides.second->replace_free_with_const(initial_id,
+			const_symb_id));
+}
+
+
+Statement Statement::increment_free_var_ids(
+	size_t inc) const
+{
+	return Statement(m_ctx,
+		m_sides.first->increment_free_var_ids(inc),
+		m_sides.second->increment_free_var_ids(inc));
+}
+
+
+Statement Statement::transpose() const
+{
+	Statement tr = *this;
+
+	std::swap(tr.m_sides.first, tr.m_sides.second);
+
+	return tr;
+}
+
+
+bool Statement::implies(const Statement& conclusion) const
+{
+	// check that the two maps don't conflict on their intersection
+	auto maps_compatible = [](
+		const std::map<size_t, Expression>& a,
+		const std::map<size_t, Expression>& b) -> bool
+	{
+		// we only need to check consistency between the assignments
+		// that are in both a and b, so it suffices to loop over a
+		for (const auto& pair : a)
+		{
+			auto iter = b.find(pair.first);
+			if (iter != b.end())
+			{
+				if (!pair.second.equivalent(iter->second))
+					return false;
+			}
+		}
+		return true;
+	};
+
+	std::map<size_t, Expression> lmap, rmap;
+
+	if (m_sides.first->try_match(*conclusion.m_sides.first,
+		&lmap) && m_sides.second->try_match(
+		*conclusion.m_sides.second, &rmap))
+	{
+		if (maps_compatible(lmap, rmap))
+			return true;
+	}
+
+	// else try again but by matching the transpose
+
+	lmap.clear();
+	rmap.clear();
+
+	// the && here short-circuits, and evaluates LHS first, so
+	// this is valid
+	return m_sides.first->try_match(*conclusion.m_sides.second,
+		&lmap) && m_sides.second->try_match(
+			*conclusion.m_sides.first, &rmap)
+		&& maps_compatible(lmap, rmap);
 }
 
 

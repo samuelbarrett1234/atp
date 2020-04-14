@@ -84,7 +84,7 @@ ATP_LOGIC_API bool true_by_reflexivity(const Statement& stmt);
 
 
 /**
-\brief Returns true iff there exists a substitution in the premmise
+\brief Returns true iff there exists a substitution in the premise
     which would produce the conclusion
 
 \warning This is not used in finding proofs, because in this

@@ -94,11 +94,15 @@ public:
 
 	\returns True if and only if the match was successful.
 
+	\post p_out_subs, if not null, will be given a mapping which is
+		total **with respect to the matching expression's free
+		variables** - but not necessarily the match results.
+
 	\pre match_index < num_matching_rules()
 	*/
 	bool try_match(size_t match_index,
 		const Expression& expr,
-		std::map<size_t, Expression>* p_out_subs);
+		std::map<size_t, Expression>* p_out_subs) const;
 
 	/**
 	\brief Get the possible effects of a given matching and matching

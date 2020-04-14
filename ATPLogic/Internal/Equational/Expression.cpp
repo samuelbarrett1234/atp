@@ -44,17 +44,15 @@ Expression::Expression(const ModelContext& ctx,
 
 	auto root_data = add_tree_data(p_root);
 
+	m_root = root_data.first;
+	m_root_type = root_data.second;
+
 	// compute height of the syntax tree using a fold
-	m_height = fold_syntax_tree<size_t>([](size_t lhs, size_t rhs)
-		{ return std::max(lhs, rhs) + 1; },
+	m_height = fold<size_t>(
 		phx::val(1), phx::val(1), [](size_t,
 			std::vector<size_t>::iterator begin,
 			std::vector<size_t>::iterator end)
-		{ return *std::max_element(begin, end) + 1; },
-		p_root);
-
-	m_root = root_data.first;
-	m_root_type = root_data.second;
+		{ return *std::max_element(begin, end) + 1; });
 }
 
 
@@ -109,19 +107,21 @@ Expression& Expression::operator=(Expression&& other) noexcept
 
 
 Expression Expression::map_free_vars(const std::map<size_t,
-	SyntaxNodePtr> free_map) const
+	Expression> free_map) const
 {
 	// check that this map is total
-	ATP_LOGIC_PRECOND(std::all_of(m_free_var_ids.begin(),
-		m_free_var_ids.end(),
+	ATP_LOGIC_PRECOND(std::all_of(m_free_var_ids->begin(),
+		m_free_var_ids->end(),
 		[&free_map](size_t id)
 		{ return free_map.find(id) != free_map.end(); }));
 
-	Expression new_expr = *this;
+	// it is CRUCIAL that we duplicate this rather than
+	// just say new_expr = *this
+	Expression new_expr = duplicate();
 
 	// clear this, as it will automatically be rebuilt below during
 	// the substitutions
-	new_expr.m_free_var_ids.clear();
+	new_expr.m_free_var_ids->clear();
 
 	// firstly, create a new mapping which doesn't use syntax trees:
 	std::map<size_t, std::pair<size_t, SyntaxNodeType>> our_free_map;
@@ -135,8 +135,8 @@ Expression Expression::map_free_vars(const std::map<size_t,
 		// unit test:
 		// `test_extra_mapping_doesnt_fool_free_var_tracking`
 
-		if (m_free_var_ids.find(sub.first)
-			!= m_free_var_ids.end())
+		if (m_free_var_ids->find(sub.first)
+			!= m_free_var_ids->end())
 		{
 			ATP_LOGIC_ASSERT(sub.second->get_type()
 				!= SyntaxNodeType::EQ);
@@ -159,18 +159,18 @@ Expression Expression::map_free_vars(const std::map<size_t,
 	// functions we just created! Since the new functions are all
 	// guaranteed to be at the end of the array, simply only update
 	// the ones that came directly from the `this` object:
-	const size_t num_funcs_to_update = m_func_symb_ids.size();
+	const size_t num_funcs_to_update = m_func_symb_ids->size();
 	for (size_t i = 0; i < num_funcs_to_update; ++i)
 	{
 		// for each child of the function
-		for (size_t j = 0; j < new_expr.m_func_arity[i]; ++j)
+		for (size_t j = 0; j < new_expr.m_func_arity->at(i); ++j)
 		{
-			if (new_expr.m_func_child_types[i][j]
+			if (new_expr.m_func_child_types->at(i)[j]
 				== SyntaxNodeType::FREE)
 			{
 				// find the substitution for this free variable
 				auto sub_iter = our_free_map.find(
-					new_expr.m_func_children[i][j]);
+					new_expr.m_func_children->at(i)[j]);
 
 				// mapping should be total
 				ATP_LOGIC_ASSERT(sub_iter != our_free_map.end());
@@ -182,8 +182,8 @@ Expression Expression::map_free_vars(const std::map<size_t,
 
 				// update `new_expr`
 
-				new_expr.m_func_children[i][j] = new_id;
-				new_expr.m_func_child_types[i][j] = new_type;
+				new_expr.m_func_children->at(i)[j] = new_id;
+				new_expr.m_func_child_types->at(i)[j] = new_type;
 			}
 		}
 	}
@@ -226,7 +226,7 @@ Expression::add_tree_data(const SyntaxNodePtr& tree)
 
 	auto free_func = [this](size_t free_id) -> NodePair
 	{
-		m_free_var_ids.insert(free_id);
+		m_free_var_ids->insert(free_id);
 		return std::make_pair(free_id, SyntaxNodeType::FREE);
 	};
 
@@ -241,44 +241,35 @@ Expression::add_tree_data(const SyntaxNodePtr& tree)
 	{
 		// when we add a new element to all the vectors, the index
 		// will be the newsize-1, which is just the oldsize.
-		const size_t func_idx = m_func_children.size();
+		const size_t func_idx = m_func_children->size();
 
 		const size_t arity = std::distance(begin, end);
 
 		// arity limit!!!
 		ATP_LOGIC_PRECOND(arity < MAX_ARITY);
 
-		m_func_arity.push_back(arity);
-		m_func_symb_ids.push_back(symb_id);
+		m_func_arity->push_back(arity);
+		m_func_symb_ids->push_back(symb_id);
 
 		auto map_first = boost::bind(&NodePair::first, _1);
 		auto map_second = boost::bind(&NodePair::second, _1);
 
-		m_func_children.emplace_back();
-		m_func_child_types.emplace_back();
+		m_func_children->emplace_back();
+		m_func_child_types->emplace_back();
 
 		std::copy(boost::make_transform_iterator(begin, map_first),
 			boost::make_transform_iterator(end, map_first),
-			m_func_children.back().begin());
+			m_func_children->back().begin());
 
 		std::copy(boost::make_transform_iterator(begin, map_second),
 			boost::make_transform_iterator(end, map_second),
-			m_func_child_types.back().begin());
+			m_func_child_types->back().begin());
 
 		return std::make_pair(func_idx, SyntaxNodeType::FUNC);
 	};
 
 	return fold_syntax_tree<NodePair>(eq_func, free_func, const_func,
 		f_func, tree);
-}
-
-
-SyntaxNodePtr Expression::to_syntax_tree(size_t id,
-	SyntaxNodeType type) const
-{
-	return fold_from<SyntaxNodePtr>(&FreeSyntaxNode::construct,
-		&ConstantSyntaxNode::construct, &FuncSyntaxNode::move_construct,
-		id, type);
 }
 
 

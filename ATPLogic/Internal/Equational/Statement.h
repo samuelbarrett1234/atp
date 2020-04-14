@@ -76,10 +76,105 @@ class ATP_LOGIC_API Statement : public IStatement
 {
 public:
 	/**
+	\brief For iterating over all subtrees (subexpressions) of a
+		given statement in pre-order traversal, starting with the
+		left-hand expression and ending with the right-hand one.
+
+	\details A statement iterator is just an iterator for the LHS
+		and an iterator for the RHS, which then uses the LHS iterator
+		until it becomes invalid, and when that happens it
+		subsequently just uses the RHS iterator until that becomes
+		invalid too.
+	*/
+	class ATP_LOGIC_API iterator
+	{
+		friend Statement;
+	public:
+		// conforming to the standard iterator template interface
+
+		typedef std::forward_iterator_tag iterator_category;
+		typedef Expression value_type;
+		typedef const Expression& reference;
+		typedef const Expression* pointer;
+		typedef size_t difference_type;
+
+		inline iterator() = default;
+		inline iterator(const Statement& parent) :
+			m_left(parent.m_sides.first->begin()),
+			m_right(parent.m_sides.second->begin())
+		{
+		}
+		inline iterator(const iterator& other) :
+			m_left(other.m_left),
+			m_right(other.m_right)
+		{ }
+		inline iterator(iterator&& other) noexcept :
+			m_left(std::move(other.m_left)),
+			m_right(std::move(other.m_right))
+		{
+		}
+		inline iterator& operator =(const iterator& other)
+		{
+			m_left = other.m_left;
+			m_right = other.m_right;
+			return *this;
+		}
+		inline iterator& operator =(iterator&& other)
+		{
+			m_left = std::move(other.m_left);
+			m_right = std::move(other.m_right);
+			return *this;
+		}
+		inline reference operator*() const
+		{
+			if (!m_left.is_end_iterator())
+				return *m_left;
+			else
+				return *m_right;
+		}
+		inline pointer operator->() const
+		{
+			if (!m_left.is_end_iterator())
+				return m_left.operator->();
+			else
+				return m_right.operator->();
+		}
+		inline iterator& operator++()
+		{
+			if (!m_left.is_end_iterator())
+				++m_left;
+			else
+				++m_right;
+			return *this;
+		}
+		inline iterator operator++(int)
+		{
+			iterator temp = *this;
+			++(*this);
+			return temp;
+		}
+		inline bool operator==(const iterator& iter) const
+		{
+			return (m_left == iter.m_left &&
+				m_right == iter.m_right);
+		}
+		inline bool operator!=(const iterator& iter) const
+		{
+			return !(*this == iter);
+		}
+
+	private:
+		Expression::iterator m_left, m_right;
+	};
+
+public:
+	/**
 	\pre p_root->get_type() == SyntaxNodeType::EQ
 	*/
 	Statement(const ModelContext& ctx,
 		const SyntaxNodePtr& p_root);
+	Statement(const ModelContext& ctx,
+		Expression lhs, Expression rhs);
 	Statement(const Statement& other);
 
 	// the only reason this is here is so that we can put Statement
@@ -97,38 +192,14 @@ public:
 	// implemented by a fold
 	std::string to_str() const override;
 
-	/**
-	\brief Transpose the statement (flip it around the equals sign)
-
-	\details This can be implemented using a fold, but doing so is
-	    very slow as it requires reallocating and rebuilding the
-		whole tree.
-	*/
-	Statement transpose() const;
-
-	/**
-	\brief Get the LHS and RHS of this statement
-
-	\returns A pair (LHS, RHS)
-
-	\details This can be implemented using a fold, but doing so is
-		very slow as it requires reallocating and rebuilding the
-		whole tree.
-	*/
-	std::pair<SyntaxNodePtr, SyntaxNodePtr> get_sides() const;
-
-	/**
-	\brief Substitute the free variables according to the given map
-
-	\param free_map A mapping from free variable IDs to expressions
-	    which will replace them
-
-	\pre All free variables must be assigned a mapping (this mapping
-	    must be total).
-	*/
-	Statement map_free_vars(const std::map<size_t,
-		SyntaxNodePtr> free_map) const;
-
+	inline iterator begin() const
+	{
+		return iterator(*this);
+	}
+	inline iterator end() const
+	{
+		return iterator();
+	}
 
 	inline size_t num_free_vars() const
 	{
@@ -144,6 +215,30 @@ public:
 	{
 		return m_ctx;
 	}
+
+	/**
+	\brief Substitute the free variables according to the given map
+
+	\param free_map A mapping from free variable IDs to expressions
+		which will replace them
+
+	\pre All free variables must be assigned a mapping (this mapping
+		must be total).
+	*/
+	Statement map_free_vars(const std::map<size_t,
+		Expression> free_map) const;
+
+	/**
+	\brief Replace the expression rooted at the given position iter
+		with the given new expression
+
+	\returns A new statement containing the result
+
+	\pre `pos` must be an iterator belonging to this class, and must
+		not be an end iterator.
+	*/
+	Statement replace(const iterator& pos,
+		const Expression& expr) const;
 
 	/**
 	\brief Special case of `map_free_vars` for replacing a free
@@ -176,13 +271,57 @@ public:
 	*/
 	Statement increment_free_var_ids(size_t inc) const;
 
+	/**
+	\brief Transpose the statement (flip it around the equals sign)
+
+	\details This can be implemented using a fold, but doing so is
+		very slow as it requires reallocating and rebuilding the
+		whole tree.
+	*/
+	Statement transpose() const;
 
 	/**
-	\brief create a new statement obtained by replacing the RHS of
-	    this statement with the RHS of the `other` statement.
+	\brief Returns true iff the statements are equal up to swapping
+		of free variable names and reflection about the equals sign
 	*/
-	Statement adjoin_rhs(const Statement& other) const;
+	inline bool equivalent(const Statement& other) const
+	{
+		return (m_sides.first->equivalent(*other.m_sides.first)
+			&& m_sides.second->equivalent(*other.m_sides.second))
+			// check transpose case too:
+			|| (m_sides.first->equivalent(*other.m_sides.second)
+			&& m_sides.second->equivalent(*other.m_sides.first));
+	}
 
+	/**
+	\brief Returns true iff the two statements are identical (i.e.
+		same free variable IDs, same orientation about equals sign,
+		etc.)
+	*/
+	inline bool identical(const Statement& other) const
+	{
+		return m_sides.first->identical(*other.m_sides.first)
+			&& m_sides.second->identical(*other.m_sides.second);
+	}
+
+	/**
+	\brief Returns true iff the statement is symmetric about the
+		equals sign (thus trivially true by reflexivity of '=').
+	*/
+	inline bool true_by_reflexivity() const
+	{
+		return m_sides.first->identical(*m_sides.second);
+	}
+
+	/**
+	\brief Returns true iff there exists a substitution in the
+		premise (the callee) which would produce the conclusion
+
+	\warning This is not used in finding proofs, because in this
+		implementation of equational logic, proofs are "iff", i.e.
+		readable in both directions.
+	*/
+	bool implies(const Statement& conclusion) const;
 
 	/**
 	\see atp::logic::equational::fold_syntax_tree
@@ -209,7 +348,6 @@ public:
 		return eq_func(std::move(left_result),
 			std::move(right_result));
 	}
-
 
 	/**
 	\brief Perform a fold over pairs of statements, where the fold
@@ -282,10 +420,6 @@ private:
 	// representing the LHS and the second representing the RHS,
 	// appearing on each side of the equals sign.
 	std::pair<ExpressionPtr, ExpressionPtr> m_sides;
-
-	// cache the sides of this statement in a tree representation
-	// for efficiency, because `get_sides` is called a lot.
-	std::pair<SyntaxNodePtr, SyntaxNodePtr> m_tree_sides;
 
 	std::set<size_t> m_free_var_ids;
 };

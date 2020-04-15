@@ -6,17 +6,19 @@
 
 \details This file tests the conversion of parse trees to syntax
     trees; in particular, it tests the type-checking based on the
-	definitions given in the knowledge kernel.
+	definitions given in the model context.
 
 */
 
 
 #include <sstream>
 #include <string>
+#include <Internal/Equational/Language.h>
+#include <Internal/Equational/ModelContext.h>
 #include <Internal/Equational/Parser.h>
 #include <Internal/Equational/SyntaxNodes.h>
 #include "../Test.h"
-#include "StandardTestFixture.h"
+#include "DefinitionFileExamples.h"
 
 
 using atp::logic::equational::SyntaxNodeType;
@@ -24,8 +26,29 @@ using atp::logic::equational::EqSyntaxNode;
 using atp::logic::equational::FuncSyntaxNode;
 using atp::logic::equational::ConstantSyntaxNode;
 using atp::logic::equational::FreeSyntaxNode;
+using atp::logic::equational::Language;
+using atp::logic::equational::ModelContext;
 using atp::logic::equational::parse_statements;
 using atp::logic::equational::ptree_to_stree;
+using atp::logic::ModelContextPtr;
+
+
+struct ParseTreeToSyntaxTreeTestFixture
+{
+	std::stringstream s,
+		ctx_in;
+	Language lang;
+	ModelContextPtr p_ctx;
+	const ModelContext& ctx;
+
+	ParseTreeToSyntaxTreeTestFixture() :
+		ctx_in(group_theory_definition_file),
+		p_ctx(lang.try_create_context(ctx_in)),
+		ctx(dynamic_cast<const ModelContext&>(*p_ctx))
+	{
+		s << std::noskipws;
+	}
+};
 
 
 namespace atp {
@@ -61,7 +84,7 @@ static inline std::ostream& boost_test_print_type (std::ostream& os,
 // they are all parsable!)
 static std::string stmts_to_check_validity[] =
 {
-	// here, f is a free function (not been defined in the kernel)
+	// here, f is a free function (not been defined in the context)
 	// and this statement basically says that: "all functions in two
 	// variables are symmetric in their arguments", however as of yet
 	// we don't allow universal quantification over functions.
@@ -112,7 +135,7 @@ static SyntaxNodeType rhs_types[] =
 
 BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(ParseTreeToSyntaxTreeTests,
-	StandardTestFixture,
+	ParseTreeToSyntaxTreeTestFixture,
 	*boost::unit_test_framework::depends_on(
 		"EquationalTests/ParseStatementsTests")
 	*boost::unit_test_framework::depends_on(

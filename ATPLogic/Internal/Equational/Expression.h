@@ -18,6 +18,7 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <boost/flyweight.hpp>
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/optional.hpp>
 #include "../../ATPLogicAPI.h"
@@ -190,11 +191,14 @@ public:
 			// the stack
 			else m_stack.pop_back();
 
-			// rebuild this
-			// create sub expression from the parent
-			m_my_value = std::make_unique<Expression>(
-				m_parent->sub_expression(m_stack.back().id,
-					m_stack.back().type));
+			// reconstruct our value if we are not an end iterator
+			if (!is_end_iterator())
+			{
+				// create sub expression from the parent
+				m_my_value = std::make_unique<Expression>(
+					m_parent->sub_expression(m_stack.back().id,
+						m_stack.back().type));
+			}
 
 			return *this;
 		}
@@ -206,11 +210,7 @@ public:
 		}
 		inline bool operator==(const iterator& iter) const
 		{
-			// end iterators don't necessarily agree on their parents
-			// and this is fine, but we still need to check parents
-			// agree when it's not an end iterator.
-			return (m_stack == iter.m_stack) &&
-				(is_end_iterator() || m_parent == iter.m_parent);
+			return (m_stack == iter.m_stack);
 		}
 		inline bool operator!=(const iterator& iter) const
 		{
@@ -218,17 +218,28 @@ public:
 		}
 
 		// not part of the standard iterator interface
+
 		inline bool is_end_iterator() const
 		{
 			return m_stack.empty();
 		}
 
-		/**
-		\brief Does this iterator come from the given expression?
-		*/
-		inline bool belongs_to(const Expression* expr) const
+		inline bool is_begin_iterator() const
 		{
-			return m_parent == expr;
+			ATP_LOGIC_PRECOND(m_stack.empty() || m_parent != nullptr);
+			const bool is_begin = (!m_stack.empty() && m_stack.back().is_root);
+
+#ifdef ATP_LOGIC_DEFENSIVE
+			// if we are a begin iterator then we should also have
+			// stack size 1 and the ID/type of the one element on the
+			// stack should tie up with m_parent->m_tree's root info.
+			ATP_LOGIC_ASSERT(!is_begin ||
+				(m_stack.size() == 1 && m_stack.back().id
+				== m_parent->m_tree.root_id() && m_stack.back().type
+				== m_parent->m_tree.root_type()));
+#endif
+
+			return is_begin;
 		}
 
 		/**
@@ -271,22 +282,21 @@ public:
 		std::unique_ptr<Expression> m_my_value;
 	};
 
-private:
-	/**
-	\pre root_type == FREE or CONSTANT
-
-	\brief Used internally for construction of very simple
-		expressions.
-	*/
-	Expression(const ModelContext& ctx,
-		size_t root_id, SyntaxNodeType root_type);
-
 public:
     /**
     \pre p_root->get_type() != SyntaxNodePtr::EQ
     */
     Expression(const ModelContext& ctx,
         const SyntaxNodePtr& p_root);
+
+	/**
+	\brief Construction of very simple (free or constant) expressions
+
+	\pre root_type == FREE or CONSTANT
+	*/
+	Expression(const ModelContext& ctx,
+		size_t root_id, SyntaxNodeType root_type);
+
     Expression(const Expression& other);
     Expression(Expression&& other) noexcept;
     Expression& operator= (const Expression& other);
@@ -305,7 +315,7 @@ public:
 
 	inline const std::set<size_t>& free_var_ids() const
 	{
-		return *m_free_var_ids;
+		return m_free_var_ids.get();
 	}
 
 	/**
@@ -333,7 +343,7 @@ public:
         must be total).
     */
     Expression map_free_vars(const std::map<size_t,
-        Expression> free_map) const;
+        Expression>& free_map) const;
 
 	/**
 	\brief Replace the expression rooted at the given position iter
@@ -354,8 +364,8 @@ public:
 	\note This function exists separately to `map_free_vars` because
 		it can be implemented more efficiently, without a fold.
 
-	\pre `initial_id` is a free variable ID present in this
-		expression.
+	\note `initial_id` does not have to be a free variable ID present
+		in this expression - and in this case, we just return *this.
 	*/
 	Expression replace_free_with_free(size_t initial_id,
 		size_t after_id) const;
@@ -367,8 +377,8 @@ public:
 	\note This function exists separately to `map_free_vars` because
 		it can be implemented more efficiently, without a fold.
 
-	\pre `initial_id` is a free variable ID present in this
-		expression.
+	\note `initial_id` does not have to be a free variable ID present
+		in this expression - and in this case, we just return *this.
 	*/
 	Expression replace_free_with_const(size_t initial_id,
 		size_t const_symb_id) const;
@@ -1004,6 +1014,13 @@ private:
 	std::pair<size_t,
 		SyntaxNodeType> add_tree_data(const SyntaxNodePtr& tree);
 
+	/**
+	\brief Recompute m_free_var_ids after it may have been outdated
+
+	\pre m_tree is constructed properly already
+	*/
+	void rebuild_free_var_ids();
+
 private:
     // expressions store references to their creator
     const ModelContext& m_ctx;
@@ -1016,7 +1033,7 @@ private:
 	// tree
 	ExprTreeFlyweight m_tree;
 
-	std::shared_ptr<std::set<size_t>> m_free_var_ids;
+	boost::flyweight<std::set<size_t>> m_free_var_ids;
 };
 
 

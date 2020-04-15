@@ -49,7 +49,7 @@ SubExprMatchingIterator::SubExprMatchingIterator(
 	// check the precondition about the free variable IDs if we're
 	// being defensive
 	ATP_LOGIC_PRECOND(std::all_of(free_ids.begin(), free_ids.end(),
-		boost::bind(std::greater<size_t>(),
+		boost::bind(std::less<size_t>(),
 			ker.get_rule_free_id_bound(), _1)));
 
 	m_free_const_enum.reserve(
@@ -94,7 +94,10 @@ void SubExprMatchingIterator::advance()
 	{
 		m_rule_iter.reset();
 		++m_sub_expr_iter;
-		restore_invariant();
+		if (valid())
+		{
+			restore_invariant();
+		}
 	}
 }
 

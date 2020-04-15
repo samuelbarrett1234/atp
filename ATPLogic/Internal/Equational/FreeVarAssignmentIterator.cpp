@@ -53,8 +53,9 @@ FreeVarAssignmentIterator::FreeVarAssignmentIterator(
 	m_is_leaf(remaining_free_begin == remaining_free_end),
 	m_leaf_is_done(false)
 {
-	// build m_child
-	restore_invariant();
+	if (!m_is_leaf)
+		// build m_child for non-leaves
+		restore_invariant();
 }
 
 
@@ -154,6 +155,9 @@ void FreeVarAssignmentIterator::restore_invariant()
 	// otherwise the assertions will fail.
 	ATP_LOGIC_PRECOND(m_current_free_value !=
 		m_free_const_enum.end());
+
+	ATP_LOGIC_ASSERT(m_remaining_free_begin !=
+		m_remaining_free_end);
 
 	// make our current substitution to get a new statement
 	// which we will pass to the child we are about to construct

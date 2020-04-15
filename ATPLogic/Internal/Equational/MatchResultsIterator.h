@@ -62,7 +62,10 @@ public:
 
 	\param match_results The array of (Expression, Expression Free
 		IDs) which resulted from the matching, and with which we
-		are tasked of iterating over.
+		are tasked of iterating over. Note that we **do not** pass
+		this by reference, because it is not something that can be
+		shared between MatchResultsIterators corresponding to
+		different matches.
 
 	\param sub_expr The iterator of the sub-expression that has been
 		matched.
@@ -75,8 +78,8 @@ public:
 		const KnowledgeKernel& ker,
 		const Statement& target_stmt,
 		const Statement& forefront_stmt,
-		const std::vector<std::pair<Expression,
-			std::vector<size_t>>>& match_results,
+		std::vector<std::pair<Expression,
+			std::vector<size_t>>> match_results,
 		const Statement::iterator& sub_expr,
 		const std::vector<std::pair<size_t,
 			SyntaxNodeType>>& free_const_enum);
@@ -92,8 +95,8 @@ public:
 		const KnowledgeKernel& ker,
 		const Statement& target_stmt,
 		const Statement& forefront_stmt,
-		const std::vector<std::pair<Expression,
-			std::vector<size_t>>>& match_results,
+		std::vector<std::pair<Expression,
+			std::vector<size_t>>> match_results,
 		const Statement::iterator& sub_expr,
 		const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& free_const_enum);
@@ -119,8 +122,8 @@ private:
 	const Statement& m_target_stmt;
 	const Statement& m_forefront_stmt;
 
-	const std::vector<std::pair<Expression,
-		std::vector<size_t>>>& m_match_results;
+	std::vector<std::pair<Expression,
+		std::vector<size_t>>> m_match_results;
 
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& m_free_const_enum;

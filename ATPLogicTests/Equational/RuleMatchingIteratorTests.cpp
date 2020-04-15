@@ -81,15 +81,26 @@ BOOST_DATA_TEST_CASE(test_subs,
 		free_const_enum.emplace_back(id,
 			SyntaxNodeType::FREE);
 
+	// this indicates we match top of LHS
+	auto sub_iter = forefront.begin();
+
 	auto p_iter = RuleMatchingIterator::construct(ctx, ker,
 		forefront,  // doesn't matter what we put here
 		forefront,
-		forefront.begin(),  // this indicates we match top of LHS
+		sub_iter,  
 		free_const_enum);
 
+	BOOST_TEST(p_iter->valid());
+
 	std::vector<ProofStatePtr> results;
-	while (p_iter->valid())
+	const size_t results_limit = 1000;  // shouldn't be more results than this
+	for (size_t i = 0; i < results_limit && p_iter->valid();
+		++i)
+	{
 		results.emplace_back(p_iter->get());
+		p_iter->advance();
+	}
+	BOOST_TEST(!p_iter->valid());
 
 	// at least one of the (potentially many) results should be
 	// equivalent to `a_result`
@@ -128,15 +139,26 @@ BOOST_DATA_TEST_CASE(test_NOT_subs,
 		free_const_enum.emplace_back(id,
 			SyntaxNodeType::FREE);
 
+	// this indicates we match top of LHS
+	auto sub_iter = forefront.begin();
+
 	auto p_iter = RuleMatchingIterator::construct(ctx, ker,
 		forefront,  // doesn't matter what we put here
 		forefront,
-		forefront.begin(),  // this indicates we match top of LHS
+		sub_iter,
 		free_const_enum);
 
+	BOOST_TEST(p_iter->valid());
+
 	std::vector<ProofStatePtr> results;
-	while (p_iter->valid())
+	const size_t results_limit = 1000;  // shouldn't be more results than this
+	for (size_t i = 0; i < results_limit && p_iter->valid();
+		++i)
+	{
 		results.emplace_back(p_iter->get());
+		p_iter->advance();
+	}
+	BOOST_TEST(!p_iter->valid());
 
 	// at least one of the (potentially many) results should be
 	// equivalent to `a_result`

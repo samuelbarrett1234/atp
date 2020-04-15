@@ -9,6 +9,7 @@
 
 #include "KnowledgeKernel.h"
 #include <sstream>
+#include <algorithm>
 #include <boost/functional/hash.hpp>
 #include <boost/phoenix.hpp>
 #include <boost/bind.hpp>
@@ -172,23 +173,61 @@ bool KnowledgeKernel::try_match(size_t match_index,
 
 std::vector<std::pair<Expression, std::vector<size_t>>>
 KnowledgeKernel::match_results_at(size_t match_index,
-	const std::map<size_t, Expression>& match_subs) const
+	std::map<size_t, Expression> match_subs) const
 {
 	ATP_LOGIC_PRECOND(match_index < m_matches.size());
 
-	auto results = m_matches.at(match_index).second;
+	// get all of the free variable IDs which were provided a mapping
+	// by the argument `match_subs` before we start modifying it
+	std::vector<size_t> free_ids_originally_mapped;
+	free_ids_originally_mapped.reserve(match_subs.size());
+	for (const auto& sub : match_subs)
+		free_ids_originally_mapped.push_back(sub.first);
+	std::sort(free_ids_originally_mapped.begin(),
+		free_ids_originally_mapped.end());
 
-	for (size_t i = 0; i < results.size(); ++i)
+	const auto& input_results = m_matches.at(match_index).second;
+
+	MatchResults results;
+	results.reserve(input_results.size());
+	
+	for (size_t i = 0; i < input_results.size(); ++i)
 	{
-		// apply the substitution to the result
-		results[i].first = results[i].first.map_free_vars(
-			match_subs);
+		// we need to make `match_subs` total with respect to the free
+		// variables in each substitution result. Note that we *keep*
+		// the `match_subs` between result iterations, because (i) it
+		// is more efficient if we don't add loads to the map on each
+		// iteration, and (ii) it doesn't matter if `match_subs` gives
+		// a substitution for a free variable that is not present in
+		// the result (as it will still be a total mapping).
+		for (size_t free_id : input_results[i].second)
+		{
+			if (match_subs.find(free_id) == match_subs.end())
+			{
+				match_subs.insert({ free_id, Expression(m_context, free_id,
+					SyntaxNodeType::FREE) });
+			}
+		}
 
-		// remove any free variables that were substituted
+		results.emplace_back(
+			// apply substitution
+			input_results[i].first.map_free_vars(match_subs),
+
+			// copy this over for now and we will edit it below
+			input_results[i].second
+		);
+
+		// remove any free variables that were provided substitutions
+		// in the original user mapping
 		results[i].second.erase(std::remove_if(
 			results[i].second.begin(), results[i].second.end(),
-			[&match_subs](size_t idx)
-			{ return match_subs.find(idx) != match_subs.end(); }),
+			[&free_ids_originally_mapped](size_t idx)
+			// std::lower_bound is basically std::find but more
+			// efficient for sorted arrays
+			{ return std::lower_bound(
+				free_ids_originally_mapped.begin(),
+				free_ids_originally_mapped.end(), idx) !=
+				free_ids_originally_mapped.end(); }),
 			results[i].second.end());
 	}
 
@@ -261,6 +300,21 @@ void KnowledgeKernel::rebuild_matchings()
 
 	ATP_LOGIC_ASSERT(m_active_rules != nullptr);
 
+	for (const auto& rule : *m_active_rules)
+	{
+		// it is entirely possible that `ids` is empty, because the
+		// active rule set includes not only axioms, but theorems
+		// as well
+		if (rule.num_free_vars() > 0)
+		{
+			const auto& ids = rule.free_var_ids();
+			const size_t max_id = *std::max_element(ids.begin(),
+				ids.end());
+			if (max_id > m_rule_free_id_bound)
+				m_rule_free_id_bound = max_id;
+		}
+	}
+
 	// now it's time to compress m_active_rules into a more optimised
 	// storage mechanism
 
@@ -298,6 +352,14 @@ void KnowledgeKernel::rebuild_matchings()
 		match_add(lhs, rhs);
 		match_add(rhs, lhs);
 	}
+
+#ifdef ATP_LOGIC_DEFENSIVE
+	// every match result array should be nonempty
+	ATP_LOGIC_ASSERT(std::all_of(m_matches.begin(), m_matches.end(),
+		[](const MatchRule& mr) { return !mr.second.empty(); }));
+#endif
+
+	m_num_matching_rules = m_matches.size();
 }
 
 

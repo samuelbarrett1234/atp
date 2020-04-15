@@ -16,7 +16,6 @@
 #include <Internal/Equational/SyntaxNodes.h>
 #include <Internal/Equational/StatementArray.h>
 #include <Internal/Equational/Statement.h>
-#include <Internal/Equational/Semantics.h>
 #include "../Test.h"
 #include "DefinitionFileExamples.h"
 
@@ -29,7 +28,6 @@ using atp::logic::equational::StatementArray;
 using atp::logic::equational::Statement;
 using atp::logic::equational::parse_statements;
 using atp::logic::equational::ptree_to_stree;
-namespace semantics = atp::logic::equational::semantics;
 
 
 struct LanguageTestsFixture
@@ -125,8 +123,7 @@ BOOST_DATA_TEST_CASE(test_text_deserialisation_in_correct_cases,
 		auto stmt = Statement(ctx, stree);
 
 		// test equivalent to the one produced by the language
-		BOOST_TEST(semantics::equivalent(stmt,
-			lang_stmts->my_at(i)));
+		BOOST_TEST(stmt.equivalent(lang_stmts->my_at(i)));
 
 		i++;
 	}

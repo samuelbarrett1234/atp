@@ -135,7 +135,7 @@ public:
 	std::vector<std::pair<Expression,
 		std::vector<size_t>>> match_results_at(
 			size_t match_index,
-			const std::map<size_t, Expression>& match_subs) const;
+			std::map<size_t, Expression> match_subs) const;
 
 private:
 	/**

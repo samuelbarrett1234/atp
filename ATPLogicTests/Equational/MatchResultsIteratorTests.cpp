@@ -17,6 +17,7 @@
 using atp::logic::StmtFormat;
 using atp::logic::ProofStatePtr;
 using atp::logic::equational::MatchResultsIterator;
+using atp::logic::equational::Expression;
 using atp::logic::equational::Statement;
 using atp::logic::equational::SyntaxNodeType;
 using atp::logic::equational::ProofState;
@@ -66,18 +67,26 @@ BOOST_AUTO_TEST_CASE(test_constructs_correct_substitution)
 	free_const_enum.emplace_back(0,
 		SyntaxNodeType::FREE);  // register x
 
+	auto sub_iter = forefront.begin();
+
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
 		forefront, // doesn't matter what we put here
 		forefront,
-		{ std::make_pair(match_result.lhs(), std::vector<size_t>{}) },
-		forefront.begin(),
+		{ std::make_pair(match_result.lhs(), std::vector<size_t>{ }) },
+		sub_iter,
 		free_const_enum);
 
-	std::vector<ProofStatePtr> results;
-	while (p_iter->valid())
-		results.emplace_back(p_iter->get());
+	BOOST_TEST(p_iter->valid());
 
-	BOOST_TEST(results.size() == 1);
+	std::vector<ProofStatePtr> results;
+	const size_t expected_num_results = 1;
+	for (size_t i = 0; i < expected_num_results && p_iter->valid();
+		++i)
+	{
+		results.emplace_back(p_iter->get());
+		p_iter->advance();
+	}
+	BOOST_TEST(!p_iter->valid());
 
 	BOOST_TEST(std::any_of(results.begin(), results.end(),
 		[&final_result](ProofStatePtr p)
@@ -103,6 +112,16 @@ BOOST_AUTO_TEST_CASE(test_many_possible_results)
 	free_const_enum.emplace_back(0,
 		SyntaxNodeType::FREE);  // register x
 
+	std::vector<std::pair<Expression, std::vector<size_t>>>
+		match_results_array = {
+		std::make_pair(match_results.lhs(),
+			std::vector<size_t>{ 1 }),
+		std::make_pair(match_results.rhs(),
+			std::vector<size_t>{ })
+	};
+
+	auto sub_iter = forefront.begin();
+
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
 		forefront, // doesn't matter what we put here
 		forefront,
@@ -110,19 +129,26 @@ BOOST_AUTO_TEST_CASE(test_many_possible_results)
 			std::make_pair(match_results.lhs(), std::vector<size_t>{ 1 }),
 			std::make_pair(match_results.rhs(), std::vector<size_t>{ })
 		},
-		forefront.begin(),
+		sub_iter,
 		free_const_enum);
 
+	BOOST_TEST(p_iter->valid());
+
 	std::vector<ProofStatePtr> results;
-	while (p_iter->valid())
+	const size_t expected_num_results = 3;
+	for (size_t i = 0; i < expected_num_results && p_iter->valid();
+		++i)
+	{
 		results.emplace_back(p_iter->get());
+		p_iter->advance();
+	}
+	BOOST_TEST(!p_iter->valid());
 
 	// the first match produces:
 	// *(x, x) = x
 	// *(x, e) = x
 	// the second match produces:
 	// *(e, x) = x
-	BOOST_TEST(results.size() == 3);
 }
 
 
@@ -131,7 +157,7 @@ BOOST_AUTO_TEST_CASE(test_it_passes_the_correct_remaining_free_ids)
 	// forefront statement
 	s << "x = *(x, y)\n";
 	// the LHS of this is a match result
-	// (note that the x here does link up with the forefront stmt x,
+	// (note that the x here DOES link up with the forefront stmt x,
 	// but the y and the z do not).
 	s << "*(x, *(y, z)) = e\n";
 
@@ -139,30 +165,37 @@ BOOST_AUTO_TEST_CASE(test_it_passes_the_correct_remaining_free_ids)
 		ctx);
 	auto forefront = dynamic_cast<const Statement&>(p_stmts->at(0));
 	auto match_result = dynamic_cast<const Statement&>(p_stmts->at(1));
-	auto final_result = dynamic_cast<const Statement&>(p_stmts->at(2));
 
 	free_const_enum.emplace_back(0,
 		SyntaxNodeType::FREE);  // register x
 	free_const_enum.emplace_back(1,
 		SyntaxNodeType::FREE);  // register y
 
+	auto sub_iter = forefront.begin();
+
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
 		forefront, // doesn't matter what we put here
 		forefront,
-		{ std::make_pair(match_result.lhs(), std::vector<size_t>{1, 2}) },
-		forefront.begin(),
+		{ std::make_pair(match_result.lhs(), std::vector<size_t>{ 1, 2 }) },
+		sub_iter,
 		free_const_enum);
 
-	std::vector<ProofStatePtr> results;
-	while (p_iter->valid())
-		results.emplace_back(p_iter->get());
+	BOOST_TEST(p_iter->valid());
 
 	// The results are of the form:
 	// *(x, *(z, w)) = *(x, y)
 	// Where x and y are fixed, but z and w can be assigned values
 	// e, x, y
 	// Hence there are 3^2 = 9 possible results
-	BOOST_TEST(results.size() == 9);
+	std::vector<ProofStatePtr> results;
+	const size_t expected_num_results = 9;
+	for (size_t i = 0; i < expected_num_results && p_iter->valid();
+		++i)
+	{
+		results.emplace_back(p_iter->get());
+		p_iter->advance();
+	}
+	BOOST_TEST(!p_iter->valid());
 }
 
 
@@ -191,6 +224,10 @@ BOOST_AUTO_TEST_CASE(test_sub_at_inner_location)
 	auto sub_loc_iter = forefront.begin();
 	std::advance(sub_loc_iter, 2);
 
+	std::vector<std::pair<Expression, std::vector<size_t>>>
+		match_results = { std::make_pair(match_result.lhs(),
+			std::vector<size_t>{ }) };
+
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
 		forefront, // doesn't matter what we put here
 		forefront,
@@ -198,11 +235,17 @@ BOOST_AUTO_TEST_CASE(test_sub_at_inner_location)
 		sub_loc_iter,
 		free_const_enum);
 
-	std::vector<ProofStatePtr> results;
-	while (p_iter->valid())
-		results.emplace_back(p_iter->get());
+	BOOST_TEST(p_iter->valid());
 
-	BOOST_TEST(results.size() == 1);
+	std::vector<ProofStatePtr> results;
+	const size_t expected_num_results = 1;
+	for (size_t i = 0; i < expected_num_results && p_iter->valid();
+		++i)
+	{
+		results.emplace_back(p_iter->get());
+		p_iter->advance();
+	}
+	BOOST_TEST(!p_iter->valid());
 
 	BOOST_TEST(std::any_of(results.begin(), results.end(),
 		[&final_result](ProofStatePtr p)

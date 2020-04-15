@@ -47,8 +47,11 @@ RuleMatchingIterator::RuleMatchingIterator(
 	m_forefront_stmt(forefront_stmt), m_sub_expr_iter(sub_expr),
 	m_match_index(0), m_free_const_enum(free_const_enum)
 {
-	// construct m_cur_matching
-	restore_invariant();
+	if (m_ker.num_matching_rules() > 0)
+	{
+		// construct m_cur_matching
+		restore_invariant();
+	}
 }
 
 
@@ -62,6 +65,7 @@ ProofStatePtr RuleMatchingIterator::get() const
 {
 	ATP_LOGIC_PRECOND(valid());
 	ATP_LOGIC_ASSERT(m_cur_matching != nullptr);
+	ATP_LOGIC_ASSERT(m_cur_matching->valid());
 
 	return m_cur_matching->get();
 }
@@ -71,6 +75,7 @@ void RuleMatchingIterator::advance()
 {
 	ATP_LOGIC_PRECOND(valid());
 	ATP_LOGIC_ASSERT(m_cur_matching != nullptr);
+	ATP_LOGIC_ASSERT(m_cur_matching->valid());
 
 	m_cur_matching->advance();
 
@@ -78,7 +83,11 @@ void RuleMatchingIterator::advance()
 	{
 		m_cur_matching.reset();
 		++m_match_index;
-		restore_invariant();
+
+		if (m_match_index < m_ker.num_matching_rules())
+		{
+			restore_invariant();
+		}
 	}
 }
 
@@ -87,6 +96,7 @@ size_t RuleMatchingIterator::size() const
 {
 	ATP_LOGIC_PRECOND(valid());
 	ATP_LOGIC_ASSERT(m_cur_matching != nullptr);
+	ATP_LOGIC_ASSERT(m_cur_matching->valid());
 	return m_cur_matching->size();
 }
 
@@ -108,8 +118,13 @@ void RuleMatchingIterator::restore_invariant()
 	{
 		m_cur_matching = MatchResultsIterator::construct(
 			m_ctx, m_ker, m_target_stmt, m_forefront_stmt,
-			m_ker.match_results_at(m_match_index, match_subs),
+			m_ker.match_results_at(m_match_index,
+				std::move(match_subs)),
 			m_sub_expr_iter, m_free_const_enum);
+
+		// this could only be invalid if there were no match results
+		// from the kernel, but of course, there should be
+		ATP_LOGIC_ASSERT(m_cur_matching->valid());
 	}
 }
 

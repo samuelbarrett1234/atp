@@ -293,14 +293,7 @@ public:
 	\brief Returns true iff the statements are equal up to swapping
 		of free variable names and reflection about the equals sign
 	*/
-	inline bool equivalent(const Statement& other) const
-	{
-		return (m_sides.first->equivalent(*other.m_sides.first)
-			&& m_sides.second->equivalent(*other.m_sides.second))
-			// check transpose case too:
-			|| (m_sides.first->equivalent(*other.m_sides.second)
-			&& m_sides.second->equivalent(*other.m_sides.first));
-	}
+	bool equivalent(const Statement& other) const;
 
 	/**
 	\brief Returns true iff the two statements are identical (i.e.
@@ -420,6 +413,13 @@ public:
 			std::move(right_result));
 	}
 
+private:
+	/**
+	\brief Recompute m_free_var_ids after it may have been outdated
+
+	\pre m_sides is constructed properly already
+	*/
+	void rebuild_free_var_ids();
 
 private:
 	// statements store references to their creator

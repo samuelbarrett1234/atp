@@ -8,10 +8,7 @@
 
 
 #include "Statement.h"
-#include <boost/lexical_cast.hpp>
-#include <boost/algorithm/string/join.hpp>
-#include <boost/iterator/zip_iterator.hpp>
-#include <boost/iterator/transform_iterator.hpp>
+#include <boost/bimap.hpp>
 #include <boost/range.hpp>
 #include <boost/bind.hpp>
 #include <boost/phoenix.hpp>
@@ -20,6 +17,7 @@
 
 
 namespace phx = boost::phoenix;
+namespace phxarg = boost::phoenix::arg_names;
 
 
 namespace atp
@@ -46,16 +44,7 @@ Statement::Statement(
 		p_eq->left()), Expression::construct(ctx,
 			p_eq->right()));
 
-	// collect together the free variable IDs by unioning those
-	// of the children:
-
-	const auto& first_ids = m_sides.first->free_var_ids();
-	const auto& second_ids = m_sides.second->free_var_ids();
-
-	std::set_union(first_ids.begin(), first_ids.end(),
-		second_ids.begin(), second_ids.end(),
-		std::inserter(m_free_var_ids,
-			m_free_var_ids.end()));
+	rebuild_free_var_ids();
 }
 
 
@@ -65,16 +54,7 @@ Statement::Statement(const ModelContext& ctx, Expression lhs,
 	m_sides(Expression::construct(std::move(lhs)),
 		Expression::construct(std::move(rhs)))
 {
-	// collect together the free variable IDs by unioning those
-	// of the children:
-
-	const auto& first_ids = m_sides.first->free_var_ids();
-	const auto& second_ids = m_sides.second->free_var_ids();
-
-	std::set_union(first_ids.begin(), first_ids.end(),
-		second_ids.begin(), second_ids.end(),
-		std::inserter(m_free_var_ids,
-			m_free_var_ids.end()));
+	rebuild_free_var_ids();
 }
 
 
@@ -145,16 +125,7 @@ Statement Statement::map_free_vars(const std::map<size_t,
 	*new_stmt.m_sides.second = m_sides.second->map_free_vars(
 		free_map);
 
-	// clear this and rebuild from the union of both children
-	new_stmt.m_free_var_ids.clear();
-
-	const auto& first_ids = new_stmt.m_sides.first->free_var_ids();
-	const auto& second_ids = new_stmt.m_sides.second->free_var_ids();
-	
-	std::set_union(first_ids.begin(), first_ids.end(),
-		second_ids.begin(), second_ids.end(),
-		std::inserter(new_stmt.m_free_var_ids,
-			new_stmt.m_free_var_ids.end()));
+	new_stmt.rebuild_free_var_ids();
 
 	return new_stmt;
 }
@@ -220,6 +191,56 @@ Statement Statement::transpose() const
 }
 
 
+bool Statement::equivalent(const Statement& other) const
+{
+	// unfortunately this is more complicated than calling
+	// `Expression::equivalent` on both sides separately, because we
+	// need to ensure that the free variable mappings for both sides
+	// agree
+
+	// build up a bijection between IDs as we go
+	boost::bimap<size_t, size_t> id_map;
+
+	auto eq_func = (phxarg::arg1 && phxarg::arg2);
+
+	auto free_func = [&id_map](size_t id1, size_t id2)
+	{
+		auto left_iter = id_map.left.find(id1);
+		auto right_iter = id_map.right.find(id2);
+
+		if (left_iter == id_map.left.end() &&
+			right_iter == id_map.right.end())
+		{
+			id_map.left.insert(std::make_pair(id1, id2));
+			return true;
+		}
+		else if (left_iter != id_map.left.end())
+		{
+			return left_iter->second == id2;
+		}
+		else
+		{
+			return right_iter->second == id1;
+		}
+	};
+
+	auto const_func = (phxarg::arg1 == phxarg::arg2);
+
+	auto f_func = [](size_t id1, size_t id2,
+		std::vector<bool>::iterator begin,
+		std::vector<bool>::iterator end)
+	{
+		return id1 == id2 && std::all_of(begin, end,
+			phxarg::arg1);
+	};
+
+	return fold_pair<bool>(eq_func, free_func, const_func, f_func,
+		false, other) || fold_pair<bool>(eq_func, free_func,
+			const_func, f_func, false, other.transpose());
+	// check transpose case too ^^^
+}
+
+
 bool Statement::implies(const Statement& conclusion) const
 {
 	// check that the two maps don't conflict on their intersection
@@ -262,6 +283,24 @@ bool Statement::implies(const Statement& conclusion) const
 		&lmap) && m_sides.second->try_match(
 			*conclusion.m_sides.first, &rmap)
 		&& maps_compatible(lmap, rmap);
+}
+
+
+void Statement::rebuild_free_var_ids()
+{
+	ATP_LOGIC_PRECOND(m_sides.first != nullptr);
+	ATP_LOGIC_PRECOND(m_sides.second != nullptr);
+
+	// clear this and rebuild from the union of both children
+	m_free_var_ids.clear();
+
+	const auto& first_ids = m_sides.first->free_var_ids();
+	const auto& second_ids = m_sides.second->free_var_ids();
+
+	std::set_union(first_ids.begin(), first_ids.end(),
+		second_ids.begin(), second_ids.end(),
+		std::inserter(m_free_var_ids,
+			m_free_var_ids.end()));
 }
 
 

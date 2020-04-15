@@ -63,6 +63,16 @@ public:
 	}
 
 private:
+	/**
+	\brief Check that the forefront statement's free variable IDs
+		are out of the range used by the knowledge kernel (see
+		the precondition for SubExprMatchingIterator)
+
+	\see SubExprMatchingIterator
+	*/
+	void check_forefront_ids();
+
+private:
 	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
 	Statement m_target, m_current;

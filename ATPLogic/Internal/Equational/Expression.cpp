@@ -10,6 +10,8 @@
 #include "Expression.h"
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/iterator/transform_iterator.hpp>
+#include <boost/algorithm/string/join.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/range.hpp>
 #include <boost/bind.hpp>
 #include <boost/phoenix.hpp>
@@ -48,18 +50,21 @@ Expression::Expression(const ModelContext& ctx,
 	m_ctx(ctx), m_height(1)
 {
 	ATP_LOGIC_PRECOND(root_type != SyntaxNodeType::FUNC);
+	ATP_LOGIC_PRECOND(root_type !=
+		SyntaxNodeType::EQ);  // this one is obvious
 
 	m_tree.set_root(root_id, root_type);
 
-	m_free_var_ids = std::make_shared<std::set<size_t>>();
-	if (root_type == SyntaxNodeType::FREE)
-		m_free_var_ids->insert(root_id);
+	// we could do this directly without calling this function,
+	// but in our case, even this function will be quite cheap
+	rebuild_free_var_ids();
 }
 
 
 Expression::Expression(const ModelContext& ctx,
 	const SyntaxNodePtr& p_root) :
-	m_ctx(ctx)
+	m_ctx(ctx),
+	m_height(0)
 {
 	ATP_LOGIC_PRECOND(p_root->get_type() !=
 		SyntaxNodeType::EQ);
@@ -71,11 +76,17 @@ Expression::Expression(const ModelContext& ctx,
 	m_tree.set_root(root_data.first, root_data.second);
 
 	// compute height of the syntax tree using a fold
+	// (warning: there is a slight circularity here, because folds
+	// use the height to set the capacity for the stack vectors.
+	// Above we have set height to zero, so no allocation takes
+	// place.)
 	m_height = fold<size_t>(
 		phx::val(1), phx::val(1), [](size_t,
 			std::vector<size_t>::iterator begin,
 			std::vector<size_t>::iterator end)
 		{ return *std::max_element(begin, end) + 1; });
+
+	rebuild_free_var_ids();
 }
 
 
@@ -120,6 +131,7 @@ Expression& Expression::operator=(Expression&& other) noexcept
 	return *this;
 }
 
+
 std::string Expression::to_str() const
 {
 	// this is a fold!
@@ -145,11 +157,11 @@ std::string Expression::to_str() const
 
 
 Expression Expression::map_free_vars(const std::map<size_t,
-	Expression> free_map) const
+	Expression>& free_map) const
 {
 	// check that this map is total
-	ATP_LOGIC_PRECOND(std::all_of(m_free_var_ids->begin(),
-		m_free_var_ids->end(),
+	ATP_LOGIC_PRECOND(std::all_of(m_free_var_ids.get().begin(),
+		m_free_var_ids.get().end(),
 		[&free_map](size_t id)
 		{ return free_map.find(id) != free_map.end(); }));
 
@@ -213,6 +225,7 @@ Expression Expression::map_free_vars(const std::map<size_t,
 			}
 		}
 
+		new_expr.rebuild_free_var_ids();
 		return new_expr;
 	}
 	default:
@@ -226,15 +239,30 @@ Expression Expression::replace(const iterator& pos,
 	const Expression& sub_expr) const
 {
 	ATP_LOGIC_PRECOND(!pos.is_end_iterator());
-	ATP_LOGIC_PRECOND(pos.belongs_to(this));
 
 	// handle root position as a special case:
-	if (pos == begin())
+	if (pos.is_begin_iterator())
 	{
+		// check that, if it is a begin iterator, it at least agrees
+		// with our root id/type
+		ATP_LOGIC_PRECOND(pos->m_tree.root_id() ==
+			m_tree.root_id());
+		ATP_LOGIC_PRECOND(pos->m_tree.root_type() ==
+			m_tree.root_type());
+
+		// if we really wanted to be pedantic we could also check
+		// that pos->m_tree == m_tree, however we don't have an
+		// equality operator for m_tree.
+
 		return sub_expr;
 	}
 	else
 	{
+		// check this iterator is referencing a valid location
+		ATP_LOGIC_PRECOND(pos.parent_func_idx() < m_tree.size());
+		ATP_LOGIC_PRECOND(pos.parent_arg_idx() <
+			m_tree.func_arity(pos.parent_func_idx()));
+
 		Expression result_expr = *this;
 
 		switch (sub_expr.m_tree.root_type())
@@ -249,6 +277,7 @@ Expression Expression::replace(const iterator& pos,
 				pos.parent_func_idx(), pos.parent_arg_idx(),
 				sub_expr.m_tree.root_id(), sub_expr.m_tree.root_type());
 
+			break;
 		case SyntaxNodeType::FUNC:
 		{
 			// for functions, we need to concatenate the arrays of
@@ -265,25 +294,15 @@ Expression Expression::replace(const iterator& pos,
 			result_expr.m_tree.update_func_child(
 				pos.parent_func_idx(), pos.parent_arg_idx(),
 				new_root_id, sub_expr.m_tree.root_type());
+
+			break;
 		}
 		default:
 			ATP_LOGIC_ASSERT(false && "invalid syntax node type.");
 			throw std::exception();
 		}
 
-		// rebuild the free variable IDs, as they might've been
-		// broken by the substitution
-		result_expr.m_free_var_ids->clear();
-		for (auto iter = result_expr.begin();
-			iter != result_expr.end(); ++iter)
-		{
-			if (iter->m_tree.root_type() == SyntaxNodeType::FREE)
-			{
-				result_expr.m_free_var_ids->insert(
-					iter->m_tree.root_id());
-			}
-		}
-
+		result_expr.rebuild_free_var_ids();
 		return result_expr;
 	}
 }
@@ -292,8 +311,15 @@ Expression Expression::replace(const iterator& pos,
 Expression Expression::replace_free_with_free(
 	size_t initial_id, size_t after_id) const
 {
-	ATP_LOGIC_PRECOND(m_free_var_ids->find(initial_id) !=
-		m_free_var_ids->end());
+	// handle the special case where `initial_id` is not an ID
+	// present in this expression (this is desired behaviour
+	// so `Statement` can replace its free variables by just
+	// delegating the call to the LHS and RHS expressions - if we
+	// enforced `initial_id` being present in this expression then
+	// such an operation would be more cumbersome to implement).
+	if (m_free_var_ids.get().find(initial_id) ==
+		m_free_var_ids.get().end())
+		return *this;
 
 	Expression new_exp = *this;
 
@@ -313,6 +339,7 @@ Expression Expression::replace_free_with_free(
 		}
 	}
 
+	new_exp.rebuild_free_var_ids();
 	return new_exp;
 }
 
@@ -320,8 +347,15 @@ Expression Expression::replace_free_with_free(
 Expression Expression::replace_free_with_const(
 	size_t initial_id, size_t const_symb_id) const
 {
-	ATP_LOGIC_PRECOND(m_free_var_ids->find(initial_id) !=
-		m_free_var_ids->end());
+	// handle the special case where `initial_id` is not an ID
+	// present in this expression (this is desired behaviour
+	// so `Statement` can replace its free variables by just
+	// delegating the call to the LHS and RHS expressions - if we
+	// enforced `initial_id` being present in this expression then
+	// such an operation would be more cumbersome to implement).
+	if (m_free_var_ids.get().find(initial_id) ==
+		m_free_var_ids.get().end())
+		return *this;
 
 #ifdef ATP_LOGIC_DEFENSIVE
 	// check the constant symbol ID is valid
@@ -348,6 +382,7 @@ Expression Expression::replace_free_with_const(
 		}
 	}
 
+	new_exp.rebuild_free_var_ids();
 	return new_exp;
 }
 
@@ -375,6 +410,14 @@ Expression Expression::increment_free_var_ids(size_t inc) const
 		}
 	}
 
+	// handle root as special case
+	if (new_exp.m_tree.root_type() == SyntaxNodeType::FREE)
+	{
+		new_exp.m_tree.set_root(new_exp.m_tree.root_id() + inc,
+			SyntaxNodeType::FREE);
+	}
+
+	new_exp.rebuild_free_var_ids();
 	return new_exp;
 }
 
@@ -392,6 +435,7 @@ Expression Expression::sub_expression(size_t id, SyntaxNodeType type) const
 
 		Expression new_expr = *this;
 		new_expr.m_tree.set_root(id, type);
+		new_expr.rebuild_free_var_ids();
 		return new_expr;
 	}
 	default:
@@ -487,8 +531,8 @@ bool Expression::try_match(const Expression& expr,
 		// assign it any value we like
 		if (iter == p_out_subs->end())
 		{
-			p_out_subs->at(id_a) = Expression(m_ctx,
-				id_b, SyntaxNodeType::FREE);
+			p_out_subs->insert({ id_a, Expression(m_ctx,
+				id_b, SyntaxNodeType::FREE) });
 			return true;
 		}
 		// this variable has already been mapped; check that the
@@ -523,7 +567,7 @@ bool Expression::try_match(const Expression& expr,
 		// assign it any value we like
 		if (iter == p_out_subs->end())
 		{
-			p_out_subs->at(free_id) = expr_right;
+			p_out_subs->insert({ free_id, expr_right });
 			return true;
 		}
 		// this variable has already been mapped; check that the
@@ -563,7 +607,6 @@ Expression::add_tree_data(const SyntaxNodePtr& tree)
 
 	auto free_func = [this](size_t free_id) -> NodePair
 	{
-		m_free_var_ids->insert(free_id);
 		return std::make_pair(free_id, SyntaxNodeType::FREE);
 	};
 
@@ -598,6 +641,49 @@ Expression::add_tree_data(const SyntaxNodePtr& tree)
 
 	return fold_syntax_tree<NodePair>(eq_func, free_func, const_func,
 		f_func, tree);
+}
+
+
+void Expression::rebuild_free_var_ids()
+{
+	ATP_LOGIC_PRECOND(m_height > 0);  // ensure this is set too
+
+	std::set<size_t> new_id_set;
+
+	std::vector<std::pair<size_t, SyntaxNodeType>> stack;
+
+	stack.reserve(m_height);
+
+	stack.emplace_back(m_tree.root_id(), m_tree.root_type());
+
+	while (!stack.empty())
+	{
+		auto [id, type] = stack.back();
+		stack.pop_back();
+
+		switch (type)
+		{
+		case SyntaxNodeType::FREE:
+			new_id_set.insert(id);
+			break;
+		case SyntaxNodeType::CONSTANT:
+			break;
+		case SyntaxNodeType::FUNC:
+			// just add the function's arguments to the stack
+			for (size_t i = 0; i < m_tree.func_arity(id); ++i)
+			{
+				stack.emplace_back(m_tree.func_children(id).at(i),
+					m_tree.func_child_types(id).at(i));
+			}
+			break;
+		default:
+			ATP_LOGIC_ASSERT(false && "invalid syntax node type.");
+			throw std::exception();
+		}
+	}
+
+	// update IDs
+	m_free_var_ids = new_id_set;
 }
 
 

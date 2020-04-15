@@ -179,6 +179,13 @@ public:
 
     /**
     \brief Update a function's argument value and type
+
+    \warning If `new_type == FUNC` then please ensure you have
+        already merged the function data associated with this
+        function into this object via `merge_from`. This is
+        because, otherwise, this object would be left in a bad
+        state after this call, as some of its indices would be
+        invalid.
     */
     void update_func_child(size_t func_index, size_t arg_index,
         size_t new_id, SyntaxNodeType new_type)
@@ -211,6 +218,9 @@ public:
 
     \note If `other` does not have root function type, then this
         operation does nothing.
+
+    \warning This should be done **before** using `update_func_child`
+        to re-point children already present in this node (if any).
 
     \returns The ID of the root of `other`, adjusted if necessary.
         When we say "adjusted", we mean as follows: if other does not

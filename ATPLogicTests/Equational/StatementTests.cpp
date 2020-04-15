@@ -62,18 +62,17 @@ const char* identical_stmt_data[] =
 	"i(x) = x", "*(x, y) = *(y, x)",
 	"*(i(y), i(x)) = i(*(x, y))",
 	"*(*(x, y), z) = *(x, *(y, z))",
-	"y = y", "x = e", "i(x) = y",
-	"z = i(y)", "z = i(z)"
+	"x = e", "i(x) = y", "z = i(z)"
 };
 BOOST_DATA_TEST_CASE(test_identical,
 	boost::unit_test::data::make(identical_stmt_data)
 	* boost::unit_test::data::make(identical_stmt_data),
-	stmt1, stmt2)
+	stmt1_str, stmt2_str)
 {
-	s << stmt1 << '\n' << stmt2;
+	s << stmt1_str << '\n' << stmt2_str;
 
 	auto p_stmts = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, m_ctx);
+		StmtFormat::TEXT, ctx);
 
 	const auto& stmt1 = dynamic_cast<const Statement&>(
 		p_stmts->at(0));
@@ -101,7 +100,7 @@ BOOST_DATA_TEST_CASE(test_num_free_vars,
 	s << stmt_txt;
 
 	auto p_stmts = lang.deserialise_stmts(s,
-		StmtFormat::TEXT, m_ctx);
+		StmtFormat::TEXT, ctx);
 
 	const auto& stmt1 = dynamic_cast<const Statement&>(
 		p_stmts->at(0));
@@ -433,7 +432,7 @@ BOOST_DATA_TEST_CASE(test_map_free_vars,
 		// substitute all free variables for the LHS of the
 		// substitution statement (as we said above, we will
 		// ignore the RHS).
-		free_var_map[id] = sub_stmt.lhs();
+		free_var_map.insert(std::make_pair(id, sub_stmt.lhs()));
 	}
 
 	// now test the function
@@ -470,8 +469,10 @@ BOOST_AUTO_TEST_CASE(
 	// because there is only one of them, then this mapping
 	// will surface the error we are testing for if it exists
 
-	free_var_map[0] = Expression(ctx, FreeSyntaxNode::construct(1));
-	free_var_map[1] = Expression(ctx, FreeSyntaxNode::construct(2));
+	free_var_map.insert({ 0, Expression(ctx,
+		FreeSyntaxNode::construct(1)) });
+	free_var_map.insert({ 1, Expression(ctx,
+		FreeSyntaxNode::construct(2)) });
 
 	auto result = stmt.map_free_vars(free_var_map);
 
@@ -590,9 +591,19 @@ BOOST_DATA_TEST_CASE(test_neither_equivalent_nor_identical,
 		ctx);
 	auto stmt1_obj = dynamic_cast<const Statement&>(p_stmts->at(0));
 
-	// map all used variables to ID 0!
+	auto ids = stmt1_obj.free_var_ids();
+
+	BOOST_REQUIRE(ids.size() == 2);
+	size_t id1 = *ids.begin();
+	size_t id2 = *std::next(ids.begin());
+
+	// replace one of the free variables with the other, to eliminate
+	// one of them, and make the statement have one fewer free
+	// variable (recall that: if two statements differ in their
+	// number of free variables then they are neither equivalent nor
+	// identical).
 	std::map<size_t, size_t> free_id_map;
-	free_id_map[1] = 0;
+	free_id_map[id1] = id2;
 
 	auto stmt2_obj = map_free_ids(free_id_map, stmt1_obj);
 
@@ -664,8 +675,9 @@ Statement map_free_ids(
 	// change it so we map to expressions
 	for (auto pair : free_id_map)
 	{
-		new_free_map[pair.first] = Expression(stmt.context(),
-			FreeSyntaxNode::construct(pair.second));
+		auto p_syntax_tree = FreeSyntaxNode::construct(pair.second);
+		new_free_map.insert(std::make_pair(pair.first,
+			Expression(stmt.context(), p_syntax_tree)));
 	}
 
 	// make the map total
@@ -673,8 +685,9 @@ Statement map_free_ids(
 	{
 		if (new_free_map.find(id) == new_free_map.end())
 		{
-			new_free_map[id] = Expression(stmt.context(),
-				FreeSyntaxNode::construct(id));
+			auto p_syntax_tree = FreeSyntaxNode::construct(id);
+			new_free_map.insert(std::make_pair(id,
+				Expression(stmt.context(), p_syntax_tree)));
 		}
 	}
 

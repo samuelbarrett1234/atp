@@ -142,6 +142,9 @@ size_t ExprTreeFlyweight::merge_from(const ExprTreeFlyweight& other)
 	case SyntaxNodeType::CONSTANT:
 		return other.root_id();  // nothing to do
 	case SyntaxNodeType::FUNC:
+	{
+		const size_t size_before = size();
+
 		m_func_symb_ids.insert(m_func_symb_ids.end(),
 			other.m_func_symb_ids.begin(),
 			other.m_func_symb_ids.end());
@@ -158,8 +161,26 @@ size_t ExprTreeFlyweight::merge_from(const ExprTreeFlyweight& other)
 			other.m_func_child_types.begin(),
 			other.m_func_child_types.end());
 
+		// now we need to alter all function indices we just added
+		// by offsetting them by `size_before`, and finally we do
+		// the same thing to the root (that we return)
+		
+		for (size_t i = size_before; i < m_func_children.size();
+			++i)
+		{
+			for (size_t j = 0; j < m_func_arity.at(i); ++j)
+			{
+				if (m_func_child_types.at(i).at(j) ==
+					SyntaxNodeType::FUNC)
+				{
+					m_func_children.at(i).at(j) += size_before;
+				}
+			}
+		}
+
 		// offset the root index by the increment:
-		return other.m_root + other.m_func_symb_ids.size();
+		return other.m_root + size_before;
+	}
 	default:
 		ATP_LOGIC_ASSERT(false && "invalid syntax node type!");
 		throw std::exception();

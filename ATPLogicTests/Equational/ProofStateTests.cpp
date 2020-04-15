@@ -18,7 +18,6 @@
 #include <Internal/Equational/ProofState.h>
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/StatementArray.h>
-#include <Internal/Equational/Semantics.h>
 #include <Internal/Equational/Language.h>
 #include "../Test.h"
 #include "StandardTestFixture.h"
@@ -31,7 +30,6 @@ using atp::logic::StmtFormat;
 using atp::logic::StatementArrayPtr;
 using atp::logic::ProofStatePtr;
 using atp::logic::ProofCompletionState;
-namespace semantics = atp::logic::equational::semantics;
 namespace phxargs = boost::phoenix::arg_names;
 
 
@@ -76,7 +74,7 @@ BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(ProofStateTests,
 	StandardTestFixture,
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/KnowledgeKernelTests"));
+		"EquationalTests/SubExprMatchingIteratorTests"));
 
 
 BOOST_DATA_TEST_CASE(test_automatically_proven,
@@ -165,8 +163,8 @@ BOOST_DATA_TEST_CASE(test_is_a_succ,
 		succs.end(),
 		[&target_succ](ProofStatePtr p_pf)
 		{
-			return semantics::equivalent(target_succ,
-				dynamic_cast<ProofState*>(p_pf.get())->forefront());
+			return target_succ.equivalent(dynamic_cast<
+				ProofState*>(p_pf.get())->forefront());
 		}));
 }
 
@@ -225,8 +223,8 @@ BOOST_AUTO_TEST_CASE(test_tricky_proof)
 			succs.end(),
 			[&concl](ProofStatePtr p_pf)
 			{
-				return semantics::equivalent(concl,
-					dynamic_cast<ProofState*>(p_pf.get())->forefront());
+				return concl.equivalent(dynamic_cast<
+					ProofState*>(p_pf.get())->forefront());
 			}));
 	}
 }

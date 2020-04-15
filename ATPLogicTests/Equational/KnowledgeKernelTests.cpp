@@ -22,8 +22,6 @@ BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(KnowledgeKernelTests,
 	StandardTestFixture,
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/SemanticsTests")
-	* boost::unit_test_framework::depends_on(
 		"EquationalTests/LanguageTests")
 	* boost::unit_test_framework::depends_on(
 		"EquationalTests/StatementTests")
@@ -100,6 +98,15 @@ BOOST_AUTO_TEST_CASE(try_remove_theorem)
 	const auto ref = ker.add_theorems(thms);
 	ker.remove_theorems(ref);
 	BOOST_TEST(!ker.is_trivial(thms->at(0)));
+}
+
+
+BOOST_AUTO_TEST_CASE(test_axiom_matchings)
+{
+	// we have set the kernel to work within the context of group
+	// theory - and of course, group theory has a non-zero number
+	// of axioms!
+	BOOST_TEST(ker.num_matching_rules() > 0);
 }
 
 

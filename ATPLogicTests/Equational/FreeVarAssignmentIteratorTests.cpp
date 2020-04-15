@@ -77,11 +77,17 @@ BOOST_AUTO_TEST_CASE(test_one_var)
 		stmt, free_const_enum, remaining_free.begin(),
 		remaining_free.end());
 
-	std::vector<ProofStatePtr> results;
-	while (p_iter->valid())
-		results.emplace_back(p_iter->get());
+	BOOST_TEST(p_iter->valid());
 
-	BOOST_TEST(results.size() == 2);
+	std::vector<ProofStatePtr> results;
+	const size_t expected_num_results = 2;
+	for (size_t i = 0; i < expected_num_results && p_iter->valid();
+		++i)
+	{
+		results.emplace_back(p_iter->get());
+		p_iter->advance();
+	}
+	BOOST_TEST(!p_iter->valid());
 
 	BOOST_TEST(std::any_of(results.begin(), results.end(),
 		[&result1](ProofStatePtr p)
@@ -126,13 +132,19 @@ BOOST_AUTO_TEST_CASE(test_many_vars)
 		stmt, free_const_enum, remaining_free.begin(),
 		remaining_free.end());
 
-	std::vector<ProofStatePtr> results;
-	while (p_iter->valid())
-		results.emplace_back(p_iter->get());
+	BOOST_TEST(p_iter->valid());
 
 	// two possibilities for each free variable
 	// (16 = 2^4)
-	BOOST_TEST(results.size() == 16);
+	std::vector<ProofStatePtr> results;
+	const size_t expected_num_results = 16;
+	for (size_t i = 0; i < expected_num_results && p_iter->valid();
+		++i)
+	{
+		results.emplace_back(p_iter->get());
+		p_iter->advance();
+	}
+	BOOST_TEST(!p_iter->valid());
 
 	// don't bother checking the values of the permutations, only
 	// check the correct number

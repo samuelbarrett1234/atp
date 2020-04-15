@@ -255,7 +255,10 @@ bool Statement::implies(const Statement& conclusion) const
 			auto iter = b.find(pair.first);
 			if (iter != b.end())
 			{
-				if (!pair.second.equivalent(iter->second))
+				// we need identical here, rather than equivalent,
+				// otherwise: *(x, e) = x => *(*(x, y), e) = *(y, x)
+				// for example (there is a test case to cover this).
+				if (!pair.second.identical(iter->second))
 					return false;
 			}
 		}

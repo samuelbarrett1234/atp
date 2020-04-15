@@ -90,6 +90,26 @@ BOOST_DATA_TEST_CASE(test_identical,
 }
 
 
+BOOST_AUTO_TEST_CASE(test_dependent_sides_parsing)
+{
+	// test that the loading of a statement takes into account
+	// interactions between the two sides of the statement
+	s << "*(x, y) = *(y, x)\n";
+	s << "*(x, y) = *(x, y)";
+
+	auto p_stmts = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, ctx);
+
+	const auto& stmt1 = dynamic_cast<const Statement&>(
+		p_stmts->at(0));
+	const auto& stmt2 = dynamic_cast<const Statement&>(
+		p_stmts->at(1));
+
+	BOOST_TEST(!stmt1.equivalent(stmt2));
+	BOOST_TEST(!stmt1.identical(stmt2));
+}
+
+
 BOOST_DATA_TEST_CASE(test_num_free_vars,
 	boost::unit_test::data::make({
 		"*(x, y) = *(y, x)",
@@ -659,6 +679,24 @@ BOOST_DATA_TEST_CASE(test_implies,
 	auto concl = dynamic_cast<const Statement&>(p_stmts->at(1));
 
 	BOOST_TEST(premise.implies(concl));
+}
+
+
+BOOST_DATA_TEST_CASE(test_NOT_implies,
+	boost::unit_test::data::make({
+		"*(x, e) = x" }) ^
+	boost::unit_test::data::make({
+		"*(*(x, y), e) = *(y, x)" }),
+	premise_stmt, concl_stmt)
+{
+	s << premise_stmt << '\n' << concl_stmt;
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto premise = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto concl = dynamic_cast<const Statement&>(p_stmts->at(1));
+
+	BOOST_TEST(!premise.implies(concl));
 }
 
 

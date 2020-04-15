@@ -121,7 +121,7 @@ BOOST_DATA_TEST_CASE(test_not_automatically_proven,
 
 // given several <statement, successor> pairs, test that the
 // successor appears in the list of successors returned by
-// the kernel function
+// the iterator
 BOOST_DATA_TEST_CASE(test_is_a_succ,
 	boost::unit_test::data::make({
 		// starting statements
@@ -130,13 +130,14 @@ BOOST_DATA_TEST_CASE(test_is_a_succ,
 		"*(*(x, y), i(*(x, y))) = *(*(x, y), *(i(y), i(x)))",
 		"*(*(x, y), i(*(x, y))) = *(x, i(x))",
 		}) ^
-		boost::unit_test::data::make({
+	boost::unit_test::data::make({
 		// one of the corresponding successor statements
 		"x = *(e, i(x))",
 		"x = e",
 		"*(*(x, y), i(*(x, y))) = *(x, *(y, *(i(y), i(x))))",
 		"*(*(x, y), i(*(x, y))) = *(x, *(e, i(x)))",
-			}), stmt, succ_stmt)
+		}),
+	stmt, succ_stmt)
 {
 	s << stmt << "\n" << succ_stmt;
 
@@ -164,6 +165,51 @@ BOOST_DATA_TEST_CASE(test_is_a_succ,
 		[&target_succ](ProofStatePtr p_pf)
 		{
 			return target_succ.equivalent(dynamic_cast<
+				ProofState*>(p_pf.get())->forefront());
+		}));
+}
+
+
+// given several <statement, successor> pairs, test that the
+// not_successor does not appear in the list of successors
+// returned by the iterator
+BOOST_DATA_TEST_CASE(test_is_not_a_succ,
+	boost::unit_test::data::make({
+		// starting statements
+		"*(x, y) = *(y, x)"
+		}) ^
+	boost::unit_test::data::make({
+		// one of the corresponding successor statements
+		"*(x, y) = *(x, y)"
+		}),
+	stmt, not_succ_stmt)
+{
+	s << stmt << "\n" << not_succ_stmt;
+
+	auto p_arr = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, ctx);
+
+	BOOST_REQUIRE(p_arr != nullptr);
+	BOOST_REQUIRE(p_arr->size() == 2);
+
+	auto pf_state = ker.begin_proof_of(p_arr->at(0));
+	auto not_succ = dynamic_cast<const Statement&>(
+		p_arr->at(1));
+
+	// enumerate the successor proofs
+	std::vector<ProofStatePtr> succs;
+	auto succ_iter = pf_state->succ_begin();
+	while (succ_iter->valid())
+	{
+		succs.emplace_back(succ_iter->get());
+		succ_iter->advance();
+	}
+
+	BOOST_TEST(std::none_of(succs.begin(),
+		succs.end(),
+		[&not_succ](ProofStatePtr p_pf)
+		{
+			return not_succ.equivalent(dynamic_cast<
 				ProofState*>(p_pf.get())->forefront());
 		}));
 }

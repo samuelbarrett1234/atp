@@ -78,6 +78,7 @@ ProofStatePtr SubExprMatchingIterator::get() const
 {
 	ATP_LOGIC_PRECOND(valid());
 	ATP_LOGIC_ASSERT(m_rule_iter != nullptr);
+	ATP_LOGIC_ASSERT(m_rule_iter->valid());
 
 	return m_rule_iter->get();
 }

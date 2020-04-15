@@ -230,6 +230,7 @@ void IterativeDeepeningSolver::finish(size_t i)
 {
 	ATP_SEARCH_PRECOND(i < m_stacks.size());
 	auto& st = m_stacks[i];
+	ATP_SEARCH_ASSERT(st.back().iter->valid());
 	ATP_SEARCH_PRECOND(st.back().iter->get()->completion_state()
 		== logic::ProofCompletionState::PROVEN);
 

@@ -133,6 +133,81 @@ BOOST_DATA_TEST_CASE(test_NOT_successors,
 }
 
 
+BOOST_AUTO_TEST_CASE(test_subtly_different_statements_share_no_successors)
+{
+	// these two statements, while their differences are subtle,
+	// should not share any successor statements (under equivalence)
+	s << "*(x, y) = *(y, x)\n";
+	s << "*(x, y) = *(x, y)";
+
+	auto p_stmts = lang.deserialise_stmts(s,
+		StmtFormat::TEXT, ctx);
+
+	const auto& _stmt1 = dynamic_cast<const Statement&>(
+		p_stmts->at(0));
+	const auto& _stmt2 = dynamic_cast<const Statement&>(
+		p_stmts->at(1));
+
+	// need to offset statement free var IDs so they don't clash,
+	// as per the precondition of this iterator's constructors
+	auto stmt1 = _stmt1.increment_free_var_ids(
+		ker.get_rule_free_id_bound() + 1);
+	auto stmt2 = _stmt2.increment_free_var_ids(
+		ker.get_rule_free_id_bound() + 1);
+
+	std::vector<ProofStatePtr> succs1, succs2;
+
+	// get successors of stmt1
+	{
+		auto p_iter = SubExprMatchingIterator::construct(ctx, ker,
+			stmt1,  // doesn't matter what we put here
+			stmt1);
+
+		const size_t results_limit = 1000;  // shouldn't be more results than this
+		for (size_t i = 0; i < results_limit && p_iter->valid();
+			++i)
+		{
+			succs1.emplace_back(p_iter->get());
+			p_iter->advance();
+		}
+	}
+
+	// get successors of stmt2
+	{
+		auto p_iter = SubExprMatchingIterator::construct(ctx, ker,
+			stmt2,  // doesn't matter what we put here
+			stmt2);
+
+		const size_t results_limit = 1000;  // shouldn't be more results than this
+		for (size_t i = 0; i < results_limit && p_iter->valid();
+			++i)
+		{
+			succs2.emplace_back(p_iter->get());
+			p_iter->advance();
+		}
+	}
+
+	// no pair of statements in succs1 and succs2 should be
+	// equivalent
+	// i.e. for all statements in `succs1` there should not exist a
+	// statement in `succs2` such that the two are equivalent
+	for (auto _succ1 : succs1)
+	{
+		auto succ1 = dynamic_cast<ProofState*>(
+			_succ1.get())->forefront();
+
+		for (auto _succ2 : succs2)
+		{
+			auto succ2 = dynamic_cast<ProofState*>(
+				_succ2.get())->forefront();
+
+			BOOST_TEST(succ1.to_str() != succ2.to_str());
+			BOOST_TEST(!succ1.equivalent(succ2));
+		}
+	}
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();
 BOOST_AUTO_TEST_SUITE_END();
 

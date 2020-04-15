@@ -57,10 +57,7 @@ BOOST_FIXTURE_TEST_SUITE(IterativeDeepeningSolverTests,
 	IterativeDeepeningSolverTestsFixture);
 
 
-BOOST_AUTO_TEST_CASE(simple_proof_test,
-	// (timeout given in seconds)
-	* boost::unit_test::timeout(1)
-	)
+BOOST_AUTO_TEST_CASE(simple_proof_test)
 {
 	// provide the system with an array of statements to try to prove
 	// and which it SHOULD be able to prove in a relatively small
@@ -87,14 +84,18 @@ BOOST_AUTO_TEST_CASE(simple_proof_test,
 
 	// none of these proofs should take more than 1000 node
 	// expansions (I think)
-	p_ids->step(1000);
+	p_ids->step(10000);
 
 	auto proofs = p_ids->get_proofs();
+	auto pf_states = p_ids->get_states();
 
-	BOOST_REQUIRE(proofs.size() == stmts->size());
+	BOOST_TEST(proofs.size() == stmts->size());
+	BOOST_TEST(pf_states.size() == stmts->size());
 
-	for (auto pf : proofs)
-		BOOST_TEST(pf.get() != nullptr);
+	BOOST_TEST(std::all_of(proofs.begin(), proofs.end(),
+		phxarg::arg1 != nullptr));
+	BOOST_TEST(std::all_of(pf_states.begin(), pf_states.end(),
+		phxarg::arg1 == ProofCompletionState::PROVEN));
 
 	BOOST_TEST(p_ids->engaged());
 }
@@ -116,11 +117,18 @@ BOOST_AUTO_TEST_CASE(false_statement_test)
 	// no proof should be found in any of these steps
 	p_ids->step(1000);
 
+	auto proofs = p_ids->get_proofs();
 	auto states = p_ids->get_states();
+
+	BOOST_TEST(proofs.size() == stmts->size());
+	BOOST_TEST(states.size() == stmts->size());
 
 	BOOST_TEST(std::none_of(states.begin(),
 		states.end(), phxarg::arg1 ==
 		ProofCompletionState::PROVEN));
+
+	BOOST_TEST(std::all_of(proofs.begin(),
+		proofs.end(), phxarg::arg1 == nullptr));
 }
 
 

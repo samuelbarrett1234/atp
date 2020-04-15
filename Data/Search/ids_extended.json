@@ -1,0 +1,9 @@
+{
+	"name" : "Extended Iterative-Deepening Solver",
+	"desc" : "An uninformed iterative deepening solver with high settings to allow it to run for longer",
+	"type" : "IterativeDeepeningSolver",
+	"step-size" : 10000,
+	"max-steps" : 25,
+	"max-depth" : 6,
+	"start-depth" : 3
+}

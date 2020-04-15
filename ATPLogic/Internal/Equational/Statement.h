@@ -119,7 +119,7 @@ public:
 			m_right = other.m_right;
 			return *this;
 		}
-		inline iterator& operator =(iterator&& other)
+		inline iterator& operator =(iterator&& other) noexcept
 		{
 			m_left = std::move(other.m_left);
 			m_right = std::move(other.m_right);

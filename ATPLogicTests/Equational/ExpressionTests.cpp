@@ -181,7 +181,7 @@ BOOST_DATA_TEST_CASE(replace_tests,
 		// expressions to start with
 		"x", "i(x)", "i(x)", "*(*(x, x), x)" })
 	^ boost::unit_test::data::make({
-		// substitution
+		// replacement
 		"i(x)", "e", "e", "e" })
 	^ boost::unit_test::data::make({
 		// pre-order traversal index of the substitution

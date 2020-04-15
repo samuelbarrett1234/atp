@@ -700,6 +700,92 @@ BOOST_DATA_TEST_CASE(test_NOT_implies,
 }
 
 
+BOOST_DATA_TEST_CASE(iterator_walking_test,
+	boost::unit_test::data::make({
+		"x0 = x0", "e = i(e)", "i(x0) = *(e, i(x0))",
+		"*(*(x0, e), e) = x1" }) ^
+	boost::unit_test::data::make({
+		1, 1, 2, 4 }) ^
+	boost::unit_test::data::make({
+		"x0", "i(e)", "*(e, i(x0))", "e" }),
+	stmt_str, advance_num, sub_expr_str)
+{
+	s << stmt_str << "\n";
+	s << sub_expr_str << " = x0\n";  // arbitrary RHS
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto original = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto sub = dynamic_cast<const Statement&>(p_stmts->at(1)).lhs();
+
+	auto iter = original.begin();
+	std::advance(iter, advance_num);
+
+	BOOST_TEST(sub.equivalent(*iter));
+	BOOST_TEST(iter->equivalent(sub));
+}
+
+
+BOOST_DATA_TEST_CASE(end_iterator_test,
+	boost::unit_test::data::make({
+		"x0 = x0", "e = i(e)", "i(x0) = *(e, i(x0))",
+		"*(*(x0, e), e) = x1" }) ^
+	boost::unit_test::data::make({
+		2, 3, 6, 6 }),
+	stmt_str, advance_num)
+{
+	s << stmt_str << "\n";
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
+
+	auto iter = stmt.begin();
+
+	BOOST_TEST((iter == stmt.begin()));
+
+	std::advance(iter, advance_num);
+
+	BOOST_TEST((iter == stmt.end()));
+}
+
+
+BOOST_DATA_TEST_CASE(replace_tests,
+	boost::unit_test::data::make({
+		// expressions to start with
+		"x = x", "i(x) = *(x, e)",
+		"x = *(*(x, e), e)" })
+	^ boost::unit_test::data::make({
+		// replacement
+		"i(x)", "e", "i(x)" })
+	^ boost::unit_test::data::make({
+		// pre-order traversal index of the substitution
+		// location
+		0, 2, 3 })
+	^ boost::unit_test::data::make({
+		// result
+		"i(x) = x", "i(x) = e",
+		"x = *(*(i(x), e), e)" }),
+	original_stmt, sub_expr, sub_idx, result_stmt)
+{
+	s << original_stmt << "\n";
+	s << sub_expr << " = x\n";  // arbitrary RHS
+	s << result_stmt << "\n";
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto original = dynamic_cast<const Statement&>(p_stmts->at(0));
+	auto sub = dynamic_cast<const Statement&>(p_stmts->at(1)).lhs();
+	auto correct_result = dynamic_cast<const Statement&>(p_stmts->at(2));
+
+	auto iter = original.begin();
+	std::advance(iter, sub_idx);
+	auto result = original.replace(iter, sub);
+
+	BOOST_TEST(correct_result.equivalent(result));
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();  // StatementTests
 BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
 

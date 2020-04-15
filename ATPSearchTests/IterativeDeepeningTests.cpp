@@ -69,7 +69,6 @@ BOOST_AUTO_TEST_CASE(simple_proof_test)
 	s << "e = *(i(*(x, y)), *(x, y)) \n";  // still easy
 	s << "i(e) = e \n";  // reasonable
 	s << "*(x, e) = *(e, x) \n";  // reasonable
-	s << "*(*(x, e), e) = *(e, x)";  // harder but still reasonable
 
 	auto stmts = p_lang->deserialise_stmts(s,
 		StmtFormat::TEXT, *p_ctx);
@@ -84,7 +83,7 @@ BOOST_AUTO_TEST_CASE(simple_proof_test)
 
 	// none of these proofs should take more than 1000 node
 	// expansions (I think)
-	p_ids->step(10000);
+	p_ids->step(1000);
 
 	auto proofs = p_ids->get_proofs();
 	auto pf_states = p_ids->get_states();

@@ -189,7 +189,7 @@
     <ClCompile Include="Equational\ParseTreeToSyntaxTreeTests.cpp" />
     <ClCompile Include="Equational\StatementArrayTests.cpp" />
     <ClCompile Include="Equational\StatementTests.cpp" />
-    <ClCompile Include="Equational\SubExprMatchingIterator.cpp" />
+    <ClCompile Include="Equational\SubExprMatchingIteratorTests.cpp" />
     <ClCompile Include="Equational\SyntaxNodeToStr.cpp" />
     <ClCompile Include="Equational\SyntaxTreeFoldTests.cpp" />
     <ClCompile Include="Main.cpp" />

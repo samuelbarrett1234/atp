@@ -84,10 +84,10 @@
     <ClCompile Include="Equational\RuleMatchingIteratorTests.cpp">
       <Filter>Source Files\Equational\Implementations\Successor Iterators</Filter>
     </ClCompile>
-    <ClCompile Include="Equational\SubExprMatchingIterator.cpp">
+    <ClCompile Include="Equational\MatchResultsIteratorTests.cpp">
       <Filter>Source Files\Equational\Implementations\Successor Iterators</Filter>
     </ClCompile>
-    <ClCompile Include="Equational\MatchResultsIteratorTests.cpp">
+    <ClCompile Include="Equational\SubExprMatchingIteratorTests.cpp">
       <Filter>Source Files\Equational\Implementations\Successor Iterators</Filter>
     </ClCompile>
   </ItemGroup>

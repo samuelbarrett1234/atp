@@ -1,5 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classatp_1_1logic_1_1_i_knowledge_kernel.html" title="Represents a collection of definitions and axioms, associated with a particular ILanguage,..." alt="" coords="5,46,192,73"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html" title=" " alt="" coords="249,5,392,47"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html" title=" " alt="" coords="240,71,401,112"/>
+<area shape="rect" id="node1" href="$classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html" title="For iterating over all subtrees (subexpressions) of a given statement in pre&#45;order traversal,..." alt="" coords="5,5,148,47"/>
 </map>

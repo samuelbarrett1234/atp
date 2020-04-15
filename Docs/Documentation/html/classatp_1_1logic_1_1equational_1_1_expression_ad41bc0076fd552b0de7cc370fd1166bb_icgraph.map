@@ -1,0 +1,4 @@
+<map id="atp::logic::equational::Expression::sub_expression" name="atp::logic::equational::Expression::sub_expression">
+<area shape="rect" id="node1" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="204,5,399,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="5,5,156,47"/>
+</map>

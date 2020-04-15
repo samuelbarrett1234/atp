@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['valid_514',['valid',['../classatp_1_1logic_1_1_i_pf_state_succ_iter.html#ae9795a4557f355ec0bff3fdecdf21b71',1,'atp::logic::IPfStateSuccIter::valid()'],['../classatp_1_1logic_1_1equational_1_1_proof_state_1_1_pf_state_succ_iterator.html#a23d0abbfca67190ebfa9408b24b8f6a7',1,'atp::logic::equational::ProofState::PfStateSuccIterator::valid()']]]
+  ['update_5ffunc_583',['update_func',['../classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa4a6012da41439a090e56ac958d6d347',1,'atp::logic::equational::ExprTreeFlyweight']]],
+  ['update_5ffunc_5fchild_584',['update_func_child',['../classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4',1,'atp::logic::equational::ExprTreeFlyweight']]]
 ];

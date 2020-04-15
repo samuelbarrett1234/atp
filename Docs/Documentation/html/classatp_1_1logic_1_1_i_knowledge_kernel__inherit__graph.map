@@ -1,5 +1,5 @@
 <map id="atp::logic::IKnowledgeKernel" name="atp::logic::IKnowledgeKernel">
 <area shape="rect" id="node1" title="Represents a collection of definitions and axioms, associated with a particular ILanguage,..." alt="" coords="71,5,258,32"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html" title=" " alt="" coords="5,80,148,121"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html" title="IKnowledgeKernel implementation for equational logic." alt="" coords="5,80,148,121"/>
 <area shape="rect" id="node3" href="$classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html" title=" " alt="" coords="172,80,333,121"/>
 </map>

@@ -1,5 +1,6 @@
 <map id="ATPSearch/Internal/IterativeDeepeningSolver.h" name="ATPSearch/Internal/IterativeDeepeningSolver.h">
-<area shape="rect" id="node1" title="Contains a basic uninformed search strategy, IDS." alt="" coords="113,5,291,47"/>
+<area shape="rect" id="node1" title="Contains a basic uninformed search strategy, IDS." alt="" coords="197,5,375,47"/>
 <area shape="rect" id="node2" href="$_a_t_p_search_8cpp.html" title=" " alt="" coords="5,102,188,129"/>
-<area shape="rect" id="node3" href="$_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="212,95,403,136"/>
+<area shape="rect" id="node3" href="$_search_settings_8cpp.html" title=" " alt="" coords="212,95,360,136"/>
+<area shape="rect" id="node4" href="$_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="384,95,575,136"/>
 </map>

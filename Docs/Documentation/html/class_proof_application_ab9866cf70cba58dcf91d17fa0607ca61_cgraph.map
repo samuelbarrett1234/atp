@@ -1,0 +1,6 @@
+<map id="ProofApplication::set_search_file" name="ProofApplication::set_search_file">
+<area shape="rect" id="node1" title="Loads the solver." alt="" coords="5,39,148,80"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#a67d536a1b5016ee06353a9bf66762a76" title="Create this library&#39;s designated &quot;default solver&quot;." alt="" coords="213,5,344,47"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be" title="Try to load a solver from a configuration file." alt="" coords="196,71,361,112"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1search.html#a8580f538a27bb6bedc5dd3929c4dc791" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="409,78,587,105"/>
+</map>

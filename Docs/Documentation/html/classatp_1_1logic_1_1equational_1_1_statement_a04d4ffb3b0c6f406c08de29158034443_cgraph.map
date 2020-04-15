@@ -1,0 +1,5 @@
+<map id="atp::logic::equational::Statement::replace_free_with_const" name="atp::logic::equational::Statement::replace_free_with_const">
+<area shape="rect" id="node1" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="5,5,173,61"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a4f14e95373eb16153018d9915b868bfb" title=" " alt="" coords="221,13,380,54"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ab6cbc2437c4081c6577d59359a3e3bb0" title=" " alt="" coords="428,13,585,54"/>
+</map>

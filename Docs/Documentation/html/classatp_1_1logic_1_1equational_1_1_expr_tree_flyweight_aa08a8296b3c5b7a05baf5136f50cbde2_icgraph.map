@@ -1,0 +1,11 @@
+<map id="atp::logic::equational::ExprTreeFlyweight::size" name="atp::logic::equational::ExprTreeFlyweight::size">
+<area shape="rect" id="node1" title=" " alt="" coords="501,195,671,237"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a40c13f6a0a0147518fe9f4d75c54a1d9" title="Add a particular value to the ID of every free variable in this expression." alt="" coords="267,5,427,61"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#aa37261d8ee733f6ab74bd6d558ae52e2" title="Substitute the free variables according to the given map." alt="" coords="5,91,192,133"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a635d2d8e2a4765bb3b1c107b8aafcad0" title="Append, to each array in this object, the arrays in the other object. Also, update their function ind..." alt="" coords="240,137,453,178"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#aeee9e7dcfe3da4ed1f7f2b40de534488" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="26,182,171,223"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a9a2e0351eed3e2eeeb400fb0f5cd6544" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="274,253,419,309"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a0d5414f7a8a769933d40e63474bba502" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="274,333,419,389"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ad41bc0076fd552b0de7cc370fd1166bb" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="249,414,444,455"/>
+<area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="23,414,174,455"/>
+</map>

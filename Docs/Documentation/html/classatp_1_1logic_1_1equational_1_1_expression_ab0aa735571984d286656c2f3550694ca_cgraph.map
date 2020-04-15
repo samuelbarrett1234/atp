@@ -1,0 +1,9 @@
+<map id="atp::logic::equational::Expression::try_match" name="atp::logic::equational::Expression::try_match">
+<area shape="rect" id="node1" title="Try to match this expression to the given expression." alt="" coords="5,136,167,177"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a691e10e16b9c51299a153d951358d2fc" title=" " alt="" coords="230,71,398,112"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a2fb23b8617152117e64b5cc2a2b772ac" title=" " alt="" coords="222,136,406,177"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a3c245f438adee795fdc69781e444f61c" title=" " alt="" coords="215,201,413,243"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a57f84040d01680e30a3cc6196a77dada" title=" " alt="" coords="486,5,629,47"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a9bd6385e4bd0fae94090c87ad70dbd51" title=" " alt="" coords="486,71,629,112"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="461,136,653,177"/>
+</map>

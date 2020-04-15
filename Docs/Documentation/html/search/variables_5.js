@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['m_5fsymbol_5fid_536',['m_symbol_id',['../classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#a2edb63bc9e6888d56f763ff3e547f050',1,'atp::logic::equational::ConstantSyntaxNode']]]
+  ['name_606',['name',['../structatp_1_1search_1_1_search_settings.html#a5caddbcfe429630ab375942a120aa704',1,'atp::search::SearchSettings']]]
 ];

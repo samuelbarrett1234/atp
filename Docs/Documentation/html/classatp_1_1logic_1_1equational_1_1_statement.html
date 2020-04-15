@@ -68,6 +68,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classatp_1_1logic_1_1equational_1_1_statement-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -95,10 +96,18 @@ Collaboration diagram for atp::logic::equational::Statement:</div>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html">iterator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">For iterating over all subtrees (subexpressions) of a given statement in pre-order traversal, starting with the left-hand expression and ending with the right-hand one.  <a href="classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4f14e95373eb16153018d9915b868bfb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a4f14e95373eb16153018d9915b868bfb">Statement</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;ctx, const <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> &amp;p_root)</td></tr>
 <tr class="separator:a4f14e95373eb16153018d9915b868bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7f4907ba0623cc37c62e9fa7becc201"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad7f4907ba0623cc37c62e9fa7becc201">Statement</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;ctx, <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#af3201a9d8f5687f932b5cb222e3e1ce6">lhs</a>, <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#afdfcf348c0a2e2b2f5c6ee0bcc1c30f9">rhs</a>)</td></tr>
+<tr class="separator:ad7f4907ba0623cc37c62e9fa7becc201"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade209f700ddac82807a7761da007815d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#ade209f700ddac82807a7761da007815d">Statement</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;other)</td></tr>
 <tr class="separator:ade209f700ddac82807a7761da007815d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c82a6ca0b3551e2ae827c7b491f0fa9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a8c82a6ca0b3551e2ae827c7b491f0fa9">Statement</a> (<a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;&amp;other) noexcept</td></tr>
@@ -109,24 +118,50 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a151ef255838312781a9aaaf35b7d4a0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6f01c3b5f507cf2003f352dc58f3e58"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#aa6f01c3b5f507cf2003f352dc58f3e58">to_str</a> () const override</td></tr>
 <tr class="separator:aa6f01c3b5f507cf2003f352dc58f3e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13acf7a88b7439770519e30fcd782732"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a13acf7a88b7439770519e30fcd782732">transpose</a> () const</td></tr>
-<tr class="memdesc:a13acf7a88b7439770519e30fcd782732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transpose the statement (flip it around the equals sign)  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#a13acf7a88b7439770519e30fcd782732">More...</a><br /></td></tr>
-<tr class="separator:a13acf7a88b7439770519e30fcd782732"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff32b8cdf54df56212487c5827fb0c77"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a>, <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#aff32b8cdf54df56212487c5827fb0c77">get_sides</a> () const</td></tr>
-<tr class="memdesc:aff32b8cdf54df56212487c5827fb0c77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the LHS and RHS of this statement.  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#aff32b8cdf54df56212487c5827fb0c77">More...</a><br /></td></tr>
-<tr class="separator:aff32b8cdf54df56212487c5827fb0c77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa86b0b1ca07b3a72f097893a7df3c60b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#aa86b0b1ca07b3a72f097893a7df3c60b">map_free_vars</a> (const std::map&lt; size_t, <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> &gt; free_map) const</td></tr>
-<tr class="memdesc:aa86b0b1ca07b3a72f097893a7df3c60b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Substitute the free variables according to the given map.  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#aa86b0b1ca07b3a72f097893a7df3c60b">More...</a><br /></td></tr>
-<tr class="separator:aa86b0b1ca07b3a72f097893a7df3c60b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64f70ab3039063cdf226d987def14697"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a64f70ab3039063cdf226d987def14697">begin</a> () const</td></tr>
+<tr class="separator:a64f70ab3039063cdf226d987def14697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a13880ca04d9cf4367d6920c00654e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a1a13880ca04d9cf4367d6920c00654e6">end</a> () const</td></tr>
+<tr class="separator:a1a13880ca04d9cf4367d6920c00654e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48f7dac90ae8e93b6a26d04b8d306e23"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a48f7dac90ae8e93b6a26d04b8d306e23">num_free_vars</a> () const</td></tr>
 <tr class="separator:a48f7dac90ae8e93b6a26d04b8d306e23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fca33627b31e864cd20e2790f7a27f5"><td class="memItemLeft" align="right" valign="top">const std::set&lt; size_t &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a0fca33627b31e864cd20e2790f7a27f5">free_var_ids</a> () const</td></tr>
 <tr class="separator:a0fca33627b31e864cd20e2790f7a27f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a572d78322de8de183e78a0ad709def03"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a572d78322de8de183e78a0ad709def03">context</a> () const</td></tr>
 <tr class="separator:a572d78322de8de183e78a0ad709def03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a248d60d0342ebb47ac400b4b866e5602"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a248d60d0342ebb47ac400b4b866e5602">adjoin_rhs</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;other) const</td></tr>
-<tr class="memdesc:a248d60d0342ebb47ac400b4b866e5602"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new statement obtained by replacing the RHS of this statement with the RHS of the <code>other</code> statement.  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#a248d60d0342ebb47ac400b4b866e5602">More...</a><br /></td></tr>
-<tr class="separator:a248d60d0342ebb47ac400b4b866e5602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3201a9d8f5687f932b5cb222e3e1ce6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#af3201a9d8f5687f932b5cb222e3e1ce6">lhs</a> () const</td></tr>
+<tr class="separator:af3201a9d8f5687f932b5cb222e3e1ce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdfcf348c0a2e2b2f5c6ee0bcc1c30f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#afdfcf348c0a2e2b2f5c6ee0bcc1c30f9">rhs</a> () const</td></tr>
+<tr class="separator:afdfcf348c0a2e2b2f5c6ee0bcc1c30f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16166e800b7f891a38a5acea499ceeb8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a16166e800b7f891a38a5acea499ceeb8">map_free_vars</a> (const std::map&lt; size_t, <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &gt; free_map) const</td></tr>
+<tr class="memdesc:a16166e800b7f891a38a5acea499ceeb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Substitute the free variables according to the given map.  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#a16166e800b7f891a38a5acea499ceeb8">More...</a><br /></td></tr>
+<tr class="separator:a16166e800b7f891a38a5acea499ceeb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfc8c3e839809b2e9ee0dceaef0fd23b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#adfc8c3e839809b2e9ee0dceaef0fd23b">replace</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html">iterator</a> &amp;pos, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &amp;expr) const</td></tr>
+<tr class="memdesc:adfc8c3e839809b2e9ee0dceaef0fd23b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace the expression rooted at the given position iter with the given new expression.  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#adfc8c3e839809b2e9ee0dceaef0fd23b">More...</a><br /></td></tr>
+<tr class="separator:adfc8c3e839809b2e9ee0dceaef0fd23b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a657354ecd032bece42a728b8ad69a004"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a657354ecd032bece42a728b8ad69a004">replace_free_with_free</a> (size_t initial_id, size_t after_id) const</td></tr>
+<tr class="memdesc:a657354ecd032bece42a728b8ad69a004"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special case of <code>map_free_vars</code> for replacing a free variable with another free variable.  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#a657354ecd032bece42a728b8ad69a004">More...</a><br /></td></tr>
+<tr class="separator:a657354ecd032bece42a728b8ad69a004"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04d4ffb3b0c6f406c08de29158034443"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a04d4ffb3b0c6f406c08de29158034443">replace_free_with_const</a> (size_t initial_id, size_t const_symb_id) const</td></tr>
+<tr class="memdesc:a04d4ffb3b0c6f406c08de29158034443"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special case of <code>map_free_vars</code> for replacing a free variable with a user-defined constant.  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#a04d4ffb3b0c6f406c08de29158034443">More...</a><br /></td></tr>
+<tr class="separator:a04d4ffb3b0c6f406c08de29158034443"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8083ceacee1e9c873e4ca5d3323da29"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad8083ceacee1e9c873e4ca5d3323da29">increment_free_var_ids</a> (size_t inc) const</td></tr>
+<tr class="memdesc:ad8083ceacee1e9c873e4ca5d3323da29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a particular value to the ID of every free variable in this statement.  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#ad8083ceacee1e9c873e4ca5d3323da29">More...</a><br /></td></tr>
+<tr class="separator:ad8083ceacee1e9c873e4ca5d3323da29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13acf7a88b7439770519e30fcd782732"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a13acf7a88b7439770519e30fcd782732">transpose</a> () const</td></tr>
+<tr class="memdesc:a13acf7a88b7439770519e30fcd782732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transpose the statement (flip it around the equals sign)  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#a13acf7a88b7439770519e30fcd782732">More...</a><br /></td></tr>
+<tr class="separator:a13acf7a88b7439770519e30fcd782732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac52b476755e8aef80fdd192fe73568f5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#ac52b476755e8aef80fdd192fe73568f5">equivalent</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;other) const</td></tr>
+<tr class="memdesc:ac52b476755e8aef80fdd192fe73568f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true iff the statements are equal up to swapping of free variable names and reflection about the equals sign.  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#ac52b476755e8aef80fdd192fe73568f5">More...</a><br /></td></tr>
+<tr class="separator:ac52b476755e8aef80fdd192fe73568f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09df6eab9fbf12e695ff34d8d3ebc5d7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a09df6eab9fbf12e695ff34d8d3ebc5d7">identical</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;other) const</td></tr>
+<tr class="memdesc:a09df6eab9fbf12e695ff34d8d3ebc5d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true iff the two statements are identical (i.e. same free variable IDs, same orientation about equals sign, etc.)  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#a09df6eab9fbf12e695ff34d8d3ebc5d7">More...</a><br /></td></tr>
+<tr class="separator:a09df6eab9fbf12e695ff34d8d3ebc5d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fbdab2c862d80faccf7d991744a79e8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a0fbdab2c862d80faccf7d991744a79e8">true_by_reflexivity</a> () const</td></tr>
+<tr class="memdesc:a0fbdab2c862d80faccf7d991744a79e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity of '=').  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#a0fbdab2c862d80faccf7d991744a79e8">More...</a><br /></td></tr>
+<tr class="separator:a0fbdab2c862d80faccf7d991744a79e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9b15f8fcce46b7b55ef154fc6ce8de5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#ab9b15f8fcce46b7b55ef154fc6ce8de5">implies</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;conclusion) const</td></tr>
+<tr class="memdesc:ab9b15f8fcce46b7b55ef154fc6ce8de5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true iff there exists a substitution in the premise (the callee) which would produce the conclusion.  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#ab9b15f8fcce46b7b55ef154fc6ce8de5">More...</a><br /></td></tr>
+<tr class="separator:ab9b15f8fcce46b7b55ef154fc6ce8de5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6292a9c6f2ae60a34ea37220fd3765e5"><td class="memTemplParams" colspan="2">template&lt;typename ResultT , typename EqFuncT , typename FreeFuncT , typename ConstFuncT , typename FFuncT &gt; </td></tr>
 <tr class="memitem:a6292a9c6f2ae60a34ea37220fd3765e5"><td class="memTemplItemLeft" align="right" valign="top">ResultT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5">fold</a> (EqFuncT eq_func, FreeFuncT free_func, ConstFuncT const_func, FFuncT f_func) const</td></tr>
 <tr class="separator:a6292a9c6f2ae60a34ea37220fd3765e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,7 +183,7 @@ As much as this class is supposed to be immutable, in order to be usable in stan
 <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> objects are tied to a model context, but not to any particular knowledge kernel. </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4f14e95373eb16153018d9915b868bfb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f14e95373eb16153018d9915b868bfb">&#9670;&nbsp;</a></span>Statement() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f14e95373eb16153018d9915b868bfb">&#9670;&nbsp;</a></span>Statement() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,15 +222,52 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_a4f14e95373eb16153018d9915b868bfb_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_a4f14e95373eb16153018d9915b868bfb_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_statement_a4f14e95373eb16153018d9915b868bfb_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_a4f14e95373eb16153018d9915b868bfb_icgraph">
-<area shape="rect" title=" " alt="" coords="211,5,369,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a248d60d0342ebb47ac400b4b866e5602" title="create a new statement obtained by replacing the RHS of this statement with the RHS of the other stat..." alt="" coords="5,5,163,47"/>
+<area shape="rect" title=" " alt="" coords="221,123,380,165"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad8083ceacee1e9c873e4ca5d3323da29" title="Add a particular value to the ID of every free variable in this statement." alt="" coords="12,5,167,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#adfc8c3e839809b2e9ee0dceaef0fd23b" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="18,86,161,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a04d4ffb3b0c6f406c08de29158034443" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="5,152,173,208"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a657354ecd032bece42a728b8ad69a004" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="5,232,173,288"/>
 </map>
 </div>
 
 </div>
 </div>
+<a id="ad7f4907ba0623cc37c62e9fa7becc201"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7f4907ba0623cc37c62e9fa7becc201">&#9670;&nbsp;</a></span>Statement() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">atp::logic::equational::Statement::Statement </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a>&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a>&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ade209f700ddac82807a7761da007815d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade209f700ddac82807a7761da007815d">&#9670;&nbsp;</a></span>Statement() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ade209f700ddac82807a7761da007815d">&#9670;&nbsp;</a></span>Statement() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -213,7 +285,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <a id="a8c82a6ca0b3551e2ae827c7b491f0fa9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c82a6ca0b3551e2ae827c7b491f0fa9">&#9670;&nbsp;</a></span>Statement() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c82a6ca0b3551e2ae827c7b491f0fa9">&#9670;&nbsp;</a></span>Statement() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,34 +311,37 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a248d60d0342ebb47ac400b4b866e5602"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a248d60d0342ebb47ac400b4b866e5602">&#9670;&nbsp;</a></span>adjoin_rhs()</h2>
+<a id="a64f70ab3039063cdf226d987def14697"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64f70ab3039063cdf226d987def14697">&#9670;&nbsp;</a></span>begin()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> atp::logic::equational::Statement::adjoin_rhs </td>
+          <td class="memname"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html">iterator</a> atp::logic::equational::Statement::begin </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-
-<p>create a new statement obtained by replacing the RHS of this statement with the RHS of the <code>other</code> statement. </p>
 <div class="dynheader">
-Here is the call graph for this function:</div>
+Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_a248d60d0342ebb47ac400b4b866e5602_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_a248d60d0342ebb47ac400b4b866e5602_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_statement_a248d60d0342ebb47ac400b4b866e5602_cgraph" id="classatp_1_1logic_1_1equational_1_1_statement_a248d60d0342ebb47ac400b4b866e5602_cgraph">
-<area shape="rect" title="create a new statement obtained by replacing the RHS of this statement with the RHS of the other stat..." alt="" coords="5,71,163,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#adb58c20cd665a8b23c60edd5ed75429b" title="Optimised allocation function." alt="" coords="211,5,389,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#aff32b8cdf54df56212487c5827fb0c77" title="Get the LHS and RHS of this statement." alt="" coords="223,71,377,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a4f14e95373eb16153018d9915b868bfb" title=" " alt="" coords="221,136,379,177"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html#adf575b8fe9aecacfcfdcfa7ccc9e99eb" title=" " alt="" coords="437,5,649,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab6cbc2437c4081c6577d59359a3e3bb0" title=" " alt="" coords="465,136,622,177"/>
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_a64f70ab3039063cdf226d987def14697_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_a64f70ab3039063cdf226d987def14697_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_a64f70ab3039063cdf226d987def14697_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_a64f70ab3039063cdf226d987def14697_icgraph">
+<area shape="rect" title=" " alt="" coords="651,13,793,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ac52b476755e8aef80fdd192fe73568f5" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="448,13,603,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="252,5,400,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,13,204,54"/>
 </map>
 </div>
 
@@ -294,6 +369,88 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1a13880ca04d9cf4367d6920c00654e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a13880ca04d9cf4367d6920c00654e6">&#9670;&nbsp;</a></span>end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html">iterator</a> atp::logic::equational::Statement::end </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_a1a13880ca04d9cf4367d6920c00654e6_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_a1a13880ca04d9cf4367d6920c00654e6_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_a1a13880ca04d9cf4367d6920c00654e6_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_a1a13880ca04d9cf4367d6920c00654e6_icgraph">
+<area shape="rect" title=" " alt="" coords="727,85,869,126"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ac52b476755e8aef80fdd192fe73568f5" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="515,15,669,57"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#adfc8c3e839809b2e9ee0dceaef0fd23b" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="521,85,663,126"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a1f1ed484319a9bd2a1f732caac9afdcd" title=" " alt="" coords="505,157,679,213"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="281,5,429,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,13,204,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a4f6caf310dc06e6602586ee730a67945" title="Increment the iterator; move on to the next successor." alt="" coords="268,85,441,141"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a0744a6f9aec3d992dc8136485cac65e1" title="Get the successor pointed to by this iterator." alt="" coords="255,166,454,207"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a9288a1ce917b82b28cbec16d0c755a35" title="Get the number of proof states currently held in memory by this iterator." alt="" coords="252,231,457,273"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ac52b476755e8aef80fdd192fe73568f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac52b476755e8aef80fdd192fe73568f5">&#9670;&nbsp;</a></span>equivalent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool atp::logic::equational::Statement::equivalent </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true iff the statements are equal up to swapping of free variable names and reflection about the equals sign. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_ac52b476755e8aef80fdd192fe73568f5_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_ac52b476755e8aef80fdd192fe73568f5_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_ac52b476755e8aef80fdd192fe73568f5_cgraph" id="classatp_1_1logic_1_1equational_1_1_statement_ac52b476755e8aef80fdd192fe73568f5_cgraph">
+<area shape="rect" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="5,71,160,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a64f70ab3039063cdf226d987def14697" title=" " alt="" coords="214,5,357,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a1a13880ca04d9cf4367d6920c00654e6" title=" " alt="" coords="214,71,357,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a13acf7a88b7439770519e30fcd782732" title="Transpose the statement (flip it around the equals sign)" alt="" coords="208,136,363,177"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_ac52b476755e8aef80fdd192fe73568f5_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_ac52b476755e8aef80fdd192fe73568f5_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_ac52b476755e8aef80fdd192fe73568f5_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_ac52b476755e8aef80fdd192fe73568f5_icgraph">
+<area shape="rect" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="448,13,603,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="252,5,400,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,13,204,54"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -345,17 +502,6 @@ template&lt;typename ResultT , typename EqFuncT , typename FreeFuncT , typename 
 </table>
 </div><div class="memdoc">
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a91b11e0f5e91e0a6368650b5a93fa992" title="Perform a fold operation over a given syntax tree.">atp::logic::equational::fold_syntax_tree</a> </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_a6292a9c6f2ae60a34ea37220fd3765e5_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_a6292a9c6f2ae60a34ea37220fd3765e5_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_statement_a6292a9c6f2ae60a34ea37220fd3765e5_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_a6292a9c6f2ae60a34ea37220fd3765e5_icgraph">
-<area shape="rect" title=" " alt="" coords="491,39,633,80"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5f82827babe2c1d0c0f061d451c6d7a4" title="Try applying each rule to the statement to get a list of successor statements. Note that each rule ma..." alt="" coords="252,39,443,80"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,5,204,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a3095c141a4bfd5609cafba29fdd00b2a" title="Create a new iterator which allows us to enumerate the successors of this class." alt="" coords="22,71,187,112"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -437,20 +583,6 @@ template&lt;typename ResultT , typename EqPairFuncT , typename FreePairFuncT , t
   </table>
   </dd>
 </dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_ad991789cf96f1bb4e8d670b1f221128d_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_ad991789cf96f1bb4e8d670b1f221128d_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_statement_ad991789cf96f1bb4e8d670b1f221128d_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_ad991789cf96f1bb4e8d670b1f221128d_icgraph">
-<area shape="rect" title="Perform a fold over pairs of statements, where the fold constructor is dependent on the node types of..." alt="" coords="892,64,1039,105"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a96e2fb0e710fba0160a233bb86803863" title="Returns true iff the syntax trees are equal up to swapping of free variable names and reflection abou..." alt="" coords="471,5,626,47"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a22d63685a82821176f481186ee17bed6" title="Returns true iff the two syntax trees are identical (i.e. same free variable IDs, same orientation ab..." alt="" coords="697,64,844,105"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a4ad7a8fc57a584113220b028ccf51cd0" title="Returns true iff there exists a substitution in the premmise which would produce the conclusion." alt="" coords="699,129,842,171"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="252,63,400,119"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,71,204,112"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a36dd38214bd3efb430f116eb9e40fc64" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="448,71,649,112"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -481,49 +613,130 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_a0fca33627b31e864cd20e2790f7a27f5_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_a0fca33627b31e864cd20e2790f7a27f5_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_statement_a0fca33627b31e864cd20e2790f7a27f5_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_a0fca33627b31e864cd20e2790f7a27f5_icgraph">
-<area shape="rect" title=" " alt="" coords="491,75,657,116"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5f82827babe2c1d0c0f061d451c6d7a4" title="Try applying each rule to the statement to get a list of successor statements. Note that each rule ma..." alt="" coords="252,37,443,79"/>
-<area shape="rect" href="structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html#a1968e6a58c37555e9ae30dd4f1e5e986" title=" " alt="" coords="254,103,441,159"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,5,204,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a3095c141a4bfd5609cafba29fdd00b2a" title="Create a new iterator which allows us to enumerate the successors of this class." alt="" coords="22,71,187,112"/>
+<area shape="rect" title=" " alt="" coords="227,13,393,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#ad901a2cc3b1c90a3a18947943203198c" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="5,5,179,61"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="aff32b8cdf54df56212487c5827fb0c77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff32b8cdf54df56212487c5827fb0c77">&#9670;&nbsp;</a></span>get_sides()</h2>
+<a id="a09df6eab9fbf12e695ff34d8d3ebc5d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09df6eab9fbf12e695ff34d8d3ebc5d7">&#9670;&nbsp;</a></span>identical()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool atp::logic::equational::Statement::identical </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true iff the two statements are identical (i.e. same free variable IDs, same orientation about equals sign, etc.) </p>
+
+</div>
+</div>
+<a id="ab9b15f8fcce46b7b55ef154fc6ce8de5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9b15f8fcce46b7b55ef154fc6ce8de5">&#9670;&nbsp;</a></span>implies()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt; <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a>, <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> &gt; atp::logic::equational::Statement::get_sides </td>
+          <td class="memname">bool atp::logic::equational::Statement::implies </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;&#160;</td>
+          <td class="paramname"><em>conclusion</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get the LHS and RHS of this statement. </p>
-<dl class="section return"><dt>Returns</dt><dd>A pair (LHS, RHS)</dd></dl>
-<p>This can be implemented using a fold, but doing so is very slow as it requires reallocating and rebuilding the whole tree. </p>
+<p>Returns true iff there exists a substitution in the premise (the callee) which would produce the conclusion. </p>
+<dl class="section warning"><dt>Warning</dt><dd>This is not used in finding proofs, because in this implementation of equational logic, proofs are "iff", i.e. readable in both directions. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_aff32b8cdf54df56212487c5827fb0c77_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_aff32b8cdf54df56212487c5827fb0c77_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_statement_aff32b8cdf54df56212487c5827fb0c77_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_aff32b8cdf54df56212487c5827fb0c77_icgraph">
-<area shape="rect" title="Get the LHS and RHS of this statement." alt="" coords="240,43,395,84"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a248d60d0342ebb47ac400b4b866e5602" title="create a new statement obtained by replacing the RHS of this statement with the RHS of the other stat..." alt="" coords="20,5,177,47"/>
-<area shape="rect" href="structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html#a1968e6a58c37555e9ae30dd4f1e5e986" title=" " alt="" coords="5,71,192,127"/>
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_ab9b15f8fcce46b7b55ef154fc6ce8de5_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_ab9b15f8fcce46b7b55ef154fc6ce8de5_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_ab9b15f8fcce46b7b55ef154fc6ce8de5_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_ab9b15f8fcce46b7b55ef154fc6ce8de5_icgraph">
+<area shape="rect" title="Returns true iff there exists a substitution in the premise (the callee) which would produce the conc..." alt="" coords="448,13,591,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="252,5,400,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,13,204,54"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="aa86b0b1ca07b3a72f097893a7df3c60b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa86b0b1ca07b3a72f097893a7df3c60b">&#9670;&nbsp;</a></span>map_free_vars()</h2>
+<a id="ad8083ceacee1e9c873e4ca5d3323da29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8083ceacee1e9c873e4ca5d3323da29">&#9670;&nbsp;</a></span>increment_free_var_ids()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> atp::logic::equational::Statement::increment_free_var_ids </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>inc</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add a particular value to the ID of every free variable in this statement. </p>
+<p>This is useful for ensuring the free variable IDs of two statements do not clash, for example if we know the largest ID in one statement, we can increment the IDs in this statement by that amount + 1, then they won't clash. </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_ad8083ceacee1e9c873e4ca5d3323da29_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_ad8083ceacee1e9c873e4ca5d3323da29_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_ad8083ceacee1e9c873e4ca5d3323da29_cgraph" id="classatp_1_1logic_1_1equational_1_1_statement_ad8083ceacee1e9c873e4ca5d3323da29_cgraph">
+<area shape="rect" title="Add a particular value to the ID of every free variable in this statement." alt="" coords="5,5,160,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a4f14e95373eb16153018d9915b868bfb" title=" " alt="" coords="208,13,367,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab6cbc2437c4081c6577d59359a3e3bb0" title=" " alt="" coords="415,13,572,54"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="af3201a9d8f5687f932b5cb222e3e1ce6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3201a9d8f5687f932b5cb222e3e1ce6">&#9670;&nbsp;</a></span>lhs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> atp::logic::equational::Statement::lhs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a16166e800b7f891a38a5acea499ceeb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16166e800b7f891a38a5acea499ceeb8">&#9670;&nbsp;</a></span>map_free_vars()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -531,7 +744,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> atp::logic::equational::Statement::map_free_vars </td>
           <td>(</td>
-          <td class="paramtype">const std::map&lt; size_t, <a class="el" href="namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9">SyntaxNodePtr</a> &gt;&#160;</td>
+          <td class="paramtype">const std::map&lt; size_t, <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &gt;&#160;</td>
           <td class="paramname"><em>free_map</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -618,6 +831,156 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="adfc8c3e839809b2e9ee0dceaef0fd23b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfc8c3e839809b2e9ee0dceaef0fd23b">&#9670;&nbsp;</a></span>replace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> atp::logic::equational::Statement::replace </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &amp;&#160;</td>
+          <td class="paramname"><em>expr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Replace the expression rooted at the given position iter with the given new expression. </p>
+<dl class="section return"><dt>Returns</dt><dd>A new statement containing the result</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>pos</code> must be an iterator belonging to this class, and must not be an end iterator. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_adfc8c3e839809b2e9ee0dceaef0fd23b_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_adfc8c3e839809b2e9ee0dceaef0fd23b_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_adfc8c3e839809b2e9ee0dceaef0fd23b_cgraph" id="classatp_1_1logic_1_1equational_1_1_statement_adfc8c3e839809b2e9ee0dceaef0fd23b_cgraph">
+<area shape="rect" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="5,39,148,80"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a1a13880ca04d9cf4367d6920c00654e6" title=" " alt="" coords="204,5,347,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a4f14e95373eb16153018d9915b868bfb" title=" " alt="" coords="196,71,355,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab6cbc2437c4081c6577d59359a3e3bb0" title=" " alt="" coords="403,71,560,112"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a04d4ffb3b0c6f406c08de29158034443"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04d4ffb3b0c6f406c08de29158034443">&#9670;&nbsp;</a></span>replace_free_with_const()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> atp::logic::equational::Statement::replace_free_with_const </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>initial_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>const_symb_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Special case of <code>map_free_vars</code> for replacing a free variable with a user-defined constant. </p>
+<dl class="section note"><dt>Note</dt><dd>This function exists separately to <code>map_free_vars</code> because it can be implemented more efficiently, without a fold. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_a04d4ffb3b0c6f406c08de29158034443_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_a04d4ffb3b0c6f406c08de29158034443_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_a04d4ffb3b0c6f406c08de29158034443_cgraph" id="classatp_1_1logic_1_1equational_1_1_statement_a04d4ffb3b0c6f406c08de29158034443_cgraph">
+<area shape="rect" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="5,5,173,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a4f14e95373eb16153018d9915b868bfb" title=" " alt="" coords="221,13,380,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab6cbc2437c4081c6577d59359a3e3bb0" title=" " alt="" coords="428,13,585,54"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a657354ecd032bece42a728b8ad69a004"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a657354ecd032bece42a728b8ad69a004">&#9670;&nbsp;</a></span>replace_free_with_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> atp::logic::equational::Statement::replace_free_with_free </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>initial_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>after_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Special case of <code>map_free_vars</code> for replacing a free variable with another free variable. </p>
+<dl class="section note"><dt>Note</dt><dd>This function exists separately to <code>map_free_vars</code> because it can be implemented more efficiently, without a fold. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_a657354ecd032bece42a728b8ad69a004_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_a657354ecd032bece42a728b8ad69a004_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_a657354ecd032bece42a728b8ad69a004_cgraph" id="classatp_1_1logic_1_1equational_1_1_statement_a657354ecd032bece42a728b8ad69a004_cgraph">
+<area shape="rect" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="5,5,173,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a4f14e95373eb16153018d9915b868bfb" title=" " alt="" coords="221,13,380,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab6cbc2437c4081c6577d59359a3e3bb0" title=" " alt="" coords="428,13,585,54"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="afdfcf348c0a2e2b2f5c6ee0bcc1c30f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdfcf348c0a2e2b2f5c6ee0bcc1c30f9">&#9670;&nbsp;</a></span>rhs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> atp::logic::equational::Statement::rhs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aa6f01c3b5f507cf2003f352dc58f3e58"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa6f01c3b5f507cf2003f352dc58f3e58">&#9670;&nbsp;</a></span>to_str()</h2>
 
@@ -642,15 +1005,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Implements <a class="el" href="classatp_1_1logic_1_1_i_statement.html#a81d57614488ab4a94f3a848b30334581">atp::logic::IStatement</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_aa6f01c3b5f507cf2003f352dc58f3e58_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_aa6f01c3b5f507cf2003f352dc58f3e58_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_statement_aa6f01c3b5f507cf2003f352dc58f3e58_cgraph" id="classatp_1_1logic_1_1equational_1_1_statement_aa6f01c3b5f507cf2003f352dc58f3e58_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,148,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#ae740893e400663e8524d7dfc139364bf" title=" " alt="" coords="196,5,395,47"/>
-</map>
-</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -686,12 +1040,47 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_a13acf7a88b7439770519e30fcd782732_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_a13acf7a88b7439770519e30fcd782732_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_statement_a13acf7a88b7439770519e30fcd782732_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_a13acf7a88b7439770519e30fcd782732_icgraph">
-<area shape="rect" title="Transpose the statement (flip it around the equals sign)" alt="" coords="697,71,852,112"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a96e2fb0e710fba0160a233bb86803863" title="Returns true iff the syntax trees are equal up to swapping of free variable names and reflection abou..." alt="" coords="471,5,626,47"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a4ad7a8fc57a584113220b028ccf51cd0" title="Returns true iff there exists a substitution in the premmise which would produce the conclusion." alt="" coords="477,71,620,112"/>
-<area shape="rect" href="namespaceatp_1_1logic_1_1equational_1_1semantics.html#a36dd38214bd3efb430f116eb9e40fc64" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="448,136,649,177"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="252,63,400,119"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,71,204,112"/>
+<area shape="rect" title="Transpose the statement (flip it around the equals sign)" alt="" coords="651,13,805,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ac52b476755e8aef80fdd192fe73568f5" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="448,13,603,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="252,5,400,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,13,204,54"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0fbdab2c862d80faccf7d991744a79e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fbdab2c862d80faccf7d991744a79e8">&#9670;&nbsp;</a></span>true_by_reflexivity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool atp::logic::equational::Statement::true_by_reflexivity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity of '='). </p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_a0fbdab2c862d80faccf7d991744a79e8_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_a0fbdab2c862d80faccf7d991744a79e8_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_a0fbdab2c862d80faccf7d991744a79e8_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_a0fbdab2c862d80faccf7d991744a79e8_icgraph">
+<area shape="rect" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="448,13,649,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="252,5,400,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,13,204,54"/>
 </map>
 </div>
 

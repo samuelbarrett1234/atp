@@ -1,0 +1,5 @@
+<map id="atp::logic::equational::Statement::increment_free_var_ids" name="atp::logic::equational::Statement::increment_free_var_ids">
+<area shape="rect" id="node1" title="Add a particular value to the ID of every free variable in this statement." alt="" coords="5,5,160,61"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a4f14e95373eb16153018d9915b868bfb" title=" " alt="" coords="208,13,367,54"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ab6cbc2437c4081c6577d59359a3e3bb0" title=" " alt="" coords="415,13,572,54"/>
+</map>

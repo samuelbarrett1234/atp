@@ -1,0 +1,5 @@
+<map id="atp::logic::equational::ExprTreeFlyweight::merge_from" name="atp::logic::equational::ExprTreeFlyweight::merge_from">
+<area shape="rect" id="node1" title="Append, to each array in this object, the arrays in the other object. Also, update their function ind..." alt="" coords="240,39,453,80"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#aa37261d8ee733f6ab74bd6d558ae52e2" title="Substitute the free variables according to the given map." alt="" coords="5,5,192,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#aeee9e7dcfe3da4ed1f7f2b40de534488" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="26,71,171,112"/>
+</map>

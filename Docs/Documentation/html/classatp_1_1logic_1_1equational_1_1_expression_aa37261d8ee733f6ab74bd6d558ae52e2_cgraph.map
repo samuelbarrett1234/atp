@@ -1,0 +1,11 @@
+<map id="atp::logic::equational::Expression::map_free_vars" name="atp::logic::equational::Expression::map_free_vars">
+<area shape="rect" id="node1" title="Substitute the free variables according to the given map." alt="" coords="5,253,192,295"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a26152e870d16a369300c9a67d29e2d8e" title=" " alt="" coords="246,5,447,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a91a38655bdbfa79208d13555292f5a19" title=" " alt="" coords="262,71,431,127"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a89ea50f3905ef95350d173b004f24835" title=" " alt="" coords="262,151,431,207"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a635d2d8e2a4765bb3b1c107b8aafcad0" title="Append, to each array in this object, the arrays in the other object. Also, update their function ind..." alt="" coords="240,283,453,324"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a2fb23b8617152117e64b5cc2a2b772ac" title=" " alt="" coords="501,237,685,279"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="509,316,678,357"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a3c245f438adee795fdc69781e444f61c" title=" " alt="" coords="247,400,446,441"/>
+<area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4" title="Update a function&#39;s argument value and type." alt="" coords="255,466,439,522"/>
+</map>

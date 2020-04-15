@@ -1,8 +1,6 @@
 <map id="ATPLogic/Internal/Equational/SyntaxTreeTraversal.h" name="ATPLogic/Internal/Equational/SyntaxTreeTraversal.h">
-<area shape="rect" id="node1" title=" " alt="" coords="292,5,481,47"/>
-<area shape="rect" id="node2" href="$_syntax_tree_fold_8h.html" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="292,95,481,136"/>
-<area shape="rect" id="node4" href="$_semantics_8cpp.html" title=" " alt="" coords="5,184,195,225"/>
-<area shape="rect" id="node5" href="$_semantics_helper_8cpp.html" title=" " alt="" coords="645,184,835,225"/>
-<area shape="rect" id="node3" href="$_expression_8cpp.html" title=" " alt="" coords="219,184,408,225"/>
-<area shape="rect" id="node6" href="$_statement_8cpp.html" title=" " alt="" coords="432,184,621,225"/>
+<area shape="rect" id="node1" title=" " alt="" coords="112,5,301,47"/>
+<area shape="rect" id="node2" href="$_syntax_tree_fold_8h.html" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="112,95,301,136"/>
+<area shape="rect" id="node3" href="$_expression_8cpp.html" title=" " alt="" coords="5,184,195,225"/>
+<area shape="rect" id="node4" href="$_statement_8cpp.html" title=" " alt="" coords="219,184,408,225"/>
 </map>

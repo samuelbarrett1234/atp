@@ -1,0 +1,10 @@
+<map id="atp::logic::equational::Expression::end" name="atp::logic::equational::Expression::end">
+<area shape="rect" id="node1" title=" " alt="" coords="663,104,805,145"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a4a068ef4bf5b7591efeaa1daa8de9c54" title="Returns true iff the expressions are equal up to swapping of free variable names." alt="" coords="451,5,611,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a691e10e16b9c51299a153d951358d2fc" title=" " alt="" coords="447,71,615,112"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a544d3424b54a0a94f9054ccd5b1ce725" title="Returns true iff the two expressions are identical (i.e. same free variable IDs)" alt="" coords="455,136,606,177"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ab98cc592e84a447cb0824fbb8dccc5cb" title=" " alt="" coords="459,201,602,243"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ad41bc0076fd552b0de7cc370fd1166bb" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="204,39,399,80"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ab0aa735571984d286656c2f3550694ca" title="Try to match this expression to the given expression." alt="" coords="221,104,382,145"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="5,39,156,80"/>
+</map>

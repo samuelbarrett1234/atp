@@ -68,34 +68,36 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>This document contains instructions for creating a new type of logic, and rationale behind the architecture decisions.</p>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md11"></a>
 Main components</h1>
 <ul>
 <li>Parsing,</li>
 <li>Syntax tree building and type checking,</li>
 <li>The <code>Statement</code> and <code>StatementArray</code> objects,</li>
 <li>The <code>Language</code>, <code>ModelContext</code> and <code>KnowledgeKernel</code> objects,</li>
-<li>The <code>ProofState</code> objects.</li>
+<li>The <code>ProofState</code> objects, and their successor iterators.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Parsing</h1>
-<p>You will need to be able to parse statements which appear in the language, for example <code>"\forall x . \exists y . P(x, y)"</code>.</p>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<p>You will need to be able to parse statements which appear in the language, for example <code>"\forall x . \exists y . P(x, y)"</code>. This will produce some sort of parse tree.</p>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Syntax tree building and type checking</h1>
 <p>This will involve type checking; for example: checking functions have the right arity, checking we're not quantifying over a user-defined constant, etc.</p>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 Statements</h1>
 <p>This will involve implementing the <code>IStatement</code> and <code>IStatementArray</code> interfaces for your kind of logic. For a first version, it suffices to just use a syntax tree here (directly from the output of the above), however one may find this to be lacking in performance, so a more optimised storage might be necessary.</p>
 <p>Statements are always associated with a particular model context.</p>
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 Language, ModelContext and KnowledgeKernel</h1>
 <p>This will involve implementing the <code>ILanguage</code>, <code>IModelContext</code> and <code>IKnowledgeKernel</code> interfaces for your kind of logic.</p>
 <p>Language objects basically act as a factory object for all of the logic objects. It allows the user of the library to parse statements and context files.</p>
 <p>Model Context objects encapsulate the combination of user-definitions and axioms. It does not perform syntax and type checks of the axiom statements. Context files are in JSON; their format is documented elsewhere. Examples of contexts include: Group Theory, or Kozen's Regular Expressions.</p>
 <p>Knowledge Kernels add to the idea of a context, the ability to load (and unload) already-proven statements. They may wish to store these axioms and already-proven statements in an optimised format, so that during search, one can quickly find successors of a statement.</p>
-<h1><a class="anchor" id="autotoc_md18"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 Proof States</h1>
-<p>A <code>ProofState</code> encapsulates the idea of a complete, or work-in-progress, proof. These objects have a target statement (what they're trying to prove), must be able to enumerate their successor states. A proof state might be a proof tree (as seen often in logic, where the premises are at the top as the leaves of the tree and the root is the target statement), or in simpler cases it might just be a list of statements, each one following the last. Proof states must also be able to self-assess their completion (i.e. is this a complete proof? has this proof state reached a dead-end? is the proof otherwise unfinished?) </p>
+<p>A <code>ProofState</code> encapsulates the idea of a complete, or work-in-progress, proof. These objects have a target statement (what they're trying to prove), must be able to enumerate their successor states. A proof state might be a proof tree (as seen often in logic, where the premises are at the top as the leaves of the tree and the root is the target statement), or in simpler cases it might just be a list of statements, each one following the last. Proof states must also be able to self-assess their completion (i.e. is this a complete proof? has this proof state reached a dead-end? is the proof otherwise unfinished?)</p>
+<p>The main way for a proof state to enumerate its successors is via iterators, which generate successors one by one. Ideally these iterators should be as lazy as possible (only computing each successor as they are requested). Having "iterators inside iterators" then makes it easier to generate successors when such an operation is complex.</p>
+<p>For example, in the equational logic implementation, there may be successors for every subtree of a statement, and for every matching rule, and for every possible result of that matching rule, and for every possible assignment of any additional free variables created from matching. Clearly, successor generation rules can get complicated quickly. However, by decomposing all of the "for every ..." rules into its own iterator class, it makes successor generation nicely decomposed and testable. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

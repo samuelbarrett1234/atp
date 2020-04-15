@@ -8,11 +8,11 @@ This document contains instructions for creating a new type of logic, and ration
 - Syntax tree building and type checking,
 - The `Statement` and `StatementArray` objects,
 - The `Language`, `ModelContext` and `KnowledgeKernel` objects,
-- The `ProofState` objects.
+- The `ProofState` objects, and their successor iterators.
 
 ## Parsing
 
-You will need to be able to parse statements which appear in the language, for example `"\forall x . \exists y . P(x, y)"`.
+You will need to be able to parse statements which appear in the language, for example `"\forall x . \exists y . P(x, y)"`. This will produce some sort of parse tree.
 
 ## Syntax tree building and type checking
 
@@ -38,3 +38,6 @@ Knowledge Kernels add to the idea of a context, the ability to load (and unload)
 
 A `ProofState` encapsulates the idea of a complete, or work-in-progress, proof. These objects have a target statement (what they're trying to prove), must be able to enumerate their successor states. A proof state might be a proof tree (as seen often in logic, where the premises are at the top as the leaves of the tree and the root is the target statement), or in simpler cases it might just be a list of statements, each one following the last. Proof states must also be able to self-assess their completion (i.e. is this a complete proof? has this proof state reached a dead-end? is the proof otherwise unfinished?)
 
+The main way for a proof state to enumerate its successors is via iterators, which generate successors one by one. Ideally these iterators should be as lazy as possible (only computing each successor as they are requested). Having "iterators inside iterators" then makes it easier to generate successors when such an operation is complex.
+
+For example, in the equational logic implementation, there may be successors for every subtree of a statement, and for every matching rule, and for every possible result of that matching rule, and for every possible assignment of any additional free variables created from matching. Clearly, successor generation rules can get complicated quickly. However, by decomposing all of the "for every ..." rules into its own iterator class, it makes successor generation nicely decomposed and testable.

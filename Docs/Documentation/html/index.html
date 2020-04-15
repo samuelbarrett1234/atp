@@ -86,13 +86,14 @@ Navigation</h1>
 <p>Note that when you build the application, the binaries can be found in the <code>Output</code> folder, and <code>Temp</code> will contain Visual Studio intermediate files.</p>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Installation</h1>
-<p>The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. This project uses the Boost C++ libaries. Please ensure that they are installed, and that the environment variable <code>BOOST_DIR</code> to be set to the root of Boost's installation directory.</p>
+<p>The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. This project uses the Boost C++ libaries. Please ensure that they are installed, and that the environment variable <code>BOOST_DIR</code> to be set to the root of Boost's installation directory. Ensure you build Boost with the correct compiler and C++ version, otherwise you may experience compilation errors.</p>
 <p>After installation, try building the library and running the unit tests to check everything is working correctly.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Running the client</h1>
 <p>At the moment, the application only supports a single <code>prove</code> mode. Usage:</p>
-<p><code>atp --context &lt;context-filename&gt; --prove &lt;statement-filename&gt;</code></p>
+<p><code>atp --context &lt;context-filename&gt; --search-settings &lt;search-settings&gt; --prove &lt;statement-filename&gt;</code></p>
 <p>Note that, in the above example, you may need to change <code>atp</code> to <code>atp_Releasex64</code> or something similar, depending on your build settings. Check the <code>Output</code> folder to see which versions of the application you have built.</p>
+<p>See <code>Docs</code> for documentation about context files and search settings files.</p>
 <h1><a class="anchor" id="autotoc_md5"></a>
 TODO (beyond minimum viable product)</h1>
 <p>At the moment the project is working towards a minimum viable product, using only equational logic and uninformed search strategies. This repository still needs the following:</p><ul>

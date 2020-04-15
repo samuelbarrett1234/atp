@@ -1,0 +1,9 @@
+<map id="ATPSearch/Interfaces/SearchSettings.h" name="ATPSearch/Interfaces/SearchSettings.h">
+<area shape="rect" id="node1" title="Contains code for loading user search settings." alt="" coords="225,5,373,47"/>
+<area shape="rect" id="node2" href="$_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="124,102,293,129"/>
+<area shape="rect" id="node7" href="$_search_settings_8cpp.html" title=" " alt="" coords="317,95,465,136"/>
+<area shape="rect" id="node3" href="$_proof_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="22,184,171,211"/>
+<area shape="rect" id="node5" href="$_proof_application_8cpp.html" title=" " alt="" coords="127,259,290,285"/>
+<area shape="rect" id="node6" href="$_a_t_p_search_8cpp.html" title=" " alt="" coords="247,184,429,211"/>
+<area shape="rect" id="node4" href="$_main_8cpp.html" title=" " alt="" coords="5,259,103,285"/>
+</map>

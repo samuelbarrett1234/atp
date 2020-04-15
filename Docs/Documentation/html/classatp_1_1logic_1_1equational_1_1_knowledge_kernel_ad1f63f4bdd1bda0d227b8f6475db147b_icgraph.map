@@ -1,0 +1,4 @@
+<map id="atp::logic::equational::KnowledgeKernel::get_rule_free_id_bound" name="atp::logic::equational::KnowledgeKernel::get_rule_free_id_bound">
+<area shape="rect" id="node1" title="Returns the largest free variable ID which occurs in any of the rules." alt="" coords="227,5,383,61"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#ad901a2cc3b1c90a3a18947943203198c" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="5,5,179,61"/>
+</map>

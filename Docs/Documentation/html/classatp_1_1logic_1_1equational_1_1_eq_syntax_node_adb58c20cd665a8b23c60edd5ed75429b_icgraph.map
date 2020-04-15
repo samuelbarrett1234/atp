@@ -1,13 +1,7 @@
 <map id="atp::logic::equational::EqSyntaxNode::construct" name="atp::logic::equational::EqSyntaxNode::construct">
-<area shape="rect" id="node1" title="Optimised allocation function." alt="" coords="967,100,1145,141"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a248d60d0342ebb47ac400b4b866e5602" title="create a new statement obtained by replacing the RHS of this statement with the RHS of the other stat..." alt="" coords="748,5,905,47"/>
-<area shape="rect" id="node3" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a5f82827babe2c1d0c0f061d451c6d7a4" title="Try applying each rule to the statement to get a list of successor statements. Note that each rule ma..." alt="" coords="252,89,443,131"/>
-<area shape="rect" id="node6" href="$namespaceatp_1_1logic_1_1equational.html#a21fd07efe73f4ffca98e0a24d9d5d6d5" title="Convert a parse tree into a syntax tree." alt="" coords="755,188,898,229"/>
-<area shape="rect" id="node10" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a1d8301da503abc167bd83f832b9415e0" title="Once we have chosen a rule and found a free variable mapping which matches them, this performs the su..." alt="" coords="735,71,919,112"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,103,204,144"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a3095c141a4bfd5609cafba29fdd00b2a" title="Create a new iterator which allows us to enumerate the successors of this class." alt="" coords="22,37,187,79"/>
-<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="491,188,687,229"/>
-<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="271,181,424,237"/>
-<area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="29,181,181,237"/>
-<area shape="rect" id="node11" href="$namespaceatp_1_1logic_1_1equational_1_1semantics.html#a50213a4330f3c63138200b459cb43231" title="Try to apply each rule at the subtree rooted at the given node without trying tp apply it deeper in t..." alt="" coords="509,57,668,113"/>
+<area shape="rect" id="node1" title="Optimised allocation function." alt="" coords="841,13,1020,54"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic_1_1equational.html#a21fd07efe73f4ffca98e0a24d9d5d6d5" title="Convert a parse tree into a syntax tree." alt="" coords="651,13,793,54"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="407,13,603,54"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="205,5,359,61"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,5,157,61"/>
 </map>

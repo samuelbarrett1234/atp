@@ -1,0 +1,6 @@
+<map id="atp::logic::equational::SubExprMatchingIterator::valid" name="atp::logic::equational::SubExprMatchingIterator::valid">
+<area shape="rect" id="node1" title=" " alt="" coords="259,79,432,135"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a4f6caf310dc06e6602586ee730a67945" title="Increment the iterator; move on to the next successor." alt="" coords="21,5,195,61"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a0744a6f9aec3d992dc8136485cac65e1" title="Get the successor pointed to by this iterator." alt="" coords="9,86,207,127"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a9288a1ce917b82b28cbec16d0c755a35" title="Get the number of proof states currently held in memory by this iterator." alt="" coords="5,151,211,193"/>
+</map>

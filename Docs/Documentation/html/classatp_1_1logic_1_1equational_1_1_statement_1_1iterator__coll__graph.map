@@ -1,0 +1,4 @@
+<map id="atp::logic::equational::Statement::iterator" name="atp::logic::equational::Statement::iterator">
+<area shape="rect" id="node1" title="For iterating over all subtrees (subexpressions) of a given statement in pre&#45;order traversal,..." alt="" coords="5,124,148,165"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html" title="An expression is an encapsulation of the part of a syntax tree without an equals sign." alt="" coords="5,5,148,47"/>
+</map>

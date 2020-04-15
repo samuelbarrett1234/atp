@@ -1,13 +1,15 @@
 <map id="ATPLogic/ATPLogic.h" name="ATPLogic/ATPLogic.h">
-<area shape="rect" id="node1" title="Main include file for the ATPLogic library." alt="" coords="334,5,483,32"/>
-<area shape="rect" id="node2" href="$_main_8cpp.html" title=" " alt="" coords="5,177,103,203"/>
-<area shape="rect" id="node3" href="$_proof_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="35,87,185,114"/>
-<area shape="rect" id="node5" href="$_a_t_p_logic_8cpp.html" title=" " alt="" coords="209,87,371,114"/>
-<area shape="rect" id="node6" href="$_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="421,177,591,203"/>
-<area shape="rect" id="node8" href="$_i_solver_8h.html" title="Interface for proof solving strategies." alt="" coords="621,80,769,121"/>
-<area shape="rect" id="node9" href="$_iterative_deepening_solver_8h.html" title="Contains a basic uninformed search strategy, IDS." alt="" coords="621,169,799,211"/>
-<area shape="rect" id="node11" href="$_i_statement_heuristic_8h.html" title="Interfaces for search heuristic functions." alt="" coords="447,80,597,121"/>
-<area shape="rect" id="node4" href="$_proof_application_8cpp.html" title=" " alt="" coords="186,266,349,293"/>
-<area shape="rect" id="node7" href="$_a_t_p_search_8cpp.html" title=" " alt="" coords="415,266,597,293"/>
-<area shape="rect" id="node10" href="$_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="621,259,812,300"/>
+<area shape="rect" id="node1" title="Main include file for the ATPLogic library." alt="" coords="222,5,371,32"/>
+<area shape="rect" id="node2" href="$_main_8cpp.html" title=" " alt="" coords="5,423,103,449"/>
+<area shape="rect" id="node3" href="$_proof_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="57,348,206,375"/>
+<area shape="rect" id="node5" href="$_a_t_p_logic_8cpp.html" title=" " alt="" coords="497,87,659,114"/>
+<area shape="rect" id="node6" href="$_i_solver_8h.html" title="Interface for proof solving strategies." alt="" coords="223,80,371,121"/>
+<area shape="rect" id="node9" href="$_search_settings_8h.html" title="Contains code for loading user search settings." alt="" coords="335,169,483,211"/>
+<area shape="rect" id="node11" href="$_iterative_deepening_solver_8h.html" title="Contains a basic uninformed search strategy, IDS." alt="" coords="507,169,684,211"/>
+<area shape="rect" id="node13" href="$_i_statement_heuristic_8h.html" title="Interfaces for search heuristic functions." alt="" coords="108,169,259,211"/>
+<area shape="rect" id="node4" href="$_proof_application_8cpp.html" title=" " alt="" coords="145,423,307,449"/>
+<area shape="rect" id="node7" href="$_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="159,266,328,293"/>
+<area shape="rect" id="node8" href="$_a_t_p_search_8cpp.html" title=" " alt="" coords="364,348,547,375"/>
+<area shape="rect" id="node10" href="$_search_settings_8cpp.html" title=" " alt="" coords="352,259,500,300"/>
+<area shape="rect" id="node12" href="$_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="576,259,767,300"/>
 </map>

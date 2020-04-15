@@ -75,53 +75,54 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="_knowledge_kernel_8h.html">KnowledgeKernel.h</a>&quot;</code><br />
 <code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;boost/functional/hash.hpp&gt;</code><br />
 <code>#include &lt;boost/phoenix.hpp&gt;</code><br />
 <code>#include &lt;boost/bind.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="_semantics_8h.html">Semantics.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_proof_state_8h.html">ProofState.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for KnowledgeKernel.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="_knowledge_kernel_8cpp__incl.png" border="0" usemap="#_a_t_p_logic_2_internal_2_equational_2_knowledge_kernel_8cpp" alt=""/></div>
 <map name="_a_t_p_logic_2_internal_2_equational_2_knowledge_kernel_8cpp" id="_a_t_p_logic_2_internal_2_equational_2_knowledge_kernel_8cpp">
-<area shape="rect" title=" " alt="" coords="1185,5,1375,47"/>
-<area shape="rect" href="_knowledge_kernel_8h.html" title="Implementation of the IKnowledgeKernel for equational logic." alt="" coords="1468,169,1601,196"/>
-<area shape="rect" title=" " alt="" coords="1245,95,1315,121"/>
-<area shape="rect" title=" " alt="" coords="1339,95,1509,121"/>
-<area shape="rect" title=" " alt="" coords="1533,95,1661,121"/>
-<area shape="rect" title=" " alt="" coords="1685,95,1792,121"/>
-<area shape="rect" href="_semantics_8h.html" title="Several useful functions on Statements, including logical inference and logical equivalence." alt="" coords="946,169,1041,196"/>
-<area shape="rect" href="_proof_state_8h.html" title=" " alt="" coords="1075,95,1170,121"/>
-<area shape="rect" title=" " alt="" coords="897,475,943,502"/>
-<area shape="rect" title=" " alt="" coords="635,707,690,733"/>
-<area shape="rect" title=" " alt="" coords="1825,632,1881,659"/>
-<area shape="rect" title=" " alt="" coords="2234,244,2273,271"/>
-<area shape="rect" title=" " alt="" coords="2203,319,2322,345"/>
-<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="1685,707,1819,733"/>
-<area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a structure for performing logical deductio..." alt="" coords="1222,468,1394,509"/>
-<area shape="rect" href="_statement_8h.html" title="Contains the implementation of the IStatement interface for equational logic." alt="" coords="964,319,1057,345"/>
-<area shape="rect" href="_statement_array_8h.html" title="Contains the class implementing the IStatementArray for equational logic." alt="" coords="1279,244,1403,271"/>
-<area shape="rect" href="_model_context_8h.html" title="Contains the equational logic ModelContext which implements the IModelContext interface." alt="" coords="1843,244,1957,271"/>
-<area shape="rect" title=" " alt="" coords="1719,781,1785,808"/>
-<area shape="rect" title=" " alt="" coords="960,632,1029,659"/>
-<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="615,632,711,659"/>
-<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="1083,557,1210,584"/>
-<area shape="rect" href="_i_proof_state_8h.html" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="657,557,754,584"/>
-<area shape="rect" title=" " alt="" coords="947,393,1021,420"/>
-<area shape="rect" title=" " alt="" coords="373,475,424,502"/>
-<area shape="rect" title=" " alt="" coords="309,475,349,502"/>
-<area shape="rect" title=" " alt="" coords="601,468,719,509"/>
-<area shape="rect" href="_i_model_context_8h.html" title="Contains the IModelContext interface for managing definitions and axioms." alt="" coords="1235,557,1435,584"/>
-<area shape="rect" href="_syntax_nodes_8h.html" title=" " alt="" coords="1521,475,1631,502"/>
-<area shape="rect" href="_expression_8h.html" title="Contains the Expression class, which is used in the Statement class. Encapsulates part of a syntax tr..." alt="" coords="513,393,612,420"/>
-<area shape="rect" href="_parse_nodes_8h.html" title=" " alt="" coords="1509,557,1613,584"/>
-<area shape="rect" title=" " alt="" coords="5,475,133,502"/>
-<area shape="rect" title=" " alt="" coords="1198,319,1261,345"/>
-<area shape="rect" href="_language_8h.html" title="Implementation of the ILanguage interface for equational logic." alt="" coords="2038,319,2127,345"/>
-<area shape="rect" href="_i_language_8h.html" title="Contains the ILanguage interface which acts as a factory class for each type of logic in the library." alt="" coords="1652,393,1828,420"/>
-<area shape="rect" title=" " alt="" coords="1707,475,1773,502"/>
-<area shape="rect" title=" " alt="" coords="1797,475,1867,502"/>
+<area shape="rect" title=" " alt="" coords="1333,5,1523,47"/>
+<area shape="rect" href="_knowledge_kernel_8h.html" title="Implementation of the IKnowledgeKernel for equational logic." alt="" coords="1261,169,1395,196"/>
+<area shape="rect" title=" " alt="" coords="144,393,219,420"/>
+<area shape="rect" title=" " alt="" coords="1249,95,1319,121"/>
+<area shape="rect" title=" " alt="" coords="1343,95,1513,121"/>
+<area shape="rect" title=" " alt="" coords="1537,95,1665,121"/>
+<area shape="rect" title=" " alt="" coords="1689,95,1796,121"/>
+<area shape="rect" href="_proof_state_8h.html" title=" " alt="" coords="1821,95,1915,121"/>
+<area shape="rect" title=" " alt="" coords="1382,475,1429,502"/>
+<area shape="rect" title=" " alt="" coords="1210,707,1265,733"/>
+<area shape="rect" title=" " alt="" coords="347,707,403,733"/>
+<area shape="rect" title=" " alt="" coords="1281,244,1319,271"/>
+<area shape="rect" title=" " alt="" coords="1446,319,1565,345"/>
+<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="2049,707,2183,733"/>
+<area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a structure for performing logical deductio..." alt="" coords="1606,468,1778,509"/>
+<area shape="rect" href="_statement_8h.html" title="Contains the implementation of the IStatement interface for equational logic." alt="" coords="995,319,1088,345"/>
+<area shape="rect" href="_statement_array_8h.html" title="Contains the class implementing the IStatementArray for equational logic." alt="" coords="1030,244,1154,271"/>
+<area shape="rect" href="_model_context_8h.html" title="Contains the equational logic ModelContext which implements the IModelContext interface." alt="" coords="1550,244,1663,271"/>
+<area shape="rect" title=" " alt="" coords="2083,781,2149,808"/>
+<area shape="rect" title=" " alt="" coords="872,707,941,733"/>
+<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="1768,632,1864,659"/>
+<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="1275,557,1402,584"/>
+<area shape="rect" href="_i_proof_state_8h.html" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="1955,557,2053,584"/>
+<area shape="rect" title=" " alt="" coords="412,557,463,584"/>
+<area shape="rect" title=" " alt="" coords="395,475,435,502"/>
+<area shape="rect" title=" " alt="" coords="459,468,578,509"/>
+<area shape="rect" href="_i_model_context_8h.html" title="Contains the IModelContext interface for managing definitions and axioms." alt="" coords="1528,557,1728,584"/>
+<area shape="rect" href="_syntax_nodes_8h.html" title=" " alt="" coords="985,557,1095,584"/>
+<area shape="rect" href="_expression_8h.html" title="Contains the Expression class, which is used in the Statement class. Encapsulates part of a syntax tr..." alt="" coords="920,393,1019,420"/>
+<area shape="rect" href="_parse_nodes_8h.html" title=" " alt="" coords="1045,632,1149,659"/>
+<area shape="rect" title=" " alt="" coords="869,475,1003,502"/>
+<area shape="rect" title=" " alt="" coords="2045,475,2173,502"/>
+<area shape="rect" href="_expr_tree_flyweight_8h.html" title="Contains a helper class for efficient storage of data about Expression objects." alt="" coords="705,475,845,502"/>
+<area shape="rect" title=" " alt="" coords="155,319,218,345"/>
+<area shape="rect" href="_language_8h.html" title="Implementation of the ILanguage interface for equational logic." alt="" coords="1873,319,1962,345"/>
+<area shape="rect" href="_i_language_8h.html" title="Contains the ILanguage interface which acts as a factory class for each type of logic in the library." alt="" coords="1829,393,2005,420"/>
+<area shape="rect" title=" " alt="" coords="1955,475,2021,502"/>
+<area shape="rect" title=" " alt="" coords="2197,475,2267,502"/>
 </map>
 </div>
 </div><table class="memberdecls">

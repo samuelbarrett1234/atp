@@ -1,0 +1,5 @@
+<map id="atp::logic::equational::RuleMatchingIterator::size" name="atp::logic::equational::RuleMatchingIterator::size">
+<area shape="rect" id="node1" title="Get the number of proof states currently held in memory by this iterator." alt="" coords="5,13,187,54"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a8c136d6406f8f6448c2ddfffee7bb20d" title=" " alt="" coords="235,5,384,61"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af9ca30f84344d52a76abc68cf64ce372" title=" " alt="" coords="432,5,595,61"/>
+</map>

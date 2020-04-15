@@ -1,0 +1,4 @@
+<map id="atp::search::load_search_settings" name="atp::search::load_search_settings">
+<area shape="rect" id="node1" title="Try to load a solver from a configuration file." alt="" coords="5,5,171,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#a8580f538a27bb6bedc5dd3929c4dc791" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="219,13,396,39"/>
+</map>

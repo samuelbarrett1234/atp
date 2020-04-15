@@ -1,0 +1,6 @@
+<map id="atp::logic::equational::FreeVarAssignmentIterator::valid" name="atp::logic::equational::FreeVarAssignmentIterator::valid">
+<area shape="rect" id="node1" title=" " alt="" coords="271,79,456,135"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#aed130449d93ae4914a1880f20c3c5ee4" title="Increment the iterator; move on to the next successor." alt="" coords="21,5,207,61"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#ad360d332f30341a63116dd1945dafc16" title="Get the successor pointed to by this iterator." alt="" coords="9,86,219,127"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#afe30d1b7576ec27d3afa3701574ea009" title="Get the number of proof states currently held in memory by this iterator." alt="" coords="5,151,223,193"/>
+</map>

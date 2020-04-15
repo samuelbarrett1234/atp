@@ -1,15 +1,4 @@
 var searchData=
 [
-  ['_7eiknowledgekernel_515',['~IKnowledgeKernel',['../classatp_1_1logic_1_1_i_knowledge_kernel.html#a9f3e4e715333bba2b48ff18b232c97ba',1,'atp::logic::IKnowledgeKernel']]],
-  ['_7eilanguage_516',['~ILanguage',['../classatp_1_1logic_1_1_i_language.html#adde55c22349d717241f06a65fc4bd275',1,'atp::logic::ILanguage']]],
-  ['_7eimodelcontext_517',['~IModelContext',['../classatp_1_1logic_1_1_i_model_context.html#a364bc9f78a1afadb4eb8b36f5f6a3b8d',1,'atp::logic::IModelContext']]],
-  ['_7eiparsenode_518',['~IParseNode',['../classatp_1_1logic_1_1equational_1_1_i_parse_node.html#a636b5b50cb6598f7a4e99682d155ed1e',1,'atp::logic::equational::IParseNode']]],
-  ['_7eipfstatesucciter_519',['~IPfStateSuccIter',['../classatp_1_1logic_1_1_i_pf_state_succ_iter.html#a020ae30032051a36f1e0c182a64b9601',1,'atp::logic::IPfStateSuccIter']]],
-  ['_7eiproofstate_520',['~IProofState',['../classatp_1_1logic_1_1_i_proof_state.html#abbe9d191d5cfc950a01a0854c7fcc08c',1,'atp::logic::IProofState']]],
-  ['_7eipropositionalknowledgekernel_521',['~IPropositionalKnowledgeKernel',['../classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html#a67930525799980bad48f6b590143af2f',1,'atp::logic::IPropositionalKnowledgeKernel']]],
-  ['_7eisolver_522',['~ISolver',['../classatp_1_1search_1_1_i_solver.html#a37e3870bd6bb754c838fba5439748f7d',1,'atp::search::ISolver']]],
-  ['_7eistatement_523',['~IStatement',['../classatp_1_1logic_1_1_i_statement.html#a2d538a88c057dbb56307c4e3c22f808f',1,'atp::logic::IStatement']]],
-  ['_7eistatementarray_524',['~IStatementArray',['../classatp_1_1logic_1_1_i_statement_array.html#a351e3fcbaf129e1b896a8535d47e4d78',1,'atp::logic::IStatementArray']]],
-  ['_7eistatementheuristic_525',['~IStatementHeuristic',['../classatp_1_1search_1_1_i_statement_heuristic.html#aafa1fa8f0687acc025911add1cb60c06',1,'atp::search::IStatementHeuristic']]],
-  ['_7eisyntaxnode_526',['~ISyntaxNode',['../classatp_1_1logic_1_1equational_1_1_i_syntax_node.html#a24d28b083ec5b9d9cce5e0b8e2b28d3a',1,'atp::logic::equational::ISyntaxNode']]]
+  ['valid_585',['valid',['../classatp_1_1logic_1_1_i_pf_state_succ_iter.html#ae9795a4557f355ec0bff3fdecdf21b71',1,'atp::logic::IPfStateSuccIter::valid()'],['../classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#a31622b34555e4db84418a80db45b2311',1,'atp::logic::equational::FreeVarAssignmentIterator::valid()'],['../classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#a6ebf77cf2d2694da3c19b4163a637573',1,'atp::logic::equational::MatchResultsIterator::valid()'],['../classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a8c136d6406f8f6448c2ddfffee7bb20d',1,'atp::logic::equational::RuleMatchingIterator::valid()'],['../classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a1f1ed484319a9bd2a1f732caac9afdcd',1,'atp::logic::equational::SubExprMatchingIterator::valid()']]]
 ];

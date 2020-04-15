@@ -1,0 +1,6 @@
+<map id="atp::logic::equational::MatchResultsIterator::valid" name="atp::logic::equational::MatchResultsIterator::valid">
+<area shape="rect" id="node1" title=" " alt="" coords="236,79,387,135"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#ada7c35d826149060bdc33e7fa660dc6c" title="Increment the iterator; move on to the next successor." alt="" coords="21,5,172,61"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#a83ae61615b5e99a125175dcaf6e8d28b" title="Get the successor pointed to by this iterator." alt="" coords="9,86,185,127"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#ac7b152ade35ee6b2a37c6bddb709f8fb" title="Get the number of proof states currently held in memory by this iterator." alt="" coords="5,151,188,193"/>
+</map>

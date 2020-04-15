@@ -1,0 +1,4 @@
+<map id="atp::logic::equational::SubExprMatchingIterator" name="atp::logic::equational::SubExprMatchingIterator">
+<area shape="rect" id="node1" title="Produces successor statements by iterating over all subtrees of a statement to try matching." alt="" coords="7,80,181,121"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1_i_pf_state_succ_iter.html" title="This is an interface for enumerating through successors of a proof state." alt="" coords="5,5,183,32"/>
+</map>

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['reference_538',['reference',['../classatp_1_1logic_1_1equational_1_1_statement_array_1_1iterator.html#a8130c6f98eaff4c9953f3f514244d380',1,'atp::logic::equational::StatementArray::iterator']]],
-  ['rule_5fexprs_539',['rule_exprs',['../structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html#abefa5a1780f123db47b62032cd51f98c',1,'atp::logic::equational::semantics::SubstitutionInfo']]],
-  ['rule_5ffree_5fvars_540',['rule_free_vars',['../structatp_1_1logic_1_1equational_1_1semantics_1_1_substitution_info.html#a31cff262fba7f3feb0eec97cd9a071c1',1,'atp::logic::equational::semantics::SubstitutionInfo']]]
+  ['reference_609',['reference',['../classatp_1_1logic_1_1equational_1_1_expression_1_1iterator.html#a0022a1339921ab67d819a245c5227ea8',1,'atp::logic::equational::Expression::iterator::reference()'],['../classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html#ac17e7ba9220df8b05f1a5178a9191b5d',1,'atp::logic::equational::Statement::iterator::reference()'],['../classatp_1_1logic_1_1equational_1_1_statement_array_1_1iterator.html#a8130c6f98eaff4c9953f3f514244d380',1,'atp::logic::equational::StatementArray::iterator::reference()']]]
 ];

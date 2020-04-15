@@ -54,10 +54,6 @@ Expression::Expression(const ModelContext& ctx,
 		SyntaxNodeType::EQ);  // this one is obvious
 
 	m_tree.set_root(root_id, root_type);
-
-	// we could do this directly without calling this function,
-	// but in our case, even this function will be quite cheap
-	rebuild_free_var_ids();
 }
 
 
@@ -85,8 +81,6 @@ Expression::Expression(const ModelContext& ctx,
 			std::vector<size_t>::iterator begin,
 			std::vector<size_t>::iterator end)
 		{ return *std::max_element(begin, end) + 1; });
-
-	rebuild_free_var_ids();
 }
 
 
@@ -156,12 +150,21 @@ std::string Expression::to_str() const
 }
 
 
+const std::set<size_t>& Expression::free_var_ids() const
+{
+	if (!m_free_var_ids.has_value())
+		build_free_var_ids();
+
+	return m_free_var_ids.get();
+}
+
+
 Expression Expression::map_free_vars(const std::map<size_t,
 	Expression>& free_map) const
 {
 	// check that this map is total
-	ATP_LOGIC_PRECOND(std::all_of(m_free_var_ids.get().begin(),
-		m_free_var_ids.get().end(),
+	ATP_LOGIC_PRECOND(std::all_of(free_var_ids().begin(),
+		free_var_ids().end(),
 		[&free_map](size_t id)
 		{ return free_map.find(id) != free_map.end(); }));
 
@@ -187,6 +190,7 @@ Expression Expression::map_free_vars(const std::map<size_t,
 		// that with their substitutions.
 
 		Expression new_expr = *this;
+		new_expr.m_free_var_ids = boost::none;
 
 		const size_t size_before = new_expr.m_tree.size();
 
@@ -225,7 +229,6 @@ Expression Expression::map_free_vars(const std::map<size_t,
 			}
 		}
 
-		new_expr.rebuild_free_var_ids();
 		return new_expr;
 	}
 	default:
@@ -264,6 +267,7 @@ Expression Expression::replace(const iterator& pos,
 			m_tree.func_arity(pos.parent_func_idx()));
 
 		Expression result_expr = *this;
+		result_expr.m_free_var_ids = boost::none;
 
 		switch (sub_expr.m_tree.root_type())
 		{
@@ -302,7 +306,6 @@ Expression Expression::replace(const iterator& pos,
 			throw std::exception();
 		}
 
-		result_expr.rebuild_free_var_ids();
 		return result_expr;
 	}
 }
@@ -317,30 +320,30 @@ Expression Expression::replace_free_with_free(
 	// delegating the call to the LHS and RHS expressions - if we
 	// enforced `initial_id` being present in this expression then
 	// such an operation would be more cumbersome to implement).
-	if (m_free_var_ids.get().find(initial_id) ==
-		m_free_var_ids.get().end())
+	if (free_var_ids().find(initial_id) ==
+		free_var_ids().end())
 		return *this;
 
-	Expression new_exp = *this;
+	Expression new_expr = *this;
+	new_expr.m_free_var_ids = boost::none;
 
-	for (size_t i = 0; i < new_exp.m_tree.size(); ++i)
+	for (size_t i = 0; i < new_expr.m_tree.size(); ++i)
 	{
-		const size_t arity = new_exp.m_tree.func_arity(i);
-		const auto& children = new_exp.m_tree.func_children(i);
-		const auto& child_types = new_exp.m_tree.func_child_types(i);
+		const size_t arity = new_expr.m_tree.func_arity(i);
+		const auto& children = new_expr.m_tree.func_children(i);
+		const auto& child_types = new_expr.m_tree.func_child_types(i);
 		for (size_t j = 0; j < arity; ++j)
 		{
 			if (child_types[j] == SyntaxNodeType::FREE &&
 				children[j] == initial_id)
 			{
-				new_exp.m_tree.update_func_child(i, j, after_id,
+				new_expr.m_tree.update_func_child(i, j, after_id,
 					SyntaxNodeType::FREE);
 			}
 		}
 	}
 
-	new_exp.rebuild_free_var_ids();
-	return new_exp;
+	return new_expr;
 }
 
 
@@ -353,8 +356,8 @@ Expression Expression::replace_free_with_const(
 	// delegating the call to the LHS and RHS expressions - if we
 	// enforced `initial_id` being present in this expression then
 	// such an operation would be more cumbersome to implement).
-	if (m_free_var_ids.get().find(initial_id) ==
-		m_free_var_ids.get().end())
+	if (free_var_ids().find(initial_id) ==
+		free_var_ids().end())
 		return *this;
 
 #ifdef ATP_LOGIC_DEFENSIVE
@@ -364,26 +367,26 @@ Expression Expression::replace_free_with_const(
 		symb_ids.end(), const_symb_id) != symb_ids.end()));
 #endif
 
-	Expression new_exp = *this;
+	Expression new_expr = *this;
+	new_expr.m_free_var_ids = boost::none;
 
-	for (size_t i = 0; i < new_exp.m_tree.size(); ++i)
+	for (size_t i = 0; i < new_expr.m_tree.size(); ++i)
 	{
-		const size_t arity = new_exp.m_tree.func_arity(i);
-		const auto& children = new_exp.m_tree.func_children(i);
-		const auto& child_types = new_exp.m_tree.func_child_types(i);
+		const size_t arity = new_expr.m_tree.func_arity(i);
+		const auto& children = new_expr.m_tree.func_children(i);
+		const auto& child_types = new_expr.m_tree.func_child_types(i);
 		for (size_t j = 0; j < arity; ++j)
 		{
 			if (child_types[j] == SyntaxNodeType::FREE &&
 				children[j] == initial_id)
 			{
-				new_exp.m_tree.update_func_child(i, j, const_symb_id,
+				new_expr.m_tree.update_func_child(i, j, const_symb_id,
 					SyntaxNodeType::CONSTANT);
 			}
 		}
 	}
 
-	new_exp.rebuild_free_var_ids();
-	return new_exp;
+	return new_expr;
 }
 
 
@@ -393,32 +396,32 @@ Expression Expression::increment_free_var_ids(size_t inc) const
 	if (inc == 0)
 		return *this;
 
-	Expression new_exp = *this;
+	Expression new_expr = *this;
+	new_expr.m_free_var_ids = boost::none;
 
-	for (size_t i = 0; i < new_exp.m_tree.size(); ++i)
+	for (size_t i = 0; i < new_expr.m_tree.size(); ++i)
 	{
-		const size_t arity = new_exp.m_tree.func_arity(i);
-		const auto& children = new_exp.m_tree.func_children(i);
-		const auto& child_types = new_exp.m_tree.func_child_types(i);
+		const size_t arity = new_expr.m_tree.func_arity(i);
+		const auto& children = new_expr.m_tree.func_children(i);
+		const auto& child_types = new_expr.m_tree.func_child_types(i);
 		for (size_t j = 0; j < arity; ++j)
 		{
 			if (child_types[j] == SyntaxNodeType::FREE)
 			{
-				new_exp.m_tree.update_func_child(i, j,
+				new_expr.m_tree.update_func_child(i, j,
 					children[j] + inc, SyntaxNodeType::FREE);
 			}
 		}
 	}
 
 	// handle root as special case
-	if (new_exp.m_tree.root_type() == SyntaxNodeType::FREE)
+	if (new_expr.m_tree.root_type() == SyntaxNodeType::FREE)
 	{
-		new_exp.m_tree.set_root(new_exp.m_tree.root_id() + inc,
+		new_expr.m_tree.set_root(new_expr.m_tree.root_id() + inc,
 			SyntaxNodeType::FREE);
 	}
 
-	new_exp.rebuild_free_var_ids();
-	return new_exp;
+	return new_expr;
 }
 
 
@@ -434,8 +437,8 @@ Expression Expression::sub_expression(size_t id, SyntaxNodeType type) const
 		ATP_LOGIC_PRECOND(id < m_tree.size());
 
 		Expression new_expr = *this;
+		new_expr.m_free_var_ids = boost::none;
 		new_expr.m_tree.set_root(id, type);
-		new_expr.rebuild_free_var_ids();
 		return new_expr;
 	}
 	default:
@@ -644,11 +647,12 @@ Expression::add_tree_data(const SyntaxNodePtr& tree)
 }
 
 
-void Expression::rebuild_free_var_ids()
+void Expression::build_free_var_ids() const
 {
 	ATP_LOGIC_PRECOND(m_height > 0);  // ensure this is set too
+	ATP_LOGIC_PRECOND(!m_free_var_ids.has_value());
 
-	std::set<size_t> new_id_set;
+	m_free_var_ids = std::set<size_t>();
 
 	std::vector<std::pair<size_t, SyntaxNodeType>> stack;
 
@@ -664,7 +668,7 @@ void Expression::rebuild_free_var_ids()
 		switch (type)
 		{
 		case SyntaxNodeType::FREE:
-			new_id_set.insert(id);
+			m_free_var_ids->insert(id);
 			break;
 		case SyntaxNodeType::CONSTANT:
 			break;
@@ -681,9 +685,6 @@ void Expression::rebuild_free_var_ids()
 			throw std::exception();
 		}
 	}
-
-	// update IDs
-	m_free_var_ids = new_id_set;
 }
 
 

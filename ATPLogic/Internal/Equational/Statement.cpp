@@ -43,8 +43,6 @@ Statement::Statement(
 	m_sides = std::make_pair(Expression::construct(ctx,
 		p_eq->left()), Expression::construct(ctx,
 			p_eq->right()));
-
-	rebuild_free_var_ids();
 }
 
 
@@ -54,7 +52,6 @@ Statement::Statement(const ModelContext& ctx, Expression lhs,
 	m_sides(Expression::construct(std::move(lhs)),
 		Expression::construct(std::move(rhs)))
 {
-	rebuild_free_var_ids();
 }
 
 
@@ -103,12 +100,21 @@ std::string Statement::to_str() const
 }
 
 
+const std::set<size_t>& Statement::free_var_ids() const
+{
+	if (!m_free_var_ids.has_value())
+		build_free_var_ids();
+
+	return m_free_var_ids.get();
+}
+
+
 Statement Statement::map_free_vars(const std::map<size_t,
 	Expression> free_map) const
 {
 	// check that this map is total
-	ATP_LOGIC_PRECOND(std::all_of(m_free_var_ids.begin(),
-		m_free_var_ids.end(),
+	ATP_LOGIC_PRECOND(std::all_of(free_var_ids().begin(),
+		free_var_ids().end(),
 		[&free_map](size_t id)
 		{ return free_map.find(id) != free_map.end(); }));
 
@@ -125,7 +131,7 @@ Statement Statement::map_free_vars(const std::map<size_t,
 	*new_stmt.m_sides.second = m_sides.second->map_free_vars(
 		free_map);
 
-	new_stmt.rebuild_free_var_ids();
+	new_stmt.m_free_var_ids = boost::none;
 
 	return new_stmt;
 }
@@ -289,21 +295,21 @@ bool Statement::implies(const Statement& conclusion) const
 }
 
 
-void Statement::rebuild_free_var_ids()
+void Statement::build_free_var_ids() const
 {
 	ATP_LOGIC_PRECOND(m_sides.first != nullptr);
 	ATP_LOGIC_PRECOND(m_sides.second != nullptr);
+	ATP_LOGIC_PRECOND(!m_free_var_ids.has_value());
 
-	// clear this and rebuild from the union of both children
-	m_free_var_ids.clear();
+	m_free_var_ids = std::set<size_t>();
 
 	const auto& first_ids = m_sides.first->free_var_ids();
 	const auto& second_ids = m_sides.second->free_var_ids();
 
 	std::set_union(first_ids.begin(), first_ids.end(),
 		second_ids.begin(), second_ids.end(),
-		std::inserter(m_free_var_ids,
-			m_free_var_ids.end()));
+		std::inserter(*m_free_var_ids,
+			m_free_var_ids->end()));
 }
 
 

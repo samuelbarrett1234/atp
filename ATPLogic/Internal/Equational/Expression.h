@@ -18,7 +18,6 @@
 #include <vector>
 #include <map>
 #include <set>
-#include <boost/flyweight.hpp>
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/optional.hpp>
 #include "../../ATPLogicAPI.h"
@@ -313,10 +312,7 @@ public:
 
 	std::string to_str() const;
 
-	inline const std::set<size_t>& free_var_ids() const
-	{
-		return m_free_var_ids.get();
-	}
+	const std::set<size_t>& free_var_ids() const;
 
 	/**
 	\brief Get the symbol or free ID of the root of this expression
@@ -1015,11 +1011,17 @@ private:
 		SyntaxNodeType> add_tree_data(const SyntaxNodePtr& tree);
 
 	/**
-	\brief Recompute m_free_var_ids after it may have been outdated
+	\brief Compute m_free_var_ids
 
-	\pre m_tree is constructed properly already
+	\pre m_tree is constructed properly already and
+		!m_free_var_ids.has_value()
+
+	\remark The only reason this is const is because it is used to
+		build m_free_var_ids in its (const) getter function. This
+		is okay because (i) m_free_var_ids is mutable and (ii) we
+		don't modify any other variables anyway.
 	*/
-	void rebuild_free_var_ids();
+	void build_free_var_ids() const;
 
 private:
     // expressions store references to their creator
@@ -1033,7 +1035,9 @@ private:
 	// tree
 	ExprTreeFlyweight m_tree;
 
-	boost::flyweight<std::set<size_t>> m_free_var_ids;
+	// mutable because we compute it lazily and we can return it in
+	// a const function
+	mutable boost::optional<std::set<size_t>> m_free_var_ids;
 };
 
 

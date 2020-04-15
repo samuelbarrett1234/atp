@@ -28,6 +28,7 @@
 #include <array>
 #include <map>
 #include <set>
+#include <boost/optional.hpp>
 #include <boost/iterator/zip_iterator.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IStatement.h"
@@ -203,13 +204,10 @@ public:
 
 	inline size_t num_free_vars() const
 	{
-		return m_free_var_ids.size();
+		return free_var_ids().size();
 	}
 
-	inline const std::set<size_t>& free_var_ids() const
-	{
-		return m_free_var_ids;
-	}
+	const std::set<size_t>& free_var_ids() const;
 
 	inline const ModelContext& context() const
 	{
@@ -415,11 +413,17 @@ public:
 
 private:
 	/**
-	\brief Recompute m_free_var_ids after it may have been outdated
+	\brief Compute m_free_var_ids
 
-	\pre m_sides is constructed properly already
+	\pre m_tree is constructed properly already and
+		!m_free_var_ids.has_value()
+
+	\remark The only reason this is const is because it is used to
+		build m_free_var_ids in its (const) getter function. This
+		is okay because (i) m_free_var_ids is mutable and (ii) we
+		don't modify any other variables anyway.
 	*/
-	void rebuild_free_var_ids();
+	void build_free_var_ids() const;
 
 private:
 	// statements store references to their creator
@@ -430,7 +434,9 @@ private:
 	// appearing on each side of the equals sign.
 	std::pair<ExpressionPtr, ExpressionPtr> m_sides;
 
-	std::set<size_t> m_free_var_ids;
+	// mutable because we compute it lazily and we can return it in
+	// a const function
+	mutable boost::optional<std::set<size_t>> m_free_var_ids;
 };
 
 

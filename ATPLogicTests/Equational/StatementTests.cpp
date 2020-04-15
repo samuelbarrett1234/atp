@@ -114,8 +114,8 @@ BOOST_DATA_TEST_CASE(test_num_free_vars,
 	boost::unit_test::data::make({
 		"*(x, y) = *(y, x)",
 		"*(*(x, y), z) = *(x, *(y, z))",
-		"i(i(x)) = e" }) ^ boost::unit_test::data::make({
-		2, 3, 1 }), stmt_txt, num_free)
+		"i(i(x)) = e", "x = y" }) ^ boost::unit_test::data::make({
+		2, 3, 1, 2 }), stmt_txt, num_free)
 {
 	s << stmt_txt;
 
@@ -783,6 +783,128 @@ BOOST_DATA_TEST_CASE(replace_tests,
 	auto result = original.replace(iter, sub);
 
 	BOOST_TEST(correct_result.equivalent(result));
+}
+
+
+// given any expression, replacing the free variable IDs should be
+// invariant to equivalence if and only if it doesn't reduce the
+// number of free variable IDs
+BOOST_DATA_TEST_CASE(replace_free_with_free_invariant_to_equivalence,
+	boost::unit_test::data::make({
+		"x = x", "*(x, *(y, z)) = *(*(x, y), z)",
+		"e = e", "i(x) = *(e, e)",
+		"i(i(i(i(i(i(*(e, x))))))) = e" }) *
+	boost::unit_test::data::xrange(0, 5) *
+	boost::unit_test::data::xrange(0, 5), stmt_str, id_from, id_to)
+{
+	s << stmt_str;
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
+
+	auto id_set = stmt.free_var_ids();
+
+	bool should_be_equivalent = !(id_set.find(id_from) != id_set.end()
+		&& id_set.find(id_to) != id_set.end() && id_from != id_to);
+
+	auto replaced = stmt.replace_free_with_free(id_from, id_to);
+
+	BOOST_TEST(stmt.equivalent(replaced) == should_be_equivalent);
+
+	// in this case, they are equivalent if and only if they retained
+	// the same number of free variables
+	BOOST_TEST((stmt.free_var_ids().size() ==
+		replaced.free_var_ids().size()) == should_be_equivalent);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_replace_free_with_free)
+{
+	s << "*(x0, x1) = e";
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
+
+	auto replaced = stmt.replace_free_with_free(0, 1);
+
+	BOOST_TEST(replaced.to_str() == "*(x1, x1) = e");
+	BOOST_TEST((replaced.free_var_ids() == std::set<size_t>{ 1 }));
+
+	auto replaced2 = replaced.replace_free_with_free(1, 2);
+
+	BOOST_TEST(replaced2.to_str() == "*(x2, x2) = e");
+	BOOST_TEST((replaced2.free_var_ids() == std::set<size_t>{ 2 }));
+}
+
+
+BOOST_AUTO_TEST_CASE(test_replace_free_with_const)
+{
+	s << "*(x0, x1) = e";
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
+
+	const size_t e = ctx.symbol_id("e");
+
+	auto replaced = stmt.replace_free_with_const(0, e);
+
+	BOOST_TEST(replaced.to_str() == "*(e, x1) = e");
+	BOOST_TEST((replaced.free_var_ids() == std::set<size_t>{ 1 }));
+}
+
+
+const char* true_by_reflexivity_exprs[] =
+{
+	"x0", "e", "i(x0)", "*(x0, *(x1, x2))",
+	"*(*(x0, x1), x2)", "*(x0, x1)"
+};
+BOOST_DATA_TEST_CASE(test_true_by_reflexivity,
+	boost::unit_test::data::make(true_by_reflexivity_exprs)
+	* boost::unit_test::data::make(true_by_reflexivity_exprs),
+	expr_left, expr_right)
+{
+	s << expr_left << " = " << expr_right;
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
+
+	BOOST_TEST(stmt.true_by_reflexivity() ==
+		(expr_left == expr_right));
+}
+
+
+BOOST_AUTO_TEST_CASE(
+	test_true_by_reflexivity_when_sides_are_equiv_but_not_identical)
+{
+	s << "x = y";
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
+
+	BOOST_TEST(!stmt.true_by_reflexivity());
+}
+
+
+BOOST_AUTO_TEST_CASE(test_increment_free_var_ids)
+{
+	s << "*(x, y) = *(y, x)";
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
+
+	stmt = stmt.increment_free_var_ids(1);
+
+	BOOST_TEST((stmt.free_var_ids() == std::set<size_t>{ 1, 2 }));
+
+	// note that we had no guarantee earlier that x was 0 and y was 1
+	BOOST_TEST(((stmt.to_str() == "*(x1, x2) = *(x2, x1)")
+		|| (stmt.to_str() == "*(x2, x1) = *(x1, x2)")));
 }
 
 

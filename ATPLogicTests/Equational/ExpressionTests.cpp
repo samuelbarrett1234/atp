@@ -274,6 +274,75 @@ BOOST_DATA_TEST_CASE(test_identical,
 }
 
 
+BOOST_AUTO_TEST_CASE(test_replace_free_with_free)
+{
+	s << "*(x0, x1) = e";  // ignore rhs
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto expr = dynamic_cast<const Statement&>(p_stmts->at(0)).lhs();
+
+	auto replaced = expr.replace_free_with_free(0, 1);
+
+	BOOST_TEST(replaced.to_str() == "*(x1, x1)");
+	BOOST_TEST((replaced.free_var_ids() == std::set<size_t>{ 1 }));
+
+	auto replaced2 = replaced.replace_free_with_free(1, 2);
+
+	BOOST_TEST(replaced2.to_str() == "*(x2, x2)");
+	BOOST_TEST((replaced2.free_var_ids() == std::set<size_t>{ 2 }));
+}
+
+
+BOOST_AUTO_TEST_CASE(test_replace_free_with_const)
+{
+	s << "*(x0, x1) = e";  // arbitrary rhs
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto expr = dynamic_cast<const Statement&>(p_stmts->at(0)).lhs();
+
+	const size_t e = ctx.symbol_id("e");
+
+	auto replaced = expr.replace_free_with_const(0, e);
+
+	BOOST_TEST(replaced.to_str() == "*(e, x1)");
+	BOOST_TEST((replaced.free_var_ids() == std::set<size_t>{ 1 }));
+}
+
+
+BOOST_DATA_TEST_CASE(test_map_free_vars,
+	boost::unit_test::data::make({
+		// warning: there should only be one free variable here
+		// because `map_free_vars` requires a total mapping and
+		// we only build a mapping for free variable 0
+		"e", "x0", "i(x0)", "*(x0, *(i(e), x0))" }) ^
+	boost::unit_test::data::make({
+		"i(e)", "e", "i(e)", "e" }) ^
+	boost::unit_test::data::make({
+		"e", "e", "i(i(e))", "*(e, *(i(e), e))" }),
+	expr_start_str, expr_sub_str, expr_result_str)
+{
+	s << expr_start_str << " = e\n";  // arbitrary rhs
+	s << expr_sub_str << " = e\n";  // arbitrary rhs
+	s << expr_result_str << " = e\n";  // arbitrary rhs
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto expr_start = dynamic_cast<const Statement&>(
+		p_stmts->at(0)).lhs();
+	auto expr_sub = dynamic_cast<const Statement&>(
+		p_stmts->at(1)).lhs();
+	auto expr_final_result = dynamic_cast<const Statement&>(
+		p_stmts->at(2)).lhs();
+
+	std::map<size_t, Expression> map;
+	map.insert({ 0, expr_sub });
+	auto expr_result = expr_start.map_free_vars(map);
+
+	BOOST_TEST(expr_final_result.equivalent(expr_result));
+}
+
 
 BOOST_AUTO_TEST_SUITE_END();
 BOOST_AUTO_TEST_SUITE_END();

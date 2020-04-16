@@ -244,7 +244,8 @@ void ProofApplication::run()
 		case atp::logic::ProofCompletionState::PROVEN:
 			m_out << "Proof of \"" << tasks->at(i).to_str()
 				<< "\" was successful; the statement is true."
-				<< std::endl;
+				<< std::endl << "Proof:" << std::endl
+				<< proofs[i]->to_str() << std::endl << std::endl;
 			break;
 		case atp::logic::ProofCompletionState::NO_PROOF:
 			m_out << "Proof of \"" << tasks->at(i).to_str()

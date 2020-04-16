@@ -24,8 +24,10 @@ ProofState::ProofState(const ModelContext& ctx,
 	const KnowledgeKernel& ker,
 	Statement target, Statement current) :
 	m_ctx(ctx), m_ker(ker),
-	m_proof_stack({ std::move(target), std::move(current) })
+	m_proof(std::make_shared<StmtList>(std::move(target)))
 {
+	m_proof = std::make_shared<StmtList>(std::move(current),
+		std::move(m_proof));
 	check_forefront_ids();
 }
 
@@ -33,7 +35,7 @@ ProofState::ProofState(const ModelContext& ctx,
 ProofState::ProofState(const ModelContext& ctx,
 	const KnowledgeKernel& ker,
 	Statement target) :
-	m_proof_stack({ std::move(target) }),
+	m_proof(std::make_shared<StmtList>(std::move(target))),
 	m_ker(ker), m_ctx(ctx)
 {
 	check_forefront_ids();
@@ -43,12 +45,9 @@ ProofState::ProofState(const ModelContext& ctx,
 ProofState::ProofState(const ProofState& parent,
 	Statement forefront) :
 	m_ctx(parent.m_ctx), m_ker(parent.m_ker),
-
-	// todo: do better than a copy here
-	m_proof_stack(parent.m_proof_stack)
+	m_proof(std::make_shared<StmtList>(std::move(forefront),
+		parent.m_proof))
 {
-	m_proof_stack.emplace_back(std::move(forefront));
-
 	check_forefront_ids();
 }
 
@@ -107,8 +106,13 @@ ProofCompletionState ProofState::completion_state() const
 std::string ProofState::to_str() const
 {
 	std::list<std::string> as_strs;
-	for (const auto& stmt : m_proof_stack)
-		as_strs.push_back(stmt.to_str());
+
+	auto p_list = m_proof.get();
+	do
+	{
+		as_strs.push_front(p_list->head.to_str());
+		p_list = p_list->tail.get();
+	} while (p_list != nullptr);
 
 	return boost::algorithm::join(as_strs, "\n");
 }
@@ -121,9 +125,8 @@ void ProofState::check_forefront_ids()
 		boost::bind(std::less_equal<size_t>(), _1,
 			m_ker.get_rule_free_id_bound())))
 	{
-		// modify forefront (which is exactly just the back element
-		// of the stack)
-		m_proof_stack.back() = forefront().increment_free_var_ids(
+		// modify forefront (which is exactly just the head element).
+		m_proof->head = forefront().increment_free_var_ids(
 			m_ker.get_rule_free_id_bound() + 1);
 	}
 }

@@ -37,6 +37,26 @@ namespace equational
 class ATP_LOGIC_API ProofState :
 	public IProofState
 {
+private:
+	/**
+	\brief Linked list object for storing proofs that are potentially
+		shared between proof state objects.
+	*/
+	struct ATP_LOGIC_API StmtList
+	{
+		StmtList() = default;
+		StmtList(Statement&& head) :
+			head(head)
+		{ }
+		StmtList(Statement&& head,
+			std::shared_ptr<StmtList> tail) :
+			head(head), tail(std::move(tail))
+		{ }
+
+		Statement head;
+		std::shared_ptr<StmtList> tail;
+	};
+
 public:
 	ProofState(const ModelContext& ctx,
 		const KnowledgeKernel& ker,
@@ -51,7 +71,10 @@ public:
 
 	inline const IStatement& target_stmt() const override
 	{
-		return m_proof_stack.front();
+		auto p_list = m_proof.get();
+		while (p_list->tail != nullptr)
+			p_list = p_list->tail.get();
+		return p_list->head;
 	}
 
 	PfStateSuccIterPtr succ_begin() const override;
@@ -62,7 +85,7 @@ public:
 	// not part of the IProofState interface:
 	inline const Statement& forefront() const
 	{
-		return m_proof_stack.back();
+		return m_proof->head;
 	}
 
 	std::string to_str() const override;
@@ -87,7 +110,7 @@ private:
 private:
 	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
-	std::list<Statement> m_proof_stack;
+	std::shared_ptr<StmtList> m_proof;
 
 	// to save us computing the begin iterator several times, for
 	// state checking and to return from `succ_begin`, we store

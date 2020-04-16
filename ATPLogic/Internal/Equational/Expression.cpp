@@ -450,6 +450,14 @@ Expression Expression::sub_expression(size_t id, SyntaxNodeType type) const
 
 bool Expression::equivalent(const Expression& other) const
 {
+	// this function is absolutely an instance of a fold, but we can
+	// optimise it beyond the generic fold implementation (and this
+	// is important because this function is called a lot)
+	// the optimisation is just because we don't need the "result
+	// stack" - if any of the fold constructors return false, we can
+	// exit immediately
+
+
 	// build up a bijection between IDs as we go
 	boost::bimap<size_t, size_t> id_map;
 
@@ -474,18 +482,129 @@ bool Expression::equivalent(const Expression& other) const
 		}
 	};
 
-	auto const_func = (phxarg::arg1 == phxarg::arg2);
+	// now proceed with a similar fold to the generic one but without
+	// a result stack or "seen_stack"
 
-	auto f_func = [](size_t id1, size_t id2,
-		std::vector<bool>::iterator begin,
-		std::vector<bool>::iterator end)
+	std::vector<std::pair<size_t, size_t>> stack;
+	std::vector<std::pair<SyntaxNodeType,
+		SyntaxNodeType>> stack_types;
+
+	stack.reserve(m_height);
+	stack_types.reserve(m_height);
+
+	stack.emplace_back(m_tree.root_id(),
+		other.m_tree.root_id());
+	stack_types.emplace_back(m_tree.root_type(),
+		other.m_tree.root_type());
+
+	while (!stack.empty())
 	{
-		return id1 == id2 && std::all_of(begin, end,
-			phxarg::arg1);
-	};
+		ATP_LOGIC_ASSERT(stack_types.size() == stack.size());
 
-	return fold_pair<bool>(free_func, const_func, f_func, false,
-		other);
+		auto [id1, id2] = stack.back();
+		stack.pop_back();
+		auto [type1, type2] = stack_types.back();
+		stack_types.pop_back();
+
+		if (type1 != type2)
+			return false;
+
+		switch (type1)
+		{
+		case SyntaxNodeType::FREE:
+			if (!free_func(id1, id2))
+				return false;
+			break;
+
+		case SyntaxNodeType::FUNC:
+		{
+			if (m_tree.func_symb_id(id1) !=
+				other.m_tree.func_symb_id(id2))
+				return false;
+
+			// get some info about us:
+
+			const auto arity = m_tree.func_arity(id1);
+
+			// if two functions agree on their symbol then they
+			// should agree on their arity
+			ATP_LOGIC_ASSERT(arity == other.m_tree.func_arity(id2));
+
+			const std::array<size_t, MAX_ARITY>&
+				children_a =
+				m_tree.func_children(id1);
+			const std::array<SyntaxNodeType, MAX_ARITY>&
+				child_types_a =
+				m_tree.func_child_types(id1);
+
+			const std::array<size_t, MAX_ARITY>&
+				children_b = other.m_tree.func_children(
+					id2);
+			const std::array<SyntaxNodeType, MAX_ARITY>&
+				child_types_b =
+				other.m_tree.func_child_types(
+					id2);
+
+#ifdef ATP_LOGIC_DEFENSIVE
+			const size_t size_before
+				= stack.size();
+#endif
+
+			// now add children (in reverse order!)
+			// (warning: don't forget that those arrays
+			// aren't necessarily full!)
+
+			std::transform(boost::make_zip_iterator(
+				boost::make_tuple(
+					children_a.rbegin()
+					+ (MAX_ARITY - arity),
+					children_b.rbegin()
+					+ (MAX_ARITY - arity))),
+				boost::make_zip_iterator(
+					boost::make_tuple(
+						children_a.rend(),
+						children_b.rend())),
+				std::back_inserter(stack),
+				[](boost::tuple<size_t,
+					size_t> tup)
+				{ return std::make_pair(tup.get<0>(),
+					tup.get<1>()); });
+
+			std::transform(boost::make_zip_iterator(
+				boost::make_tuple(
+					child_types_a.rbegin()
+					+ (MAX_ARITY - arity),
+					child_types_b.rbegin()
+					+ (MAX_ARITY - arity))),
+				boost::make_zip_iterator(
+					boost::make_tuple(
+						child_types_a.rend(),
+						child_types_b.rend())),
+				std::back_inserter(stack_types),
+				[](boost::tuple<SyntaxNodeType,
+					SyntaxNodeType> tup)
+				{ return std::make_pair(tup.get<0>(),
+					tup.get<1>()); });
+
+#ifdef ATP_LOGIC_DEFENSIVE
+			ATP_LOGIC_ASSERT(stack.size() ==
+				size_before + arity);
+#endif
+		}
+			break;
+
+		case SyntaxNodeType::CONSTANT:
+			if (id1 != id2)
+				return false;
+			break;
+
+		default:
+			ATP_LOGIC_ASSERT(false && "Invalid node type.");
+			throw std::exception();
+		}
+	}
+
+	return true;
 }
 
 
@@ -540,8 +659,13 @@ bool Expression::try_match(const Expression& expr,
 		}
 		// this variable has already been mapped; check that the
 		// value it was mapped to agrees with this
-		else return iter->second.equivalent(Expression(m_ctx,
-			id_b, SyntaxNodeType::FREE));
+		else
+		{
+			// optimised from `return iter->second.equivalent(
+			// Expression(m_ctx, id_b, SyntaxNodeType::FREE));`
+			return (iter->second.m_tree.root_type() ==
+				SyntaxNodeType::FREE);
+		}
 	};
 
 	// both constants must agree in order for a mapping to exist,
@@ -570,7 +694,7 @@ bool Expression::try_match(const Expression& expr,
 		// assign it any value we like
 		if (iter == p_out_subs->end())
 		{
-			p_out_subs->insert({ free_id, expr_right });
+			p_out_subs->insert({ free_id, std::move(expr_right) });
 			return true;
 		}
 		// this variable has already been mapped; check that the

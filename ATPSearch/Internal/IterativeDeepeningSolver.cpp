@@ -168,10 +168,16 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 	case logic::ProofCompletionState::UNFINISHED:
 		if (st.size() < m_cur_depth_limits[i])
 		{
+			auto iter = expand_candidate->succ_begin();
+			
+			// if the begin iterator is invalid the proof state
+			// should've returned completion state as `NO_PROOF`
+			ATP_SEARCH_PRECOND(iter->valid());
+
 			// explore this candidate if depth limits permit
 			st.push_back({
 				expand_candidate,
-				expand_candidate->succ_begin()
+				iter
 				});
 		}
 		// else do nothing because we aren't allowed to go any deeper

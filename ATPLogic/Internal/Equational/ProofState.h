@@ -72,10 +72,33 @@ private:
 	*/
 	void check_forefront_ids();
 
+	/**
+	\brief Helper function for creating a begin iterator (the
+		difference with `succ_begin` is that this function does
+		not attempt to use the cache.)
+	*/
+	PfStateSuccIterPtr compute_begin() const;
+
 private:
 	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
 	Statement m_target, m_current;
+
+	// to save us computing the begin iterator several times, for
+	// state checking and to return from `succ_begin`, we store
+	// a copy here
+	// if this is non-null then it has recently been constructed
+	// and is owned only by this object
+	// when `succ_begin` is called, if this is non-null then we
+	// return it and call m_next_begin_iter.reset()
+	mutable PfStateSuccIterPtr m_next_begin_iter;
+
+	// to save us computing the begin iterator several times if
+	// `completion_state` is called several times, cache the
+	// result here
+	// note that computing the completion state involves creating
+	// a begin iterator which is stored in `m_next_begin_iter`.
+	mutable boost::optional<ProofCompletionState> m_comp_state;
 };
 
 

@@ -42,22 +42,52 @@ ProofState::ProofState(const ModelContext& ctx,
 
 PfStateSuccIterPtr ProofState::succ_begin() const
 {
-	// we need to increment the free variable IDs in `m_current` so
-	// that they are guaranteed not to clash with any of the matching
-	// rules in the knowledge kernel
-	return SubExprMatchingIterator::construct(m_ctx, m_ker,
-		m_target, m_current);
+	if (m_next_begin_iter == nullptr)
+	{
+		// compute it because we don't have a cache anyways
+		return compute_begin();
+	}
+	else
+	{
+		// we want to lose ownership of m_next_begin_iter because
+		// the user will generally modify the object returned
+		// from this function, and that is entirely designed
+		// behaviour - hence we cannot hold onto the cache here.
+
+		auto ptr = std::move(m_next_begin_iter);
+
+		// just to make absolutely sure that std::move will erase
+		// this from our object
+		ATP_LOGIC_ASSERT(m_next_begin_iter == nullptr);
+
+		return ptr;
+	}
 }
 
 
 ProofCompletionState ProofState::completion_state() const
 {
-	if (m_ker.is_trivial(m_current))
-		return ProofCompletionState::PROVEN;
-	else if (!succ_begin()->valid())
-		return ProofCompletionState::NO_PROOF;
-	else
-		return ProofCompletionState::UNFINISHED;
+	if (!m_comp_state.has_value())
+	{
+		if (m_ker.is_trivial(m_current))
+			return ProofCompletionState::PROVEN;
+		else
+		{
+			if (m_next_begin_iter == nullptr)
+			{
+				m_next_begin_iter = compute_begin();
+			}
+
+			if (m_next_begin_iter->valid())
+				return ProofCompletionState::UNFINISHED;
+			else
+				// if begin iterator is invalid then we have no
+				// successors
+				return ProofCompletionState::NO_PROOF;
+		}
+	}
+
+	return *m_comp_state;
 }
 
 
@@ -72,6 +102,17 @@ void ProofState::check_forefront_ids()
 			m_ker.get_rule_free_id_bound() + 1);
 	}
 }
+
+
+PfStateSuccIterPtr ProofState::compute_begin() const
+{
+	// we need to increment the free variable IDs in `m_current` so
+	// that they are guaranteed not to clash with any of the matching
+	// rules in the knowledge kernel
+	return SubExprMatchingIterator::construct(m_ctx, m_ker,
+		m_target, m_current);
+}
+
 
 }  // namespace equational
 }  // namespace logic

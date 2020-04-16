@@ -23,7 +23,14 @@ ExprTreeFlyweight::ExprTreeFlyweight() :
 	// no reasonable default values for m_root and m_root_type,
 	// hence give it a VERY BAD value and hope the user overrides it
 	// before using the object!
-	m_root_type(SyntaxNodeType::EQ)
+	m_root_type(SyntaxNodeType::EQ),
+	// create empty arrays
+	m_func_symb_ids(std::make_shared<std::vector<size_t>>()),
+	m_func_arity(std::make_shared<std::vector<size_t>>()),
+	m_func_children(std::make_shared<std::vector<std::array<
+		size_t, MAX_ARITY>>>()),
+	m_func_child_types(std::make_shared<std::vector<std::array<
+		SyntaxNodeType, MAX_ARITY>>>())
 { }
 
 
@@ -109,7 +116,7 @@ void ExprTreeFlyweight::set_root(size_t id, SyntaxNodeType type)
 	// in an invalid state when default-constructed
 
 	ATP_LOGIC_PRECOND(type != SyntaxNodeType::FUNC ||
-		id < m_func_symb_ids.size());
+		id < m_func_symb_ids->size());
 
 	m_root = id;
 	m_root_type = type;
@@ -117,10 +124,10 @@ void ExprTreeFlyweight::set_root(size_t id, SyntaxNodeType type)
 	if (type != SyntaxNodeType::FUNC)
 	{
 		// don't need any of this if we are not a function node type
-		m_func_symb_ids.clear();
-		m_func_arity.clear();
-		m_func_children.clear();
-		m_func_child_types.clear();
+		m_func_symb_ids->clear();
+		m_func_arity->clear();
+		m_func_children->clear();
+		m_func_child_types->clear();
 	}
 
 #ifdef ATP_LOGIC_DEFENSIVE
@@ -145,35 +152,40 @@ size_t ExprTreeFlyweight::merge_from(const ExprTreeFlyweight& other)
 	{
 		const size_t size_before = size();
 
-		m_func_symb_ids.insert(m_func_symb_ids.end(),
-			other.m_func_symb_ids.begin(),
-			other.m_func_symb_ids.end());
+		copy_on_write_branch(m_func_symb_ids);
+		copy_on_write_branch(m_func_arity);
+		copy_on_write_branch(m_func_children);
+		copy_on_write_branch(m_func_child_types);
 
-		m_func_arity.insert(m_func_arity.end(),
-			other.m_func_arity.begin(),
-			other.m_func_arity.end());
+		m_func_symb_ids->insert(m_func_symb_ids->end(),
+			other.m_func_symb_ids->begin(),
+			other.m_func_symb_ids->end());
 
-		m_func_children.insert(m_func_children.end(),
-			other.m_func_children.begin(),
-			other.m_func_children.end());
+		m_func_arity->insert(m_func_arity->end(),
+			other.m_func_arity->begin(),
+			other.m_func_arity->end());
 
-		m_func_child_types.insert(m_func_child_types.end(),
-			other.m_func_child_types.begin(),
-			other.m_func_child_types.end());
+		m_func_children->insert(m_func_children->end(),
+			other.m_func_children->begin(),
+			other.m_func_children->end());
+
+		m_func_child_types->insert(m_func_child_types->end(),
+			other.m_func_child_types->begin(),
+			other.m_func_child_types->end());
 
 		// now we need to alter all function indices we just added
 		// by offsetting them by `size_before`, and finally we do
 		// the same thing to the root (that we return)
 		
-		for (size_t i = size_before; i < m_func_children.size();
+		for (size_t i = size_before; i < m_func_children->size();
 			++i)
 		{
-			for (size_t j = 0; j < m_func_arity.at(i); ++j)
+			for (size_t j = 0; j < m_func_arity->at(i); ++j)
 			{
-				if (m_func_child_types.at(i).at(j) ==
+				if (m_func_child_types->at(i).at(j) ==
 					SyntaxNodeType::FUNC)
 				{
-					m_func_children.at(i).at(j) += size_before;
+					m_func_children->at(i).at(j) += size_before;
 				}
 			}
 		}
@@ -193,14 +205,19 @@ void ExprTreeFlyweight::_check_invariant() const
 {
 	if (m_root_type == SyntaxNodeType::FUNC)
 	{
-		ATP_LOGIC_ASSERT(!m_func_symb_ids.empty());
-		ATP_LOGIC_ASSERT(m_func_symb_ids.size() ==
-			m_func_arity.size());
-		ATP_LOGIC_ASSERT(m_func_symb_ids.size() ==
-			m_func_children.size());
-		ATP_LOGIC_ASSERT(m_func_symb_ids.size() ==
-			m_func_child_types.size());
-		ATP_LOGIC_ASSERT(m_root < m_func_symb_ids.size());
+		ATP_LOGIC_ASSERT(m_func_symb_ids != nullptr);
+		ATP_LOGIC_ASSERT(m_func_arity != nullptr);
+		ATP_LOGIC_ASSERT(m_func_children != nullptr);
+		ATP_LOGIC_ASSERT(m_func_child_types != nullptr);
+
+		ATP_LOGIC_ASSERT(!m_func_symb_ids->empty());
+		ATP_LOGIC_ASSERT(m_func_symb_ids->size() ==
+			m_func_arity->size());
+		ATP_LOGIC_ASSERT(m_func_symb_ids->size() ==
+			m_func_children->size());
+		ATP_LOGIC_ASSERT(m_func_symb_ids->size() ==
+			m_func_child_types->size());
+		ATP_LOGIC_ASSERT(m_root < m_func_symb_ids->size());
 	}
 }
 #endif

@@ -110,13 +110,14 @@ bool KnowledgeKernel::is_trivial(
 	ATP_LOGIC_PRECOND(type_check(m_context, *p_stmt));
 
 	// "implies" here is necessary for unidirectional truths,
-	// "equivalent" is necessary for bidirectional truths,
+	// note that we could also check "equivalent", however this is
+	// redundant as if two expressions are equivalent, then either
+	// of them implies the other.
 	// "reflexivity" is for the last case of trivialities
 
 	return std::any_of(m_active_rules->begin(),
 		m_active_rules->end(),
-		boost::bind(&Statement::implies, _1, boost::ref(*p_stmt))
-	|| boost::bind(&Statement::equivalent, _1, boost::ref(*p_stmt)))
+		boost::bind(&Statement::implies, _1, boost::ref(*p_stmt)))
 		|| p_stmt->true_by_reflexivity();
 }
 

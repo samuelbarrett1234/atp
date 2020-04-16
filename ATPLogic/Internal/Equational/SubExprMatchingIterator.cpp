@@ -64,13 +64,32 @@ SubExprMatchingIterator::SubExprMatchingIterator(
 			SyntaxNodeType::CONSTANT);
 
 	// now construct m_rule_iter
-	restore_invariant();
+	construct_child();
+
+	// handle this special case (where lots of the matching rules
+	// are invalid)
+	while (m_sub_expr_iter != m_forefront_stmt.end()
+		&& !m_rule_iter->valid())
+	{
+		m_rule_iter.reset();
+		++m_sub_expr_iter;
+		if (m_sub_expr_iter != m_forefront_stmt.end())
+		{
+			construct_child();
+		}
+	}
 }
 
 
 bool SubExprMatchingIterator::valid() const
 {
-	return m_sub_expr_iter != m_forefront_stmt.end();
+	const bool is_valid = m_sub_expr_iter != m_forefront_stmt.end();
+
+	// check invariant while we're here
+	ATP_LOGIC_ASSERT(!is_valid || (m_rule_iter != nullptr
+		&& m_rule_iter->valid()));
+
+	return is_valid;
 }
 
 
@@ -91,13 +110,14 @@ void SubExprMatchingIterator::advance()
 
 	m_rule_iter->advance();
 
-	if (!m_rule_iter->valid())
+	while (m_sub_expr_iter != m_forefront_stmt.end()
+		&& !m_rule_iter->valid())
 	{
 		m_rule_iter.reset();
 		++m_sub_expr_iter;
-		if (valid())
+		if (m_sub_expr_iter != m_forefront_stmt.end())
 		{
-			restore_invariant();
+			construct_child();
 		}
 	}
 }
@@ -111,9 +131,9 @@ size_t SubExprMatchingIterator::size() const
 }
 
 
-void SubExprMatchingIterator::restore_invariant()
+void SubExprMatchingIterator::construct_child()
 {
-	ATP_LOGIC_PRECOND(valid());
+	ATP_LOGIC_PRECOND(m_sub_expr_iter != m_forefront_stmt.end());
 	ATP_LOGIC_PRECOND(m_rule_iter == nullptr);
 
 	m_rule_iter = RuleMatchingIterator::construct(m_ctx, m_ker,

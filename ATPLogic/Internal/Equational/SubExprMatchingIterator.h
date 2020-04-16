@@ -88,13 +88,11 @@ public:
 
 private:
 	/**
-	\brief Used to restore the invariant around the variable
-		`m_rule_iter` by constructing it and giving
-		it a value.
+	\brief Used to create `m_rule_iter`
 
-	\pre m_rule_iter == nullptr && valid()
+	\pre m_rule_iter == nullptr && m_sub_expr_iter != end iter
 	*/
-	void restore_invariant();
+	void construct_child();
 
 private:
 	const ModelContext& m_ctx;

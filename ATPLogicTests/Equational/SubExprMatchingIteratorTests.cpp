@@ -210,6 +210,49 @@ BOOST_AUTO_TEST_CASE(test_subtly_different_statements_share_no_successors)
 }
 
 
+struct NoFixt {};
+BOOST_FIXTURE_TEST_CASE(test_no_resulting_matchings,
+	NoFixt)
+{
+	// test that this iterator behaves itself when some
+	// subexpressions have no matches with any of the
+	// rules
+
+	// of course we have to not use group theory for this test
+	// because in group theory every expression has a match,
+	// because you can aways multiply by the identity
+
+	std::stringstream ctx_in;
+	ctx_in << "{}";  // empty
+
+	atp::logic::equational::Language lang;
+	atp::logic::ModelContextPtr p_ctx = lang.try_create_context(
+		ctx_in);
+	const atp::logic::equational::ModelContext& ctx = dynamic_cast<const
+		atp::logic::equational::ModelContext&>(*p_ctx);
+	atp::logic::KnowledgeKernelPtr p_ker = lang.try_create_kernel(
+		ctx);
+	atp::logic::equational::KnowledgeKernel& ker = dynamic_cast<
+		atp::logic::equational::KnowledgeKernel&>(*p_ker);
+
+	std::stringstream s;
+
+	s << "x = y";
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto forefront = dynamic_cast<const Statement&>(p_stmts->at(0));
+
+	forefront = forefront.increment_free_var_ids(1);
+	ProofState pstate(ctx, ker, forefront);
+
+	auto p_iter = SubExprMatchingIterator::construct(ctx, ker,
+		pstate, forefront);
+
+	BOOST_TEST(!p_iter->valid());
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();
 BOOST_AUTO_TEST_SUITE_END();
 

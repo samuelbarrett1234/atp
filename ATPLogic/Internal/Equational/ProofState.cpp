@@ -10,6 +10,7 @@
 #include <boost/algorithm/string/join.hpp>
 #include "ProofState.h"
 #include "SubExprMatchingIterator.h"
+#include "NoRepeatIterator.h"
 
 
 namespace atp
@@ -137,8 +138,11 @@ PfStateSuccIterPtr ProofState::compute_begin() const
 	// we need to increment the free variable IDs in `m_current` so
 	// that they are guaranteed not to clash with any of the matching
 	// rules in the knowledge kernel
-	return SubExprMatchingIterator::construct(m_ctx, m_ker,
+	auto iter = SubExprMatchingIterator::construct(m_ctx, m_ker,
 		*this, forefront());
+
+	// use a NoRepeatIterator to reduce the search space a little
+	return NoRepeatIterator::construct(*this, std::move(iter));
 }
 
 

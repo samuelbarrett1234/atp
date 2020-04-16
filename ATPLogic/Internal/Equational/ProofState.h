@@ -37,7 +37,7 @@ namespace equational
 class ATP_LOGIC_API ProofState :
 	public IProofState
 {
-private:
+public:
 	/**
 	\brief Linked list object for storing proofs that are potentially
 		shared between proof state objects.
@@ -86,6 +86,11 @@ public:
 	inline const Statement& forefront() const
 	{
 		return m_proof->head;
+	}
+
+	inline const StmtList* get_proof_list() const
+	{
+		return m_proof.get();
 	}
 
 	std::string to_str() const override;

@@ -128,6 +128,7 @@ private:
 
 	// set to (m_remaining_free_begin == m_remaining_free_end)
 	const bool m_is_leaf;
+	ProofStatePtr m_leaf_result;  // only set for leaves
 
 	// only used when m_is_leaf is true, and represents whether or
 	// not we have advanced (if we are a leaf,

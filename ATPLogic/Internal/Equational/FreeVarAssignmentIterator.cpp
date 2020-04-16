@@ -56,6 +56,10 @@ FreeVarAssignmentIterator::FreeVarAssignmentIterator(
 	if (!m_is_leaf)
 		// build m_child for non-leaves
 		restore_invariant();
+	else
+		// load the leaf result once for the lifetime of this iter
+		m_leaf_result = std::make_shared<ProofState>(
+			m_parent, m_subbed_stmt);
 }
 
 
@@ -92,8 +96,7 @@ ProofStatePtr FreeVarAssignmentIterator::get() const
 	}
 	else
 	{
-		return std::make_shared<ProofState>(
-			m_parent, m_subbed_stmt);
+		return m_leaf_result;
 	}
 }
 
@@ -125,6 +128,7 @@ void FreeVarAssignmentIterator::advance()
 	else
 	{
 		m_leaf_is_done = true;
+		m_leaf_result.reset();
 	}
 }
 

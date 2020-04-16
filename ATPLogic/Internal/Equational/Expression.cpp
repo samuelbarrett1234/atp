@@ -47,7 +47,10 @@ ExpressionPtr Expression::construct(Expression&& expr)
 
 Expression::Expression(const ModelContext& ctx,
 	size_t root_id, SyntaxNodeType root_type) :
-	m_ctx(ctx), m_height(1)
+	m_ctx(ctx)
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+	, m_height(1)
+#endif
 {
 	ATP_LOGIC_PRECOND(root_type != SyntaxNodeType::FUNC);
 	ATP_LOGIC_PRECOND(root_type !=
@@ -59,8 +62,10 @@ Expression::Expression(const ModelContext& ctx,
 
 Expression::Expression(const ModelContext& ctx,
 	const SyntaxNodePtr& p_root) :
-	m_ctx(ctx),
-	m_height(0)
+	m_ctx(ctx)
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+	, m_height(0)
+#endif
 {
 	ATP_LOGIC_PRECOND(p_root->get_type() !=
 		SyntaxNodeType::EQ);
@@ -71,22 +76,17 @@ Expression::Expression(const ModelContext& ctx,
 	// invalid state
 	m_tree.set_root(root_data.first, root_data.second);
 
-	// compute height of the syntax tree using a fold
-	// (warning: there is a slight circularity here, because folds
-	// use the height to set the capacity for the stack vectors.
-	// Above we have set height to zero, so no allocation takes
-	// place.)
-	m_height = fold<size_t>(
-		phx::val(1), phx::val(1), [](size_t,
-			std::vector<size_t>::iterator begin,
-			std::vector<size_t>::iterator end)
-		{ return *std::max_element(begin, end) + 1; });
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+	m_height = compute_height();
+#endif
 }
 
 
 Expression::Expression(const Expression& other) :
 	m_ctx(other.m_ctx),
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
 	m_height(other.m_height),
+#endif
 	m_tree(other.m_tree),
 	m_free_var_ids(other.m_free_var_ids)
 { }
@@ -94,7 +94,9 @@ Expression::Expression(const Expression& other) :
 
 Expression::Expression(Expression&& other) noexcept :
 	m_ctx(other.m_ctx),
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
 	m_height(other.m_height),
+#endif
 	m_tree(std::move(other.m_tree)),
 	m_free_var_ids(std::move(other.m_free_var_ids))
 { }
@@ -105,7 +107,9 @@ Expression& Expression::operator=(const Expression& other)
 	if (this != &other)
 	{
 		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
 		m_height = other.m_height;
+#endif
 		m_tree = other.m_tree;
 		m_free_var_ids = other.m_free_var_ids;
 	}
@@ -118,7 +122,9 @@ Expression& Expression::operator=(Expression&& other) noexcept
 	if (this != &other)
 	{
 		ATP_LOGIC_PRECOND(&m_ctx == &other.m_ctx);
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
 		m_height = other.m_height;
+#endif
 		m_tree = std::move(other.m_tree);
 		m_free_var_ids = std::move(other.m_free_var_ids);
 	}
@@ -229,6 +235,10 @@ Expression Expression::map_free_vars(const std::map<size_t,
 			}
 		}
 
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+		new_expr.m_height = new_expr.compute_height();
+#endif
+
 		return new_expr;
 	}
 	default:
@@ -305,6 +315,11 @@ Expression Expression::replace(const iterator& pos,
 			ATP_LOGIC_ASSERT(false && "invalid syntax node type.");
 			throw std::exception();
 		}
+
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+		// update height value
+		result_expr.m_height = result_expr.compute_height();
+#endif
 
 		return result_expr;
 	}
@@ -439,6 +454,12 @@ Expression Expression::sub_expression(size_t id, SyntaxNodeType type) const
 		Expression new_expr = *this;
 		new_expr.m_free_var_ids = boost::none;
 		new_expr.m_tree.set_root(id, type);
+
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+		// update height value
+		new_expr.m_height = new_expr.compute_height();
+#endif
+
 		return new_expr;
 	}
 	default:
@@ -450,6 +471,13 @@ Expression Expression::sub_expression(size_t id, SyntaxNodeType type) const
 
 bool Expression::equivalent(const Expression& other) const
 {
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+	// if two expressions have different heights then they are not
+	// equivalent:
+	if (m_height != other.m_height)
+		return false;
+#endif
+
 	// this function is absolutely an instance of a fold, but we can
 	// optimise it beyond the generic fold implementation (and this
 	// is important because this function is called a lot)
@@ -489,8 +517,17 @@ bool Expression::equivalent(const Expression& other) const
 	std::vector<std::pair<SyntaxNodeType,
 		SyntaxNodeType>> stack_types;
 
-	stack.reserve(m_height);
-	stack_types.reserve(m_height);
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+	// we only go as deep as the shallowest tree
+	const size_t capacity = std::min(m_height, other.m_height);
+#else
+	// we only go as big as the smaller tree (+1 for root)
+	const size_t capacity = std::min(m_tree.size(),
+		other.m_tree.size()) + 1;
+#endif
+
+	stack.reserve(capacity);
+	stack_types.reserve(capacity);
 
 	stack.emplace_back(m_tree.root_id(),
 		other.m_tree.root_id());
@@ -771,16 +808,97 @@ Expression::add_tree_data(const SyntaxNodePtr& tree)
 }
 
 
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+size_t Expression::compute_height() const
+{
+	// this is another instance of a fold
+	// however, again, this function is called a lot so needs to
+	// be as fast as possible
+	// it also can't rely on the height for estimating how much
+	// capacity the stack should be given, to reduce allocations.
+
+	// this can be done more efficiently than with a fold because
+	// we don't need to a pass back down again - we don't need
+	// a "result stack".
+
+	std::vector<size_t> id_stack, height_stack;
+	std::vector<SyntaxNodeType> type_stack;
+	size_t max_height = 0;
+
+	// how much to reserve initially in these stacks? m_tree.size()
+	// is a good, but loose, upper bound. +1 for the root.
+
+	const size_t capacity = m_tree.size() + 1;
+
+	id_stack.reserve(capacity);
+	height_stack.reserve(capacity);
+	type_stack.reserve(capacity);
+
+	// add root
+	id_stack.push_back(m_tree.root_id());
+	type_stack.push_back(m_tree.root_type());
+	height_stack.push_back(1);  // root has height 1
+
+	while (!id_stack.empty())
+	{
+		ATP_LOGIC_ASSERT(id_stack.size() == type_stack.size());
+		ATP_LOGIC_ASSERT(id_stack.size() == height_stack.size());
+
+		const size_t id = id_stack.back();
+		id_stack.pop_back();
+		const auto type = type_stack.back();
+		type_stack.pop_back();
+		const size_t h = height_stack.back();
+		height_stack.pop_back();
+
+		// check if the height we just reached is the tallest seen
+		// so far:
+		if (h > max_height)
+			max_height = h;
+
+		if (type == SyntaxNodeType::FUNC)
+		{
+			// get some info about us:
+
+			const size_t arity = m_tree.func_arity(id);
+			const std::array<size_t, MAX_ARITY>&
+				children = m_tree.func_children(id);
+			const std::array<SyntaxNodeType, MAX_ARITY>&
+				child_types = m_tree.func_child_types(id);
+
+			// push children onto stack
+
+			id_stack.insert(id_stack.end(),
+				children.begin(), children.begin() + arity);
+			type_stack.insert(type_stack.end(),
+				child_types.begin(), child_types.begin() + arity);
+			height_stack.resize(height_stack.size() + arity,
+				h + 1);
+		}
+	}
+
+	return max_height;
+}
+#endif
+
+
 void Expression::build_free_var_ids() const
 {
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
 	ATP_LOGIC_PRECOND(m_height > 0);  // ensure this is set too
+#endif
 	ATP_LOGIC_PRECOND(!m_free_var_ids.has_value());
 
 	m_free_var_ids = std::set<size_t>();
 
 	std::vector<std::pair<size_t, SyntaxNodeType>> stack;
 
-	stack.reserve(m_height);
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+	const size_t capacity = m_height;
+#else
+	const size_t capacity = m_tree.size();
+#endif
+	stack.reserve(capacity);
 
 	stack.emplace_back(m_tree.root_id(), m_tree.root_type());
 

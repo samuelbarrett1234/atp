@@ -189,8 +189,11 @@ BOOST_DATA_TEST_CASE(replace_tests,
 		0, 0, 1, 2 })
 	^ boost::unit_test::data::make({
 		// result
-		"i(x)", "e", "i(e)", "*(*(e, x), x)" }), original_expr_lhs,
-	sub_expr_lhs, sub_idx, result_expr_lhs)
+		"i(x)", "e", "i(e)", "*(*(e, x), x)" })
+	^ boost::unit_test::data::make({
+		// the height of the result
+		2, 1, 2, 3 }), original_expr_lhs,
+	sub_expr_lhs, sub_idx, result_expr_lhs, height)
 {
 	s << original_expr_lhs << " = x\n";  // arbitrary RHS
 	s << sub_expr_lhs << " = x\n";  // arbitrary RHS
@@ -207,6 +210,10 @@ BOOST_DATA_TEST_CASE(replace_tests,
 	auto result = original.replace(iter, sub);
 
 	BOOST_TEST(correct_result.equivalent(result));
+
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+	BOOST_TEST(result.height() == height);
+#endif
 }
 
 
@@ -320,8 +327,11 @@ BOOST_DATA_TEST_CASE(test_map_free_vars,
 	boost::unit_test::data::make({
 		"i(e)", "e", "i(e)", "e" }) ^
 	boost::unit_test::data::make({
-		"e", "e", "i(i(e))", "*(e, *(i(e), e))" }),
-	expr_start_str, expr_sub_str, expr_result_str)
+		"e", "e", "i(i(e))", "*(e, *(i(e), e))" }) ^
+	boost::unit_test::data::make({
+		// height of the result
+		1, 1, 3, 4 }),
+	expr_start_str, expr_sub_str, expr_result_str, height)
 {
 	s << expr_start_str << " = e\n";  // arbitrary rhs
 	s << expr_sub_str << " = e\n";  // arbitrary rhs
@@ -335,13 +345,38 @@ BOOST_DATA_TEST_CASE(test_map_free_vars,
 		p_stmts->at(1)).lhs();
 	auto expr_final_result = dynamic_cast<const Statement&>(
 		p_stmts->at(2)).lhs();
-
+	
 	std::map<size_t, Expression> map;
 	map.insert({ 0, expr_sub });
 	auto expr_result = expr_start.map_free_vars(map);
 
 	BOOST_TEST(expr_final_result.equivalent(expr_result));
+
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+	BOOST_TEST(expr_result.height() == height);
+#endif
 }
+
+
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+BOOST_DATA_TEST_CASE(test_height,
+	boost::unit_test::data::make({
+		"x", "e", "i(x)", "*(x, i(x))",
+		"i(i(i(i(x))))", "i(i(e))" }) ^
+	boost::unit_test::data::make({
+		1, 1, 2, 3, 5, 3 }),
+	expr_str, height)
+{
+	s << expr_str << " = e\n";  // arbitrary rhs
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto expr = dynamic_cast<const Statement&>(
+		p_stmts->at(0)).lhs();
+
+	BOOST_TEST(expr.height() == height);
+}
+#endif
 
 
 BOOST_AUTO_TEST_SUITE_END();

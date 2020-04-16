@@ -204,23 +204,37 @@ bool Statement::equivalent(const Statement& other) const
 	// need to ensure that the free variable mappings for both sides
 	// agree
 
+
+	// this function is absolutely an instance of a fold, but we can
+	// optimise it beyond the generic fold implementation (and this
+	// is important because this function is called a lot)
+	// the optimisation is just because we don't need the "result
+	// stack" - if any of the fold constructors return false, we can
+	// exit immediately
+
+
 	// build up a bijection between IDs as we go
-	boost::bimap<size_t, size_t> id_map;
+	// (note that we are attempting two directions of equivalence
+	// checking simultaneously - matching l2l and r2r, and also
+	// trying to match the transpose, l2r and r2l)
+	boost::bimap<size_t, size_t> id_maps[2];
 
-	auto eq_func = (phxarg::arg1 && phxarg::arg2);
-
-	auto free_func = [&id_map](size_t id1, size_t id2)
+	auto free_func = [&id_maps](size_t j, size_t id1,
+		size_t id2)
 	{
-		auto left_iter = id_map.left.find(id1);
-		auto right_iter = id_map.right.find(id2);
+		ATP_LOGIC_ASSERT(j < 2);
+		auto& map = id_maps[j];
 
-		if (left_iter == id_map.left.end() &&
-			right_iter == id_map.right.end())
+		auto left_iter = map.left.find(id1);
+		auto right_iter = map.right.find(id2);
+
+		if (left_iter == map.left.end() &&
+			right_iter == map.right.end())
 		{
-			id_map.left.insert(std::make_pair(id1, id2));
+			map.left.insert(std::make_pair(id1, id2));
 			return true;
 		}
-		else if (left_iter != id_map.left.end())
+		else if (left_iter != map.left.end())
 		{
 			return left_iter->second == id2;
 		}
@@ -230,20 +244,204 @@ bool Statement::equivalent(const Statement& other) const
 		}
 	};
 
-	auto const_func = (phxarg::arg1 == phxarg::arg2);
+	// now proceed with a similar fold to the generic one but without
+	// a result stack or "seen_stack"
 
-	auto f_func = [](size_t id1, size_t id2,
-		std::vector<bool>::iterator begin,
-		std::vector<bool>::iterator end)
+	struct StackFrame
 	{
-		return id1 == id2 && std::all_of(begin, end,
-			phxarg::arg1);
+		StackFrame(size_t j, size_t id1, size_t id2,
+			SyntaxNodeType type1, SyntaxNodeType type2,
+			const ExprTreeFlyweight& tree1,
+			const ExprTreeFlyweight& tree2) :
+			j(j), id1(id1), id2(id2), type1(type1), type2(type2),
+			tree1(tree1), tree2(tree2)
+		{ }
+
+		size_t j;  // 0 or 1 indicating transpose or not
+		size_t id1, id2;
+		SyntaxNodeType type1, type2;
+		const ExprTreeFlyweight& tree1;
+		const ExprTreeFlyweight& tree2;
 	};
 
-	return fold_pair<bool>(eq_func, free_func, const_func, f_func,
-		false, other) || fold_pair<bool>(eq_func, free_func,
-			const_func, f_func, false, other.transpose());
-	// check transpose case too ^^^
+	std::vector<StackFrame> stack;
+
+	// to track how we are doing on either side
+
+	bool failed_equiv[2] = { false, false };  // transpose
+
+	// add starting values
+
+	const Expression* my_exprs[2] =
+	{ m_sides.first.get(), m_sides.second.get() };
+	const Expression* other_exprs[2] =
+	{ other.m_sides.first.get(), other.m_sides.second.get() };
+
+	stack.reserve(4);
+
+	size_t max_st_size = 0;  // get upper bound on stack size
+
+	for (size_t my_i = 0; my_i < 2; ++my_i)
+	{
+		for (size_t other_i = 0; other_i < 2; ++other_i)
+		{
+			// for example, when both i's are 0, this represents
+			// trying to match the LHS of this to LHS of other.
+			const size_t is_transposed = (my_i != other_i) ?
+				1 : 0;
+
+			// clever trick: if the height of these expressions is
+			// different, they are not equivalent!
+			
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+			const size_t height = my_exprs[my_i]->height();
+#endif
+			if (
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+				height == other_exprs[other_i]->height() &&
+#endif
+				!failed_equiv[is_transposed])
+			{
+				stack.emplace_back(is_transposed,
+					my_exprs[my_i]->tree().root_id(),
+					other_exprs[other_i]->tree().root_id(),
+					my_exprs[my_i]->tree().root_type(),
+					other_exprs[other_i]->tree().root_type(),
+					my_exprs[my_i]->tree(),
+					other_exprs[other_i]->tree());
+
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+				max_st_size += height;
+#else
+				max_st_size += std::min(
+					my_exprs[my_i]->tree().size(),
+					other_exprs[other_i]->tree().size());
+#endif
+			}
+			else
+			{
+				// the two expressions have different heights, so
+				// cannot be equivalent, so this check has failed.
+				failed_equiv[is_transposed] = true;
+			}
+		}
+	}
+
+	stack.reserve(max_st_size);
+
+	auto notify_fail = [&failed_equiv](size_t j)
+	{
+		ATP_LOGIC_ASSERT(j < 2);
+
+		// mark this side as failed
+		failed_equiv[j] = true;
+
+		// Okay to exit iff both attempts have failed
+		return (failed_equiv[0] && failed_equiv[1]);
+	};
+
+	while (!stack.empty())
+	{
+		const auto st_frame = stack.back();
+		stack.pop_back();
+
+		if (failed_equiv[st_frame.j])
+			continue;  // don't bother checking
+
+		if (st_frame.type1 != st_frame.type2)
+		{
+			if (notify_fail(st_frame.j))
+				return false;
+			else
+			{
+				// skip the rest because this node still failed,
+				// even though we haven't halted the whole
+				// operation yet
+				continue;
+			}
+		}
+		else switch (st_frame.type1)
+		{
+		case SyntaxNodeType::FREE:
+			if (!free_func(st_frame.j, st_frame.id1,
+				st_frame.id2))
+			{
+				if (notify_fail(st_frame.j))
+					return false;
+			}
+			break;
+
+		case SyntaxNodeType::FUNC:
+		{
+			if (st_frame.tree1.func_symb_id(st_frame.id1) !=
+				st_frame.tree2.func_symb_id(st_frame.id2))
+			{
+				if (notify_fail(st_frame.j))
+					return false;
+				else
+				{
+					// skip the rest because this node still failed,
+					// even though we haven't halted the whole
+					// operation yet
+					break;
+				}
+			}
+
+			// get some info about us:
+
+			const auto arity = st_frame.tree1.func_arity(
+				st_frame.id1);
+
+			// if two functions agree on their symbol then they
+			// should agree on their arity
+			ATP_LOGIC_ASSERT(arity == st_frame.tree2.func_arity(
+				st_frame.id2));
+
+			const std::array<size_t, MAX_ARITY>&
+				children_a =
+				st_frame.tree1.func_children(st_frame.id1);
+			const std::array<SyntaxNodeType, MAX_ARITY>&
+				child_types_a =
+				st_frame.tree1.func_child_types(st_frame.id1);
+
+			const std::array<size_t, MAX_ARITY>&
+				children_b = st_frame.tree2.func_children(
+					st_frame.id2);
+			const std::array<SyntaxNodeType, MAX_ARITY>&
+				child_types_b =
+				st_frame.tree2.func_child_types(
+					st_frame.id2);
+
+			// now add children
+			// (warning: don't forget that those arrays
+			// aren't necessarily full!)
+
+			for (size_t k = 0; k < arity; ++k)
+			{
+				stack.emplace_back(
+					st_frame.j, children_a[k],
+					children_b[k], child_types_a[k],
+					child_types_b[k], st_frame.tree1,
+					st_frame.tree2);
+			}
+		}
+		break;
+
+		case SyntaxNodeType::CONSTANT:
+			if (st_frame.id1 != st_frame.id2)
+			{
+				if (notify_fail(st_frame.j))
+					return false;
+			}
+			break;
+
+		default:
+			ATP_LOGIC_ASSERT(false && "Invalid node type.");
+			throw std::exception();
+		}
+	}
+
+	return !failed_equiv[0] || !failed_equiv[1];
 }
 
 

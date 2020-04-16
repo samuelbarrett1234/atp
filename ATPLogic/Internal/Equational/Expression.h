@@ -14,6 +14,11 @@
 */
 
 
+// define this if the Expression class should compute and track its
+// height
+// #define ATP_LOGIC_EXPR_USE_HEIGHT
+
+
 #include <memory>
 #include <vector>
 #include <map>
@@ -110,7 +115,12 @@ public:
 			m_my_value(std::make_unique<Expression>(*parent))
 		{
 			ATP_LOGIC_PRECOND(m_parent != nullptr);
-			m_stack.reserve(m_parent->m_height);
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+			const size_t capacity = m_parent->m_height;
+#else
+			const size_t capacity = m_parent->m_tree.size() + 1;
+#endif
+			m_stack.reserve(capacity);
 			m_stack.emplace_back(m_parent->m_tree.root_id(),
 				m_parent->m_tree.root_type(), 0, 0, true);
 		}
@@ -310,6 +320,13 @@ public:
 		return iterator();
 	}
 
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+	inline size_t height() const
+	{
+		return m_height;
+	}
+#endif
+
 	std::string to_str() const;
 
 	const std::set<size_t>& free_var_ids() const;
@@ -327,6 +344,13 @@ public:
 	inline SyntaxNodeType root_type() const
 	{
 		return m_tree.root_type();
+	}
+
+	// ideally one should only need this when trying to squeeze out
+	// as much performance as possible
+	inline const ExprTreeFlyweight& tree() const
+	{
+		return m_tree;
 	}
 
     /**
@@ -535,14 +559,20 @@ public:
 			SyntaxNodeType>> todo_stack_types;
 		std::vector<bool> seen_stack;
 
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
 		// we only go as deep as the shallowest tree
-		const size_t height = std::min(m_height, other.m_height);
+		const size_t capacity = std::min(m_height, other.m_height);
+#else
+		// we only go as big as the smaller tree (+1 for root)
+		const size_t capacity = std::min(m_tree.size(),
+			other.m_tree.size()) + 1;
+#endif
 		// we know approximately how big the stacks will get in
 		// advance
-		result_stack.reserve(height);
-		todo_stack.reserve(height);
-		todo_stack_types.reserve(height);
-		seen_stack.reserve(height);
+		result_stack.reserve(capacity);
+		todo_stack.reserve(capacity);
+		todo_stack_types.reserve(capacity);
+		seen_stack.reserve(capacity);
 
 		// push the left and right of the equals sign
 		todo_stack.push_back(std::make_pair(m_tree.root_id(),
@@ -829,10 +859,15 @@ private:
 
 		// we know approximately how big the stacks will get in
 		// advance
-		result_stack.reserve(m_height);
-		todo_stack.reserve(m_height);
-		todo_stack_types.reserve(m_height);
-		seen_stack.reserve(m_height);
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+		const size_t capacity = m_height;
+#else
+		const size_t capacity = m_tree.size() + 1;
+#endif
+		result_stack.reserve(capacity);
+		todo_stack.reserve(capacity);
+		todo_stack_types.reserve(capacity);
+		seen_stack.reserve(capacity);
 
 		// also cache results about constants and free variables
 		// (because there will be a large ratio of their occurrences
@@ -1010,6 +1045,22 @@ private:
 	std::pair<size_t,
 		SyntaxNodeType> add_tree_data(const SyntaxNodePtr& tree);
 
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+	/**
+	\brief Compute the height of this node (stored in `m_height`)
+
+	\details The height of an expression is defined to be the longest
+		path from the root to a leaf of the syntax tree of this
+		expression, where path length is measured by number of nodes.
+		Thus for example, the root by itself would have height 1.
+		We care about height because it allows us to estimate stack
+		sizes for fold operations (reducing reallocations), and also
+		gives us a quick way to tell when two expressions are not
+		equivalent.
+	*/
+	size_t compute_height() const;
+#endif
+
 	/**
 	\brief Compute m_free_var_ids
 
@@ -1027,9 +1078,11 @@ private:
     // expressions store references to their creator
     const ModelContext& m_ctx;
 
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
 	// height of the syntax tree (this is used to optimise folds
 	// by knowing how big the stack will need to be in advance)
 	size_t m_height;
+#endif
 
 	// an efficient encapsulation of the storage of the expression
 	// tree

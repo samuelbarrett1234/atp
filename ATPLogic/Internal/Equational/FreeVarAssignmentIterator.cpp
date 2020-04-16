@@ -135,7 +135,7 @@ size_t FreeVarAssignmentIterator::size() const
 
 	if (m_is_leaf)
 	{
-		return 0;
+		return 1;
 	}
 	else
 	{

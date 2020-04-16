@@ -99,15 +99,11 @@ void MatchResultsIterator::advance()
 
 size_t MatchResultsIterator::size() const
 {
-	if (!valid())
-	{
-		return 0;
-	}
-	else
-	{
-		ATP_LOGIC_ASSERT(m_free_var_assignment != nullptr);
-		return m_free_var_assignment->size();
-	}
+	ATP_LOGIC_PRECOND(valid());
+	ATP_LOGIC_ASSERT(m_free_var_assignment != nullptr);
+	ATP_LOGIC_ASSERT(m_free_var_assignment->valid());
+
+	return m_free_var_assignment->size();
 }
 
 

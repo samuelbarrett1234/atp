@@ -270,17 +270,21 @@ void IterativeDeepeningSolver::init_stack(size_t i)
 			logic::PfStateSuccIterPtr()
 		}
 	);
-	// start off the iterator
-	m_stacks[i].back().iter =
-		m_stacks[i].back().node->succ_begin();
 
-	if (!m_stacks[i].back().iter->valid())
+	if (m_stacks[i].back().node->completion_state()
+		!= logic::ProofCompletionState::UNFINISHED)
 	{
-		// in case there are no successors right away, we need to
-		// update the proof state right away to restore the
-		// invariants
+		// the proof is just this one step
+		m_proofs[i] = m_stacks[i].back().node;
+		m_pf_states[i] = m_stacks[i].back().node->completion_state();
 		m_stacks[i].clear();
-		m_pf_states[i] = logic::ProofCompletionState::NO_PROOF;
+	}
+	else
+	{
+		// start off the iterator
+		m_stacks[i].back().iter =
+			m_stacks[i].back().node->succ_begin();
+		ATP_SEARCH_ASSERT(m_stacks[i].back().iter->valid());
 	}
 }
 

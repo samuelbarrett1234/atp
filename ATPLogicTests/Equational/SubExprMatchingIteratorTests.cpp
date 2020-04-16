@@ -58,9 +58,10 @@ BOOST_DATA_TEST_CASE(test_get_successors,
 	forefront = forefront.increment_free_var_ids(
 		ker.get_rule_free_id_bound() + 1);
 
+	ProofState pstate(ctx, ker, forefront);
+
 	auto p_iter = SubExprMatchingIterator::construct(ctx, ker,
-		forefront,  // doesn't matter what we put here
-		forefront);
+		pstate, forefront);
 
 	BOOST_TEST(p_iter->valid());
 
@@ -106,9 +107,10 @@ BOOST_DATA_TEST_CASE(test_NOT_successors,
 	forefront = forefront.increment_free_var_ids(
 		ker.get_rule_free_id_bound() + 1);
 
+	ProofState pstate(ctx, ker, forefront);
+
 	auto p_iter = SubExprMatchingIterator::construct(ctx, ker,
-		forefront,  // doesn't matter what we put here
-		forefront);
+		pstate, forefront);
 
 	BOOST_TEST(p_iter->valid());
 
@@ -155,13 +157,14 @@ BOOST_AUTO_TEST_CASE(test_subtly_different_statements_share_no_successors)
 	auto stmt2 = _stmt2.increment_free_var_ids(
 		ker.get_rule_free_id_bound() + 1);
 
+	ProofState pstate1(ctx, ker, stmt1), pstate2(ctx, ker, stmt2);
+
 	std::vector<ProofStatePtr> succs1, succs2;
 
 	// get successors of stmt1
 	{
 		auto p_iter = SubExprMatchingIterator::construct(ctx, ker,
-			stmt1,  // doesn't matter what we put here
-			stmt1);
+			pstate1, stmt1);
 
 		const size_t results_limit = 1000;  // shouldn't be more results than this
 		for (size_t i = 0; i < results_limit && p_iter->valid();
@@ -175,8 +178,7 @@ BOOST_AUTO_TEST_CASE(test_subtly_different_statements_share_no_successors)
 	// get successors of stmt2
 	{
 		auto p_iter = SubExprMatchingIterator::construct(ctx, ker,
-			stmt2,  // doesn't matter what we put here
-			stmt2);
+			pstate2, stmt2);
 
 		const size_t results_limit = 1000;  // shouldn't be more results than this
 		for (size_t i = 0; i < results_limit && p_iter->valid();

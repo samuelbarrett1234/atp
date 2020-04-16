@@ -69,8 +69,10 @@ BOOST_AUTO_TEST_CASE(test_constructs_correct_substitution)
 
 	auto sub_iter = forefront.begin();
 
+	ProofState pstate(ctx, ker, forefront);
+
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
-		forefront, // doesn't matter what we put here
+		pstate,
 		forefront,
 		{ std::make_pair(match_result.lhs(), std::vector<size_t>{ }) },
 		sub_iter,
@@ -122,8 +124,10 @@ BOOST_AUTO_TEST_CASE(test_many_possible_results)
 
 	auto sub_iter = forefront.begin();
 
+	ProofState pstate(ctx, ker, forefront);
+
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
-		forefront, // doesn't matter what we put here
+		pstate,
 		forefront,
 		{
 			std::make_pair(match_results.lhs(), std::vector<size_t>{ 1 }),
@@ -173,8 +177,10 @@ BOOST_AUTO_TEST_CASE(test_it_passes_the_correct_remaining_free_ids)
 
 	auto sub_iter = forefront.begin();
 
+	ProofState pstate(ctx, ker, forefront);
+
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
-		forefront, // doesn't matter what we put here
+		pstate,
 		forefront,
 		{ std::make_pair(match_result.lhs(), std::vector<size_t>{ 1, 2 }) },
 		sub_iter,
@@ -224,12 +230,14 @@ BOOST_AUTO_TEST_CASE(test_sub_at_inner_location)
 	auto sub_loc_iter = forefront.begin();
 	std::advance(sub_loc_iter, 2);
 
+	ProofState pstate(ctx, ker, forefront);
+
 	std::vector<std::pair<Expression, std::vector<size_t>>>
 		match_results = { std::make_pair(match_result.lhs(),
 			std::vector<size_t>{ }) };
 
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
-		forefront, // doesn't matter what we put here
+		pstate,
 		forefront,
 		{ std::make_pair(match_result.lhs(), std::vector<size_t>{ }) },
 		sub_loc_iter,

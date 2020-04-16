@@ -25,26 +25,26 @@ namespace equational
 
 PfStateSuccIterPtr FreeVarAssignmentIterator::construct(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
-	const Statement& target_stmt, Statement subbed_stmt,
+	const ProofState& parent, Statement subbed_stmt,
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& free_const_enum,
 	std::vector<size_t>::const_iterator remaining_free_begin,
 	std::vector<size_t>::const_iterator remaining_free_end)
 {
 	return std::make_shared<FreeVarAssignmentIterator>(ctx, ker,
-		target_stmt, std::move(subbed_stmt), free_const_enum,
+		parent, std::move(subbed_stmt), free_const_enum,
 		remaining_free_begin, remaining_free_end);
 }
 
 
 FreeVarAssignmentIterator::FreeVarAssignmentIterator(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
-	const Statement& target_stmt, Statement subbed_stmt,
+	const ProofState& parent, Statement subbed_stmt,
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& free_const_enum,
 	std::vector<size_t>::const_iterator remaining_free_begin,
 	std::vector<size_t>::const_iterator remaining_free_end) :
-	m_ctx(ctx), m_ker(ker), m_target_stmt(target_stmt),
+	m_ctx(ctx), m_ker(ker), m_parent(parent),
 	m_subbed_stmt(std::move(subbed_stmt)),
 	m_free_const_enum(free_const_enum),
 	m_remaining_free_begin(remaining_free_begin),
@@ -93,7 +93,7 @@ ProofStatePtr FreeVarAssignmentIterator::get() const
 	else
 	{
 		return std::make_shared<ProofState>(
-			m_ctx, m_ker, m_target_stmt, m_subbed_stmt);
+			m_parent, m_subbed_stmt);
 	}
 }
 
@@ -184,7 +184,7 @@ void FreeVarAssignmentIterator::restore_invariant()
 	}();
 
 	m_child = FreeVarAssignmentIterator::construct(m_ctx, m_ker,
-		m_target_stmt, std::move(child_stmt), m_free_const_enum,
+		m_parent, std::move(child_stmt), m_free_const_enum,
 		std::next(m_remaining_free_begin), m_remaining_free_end);
 }
 

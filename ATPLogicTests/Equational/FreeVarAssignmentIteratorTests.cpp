@@ -72,9 +72,10 @@ BOOST_AUTO_TEST_CASE(test_one_var)
 
 	BOOST_REQUIRE(free_const_enum.size() == 2);  //  e and y
 
+	ProofState pstate(ctx, ker, stmt);
+
 	auto p_iter = FreeVarAssignmentIterator::construct(ctx, ker,
-		stmt /* can pass anything for this as its irrelevant to us*/,
-		stmt, free_const_enum, remaining_free.begin(),
+		pstate, stmt, free_const_enum, remaining_free.begin(),
 		remaining_free.end());
 
 	BOOST_TEST(p_iter->valid());
@@ -127,9 +128,10 @@ BOOST_AUTO_TEST_CASE(test_many_vars)
 
 	BOOST_REQUIRE(free_const_enum.size() == 2);
 
+	ProofState pstate(ctx, ker, stmt);
+
 	auto p_iter = FreeVarAssignmentIterator::construct(ctx, ker,
-		stmt /* can pass anything for this as its irrelevant to us*/,
-		stmt, free_const_enum, remaining_free.begin(),
+		pstate, stmt, free_const_enum, remaining_free.begin(),
 		remaining_free.end());
 
 	BOOST_TEST(p_iter->valid());

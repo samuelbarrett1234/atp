@@ -25,25 +25,25 @@ namespace equational
 
 PfStateSuccIterPtr RuleMatchingIterator::construct(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
-	const Statement& target_stmt,
+	const ProofState& parent,
 	const Statement& forefront_stmt,
 	const Statement::iterator& sub_expr,
 	const std::vector<std::pair<size_t,
 	 SyntaxNodeType>>& free_const_enum)
 {
 	return std::make_shared<RuleMatchingIterator>(ctx, ker,
-		target_stmt, forefront_stmt, sub_expr, free_const_enum);
+		parent, forefront_stmt, sub_expr, free_const_enum);
 }
 
 
 RuleMatchingIterator::RuleMatchingIterator(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
-	const Statement& target_stmt,
+	const ProofState& parent,
 	const Statement& forefront_stmt,
 	const Statement::iterator& sub_expr,
 	const std::vector<std::pair<size_t,
 	 SyntaxNodeType>>& free_const_enum) :
-	m_ctx(ctx), m_ker(ker), m_target_stmt(target_stmt),
+	m_ctx(ctx), m_ker(ker), m_parent(parent),
 	m_forefront_stmt(forefront_stmt), m_sub_expr_iter(sub_expr),
 	m_match_index(0), m_free_const_enum(free_const_enum)
 {
@@ -117,7 +117,7 @@ void RuleMatchingIterator::restore_invariant()
 	if (valid())
 	{
 		m_cur_matching = MatchResultsIterator::construct(
-			m_ctx, m_ker, m_target_stmt, m_forefront_stmt,
+			m_ctx, m_ker, m_parent, m_forefront_stmt,
 			m_ker.match_results_at(m_match_index,
 				std::move(match_subs)),
 			m_sub_expr_iter, m_free_const_enum);

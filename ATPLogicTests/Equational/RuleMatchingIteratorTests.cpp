@@ -84,8 +84,10 @@ BOOST_DATA_TEST_CASE(test_subs,
 	// this indicates we match top of LHS
 	auto sub_iter = forefront.begin();
 
+	ProofState pstate(ctx, ker, forefront);
+
 	auto p_iter = RuleMatchingIterator::construct(ctx, ker,
-		forefront,  // doesn't matter what we put here
+		pstate,
 		forefront,
 		sub_iter,  
 		free_const_enum);
@@ -142,8 +144,10 @@ BOOST_DATA_TEST_CASE(test_NOT_subs,
 	// this indicates we match top of LHS
 	auto sub_iter = forefront.begin();
 
+	ProofState pstate(ctx, ker, forefront);
+
 	auto p_iter = RuleMatchingIterator::construct(ctx, ker,
-		forefront,  // doesn't matter what we put here
+		pstate,
 		forefront,
 		sub_iter,
 		free_const_enum);

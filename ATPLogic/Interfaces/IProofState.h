@@ -90,6 +90,15 @@ public:
     \brief Determine whether or not this proof is done
     */
     virtual ProofCompletionState completion_state() const = 0;
+
+    /**
+    \brief Return a human-readable string representation of this
+        proof.
+
+    \note The proof doesn't have to be in any particular completion
+        state - it works regardless.
+    */
+    virtual std::string to_str() const = 0;
 };
 typedef std::shared_ptr<IProofState> ProofStatePtr;
 

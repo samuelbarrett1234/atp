@@ -26,7 +26,7 @@ namespace equational
 PfStateSuccIterPtr MatchResultsIterator::construct(
 	const ModelContext& ctx,
 	const KnowledgeKernel& ker,
-	const Statement& target_stmt,
+	const ProofState& parent,
 	const Statement& forefront_stmt,
 	std::vector<std::pair<Expression,
 		std::vector<size_t>>> match_results,
@@ -35,20 +35,20 @@ PfStateSuccIterPtr MatchResultsIterator::construct(
 		SyntaxNodeType>>& free_const_enum)
 {
 	return std::make_shared<MatchResultsIterator>(
-		ctx, ker, target_stmt, forefront_stmt,
+		ctx, ker, parent, forefront_stmt,
 		std::move(match_results), sub_expr, free_const_enum);
 }
 
 
 MatchResultsIterator::MatchResultsIterator(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
-	const Statement& target_stmt, const Statement& forefront_stmt,
+	const ProofState& parent, const Statement& forefront_stmt,
 	std::vector<std::pair<Expression,
 		std::vector<size_t>>> match_results,
 	const Statement::iterator& sub_expr,
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& free_const_enum) :
-	m_ctx(ctx), m_ker(ker), m_target_stmt(target_stmt),
+	m_ctx(ctx), m_ker(ker), m_parent(parent),
 	m_forefront_stmt(forefront_stmt),
 	m_match_results(std::move(match_results)), m_match_result_index(0),
 	m_free_const_enum(free_const_enum), m_sub_expr_iter(sub_expr)
@@ -119,7 +119,7 @@ void MatchResultsIterator::restore_invariant()
 		m_match_results[m_match_result_index].first);
 
 	m_free_var_assignment = FreeVarAssignmentIterator::construct(
-		m_ctx, m_ker, m_target_stmt, std::move(subbed_stmt),
+		m_ctx, m_ker, m_parent, std::move(subbed_stmt),
 		m_free_const_enum,
 		m_match_results[m_match_result_index].second.begin(),
 		m_match_results[m_match_result_index].second.end());

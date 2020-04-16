@@ -27,6 +27,7 @@ namespace equational
 {
 
 
+class ProofState;  // forward declaration
 class Expression;  // forward declaration
 class ModelContext;  // forward declaration
 class KnowledgeKernel;  // forward declaration
@@ -56,7 +57,7 @@ public:
 
 	\see atp::logic::equational::MatchResultsIterator
 
-	\param target_stmt The statement we are ultimately trying to
+	\param parent The statement we are ultimately trying to
 		prove.
 
 	\param subbed_stmt The statement which we will be substituting
@@ -78,7 +79,7 @@ public:
 	static PfStateSuccIterPtr construct(
 		const ModelContext& ctx,
 		const KnowledgeKernel& ker,
-		const Statement& target_stmt,
+		const ProofState& parent,
 		Statement subbed_stmt,
 		const std::vector<std::pair<size_t,
 			SyntaxNodeType>>& free_const_enum,
@@ -96,7 +97,7 @@ public:
 	*/
 	FreeVarAssignmentIterator(const ModelContext& ctx,
 		const KnowledgeKernel& ker,
-		const Statement& target_stmt,
+		const ProofState& parent,
 		Statement subbed_stmt,
 		const std::vector<std::pair<size_t,
 			SyntaxNodeType>>& free_const_enum,
@@ -122,7 +123,7 @@ private:
 private:
 	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
-	const Statement& m_target_stmt;
+	const ProofState& m_parent;
 	Statement m_subbed_stmt;
 
 	// set to (m_remaining_free_begin == m_remaining_free_end)

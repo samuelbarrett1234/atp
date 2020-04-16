@@ -7,6 +7,7 @@
 */
 
 
+#include <boost/algorithm/string/join.hpp>
 #include "ProofState.h"
 #include "SubExprMatchingIterator.h"
 
@@ -22,8 +23,8 @@ namespace equational
 ProofState::ProofState(const ModelContext& ctx,
 	const KnowledgeKernel& ker,
 	Statement target, Statement current) :
-	m_ctx(ctx), m_ker(ker), m_target(target),
-	m_current(current)
+	m_ctx(ctx), m_ker(ker),
+	m_proof_stack({ std::move(target), std::move(current) })
 {
 	check_forefront_ids();
 }
@@ -32,10 +33,22 @@ ProofState::ProofState(const ModelContext& ctx,
 ProofState::ProofState(const ModelContext& ctx,
 	const KnowledgeKernel& ker,
 	Statement target) :
-	m_target(target),
-	m_current(target),
+	m_proof_stack({ std::move(target) }),
 	m_ker(ker), m_ctx(ctx)
 {
+	check_forefront_ids();
+}
+
+
+ProofState::ProofState(const ProofState& parent,
+	Statement forefront) :
+	m_ctx(parent.m_ctx), m_ker(parent.m_ker),
+
+	// todo: do better than a copy here
+	m_proof_stack(parent.m_proof_stack)
+{
+	m_proof_stack.emplace_back(std::move(forefront));
+
 	check_forefront_ids();
 }
 
@@ -69,7 +82,7 @@ ProofCompletionState ProofState::completion_state() const
 {
 	if (!m_comp_state.has_value())
 	{
-		if (m_ker.is_trivial(m_current))
+		if (m_ker.is_trivial(forefront()))
 			return ProofCompletionState::PROVEN;
 		else
 		{
@@ -91,14 +104,26 @@ ProofCompletionState ProofState::completion_state() const
 }
 
 
+std::string ProofState::to_str() const
+{
+	std::list<std::string> as_strs;
+	for (const auto& stmt : m_proof_stack)
+		as_strs.push_back(stmt.to_str());
+
+	return boost::algorithm::join(as_strs, "\n");
+}
+
+
 void ProofState::check_forefront_ids()
 {
-	const auto ids = m_current.free_var_ids();
+	const auto ids = forefront().free_var_ids();
 	if (std::any_of(ids.begin(), ids.end(),
 		boost::bind(std::less_equal<size_t>(), _1,
 			m_ker.get_rule_free_id_bound())))
 	{
-		m_current = m_current.increment_free_var_ids(
+		// modify forefront (which is exactly just the back element
+		// of the stack)
+		m_proof_stack.back() = forefront().increment_free_var_ids(
 			m_ker.get_rule_free_id_bound() + 1);
 	}
 }
@@ -110,7 +135,7 @@ PfStateSuccIterPtr ProofState::compute_begin() const
 	// that they are guaranteed not to clash with any of the matching
 	// rules in the knowledge kernel
 	return SubExprMatchingIterator::construct(m_ctx, m_ker,
-		m_target, m_current);
+		*this, forefront());
 }
 
 

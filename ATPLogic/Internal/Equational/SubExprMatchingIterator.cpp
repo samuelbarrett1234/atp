@@ -26,17 +26,17 @@ namespace equational
 
 PfStateSuccIterPtr SubExprMatchingIterator::construct(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
-	const Statement& target_stmt, const Statement& forefront_stmt)
+	const ProofState& parent, const Statement& forefront_stmt)
 {
 	return std::make_shared<SubExprMatchingIterator>(ctx, ker,
-		target_stmt, forefront_stmt);
+		parent, forefront_stmt);
 }
 
 
 SubExprMatchingIterator::SubExprMatchingIterator(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
-	const Statement& target_stmt, const Statement& forefront_stmt) :
-	m_ctx(ctx), m_ker(ker), m_target_stmt(target_stmt),
+	const ProofState& parent, const Statement& forefront_stmt) :
+	m_ctx(ctx), m_ker(ker), m_parent(parent),
 	m_forefront_stmt(forefront_stmt),
 	m_sub_expr_iter(forefront_stmt.begin())
 {
@@ -117,7 +117,7 @@ void SubExprMatchingIterator::restore_invariant()
 	ATP_LOGIC_PRECOND(m_rule_iter == nullptr);
 
 	m_rule_iter = RuleMatchingIterator::construct(m_ctx, m_ker,
-		m_target_stmt, m_forefront_stmt, m_sub_expr_iter,
+		m_parent, m_forefront_stmt, m_sub_expr_iter,
 		m_free_const_enum);
 }
 

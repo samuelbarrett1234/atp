@@ -46,9 +46,12 @@ public:
 		const KnowledgeKernel& ker,
 		Statement target);
 
+	ProofState(const ProofState& parent,
+		Statement forefront);
+
 	inline const IStatement& target_stmt() const override
 	{
-		return m_target;
+		return m_proof_stack.front();
 	}
 
 	PfStateSuccIterPtr succ_begin() const override;
@@ -59,8 +62,10 @@ public:
 	// not part of the IProofState interface:
 	inline const Statement& forefront() const
 	{
-		return m_current;
+		return m_proof_stack.back();
 	}
+
+	std::string to_str() const override;
 
 private:
 	/**
@@ -82,7 +87,7 @@ private:
 private:
 	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
-	Statement m_target, m_current;
+	std::list<Statement> m_proof_stack;
 
 	// to save us computing the begin iterator several times, for
 	// state checking and to return from `succ_begin`, we store

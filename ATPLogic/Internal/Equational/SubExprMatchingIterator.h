@@ -29,6 +29,7 @@ namespace equational
 {
 
 
+class ProofState;  // forward declaration
 class ModelContext;  // forward declaration
 class KnowledgeKernel;  // forward declaration
 
@@ -52,7 +53,7 @@ public:
 
 	\see atp::logic::equational::ProofState
 
-	\param target_stmt The statement we are ultimately trying to
+	\param parent The statement we are ultimately trying to
 		prove.
 
 	\param forefront_stmt The statement at the "forefront" of the
@@ -65,7 +66,7 @@ public:
 	*/
 	static PfStateSuccIterPtr construct(const ModelContext& ctx,
 		const KnowledgeKernel& ker,
-		const Statement& target_stmt,
+		const ProofState& parent,
 		const Statement& forefront_stmt);
 
 	/**
@@ -77,7 +78,7 @@ public:
 	*/
 	SubExprMatchingIterator(const ModelContext& ctx,
 		const KnowledgeKernel& ker,
-		const Statement& target_stmt,
+		const ProofState& parent,
 		const Statement& forefront_stmt);
 
 	bool valid() const override;
@@ -98,7 +99,7 @@ private:
 private:
 	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
-	const Statement& m_target_stmt;
+	const ProofState& m_parent;
 	const Statement& m_forefront_stmt;
 
 	// an enumeration of free variables found in `m_forefront_stmt`

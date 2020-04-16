@@ -32,6 +32,7 @@ namespace equational
 class ProofState;  // forward declaration
 class ModelContext;  // forward declaration
 class KnowledgeKernel;  // forward declaration
+class MatchResultsIterator;  // forward declaration
 
 
 /**
@@ -65,7 +66,7 @@ public:
 	\param free_const_enum An enumeration of all free variable IDs
 		found in `forefront_stmt`, and all constant symbols.
 	*/
-	static PfStateSuccIterPtr construct(const ModelContext& ctx,
+	static std::shared_ptr<RuleMatchingIterator> construct(const ModelContext& ctx,
 		const KnowledgeKernel& ker,
 		const ProofState& parent,
 		const Statement& forefront_stmt,
@@ -122,7 +123,7 @@ private:
 	// we are valid() iff m_cur_matching is non-null
 
 	size_t m_match_index;
-	PfStateSuccIterPtr m_cur_matching;
+	std::shared_ptr<MatchResultsIterator> m_cur_matching;
 };
 
 

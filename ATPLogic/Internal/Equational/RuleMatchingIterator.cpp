@@ -23,7 +23,7 @@ namespace equational
 {
 
 
-PfStateSuccIterPtr RuleMatchingIterator::construct(
+std::shared_ptr<RuleMatchingIterator> RuleMatchingIterator::construct(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
 	const ProofState& parent,
 	const Statement& forefront_stmt,

@@ -23,7 +23,7 @@ namespace equational
 {
 
 
-PfStateSuccIterPtr FreeVarAssignmentIterator::construct(
+std::shared_ptr<FreeVarAssignmentIterator> FreeVarAssignmentIterator::construct(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
 	const ProofState& parent, Statement subbed_stmt,
 	const std::vector<std::pair<size_t,

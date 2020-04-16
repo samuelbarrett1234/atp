@@ -84,6 +84,7 @@ BOOST_DATA_TEST_CASE(test_automatically_proven,
 		"e = e", "x = x", "i(x) = i(x)",
 		"e = *(i(y), y)", "*(x, y) = *(x, y)",
 		"*(i(x), i(i(x))) = e", "*(e, e) = e",
+		"e = *(i(*(x, y)), *(x, y))"
 		}), stmt)
 {
 	s << stmt;

@@ -76,7 +76,7 @@ public:
 	\param remaining_free_begin The end of an array of free IDs
 		which are yet to be assigned.
 	*/
-	static PfStateSuccIterPtr construct(
+	static std::shared_ptr<FreeVarAssignmentIterator> construct(
 		const ModelContext& ctx,
 		const KnowledgeKernel& ker,
 		const ProofState& parent,
@@ -156,7 +156,7 @@ private:
 	// variable range that we have not covered, we must also
 	// enumerate those values too.
 	// if m_child is not null then it is valid
-	PfStateSuccIterPtr m_child;
+	std::shared_ptr<FreeVarAssignmentIterator> m_child;
 };
 
 

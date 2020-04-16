@@ -24,7 +24,7 @@ namespace equational
 {
 
 
-PfStateSuccIterPtr SubExprMatchingIterator::construct(
+std::shared_ptr<SubExprMatchingIterator> SubExprMatchingIterator::construct(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
 	const ProofState& parent, const Statement& forefront_stmt)
 {

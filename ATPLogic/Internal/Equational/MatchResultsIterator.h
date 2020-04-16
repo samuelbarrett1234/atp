@@ -33,6 +33,7 @@ namespace equational
 class ProofState;  // forward declaration
 class ModelContext;  // forward declaration
 class KnowledgeKernel;  // forward declaration
+class FreeVarAssignmentIterator;  // forward declaration
 
 
 /**
@@ -74,7 +75,7 @@ public:
 	\param free_const_enum An enumeration of all free variable IDs
 		found in `forefront_stmt`, and all constant symbols.
 	*/
-	static PfStateSuccIterPtr construct(
+	static std::shared_ptr<MatchResultsIterator> construct(
 		const ModelContext& ctx,
 		const KnowledgeKernel& ker,
 		const ProofState& parent,
@@ -137,7 +138,7 @@ private:
 	// we are invalid.
 
 	size_t m_match_result_index;
-	PfStateSuccIterPtr m_free_var_assignment;
+	std::shared_ptr<FreeVarAssignmentIterator> m_free_var_assignment;
 };
 
 

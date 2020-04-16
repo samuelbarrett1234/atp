@@ -32,6 +32,7 @@ namespace equational
 class ProofState;  // forward declaration
 class ModelContext;  // forward declaration
 class KnowledgeKernel;  // forward declaration
+class RuleMatchingIterator;  // forward declaration
 
 
 /**
@@ -64,7 +65,7 @@ public:
 		get_rule_free_id_bound()`, so we don't need to worry about
 		clashing of free variables when making substitutions later.
 	*/
-	static PfStateSuccIterPtr construct(const ModelContext& ctx,
+	static std::shared_ptr<SubExprMatchingIterator> construct(const ModelContext& ctx,
 		const KnowledgeKernel& ker,
 		const ProofState& parent,
 		const Statement& forefront_stmt);
@@ -110,7 +111,7 @@ private:
 	// we are valid() iff m_rule_iter is non-null
 
 	Statement::iterator m_sub_expr_iter;
-	PfStateSuccIterPtr m_rule_iter;
+	std::shared_ptr<RuleMatchingIterator> m_rule_iter;
 };
 
 

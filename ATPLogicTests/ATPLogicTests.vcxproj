@@ -182,6 +182,7 @@
     <ClCompile Include="Equational\ModelContextTests.cpp" />
     <ClCompile Include="Equational\KnowledgeKernelTests.cpp" />
     <ClCompile Include="Equational\LanguageTests.cpp" />
+    <ClCompile Include="Equational\NoRepeatIteratorTests.cpp" />
     <ClCompile Include="Equational\ProofStateTests.cpp" />
     <ClCompile Include="Equational\RuleMatchingIteratorTests.cpp" />
     <ClCompile Include="Equational\ParseStatementsTests.cpp" />
@@ -196,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Equational\DefinitionFileExamples.h" />
+    <ClInclude Include="Equational\EmptyTestFixture.h" />
     <ClInclude Include="Equational\StandardTestFixture.h" />
     <ClInclude Include="Equational\SyntaxNodeToStr.h" />
     <ClInclude Include="Test.h" />

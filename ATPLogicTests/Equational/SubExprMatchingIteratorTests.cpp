@@ -12,6 +12,7 @@
 #include <Internal/Equational/ProofState.h>
 #include "../Test.h"
 #include "StandardTestFixture.h"
+#include "EmptyTestFixture.h"
 
 
 using atp::logic::StmtFormat;
@@ -210,9 +211,8 @@ BOOST_AUTO_TEST_CASE(test_subtly_different_statements_share_no_successors)
 }
 
 
-struct NoFixt {};
 BOOST_FIXTURE_TEST_CASE(test_no_resulting_matchings,
-	NoFixt)
+	EmptyTestFixture)
 {
 	// test that this iterator behaves itself when some
 	// subexpressions have no matches with any of the
@@ -221,21 +221,6 @@ BOOST_FIXTURE_TEST_CASE(test_no_resulting_matchings,
 	// of course we have to not use group theory for this test
 	// because in group theory every expression has a match,
 	// because you can aways multiply by the identity
-
-	std::stringstream ctx_in;
-	ctx_in << "{}";  // empty
-
-	atp::logic::equational::Language lang;
-	atp::logic::ModelContextPtr p_ctx = lang.try_create_context(
-		ctx_in);
-	const atp::logic::equational::ModelContext& ctx = dynamic_cast<const
-		atp::logic::equational::ModelContext&>(*p_ctx);
-	atp::logic::KnowledgeKernelPtr p_ker = lang.try_create_kernel(
-		ctx);
-	atp::logic::equational::KnowledgeKernel& ker = dynamic_cast<
-		atp::logic::equational::KnowledgeKernel&>(*p_ker);
-
-	std::stringstream s;
 
 	s << "x = y";
 

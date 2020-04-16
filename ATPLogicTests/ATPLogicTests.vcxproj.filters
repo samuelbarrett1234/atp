@@ -90,6 +90,9 @@
     <ClCompile Include="Equational\SubExprMatchingIteratorTests.cpp">
       <Filter>Source Files\Equational\Implementations\Successor Iterators</Filter>
     </ClCompile>
+    <ClCompile Include="Equational\NoRepeatIteratorTests.cpp">
+      <Filter>Source Files\Equational\Implementations\Successor Iterators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -102,6 +105,9 @@
       <Filter>Header Files\Equational</Filter>
     </ClInclude>
     <ClInclude Include="Equational\StandardTestFixture.h">
+      <Filter>Header Files\Equational</Filter>
+    </ClInclude>
+    <ClInclude Include="Equational\EmptyTestFixture.h">
       <Filter>Header Files\Equational</Filter>
     </ClInclude>
   </ItemGroup>

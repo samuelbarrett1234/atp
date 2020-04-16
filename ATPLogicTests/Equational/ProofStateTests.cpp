@@ -21,6 +21,7 @@
 #include <Internal/Equational/Language.h>
 #include "../Test.h"
 #include "StandardTestFixture.h"
+#include "EmptyTestFixture.h"
 
 
 using atp::logic::equational::ProofState;
@@ -273,6 +274,35 @@ BOOST_AUTO_TEST_CASE(test_tricky_proof)
 					ProofState*>(p_pf.get())->forefront());
 			}));
 	}
+}
+
+
+BOOST_FIXTURE_TEST_CASE(test_no_successors_case,
+	EmptyTestFixture)
+{
+	// test that this iterator behaves itself when some
+	// subexpressions have no matches with any of the
+	// rules
+
+	// of course we have to not use group theory for this test
+	// because in group theory every expression has a match,
+	// because you can aways multiply by the identity
+
+	s << "x = y";
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto forefront = dynamic_cast<const Statement&>(p_stmts->at(0));
+
+	forefront = forefront.increment_free_var_ids(1);
+	ProofState pstate(ctx, ker, forefront);
+
+	BOOST_TEST(pstate.completion_state() ==
+		ProofCompletionState::NO_PROOF);
+
+	auto iter = pstate.succ_begin();
+
+	BOOST_TEST(!iter->valid());
 }
 
 

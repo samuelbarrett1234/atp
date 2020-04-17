@@ -144,6 +144,9 @@
     <ClInclude Include="Internal\Equational\NoRepeatIterator.h">
       <Filter>Header Files\Internal\Equational\Implementations\Successor Iterators</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\FreeVarIdSet.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp">

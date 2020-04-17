@@ -93,6 +93,9 @@
     <ClCompile Include="Equational\NoRepeatIteratorTests.cpp">
       <Filter>Source Files\Equational\Implementations\Successor Iterators</Filter>
     </ClCompile>
+    <ClCompile Include="FreeVarIdSetTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">

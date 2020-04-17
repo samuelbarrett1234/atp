@@ -198,6 +198,7 @@
     <ClInclude Include="Internal\Equational\SyntaxTreeFold.h" />
     <ClInclude Include="Internal\Equational\SyntaxNodes.h" />
     <ClInclude Include="Internal\Equational\SyntaxTreeTraversal.h" />
+    <ClInclude Include="Internal\FreeVarIdSet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp" />

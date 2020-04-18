@@ -10,12 +10,14 @@
 #include <Internal/Equational/MatchResultsIterator.h>
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/ProofState.h>
+#include <Internal/FreeVarIdSet.h>
 #include "../Test.h"
 #include "StandardTestFixture.h"
 
 
 using atp::logic::StmtFormat;
 using atp::logic::ProofStatePtr;
+using atp::logic::FreeVarIdSet;
 using atp::logic::equational::MatchResultsIterator;
 using atp::logic::equational::Expression;
 using atp::logic::equational::Statement;
@@ -74,7 +76,7 @@ BOOST_AUTO_TEST_CASE(test_constructs_correct_substitution)
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
 		pstate,
 		forefront,
-		{ std::make_pair(match_result.lhs(), std::vector<size_t>{ }) },
+		{ std::make_pair(match_result.lhs(), FreeVarIdSet()) },
 		sub_iter,
 		free_const_enum);
 
@@ -114,12 +116,12 @@ BOOST_AUTO_TEST_CASE(test_many_possible_results)
 	free_const_enum.emplace_back(0,
 		SyntaxNodeType::FREE);  // register x
 
-	std::vector<std::pair<Expression, std::vector<size_t>>>
+	std::vector<std::pair<Expression, FreeVarIdSet>>
 		match_results_array = {
 		std::make_pair(match_results.lhs(),
-			std::vector<size_t>{ 1 }),
+			FreeVarIdSet(std::vector<size_t>{ 1 })),
 		std::make_pair(match_results.rhs(),
-			std::vector<size_t>{ })
+			FreeVarIdSet())
 	};
 
 	auto sub_iter = forefront.begin();
@@ -130,8 +132,8 @@ BOOST_AUTO_TEST_CASE(test_many_possible_results)
 		pstate,
 		forefront,
 		{
-			std::make_pair(match_results.lhs(), std::vector<size_t>{ 1 }),
-			std::make_pair(match_results.rhs(), std::vector<size_t>{ })
+			std::make_pair(match_results.lhs(), FreeVarIdSet(std::vector<size_t>{ 1 })),
+			std::make_pair(match_results.rhs(), FreeVarIdSet())
 		},
 		sub_iter,
 		free_const_enum);
@@ -182,7 +184,7 @@ BOOST_AUTO_TEST_CASE(test_it_passes_the_correct_remaining_free_ids)
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
 		pstate,
 		forefront,
-		{ std::make_pair(match_result.lhs(), std::vector<size_t>{ 1, 2 }) },
+		{ std::make_pair(match_result.lhs(), FreeVarIdSet(std::vector<size_t>{ 1, 2 })) },
 		sub_iter,
 		free_const_enum);
 
@@ -232,14 +234,10 @@ BOOST_AUTO_TEST_CASE(test_sub_at_inner_location)
 
 	ProofState pstate(ctx, ker, forefront);
 
-	std::vector<std::pair<Expression, std::vector<size_t>>>
-		match_results = { std::make_pair(match_result.lhs(),
-			std::vector<size_t>{ }) };
-
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
 		pstate,
 		forefront,
-		{ std::make_pair(match_result.lhs(), std::vector<size_t>{ }) },
+		{ std::make_pair(match_result.lhs(), FreeVarIdSet()) },
 		sub_loc_iter,
 		free_const_enum);
 

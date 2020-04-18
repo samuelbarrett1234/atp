@@ -156,7 +156,7 @@ std::string Expression::to_str() const
 }
 
 
-const std::set<size_t>& Expression::free_var_ids() const
+const FreeVarIdSet& Expression::free_var_ids() const
 {
 	if (!m_free_var_ids.has_value())
 		build_free_var_ids();
@@ -335,8 +335,7 @@ Expression Expression::replace_free_with_free(
 	// delegating the call to the LHS and RHS expressions - if we
 	// enforced `initial_id` being present in this expression then
 	// such an operation would be more cumbersome to implement).
-	if (free_var_ids().find(initial_id) ==
-		free_var_ids().end())
+	if (!free_var_ids().contains(initial_id))
 		return *this;
 
 	Expression new_expr = *this;
@@ -371,8 +370,7 @@ Expression Expression::replace_free_with_const(
 	// delegating the call to the LHS and RHS expressions - if we
 	// enforced `initial_id` being present in this expression then
 	// such an operation would be more cumbersome to implement).
-	if (free_var_ids().find(initial_id) ==
-		free_var_ids().end())
+	if (!free_var_ids().contains(initial_id))
 		return *this;
 
 #ifdef ATP_LOGIC_DEFENSIVE
@@ -889,7 +887,7 @@ void Expression::build_free_var_ids() const
 #endif
 	ATP_LOGIC_PRECOND(!m_free_var_ids.has_value());
 
-	m_free_var_ids = std::set<size_t>();
+	m_free_var_ids = FreeVarIdSet();
 
 	std::vector<std::pair<size_t, SyntaxNodeType>> stack;
 

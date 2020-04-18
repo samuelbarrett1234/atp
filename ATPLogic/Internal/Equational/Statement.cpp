@@ -100,7 +100,7 @@ std::string Statement::to_str() const
 }
 
 
-const std::set<size_t>& Statement::free_var_ids() const
+const FreeVarIdSet& Statement::free_var_ids() const
 {
 	if (!m_free_var_ids.has_value())
 		build_free_var_ids();
@@ -499,15 +499,14 @@ void Statement::build_free_var_ids() const
 	ATP_LOGIC_PRECOND(m_sides.second != nullptr);
 	ATP_LOGIC_PRECOND(!m_free_var_ids.has_value());
 
-	m_free_var_ids = std::set<size_t>();
+	m_free_var_ids = m_sides.first->free_var_ids();
 
-	const auto& first_ids = m_sides.first->free_var_ids();
 	const auto& second_ids = m_sides.second->free_var_ids();
 
-	std::set_union(first_ids.begin(), first_ids.end(),
-		second_ids.begin(), second_ids.end(),
-		std::inserter(*m_free_var_ids,
-			m_free_var_ids->end()));
+	for (auto id : second_ids)
+	{
+		m_free_var_ids->insert(id);
+	}
 }
 
 

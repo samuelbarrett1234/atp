@@ -22,7 +22,7 @@ struct FreeVarIdTestsFixture
 };
 
 
-BOOST_FIXTURE_TEST_SUITE(FreeVarIdTests,
+BOOST_FIXTURE_TEST_SUITE(FreeVarIdSetTests,
 	FreeVarIdTestsFixture);
 
 
@@ -191,6 +191,95 @@ BOOST_AUTO_TEST_CASE(test_iter_equality)
 	auto iter2 = std::next(set.begin());
 
 	BOOST_TEST((iter1 == iter2));
+}
+
+
+BOOST_AUTO_TEST_CASE(test_remove_if)
+{
+	size_t ids[5] =
+	{
+		1, 3, 4, 6, 10
+	};
+	for (size_t id : ids)
+		set.insert(id);
+
+	set.remove_if([](size_t x) { return x % 2 == 0; });
+
+	BOOST_TEST(set.contains(1));
+	BOOST_TEST(set.contains(3));
+	BOOST_TEST(!set.contains(4));
+	BOOST_TEST(!set.contains(6));
+	BOOST_TEST(!set.contains(10));
+}
+
+
+BOOST_AUTO_TEST_CASE(empty_set_subset_test)
+{
+	size_t ids[5] =
+	{
+		1, 3, 4, 6, 10
+	};
+	for (size_t id : ids)
+		set.insert(id);
+
+	FreeVarIdSet empty_set;
+
+	BOOST_TEST(empty_set.subset(set));
+	BOOST_TEST(!set.subset(empty_set));
+	BOOST_TEST(empty_set.subset(empty_set));
+}
+
+
+BOOST_AUTO_TEST_CASE(equality_test)
+{
+	size_t ids[5] =
+	{
+		1, 3, 4, 6, 10
+	};
+	for (size_t id : ids)
+		set.insert(id);
+
+	// build the set differently; allocate extra size on both ends
+	// of the array but then erase them
+	FreeVarIdSet set2;
+
+	set2.insert(0);
+	set2.insert(1);
+	set2.insert(3);
+	set2.insert(4);
+	set2.insert(6);
+	set2.insert(10);
+	set2.insert(15);
+	set2.erase(0);
+	set2.erase(15);
+
+	BOOST_TEST((set == set2));
+}
+
+
+BOOST_AUTO_TEST_CASE(empty_set_equality_test)
+{
+	size_t ids[5] =
+	{
+		1, 3, 4, 6, 10
+	};
+	for (size_t id : ids)
+		set.insert(id);
+
+	FreeVarIdSet empty_set;
+
+	BOOST_TEST((empty_set == empty_set));
+	BOOST_TEST((empty_set != set));
+}
+
+
+BOOST_AUTO_TEST_CASE(constructor_test)
+{
+	set.insert(1);
+
+	auto set2 = FreeVarIdSet(std::vector<size_t>{ 1 });
+
+	BOOST_TEST((set == set2));
 }
 
 

@@ -29,7 +29,7 @@ std::shared_ptr<MatchResultsIterator> MatchResultsIterator::construct(
 	const ProofState& parent,
 	const Statement& forefront_stmt,
 	std::vector<std::pair<Expression,
-		std::vector<size_t>>> match_results,
+		FreeVarIdSet>> match_results,
 	const Statement::iterator& sub_expr,
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& free_const_enum)
@@ -44,7 +44,7 @@ MatchResultsIterator::MatchResultsIterator(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
 	const ProofState& parent, const Statement& forefront_stmt,
 	std::vector<std::pair<Expression,
-		std::vector<size_t>>> match_results,
+		FreeVarIdSet>> match_results,
 	const Statement::iterator& sub_expr,
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& free_const_enum) :

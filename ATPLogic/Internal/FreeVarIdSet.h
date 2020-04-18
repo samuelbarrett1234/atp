@@ -12,6 +12,7 @@
 
 
 #include <algorithm>
+#include <functional>
 #include <boost/container/small_vector.hpp>
 #include "../ATPLogicAPI.h"
 
@@ -83,9 +84,10 @@ public:
 			return *this;
 		}
 
-		inline value_type operator*()
+		inline value_type operator*() const
 		{
 			bring_forward();
+			ATP_LOGIC_PRECOND(m_idx < m_parent->m_vec.size());
 			return m_idx + m_parent->m_min_id;
 		}
 
@@ -94,6 +96,8 @@ public:
 		inline _my_iter_ty& operator++()
 		{
 			bring_forward();
+
+			ATP_LOGIC_PRECOND(m_idx < m_parent->m_vec.size());
 
 			++m_idx;
 			return *this;
@@ -135,15 +139,21 @@ public:
 		mutable size_t m_idx;
 	};
 
-	typedef _iterator<size_t, size_t*,
-		size_t&, FreeVarIdSet*> iterator;
 	typedef _iterator<size_t, const size_t*,
 		const size_t&, const FreeVarIdSet*>
-		const_iterator;
+		iterator;
+	typedef iterator const_iterator;
+
+	typedef size_t value_type;
 
 public:
 	FreeVarIdSet() :
 		m_min_id(0)
+	{ }
+
+	template<typename ContainerT>
+	FreeVarIdSet(const ContainerT& cont) :
+		FreeVarIdSet(cont.begin(), cont.end())
 	{ }
 
 	template<typename IterT>
@@ -176,6 +186,15 @@ public:
 		m_vec = std::move(other.m_vec);
 		m_min_id = other.m_min_id;
 		return *this;
+	}
+
+	inline bool operator == (const FreeVarIdSet& other) const
+	{
+		return subset(other) && other.subset(*this);
+	}
+	inline bool operator != (const FreeVarIdSet& other) const
+	{
+		return !(*this == other);
 	}
 
 	inline void insert(size_t id)
@@ -221,22 +240,53 @@ public:
 		else return m_vec[id - m_min_id];
 	}
 
-	void erase(size_t id)
+	inline void erase(size_t id)
 	{
 		if (id >= m_min_id && id < m_vec.size() + m_min_id)
 		{
 			m_vec[id - m_min_id] = false;
 		}
 	}
-	void erase(iterator iter)
+	inline void erase(iterator iter)
 	{
 		iter.bring_forward();
 		m_vec[iter.m_idx] = false;
 	}
-	void erase(const_iterator iter)
+
+	/**
+	\brief Returns true if every ID in this set, is also present in
+		the `other` set.
+
+	\note Of course if this set is empty then it will be a subset of
+		any other set.
+	*/
+	inline bool subset(const FreeVarIdSet& other) const
 	{
-		iter.bring_forward();
-		m_vec[iter.m_idx] = false;
+		for (size_t i = 0; i < size(); ++i)
+		{
+			if (m_vec[i] && !other.contains(m_min_id + i))
+				return false;
+		}
+		return true;
+	}
+
+	/**
+	\brief Remove all of the IDs i such that pred(i) is true
+
+	\tparam PredT must be of type size_t -> bool
+	*/
+	template<typename PredT>
+	inline void remove_if(PredT pred)
+	{
+		static_assert(std::is_convertible<PredT,
+			std::function<bool(size_t)>>::value,
+			"PredT should be of type size_t -> bool");
+
+		for (size_t i = 0; i < m_vec.size(); ++i)
+		{
+			if (m_vec[i] && pred(i + m_min_id))
+				m_vec[i] = false;
+		}
 	}
 
 	inline size_t size() const
@@ -258,21 +308,13 @@ public:
 			[](bool b) { return b; });
 	}
 
-	inline iterator begin()
+	inline iterator begin() const
 	{
 		return iterator(this, 0);
 	}
-	inline iterator end()
+	inline iterator end() const
 	{
 		return iterator(this, m_vec.size());
-	}
-	inline const_iterator begin() const
-	{
-		return const_iterator(this, 0);
-	}
-	inline const_iterator end() const
-	{
-		return const_iterator(this, m_vec.size());
 	}
 
 private:

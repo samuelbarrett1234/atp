@@ -22,6 +22,7 @@
 #include "Statement.h"
 #include "StatementArray.h"
 #include "ModelContext.h"
+#include "../FreeVarIdSet.h"
 
 
 namespace atp
@@ -133,7 +134,7 @@ public:
 		**which were not substituted**.
 	*/
 	std::vector<std::pair<Expression,
-		std::vector<size_t>>> match_results_at(
+		FreeVarIdSet>> match_results_at(
 			size_t match_index,
 			std::map<size_t, Expression> match_subs) const;
 
@@ -178,7 +179,7 @@ private:
 	size_t m_num_matching_rules, m_rule_free_id_bound;
 
 	// an optimised storage of m_active_rules
-	typedef std::vector<std::pair<Expression, std::vector<size_t>>>
+	typedef std::vector<std::pair<Expression, FreeVarIdSet>>
 		MatchResults;
 	typedef std::pair<Expression, MatchResults> MatchRule;
 	std::vector<MatchRule> m_matches;

@@ -20,6 +20,7 @@
 #include "Expression.h"
 #include "Statement.h"
 #include "SyntaxNodes.h"
+#include "../FreeVarIdSet.h"
 
 
 namespace atp
@@ -81,7 +82,7 @@ public:
 		const ProofState& parent,
 		const Statement& forefront_stmt,
 		std::vector<std::pair<Expression,
-			std::vector<size_t>>> match_results,
+			FreeVarIdSet>> match_results,
 		const Statement::iterator& sub_expr,
 		const std::vector<std::pair<size_t,
 			SyntaxNodeType>>& free_const_enum);
@@ -98,7 +99,7 @@ public:
 		const ProofState& parent,
 		const Statement& forefront_stmt,
 		std::vector<std::pair<Expression,
-			std::vector<size_t>>> match_results,
+			FreeVarIdSet>> match_results,
 		const Statement::iterator& sub_expr,
 		const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& free_const_enum);
@@ -125,7 +126,7 @@ private:
 	const Statement& m_forefront_stmt;
 
 	std::vector<std::pair<Expression,
-		std::vector<size_t>>> m_match_results;
+		FreeVarIdSet>> m_match_results;
 
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& m_free_const_enum;

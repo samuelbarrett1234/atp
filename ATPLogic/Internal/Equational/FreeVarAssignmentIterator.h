@@ -17,6 +17,7 @@
 #include "../../Interfaces/IProofState.h"
 #include "Statement.h"
 #include "SyntaxNodes.h"
+#include "../FreeVarIdSet.h"
 
 
 namespace atp
@@ -83,9 +84,9 @@ public:
 		Statement subbed_stmt,
 		const std::vector<std::pair<size_t,
 			SyntaxNodeType>>& free_const_enum,
-		std::vector<size_t>::const_iterator
+		FreeVarIdSet::const_iterator
 			remaining_free_begin,
-		std::vector<size_t>::const_iterator
+		FreeVarIdSet::const_iterator
 			remaining_free_end);
 
 	/**
@@ -101,9 +102,9 @@ public:
 		Statement subbed_stmt,
 		const std::vector<std::pair<size_t,
 			SyntaxNodeType>>& free_const_enum,
-		std::vector<size_t>::const_iterator
+		FreeVarIdSet::const_iterator
 			remaining_free_begin,
-		std::vector<size_t>::const_iterator
+		FreeVarIdSet::const_iterator
 			remaining_free_end);
 
 	bool valid() const override;
@@ -139,7 +140,7 @@ private:
 	// values to the **FIRST** element in this range, if it is
 	// nonempty.
 	// we are a leaf iff these iterators are equal
-	const std::vector<size_t>::const_iterator
+	const FreeVarIdSet::const_iterator
 		m_remaining_free_begin, m_remaining_free_end;
 
 	// the enumeration of values we will be substituting for our

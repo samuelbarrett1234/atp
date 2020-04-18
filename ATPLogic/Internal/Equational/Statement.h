@@ -35,6 +35,7 @@
 #include "../../Interfaces/IModelContext.h"
 #include "SyntaxNodes.h"
 #include "Expression.h"
+#include "../FreeVarIdSet.h"
 
 
 /**
@@ -207,7 +208,7 @@ public:
 		return free_var_ids().size();
 	}
 
-	const std::set<size_t>& free_var_ids() const;
+	const FreeVarIdSet& free_var_ids() const;
 
 	inline const ModelContext& context() const
 	{
@@ -436,7 +437,7 @@ private:
 
 	// mutable because we compute it lazily and we can return it in
 	// a const function
-	mutable boost::optional<std::set<size_t>> m_free_var_ids;
+	mutable boost::optional<FreeVarIdSet> m_free_var_ids;
 };
 
 

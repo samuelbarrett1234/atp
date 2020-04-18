@@ -17,12 +17,14 @@
 #include <Internal/Equational/StatementArray.h>
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/SyntaxNodes.h>
+#include <Internal/FreeVarIdSet.h>
 #include "../Test.h"
 #include "SyntaxNodeToStr.h"
 #include "StandardTestFixture.h"
 
 
 using atp::logic::StmtFormat;
+using atp::logic::FreeVarIdSet;
 using atp::logic::equational::ModelContext;
 using atp::logic::equational::StatementArray;
 using atp::logic::equational::Statement;
@@ -805,8 +807,8 @@ BOOST_DATA_TEST_CASE(replace_free_with_free_invariant_to_equivalence,
 
 	auto id_set = stmt.free_var_ids();
 
-	bool should_be_equivalent = !(id_set.find(id_from) != id_set.end()
-		&& id_set.find(id_to) != id_set.end() && id_from != id_to);
+	bool should_be_equivalent = !(id_set.contains(id_from)
+		&& id_set.contains(id_to) && id_from != id_to);
 
 	auto replaced = stmt.replace_free_with_free(id_from, id_to);
 
@@ -830,12 +832,12 @@ BOOST_AUTO_TEST_CASE(test_replace_free_with_free)
 	auto replaced = stmt.replace_free_with_free(0, 1);
 
 	BOOST_TEST(replaced.to_str() == "*(x1, x1) = e");
-	BOOST_TEST((replaced.free_var_ids() == std::set<size_t>{ 1 }));
+	BOOST_TEST((replaced.free_var_ids() == FreeVarIdSet(std::vector<size_t>{ 1 })));
 
 	auto replaced2 = replaced.replace_free_with_free(1, 2);
 
 	BOOST_TEST(replaced2.to_str() == "*(x2, x2) = e");
-	BOOST_TEST((replaced2.free_var_ids() == std::set<size_t>{ 2 }));
+	BOOST_TEST((replaced2.free_var_ids() == FreeVarIdSet(std::vector<size_t>{ 2 })));
 }
 
 
@@ -852,7 +854,8 @@ BOOST_AUTO_TEST_CASE(test_replace_free_with_const)
 	auto replaced = stmt.replace_free_with_const(0, e);
 
 	BOOST_TEST(replaced.to_str() == "*(e, x1) = e");
-	BOOST_TEST((replaced.free_var_ids() == std::set<size_t>{ 1 }));
+	BOOST_TEST((replaced.free_var_ids() == FreeVarIdSet(
+		std::vector<size_t>{ 1 })));
 }
 
 

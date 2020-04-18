@@ -28,8 +28,8 @@ std::shared_ptr<FreeVarAssignmentIterator> FreeVarAssignmentIterator::construct(
 	const ProofState& parent, Statement subbed_stmt,
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& free_const_enum,
-	std::vector<size_t>::const_iterator remaining_free_begin,
-	std::vector<size_t>::const_iterator remaining_free_end)
+	FreeVarIdSet::const_iterator remaining_free_begin,
+	FreeVarIdSet::const_iterator remaining_free_end)
 {
 	return std::make_shared<FreeVarAssignmentIterator>(ctx, ker,
 		parent, std::move(subbed_stmt), free_const_enum,
@@ -42,8 +42,8 @@ FreeVarAssignmentIterator::FreeVarAssignmentIterator(
 	const ProofState& parent, Statement subbed_stmt,
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& free_const_enum,
-	std::vector<size_t>::const_iterator remaining_free_begin,
-	std::vector<size_t>::const_iterator remaining_free_end) :
+	FreeVarIdSet::const_iterator remaining_free_begin,
+	FreeVarIdSet::const_iterator remaining_free_end) :
 	m_ctx(ctx), m_ker(ker), m_parent(parent),
 	m_subbed_stmt(std::move(subbed_stmt)),
 	m_free_const_enum(free_const_enum),

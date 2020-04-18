@@ -29,6 +29,7 @@
 #include "../../Interfaces/IStatement.h"
 #include "ExprTreeFlyweight.h"
 #include "SyntaxNodes.h"
+#include "../FreeVarIdSet.h"
 
 
 namespace atp
@@ -329,7 +330,7 @@ public:
 
 	std::string to_str() const;
 
-	const std::set<size_t>& free_var_ids() const;
+	const FreeVarIdSet& free_var_ids() const;
 
 	/**
 	\brief Get the symbol or free ID of the root of this expression
@@ -1090,7 +1091,7 @@ private:
 
 	// mutable because we compute it lazily and we can return it in
 	// a const function
-	mutable boost::optional<std::set<size_t>> m_free_var_ids;
+	mutable boost::optional<FreeVarIdSet> m_free_var_ids;
 };
 
 

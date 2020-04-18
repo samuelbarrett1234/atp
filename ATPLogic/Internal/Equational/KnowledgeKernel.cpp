@@ -172,7 +172,7 @@ bool KnowledgeKernel::try_match(size_t match_index,
 }
 
 
-std::vector<std::pair<Expression, std::vector<size_t>>>
+std::vector<std::pair<Expression, FreeVarIdSet>>
 KnowledgeKernel::match_results_at(size_t match_index,
 	std::map<size_t, Expression> match_subs) const
 {
@@ -180,12 +180,9 @@ KnowledgeKernel::match_results_at(size_t match_index,
 
 	// get all of the free variable IDs which were provided a mapping
 	// by the argument `match_subs` before we start modifying it
-	std::vector<size_t> free_ids_originally_mapped;
-	free_ids_originally_mapped.reserve(match_subs.size());
+	FreeVarIdSet free_ids_originally_mapped;
 	for (const auto& sub : match_subs)
-		free_ids_originally_mapped.push_back(sub.first);
-	std::sort(free_ids_originally_mapped.begin(),
-		free_ids_originally_mapped.end());
+		free_ids_originally_mapped.insert(sub.first);
 
 	const auto& input_results = m_matches.at(match_index).second;
 
@@ -205,8 +202,8 @@ KnowledgeKernel::match_results_at(size_t match_index,
 		{
 			if (match_subs.find(free_id) == match_subs.end())
 			{
-				match_subs.insert({ free_id, Expression(m_context, free_id,
-					SyntaxNodeType::FREE) });
+				match_subs.insert({ free_id, Expression(m_context,
+					free_id, SyntaxNodeType::FREE) });
 			}
 		}
 
@@ -220,16 +217,8 @@ KnowledgeKernel::match_results_at(size_t match_index,
 
 		// remove any free variables that were provided substitutions
 		// in the original user mapping
-		results[i].second.erase(std::remove_if(
-			results[i].second.begin(), results[i].second.end(),
-			[&free_ids_originally_mapped](size_t idx)
-			// std::lower_bound is basically std::find but more
-			// efficient for sorted arrays
-			{ return std::lower_bound(
-				free_ids_originally_mapped.begin(),
-				free_ids_originally_mapped.end(), idx) !=
-				free_ids_originally_mapped.end(); }),
-			results[i].second.end());
+		results[i].second.remove_if(boost::bind(&FreeVarIdSet::contains,
+			boost::ref(free_ids_originally_mapped), _1));
 	}
 
 	return results;
@@ -309,8 +298,7 @@ void KnowledgeKernel::rebuild_matchings()
 		if (rule.num_free_vars() > 0)
 		{
 			const auto& ids = rule.free_var_ids();
-			const size_t max_id = *std::max_element(ids.begin(),
-				ids.end());
+			const size_t max_id = ids.max();
 			if (max_id > m_rule_free_id_bound)
 				m_rule_free_id_bound = max_id;
 		}
@@ -328,7 +316,7 @@ void KnowledgeKernel::rebuild_matchings()
 				return match.equivalent(mr.first);
 			});
 
-		std::vector<size_t> rule_free_var_ids(
+		FreeVarIdSet rule_free_var_ids(
 			rule.free_var_ids().begin(), rule.free_var_ids().end());
 
 		if (match_iter != m_matches.end())

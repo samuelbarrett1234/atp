@@ -10,12 +10,14 @@
 #include <Internal/Equational/FreeVarAssignmentIterator.h>
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/ProofState.h>
+#include <Internal/FreeVarIdSet.h>
 #include "../Test.h"
 #include "StandardTestFixture.h"
 
 
 using atp::logic::StmtFormat;
 using atp::logic::ProofStatePtr;
+using atp::logic::FreeVarIdSet;
 using atp::logic::equational::FreeVarAssignmentIterator;
 using atp::logic::equational::Statement;
 using atp::logic::equational::SyntaxNodeType;
@@ -26,7 +28,7 @@ struct FreeVarAssignmentIteratorTestsFixture :
 	public StandardTestFixture
 {
 	std::vector<std::pair<size_t, SyntaxNodeType>> free_const_enum;
-	std::vector<size_t> remaining_free;
+	FreeVarIdSet remaining_free;
 
 	FreeVarAssignmentIteratorTestsFixture()
 	{
@@ -47,7 +49,6 @@ BOOST_FIXTURE_TEST_SUITE(FreeVarAssignmentIteratorTests,
 		"EquationalTests/StatementTests"));
 
 
-BOOST_TEST_DECORATOR(* boost::unit_test_framework::timeout(1))
 BOOST_AUTO_TEST_CASE(test_one_var)
 {
 	// test substitution when there is only one free variable this
@@ -65,7 +66,7 @@ BOOST_AUTO_TEST_CASE(test_one_var)
 	auto result1 = dynamic_cast<const Statement&>(p_stmts->at(1));
 	auto result2 = dynamic_cast<const Statement&>(p_stmts->at(2));
 
-	remaining_free = { 0 };  // only want to substitute one free var
+	remaining_free.insert(0);  // only want to substitute one free var
 
 	// enumerate the other free variable
 	free_const_enum.emplace_back(1, SyntaxNodeType::FREE);
@@ -121,7 +122,7 @@ BOOST_AUTO_TEST_CASE(test_many_vars)
 		ctx);
 	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
 
-	remaining_free = { 0, 1, 2, 3 };  // sub all but last one
+	remaining_free = FreeVarIdSet(std::vector<size_t>{ 0, 1, 2, 3 });  // sub all but last one
 
 	// enumerate the other free variable
 	free_const_enum.emplace_back(4, SyntaxNodeType::FREE);

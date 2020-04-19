@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['skip_565',['skip',['../structatp_1_1logic_1_1equational_1_1_skipper.html#ad1deafac37fa16d15ae05e47f10135e5',1,'atp::logic::equational::Skipper']]],
-  ['skpr_566',['skpr',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#ab3e22a06fcbd7ad008fbfefdf293d57b',1,'atp::logic::equational::StatementGrammar']]],
-  ['start_567',['start',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#ad577a8ed44f4cd6745131ef0707598df',1,'atp::logic::equational::StatementGrammar']]],
-  ['statement_568',['statement',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#a9c79567031ef9f26fed920b910a7968f',1,'atp::logic::equational::StatementGrammar']]]
+  ['tail_672',['tail',['../structatp_1_1logic_1_1equational_1_1_proof_state_1_1_stmt_list.html#af143c5da8148e38057e005cdc09c6555',1,'atp::logic::equational::ProofState::StmtList']]]
 ];

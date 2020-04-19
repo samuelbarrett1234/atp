@@ -1,34 +1,35 @@
 <map id="ATPLogic/Internal/Equational/ParseNodes.h" name="ATPLogic/Internal/Equational/ParseNodes.h">
-<area shape="rect" id="node1" title=" " alt="" coords="1993,5,2183,47"/>
-<area shape="rect" id="node2" href="$_syntax_nodes_8h.html" title=" " alt="" coords="1415,95,1604,136"/>
-<area shape="rect" id="node28" href="$_grammar_8h.html" title="Contains the Boost Spirit and Boost Qi grammar specifications for the equational logic parsing." alt="" coords="2100,95,2289,136"/>
-<area shape="rect" id="node31" href="$_parser_8h.html" title="Contains the functions for turning a string into a parse tree of expressions (note that parse trees a..." alt="" coords="2313,95,2503,136"/>
-<area shape="rect" id="node32" href="$_parse_tree_fold_8h.html" title="Provides a templated implementation of a fold over parse trees." alt="" coords="1887,95,2076,136"/>
-<area shape="rect" id="node3" href="$_statement_8h.html" title="Contains the implementation of the IStatement interface for equational logic." alt="" coords="877,363,1067,404"/>
-<area shape="rect" id="node11" href="$_language_8cpp.html" title=" " alt="" coords="1476,631,1665,672"/>
-<area shape="rect" id="node16" href="$_free_var_assignment_iterator_8h.html" title="Contains the FreeVarAssignmentIterator which implements IPfStateSuccIter." alt="" coords="1596,541,1788,583"/>
-<area shape="rect" id="node17" href="$_match_results_iterator_8h.html" title="Contains the MatchResultsIterator which implements IPfStateSuccIter." alt="" coords="1257,452,1447,493"/>
-<area shape="rect" id="node18" href="$_sub_expr_matching_iterator_8h.html" title="Contains the SubExprMatchingIterator which implements IPfStateSuccIter." alt="" coords="5,452,195,493"/>
-<area shape="rect" id="node19" href="$_rule_matching_iterator_8h.html" title="Contains the RuleMatchingIterator which implements IPfStateSuccIter." alt="" coords="269,452,459,493"/>
-<area shape="rect" id="node21" href="$_expr_tree_flyweight_8h.html" title="Contains a helper class for efficient storage of data about Expression objects." alt="" coords="1207,184,1396,225"/>
-<area shape="rect" id="node22" href="$_expression_8h.html" title="Contains the Expression class, which is used in the Statement class. Encapsulates part of a syntax tr..." alt="" coords="1223,273,1412,315"/>
-<area shape="rect" id="node25" href="$_syntax_tree_fold_8h.html" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="1559,273,1748,315"/>
-<area shape="rect" id="node26" href="$_syntax_tree_traversal_8h.html" title=" " alt="" coords="1572,184,1761,225"/>
-<area shape="rect" id="node27" href="$_syntax_nodes_8cpp.html" title=" " alt="" coords="1887,184,2076,225"/>
-<area shape="rect" id="node4" href="$_statement_array_8h.html" title="Contains the class implementing the IStatementArray for equational logic." alt="" coords="877,452,1067,493"/>
-<area shape="rect" id="node6" href="$_knowledge_kernel_8h.html" title="Implementation of the IKnowledgeKernel for equational logic." alt="" coords="553,541,743,583"/>
-<area shape="rect" id="node7" href="$_free_var_assignment_iterator_8cpp.html" title=" " alt="" coords="591,720,798,761"/>
-<area shape="rect" id="node8" href="$_proof_state_8h.html" title=" " alt="" coords="367,631,556,672"/>
-<area shape="rect" id="node12" href="$_match_results_iterator_8cpp.html" title=" " alt="" coords="1263,631,1452,672"/>
-<area shape="rect" id="node13" href="$_rule_matching_iterator_8cpp.html" title=" " alt="" coords="1049,631,1239,672"/>
-<area shape="rect" id="node14" href="$_sub_expr_matching_iterator_8cpp.html" title=" " alt="" coords="148,631,343,672"/>
-<area shape="rect" id="node20" href="$_statement_8cpp.html" title=" " alt="" coords="1572,452,1761,493"/>
-<area shape="rect" id="node5" href="$_a_t_p_logic_8cpp.html" title=" " alt="" coords="767,549,929,575"/>
-<area shape="rect" id="node15" href="$_statement_array_8cpp.html" title=" " alt="" coords="953,541,1143,583"/>
-<area shape="rect" id="node9" href="$_knowledge_kernel_8cpp.html" title=" " alt="" coords="372,720,561,761"/>
-<area shape="rect" id="node10" href="$_proof_state_8cpp.html" title=" " alt="" coords="88,720,277,761"/>
-<area shape="rect" id="node24" href="$_expr_tree_flyweight_8cpp.html" title=" " alt="" coords="1009,273,1199,315"/>
-<area shape="rect" id="node23" href="$_expression_8cpp.html" title=" " alt="" coords="1456,363,1645,404"/>
-<area shape="rect" id="node29" href="$_grammar_8cpp.html" title=" " alt="" coords="2100,184,2289,225"/>
-<area shape="rect" id="node30" href="$_parser_8cpp.html" title=" " alt="" coords="2313,184,2503,225"/>
+<area shape="rect" id="node1" title=" " alt="" coords="2087,5,2276,47"/>
+<area shape="rect" id="node2" href="$_syntax_nodes_8h.html" title=" " alt="" coords="1483,95,1672,136"/>
+<area shape="rect" id="node29" href="$_grammar_8h.html" title="Contains the Boost Spirit and Boost Qi grammar specifications for the equational logic parsing." alt="" coords="2193,95,2383,136"/>
+<area shape="rect" id="node32" href="$_parser_8h.html" title="Contains the functions for turning a string into a parse tree of expressions (note that parse trees a..." alt="" coords="2407,95,2596,136"/>
+<area shape="rect" id="node33" href="$_parse_tree_fold_8h.html" title="Provides a templated implementation of a fold over parse trees." alt="" coords="1980,95,2169,136"/>
+<area shape="rect" id="node3" href="$_statement_8h.html" title="Contains the implementation of the IStatement interface for equational logic." alt="" coords="944,363,1133,404"/>
+<area shape="rect" id="node12" href="$_language_8cpp.html" title=" " alt="" coords="1633,631,1823,672"/>
+<area shape="rect" id="node17" href="$_free_var_assignment_iterator_8h.html" title="Contains the FreeVarAssignmentIterator which implements IPfStateSuccIter." alt="" coords="1739,541,1931,583"/>
+<area shape="rect" id="node18" href="$_match_results_iterator_8h.html" title="Contains the MatchResultsIterator which implements IPfStateSuccIter." alt="" coords="1325,452,1515,493"/>
+<area shape="rect" id="node19" href="$_sub_expr_matching_iterator_8h.html" title="Contains the SubExprMatchingIterator which implements IPfStateSuccIter." alt="" coords="5,452,195,493"/>
+<area shape="rect" id="node20" href="$_rule_matching_iterator_8h.html" title="Contains the RuleMatchingIterator which implements IPfStateSuccIter." alt="" coords="269,452,459,493"/>
+<area shape="rect" id="node22" href="$_expr_tree_flyweight_8h.html" title="Contains a helper class for efficient storage of data about Expression objects." alt="" coords="1275,184,1464,225"/>
+<area shape="rect" id="node23" href="$_expression_8h.html" title="Contains the Expression class, which is used in the Statement class. Encapsulates part of a syntax tr..." alt="" coords="1289,273,1479,315"/>
+<area shape="rect" id="node26" href="$_syntax_tree_fold_8h.html" title="Provides a templated implementation of a fold over syntax trees." alt="" coords="1627,273,1816,315"/>
+<area shape="rect" id="node27" href="$_syntax_tree_traversal_8h.html" title=" " alt="" coords="1640,184,1829,225"/>
+<area shape="rect" id="node28" href="$_syntax_nodes_8cpp.html" title=" " alt="" coords="1980,184,2169,225"/>
+<area shape="rect" id="node4" href="$_statement_array_8h.html" title="Contains the class implementing the IStatementArray for equational logic." alt="" coords="909,452,1099,493"/>
+<area shape="rect" id="node6" href="$_knowledge_kernel_8h.html" title="Implementation of the IKnowledgeKernel for equational logic." alt="" coords="1085,541,1275,583"/>
+<area shape="rect" id="node7" href="$_free_var_assignment_iterator_8cpp.html" title=" " alt="" coords="1259,720,1466,761"/>
+<area shape="rect" id="node8" href="$_proof_state_8h.html" title=" " alt="" coords="637,631,827,672"/>
+<area shape="rect" id="node10" href="$_no_repeat_iterator_8cpp.html" title=" " alt="" coords="515,720,704,761"/>
+<area shape="rect" id="node13" href="$_match_results_iterator_8cpp.html" title=" " alt="" coords="1420,631,1609,672"/>
+<area shape="rect" id="node14" href="$_rule_matching_iterator_8cpp.html" title=" " alt="" coords="953,631,1143,672"/>
+<area shape="rect" id="node15" href="$_sub_expr_matching_iterator_8cpp.html" title=" " alt="" coords="264,631,459,672"/>
+<area shape="rect" id="node21" href="$_statement_8cpp.html" title=" " alt="" coords="1589,452,1779,493"/>
+<area shape="rect" id="node5" href="$_a_t_p_logic_8cpp.html" title=" " alt="" coords="899,549,1061,575"/>
+<area shape="rect" id="node16" href="$_statement_array_8cpp.html" title=" " alt="" coords="685,541,875,583"/>
+<area shape="rect" id="node9" href="$_knowledge_kernel_8cpp.html" title=" " alt="" coords="841,720,1031,761"/>
+<area shape="rect" id="node11" href="$_proof_state_8cpp.html" title=" " alt="" coords="217,720,407,761"/>
+<area shape="rect" id="node25" href="$_expr_tree_flyweight_8cpp.html" title=" " alt="" coords="1076,273,1265,315"/>
+<area shape="rect" id="node24" href="$_expression_8cpp.html" title=" " alt="" coords="1523,363,1712,404"/>
+<area shape="rect" id="node30" href="$_grammar_8cpp.html" title=" " alt="" coords="2193,184,2383,225"/>
+<area shape="rect" id="node31" href="$_parser_8cpp.html" title=" " alt="" coords="2407,184,2596,225"/>
 </map>

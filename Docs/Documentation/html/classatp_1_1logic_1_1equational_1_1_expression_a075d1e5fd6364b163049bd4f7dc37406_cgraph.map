@@ -1,15 +1,13 @@
 <map id="atp::logic::equational::Expression::fold_pair" name="atp::logic::equational::Expression::fold_pair">
-<area shape="rect" id="node1" title="Perform a fold over pairs of expressions." alt="" coords="5,239,156,280"/>
+<area shape="rect" id="node1" title="Perform a fold over pairs of expressions." alt="" coords="5,276,156,317"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a26152e870d16a369300c9a67d29e2d8e" title=" " alt="" coords="204,5,405,47"/>
 <area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a91a38655bdbfa79208d13555292f5a19" title=" " alt="" coords="220,71,389,127"/>
 <area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a89ea50f3905ef95350d173b004f24835" title=" " alt="" coords="220,151,389,207"/>
 <area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#ab94333d259bd43900ea2530d2d7226ad" title=" " alt="" coords="220,231,389,287"/>
 <area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a2fb23b8617152117e64b5cc2a2b772ac" title=" " alt="" coords="213,312,397,353"/>
 <area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a3c245f438adee795fdc69781e444f61c" title=" " alt="" coords="205,377,404,419"/>
-<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ad41bc0076fd552b0de7cc370fd1166bb" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="207,443,402,484"/>
-<area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a691e10e16b9c51299a153d951358d2fc" title=" " alt="" coords="454,383,622,424"/>
-<area shape="rect" id="node12" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="671,445,863,487"/>
-<area shape="rect" id="node13" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="453,501,623,543"/>
-<area shape="rect" id="node10" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a57f84040d01680e30a3cc6196a77dada" title=" " alt="" coords="695,315,838,356"/>
-<area shape="rect" id="node11" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a9bd6385e4bd0fae94090c87ad70dbd51" title=" " alt="" coords="695,380,838,421"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="909,487,1079,528"/>
+<area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ad41bc0076fd552b0de7cc370fd1166bb" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="207,520,402,561"/>
+<area shape="rect" id="node10" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a691e10e16b9c51299a153d951358d2fc" title=" " alt="" coords="453,545,621,587"/>
+<area shape="rect" id="node11" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="669,545,861,587"/>
 </map>

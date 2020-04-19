@@ -1,4 +1,5 @@
 <map id="atp::logic::equational::ExprTreeFlyweight::func_symb_id" name="atp::logic::equational::ExprTreeFlyweight::func_symb_id">
-<area shape="rect" id="node1" title=" " alt="" coords="204,5,373,61"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="5,13,156,54"/>
+<area shape="rect" id="node1" title=" " alt="" coords="213,31,383,87"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a4a068ef4bf5b7591efeaa1daa8de9c54" title="Returns true iff the expressions are equal up to swapping of free variable names." alt="" coords="5,5,165,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="10,71,161,112"/>
 </map>

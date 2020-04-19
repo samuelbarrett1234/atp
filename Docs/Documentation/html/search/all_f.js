@@ -1,4 +1,27 @@
 var searchData=
 [
-  ['qiparseiterator_231',['QiParseIterator',['../namespaceatp_1_1logic_1_1equational.html#ae54101c14d30ddb9798a1f747adee92b',1,'atp::logic::equational']]]
+  ['p_5fsolver_229',['p_solver',['../structatp_1_1search_1_1_search_settings.html#a518e620dfb44afe846110c150cfaba3d',1,'atp::search::SearchSettings']]],
+  ['parent_5farg_5fidx_230',['parent_arg_idx',['../classatp_1_1logic_1_1equational_1_1_expression_1_1iterator.html#a11031cf1963b95d5a68d8d69b9d72277',1,'atp::logic::equational::Expression::iterator']]],
+  ['parent_5ffunc_5fidx_231',['parent_func_idx',['../classatp_1_1logic_1_1equational_1_1_expression_1_1iterator.html#ab666d9f50a66d969caa9289e1ca1a2a0',1,'atp::logic::equational::Expression::iterator']]],
+  ['parse_5fstatements_232',['parse_statements',['../namespaceatp_1_1logic_1_1equational.html#a328cf188236eb9da94082159cb4ab37b',1,'atp::logic::equational']]],
+  ['parsenodeptr_233',['ParseNodePtr',['../namespaceatp_1_1logic_1_1equational.html#aa4c176681e5964c28c42d71bfdb754ae',1,'atp::logic::equational']]],
+  ['parsenodes_2eh_234',['ParseNodes.h',['../_parse_nodes_8h.html',1,'']]],
+  ['parsenodetype_235',['ParseNodeType',['../namespaceatp_1_1logic_1_1equational.html#a379b0decdece9de86db218c905d4f930',1,'atp::logic::equational']]],
+  ['parser_2ecpp_236',['Parser.cpp',['../_parser_8cpp.html',1,'']]],
+  ['parser_2eh_237',['Parser.h',['../_parser_8h.html',1,'']]],
+  ['parsetreefold_2eh_238',['ParseTreeFold.h',['../_parse_tree_fold_8h.html',1,'']]],
+  ['pfstatesucciterptr_239',['PfStateSuccIterPtr',['../namespaceatp_1_1logic.html#af3bddbd56434846a909b7320eb7afa63',1,'atp::logic']]],
+  ['pointer_240',['pointer',['../classatp_1_1logic_1_1_free_var_id_set_1_1__iterator.html#ab7dfbdf39966bf9aef888082f010e613',1,'atp::logic::FreeVarIdSet::_iterator::pointer()'],['../classatp_1_1logic_1_1_free_var_map_1_1__iterator.html#aa810c60fdf967090a835bc9ab2cd5722',1,'atp::logic::FreeVarMap::_iterator::pointer()'],['../classatp_1_1logic_1_1equational_1_1_expression_1_1iterator.html#a931f8c4d0dcbd97697887a35cc734d32',1,'atp::logic::equational::Expression::iterator::pointer()'],['../classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html#a18392fe82917e22b9bcfb1a1cc12b0c9',1,'atp::logic::equational::Statement::iterator::pointer()'],['../classatp_1_1logic_1_1equational_1_1_statement_array_1_1iterator.html#a1ec1d7896a30ec52f76c12c22fea6d49',1,'atp::logic::equational::StatementArray::iterator::pointer()']]],
+  ['pointer_5ftype_241',['pointer_type',['../classatp_1_1logic_1_1_free_var_map.html#a632aabae8dee5a6d0cf57a7029a9ef47',1,'atp::logic::FreeVarMap']]],
+  ['predict_242',['predict',['../classatp_1_1search_1_1_i_statement_heuristic.html#a69449836c7459a08586c9838b213e787',1,'atp::search::IStatementHeuristic']]],
+  ['proofapplication_243',['ProofApplication',['../class_proof_application.html',1,'ProofApplication'],['../class_proof_application.html#a8e42bcfb6e109d3be37ec5a23f630107',1,'ProofApplication::ProofApplication()']]],
+  ['proofapplication_2ecpp_244',['ProofApplication.cpp',['../_proof_application_8cpp.html',1,'']]],
+  ['proofapplication_2eh_245',['ProofApplication.h',['../_proof_application_8h.html',1,'']]],
+  ['proofcompletionstate_246',['ProofCompletionState',['../namespaceatp_1_1logic.html#aba304dd7ca39fd2317110f7095e2f61c',1,'atp::logic']]],
+  ['proofstate_247',['ProofState',['../classatp_1_1logic_1_1equational_1_1_proof_state.html',1,'atp::logic::equational::ProofState'],['../classatp_1_1logic_1_1equational_1_1_proof_state.html#a44e84aee481b1af76eeff767b995314a',1,'atp::logic::equational::ProofState::ProofState(const ModelContext &amp;ctx, const KnowledgeKernel &amp;ker, Statement target, Statement current)'],['../classatp_1_1logic_1_1equational_1_1_proof_state.html#a78539f6cafd491d9b2bb592be6760873',1,'atp::logic::equational::ProofState::ProofState(const ModelContext &amp;ctx, const KnowledgeKernel &amp;ker, Statement target)'],['../classatp_1_1logic_1_1equational_1_1_proof_state.html#a51fba9672c2e2615fc9612f576653013',1,'atp::logic::equational::ProofState::ProofState(const ProofState &amp;parent, Statement forefront)']]],
+  ['proofstate_2ecpp_248',['ProofState.cpp',['../_proof_state_8cpp.html',1,'']]],
+  ['proofstate_2eh_249',['ProofState.h',['../_proof_state_8h.html',1,'']]],
+  ['proofstateptr_250',['ProofStatePtr',['../namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458',1,'atp::logic']]],
+  ['proven_251',['PROVEN',['../namespaceatp_1_1logic.html#aba304dd7ca39fd2317110f7095e2f61caa885063b3c7ad554a74717597f4c1271',1,'atp::logic']]],
+  ['ptree_5fto_5fstree_252',['ptree_to_stree',['../namespaceatp_1_1logic_1_1equational.html#a21fd07efe73f4ffca98e0a24d9d5d6d5',1,'atp::logic::equational']]]
 ];

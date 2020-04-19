@@ -1,7 +1,7 @@
 <map id="atp::logic::equational::KnowledgeKernel::num_matching_rules" name="atp::logic::equational::KnowledgeKernel::num_matching_rules">
 <area shape="rect" id="node1" title=" " alt="" coords="432,51,595,107"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a995e5041c3713c1fe02d88a2be722d73" title="Increment the iterator; move on to the next successor." alt="" coords="21,5,171,61"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a206d023801fce350a1023ef8884395e9" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="235,51,384,107"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#ae0d36ea2d1625806d5a9b07df27c57c4" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="235,51,384,107"/>
 <area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a8c136d6406f8f6448c2ddfffee7bb20d" title=" " alt="" coords="235,131,384,187"/>
 <area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#ad5b47aaad2b7443f3d00dc58522dc3a4" title="Get the successor pointed to by this iterator." alt="" coords="9,105,183,146"/>
 <area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#aa417b7c7d704c49d70023231a4e4ada3" title="Get the number of proof states currently held in memory by this iterator." alt="" coords="5,170,187,211"/>

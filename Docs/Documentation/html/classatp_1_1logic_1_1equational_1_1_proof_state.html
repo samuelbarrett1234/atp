@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">atp
-   &#160;<span id="projectnumber">Alpha</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
    <div id="projectbrief">An automated theorem prover in C++.</div>
   </td>
@@ -68,6 +68,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classatp_1_1logic_1_1equational_1_1_proof_state-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -98,12 +99,20 @@ Collaboration diagram for atp::logic::equational::ProofState:</div>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structatp_1_1logic_1_1equational_1_1_proof_state_1_1_stmt_list.html">StmtList</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linked list object for storing proofs that are potentially shared between proof state objects.  <a href="structatp_1_1logic_1_1equational_1_1_proof_state_1_1_stmt_list.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a44e84aee481b1af76eeff767b995314a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a44e84aee481b1af76eeff767b995314a">ProofState</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;ctx, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html">KnowledgeKernel</a> &amp;ker, <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> target, <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> current)</td></tr>
 <tr class="separator:a44e84aee481b1af76eeff767b995314a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78539f6cafd491d9b2bb592be6760873"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a78539f6cafd491d9b2bb592be6760873">ProofState</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;ctx, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html">KnowledgeKernel</a> &amp;ker, <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> target)</td></tr>
 <tr class="separator:a78539f6cafd491d9b2bb592be6760873"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51fba9672c2e2615fc9612f576653013"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a51fba9672c2e2615fc9612f576653013">ProofState</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html">ProofState</a> &amp;parent, <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> <a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#abf8eb4014df92e183381278d5355663c">forefront</a>)</td></tr>
+<tr class="separator:a51fba9672c2e2615fc9612f576653013"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3708148d088b5f1af9590e7f3bca8171"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a3708148d088b5f1af9590e7f3bca8171">target_stmt</a> () const override</td></tr>
 <tr class="memdesc:a3708148d088b5f1af9590e7f3bca8171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the target statement which we are trying to prove.  <a href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a3708148d088b5f1af9590e7f3bca8171">More...</a><br /></td></tr>
 <tr class="separator:a3708148d088b5f1af9590e7f3bca8171"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,6 +124,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a69ece8e4d012117e36d3ffc7878a7d77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf8eb4014df92e183381278d5355663c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#abf8eb4014df92e183381278d5355663c">forefront</a> () const</td></tr>
 <tr class="separator:abf8eb4014df92e183381278d5355663c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab988ef347321bb112d5de393d0470bd2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structatp_1_1logic_1_1equational_1_1_proof_state_1_1_stmt_list.html">StmtList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#ab988ef347321bb112d5de393d0470bd2">get_proof_list</a> () const</td></tr>
+<tr class="separator:ab988ef347321bb112d5de393d0470bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5ece7acb3a7908489d12db32a1143f7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#aa5ece7acb3a7908489d12db32a1143f7">to_str</a> () const override</td></tr>
+<tr class="memdesc:aa5ece7acb3a7908489d12db32a1143f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a human-readable string representation of this proof.  <a href="classatp_1_1logic_1_1equational_1_1_proof_state.html#aa5ece7acb3a7908489d12db32a1143f7">More...</a><br /></td></tr>
+<tr class="separator:aa5ece7acb3a7908489d12db32a1143f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classatp_1_1logic_1_1_i_proof_state"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classatp_1_1logic_1_1_i_proof_state')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classatp_1_1logic_1_1_i_proof_state.html">atp::logic::IProofState</a></td></tr>
 <tr class="memitem:abbe9d191d5cfc950a01a0854c7fcc08c inherit pub_methods_classatp_1_1logic_1_1_i_proof_state"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_proof_state.html#abbe9d191d5cfc950a01a0854c7fcc08c">~IProofState</a> ()=default</td></tr>
 <tr class="separator:abbe9d191d5cfc950a01a0854c7fcc08c inherit pub_methods_classatp_1_1logic_1_1_i_proof_state"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,7 +138,7 @@ Public Member Functions</h2></td></tr>
 <p>A proof state in equational logic is just a linked list of statements, where the head element is the target statement and the last element is the "forefront" of the proof. The proof is complete when the forefront statement is trivial. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a44e84aee481b1af76eeff767b995314a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44e84aee481b1af76eeff767b995314a">&#9670;&nbsp;</a></span>ProofState() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a44e84aee481b1af76eeff767b995314a">&#9670;&nbsp;</a></span>ProofState() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -164,7 +178,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a78539f6cafd491d9b2bb592be6760873"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78539f6cafd491d9b2bb592be6760873">&#9670;&nbsp;</a></span>ProofState() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a78539f6cafd491d9b2bb592be6760873">&#9670;&nbsp;</a></span>ProofState() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,6 +200,34 @@ Public Member Functions</h2></td></tr>
           <td></td>
           <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td>
           <td class="paramname"><em>target</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a51fba9672c2e2615fc9612f576653013"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51fba9672c2e2615fc9612f576653013">&#9670;&nbsp;</a></span>ProofState() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">atp::logic::equational::ProofState::ProofState </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html">ProofState</a> &amp;&#160;</td>
+          <td class="paramname"><em>parent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td>
+          <td class="paramname"><em>forefront</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -229,18 +271,17 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_proof_state_a69ece8e4d012117e36d3ffc7878a7d77_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_proof_state_a69ece8e4d012117e36d3ffc7878a7d77_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_proof_state_a69ece8e4d012117e36d3ffc7878a7d77_cgraph" id="classatp_1_1logic_1_1equational_1_1_proof_state_a69ece8e4d012117e36d3ffc7878a7d77_cgraph">
-<area shape="rect" title="Determine whether or not this proof is done." alt="" coords="5,223,204,264"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="261,162,409,218"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a3095c141a4bfd5609cafba29fdd00b2a" title="Create a new iterator which allows us to enumerate the successors of this class." alt="" coords="252,275,417,316"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a2ccb4aef63b072e6a5b61f820d552ab6" title=" " alt="" coords="486,5,646,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ab8073b727ebfc42d10950517d7fb92e8" title=" " alt="" coords="491,71,641,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ac52b476755e8aef80fdd192fe73568f5" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="489,136,643,177"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ab9b15f8fcce46b7b55ef154fc6ce8de5" title="Returns true iff there exists a substitution in the premise (the callee) which would produce the conc..." alt="" coords="495,201,637,243"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a0fbdab2c862d80faccf7d991744a79e8" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="465,267,667,308"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a64f70ab3039063cdf226d987def14697" title=" " alt="" coords="721,71,863,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a1a13880ca04d9cf4367d6920c00654e6" title=" " alt="" coords="721,136,863,177"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a13acf7a88b7439770519e30fcd782732" title="Transpose the statement (flip it around the equals sign)" alt="" coords="715,201,869,243"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#ab84605b0fbf2de8dc8a402d97fa7d345" title=" " alt="" coords="479,333,653,389"/>
+<area shape="rect" title="Determine whether or not this proof is done." alt="" coords="5,68,204,109"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#abf8eb4014df92e183381278d5355663c" title=" " alt="" coords="253,31,399,72"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="252,97,400,153"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a2ccb4aef63b072e6a5b61f820d552ab6" title=" " alt="" coords="469,5,629,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ab8073b727ebfc42d10950517d7fb92e8" title=" " alt="" coords="473,71,624,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ab9b15f8fcce46b7b55ef154fc6ce8de5" title="Returns true iff there exists a substitution in the premise (the callee) which would produce the conc..." alt="" coords="477,136,620,177"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a0fbdab2c862d80faccf7d991744a79e8" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="448,201,649,243"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#affadeaa48774a3e1c638117dbf7fdca8" title=" " alt="" coords="711,71,866,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#a0e23e5d8c35dd94684f25fa79be44670" title=" " alt="" coords="711,136,866,177"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#ad01467cfed620e6083907846f9b2211f" title=" " alt="" coords="697,202,880,229"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#a667b6c78136ed5144704627437537dcb" title=" " alt="" coords="928,136,1083,177"/>
 </map>
 </div>
 
@@ -257,6 +298,40 @@ Here is the call graph for this function:</div>
       <table class="memname">
         <tr>
           <td class="memname">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&amp; atp::logic::equational::ProofState::forefront </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_proof_state_abf8eb4014df92e183381278d5355663c_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_proof_state_abf8eb4014df92e183381278d5355663c_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_proof_state_abf8eb4014df92e183381278d5355663c_icgraph" id="classatp_1_1logic_1_1equational_1_1_proof_state_abf8eb4014df92e183381278d5355663c_icgraph">
+<area shape="rect" title=" " alt="" coords="252,5,397,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,5,204,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ab988ef347321bb112d5de393d0470bd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab988ef347321bb112d5de393d0470bd2">&#9670;&nbsp;</a></span>get_proof_list()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structatp_1_1logic_1_1equational_1_1_proof_state_1_1_stmt_list.html">StmtList</a>* atp::logic::equational::ProofState::get_proof_list </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -299,24 +374,6 @@ Here is the call graph for this function:</div>
 <dl class="section warning"><dt>Warning</dt><dd>The available successors depends on what theorems the knowledge kernel has available. Thus if we change the available theorems while there are still iterators alive, it is up to the implementation on whether the iterators utilise that. </dd></dl>
 
 <p>Implements <a class="el" href="classatp_1_1logic_1_1_i_proof_state.html#a8f80acc07646d5c066f793342271b197">atp::logic::IProofState</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_proof_state_a3095c141a4bfd5609cafba29fdd00b2a_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_proof_state_a3095c141a4bfd5609cafba29fdd00b2a_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_proof_state_a3095c141a4bfd5609cafba29fdd00b2a_cgraph" id="classatp_1_1logic_1_1equational_1_1_proof_state_a3095c141a4bfd5609cafba29fdd00b2a_cgraph">
-<area shape="rect" title="Create a new iterator which allows us to enumerate the successors of this class." alt="" coords="5,13,171,54"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#ab84605b0fbf2de8dc8a402d97fa7d345" title=" " alt="" coords="219,5,392,61"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_proof_state_a3095c141a4bfd5609cafba29fdd00b2a_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_proof_state_a3095c141a4bfd5609cafba29fdd00b2a_icgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_proof_state_a3095c141a4bfd5609cafba29fdd00b2a_icgraph" id="classatp_1_1logic_1_1equational_1_1_proof_state_a3095c141a4bfd5609cafba29fdd00b2a_icgraph">
-<area shape="rect" title="Create a new iterator which allows us to enumerate the successors of this class." alt="" coords="252,5,417,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77" title="Determine whether or not this proof is done." alt="" coords="5,5,204,47"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -346,6 +403,36 @@ Here is the caller graph for this function:</div>
 <p>Get the target statement which we are trying to prove. </p>
 
 <p>Implements <a class="el" href="classatp_1_1logic_1_1_i_proof_state.html#a3e9f1ccfded5c39b3b0ab4c0bc182eff">atp::logic::IProofState</a>.</p>
+
+</div>
+</div>
+<a id="aa5ece7acb3a7908489d12db32a1143f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5ece7acb3a7908489d12db32a1143f7">&#9670;&nbsp;</a></span>to_str()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string atp::logic::equational::ProofState::to_str </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return a human-readable string representation of this proof. </p>
+<dl class="section note"><dt>Note</dt><dd>The proof doesn't have to be in any particular completion state - it works regardless. </dd></dl>
+
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_proof_state.html#a3939cceffecaea6fc592299cb21df305">atp::logic::IProofState</a>.</p>
 
 </div>
 </div>

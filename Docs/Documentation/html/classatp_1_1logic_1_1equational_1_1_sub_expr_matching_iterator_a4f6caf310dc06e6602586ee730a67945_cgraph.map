@@ -1,5 +1,5 @@
 <map id="atp::logic::equational::SubExprMatchingIterator::advance" name="atp::logic::equational::SubExprMatchingIterator::advance">
 <area shape="rect" id="node1" title="Increment the iterator; move on to the next successor." alt="" coords="5,5,179,61"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a1f1ed484319a9bd2a1f732caac9afdcd" title=" " alt="" coords="227,5,400,61"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a1a13880ca04d9cf4367d6920c00654e6" title=" " alt="" coords="448,13,591,54"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a1a13880ca04d9cf4367d6920c00654e6" title=" " alt="" coords="448,13,591,54"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a1f1ed484319a9bd2a1f732caac9afdcd" title=" " alt="" coords="227,37,400,93"/>
 </map>

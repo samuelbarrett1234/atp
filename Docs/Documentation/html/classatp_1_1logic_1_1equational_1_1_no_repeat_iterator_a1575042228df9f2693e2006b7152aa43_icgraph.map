@@ -1,0 +1,6 @@
+<map id="atp::logic::equational::NoRepeatIterator::valid" name="atp::logic::equational::NoRepeatIterator::valid">
+<area shape="rect" id="node1" title=" " alt="" coords="236,71,396,112"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#a9fb97687cab3bf7ff7148924673bf705" title="Increment the iterator; move on to the next successor." alt="" coords="5,5,188,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#af89256c1ab704388e614b0850988fe05" title="Get the successor pointed to by this iterator." alt="" coords="20,71,173,112"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#a560a1a621fa2622b34f87fdc582d8125" title="Get the number of proof states currently held in memory by this iterator." alt="" coords="17,136,176,177"/>
+</map>

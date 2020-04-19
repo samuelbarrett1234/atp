@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">atp
-   &#160;<span id="projectnumber">Alpha</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
    <div id="projectbrief">An automated theorem prover in C++.</div>
   </td>
@@ -109,16 +109,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9bd6385e4bd0fae94090c87ad70dbd51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab98cc592e84a447cb0824fbb8dccc5cb"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab98cc592e84a447cb0824fbb8dccc5cb">to_str</a> () const</td></tr>
 <tr class="separator:ab98cc592e84a447cb0824fbb8dccc5cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07d4572829d1312f2ac306d3c812beac"><td class="memItemLeft" align="right" valign="top">const std::set&lt; size_t &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#a07d4572829d1312f2ac306d3c812beac">free_var_ids</a> () const</td></tr>
-<tr class="separator:a07d4572829d1312f2ac306d3c812beac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6dd25478f5d49d5582736f2554ef0c0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classatp_1_1logic_1_1_free_var_id_set.html">FreeVarIdSet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#af6dd25478f5d49d5582736f2554ef0c0">free_var_ids</a> () const</td></tr>
+<tr class="separator:af6dd25478f5d49d5582736f2554ef0c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a968366542d6495a1346b747ac5983670"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#a968366542d6495a1346b747ac5983670">root_id</a> () const</td></tr>
 <tr class="memdesc:a968366542d6495a1346b747ac5983670"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the symbol or free ID of the root of this expression.  <a href="classatp_1_1logic_1_1equational_1_1_expression.html#a968366542d6495a1346b747ac5983670">More...</a><br /></td></tr>
 <tr class="separator:a968366542d6495a1346b747ac5983670"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3e4bdb799edc8f8ed27ca859008486b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic_1_1equational.html#a04726a5939dff190edd4935738778459">SyntaxNodeType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#ad3e4bdb799edc8f8ed27ca859008486b">root_type</a> () const</td></tr>
 <tr class="separator:ad3e4bdb799edc8f8ed27ca859008486b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa37261d8ee733f6ab74bd6d558ae52e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#aa37261d8ee733f6ab74bd6d558ae52e2">map_free_vars</a> (const std::map&lt; size_t, <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &gt; &amp;free_map) const</td></tr>
-<tr class="memdesc:aa37261d8ee733f6ab74bd6d558ae52e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Substitute the free variables according to the given map.  <a href="classatp_1_1logic_1_1equational_1_1_expression.html#aa37261d8ee733f6ab74bd6d558ae52e2">More...</a><br /></td></tr>
-<tr class="separator:aa37261d8ee733f6ab74bd6d558ae52e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac502a9dd903c9bb40a011325078bc49a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html">ExprTreeFlyweight</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#ac502a9dd903c9bb40a011325078bc49a">tree</a> () const</td></tr>
+<tr class="separator:ac502a9dd903c9bb40a011325078bc49a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2729f273d373a4e5a112b80483c7e30f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f">map_free_vars</a> (const <a class="el" href="classatp_1_1logic_1_1_free_var_map.html">FreeVarMap</a>&lt; <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &gt; &amp;free_map) const</td></tr>
+<tr class="memdesc:a2729f273d373a4e5a112b80483c7e30f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Substitute the free variables according to the given map.  <a href="classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f">More...</a><br /></td></tr>
+<tr class="separator:a2729f273d373a4e5a112b80483c7e30f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeee9e7dcfe3da4ed1f7f2b40de534488"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#aeee9e7dcfe3da4ed1f7f2b40de534488">replace</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression_1_1iterator.html">iterator</a> &amp;pos, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &amp;new_expr) const</td></tr>
 <tr class="memdesc:aeee9e7dcfe3da4ed1f7f2b40de534488"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace the expression rooted at the given position iter with the given new expression.  <a href="classatp_1_1logic_1_1equational_1_1_expression.html#aeee9e7dcfe3da4ed1f7f2b40de534488">More...</a><br /></td></tr>
 <tr class="separator:aeee9e7dcfe3da4ed1f7f2b40de534488"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,9 +142,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a544d3424b54a0a94f9054ccd5b1ce725"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#a544d3424b54a0a94f9054ccd5b1ce725">identical</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &amp;other) const</td></tr>
 <tr class="memdesc:a544d3424b54a0a94f9054ccd5b1ce725"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true iff the two expressions are identical (i.e. same free variable IDs)  <a href="classatp_1_1logic_1_1equational_1_1_expression.html#a544d3424b54a0a94f9054ccd5b1ce725">More...</a><br /></td></tr>
 <tr class="separator:a544d3424b54a0a94f9054ccd5b1ce725"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0aa735571984d286656c2f3550694ca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab0aa735571984d286656c2f3550694ca">try_match</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &amp;expr, std::map&lt; size_t, <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &gt; *p_out_subs) const</td></tr>
-<tr class="memdesc:ab0aa735571984d286656c2f3550694ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to match this expression to the given expression.  <a href="classatp_1_1logic_1_1equational_1_1_expression.html#ab0aa735571984d286656c2f3550694ca">More...</a><br /></td></tr>
-<tr class="separator:ab0aa735571984d286656c2f3550694ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af93dc45b37aefe9d2f66ce8a4318fa6f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#af93dc45b37aefe9d2f66ce8a4318fa6f">try_match</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &amp;expr, <a class="el" href="classatp_1_1logic_1_1_free_var_map.html">FreeVarMap</a>&lt; <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &gt; *p_out_subs) const</td></tr>
+<tr class="memdesc:af93dc45b37aefe9d2f66ce8a4318fa6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to match this expression to the given expression.  <a href="classatp_1_1logic_1_1equational_1_1_expression.html#af93dc45b37aefe9d2f66ce8a4318fa6f">More...</a><br /></td></tr>
+<tr class="separator:af93dc45b37aefe9d2f66ce8a4318fa6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0f755745abd592eed0bd8e89a1d4083"><td class="memTemplParams" colspan="2">template&lt;typename ResultT , typename FreeFuncT , typename ConstFuncT , typename FFuncT &gt; </td></tr>
 <tr class="memitem:ae0f755745abd592eed0bd8e89a1d4083"><td class="memTemplItemLeft" align="right" valign="top">ResultT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#ae0f755745abd592eed0bd8e89a1d4083">fold</a> (FreeFuncT free_func, ConstFuncT const_func, FFuncT f_func) const</td></tr>
 <tr class="memdesc:ae0f755745abd592eed0bd8e89a1d4083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a fold operation over this expression.  <a href="classatp_1_1logic_1_1equational_1_1_expression.html#ae0f755745abd592eed0bd8e89a1d4083">More...</a><br /></td></tr>
@@ -194,10 +196,9 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_a691e10e16b9c51299a153d951358d2fc_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_a691e10e16b9c51299a153d951358d2fc_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_expression_a691e10e16b9c51299a153d951358d2fc_cgraph" id="classatp_1_1logic_1_1equational_1_1_expression_a691e10e16b9c51299a153d951358d2fc_cgraph">
-<area shape="rect" title=" " alt="" coords="5,71,173,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a57f84040d01680e30a3cc6196a77dada" title=" " alt="" coords="246,5,389,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a9bd6385e4bd0fae94090c87ad70dbd51" title=" " alt="" coords="246,71,389,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="221,136,413,177"/>
+<area shape="rect" title=" " alt="" coords="5,5,173,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="221,5,413,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="461,5,631,47"/>
 </map>
 </div>
 <div class="dynheader">
@@ -207,7 +208,7 @@ Here is the caller graph for this function:</div>
 <map name="classatp_1_1logic_1_1equational_1_1_expression_a691e10e16b9c51299a153d951358d2fc_icgraph" id="classatp_1_1logic_1_1equational_1_1_expression_a691e10e16b9c51299a153d951358d2fc_icgraph">
 <area shape="rect" title=" " alt="" coords="447,39,615,80"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ad41bc0076fd552b0de7cc370fd1166bb" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="204,5,399,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab0aa735571984d286656c2f3550694ca" title="Try to match this expression to the given expression." alt="" coords="221,71,382,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#af93dc45b37aefe9d2f66ce8a4318fa6f" title="Try to match this expression to the given expression." alt="" coords="221,71,382,112"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="5,5,156,47"/>
 </map>
 </div>
@@ -257,6 +258,7 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a968366542d6495a1346b747ac5983670" title="Get the symbol or free ID of the root of this expression." alt="" coords="246,5,389,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ad3e4bdb799edc8f8ed27ca859008486b" title=" " alt="" coords="239,71,396,112"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="221,136,413,177"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="461,136,631,177"/>
 </map>
 </div>
 
@@ -334,14 +336,10 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_a57f84040d01680e30a3cc6196a77dada_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_a57f84040d01680e30a3cc6196a77dada_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_expression_a57f84040d01680e30a3cc6196a77dada_icgraph" id="classatp_1_1logic_1_1equational_1_1_expression_a57f84040d01680e30a3cc6196a77dada_icgraph">
-<area shape="rect" title=" " alt="" coords="663,104,805,145"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a4a068ef4bf5b7591efeaa1daa8de9c54" title="Returns true iff the expressions are equal up to swapping of free variable names." alt="" coords="451,5,611,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a691e10e16b9c51299a153d951358d2fc" title=" " alt="" coords="447,71,615,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a544d3424b54a0a94f9054ccd5b1ce725" title="Returns true iff the two expressions are identical (i.e. same free variable IDs)" alt="" coords="455,136,606,177"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab98cc592e84a447cb0824fbb8dccc5cb" title=" " alt="" coords="459,201,602,243"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ad41bc0076fd552b0de7cc370fd1166bb" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="204,39,399,80"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab0aa735571984d286656c2f3550694ca" title="Try to match this expression to the given expression." alt="" coords="221,104,382,145"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="5,39,156,80"/>
+<area shape="rect" title=" " alt="" coords="240,71,383,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a544d3424b54a0a94f9054ccd5b1ce725" title="Returns true iff the two expressions are identical (i.e. same free variable IDs)" alt="" coords="23,5,174,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="5,71,192,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab98cc592e84a447cb0824fbb8dccc5cb" title=" " alt="" coords="27,136,170,177"/>
 </map>
 </div>
 
@@ -449,14 +447,10 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_a9bd6385e4bd0fae94090c87ad70dbd51_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_a9bd6385e4bd0fae94090c87ad70dbd51_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_expression_a9bd6385e4bd0fae94090c87ad70dbd51_icgraph" id="classatp_1_1logic_1_1equational_1_1_expression_a9bd6385e4bd0fae94090c87ad70dbd51_icgraph">
-<area shape="rect" title=" " alt="" coords="663,104,805,145"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a4a068ef4bf5b7591efeaa1daa8de9c54" title="Returns true iff the expressions are equal up to swapping of free variable names." alt="" coords="451,5,611,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a691e10e16b9c51299a153d951358d2fc" title=" " alt="" coords="447,71,615,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a544d3424b54a0a94f9054ccd5b1ce725" title="Returns true iff the two expressions are identical (i.e. same free variable IDs)" alt="" coords="455,136,606,177"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab98cc592e84a447cb0824fbb8dccc5cb" title=" " alt="" coords="459,201,602,243"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ad41bc0076fd552b0de7cc370fd1166bb" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="204,39,399,80"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab0aa735571984d286656c2f3550694ca" title="Try to match this expression to the given expression." alt="" coords="221,104,382,145"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="5,39,156,80"/>
+<area shape="rect" title=" " alt="" coords="240,71,383,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a544d3424b54a0a94f9054ccd5b1ce725" title="Returns true iff the two expressions are identical (i.e. same free variable IDs)" alt="" coords="23,5,174,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="5,71,192,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab98cc592e84a447cb0824fbb8dccc5cb" title=" " alt="" coords="27,136,170,177"/>
 </map>
 </div>
 
@@ -484,9 +478,14 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_a4a068ef4bf5b7591efeaa1daa8de9c54_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_a4a068ef4bf5b7591efeaa1daa8de9c54_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_expression_a4a068ef4bf5b7591efeaa1daa8de9c54_cgraph" id="classatp_1_1logic_1_1equational_1_1_expression_a4a068ef4bf5b7591efeaa1daa8de9c54_cgraph">
-<area shape="rect" title="Returns true iff the expressions are equal up to swapping of free variable names." alt="" coords="5,39,165,80"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a57f84040d01680e30a3cc6196a77dada" title=" " alt="" coords="213,5,356,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a9bd6385e4bd0fae94090c87ad70dbd51" title=" " alt="" coords="213,71,356,112"/>
+<area shape="rect" title="Returns true iff the expressions are equal up to swapping of free variable names." alt="" coords="5,239,165,280"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a26152e870d16a369300c9a67d29e2d8e" title=" " alt="" coords="213,5,415,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a91a38655bdbfa79208d13555292f5a19" title=" " alt="" coords="229,71,399,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a89ea50f3905ef95350d173b004f24835" title=" " alt="" coords="229,151,399,207"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#ab94333d259bd43900ea2530d2d7226ad" title=" " alt="" coords="229,231,399,287"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a2fb23b8617152117e64b5cc2a2b772ac" title=" " alt="" coords="222,312,406,353"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a3c245f438adee795fdc69781e444f61c" title=" " alt="" coords="215,377,413,419"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="229,443,399,484"/>
 </map>
 </div>
 
@@ -623,46 +622,47 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_a075d1e5fd6364b163049bd4f7dc37406_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_a075d1e5fd6364b163049bd4f7dc37406_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_expression_a075d1e5fd6364b163049bd4f7dc37406_cgraph" id="classatp_1_1logic_1_1equational_1_1_expression_a075d1e5fd6364b163049bd4f7dc37406_cgraph">
-<area shape="rect" title="Perform a fold over pairs of expressions." alt="" coords="5,239,156,280"/>
+<area shape="rect" title="Perform a fold over pairs of expressions." alt="" coords="5,276,156,317"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a26152e870d16a369300c9a67d29e2d8e" title=" " alt="" coords="204,5,405,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a91a38655bdbfa79208d13555292f5a19" title=" " alt="" coords="220,71,389,127"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a89ea50f3905ef95350d173b004f24835" title=" " alt="" coords="220,151,389,207"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#ab94333d259bd43900ea2530d2d7226ad" title=" " alt="" coords="220,231,389,287"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a2fb23b8617152117e64b5cc2a2b772ac" title=" " alt="" coords="213,312,397,353"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a3c245f438adee795fdc69781e444f61c" title=" " alt="" coords="205,377,404,419"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ad41bc0076fd552b0de7cc370fd1166bb" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="207,443,402,484"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a691e10e16b9c51299a153d951358d2fc" title=" " alt="" coords="454,383,622,424"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="671,445,863,487"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="453,501,623,543"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a57f84040d01680e30a3cc6196a77dada" title=" " alt="" coords="695,315,838,356"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a9bd6385e4bd0fae94090c87ad70dbd51" title=" " alt="" coords="695,380,838,421"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="909,487,1079,528"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ad41bc0076fd552b0de7cc370fd1166bb" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="207,520,402,561"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a691e10e16b9c51299a153d951358d2fc" title=" " alt="" coords="453,545,621,587"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="669,545,861,587"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a07d4572829d1312f2ac306d3c812beac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07d4572829d1312f2ac306d3c812beac">&#9670;&nbsp;</a></span>free_var_ids()</h2>
+<a id="af6dd25478f5d49d5582736f2554ef0c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6dd25478f5d49d5582736f2554ef0c0">&#9670;&nbsp;</a></span>free_var_ids()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::set&lt;size_t&gt;&amp; atp::logic::equational::Expression::free_var_ids </td>
+          <td class="memname">const <a class="el" href="classatp_1_1logic_1_1_free_var_id_set.html">FreeVarIdSet</a> &amp; atp::logic::equational::Expression::free_var_ids </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_af6dd25478f5d49d5582736f2554ef0c0_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_af6dd25478f5d49d5582736f2554ef0c0_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_expression_af6dd25478f5d49d5582736f2554ef0c0_icgraph" id="classatp_1_1logic_1_1equational_1_1_expression_af6dd25478f5d49d5582736f2554ef0c0_icgraph">
+<area shape="rect" title=" " alt="" coords="240,79,411,120"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="5,5,192,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a9a2e0351eed3e2eeeb400fb0f5cd6544" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="26,71,171,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a0d5414f7a8a769933d40e63474bba502" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="26,151,171,207"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -726,15 +726,15 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a2fb23b8617152117e64b5cc2a2b772ac" title=" " alt="" coords="222,232,406,273"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a3c245f438adee795fdc69781e444f61c" title=" " alt="" coords="215,297,413,339"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="218,363,410,404"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="229,428,399,469"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4" title="Update a function&#39;s argument value and type." alt="" coords="222,494,406,550"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="463,392,632,433"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4" title="Update a function&#39;s argument value and type." alt="" coords="222,479,406,535"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="aa37261d8ee733f6ab74bd6d558ae52e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa37261d8ee733f6ab74bd6d558ae52e2">&#9670;&nbsp;</a></span>map_free_vars()</h2>
+<a id="a2729f273d373a4e5a112b80483c7e30f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2729f273d373a4e5a112b80483c7e30f">&#9670;&nbsp;</a></span>map_free_vars()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -742,7 +742,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> atp::logic::equational::Expression::map_free_vars </td>
           <td>(</td>
-          <td class="paramtype">const std::map&lt; size_t, <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_free_var_map.html">FreeVarMap</a>&lt; <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>free_map</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -760,17 +760,20 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_aa37261d8ee733f6ab74bd6d558ae52e2_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_aa37261d8ee733f6ab74bd6d558ae52e2_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_expression_aa37261d8ee733f6ab74bd6d558ae52e2_cgraph" id="classatp_1_1logic_1_1equational_1_1_expression_aa37261d8ee733f6ab74bd6d558ae52e2_cgraph">
-<area shape="rect" title="Substitute the free variables according to the given map." alt="" coords="5,253,192,295"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a26152e870d16a369300c9a67d29e2d8e" title=" " alt="" coords="246,5,447,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a91a38655bdbfa79208d13555292f5a19" title=" " alt="" coords="262,71,431,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a89ea50f3905ef95350d173b004f24835" title=" " alt="" coords="262,151,431,207"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a635d2d8e2a4765bb3b1c107b8aafcad0" title="Append, to each array in this object, the arrays in the other object. Also, update their function ind..." alt="" coords="240,283,453,324"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a2fb23b8617152117e64b5cc2a2b772ac" title=" " alt="" coords="501,237,685,279"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="509,316,678,357"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a3c245f438adee795fdc69781e444f61c" title=" " alt="" coords="247,400,446,441"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4" title="Update a function&#39;s argument value and type." alt="" coords="255,466,439,522"/>
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_a2729f273d373a4e5a112b80483c7e30f_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_a2729f273d373a4e5a112b80483c7e30f_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_expression_a2729f273d373a4e5a112b80483c7e30f_cgraph" id="classatp_1_1logic_1_1equational_1_1_expression_a2729f273d373a4e5a112b80483c7e30f_cgraph">
+<area shape="rect" title="Substitute the free variables according to the given map." alt="" coords="5,355,192,396"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a57f84040d01680e30a3cc6196a77dada" title=" " alt="" coords="275,5,418,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a9bd6385e4bd0fae94090c87ad70dbd51" title=" " alt="" coords="275,71,418,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#af6dd25478f5d49d5582736f2554ef0c0" title=" " alt="" coords="261,136,432,177"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a26152e870d16a369300c9a67d29e2d8e" title=" " alt="" coords="246,201,447,243"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a91a38655bdbfa79208d13555292f5a19" title=" " alt="" coords="262,267,431,323"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a89ea50f3905ef95350d173b004f24835" title=" " alt="" coords="262,347,431,403"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a635d2d8e2a4765bb3b1c107b8aafcad0" title="Append, to each array in this object, the arrays in the other object. Also, update their function ind..." alt="" coords="240,479,453,520"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a2fb23b8617152117e64b5cc2a2b772ac" title=" " alt="" coords="501,433,685,475"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="509,512,678,553"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a3c245f438adee795fdc69781e444f61c" title=" " alt="" coords="247,596,446,637"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4" title="Update a function&#39;s argument value and type." alt="" coords="255,662,439,718"/>
 </map>
 </div>
 
@@ -905,13 +908,14 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_a9a2e0351eed3e2eeeb400fb0f5cd6544_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_a9a2e0351eed3e2eeeb400fb0f5cd6544_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_expression_a9a2e0351eed3e2eeeb400fb0f5cd6544_cgraph" id="classatp_1_1logic_1_1equational_1_1_expression_a9a2e0351eed3e2eeeb400fb0f5cd6544_cgraph">
-<area shape="rect" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="5,192,151,248"/>
+<area shape="rect" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="5,217,151,273"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a9a3f38b6cbd6f76b7dfa49a15011493d" title="Returns a list of all symbol IDs of user&#45;defined constants." alt="" coords="205,5,393,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a26152e870d16a369300c9a67d29e2d8e" title=" " alt="" coords="199,86,400,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a91a38655bdbfa79208d13555292f5a19" title=" " alt="" coords="215,152,384,208"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a89ea50f3905ef95350d173b004f24835" title=" " alt="" coords="215,232,384,288"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="215,313,384,354"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4" title="Update a function&#39;s argument value and type." alt="" coords="207,379,391,435"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#af6dd25478f5d49d5582736f2554ef0c0" title=" " alt="" coords="214,86,385,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a26152e870d16a369300c9a67d29e2d8e" title=" " alt="" coords="199,151,400,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a91a38655bdbfa79208d13555292f5a19" title=" " alt="" coords="215,217,384,273"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a89ea50f3905ef95350d173b004f24835" title=" " alt="" coords="215,297,384,353"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="215,378,384,419"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4" title="Update a function&#39;s argument value and type." alt="" coords="207,444,391,500"/>
 </map>
 </div>
 
@@ -952,12 +956,13 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_a0d5414f7a8a769933d40e63474bba502_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_a0d5414f7a8a769933d40e63474bba502_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_expression_a0d5414f7a8a769933d40e63474bba502_cgraph" id="classatp_1_1logic_1_1equational_1_1_expression_a0d5414f7a8a769933d40e63474bba502_cgraph">
-<area shape="rect" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="5,151,151,207"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a26152e870d16a369300c9a67d29e2d8e" title=" " alt="" coords="199,5,400,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a91a38655bdbfa79208d13555292f5a19" title=" " alt="" coords="215,71,384,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a89ea50f3905ef95350d173b004f24835" title=" " alt="" coords="215,151,384,207"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="215,232,384,273"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4" title="Update a function&#39;s argument value and type." alt="" coords="207,298,391,354"/>
+<area shape="rect" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="5,177,151,233"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#af6dd25478f5d49d5582736f2554ef0c0" title=" " alt="" coords="214,5,385,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a26152e870d16a369300c9a67d29e2d8e" title=" " alt="" coords="199,71,400,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a91a38655bdbfa79208d13555292f5a19" title=" " alt="" coords="215,137,384,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a89ea50f3905ef95350d173b004f24835" title=" " alt="" coords="215,217,384,273"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="215,297,384,339"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4" title="Update a function&#39;s argument value and type." alt="" coords="207,363,391,419"/>
 </map>
 </div>
 
@@ -992,8 +997,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_a968366542d6495a1346b747ac5983670_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_a968366542d6495a1346b747ac5983670_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_expression_a968366542d6495a1346b747ac5983670_icgraph" id="classatp_1_1logic_1_1equational_1_1_expression_a968366542d6495a1346b747ac5983670_icgraph">
-<area shape="rect" title="Get the symbol or free ID of the root of this expression." alt="" coords="221,5,364,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a2b9c69e0d904b4ac74006b05596df6df" title="Construction of very simple (free or constant) expressions." alt="" coords="5,5,173,47"/>
+<area shape="rect" title="Get the symbol or free ID of the root of this expression." alt="" coords="221,39,364,80"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ac52b476755e8aef80fdd192fe73568f5" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="12,5,167,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a2b9c69e0d904b4ac74006b05596df6df" title="Construction of very simple (free or constant) expressions." alt="" coords="5,71,173,112"/>
 </map>
 </div>
 
@@ -1068,12 +1074,10 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_ad41bc0076fd552b0de7cc370fd1166bb_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_ad41bc0076fd552b0de7cc370fd1166bb_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_expression_ad41bc0076fd552b0de7cc370fd1166bb_cgraph" id="classatp_1_1logic_1_1equational_1_1_expression_ad41bc0076fd552b0de7cc370fd1166bb_cgraph">
-<area shape="rect" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="5,133,200,175"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a691e10e16b9c51299a153d951358d2fc" title=" " alt="" coords="249,73,417,115"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="465,136,657,177"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="248,192,417,233"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a57f84040d01680e30a3cc6196a77dada" title=" " alt="" coords="490,5,633,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a9bd6385e4bd0fae94090c87ad70dbd51" title=" " alt="" coords="490,71,633,112"/>
+<area shape="rect" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="5,64,200,105"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a691e10e16b9c51299a153d951358d2fc" title=" " alt="" coords="248,5,416,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="464,56,656,97"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="704,85,873,127"/>
 </map>
 </div>
 <div class="dynheader">
@@ -1116,8 +1120,42 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="ab0aa735571984d286656c2f3550694ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0aa735571984d286656c2f3550694ca">&#9670;&nbsp;</a></span>try_match()</h2>
+<a id="ac502a9dd903c9bb40a011325078bc49a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac502a9dd903c9bb40a011325078bc49a">&#9670;&nbsp;</a></span>tree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html">ExprTreeFlyweight</a>&amp; atp::logic::equational::Expression::tree </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_ac502a9dd903c9bb40a011325078bc49a_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_ac502a9dd903c9bb40a011325078bc49a_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_expression_ac502a9dd903c9bb40a011325078bc49a_icgraph" id="classatp_1_1logic_1_1equational_1_1_expression_ac502a9dd903c9bb40a011325078bc49a_icgraph">
+<area shape="rect" title=" " alt="" coords="208,5,351,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ac52b476755e8aef80fdd192fe73568f5" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="5,5,160,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="af93dc45b37aefe9d2f66ce8a4318fa6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af93dc45b37aefe9d2f66ce8a4318fa6f">&#9670;&nbsp;</a></span>try_match()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1131,7 +1169,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::map&lt; size_t, <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &gt; *&#160;</td>
+          <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1_free_var_map.html">FreeVarMap</a>&lt; <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html">Expression</a> &gt; *&#160;</td>
           <td class="paramname"><em>p_out_subs</em>&#160;</td>
         </tr>
         <tr>
@@ -1156,15 +1194,19 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_ab0aa735571984d286656c2f3550694ca_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_ab0aa735571984d286656c2f3550694ca_cgraph" alt=""/></div>
-<map name="classatp_1_1logic_1_1equational_1_1_expression_ab0aa735571984d286656c2f3550694ca_cgraph" id="classatp_1_1logic_1_1equational_1_1_expression_ab0aa735571984d286656c2f3550694ca_cgraph">
-<area shape="rect" title="Try to match this expression to the given expression." alt="" coords="5,136,167,177"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a691e10e16b9c51299a153d951358d2fc" title=" " alt="" coords="230,71,398,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a2fb23b8617152117e64b5cc2a2b772ac" title=" " alt="" coords="222,136,406,177"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a3c245f438adee795fdc69781e444f61c" title=" " alt="" coords="215,201,413,243"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a57f84040d01680e30a3cc6196a77dada" title=" " alt="" coords="486,5,629,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a9bd6385e4bd0fae94090c87ad70dbd51" title=" " alt="" coords="486,71,629,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="461,136,653,177"/>
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expression_af93dc45b37aefe9d2f66ce8a4318fa6f_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expression_af93dc45b37aefe9d2f66ce8a4318fa6f_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_expression_af93dc45b37aefe9d2f66ce8a4318fa6f_cgraph" id="classatp_1_1logic_1_1equational_1_1_expression_af93dc45b37aefe9d2f66ce8a4318fa6f_cgraph">
+<area shape="rect" title="Try to match this expression to the given expression." alt="" coords="5,188,167,229"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#a0e23e5d8c35dd94684f25fa79be44670" title=" " alt="" coords="237,5,391,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#ad01467cfed620e6083907846f9b2211f" title=" " alt="" coords="466,101,649,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a691e10e16b9c51299a153d951358d2fc" title=" " alt="" coords="230,188,398,229"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#a56bb3544550dc9ebaab240de02fecb38" title=" " alt="" coords="237,123,391,164"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#acfd10a676b13c4127cfabb6f56b1186e" title=" " alt="" coords="237,253,391,295"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a2fb23b8617152117e64b5cc2a2b772ac" title=" " alt="" coords="222,319,406,360"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a3c245f438adee795fdc69781e444f61c" title=" " alt="" coords="215,384,413,425"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#a667b6c78136ed5144704627437537dcb" title=" " alt="" coords="480,5,635,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="461,188,653,229"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="701,188,871,229"/>
 </map>
 </div>
 

@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['value_5ftype_634',['value_type',['../classatp_1_1logic_1_1equational_1_1_expression_1_1iterator.html#af2c96a9082ede79169440397a8e34542',1,'atp::logic::equational::Expression::iterator::value_type()'],['../classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html#aa6a314b61b69c722a628622e1bbc52a0',1,'atp::logic::equational::Statement::iterator::value_type()'],['../classatp_1_1logic_1_1equational_1_1_statement_array_1_1iterator.html#aaf9e10ae852612652fb37c4e45dd140f',1,'atp::logic::equational::StatementArray::iterator::value_type()']]]
+  ['solverptr_696',['SolverPtr',['../namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683',1,'atp::search']]],
+  ['statementarrayptr_697',['StatementArrayPtr',['../namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928',1,'atp::logic']]],
+  ['statementheuristicptr_698',['StatementHeuristicPtr',['../namespaceatp_1_1search.html#a1d2ee36ec57a057f0e3b57b19b0d7aee',1,'atp::search']]],
+  ['syntaxnodeptr_699',['SyntaxNodePtr',['../namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9',1,'atp::logic::equational']]]
 ];

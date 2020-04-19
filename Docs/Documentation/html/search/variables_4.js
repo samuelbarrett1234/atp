@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['m_5fsymbol_5fid_604',['m_symbol_id',['../classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html#a2edb63bc9e6888d56f763ff3e547f050',1,'atp::logic::equational::ConstantSyntaxNode']]],
-  ['max_5fsteps_605',['max_steps',['../structatp_1_1search_1_1_search_settings.html#a005a46fe7cfd28b92eca7e3e2a4cca80',1,'atp::search::SearchSettings']]]
+  ['identifier_659',['identifier',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#a158feb75bb47153a05e6207ac1358c9b',1,'atp::logic::equational::StatementGrammar']]],
+  ['istatementarray_660',['IStatementArray',['../namespaceatp_1_1logic.html#a2c04b80c1a885d4670bfe15dd650e6f4',1,'atp::logic']]]
 ];

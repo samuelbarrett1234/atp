@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">atp
-   &#160;<span id="projectnumber">Alpha</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
    <div id="projectbrief">An automated theorem prover in C++.</div>
   </td>
@@ -66,6 +66,9 @@ $(function() {
 &#160;
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>second()
+: <a class="el" href="classatp_1_1logic_1_1_free_var_map_1_1__iterator.html#a5ff7ed6e1adfb00182f114fb00e22c4b">atp::logic::FreeVarMap&lt; _ValTy &gt;::_iterator&lt; _ValTy, _PtrTy, _RefTy, _ParentTy &gt;</a>
+</li>
 <li>serialise_stmts()
 : <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#a7836b8070b045f8d65f5f1b8e61b1e35">atp::logic::equational::Language</a>
 , <a class="el" href="classatp_1_1logic_1_1_i_language.html#a432c41810c239fc23d3ffce7875bac21">atp::logic::ILanguage</a>
@@ -87,9 +90,12 @@ $(function() {
 : <a class="el" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2">atp::logic::equational::ExprTreeFlyweight</a>
 , <a class="el" href="classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#afe30d1b7576ec27d3afa3701574ea009">atp::logic::equational::FreeVarAssignmentIterator</a>
 , <a class="el" href="classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#ac7b152ade35ee6b2a37c6bddb709f8fb">atp::logic::equational::MatchResultsIterator</a>
+, <a class="el" href="classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#a560a1a621fa2622b34f87fdc582d8125">atp::logic::equational::NoRepeatIterator</a>
 , <a class="el" href="classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#aa417b7c7d704c49d70023231a4e4ada3">atp::logic::equational::RuleMatchingIterator</a>
 , <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612">atp::logic::equational::StatementArray</a>
 , <a class="el" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a9288a1ce917b82b28cbec16d0c755a35">atp::logic::equational::SubExprMatchingIterator</a>
+, <a class="el" href="classatp_1_1logic_1_1_free_var_id_set.html#a9497ee3acc1b493af363cd453ae26d8f">atp::logic::FreeVarIdSet</a>
+, <a class="el" href="classatp_1_1logic_1_1_free_var_map.html#a47e6d9e3a0042fb7c038aa5f4d23157f">atp::logic::FreeVarMap&lt; _ValTy &gt;</a>
 , <a class="el" href="classatp_1_1logic_1_1_i_pf_state_succ_iter.html#ae2a93dbf8297321aada7054f942517f5">atp::logic::IPfStateSuccIter</a>
 , <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html#adb5c5df8c6691e4b91f7811a60e11483">atp::logic::IStatementArray</a>
 </li>
@@ -101,7 +107,7 @@ $(function() {
 , <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html#a83c8348e4cde2b418f47e1e46247072a">atp::logic::IStatementArray</a>
 </li>
 <li>Statement()
-: <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a4f14e95373eb16153018d9915b868bfb">atp::logic::equational::Statement</a>
+: <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a8c82a6ca0b3551e2ae827c7b491f0fa9">atp::logic::equational::Statement</a>
 </li>
 <li>StatementArray()
 : <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a427d3b1b8f56c9593fffc55ef3ce11e0">atp::logic::equational::StatementArray</a>
@@ -113,11 +119,17 @@ $(function() {
 : <a class="el" href="classatp_1_1search_1_1_i_solver.html#a1e3b79699336cdff9457bb95d8b3e617">atp::search::ISolver</a>
 , <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a790f51cb03fa66252f77e9d9424698a9">atp::search::IterativeDeepeningSolver</a>
 </li>
+<li>StmtList()
+: <a class="el" href="structatp_1_1logic_1_1equational_1_1_proof_state_1_1_stmt_list.html#a9c3c1894d55a25be423230d4c9a914cb">atp::logic::equational::ProofState::StmtList</a>
+</li>
 <li>sub_expression()
 : <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#ad41bc0076fd552b0de7cc370fd1166bb">atp::logic::equational::Expression</a>
 </li>
 <li>SubExprMatchingIterator()
-: <a class="el" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#ad901a2cc3b1c90a3a18947943203198c">atp::logic::equational::SubExprMatchingIterator</a>
+: <a class="el" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a0a0f49c45801e3b62e046d9254fe3a03">atp::logic::equational::SubExprMatchingIterator</a>
+</li>
+<li>subset()
+: <a class="el" href="classatp_1_1logic_1_1_free_var_id_set.html#a34f3d78fe13cd1eaa4e0e60c7c85af9a">atp::logic::FreeVarIdSet</a>
 </li>
 <li>succ_begin()
 : <a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a3095c141a4bfd5609cafba29fdd00b2a">atp::logic::equational::ProofState</a>
@@ -125,7 +137,7 @@ $(function() {
 </li>
 <li>symbol_arity()
 : <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a82a047814726e2f1927f0db2209c10fc">atp::logic::equational::ModelContext</a>
-, <a class="el" href="classatp_1_1logic_1_1_i_model_context.html#a4fe6fe63330e223c6e076764d798989c">atp::logic::IModelContext</a>
+, <a class="el" href="classatp_1_1logic_1_1_i_model_context.html#ae8ad21cc41c2a25cab8ad3e768e72eb2">atp::logic::IModelContext</a>
 </li>
 <li>symbol_id()
 : <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html#a675ab83d420a26747e22621cef7b542b">atp::logic::equational::ModelContext</a>

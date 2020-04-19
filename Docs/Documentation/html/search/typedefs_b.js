@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['solverptr_630',['SolverPtr',['../namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683',1,'atp::search']]],
-  ['statementarrayptr_631',['StatementArrayPtr',['../namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928',1,'atp::logic']]],
-  ['statementheuristicptr_632',['StatementHeuristicPtr',['../namespaceatp_1_1search.html#a1d2ee36ec57a057f0e3b57b19b0d7aee',1,'atp::search']]],
-  ['syntaxnodeptr_633',['SyntaxNodePtr',['../namespaceatp_1_1logic_1_1equational.html#a512c70cd56e63c05c448e31bbb98d6d9',1,'atp::logic::equational']]]
+  ['reference_694',['reference',['../classatp_1_1logic_1_1_free_var_id_set_1_1__iterator.html#a29579c71062baa8e30cdc133d4f67e67',1,'atp::logic::FreeVarIdSet::_iterator::reference()'],['../classatp_1_1logic_1_1_free_var_map_1_1__iterator.html#ac907a3e62263fbc024de7a77b18b54ae',1,'atp::logic::FreeVarMap::_iterator::reference()']]],
+  ['rvalue_5freference_695',['rvalue_reference',['../classatp_1_1logic_1_1_free_var_map.html#a7a9b8435cd77eb5f10d7cdf0d94766ce',1,'atp::logic::FreeVarMap']]]
 ];

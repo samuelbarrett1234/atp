@@ -1,0 +1,7 @@
+<map id="atp::logic::equational::Statement::implies" name="atp::logic::equational::Statement::implies">
+<area shape="rect" id="node1" title="Returns true iff there exists a substitution in the premise (the callee) which would produce the conc..." alt="" coords="5,71,148,112"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1_free_var_map.html#affadeaa48774a3e1c638117dbf7fdca8" title=" " alt="" coords="210,5,365,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1_free_var_map.html#a0e23e5d8c35dd94684f25fa79be44670" title=" " alt="" coords="210,71,365,112"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1_free_var_map.html#ad01467cfed620e6083907846f9b2211f" title=" " alt="" coords="196,137,379,163"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1_free_var_map.html#a667b6c78136ed5144704627437537dcb" title=" " alt="" coords="427,71,581,112"/>
+</map>

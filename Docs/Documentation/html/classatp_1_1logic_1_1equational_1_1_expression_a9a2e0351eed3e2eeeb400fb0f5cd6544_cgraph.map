@@ -1,9 +1,10 @@
 <map id="atp::logic::equational::Expression::replace_free_with_const" name="atp::logic::equational::Expression::replace_free_with_const">
-<area shape="rect" id="node1" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="5,192,151,248"/>
+<area shape="rect" id="node1" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="5,217,151,273"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_model_context.html#a9a3f38b6cbd6f76b7dfa49a15011493d" title="Returns a list of all symbol IDs of user&#45;defined constants." alt="" coords="205,5,393,61"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a26152e870d16a369300c9a67d29e2d8e" title=" " alt="" coords="199,86,400,127"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a91a38655bdbfa79208d13555292f5a19" title=" " alt="" coords="215,152,384,208"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a89ea50f3905ef95350d173b004f24835" title=" " alt="" coords="215,232,384,288"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="215,313,384,354"/>
-<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4" title="Update a function&#39;s argument value and type." alt="" coords="207,379,391,435"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#af6dd25478f5d49d5582736f2554ef0c0" title=" " alt="" coords="214,86,385,127"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a26152e870d16a369300c9a67d29e2d8e" title=" " alt="" coords="199,151,400,193"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a91a38655bdbfa79208d13555292f5a19" title=" " alt="" coords="215,217,384,273"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a89ea50f3905ef95350d173b004f24835" title=" " alt="" coords="215,297,384,353"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="215,378,384,419"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4" title="Update a function&#39;s argument value and type." alt="" coords="207,444,391,500"/>
 </map>

@@ -1,8 +1,9 @@
 <map id="atp::logic::equational::ExprTreeFlyweight::func_children" name="atp::logic::equational::ExprTreeFlyweight::func_children">
-<area shape="rect" id="node1" title=" " alt="" coords="240,145,409,201"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="23,5,174,47"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a40c13f6a0a0147518fe9f4d75c54a1d9" title="Add a particular value to the ID of every free variable in this expression." alt="" coords="19,71,179,127"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expression.html#aa37261d8ee733f6ab74bd6d558ae52e2" title="Substitute the free variables according to the given map." alt="" coords="5,152,192,193"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a9a2e0351eed3e2eeeb400fb0f5cd6544" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="26,218,171,274"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a0d5414f7a8a769933d40e63474bba502" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="26,298,171,354"/>
+<area shape="rect" id="node1" title=" " alt="" coords="240,174,409,230"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a4a068ef4bf5b7591efeaa1daa8de9c54" title="Returns true iff the expressions are equal up to swapping of free variable names." alt="" coords="19,5,179,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="23,71,174,112"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a40c13f6a0a0147518fe9f4d75c54a1d9" title="Add a particular value to the ID of every free variable in this expression." alt="" coords="19,137,179,193"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="5,217,192,259"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a9a2e0351eed3e2eeeb400fb0f5cd6544" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="26,283,171,339"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a0d5414f7a8a769933d40e63474bba502" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="26,363,171,419"/>
 </map>

@@ -1,11 +1,11 @@
 <map id="atp::logic::equational::KnowledgeKernel::is_trivial" name="atp::logic::equational::KnowledgeKernel::is_trivial">
-<area shape="rect" id="node1" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="5,129,153,185"/>
+<area shape="rect" id="node1" title="A &quot;trivial&quot; statement is either reflexive or implied directly by one of the axioms." alt="" coords="5,97,153,153"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a2ccb4aef63b072e6a5b61f820d552ab6" title=" " alt="" coords="222,5,382,47"/>
 <area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#ab8073b727ebfc42d10950517d7fb92e8" title=" " alt="" coords="227,71,377,112"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ac52b476755e8aef80fdd192fe73568f5" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="225,136,379,177"/>
-<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ab9b15f8fcce46b7b55ef154fc6ce8de5" title="Returns true iff there exists a substitution in the premise (the callee) which would produce the conc..." alt="" coords="231,201,373,243"/>
-<area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a0fbdab2c862d80faccf7d991744a79e8" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="201,267,403,308"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a64f70ab3039063cdf226d987def14697" title=" " alt="" coords="457,71,599,112"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a1a13880ca04d9cf4367d6920c00654e6" title=" " alt="" coords="457,136,599,177"/>
-<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a13acf7a88b7439770519e30fcd782732" title="Transpose the statement (flip it around the equals sign)" alt="" coords="451,201,605,243"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ab9b15f8fcce46b7b55ef154fc6ce8de5" title="Returns true iff there exists a substitution in the premise (the callee) which would produce the conc..." alt="" coords="231,136,373,177"/>
+<area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a0fbdab2c862d80faccf7d991744a79e8" title="Returns true iff the statement is symmetric about the equals sign (thus trivially true by reflexivity..." alt="" coords="201,201,403,243"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1_free_var_map.html#affadeaa48774a3e1c638117dbf7fdca8" title=" " alt="" coords="465,71,619,112"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1_free_var_map.html#a0e23e5d8c35dd94684f25fa79be44670" title=" " alt="" coords="465,136,619,177"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1_free_var_map.html#ad01467cfed620e6083907846f9b2211f" title=" " alt="" coords="451,202,633,229"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1_free_var_map.html#a667b6c78136ed5144704627437537dcb" title=" " alt="" coords="681,136,836,177"/>
 </map>

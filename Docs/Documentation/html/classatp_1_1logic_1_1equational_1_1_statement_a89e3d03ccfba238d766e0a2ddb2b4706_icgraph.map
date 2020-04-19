@@ -1,0 +1,5 @@
+<map id="atp::logic::equational::Statement::free_var_ids" name="atp::logic::equational::Statement::free_var_ids">
+<area shape="rect" id="node1" title=" " alt="" coords="235,43,401,84"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ad5d0f250225572f80719684247bcf43d" title="Substitute the free variables according to the given map." alt="" coords="5,5,187,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a0a0f49c45801e3b62e046d9254fe3a03" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="9,71,183,127"/>
+</map>

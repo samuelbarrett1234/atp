@@ -1,0 +1,5 @@
+<map id="atp::logic::equational::ProofState::StmtList" name="atp::logic::equational::ProofState::StmtList">
+<area shape="rect" id="node1" title="Linked list object for storing proofs that are potentially shared between proof state objects." alt="" coords="5,185,153,227"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html" title=" " alt="" coords="8,81,151,123"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1_i_statement.html" title="Represents a single, syntactically correct logical statement." alt="" coords="6,5,153,32"/>
+</map>

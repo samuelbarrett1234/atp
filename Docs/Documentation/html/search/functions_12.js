@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['valid_585',['valid',['../classatp_1_1logic_1_1_i_pf_state_succ_iter.html#ae9795a4557f355ec0bff3fdecdf21b71',1,'atp::logic::IPfStateSuccIter::valid()'],['../classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#a31622b34555e4db84418a80db45b2311',1,'atp::logic::equational::FreeVarAssignmentIterator::valid()'],['../classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#a6ebf77cf2d2694da3c19b4163a637573',1,'atp::logic::equational::MatchResultsIterator::valid()'],['../classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a8c136d6406f8f6448c2ddfffee7bb20d',1,'atp::logic::equational::RuleMatchingIterator::valid()'],['../classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a1f1ed484319a9bd2a1f732caac9afdcd',1,'atp::logic::equational::SubExprMatchingIterator::valid()']]]
+  ['update_5ffunc_638',['update_func',['../classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa4a6012da41439a090e56ac958d6d347',1,'atp::logic::equational::ExprTreeFlyweight']]],
+  ['update_5ffunc_5fchild_639',['update_func_child',['../classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4',1,'atp::logic::equational::ExprTreeFlyweight']]]
 ];

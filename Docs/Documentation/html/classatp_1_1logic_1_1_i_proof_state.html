@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">atp
-   &#160;<span id="projectnumber">Alpha</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
    <div id="projectbrief">An automated theorem prover in C++.</div>
   </td>
@@ -102,6 +102,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4043e3bd4b3decf7359615ace97bbd30"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceatp_1_1logic.html#aba304dd7ca39fd2317110f7095e2f61c">ProofCompletionState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_proof_state.html#a4043e3bd4b3decf7359615ace97bbd30">completion_state</a> () const =0</td></tr>
 <tr class="memdesc:a4043e3bd4b3decf7359615ace97bbd30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether or not this proof is done.  <a href="classatp_1_1logic_1_1_i_proof_state.html#a4043e3bd4b3decf7359615ace97bbd30">More...</a><br /></td></tr>
 <tr class="separator:a4043e3bd4b3decf7359615ace97bbd30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3939cceffecaea6fc592299cb21df305"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_proof_state.html#a3939cceffecaea6fc592299cb21df305">to_str</a> () const =0</td></tr>
+<tr class="memdesc:a3939cceffecaea6fc592299cb21df305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a human-readable string representation of this proof.  <a href="classatp_1_1logic_1_1_i_proof_state.html#a3939cceffecaea6fc592299cb21df305">More...</a><br /></td></tr>
+<tr class="separator:a3939cceffecaea6fc592299cb21df305"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A proof state encapsulates the idea of a proof (which may be a WIP) and contains many different statements. </p>
@@ -221,6 +224,36 @@ Public Member Functions</h2></td></tr>
 <p>Get the target statement which we are trying to prove. </p>
 
 <p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a3708148d088b5f1af9590e7f3bca8171">atp::logic::equational::ProofState</a>.</p>
+
+</div>
+</div>
+<a id="a3939cceffecaea6fc592299cb21df305"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3939cceffecaea6fc592299cb21df305">&#9670;&nbsp;</a></span>to_str()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string atp::logic::IProofState::to_str </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return a human-readable string representation of this proof. </p>
+<dl class="section note"><dt>Note</dt><dd>The proof doesn't have to be in any particular completion state - it works regardless. </dd></dl>
+
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#aa5ece7acb3a7908489d12db32a1143f7">atp::logic::equational::ProofState</a>.</p>
 
 </div>
 </div>

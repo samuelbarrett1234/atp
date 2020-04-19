@@ -1,0 +1,4 @@
+<map id="atp::logic::FreeVarIdSet::subset" name="atp::logic::FreeVarIdSet::subset">
+<area shape="rect" id="node1" title="Returns true if every ID in this set, is also present in the other set." alt="" coords="212,5,371,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1_free_var_id_set.html#a9e8066d1452b3ddd76cc4e1d8a8ce014" title=" " alt="" coords="5,5,164,47"/>
+</map>

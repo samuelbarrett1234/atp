@@ -1,0 +1,6 @@
+<map id="atp::logic::FreeVarIdSet::operator==" name="atp::logic::FreeVarIdSet::operator==">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,164,80"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1_free_var_id_set.html#a34f3d78fe13cd1eaa4e0e60c7c85af9a" title="Returns true if every ID in this set, is also present in the other set." alt="" coords="212,39,371,80"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1_free_var_id_set.html#af4f5a4eed9c7daa7c22b6f46835c9d4f" title=" " alt="" coords="419,5,577,47"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1_free_var_id_set.html#a9497ee3acc1b493af363cd453ae26d8f" title=" " alt="" coords="419,71,577,112"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="atp::logic::equational::Expression::free_var_ids" name="atp::logic::equational::Expression::free_var_ids">
+<area shape="rect" id="node1" title=" " alt="" coords="240,79,411,120"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="5,5,192,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a9a2e0351eed3e2eeeb400fb0f5cd6544" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="26,71,171,127"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a0d5414f7a8a769933d40e63474bba502" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="26,151,171,207"/>
+</map>

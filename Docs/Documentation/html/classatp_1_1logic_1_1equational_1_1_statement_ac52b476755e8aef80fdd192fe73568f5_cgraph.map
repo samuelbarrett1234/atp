@@ -1,6 +1,7 @@
 <map id="atp::logic::equational::Statement::equivalent" name="atp::logic::equational::Statement::equivalent">
-<area shape="rect" id="node1" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="5,71,160,112"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a64f70ab3039063cdf226d987def14697" title=" " alt="" coords="214,5,357,47"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a1a13880ca04d9cf4367d6920c00654e6" title=" " alt="" coords="214,71,357,112"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a13acf7a88b7439770519e30fcd782732" title="Transpose the statement (flip it around the equals sign)" alt="" coords="208,136,363,177"/>
+<area shape="rect" id="node1" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="5,104,160,145"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a2fb23b8617152117e64b5cc2a2b772ac" title=" " alt="" coords="215,5,399,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a968366542d6495a1346b747ac5983670" title="Get the symbol or free ID of the root of this expression." alt="" coords="236,71,379,112"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a3c245f438adee795fdc69781e444f61c" title=" " alt="" coords="208,136,407,177"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ac502a9dd903c9bb40a011325078bc49a" title=" " alt="" coords="236,201,379,243"/>
 </map>

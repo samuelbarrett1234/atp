@@ -1,4 +1,5 @@
 <map id="atp::logic::equational::Expression::root_id" name="atp::logic::equational::Expression::root_id">
-<area shape="rect" id="node1" title="Get the symbol or free ID of the root of this expression." alt="" coords="221,5,364,47"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a2b9c69e0d904b4ac74006b05596df6df" title="Construction of very simple (free or constant) expressions." alt="" coords="5,5,173,47"/>
+<area shape="rect" id="node1" title="Get the symbol or free ID of the root of this expression." alt="" coords="221,39,364,80"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ac52b476755e8aef80fdd192fe73568f5" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="12,5,167,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a2b9c69e0d904b4ac74006b05596df6df" title="Construction of very simple (free or constant) expressions." alt="" coords="5,71,173,112"/>
 </map>

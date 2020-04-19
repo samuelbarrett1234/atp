@@ -1,8 +1,10 @@
 <map id="atp::logic::equational::ExprTreeFlyweight::root_type" name="atp::logic::equational::ExprTreeFlyweight::root_type">
-<area shape="rect" id="node1" title=" " alt="" coords="240,152,439,193"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="23,5,174,47"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a40c13f6a0a0147518fe9f4d75c54a1d9" title="Add a particular value to the ID of every free variable in this expression." alt="" coords="19,71,179,127"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expression.html#aa37261d8ee733f6ab74bd6d558ae52e2" title="Substitute the free variables according to the given map." alt="" coords="5,152,192,193"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#aeee9e7dcfe3da4ed1f7f2b40de534488" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="26,217,171,259"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ab0aa735571984d286656c2f3550694ca" title="Try to match this expression to the given expression." alt="" coords="18,283,179,324"/>
+<area shape="rect" id="node1" title=" " alt="" coords="240,209,439,251"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ac52b476755e8aef80fdd192fe73568f5" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="21,5,176,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a4a068ef4bf5b7591efeaa1daa8de9c54" title="Returns true iff the expressions are equal up to swapping of free variable names." alt="" coords="19,71,179,112"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="23,136,174,177"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a40c13f6a0a0147518fe9f4d75c54a1d9" title="Add a particular value to the ID of every free variable in this expression." alt="" coords="19,202,179,258"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="5,283,192,324"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_expression.html#aeee9e7dcfe3da4ed1f7f2b40de534488" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="26,348,171,389"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_expression.html#af93dc45b37aefe9d2f66ce8a4318fa6f" title="Try to match this expression to the given expression." alt="" coords="18,413,179,455"/>
 </map>

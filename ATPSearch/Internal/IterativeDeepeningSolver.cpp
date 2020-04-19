@@ -189,19 +189,21 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 	// if we have exhausted the back frame
 	if (!st.back().iter->valid())
 	{
-		// ensure we haven't invalidated the back iterator, and if we
-		// have, fix it:
-		st.pop_back();
-		while (!st.empty() && !st.back().iter->valid())
+		// restore the stack back to a state where it is either empty
+		// or its back iterator is valid
+		do
 		{
-			ATP_SEARCH_ASSERT(st.back().iter != nullptr);
-			ATP_SEARCH_ASSERT(st.back().iter->valid());
+			st.pop_back();
 
-			st.back().iter->advance();
+			// advance if nonempty
+			if (!st.empty())
+			{
+				ATP_LOGIC_ASSERT(st.back().iter != nullptr &&
+					st.back().iter->valid());
+				st.back().iter->advance();
+			}
 
-			if (!st.back().iter->valid())
-				st.pop_back();
-		}
+		} while (!st.empty() && !st.back().iter->valid());
 
 		// now either the stack is empty or the iterator is valid
 		// and pointing to the next node we should expand

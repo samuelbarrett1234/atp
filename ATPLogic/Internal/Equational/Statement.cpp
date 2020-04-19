@@ -109,8 +109,8 @@ const FreeVarIdSet& Statement::free_var_ids() const
 }
 
 
-Statement Statement::map_free_vars(const std::map<size_t,
-	Expression> free_map) const
+Statement Statement::map_free_vars(const FreeVarMap<
+	Expression>& free_map) const
 {
 	// check that this map is total
 	ATP_LOGIC_PRECOND(std::all_of(free_var_ids().begin(),
@@ -449,27 +449,28 @@ bool Statement::implies(const Statement& conclusion) const
 {
 	// check that the two maps don't conflict on their intersection
 	auto maps_compatible = [](
-		const std::map<size_t, Expression>& a,
-		const std::map<size_t, Expression>& b) -> bool
+		const FreeVarMap<Expression>& a,
+		const FreeVarMap<Expression>& b) -> bool
 	{
 		// we only need to check consistency between the assignments
-		// that are in both a and b, so it suffices to loop over a
-		for (const auto& pair : a)
+		// that are in both a and b, so it suffices to loop over `a`
+		for (auto a_iter = a.begin(); a_iter != a.end();
+			++a_iter)
 		{
-			auto iter = b.find(pair.first);
-			if (iter != b.end())
+			auto b_iter = b.find(a_iter.first());
+			if (b_iter != b.end())
 			{
 				// we need identical here, rather than equivalent,
 				// otherwise: *(x, e) = x => *(*(x, y), e) = *(y, x)
 				// for example (there is a test case to cover this).
-				if (!pair.second.identical(iter->second))
+				if (!a_iter.second().identical(b_iter.second()))
 					return false;
 			}
 		}
 		return true;
 	};
 
-	std::map<size_t, Expression> lmap, rmap;
+	FreeVarMap<Expression> lmap, rmap;
 
 	if (m_sides.first->try_match(*conclusion.m_sides.first,
 		&lmap) && m_sides.second->try_match(

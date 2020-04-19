@@ -308,6 +308,12 @@ public:
 			[](bool b) { return b; });
 	}
 
+	inline void clear()
+	{
+		for (bool& b : m_vec)
+			b = false;
+	}
+
 	inline iterator begin() const
 	{
 		return iterator(this, 0);

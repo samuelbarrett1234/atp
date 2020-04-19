@@ -18,6 +18,7 @@
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/SyntaxNodes.h>
 #include <Internal/FreeVarIdSet.h>
+#include <Internal/FreeVarMap.h>
 #include "../Test.h"
 #include "SyntaxNodeToStr.h"
 #include "StandardTestFixture.h"
@@ -25,6 +26,7 @@
 
 using atp::logic::StmtFormat;
 using atp::logic::FreeVarIdSet;
+using atp::logic::FreeVarMap;
 using atp::logic::equational::ModelContext;
 using atp::logic::equational::StatementArray;
 using atp::logic::equational::Statement;
@@ -448,13 +450,13 @@ BOOST_DATA_TEST_CASE(test_map_free_vars,
 	auto target_stmt = dynamic_cast<const Statement&>(p_stmts->at(2));
 
 	// construct free var mapping:
-	std::map<size_t, Expression> free_var_map;
+	FreeVarMap<Expression> free_var_map;
 	for (auto id : original_stmt.free_var_ids())
 	{
 		// substitute all free variables for the LHS of the
 		// substitution statement (as we said above, we will
 		// ignore the RHS).
-		free_var_map.insert(std::make_pair(id, sub_stmt.lhs()));
+		free_var_map.insert(id, sub_stmt.lhs());
 	}
 
 	// now test the function
@@ -485,16 +487,16 @@ BOOST_AUTO_TEST_CASE(
 		ctx);
 	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
 
-	std::map<size_t, Expression> free_var_map;
+	FreeVarMap<Expression> free_var_map;
 
 	// no matter what ID `stmt` assigned the free variable,
 	// because there is only one of them, then this mapping
 	// will surface the error we are testing for if it exists
 
-	free_var_map.insert({ 0, Expression(ctx,
-		FreeSyntaxNode::construct(1)) });
-	free_var_map.insert({ 1, Expression(ctx,
-		FreeSyntaxNode::construct(2)) });
+	free_var_map.insert(0, Expression(ctx,
+		FreeSyntaxNode::construct(1)));
+	free_var_map.insert(1, Expression(ctx,
+		FreeSyntaxNode::construct(2)));
 
 	auto result = stmt.map_free_vars(free_var_map);
 
@@ -919,14 +921,14 @@ Statement map_free_ids(
 	const std::map<size_t, size_t>& free_id_map,
 	Statement stmt)
 {
-	std::map<size_t, Expression> new_free_map;
+	FreeVarMap<Expression> new_free_map;
 
 	// change it so we map to expressions
 	for (auto pair : free_id_map)
 	{
 		auto p_syntax_tree = FreeSyntaxNode::construct(pair.second);
-		new_free_map.insert(std::make_pair(pair.first,
-			Expression(stmt.context(), p_syntax_tree)));
+		new_free_map.insert(pair.first,
+			Expression(stmt.context(), p_syntax_tree));
 	}
 
 	// make the map total
@@ -935,8 +937,8 @@ Statement map_free_ids(
 		if (new_free_map.find(id) == new_free_map.end())
 		{
 			auto p_syntax_tree = FreeSyntaxNode::construct(id);
-			new_free_map.insert(std::make_pair(id,
-				Expression(stmt.context(), p_syntax_tree)));
+			new_free_map.insert(id,
+				Expression(stmt.context(), p_syntax_tree));
 		}
 	}
 

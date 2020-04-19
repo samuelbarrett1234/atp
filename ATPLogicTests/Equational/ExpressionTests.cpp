@@ -17,12 +17,14 @@
 
 #include <Internal/Equational/Expression.h>
 #include <Internal/Equational/Statement.h>
+#include <Internal/FreeVarMap.h>
 #include "../Test.h"
 #include "StandardTestFixture.h"
 
 
 using atp::logic::StmtFormat;
 using atp::logic::FreeVarIdSet;
+using atp::logic::FreeVarMap;
 using atp::logic::equational::Expression;
 using atp::logic::equational::Statement;
 
@@ -128,7 +130,7 @@ BOOST_AUTO_TEST_CASE(test_try_build_map_positive)
 		ctx);
 	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
 
-	std::map<size_t, Expression> mapping;
+	FreeVarMap<Expression> mapping;
 	BOOST_TEST(stmt.lhs().try_match(stmt.rhs(), &mapping));
 	BOOST_TEST(mapping.size() == 2);
 
@@ -149,7 +151,7 @@ BOOST_AUTO_TEST_CASE(test_try_build_map_negative)
 		ctx);
 	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
 
-	std::map<size_t, Expression> mapping;
+	FreeVarMap<Expression> mapping;
 	BOOST_TEST(!stmt.lhs().try_match(stmt.rhs(), &mapping));
 	BOOST_TEST(mapping.empty());
 
@@ -173,7 +175,7 @@ BOOST_AUTO_TEST_CASE(test_try_build_map_empty)
 		ctx);
 	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
 
-	std::map<size_t, Expression> mapping;
+	FreeVarMap<Expression> mapping;
 	BOOST_TEST(stmt.lhs().try_match(stmt.rhs(), &mapping));
 	BOOST_TEST(mapping.empty());
 }
@@ -349,8 +351,8 @@ BOOST_DATA_TEST_CASE(test_map_free_vars,
 	auto expr_final_result = dynamic_cast<const Statement&>(
 		p_stmts->at(2)).lhs();
 	
-	std::map<size_t, Expression> map;
-	map.insert({ 0, expr_sub });
+	FreeVarMap<Expression> map;
+	map.insert(0, expr_sub);
 	auto expr_result = expr_start.map_free_vars(map);
 
 	BOOST_TEST(expr_final_result.equivalent(expr_result));

@@ -164,8 +164,10 @@ void KnowledgeKernel::remove_theorems(size_t ref_id)
 
 bool KnowledgeKernel::try_match(size_t match_index,
 	const Expression& expr,
-	std::map<size_t, Expression>* p_out_subs) const
+	FreeVarMap<Expression>* p_out_subs) const
 {
+	ATP_LOGIC_PRECOND(match_index < m_matches.size());
+
 	// just delegate this to the Expression::try_match function
 	return m_matches.at(match_index).first.try_match(expr,
 		p_out_subs);
@@ -174,15 +176,16 @@ bool KnowledgeKernel::try_match(size_t match_index,
 
 std::vector<std::pair<Expression, FreeVarIdSet>>
 KnowledgeKernel::match_results_at(size_t match_index,
-	std::map<size_t, Expression> match_subs) const
+	FreeVarMap<Expression> match_subs) const
 {
 	ATP_LOGIC_PRECOND(match_index < m_matches.size());
 
 	// get all of the free variable IDs which were provided a mapping
 	// by the argument `match_subs` before we start modifying it
 	FreeVarIdSet free_ids_originally_mapped;
-	for (const auto& sub : match_subs)
-		free_ids_originally_mapped.insert(sub.first);
+	for (auto sub_iter = match_subs.begin();
+		sub_iter != match_subs.end(); ++sub_iter)
+		free_ids_originally_mapped.insert(sub_iter.first());
 
 	const auto& input_results = m_matches.at(match_index).second;
 
@@ -202,8 +205,8 @@ KnowledgeKernel::match_results_at(size_t match_index,
 		{
 			if (match_subs.find(free_id) == match_subs.end())
 			{
-				match_subs.insert({ free_id, Expression(m_context,
-					free_id, SyntaxNodeType::FREE) });
+				match_subs.insert(free_id, Expression(m_context,
+					free_id, SyntaxNodeType::FREE));
 			}
 		}
 

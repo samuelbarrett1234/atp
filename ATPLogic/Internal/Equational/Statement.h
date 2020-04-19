@@ -25,9 +25,6 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <array>
-#include <map>
-#include <set>
 #include <boost/optional.hpp>
 #include <boost/iterator/zip_iterator.hpp>
 #include "../../ATPLogicAPI.h"
@@ -36,6 +33,7 @@
 #include "SyntaxNodes.h"
 #include "Expression.h"
 #include "../FreeVarIdSet.h"
+#include "../FreeVarMap.h"
 
 
 /**
@@ -233,8 +231,8 @@ public:
 	\pre All free variables must be assigned a mapping (this mapping
 		must be total).
 	*/
-	Statement map_free_vars(const std::map<size_t,
-		Expression> free_map) const;
+	Statement map_free_vars(const FreeVarMap<Expression>&
+		free_map) const;
 
 	/**
 	\brief Replace the expression rooted at the given position iter

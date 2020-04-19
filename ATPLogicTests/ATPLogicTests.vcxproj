@@ -194,6 +194,7 @@
     <ClCompile Include="Equational\SyntaxNodeToStr.cpp" />
     <ClCompile Include="Equational\SyntaxTreeFoldTests.cpp" />
     <ClCompile Include="FreeVarIdSetTests.cpp" />
+    <ClCompile Include="FreeVarMapTests.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>

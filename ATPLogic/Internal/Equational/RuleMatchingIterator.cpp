@@ -13,6 +13,7 @@
 #include "Statement.h"
 #include "ModelContext.h"
 #include "KnowledgeKernel.h"
+#include "../FreeVarMap.h"
 
 
 namespace atp
@@ -106,7 +107,7 @@ void RuleMatchingIterator::restore_invariant()
 	ATP_LOGIC_PRECOND(valid());
 	ATP_LOGIC_PRECOND(m_cur_matching == nullptr);
 
-	std::map<size_t, Expression> match_subs;
+	FreeVarMap<Expression> match_subs;
 
 	// keep trying to match
 	while (valid() && !m_ker.try_match(m_match_index,

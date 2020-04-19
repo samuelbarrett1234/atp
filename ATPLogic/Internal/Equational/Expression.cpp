@@ -165,14 +165,14 @@ const FreeVarIdSet& Expression::free_var_ids() const
 }
 
 
-Expression Expression::map_free_vars(const std::map<size_t,
+Expression Expression::map_free_vars(const FreeVarMap<
 	Expression>& free_map) const
 {
 	// check that this map is total
 	ATP_LOGIC_PRECOND(std::all_of(free_var_ids().begin(),
 		free_var_ids().end(),
 		[&free_map](size_t id)
-		{ return free_map.find(id) != free_map.end(); }));
+		{ return free_map.contains(id); }));
 
 	switch (m_tree.root_type())
 	{
@@ -201,10 +201,11 @@ Expression Expression::map_free_vars(const std::map<size_t,
 		const size_t size_before = new_expr.m_tree.size();
 
 		std::map<size_t, size_t> new_map;
-		for (const auto& pair : free_map)
+		for (auto iter = free_map.begin(); iter != free_map.end();
+			++iter)
 		{
-			new_map[pair.first] = new_expr.m_tree.merge_from(
-				pair.second.m_tree);
+			new_map[iter.first()] = new_expr.m_tree.merge_from(
+				iter.second().m_tree);
 		}
 		
 		for (size_t i = 0; i < size_before; ++i)
@@ -227,7 +228,7 @@ Expression Expression::map_free_vars(const std::map<size_t,
 					// note that sub_id is the `new_map` transformation
 					// of expr_iter->second.m_tree.root_id()
 					auto sub_id = id_iter->second;
-					auto sub_type = expr_iter->second.m_tree.root_type();
+					auto sub_type = expr_iter.second().m_tree.root_type();
 
 					new_expr.m_tree.update_func_child(i, j,
 						sub_id, sub_type);
@@ -663,17 +664,17 @@ bool Expression::identical(const Expression& other) const
 
 
 bool Expression::try_match(const Expression& expr,
-	std::map<size_t, Expression>* p_out_subs) const
+	FreeVarMap<Expression>* p_out_subs) const
 {
 	// if p_out_subs is null then, to avoid repeating code, we create
 	// a map to put there instead
 	// (use a unique_ptr for the placeholder to ensure it gets
 	// deleted if it exists).
-	std::unique_ptr<std::map<size_t, Expression>> _p_placeholder;
+	std::unique_ptr<FreeVarMap<Expression>> _p_placeholder;
 	if (p_out_subs == nullptr)
 	{
 		_p_placeholder = std::make_unique<
-			std::map<size_t, Expression>>();
+			FreeVarMap<Expression>>();
 		p_out_subs = _p_placeholder.get();
 	}
 	else p_out_subs->clear();  // clear this to begin with
@@ -688,8 +689,8 @@ bool Expression::try_match(const Expression& expr,
 		// assign it any value we like
 		if (iter == p_out_subs->end())
 		{
-			p_out_subs->insert({ id_a, Expression(m_ctx,
-				id_b, SyntaxNodeType::FREE) });
+			p_out_subs->insert(id_a, Expression(m_ctx,
+				id_b, SyntaxNodeType::FREE));
 			return true;
 		}
 		// this variable has already been mapped; check that the
@@ -698,7 +699,7 @@ bool Expression::try_match(const Expression& expr,
 		{
 			// optimised from `return iter->second.equivalent(
 			// Expression(m_ctx, id_b, SyntaxNodeType::FREE));`
-			return (iter->second.m_tree.root_type() ==
+			return (iter.second().m_tree.root_type() ==
 				SyntaxNodeType::FREE);
 		}
 	};
@@ -729,12 +730,12 @@ bool Expression::try_match(const Expression& expr,
 		// assign it any value we like
 		if (iter == p_out_subs->end())
 		{
-			p_out_subs->insert({ free_id, std::move(expr_right) });
+			p_out_subs->insert(free_id, std::move(expr_right));
 			return true;
 		}
 		// this variable has already been mapped; check that the
 		// value it was mapped to agrees with this
-		else return iter->second.equivalent(expr_right);
+		else return iter.second().equivalent(expr_right);
 	};
 
 	const bool success = fold_pair<bool>(free_constructor,

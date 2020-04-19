@@ -23,6 +23,7 @@
 #include "StatementArray.h"
 #include "ModelContext.h"
 #include "../FreeVarIdSet.h"
+#include "../FreeVarMap.h"
 
 
 namespace atp
@@ -119,7 +120,7 @@ public:
 	*/
 	bool try_match(size_t match_index,
 		const Expression& expr,
-		std::map<size_t, Expression>* p_out_subs) const;
+		FreeVarMap<Expression>* p_out_subs) const;
 
 	/**
 	\brief Get the possible effects of a given matching and matching
@@ -136,7 +137,7 @@ public:
 	std::vector<std::pair<Expression,
 		FreeVarIdSet>> match_results_at(
 			size_t match_index,
-			std::map<size_t, Expression> match_subs) const;
+			FreeVarMap<Expression> match_subs) const;
 
 private:
 	/**

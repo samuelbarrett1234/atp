@@ -22,7 +22,6 @@
 #include <memory>
 #include <vector>
 #include <map>
-#include <set>
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/optional.hpp>
 #include "../../ATPLogicAPI.h"
@@ -30,6 +29,7 @@
 #include "ExprTreeFlyweight.h"
 #include "SyntaxNodes.h"
 #include "../FreeVarIdSet.h"
+#include "../FreeVarMap.h"
 
 
 namespace atp
@@ -363,8 +363,7 @@ public:
     \pre All free variables must be assigned a mapping (this mapping
         must be total).
     */
-    Expression map_free_vars(const std::map<size_t,
-        Expression>& free_map) const;
+    Expression map_free_vars(const FreeVarMap<Expression>& free_map) const;
 
 	/**
 	\brief Replace the expression rooted at the given position iter
@@ -462,7 +461,7 @@ public:
 		total with respect to our free variables.
 	*/
 	bool try_match(const Expression& expr,
-		std::map<size_t, Expression>* p_out_subs) const;
+		FreeVarMap<Expression>* p_out_subs) const;
 
     /**
     \brief Perform a fold operation over this expression.
@@ -874,8 +873,8 @@ private:
 		// (because there will be a large ratio of their occurrences
 		// to the number of them there actually are, so we should
 		// reuse their results where we can.)
-		std::map<size_t, ResultT> free_var_result_cache,
-			const_result_cache;
+		std::map<size_t, ResultT> const_result_cache;
+		FreeVarMap<ResultT> free_var_result_cache;
 
 		// initialise stacks
 		todo_stack.push_back(start_id);
@@ -912,13 +911,13 @@ private:
 					if (cache_iter == free_var_result_cache.end())
 					{
 						ResultT r = free_func(id);
-						free_var_result_cache[id] = r;
+						free_var_result_cache.insert(id, r);
 						result_stack.emplace_back(std::move(r));
 					}
 					else
 					{
 						// else reuse old computation
-						result_stack.push_back(cache_iter->second);
+						result_stack.push_back(cache_iter.second());
 					}
 				}
 				break;

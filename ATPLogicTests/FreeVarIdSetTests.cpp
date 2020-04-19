@@ -283,6 +283,20 @@ BOOST_AUTO_TEST_CASE(constructor_test)
 }
 
 
+BOOST_AUTO_TEST_CASE(clear_test)
+{
+	set.insert(0);
+	set.insert(7);
+
+	set.clear();
+
+	BOOST_TEST(set.empty());
+	BOOST_TEST(set.size() == 0);
+	BOOST_TEST(!set.contains(0));
+	BOOST_TEST(!set.contains(7));
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();
 
 

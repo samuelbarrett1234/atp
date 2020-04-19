@@ -250,7 +250,7 @@ void ProofApplication::run()
 			break;
 		case atp::logic::ProofCompletionState::NO_PROOF:
 			m_out << "Proof of \"" << tasks->at(i).to_str()
-				<< "\" was unsuccessful; it was impossible to prove"
+				<< "\" was unsuccessful; it was impossible to prove "
 				<< "using the given solver and the current settings."
 				<< std::endl;
 			break;

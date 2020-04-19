@@ -80,10 +80,11 @@ PfStateSuccIterPtr ProofState::succ_begin() const
 
 ProofCompletionState ProofState::completion_state() const
 {
+	// compute and cache this value if we haven't computed it already
 	if (!m_comp_state.has_value())
 	{
 		if (m_ker.is_trivial(forefront()))
-			return ProofCompletionState::PROVEN;
+			m_comp_state = ProofCompletionState::PROVEN;
 		else
 		{
 			if (m_next_begin_iter == nullptr)
@@ -92,11 +93,11 @@ ProofCompletionState ProofState::completion_state() const
 			}
 
 			if (m_next_begin_iter->valid())
-				return ProofCompletionState::UNFINISHED;
+				m_comp_state = ProofCompletionState::UNFINISHED;
 			else
 				// if begin iterator is invalid then we have no
 				// successors
-				return ProofCompletionState::NO_PROOF;
+				m_comp_state = ProofCompletionState::NO_PROOF;
 		}
 	}
 

@@ -457,13 +457,12 @@ bool Statement::implies(const Statement& conclusion) const
 		for (auto a_iter = a.begin(); a_iter != a.end();
 			++a_iter)
 		{
-			auto b_iter = b.find(a_iter.first());
-			if (b_iter != b.end())
+			if (b.contains(a_iter.first()))
 			{
 				// we need identical here, rather than equivalent,
 				// otherwise: *(x, e) = x => *(*(x, y), e) = *(y, x)
 				// for example (there is a test case to cover this).
-				if (!a_iter.second().identical(b_iter.second()))
+				if (!a_iter.second().identical(b.at(a_iter.first())))
 					return false;
 			}
 		}

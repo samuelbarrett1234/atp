@@ -257,6 +257,48 @@ BOOST_AUTO_TEST_CASE(test_modifiable_values)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_iterator_first)
+{
+	map.insert(1, -1);
+	BOOST_TEST(map.begin().first() == 1);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_iterator_second)
+{
+	map.insert(1, -1);
+	BOOST_TEST(map.begin().second() == -1);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_iteration_after_clear)
+{
+	map.insert(0, -1);
+	map.insert(1, -2);
+
+	map.clear();
+
+	map.insert(1, -3);
+
+	// a load of random tests:
+
+	BOOST_TEST(map.size() == 1);
+	BOOST_TEST(std::any_of(map.begin(), map.end(),
+		[](int x) { return x == -3; }));
+	BOOST_TEST(std::distance(map.begin(), map.end()) == 1);
+
+	BOOST_TEST(map.begin().first() == 1);
+
+	for (auto iter = map.begin(); iter != map.end(); ++iter)
+	{
+		BOOST_TEST(iter.first() == 1);
+		BOOST_TEST(iter.second() == -3);
+	}
+
+	BOOST_TEST(!map.contains(0));
+}
+
+
 // TODO: implement this functionality in FreeVarMap??
 //BOOST_AUTO_TEST_CASE(insert_via_at_test)
 //{

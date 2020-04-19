@@ -37,7 +37,9 @@ BOOST_FIXTURE_TEST_SUITE(ExpressionTests,
 	* boost::unit_test_framework::depends_on(
 		"EquationalTests/LanguageTests")
 	* boost::unit_test_framework::depends_on(
-		"FreeVarIdSetTests"));
+		"FreeVarIdSetTests")
+	* boost::unit_test_framework::depends_on(
+		"FreeVarMapTests"));
 
 
 BOOST_DATA_TEST_CASE(iterator_walking_test,

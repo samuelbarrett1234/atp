@@ -95,7 +95,8 @@ public:
 			return *m_parent->m_vec[m_idx];
 		}
 
-		inline std::enable_if_t<!std::is_const_v<reference> && !std::is_const_v<_ParentTy>,
+		inline std::enable_if_t<!std::is_const_v<reference>
+			&& !std::is_const_v<_ParentTy>,
 			reference> operator*()
 		{
 			bring_forward();
@@ -106,7 +107,9 @@ public:
 
 		inline size_t first() const
 		{
+			bring_forward();
 			ATP_LOGIC_PRECOND(m_idx < m_parent->m_vec.size());
+			ATP_LOGIC_ASSERT(m_parent->m_vec[m_idx].has_value());
 			return m_idx + m_parent->m_min_id;
 		}
 
@@ -115,7 +118,8 @@ public:
 			return *(*this);
 		}
 
-		inline std::enable_if_t<!std::is_const_v<reference> && !std::is_const_v<_ParentTy>,
+		inline std::enable_if_t<!std::is_const_v<reference>
+			&& !std::is_const_v<_ParentTy>,
 			reference> second()
 		{
 			return *(*this);
@@ -129,7 +133,8 @@ public:
 			return *m_parent->m_vec[m_idx].get_ptr();
 		}
 
-		inline std::enable_if_t<!std::is_const_v<pointer> && !std::is_const_v<_ParentTy>,
+		inline std::enable_if_t<!std::is_const_v<pointer>
+			&& !std::is_const_v<_ParentTy>,
 			pointer> operator->()
 		{
 			bring_forward();

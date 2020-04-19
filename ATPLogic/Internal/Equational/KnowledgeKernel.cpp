@@ -203,7 +203,7 @@ KnowledgeKernel::match_results_at(size_t match_index,
 		// the result (as it will still be a total mapping).
 		for (size_t free_id : input_results[i].second)
 		{
-			if (match_subs.find(free_id) == match_subs.end())
+			if (!match_subs.contains(free_id))
 			{
 				match_subs.insert(free_id, Expression(m_context,
 					free_id, SyntaxNodeType::FREE));

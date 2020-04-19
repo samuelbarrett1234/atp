@@ -58,7 +58,7 @@ BOOST_DATA_TEST_CASE(insert_two_test,
 	boost::unit_test::data::random(0, 10) ^
 	boost::unit_test::data::random(-100, 100) ^
 	boost::unit_test::data::random(-100, 100) ^
-	boost::unit_test::data::xrange(0, 100),
+	boost::unit_test::data::xrange(0, 200),
 	id1, id2, val1, val2, test_index)
 {
 	map.insert(id1, val1);
@@ -76,16 +76,27 @@ BOOST_DATA_TEST_CASE(insert_two_test,
 	BOOST_TEST(map.contains(middle_id) ==
 		(middle_id == id1 || middle_id == id2));
 
+	// mimick `contains` tests for `find`
+	BOOST_TEST((map.find(min_id - 1) == map.end()));
+	BOOST_TEST((map.find(max_id + 1) == map.end()));
+	BOOST_TEST((map.find(middle_id) != map.end()) ==
+		(middle_id == id1 || middle_id == id2));
+
 	if (id1 != id2)
 	{
 		// check values as well
 		BOOST_TEST(map.at(id1) == val1);
 		BOOST_TEST(map.at(id2) == val2);
+		BOOST_TEST(map.find(id1).first() == id1);
+		BOOST_TEST(map.find(id1).second() == val1);
+		BOOST_TEST(map.find(id2).first() == id2);
+		BOOST_TEST(map.find(id2).second() == val2);
 	}
 	else
 	{
 		// latter value should've overridden
-		BOOST_TEST(map.at(id1) == val2);
+		BOOST_TEST(map.find(id1).first() == id1);
+		BOOST_TEST(map.find(id1).second() == val2);
 	}
 }
 
@@ -297,6 +308,18 @@ BOOST_AUTO_TEST_CASE(test_iteration_after_clear)
 
 	BOOST_TEST(!map.contains(0));
 }
+
+
+BOOST_AUTO_TEST_CASE(test_iterator_brought_forward_in_eq_test)
+{
+	// causes m_vec to be of size 1
+	map.insert(1, -1);
+	map.erase(1);
+
+	BOOST_TEST((map.begin() == map.end()));
+}
+
+
 
 
 // TODO: implement this functionality in FreeVarMap??

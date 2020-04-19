@@ -275,19 +275,17 @@ public:
 
 	inline iterator find(size_t id)
 	{
-		if (id >= m_min_id && id < m_vec.size() + m_min_id)
-		{
+		if (contains(id))
 			return iterator(this, id - m_min_id);
-		}
-		else return end();
+		else
+			return end();
 	}
 	inline const_iterator find(size_t id) const
 	{
-		if (id >= m_min_id && id < m_vec.size() + m_min_id)
-		{
+		if (contains(id))
 			return const_iterator(this, id - m_min_id);
-		}
-		else return end();
+		else
+			return end();
 	}
 
 	inline const_lvalue_reference at(size_t id) const

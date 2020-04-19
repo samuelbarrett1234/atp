@@ -1,0 +1,20 @@
+{
+	"name" : "Arithmetic in a Commutative Ring with Unity",
+	"definitions" : [
+		{ "name" : "0", "arity" : 0 },
+		{ "name" : "1", "arity" : 0 },
+		{ "name" : "+", "arity" : 2 },
+		{ "name" : "-", "arity" : 1 },
+		{ "name" : "*", "arity" : 2 }
+	],
+	"axioms" : [
+		"+(x, 0) = x",
+		"+(x, y) = +(y, x)",
+		"+(+(x, y), z) = +(x, +(y, z))",
+		"+(x, -(x)) = 0",
+		"*(x, 1) = x",
+		"*(x, y) = *(y, x)",
+		"*(*(x, y), z) = *(x, *(y, z))",
+		"*(x, +(y, z)) = +(*(x, y), *(x, z))"
+	]
+}

@@ -74,7 +74,8 @@ bool ProofApplication::set_context_file(std::string path)
 		return false;
 	}
 
-	m_out << "Successfully loaded the context file." << std::endl;
+	m_out << "Successfully loaded the context file \"" << 
+		m_ctx->context_name() << "\"." << std::endl;
 	return true;  // success
 }
 

@@ -55,7 +55,9 @@ BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(FreeVarAssignmentIteratorTests,
 	FreeVarAssignmentIteratorTestsFixture,
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/StatementTests"));
+		"EquationalTests/StatementTests")
+	* boost::unit_test_framework::depends_on(
+		"EquationalTests/MaybeRandomIndexTests"));
 
 
 BOOST_DATA_TEST_CASE(test_one_var,

@@ -54,7 +54,7 @@ MatchResultsIterator::MatchResultsIterator(
 	m_ctx(ctx), m_ker(ker), m_parent(parent),
 	m_forefront_stmt(forefront_stmt), m_randomised(randomised),
 	m_match_results(std::move(match_results)),
-	m_match_result_index(match_results.size(), randomised,
+	m_match_result_index(m_match_results.size(), randomised,
 		ker.generate_rand()),
 	m_free_const_enum(free_const_enum), m_sub_expr_iter(sub_expr)
 {

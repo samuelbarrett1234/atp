@@ -82,7 +82,7 @@ public:
 
 	inline void set_seed(size_t seed) override
 	{
-		m_rand_gen.seed(seed);
+		m_rand_gen.seed((unsigned int)seed);
 	}
 
 	inline size_t generate_rand() const override

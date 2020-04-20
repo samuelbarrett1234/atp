@@ -57,7 +57,9 @@ BOOST_FIXTURE_TEST_SUITE(MatchResultsIteratorTests,
 	* boost::unit_test_framework::depends_on(
 		"EquationalTests/FreeVarAssignmentIteratorTests")
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/StatementTests"));
+		"EquationalTests/StatementTests")
+	* boost::unit_test_framework::depends_on(
+		"EquationalTests/MaybeRandomIndexTests"));
 
 
 BOOST_DATA_TEST_CASE(test_constructs_correct_substitution,

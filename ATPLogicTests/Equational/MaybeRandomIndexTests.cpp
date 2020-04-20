@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(basic_test)
 {
 	const size_t N = 100;
 	vec.resize(N, false);
-	MaybeRandomIndex idx(N, false);
+	MaybeRandomIndex idx(N, false, 0 /* fix a random seed */);
 	for (size_t i = 0; i < N; ++i, idx.advance())
 	{
 		size_t j = idx.get();
@@ -53,11 +53,15 @@ BOOST_DATA_TEST_CASE(random_test,
 	N, test_idx)
 {
 	vec.resize(N, false);
-	MaybeRandomIndex idx(N, true);
+	MaybeRandomIndex idx(N, true, 0 /* fix a random seed */);
 	for (size_t i = 0; i < N; ++i, idx.advance())
 	{
 		size_t j = idx.get();
 		BOOST_REQUIRE(j < vec.size());
+		if (vec[j])
+		{
+			std::string s = "dummy";
+		}
 		BOOST_TEST(!vec[j]);
 		vec[j] = true;
 	}

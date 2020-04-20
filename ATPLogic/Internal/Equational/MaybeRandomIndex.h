@@ -11,7 +11,7 @@
 
 
 #include <algorithm>
-#include <boost/math/special_functions/prime.hpp>
+#include <utility>
 #include "../../ATPLogicAPI.h"
 
 
@@ -31,10 +31,6 @@ namespace equational
 \details When randomised = false, this just behaves like a size_t
 	index. When randomised = true, it iterates over the given input
 	range in a random order.
-
-\note The random iteration is done via the algebraic notion of
-	primitive roots modulo n. See:
-	https://stackoverflow.com/questions/33097292/c-iterate-vector-randomly
 */
 class MaybeRandomIndex
 {
@@ -54,32 +50,30 @@ public:
 		bool randomised, size_t random_input) :
 		m_size(size),
 		m_randomised(randomised),
-		m_idx((size > 1) ? 1 : 0),
-		m_num_advances(0),
-		m_prime([size]() {
-		// compute the smallest prime which is >= m_size
-		// (since m_prime is const we have to do this in a lambda)
-		size_t n = 1, p = 3;
-		// n = 0 corresponds to 2 (but we start from 3)
-		while ((p = (size_t)boost::math::prime((unsigned int)n)) < size)
-		{
-			++n;
-
-			// hopefully should never trigger this, although it is
-			// actually not a guarantee (it is okay for less than
-			// 10^5 but might become a problem after that)
-			ATP_LOGIC_ASSERT(n < boost::math::max_prime);
-		}
-		return p;
-			}()),
-		m_some_random_number(randomised ?
-			0 : (2 + random_input % (m_prime - 2)))
+		m_idx(0),
+		m_idxs(randomised ? size : 0)
 	{
-		ATP_LOGIC_ASSERT(m_prime >= m_size);
-		ATP_LOGIC_ASSERT(m_some_random_number >= 2);
-		ATP_LOGIC_ASSERT(m_some_random_number < m_prime);
-		if (m_randomised && m_size > 1)
-			advance();  // initialises m_idx properly
+		// initialise the array
+		for (size_t i = 0; i < m_size && m_randomised; ++i)
+		{
+			m_idxs[i] = i;
+		}
+
+		// Fisher Yates shuffle (we will repeatedly modify the random
+		// input to generate a pseudo-random sequence from a single
+		// random number input).
+		for (size_t i = m_size - 1; i > 0 && m_randomised
+			&& m_size > 0  /* `i` fails when size==0 */; --i)
+		{
+			const size_t j = random_input % i;
+
+			// generate next random number in the sequence
+			// (overflow is okay here)
+			// https://en.wikipedia.org/wiki/Linear_congruential_generator
+			random_input = (1664525 * random_input + 1013904223) % 0xffffffff;
+
+			std::swap(m_idxs[i], m_idxs[j]);
+		}
 	}
 
 	/**
@@ -87,7 +81,7 @@ public:
 	*/
 	inline bool is_end() const
 	{
-		return m_num_advances == m_size;
+		return m_idx == m_size;
 	}
 
 	/**
@@ -96,10 +90,8 @@ public:
 	inline size_t get() const
 	{
 		ATP_LOGIC_PRECOND(!is_end());
-		ATP_LOGIC_ASSERT(!m_randomised || m_idx - 1 < m_size);
-		ATP_LOGIC_ASSERT(!m_randomised || m_idx >= 1);
 		
-		return m_randomised ? m_idx : m_num_advances;
+		return m_randomised ? m_idxs[m_idx] : m_idx;
 	}
 
 	/**
@@ -108,26 +100,14 @@ public:
 	inline void advance()
 	{
 		ATP_LOGIC_PRECOND(!is_end());
-		++m_num_advances;
-		if (m_randomised)
-		{
-			do
-			{
-				m_idx = (m_idx * m_some_random_number) % m_prime;
-			} while (m_idx - 1 >= m_size);
-		}
+		++m_idx;
 	}
 
 private:
 	const size_t m_size;
 	const bool m_randomised;
-	size_t m_num_advances;
-
-	// if randomised
-
-	const size_t m_prime;  // the largest odd prime >= m_size.
-	// some random number between 2 and m_prime inclusive
-	size_t m_idx, m_some_random_number;
+	size_t m_idx;
+	std::vector<size_t> m_idxs;
 };
 
 

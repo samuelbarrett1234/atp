@@ -54,7 +54,9 @@ BOOST_FIXTURE_TEST_SUITE(RuleMatchingIteratorTests,
 	* boost::unit_test_framework::depends_on(
 		"EquationalTests/MatchResultsIteratorTests")
 	* boost::unit_test_framework::depends_on(
-		"EquationalTests/KnowledgeKernelTests"));
+		"EquationalTests/KnowledgeKernelTests")
+	* boost::unit_test_framework::depends_on(
+		"EquationalTests/MaybeRandomIndexTests"));
 
 
 BOOST_DATA_TEST_CASE(test_subs,

@@ -104,7 +104,7 @@ BOOST_DATA_TEST_CASE(simple_proof_test,
 
 	// none of these proofs should take more than 1000 node
 	// expansions (I think)
-	p_ids->step(1000);
+	p_ids->step(20000);
 
 	auto proofs = p_ids->get_proofs();
 	auto pf_states = p_ids->get_states();

@@ -48,8 +48,7 @@ class KnowledgeKernel;  // forward declaration
 	free variables, if there are any. If there are not any, then this
 	implementation is trivial, and only has one item to iterate over.
 */
-class ATP_LOGIC_API FreeVarAssignmentIterator :
-	public IPfStateSuccIter
+class ATP_LOGIC_API FreeVarAssignmentIterator
 {
 public:
 	/**
@@ -110,10 +109,10 @@ public:
 			remaining_free_end,
 		bool randomised);
 
-	bool valid() const override;
-	ProofStatePtr get() const override;
-	void advance() override;
-	size_t size() const override;
+	bool valid() const;
+	ProofStatePtr get() const;
+	void advance();
+	size_t size() const;
 
 private:
 	/**

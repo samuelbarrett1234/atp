@@ -46,8 +46,7 @@ class FreeVarAssignmentIterator;  // forward declaration
 	delegates the (potentially partial) free variable mapping to
 	the FreeVarAssignmentIterator.
 */
-class ATP_LOGIC_API MatchResultsIterator :
-	public IPfStateSuccIter
+class ATP_LOGIC_API MatchResultsIterator
 {
 public:
 	/**
@@ -106,10 +105,10 @@ public:
 		SyntaxNodeType>>& free_const_enum,
 		bool randomised);
 
-	bool valid() const override;
-	ProofStatePtr get() const override;
-	void advance() override;
-	size_t size() const override;
+	bool valid() const;
+	ProofStatePtr get() const;
+	void advance();
+	size_t size() const;
 
 private:
 	/**

@@ -29,6 +29,62 @@ namespace logic
 
 
 /**
+\brief Different flags for successor generation for `ProofState
+	objects.
+
+\see iter_settings
+*/
+typedef size_t IterSettings;
+
+
+/**
+\namespace iter_settings
+
+\brief Contains different settings that can be passed to the
+	construction of ProofStates in the Knowledge Kernel.
+
+\details There are many different ways in which one might want to
+	iterate over ProofState successors. The most natural place to
+	specify these wants is at construction, in the knowledge kernel.
+	Use the below as a set of flags to pass to `begin_proof_of`
+	in the knowledge kernel implementation.
+*/
+namespace iter_settings
+{
+
+
+/**
+\brief Use the implementation's selected default settings.
+
+\details The implementation will decide which settings it considers
+	"default".
+*/
+static const constexpr IterSettings DEFAULT = 0;
+
+/**
+\brief Don't repeat successors where possible (performs extra
+	checks to ensure this doesn't happen).
+
+\details This prevents consideration of successor states which
+	loop back to states already seen - the precise meaning of this
+	flag, and its execution, however, is left to the logic
+	implementation. There is certainly a speed / state space size
+	tradeoff here.
+*/
+static const constexpr IterSettings NO_REPEATS = 1 << 0;
+
+/**
+\brief Try to enumerate the successors in a random order.
+
+\details It is not always possible to randomise, however sometimes it
+	is useful for models which expect successors to be IID
+	(independent and identically distributed).
+*/
+static const constexpr IterSettings RANDOMISED = 1 << 1;
+}
+
+
+/**
 
 \interface IKnowledgeKernel
 
@@ -71,11 +127,28 @@ public:
 	\brief Create a new proof state which, initially empty, is set to
 		try and prove `stmt`.
 
+	\param stmt The statement to target proving
+
+	\param flags Flags indicating how the returned proof state should
+		iterate over successors.
+
 	\pre `stmt` is a valid statement within the context of this
 		knowledge kernel.
+
+	\pre iter_settings_supported(flags)
 	*/
 	virtual ProofStatePtr begin_proof_of(
-		const IStatement& stmt) const = 0;
+		const IStatement& stmt,
+		IterSettings flags = iter_settings::DEFAULT) const = 0;
+
+	/**
+	\brief Determine if the given flags are supported by this kind of
+		knowledge kernel.
+
+	\returns True if supported, false if not.
+	*/
+	virtual bool iter_settings_supported(
+		IterSettings flags) const = 0;
 
 	/**
 	\brief A "trivial" statement is either reflexive or implied
@@ -112,6 +185,25 @@ public:
 		`add_theorems`, and must not have already been removed.
 	*/
 	virtual void remove_theorems(size_t ref_id) = 0;
+
+	/**
+	\brief Set the random number generation seed (overwrites last
+		value if any)
+
+	\note Random number generation may be used by components of this
+		library created by the knowledge kernel, for example to
+		iterate over proof state successors randomly.
+	*/
+	virtual void set_seed(size_t seed) = 0;
+
+	/**
+	\brief Generate a random number (think of this as just std::rand)
+
+	\note Random number generation may be used by components of this
+		library created by the knowledge kernel, for example to
+		iterate over proof state successors randomly.
+	*/
+	virtual size_t generate_rand() const = 0;
 };
 
 

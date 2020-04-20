@@ -32,11 +32,13 @@ std::shared_ptr<MatchResultsIterator> MatchResultsIterator::construct(
 		FreeVarIdSet>> match_results,
 	const Statement::iterator& sub_expr,
 	const std::vector<std::pair<size_t,
-		SyntaxNodeType>>& free_const_enum)
+		SyntaxNodeType>>& free_const_enum,
+	bool randomised)
 {
 	return std::make_shared<MatchResultsIterator>(
 		ctx, ker, parent, forefront_stmt,
-		std::move(match_results), sub_expr, free_const_enum);
+		std::move(match_results), sub_expr, free_const_enum,
+		randomised);
 }
 
 
@@ -47,10 +49,13 @@ MatchResultsIterator::MatchResultsIterator(
 		FreeVarIdSet>> match_results,
 	const Statement::iterator& sub_expr,
 	const std::vector<std::pair<size_t,
-		SyntaxNodeType>>& free_const_enum) :
+		SyntaxNodeType>>& free_const_enum,
+	bool randomised) :
 	m_ctx(ctx), m_ker(ker), m_parent(parent),
-	m_forefront_stmt(forefront_stmt),
-	m_match_results(std::move(match_results)), m_match_result_index(0),
+	m_forefront_stmt(forefront_stmt), m_randomised(randomised),
+	m_match_results(std::move(match_results)),
+	m_match_result_index(match_results.size(), randomised,
+		ker.generate_rand()),
 	m_free_const_enum(free_const_enum), m_sub_expr_iter(sub_expr)
 {
 	if (!m_match_results.empty())
@@ -63,7 +68,7 @@ MatchResultsIterator::MatchResultsIterator(
 
 bool MatchResultsIterator::valid() const
 {
-	return m_match_result_index < m_match_results.size();
+	return !m_match_result_index.is_end();
 }
 
 
@@ -87,9 +92,9 @@ void MatchResultsIterator::advance()
 	if (!m_free_var_assignment->valid())
 	{
 		m_free_var_assignment.reset();
-		++m_match_result_index;
+		m_match_result_index.advance();
 
-		if (m_match_result_index < m_match_results.size())
+		if (!m_match_result_index.is_end())
 		{
 			restore_invariant();
 		}
@@ -111,18 +116,21 @@ void MatchResultsIterator::restore_invariant()
 {
 	ATP_LOGIC_PRECOND(m_free_var_assignment == nullptr);
 	ATP_LOGIC_PRECOND(valid());
+	ATP_LOGIC_ASSERT(m_match_result_index.get() <
+		m_match_results.size());
 
 	// replace a particular location in the forefront statement
 	// with the match result at the given index, with the matching
 	// substitution already applied
 	Statement subbed_stmt = m_forefront_stmt.replace(m_sub_expr_iter,
-		m_match_results[m_match_result_index].first);
+		m_match_results[m_match_result_index.get()].first);
 
 	m_free_var_assignment = FreeVarAssignmentIterator::construct(
 		m_ctx, m_ker, m_parent, std::move(subbed_stmt),
 		m_free_const_enum,
-		m_match_results[m_match_result_index].second.begin(),
-		m_match_results[m_match_result_index].second.end());
+		m_match_results[m_match_result_index.get()].second.begin(),
+		m_match_results[m_match_result_index.get()].second.end(),
+		m_randomised);
 }
 
 

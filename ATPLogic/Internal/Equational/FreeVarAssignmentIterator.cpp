@@ -29,11 +29,12 @@ std::shared_ptr<FreeVarAssignmentIterator> FreeVarAssignmentIterator::construct(
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& free_const_enum,
 	FreeVarIdSet::const_iterator remaining_free_begin,
-	FreeVarIdSet::const_iterator remaining_free_end)
+	FreeVarIdSet::const_iterator remaining_free_end,
+	bool randomised)
 {
 	return std::make_shared<FreeVarAssignmentIterator>(ctx, ker,
 		parent, std::move(subbed_stmt), free_const_enum,
-		remaining_free_begin, remaining_free_end);
+		remaining_free_begin, remaining_free_end, randomised);
 }
 
 
@@ -43,15 +44,17 @@ FreeVarAssignmentIterator::FreeVarAssignmentIterator(
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& free_const_enum,
 	FreeVarIdSet::const_iterator remaining_free_begin,
-	FreeVarIdSet::const_iterator remaining_free_end) :
+	FreeVarIdSet::const_iterator remaining_free_end,
+	bool randomised) :
 	m_ctx(ctx), m_ker(ker), m_parent(parent),
 	m_subbed_stmt(std::move(subbed_stmt)),
 	m_free_const_enum(free_const_enum),
 	m_remaining_free_begin(remaining_free_begin),
 	m_remaining_free_end(remaining_free_end),
-	m_current_free_value(free_const_enum.begin()),
+	m_cur_free_idx(free_const_enum.size(), randomised,
+		ker.generate_rand()),
 	m_is_leaf(remaining_free_begin == remaining_free_end),
-	m_leaf_is_done(false)
+	m_leaf_is_done(false), m_randomised(randomised)
 {
 	if (!m_is_leaf)
 		// build m_child for non-leaves
@@ -71,8 +74,7 @@ bool FreeVarAssignmentIterator::valid() const
 	}
 	else
 	{
-		const bool is_valid =
-			(m_current_free_value != m_free_const_enum.end());
+		const bool is_valid = !m_cur_free_idx.is_end();
 
 		// check the invariant
 		ATP_LOGIC_ASSERT(!is_valid
@@ -116,10 +118,10 @@ void FreeVarAssignmentIterator::advance()
 
 		if (!m_child->valid())
 		{
-			++m_current_free_value;
+			m_cur_free_idx.advance();
 			m_child.reset();
 
-			if (m_current_free_value != m_free_const_enum.end())
+			if (!m_cur_free_idx.is_end())
 			{
 				restore_invariant();
 			}
@@ -157,8 +159,9 @@ void FreeVarAssignmentIterator::restore_invariant()
 
 	// check valid() without actually calling valid() because
 	// otherwise the assertions will fail.
-	ATP_LOGIC_PRECOND(m_current_free_value !=
-		m_free_const_enum.end());
+	ATP_LOGIC_PRECOND(!m_cur_free_idx.is_end());
+	ATP_LOGIC_ASSERT(m_cur_free_idx.get() <
+		m_free_const_enum.size());
 
 	ATP_LOGIC_ASSERT(m_remaining_free_begin !=
 		m_remaining_free_end);
@@ -167,20 +170,27 @@ void FreeVarAssignmentIterator::restore_invariant()
 	// which we will pass to the child we are about to construct
 	Statement child_stmt = [this]() -> Statement
 	{
-		switch (m_current_free_value->second)
+		// get ID and type under current index
+
+		const size_t free_const_id = m_free_const_enum[
+			m_cur_free_idx.get()].first;
+		const SyntaxNodeType free_const_type = m_free_const_enum[
+			m_cur_free_idx.get()].second;
+
+		switch (free_const_type)
 		{
 		case SyntaxNodeType::FREE:
 			return m_subbed_stmt.replace_free_with_free(
 				// the free variable ID beforehand:
 				*m_remaining_free_begin,
 				// the new free variable ID:
-				m_current_free_value->first);
+				free_const_id);
 		case SyntaxNodeType::CONSTANT:
 			return m_subbed_stmt.replace_free_with_const(
 				// the free variable ID beforehand:
 				*m_remaining_free_begin,
 				// the constant we are replacing it with:
-				m_current_free_value->first);
+				free_const_id);
 		default:
 			ATP_LOGIC_ASSERT(false && "invalid syntax node type.");
 			throw std::exception();
@@ -189,7 +199,8 @@ void FreeVarAssignmentIterator::restore_invariant()
 
 	m_child = FreeVarAssignmentIterator::construct(m_ctx, m_ker,
 		m_parent, std::move(child_stmt), m_free_const_enum,
-		std::next(m_remaining_free_begin), m_remaining_free_end);
+		std::next(m_remaining_free_begin), m_remaining_free_end,
+		m_randomised);
 }
 
 

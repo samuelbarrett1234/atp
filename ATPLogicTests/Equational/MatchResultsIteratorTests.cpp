@@ -25,6 +25,15 @@ using atp::logic::equational::SyntaxNodeType;
 using atp::logic::equational::ProofState;
 
 
+// settings for whether or not the iterator should randomise itself
+static const bool randomised_settings[] =
+{
+	// repeat `true` a few times because each test will involve
+	// randomness, so it's good to get a few repeats in
+	false, true, true, true, true
+};
+
+
 struct MatchResultsIteratorTestsFixture :
 	public StandardTestFixture
 {
@@ -51,7 +60,9 @@ BOOST_FIXTURE_TEST_SUITE(MatchResultsIteratorTests,
 		"EquationalTests/StatementTests"));
 
 
-BOOST_AUTO_TEST_CASE(test_constructs_correct_substitution)
+BOOST_DATA_TEST_CASE(test_constructs_correct_substitution,
+	boost::unit_test::data::make(randomised_settings),
+	randomised)
 {
 	// forefront statement
 	s << "*(i(x), i(i(x))) = x\n";
@@ -71,14 +82,12 @@ BOOST_AUTO_TEST_CASE(test_constructs_correct_substitution)
 
 	auto sub_iter = forefront.begin();
 
-	ProofState pstate(ctx, ker, forefront);
+	ProofState pstate(ctx, ker, forefront, false, randomised);
 
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
-		pstate,
-		forefront,
+		pstate, forefront,
 		{ std::make_pair(match_result.lhs(), FreeVarIdSet()) },
-		sub_iter,
-		free_const_enum);
+		sub_iter, free_const_enum, randomised);
 
 	BOOST_TEST(p_iter->valid());
 
@@ -101,7 +110,9 @@ BOOST_AUTO_TEST_CASE(test_constructs_correct_substitution)
 }
 
 
-BOOST_AUTO_TEST_CASE(test_many_possible_results)
+BOOST_DATA_TEST_CASE(test_many_possible_results,
+	boost::unit_test::data::make(randomised_settings),
+	randomised)
 {
 	// forefront statement
 	s << "x = x\n";
@@ -126,17 +137,17 @@ BOOST_AUTO_TEST_CASE(test_many_possible_results)
 
 	auto sub_iter = forefront.begin();
 
-	ProofState pstate(ctx, ker, forefront);
+	ProofState pstate(ctx, ker, forefront, false, randomised);
 
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
-		pstate,
-		forefront,
+		pstate, forefront,
 		{
-			std::make_pair(match_results.lhs(), FreeVarIdSet(std::vector<size_t>{ 1 })),
-			std::make_pair(match_results.rhs(), FreeVarIdSet())
+			std::make_pair(match_results.lhs(),
+				FreeVarIdSet(std::vector<size_t>{ 1 })),
+			std::make_pair(match_results.rhs(),
+				FreeVarIdSet())
 		},
-		sub_iter,
-		free_const_enum);
+		sub_iter, free_const_enum, randomised);
 
 	BOOST_TEST(p_iter->valid());
 
@@ -158,7 +169,9 @@ BOOST_AUTO_TEST_CASE(test_many_possible_results)
 }
 
 
-BOOST_AUTO_TEST_CASE(test_it_passes_the_correct_remaining_free_ids)
+BOOST_DATA_TEST_CASE(test_it_passes_the_correct_remaining_free_ids,
+	boost::unit_test::data::make(randomised_settings),
+	randomised)
 {
 	// forefront statement
 	s << "x = *(x, y)\n";
@@ -179,14 +192,13 @@ BOOST_AUTO_TEST_CASE(test_it_passes_the_correct_remaining_free_ids)
 
 	auto sub_iter = forefront.begin();
 
-	ProofState pstate(ctx, ker, forefront);
+	ProofState pstate(ctx, ker, forefront, false, randomised);
 
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
-		pstate,
-		forefront,
-		{ std::make_pair(match_result.lhs(), FreeVarIdSet(std::vector<size_t>{ 1, 2 })) },
-		sub_iter,
-		free_const_enum);
+		pstate, forefront,
+		{ std::make_pair(match_result.lhs(),
+			FreeVarIdSet(std::vector<size_t>{ 1, 2 })) },
+		sub_iter, free_const_enum, randomised);
 
 	BOOST_TEST(p_iter->valid());
 
@@ -207,7 +219,9 @@ BOOST_AUTO_TEST_CASE(test_it_passes_the_correct_remaining_free_ids)
 }
 
 
-BOOST_AUTO_TEST_CASE(test_sub_at_inner_location)
+BOOST_DATA_TEST_CASE(test_sub_at_inner_location,
+	boost::unit_test::data::make(randomised_settings),
+	randomised)
 {
 	// forefront statement
 	s << "*(*(x, y), z) = e\n";
@@ -232,14 +246,12 @@ BOOST_AUTO_TEST_CASE(test_sub_at_inner_location)
 	auto sub_loc_iter = forefront.begin();
 	std::advance(sub_loc_iter, 2);
 
-	ProofState pstate(ctx, ker, forefront);
+	ProofState pstate(ctx, ker, forefront, false, randomised);
 
 	auto p_iter = MatchResultsIterator::construct(ctx, ker,
-		pstate,
-		forefront,
+		pstate, forefront,
 		{ std::make_pair(match_result.lhs(), FreeVarIdSet()) },
-		sub_loc_iter,
-		free_const_enum);
+		sub_loc_iter, free_const_enum, randomised);
 
 	BOOST_TEST(p_iter->valid());
 

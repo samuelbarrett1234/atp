@@ -20,6 +20,7 @@
 #include "Statement.h"
 #include "SyntaxNodes.h"
 #include "../FreeVarIdSet.h"
+#include "MaybeRandomIndex.h"
 
 
 namespace atp
@@ -84,7 +85,8 @@ public:
 			FreeVarIdSet>> match_results,
 		const Statement::iterator& sub_expr,
 		const std::vector<std::pair<size_t,
-			SyntaxNodeType>>& free_const_enum);
+			SyntaxNodeType>>& free_const_enum,
+		bool randomised);
 
 	/**
 	\brief Try to refrain from using this version for creating a
@@ -101,7 +103,8 @@ public:
 			FreeVarIdSet>> match_results,
 		const Statement::iterator& sub_expr,
 		const std::vector<std::pair<size_t,
-		SyntaxNodeType>>& free_const_enum);
+		SyntaxNodeType>>& free_const_enum,
+		bool randomised);
 
 	bool valid() const override;
 	ProofStatePtr get() const override;
@@ -119,6 +122,7 @@ private:
 	void restore_invariant();
 
 private:
+	const bool m_randomised;
 	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
 	const ProofState& m_parent;
@@ -137,7 +141,7 @@ private:
 	// m_free_var_assignment is never invalid, and is only null when
 	// we are invalid.
 
-	size_t m_match_result_index;
+	MaybeRandomIndex m_match_result_index;
 	std::shared_ptr<FreeVarAssignmentIterator> m_free_var_assignment;
 };
 

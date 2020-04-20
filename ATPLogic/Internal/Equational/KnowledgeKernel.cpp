@@ -87,16 +87,37 @@ size_t KnowledgeKernel::get_integrity_code() const
 
 
 ProofStatePtr KnowledgeKernel::begin_proof_of(
-	const IStatement& _stmt) const
+	const IStatement& _stmt, IterSettings flags) const
 {
+	ATP_LOGIC_PRECOND(iter_settings_supported(flags));
+
+	// make sure it's one of "our" statements
 	const Statement* p_stmt = dynamic_cast<const Statement*>(
 		&_stmt);
 
 	ATP_LOGIC_PRECOND(p_stmt != nullptr);
 	ATP_LOGIC_PRECOND(type_check(m_context, *p_stmt));
 
+	// here is our default value for iter settings
+	if (flags == iter_settings::DEFAULT)
+		flags = iter_settings::NO_REPEATS;
+
+	// extract values from the flags to pass to the ProofState which
+	// is constructed below
+	const bool no_repeats = ((flags & iter_settings::NO_REPEATS) != 0);
+	const bool randomised = ((flags & iter_settings::RANDOMISED) != 0);
+
 	return std::make_shared<ProofState>(m_context,
-		*this, *p_stmt);
+		*this, *p_stmt, no_repeats, randomised);
+}
+
+
+bool KnowledgeKernel::iter_settings_supported(
+	IterSettings flags) const
+{
+	// only support No Repeats and Randomisation
+	return flags == (flags & (iter_settings::NO_REPEATS
+		| iter_settings::RANDOMISED | iter_settings::DEFAULT));
 }
 
 

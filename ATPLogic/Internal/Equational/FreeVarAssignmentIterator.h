@@ -18,6 +18,7 @@
 #include "Statement.h"
 #include "SyntaxNodes.h"
 #include "../FreeVarIdSet.h"
+#include "MaybeRandomIndex.h"
 
 
 namespace atp
@@ -87,7 +88,8 @@ public:
 		FreeVarIdSet::const_iterator
 			remaining_free_begin,
 		FreeVarIdSet::const_iterator
-			remaining_free_end);
+			remaining_free_end,
+		bool randomised);
 
 	/**
 	\brief Try to refrain from using this version for creating a
@@ -105,7 +107,8 @@ public:
 		FreeVarIdSet::const_iterator
 			remaining_free_begin,
 		FreeVarIdSet::const_iterator
-			remaining_free_end);
+			remaining_free_end,
+		bool randomised);
 
 	bool valid() const override;
 	ProofStatePtr get() const override;
@@ -122,6 +125,8 @@ private:
 	void restore_invariant();
 
 private:
+	const bool m_randomised;
+
 	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
 	const ProofState& m_parent;
@@ -148,10 +153,9 @@ private:
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& m_free_const_enum;
 
-	// the value we currently have to substitute for our free
-	// variable
-	std::vector<std::pair<size_t,
-		SyntaxNodeType>>::const_iterator m_current_free_value;
+	// the index of the value we currently have to substitute for our
+	// free variable
+	MaybeRandomIndex m_cur_free_idx;
 
 	// if there are other free variables in the remaining free
 	// variable range that we have not covered, we must also

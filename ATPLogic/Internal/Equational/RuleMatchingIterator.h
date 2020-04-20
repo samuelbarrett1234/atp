@@ -19,6 +19,7 @@
 #include "Expression.h"
 #include "Statement.h"
 #include "SyntaxNodes.h"
+#include "MaybeRandomIndex.h"
 
 
 namespace atp
@@ -72,7 +73,8 @@ public:
 		const Statement& forefront_stmt,
 		const Statement::iterator& sub_expr,
 		const std::vector<std::pair<size_t,
-			SyntaxNodeType>>& free_const_enum);
+			SyntaxNodeType>>& free_const_enum,
+		bool randomised);
 
 	/**
 	\brief Try to refrain from using this version for creating a
@@ -87,7 +89,8 @@ public:
 		const Statement& forefront_stmt,
 		const Statement::iterator& sub_expr,
 		const std::vector<std::pair<size_t,
-			SyntaxNodeType>>& free_const_enum);
+			SyntaxNodeType>>& free_const_enum,
+		bool randomised);
 
 	bool valid() const override;
 	ProofStatePtr get() const override;
@@ -105,6 +108,10 @@ private:
 	void restore_invariant();
 
 private:
+	// whether we should iterate over the rules in a random order
+	// (this is also passed to children).
+	const bool m_randomised;
+
 	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
 	const ProofState& m_parent;
@@ -122,7 +129,7 @@ private:
 	// m_cur_matching is null or it is valid
 	// we are valid() iff m_cur_matching is non-null
 
-	size_t m_match_index;
+	MaybeRandomIndex m_match_index;
 	std::shared_ptr<MatchResultsIterator> m_cur_matching;
 };
 

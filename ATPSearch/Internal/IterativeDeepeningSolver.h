@@ -58,7 +58,9 @@ public:
 	*/
 	IterativeDeepeningSolver(logic::KnowledgeKernelPtr p_kernel,
 		size_t max_depth,
-		size_t starting_depth = 3);
+		size_t starting_depth = 3,
+		logic::IterSettings iter_settings =
+		logic::iter_settings::DEFAULT);
 
 	void set_targets(logic::StatementArrayPtr p_stmts) override;
 
@@ -146,6 +148,7 @@ private:
 	void init_stack(size_t i);
 
 private:
+	const logic::IterSettings m_iter_settings;
 	const size_t m_max_depth;  // ultimate depth limit
 	const size_t m_starting_depth;
 

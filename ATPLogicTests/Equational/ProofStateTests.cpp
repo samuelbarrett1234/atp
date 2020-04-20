@@ -31,7 +31,28 @@ using atp::logic::StmtFormat;
 using atp::logic::StatementArrayPtr;
 using atp::logic::ProofStatePtr;
 using atp::logic::ProofCompletionState;
+using atp::logic::IterSettings;
+namespace iter_settings = atp::logic::iter_settings;
 namespace phxargs = boost::phoenix::arg_names;
+
+
+// all the different combinations of flags we will try testing
+static const IterSettings pf_state_flags[] =
+{
+	iter_settings::DEFAULT,
+	iter_settings::NO_REPEATS,
+	iter_settings::RANDOMISED,
+	iter_settings::NO_REPEATS | iter_settings::RANDOMISED,
+	// note: repeating these a couple of times has the effect of
+	// repeating tests that include randomness (which is a good
+	// idea)
+	iter_settings::RANDOMISED,
+	iter_settings::NO_REPEATS | iter_settings::RANDOMISED,
+	iter_settings::RANDOMISED,
+	iter_settings::NO_REPEATS | iter_settings::RANDOMISED,
+	iter_settings::RANDOMISED,
+	iter_settings::NO_REPEATS | iter_settings::RANDOMISED
+};
 
 
 namespace std
@@ -85,7 +106,8 @@ BOOST_DATA_TEST_CASE(test_automatically_proven,
 		"e = *(i(y), y)", "*(x, y) = *(x, y)",
 		"*(i(x), i(i(x))) = e", "*(e, e) = e",
 		"e = *(i(*(x, y)), *(x, y))"
-		}), stmt)
+	}) * boost::unit_test::data::make(
+		pf_state_flags), stmt, flags)
 {
 	s << stmt;
 
@@ -94,7 +116,8 @@ BOOST_DATA_TEST_CASE(test_automatically_proven,
 
 	BOOST_REQUIRE(p_stmts->size() == 1);
 
-	auto pf_state = ker.begin_proof_of(p_stmts->at(0));
+	auto pf_state = ker.begin_proof_of(p_stmts->at(0),
+		flags);
 
 	BOOST_TEST(pf_state->completion_state() ==
 		ProofCompletionState::PROVEN);
@@ -105,7 +128,8 @@ BOOST_DATA_TEST_CASE(test_not_automatically_proven,
 	boost::unit_test::data::make({
 		"i(e) = e",
 		"*(x, y) = *(y, x)"
-		}), stmt)
+	}) * boost::unit_test::data::make(
+		pf_state_flags), stmt, flags)
 {
 	s << stmt;
 
@@ -114,7 +138,8 @@ BOOST_DATA_TEST_CASE(test_not_automatically_proven,
 
 	BOOST_REQUIRE(p_stmts->size() == 1);
 
-	auto pf_state = ker.begin_proof_of(p_stmts->at(0));
+	auto pf_state = ker.begin_proof_of(p_stmts->at(0),
+		flags);
 
 	BOOST_TEST(pf_state->completion_state() ==
 		ProofCompletionState::UNFINISHED);
@@ -125,7 +150,7 @@ BOOST_DATA_TEST_CASE(test_not_automatically_proven,
 // successor appears in the list of successors returned by
 // the iterator
 BOOST_DATA_TEST_CASE(test_is_a_succ,
-	boost::unit_test::data::make({
+	(boost::unit_test::data::make({
 		// starting statements
 		"x = i(x)",
 		"x = *(x, i(x))",
@@ -138,8 +163,8 @@ BOOST_DATA_TEST_CASE(test_is_a_succ,
 		"x = e",
 		"*(*(x, y), i(*(x, y))) = *(x, *(y, *(i(y), i(x))))",
 		"*(*(x, y), i(*(x, y))) = *(x, *(e, i(x)))",
-		}),
-	stmt, succ_stmt)
+	})) * boost::unit_test::data::make(pf_state_flags),
+	stmt, succ_stmt, flags)
 {
 	s << stmt << "\n" << succ_stmt;
 
@@ -149,7 +174,7 @@ BOOST_DATA_TEST_CASE(test_is_a_succ,
 	BOOST_REQUIRE(p_arr != nullptr);
 	BOOST_REQUIRE(p_arr->size() == 2);
 
-	auto pf_state = ker.begin_proof_of(p_arr->at(0));
+	auto pf_state = ker.begin_proof_of(p_arr->at(0), flags);
 	auto target_succ = dynamic_cast<const Statement&>(
 		p_arr->at(1));
 
@@ -176,15 +201,15 @@ BOOST_DATA_TEST_CASE(test_is_a_succ,
 // not_successor does not appear in the list of successors
 // returned by the iterator
 BOOST_DATA_TEST_CASE(test_is_not_a_succ,
-	boost::unit_test::data::make({
+	(boost::unit_test::data::make({
 		// starting statements
 		"*(x, y) = *(y, x)"
-		}) ^
-	boost::unit_test::data::make({
+	}) ^ boost::unit_test::data::make({
 		// one of the corresponding successor statements
 		"*(x, y) = *(x, y)"
-		}),
-	stmt, not_succ_stmt)
+	})) * boost::unit_test::data::make(
+		pf_state_flags),
+	stmt, not_succ_stmt, flags)
 {
 	s << stmt << "\n" << not_succ_stmt;
 
@@ -194,7 +219,8 @@ BOOST_DATA_TEST_CASE(test_is_not_a_succ,
 	BOOST_REQUIRE(p_arr != nullptr);
 	BOOST_REQUIRE(p_arr->size() == 2);
 
-	auto pf_state = ker.begin_proof_of(p_arr->at(0));
+	auto pf_state = ker.begin_proof_of(p_arr->at(0),
+		flags);
 	auto not_succ = dynamic_cast<const Statement&>(
 		p_arr->at(1));
 
@@ -218,7 +244,8 @@ BOOST_DATA_TEST_CASE(test_is_not_a_succ,
 
 
 
-BOOST_AUTO_TEST_CASE(test_tricky_proof)
+BOOST_DATA_TEST_CASE(test_tricky_proof,
+	boost::unit_test::data::make(pf_state_flags), flags)
 {
 	// this proof is tricky as it relies on an extra theorem:
 	s << "e = *(*(x, y), i(*(x, y)))";
@@ -256,7 +283,7 @@ BOOST_AUTO_TEST_CASE(test_tricky_proof)
 		const auto& concl = dynamic_cast<const Statement&>(
 			proof->at(i + 1));
 
-		auto pf_state = ker.begin_proof_of(premise);
+		auto pf_state = ker.begin_proof_of(premise, flags);
 
 		// enumerate the successor proofs
 		std::vector<ProofStatePtr> succs;
@@ -296,14 +323,28 @@ BOOST_FIXTURE_TEST_CASE(test_no_successors_case,
 	auto forefront = dynamic_cast<const Statement&>(p_stmts->at(0));
 
 	forefront = forefront.increment_free_var_ids(1);
-	ProofState pstate(ctx, ker, forefront);
 
-	BOOST_TEST(pstate.completion_state() ==
-		ProofCompletionState::NO_PROOF);
+	// it is important that we test all variants, however I didn't
+	// make this into a DATA_TEST_CASE because I don't think I can
+	// (i) reset the fixture and (ii) add data for the test case
+	// at the same time in Boost.Test
+	// instead, this for-loop will have to do.
+	for (size_t i = 0; i < 4; ++i)
+	{
+		// try all four combinations of these booleans
+		const bool no_repeats = (i / 2 == 0);
+		const bool randomised = (i % 2 == 0);
 
-	auto iter = pstate.succ_begin();
+		ProofState pstate(ctx, ker, forefront, no_repeats,
+			randomised);
 
-	BOOST_TEST(!iter->valid());
+		BOOST_TEST(pstate.completion_state() ==
+			ProofCompletionState::NO_PROOF);
+
+		auto iter = pstate.succ_begin();
+
+		BOOST_TEST(!iter->valid());
+	}
 }
 
 

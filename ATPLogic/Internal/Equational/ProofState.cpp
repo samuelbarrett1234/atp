@@ -23,9 +23,11 @@ namespace equational
 
 ProofState::ProofState(const ModelContext& ctx,
 	const KnowledgeKernel& ker,
-	Statement target, Statement current) :
+	Statement target, Statement current,
+	bool no_repeats, bool randomised) :
 	m_ctx(ctx), m_ker(ker),
-	m_proof(std::make_shared<StmtList>(std::move(target)))
+	m_proof(std::make_shared<StmtList>(std::move(target))),
+	m_no_repeats(no_repeats), m_randomised(randomised)
 {
 	m_proof = std::make_shared<StmtList>(std::move(current),
 		std::move(m_proof));
@@ -35,9 +37,11 @@ ProofState::ProofState(const ModelContext& ctx,
 
 ProofState::ProofState(const ModelContext& ctx,
 	const KnowledgeKernel& ker,
-	Statement target) :
+	Statement target,
+	bool no_repeats, bool randomised) :
 	m_proof(std::make_shared<StmtList>(std::move(target))),
-	m_ker(ker), m_ctx(ctx)
+	m_ker(ker), m_ctx(ctx),
+	m_no_repeats(no_repeats), m_randomised(randomised)
 {
 	check_forefront_ids();
 }
@@ -47,7 +51,9 @@ ProofState::ProofState(const ProofState& parent,
 	Statement forefront) :
 	m_ctx(parent.m_ctx), m_ker(parent.m_ker),
 	m_proof(std::make_shared<StmtList>(std::move(forefront),
-		parent.m_proof))
+		parent.m_proof)),
+	m_no_repeats(parent.m_no_repeats),
+	m_randomised(parent.m_randomised)
 {
 	check_forefront_ids();
 }
@@ -136,14 +142,16 @@ void ProofState::check_forefront_ids()
 
 PfStateSuccIterPtr ProofState::compute_begin() const
 {
-	// we need to increment the free variable IDs in `m_current` so
-	// that they are guaranteed not to clash with any of the matching
-	// rules in the knowledge kernel
-	auto iter = SubExprMatchingIterator::construct(m_ctx, m_ker,
-		*this, forefront());
+	PfStateSuccIterPtr iter = SubExprMatchingIterator::construct(m_ctx, m_ker,
+		*this, forefront(), m_randomised);
 
-	// use a NoRepeatIterator to reduce the search space a little
-	return NoRepeatIterator::construct(*this, std::move(iter));
+	// user has indicated they want a no-repeat iterator
+	if (m_no_repeats)
+	{
+		iter = NoRepeatIterator::construct(*this, std::move(iter));
+	}
+
+	return iter;
 }
 
 

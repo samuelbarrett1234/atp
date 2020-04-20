@@ -23,6 +23,15 @@ using atp::logic::equational::SyntaxNodeType;
 using atp::logic::equational::ProofState;
 
 
+// settings for whether or not the iterator should randomise itself
+static const bool randomised_settings[] =
+{
+	// repeat `true` a few times because each test will involve
+	// randomness, so it's good to get a few repeats in
+	false, true, true, true, true
+};
+
+
 BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(SubExprMatchingIteratorTests,
 	StandardTestFixture,
@@ -31,7 +40,7 @@ BOOST_FIXTURE_TEST_SUITE(SubExprMatchingIteratorTests,
 
 
 BOOST_DATA_TEST_CASE(test_get_successors,
-	boost::unit_test::data::make({
+	(boost::unit_test::data::make({
 		"*(x, x) = *( i(x), i(i(x)) )",
 		"x = *(e, *(x, e))",
 		"*(i(x), e) = x",
@@ -44,8 +53,9 @@ BOOST_DATA_TEST_CASE(test_get_successors,
 		"i(x) = x",
 		"x = *(x, *(i(x), e))",
 		"e = i(e)",
-		"e = *(e, i(e))" }),
-	subst_candidate, a_subst_result)
+		"e = *(e, i(e))" }))
+	* boost::unit_test::data::make(randomised_settings),
+	subst_candidate, a_subst_result, randomised)
 {
 	s << subst_candidate << "\n" << a_subst_result;
 
@@ -59,10 +69,10 @@ BOOST_DATA_TEST_CASE(test_get_successors,
 	forefront = forefront.increment_free_var_ids(
 		ker.get_rule_free_id_bound() + 1);
 
-	ProofState pstate(ctx, ker, forefront);
+	ProofState pstate(ctx, ker, forefront, false, randomised);
 
 	auto p_iter = SubExprMatchingIterator::construct(ctx, ker,
-		pstate, forefront);
+		pstate, forefront, randomised);
 
 	BOOST_TEST(p_iter->valid());
 
@@ -88,13 +98,14 @@ BOOST_DATA_TEST_CASE(test_get_successors,
 
 
 BOOST_DATA_TEST_CASE(test_NOT_successors,
-	boost::unit_test::data::make({
+	(boost::unit_test::data::make({
 		"e = e",
 		"x = e" }) ^
 	boost::unit_test::data::make({
 		"e = *(x, i(y))",
-		"x = *(e, i(x))" }),
-	subst_candidate, not_a_subst_result)
+		"x = *(e, i(x))" }))
+	* boost::unit_test::data::make(randomised_settings),
+	subst_candidate, not_a_subst_result, randomised)
 {
 	s << subst_candidate << "\n" << not_a_subst_result;
 
@@ -108,10 +119,10 @@ BOOST_DATA_TEST_CASE(test_NOT_successors,
 	forefront = forefront.increment_free_var_ids(
 		ker.get_rule_free_id_bound() + 1);
 
-	ProofState pstate(ctx, ker, forefront);
+	ProofState pstate(ctx, ker, forefront, false, randomised);
 
 	auto p_iter = SubExprMatchingIterator::construct(ctx, ker,
-		pstate, forefront);
+		pstate, forefront, randomised);
 
 	BOOST_TEST(p_iter->valid());
 
@@ -136,7 +147,10 @@ BOOST_DATA_TEST_CASE(test_NOT_successors,
 }
 
 
-BOOST_AUTO_TEST_CASE(test_subtly_different_statements_share_no_successors)
+BOOST_DATA_TEST_CASE(
+	test_subtly_different_statements_share_no_successors,
+	boost::unit_test::data::make(randomised_settings),
+	randomised)
 {
 	// these two statements, while their differences are subtle,
 	// should not share any successor statements (under equivalence)
@@ -158,14 +172,15 @@ BOOST_AUTO_TEST_CASE(test_subtly_different_statements_share_no_successors)
 	auto stmt2 = _stmt2.increment_free_var_ids(
 		ker.get_rule_free_id_bound() + 1);
 
-	ProofState pstate1(ctx, ker, stmt1), pstate2(ctx, ker, stmt2);
+	ProofState pstate1(ctx, ker, stmt1, false, randomised),
+		pstate2(ctx, ker, stmt2, false, randomised);
 
 	std::vector<ProofStatePtr> succs1, succs2;
 
 	// get successors of stmt1
 	{
 		auto p_iter = SubExprMatchingIterator::construct(ctx, ker,
-			pstate1, stmt1);
+			pstate1, stmt1, randomised);
 
 		const size_t results_limit = 1000;  // shouldn't be more results than this
 		for (size_t i = 0; i < results_limit && p_iter->valid();
@@ -179,7 +194,7 @@ BOOST_AUTO_TEST_CASE(test_subtly_different_statements_share_no_successors)
 	// get successors of stmt2
 	{
 		auto p_iter = SubExprMatchingIterator::construct(ctx, ker,
-			pstate2, stmt2);
+			pstate2, stmt2, randomised);
 
 		const size_t results_limit = 1000;  // shouldn't be more results than this
 		for (size_t i = 0; i < results_limit && p_iter->valid();
@@ -229,10 +244,10 @@ BOOST_FIXTURE_TEST_CASE(test_no_resulting_matchings,
 	auto forefront = dynamic_cast<const Statement&>(p_stmts->at(0));
 
 	forefront = forefront.increment_free_var_ids(1);
-	ProofState pstate(ctx, ker, forefront);
+	ProofState pstate(ctx, ker, forefront, false, false);
 
 	auto p_iter = SubExprMatchingIterator::construct(ctx, ker,
-		pstate, forefront);
+		pstate, forefront, false);
 
 	BOOST_TEST(!p_iter->valid());
 }

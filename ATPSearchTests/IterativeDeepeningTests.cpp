@@ -17,7 +17,6 @@
 #include "DefinitionStrs.h"
 
 
-
 using atp::search::IterativeDeepeningSolver;
 using atp::logic::LanguagePtr;
 using atp::logic::ModelContextPtr;
@@ -26,7 +25,26 @@ using atp::logic::LangType;
 using atp::logic::StmtFormat;
 using atp::logic::create_language;
 using atp::logic::ProofCompletionState;
+using atp::logic::IterSettings;
+namespace iter_settings = atp::logic::iter_settings;
 namespace phxarg = boost::phoenix::arg_names;
+
+
+// all the different combinations of flags we will try testing
+static const IterSettings iter_flags[] =
+{
+	iter_settings::DEFAULT,
+	iter_settings::NO_REPEATS,
+	iter_settings::RANDOMISED,
+	iter_settings::NO_REPEATS | iter_settings::RANDOMISED,
+	// note: repeating these a couple of times has the effect of
+	// repeating tests that include randomness (which is a good
+	// idea)
+	iter_settings::RANDOMISED,
+	iter_settings::NO_REPEATS | iter_settings::RANDOMISED,
+	iter_settings::RANDOMISED,
+	iter_settings::NO_REPEATS | iter_settings::RANDOMISED
+};
 
 
 struct IterativeDeepeningSolverTestsFixture
@@ -39,10 +57,6 @@ struct IterativeDeepeningSolverTestsFixture
 		p_lang = create_language(LangType::EQUATIONAL_LOGIC);
 		p_ctx = p_lang->try_create_context(defn_in);
 		p_ker = p_lang->try_create_kernel(*p_ctx);
-
-		// create solver
-		p_ids = std::make_unique<IterativeDeepeningSolver>(p_ker,
-			/* max_depth */ 10);
 	}
 
 	std::stringstream s;
@@ -57,8 +71,14 @@ BOOST_FIXTURE_TEST_SUITE(IterativeDeepeningSolverTests,
 	IterativeDeepeningSolverTestsFixture);
 
 
-BOOST_AUTO_TEST_CASE(simple_proof_test)
+BOOST_DATA_TEST_CASE(simple_proof_test,
+	boost::unit_test::data::make(iter_flags),
+	flags)
 {
+	// create solver
+	p_ids = std::make_unique<IterativeDeepeningSolver>(p_ker,
+		/* max_depth */ 10, /* starting_depth */ 3, flags);
+
 	// provide the system with an array of statements to try to prove
 	// and which it SHOULD be able to prove in a relatively small
 	// number of steps, and then run the solver for many iterations
@@ -69,6 +89,7 @@ BOOST_AUTO_TEST_CASE(simple_proof_test)
 	s << "e = *(i(*(x, y)), *(x, y)) \n";  // still easy
 	s << "i(e) = e \n";  // reasonable
 	s << "*(x, e) = *(e, x) \n";  // reasonable
+	s << "i(i(x)) = x";  // a bit harder
 
 	auto stmts = p_lang->deserialise_stmts(s,
 		StmtFormat::TEXT, *p_ctx);
@@ -100,8 +121,14 @@ BOOST_AUTO_TEST_CASE(simple_proof_test)
 }
 
 
-BOOST_AUTO_TEST_CASE(false_statement_test)
+BOOST_DATA_TEST_CASE(false_statement_tests,
+	boost::unit_test::data::make(iter_flags),
+	flags)
 {
+	// create solver
+	p_ids = std::make_unique<IterativeDeepeningSolver>(p_ker,
+		/* max_depth */ 10, /* starting_depth */ 3, flags);
+
 	// a selection of false statements
 	s << "*(x, y) = *(y, x) \n";
 	s << "x = e \n";

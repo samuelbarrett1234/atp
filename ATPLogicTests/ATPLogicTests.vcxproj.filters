@@ -99,6 +99,9 @@
     <ClCompile Include="FreeVarMapTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Equational\MaybeRandomIndexTests.cpp">
+      <Filter>Source Files\Equational\Implementations\Successor Iterators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">

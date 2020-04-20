@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <random>
 #include <boost/bimap.hpp>
 #include "../../ATPLogicAPI.h"
 #include "../../Interfaces/IKnowledgeKernel.h"
@@ -65,7 +66,11 @@ public:
 	size_t get_integrity_code() const override;
 
 	ProofStatePtr begin_proof_of(
-		const IStatement& stmt) const override;
+		const IStatement& stmt,
+		IterSettings flags) const override;
+
+	bool iter_settings_supported(
+		IterSettings flags) const override;
 
 	bool is_trivial(
 		const IStatement& stmt) const override;
@@ -74,6 +79,16 @@ public:
 		StatementArrayPtr p_thms) override;
 
 	void remove_theorems(size_t ref_id) override;
+
+	inline void set_seed(size_t seed) override
+	{
+		m_rand_gen.seed(seed);
+	}
+
+	inline size_t generate_rand() const override
+	{
+		return std::uniform_int_distribution<size_t>()(m_rand_gen);
+	}
 
 	// not part of the IKnowledgeKernel interface
 
@@ -184,6 +199,8 @@ private:
 		MatchResults;
 	typedef std::pair<Expression, MatchResults> MatchRule;
 	std::vector<MatchRule> m_matches;
+
+	mutable std::mt19937 m_rand_gen;
 };
 
 

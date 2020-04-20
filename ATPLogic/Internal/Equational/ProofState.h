@@ -60,11 +60,13 @@ public:
 public:
 	ProofState(const ModelContext& ctx,
 		const KnowledgeKernel& ker,
-		Statement target, Statement current);
+		Statement target, Statement current,
+		bool no_repeats, bool randomised);
 
 	ProofState(const ModelContext& ctx,
 		const KnowledgeKernel& ker,
-		Statement target);
+		Statement target,
+		bool no_repeats, bool randomised);
 
 	ProofState(const ProofState& parent,
 		Statement forefront);
@@ -113,6 +115,11 @@ private:
 	PfStateSuccIterPtr compute_begin() const;
 
 private:
+	// flag for not repeating states in an iteration
+	const bool m_no_repeats;
+	// flag for enumerating successors in a random order
+	const bool m_randomised;
+
 	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
 	std::shared_ptr<StmtList> m_proof;

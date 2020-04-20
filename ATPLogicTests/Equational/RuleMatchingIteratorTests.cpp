@@ -39,6 +39,15 @@ struct RuleMatchingIteratorTestsFixture :
 };
 
 
+// settings for whether or not the iterator should randomise itself
+static const bool randomised_settings[] =
+{
+	// repeat `true` a few times because each test will involve
+	// randomness, so it's good to get a few repeats in
+	false, true, true, true, true
+};
+
+
 BOOST_AUTO_TEST_SUITE(EquationalTests);
 BOOST_FIXTURE_TEST_SUITE(RuleMatchingIteratorTests,
 	RuleMatchingIteratorTestsFixture,
@@ -49,7 +58,7 @@ BOOST_FIXTURE_TEST_SUITE(RuleMatchingIteratorTests,
 
 
 BOOST_DATA_TEST_CASE(test_subs,
-	boost::unit_test::data::make({
+	(boost::unit_test::data::make({
 		// we will only look at the LHS of these statements
 		"*(e, x) = x",
 		"e = x",
@@ -65,8 +74,9 @@ BOOST_DATA_TEST_CASE(test_subs,
 		"*(x, i(x)) = x",
 		"*(e, i(e)) = x",
 		"*(x, *(y, z)) = x",
-		"*(x, *(x, x)) = x" }),
-	stmt, stmt_immediate_application)
+		"*(x, *(x, x)) = x" }))
+	* boost::unit_test::data::make(randomised_settings),
+	stmt, stmt_immediate_application, randomised)
 {
 	s << stmt << "\n" << stmt_immediate_application;
 
@@ -84,13 +94,10 @@ BOOST_DATA_TEST_CASE(test_subs,
 	// this indicates we match top of LHS
 	auto sub_iter = forefront.begin();
 
-	ProofState pstate(ctx, ker, forefront);
+	ProofState pstate(ctx, ker, forefront, false, randomised);
 
 	auto p_iter = RuleMatchingIterator::construct(ctx, ker,
-		pstate,
-		forefront,
-		sub_iter,  
-		free_const_enum);
+		pstate, forefront, sub_iter, free_const_enum, randomised);
 
 	BOOST_TEST(p_iter->valid());
 
@@ -116,7 +123,7 @@ BOOST_DATA_TEST_CASE(test_subs,
 
 
 BOOST_DATA_TEST_CASE(test_NOT_subs,
-	boost::unit_test::data::make({
+	(boost::unit_test::data::make({
 		// we will only look at the LHS of these statements
 		"e = x"
 		}) ^
@@ -125,8 +132,9 @@ BOOST_DATA_TEST_CASE(test_NOT_subs,
 		// (these are results obtainable in one step from the top
 		// of the LHS of the corresponding statement above)
 		"*(e, i(x)) = x"
-		}),
-		stmt, stmt_not_immediate_application)
+		}))
+	* boost::unit_test::data::make(randomised_settings),
+	stmt, stmt_not_immediate_application, randomised)
 {
 	s << stmt << "\n" << stmt_not_immediate_application;
 
@@ -144,13 +152,10 @@ BOOST_DATA_TEST_CASE(test_NOT_subs,
 	// this indicates we match top of LHS
 	auto sub_iter = forefront.begin();
 
-	ProofState pstate(ctx, ker, forefront);
+	ProofState pstate(ctx, ker, forefront, false, randomised);
 
 	auto p_iter = RuleMatchingIterator::construct(ctx, ker,
-		pstate,
-		forefront,
-		sub_iter,
-		free_const_enum);
+		pstate, forefront, sub_iter, free_const_enum, randomised);
 
 	BOOST_TEST(p_iter->valid());
 

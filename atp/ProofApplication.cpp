@@ -128,6 +128,8 @@ bool ProofApplication::set_search_file(std::string path)
 	m_max_steps = settings.max_steps;
 	m_step_size = settings.step_size;
 
+	m_ker->set_seed(settings.seed);
+
 	m_out << "Successfully loaded search settings \"" <<
 		settings.name << "\"" << std::endl;
 

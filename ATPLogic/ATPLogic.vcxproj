@@ -185,6 +185,7 @@
     <ClInclude Include="Internal\Equational\KnowledgeKernel.h" />
     <ClInclude Include="Internal\Equational\Language.h" />
     <ClInclude Include="Internal\Equational\MatchResultsIterator.h" />
+    <ClInclude Include="Internal\Equational\MaybeRandomIndex.h" />
     <ClInclude Include="Internal\Equational\ModelContext.h" />
     <ClInclude Include="Internal\Equational\NoRepeatIterator.h" />
     <ClInclude Include="Internal\Equational\ProofState.h" />

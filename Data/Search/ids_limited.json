@@ -5,5 +5,8 @@
 	"step-size" : 1000,
 	"max-steps" : 10,
 	"max-depth" : 5,
-	"start-depth" : 3
+	"start-depth" : 3,
+	"no-repeats" : true,
+	"randomised" : true,
+	"seed" : "time"
 }

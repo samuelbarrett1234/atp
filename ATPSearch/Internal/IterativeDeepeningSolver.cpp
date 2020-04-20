@@ -25,10 +25,12 @@ namespace search
 IterativeDeepeningSolver::IterativeDeepeningSolver(
 	logic::KnowledgeKernelPtr p_kernel,
 	size_t max_depth,
-	size_t starting_depth) :
+	size_t starting_depth,
+	logic::IterSettings iter_settings) :
 	m_kernel(p_kernel),
 	m_max_depth(max_depth),
-	m_starting_depth(starting_depth)
+	m_starting_depth(starting_depth),
+	m_iter_settings(iter_settings)
 {
 	ATP_SEARCH_PRECOND(starting_depth > 1);
 	ATP_SEARCH_PRECOND(max_depth > starting_depth);
@@ -268,7 +270,8 @@ void IterativeDeepeningSolver::init_stack(size_t i)
 
 	m_stacks[i].push_back(
 		StackFrame{
-			m_kernel->begin_proof_of(m_targets->at(i)),
+			m_kernel->begin_proof_of(m_targets->at(i),
+			m_iter_settings),
 			logic::PfStateSuccIterPtr()
 		}
 	);

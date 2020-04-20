@@ -11,12 +11,19 @@ The following settings are universal (independent of solver type):
 	"desc" : "A relatively brief description about these settings",
 	"type" : "SolverTypeNameGoesHere",
 	"step-size" : 1000,
-	"max-steps" : 10
+	"max-steps" : 10,
+	"no-repeats" : true,
+	"randomised" : true,
+	"seed" : "time"
 }
 
 ```
 
 `step-size` is the number of expansions to perform (on each target proof) at each iteration. `max-steps` is the maximum number of updates to perform, although the target statements may be proven earlier than this. Note that all of the above fields are optional (i.e. have default values).
+
+`no-repeats` is a flag indicating whether the search algorithm should avoid repeated states while searching. The benefit of this flag depends on the tradeoff between state space size, and time required to check for repeats. `randomised` is a flag telling the search to try to evaluate successors in a random order.
+
+`seed` is the seed value used for a random number generator. You can either set this equal to the string `"time"`, which seeds it based on the current clock time when the program is launched, or you can give it a fixed integer value for reproducability. Any other string value is an error.
 
 ## Iterative Deepening SolverTypeNameGoesHere
 

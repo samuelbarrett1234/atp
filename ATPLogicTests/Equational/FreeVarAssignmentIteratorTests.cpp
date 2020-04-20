@@ -24,6 +24,15 @@ using atp::logic::equational::SyntaxNodeType;
 using atp::logic::equational::ProofState;
 
 
+// settings for whether or not the iterator should randomise itself
+static const bool randomised_settings[] =
+{
+	// repeat `true` a few times because each test will involve
+	// randomness, so it's good to get a few repeats in
+	false, true, true, true, true
+};
+
+
 struct FreeVarAssignmentIteratorTestsFixture :
 	public StandardTestFixture
 {
@@ -49,7 +58,9 @@ BOOST_FIXTURE_TEST_SUITE(FreeVarAssignmentIteratorTests,
 		"EquationalTests/StatementTests"));
 
 
-BOOST_AUTO_TEST_CASE(test_one_var)
+BOOST_DATA_TEST_CASE(test_one_var,
+	boost::unit_test::data::make(randomised_settings),
+	randomised)
 {
 	// test substitution when there is only one free variable this
 	// iterator should be substituting (but with more than one in the
@@ -73,11 +84,11 @@ BOOST_AUTO_TEST_CASE(test_one_var)
 
 	BOOST_REQUIRE(free_const_enum.size() == 2);  //  e and y
 
-	ProofState pstate(ctx, ker, stmt);
+	ProofState pstate(ctx, ker, stmt, false, randomised);
 
 	auto p_iter = FreeVarAssignmentIterator::construct(ctx, ker,
 		pstate, stmt, free_const_enum, remaining_free.begin(),
-		remaining_free.end());
+		remaining_free.end(), randomised);
 
 	BOOST_TEST(p_iter->valid());
 
@@ -108,8 +119,9 @@ BOOST_AUTO_TEST_CASE(test_one_var)
 
 
 
-BOOST_TEST_DECORATOR(*boost::unit_test_framework::timeout(1))
-BOOST_AUTO_TEST_CASE(test_many_vars)
+BOOST_DATA_TEST_CASE(test_many_vars,
+	boost::unit_test::data::make(randomised_settings),
+	randomised)
 {
 	// check that we are doing a cartesian product on the possible
 	// substitutions properly - if we substitute four out of five
@@ -122,18 +134,19 @@ BOOST_AUTO_TEST_CASE(test_many_vars)
 		ctx);
 	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
 
-	remaining_free = FreeVarIdSet(std::vector<size_t>{ 0, 1, 2, 3 });  // sub all but last one
+	remaining_free = FreeVarIdSet(std::vector<size_t>{
+		0, 1, 2, 3 });  // sub all but last one
 
 	// enumerate the other free variable
 	free_const_enum.emplace_back(4, SyntaxNodeType::FREE);
 
 	BOOST_REQUIRE(free_const_enum.size() == 2);
 
-	ProofState pstate(ctx, ker, stmt);
+	ProofState pstate(ctx, ker, stmt, false, randomised);
 
 	auto p_iter = FreeVarAssignmentIterator::construct(ctx, ker,
 		pstate, stmt, free_const_enum, remaining_free.begin(),
-		remaining_free.end());
+		remaining_free.end(), randomised);
 
 	BOOST_TEST(p_iter->valid());
 

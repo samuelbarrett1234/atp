@@ -179,6 +179,7 @@
     <ClCompile Include="Equational\ExprTreeFlyweightTests.cpp" />
     <ClCompile Include="Equational\FreeVarAssignmentIteratorTests.cpp" />
     <ClCompile Include="Equational\MatchResultsIteratorTests.cpp" />
+    <ClCompile Include="Equational\MaybeRandomIndexTests.cpp" />
     <ClCompile Include="Equational\ModelContextTests.cpp" />
     <ClCompile Include="Equational\KnowledgeKernelTests.cpp" />
     <ClCompile Include="Equational\LanguageTests.cpp" />

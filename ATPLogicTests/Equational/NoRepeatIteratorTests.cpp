@@ -25,6 +25,15 @@ using atp::logic::equational::SyntaxNodeType;
 using atp::logic::equational::ProofState;
 
 
+// settings for whether or not the iterator should randomise itself
+static const bool randomised_settings[] =
+{
+	// repeat `true` a few times because each test will involve
+	// randomness, so it's good to get a few repeats in
+	false, true, true, true, true
+};
+
+
 namespace std
 {
 static inline ostream& boost_test_print_type(ostream& os,
@@ -55,8 +64,8 @@ BOOST_DATA_TEST_CASE(test_no_repeats,
 			"*(x, *(y, z)) = w",
 			"*(x, *(y, z)) = *(w, e)"
 		}
-		}),
-	stmts_strs)
+	}) * boost::unit_test::data::make(randomised_settings),
+	stmts_strs, randomised)
 {
 	// load all of the statements
 
@@ -72,7 +81,7 @@ BOOST_DATA_TEST_CASE(test_no_repeats,
 
 	std::list<ProofStatePtr> pstates;
 	pstates.push_back(std::make_shared<ProofState>(
-		ctx, ker, stmts.my_at(0)));
+		ctx, ker, stmts.my_at(0), true, randomised));
 	for (size_t i = 1; i < stmts.size(); ++i)
 	{
 		pstates.push_back(std::make_shared<ProofState>(

@@ -61,6 +61,10 @@ public:
 		proof; the one we are producing successors of (and sub-
 		expressions of).
 
+	\param randomised Whether or not this iterator (and all iterators
+		constructed by it in the process) should try to randomise
+		their output as much as possible.
+
 	\pre All free variable IDs in forefront_stmt are > `ker.
 		get_rule_free_id_bound()`, so we don't need to worry about
 		clashing of free variables when making substitutions later.
@@ -68,7 +72,8 @@ public:
 	static std::shared_ptr<SubExprMatchingIterator> construct(const ModelContext& ctx,
 		const KnowledgeKernel& ker,
 		const ProofState& parent,
-		const Statement& forefront_stmt);
+		const Statement& forefront_stmt,
+		bool randomised);
 
 	/**
 	\brief Try to refrain from using this version for creating a
@@ -80,7 +85,8 @@ public:
 	SubExprMatchingIterator(const ModelContext& ctx,
 		const KnowledgeKernel& ker,
 		const ProofState& parent,
-		const Statement& forefront_stmt);
+		const Statement& forefront_stmt,
+		bool randomised);
 
 	bool valid() const override;
 	ProofStatePtr get() const override;
@@ -96,6 +102,9 @@ private:
 	void construct_child();
 
 private:
+	// a flag; not used in this class but is passed on to children
+	const bool m_randomised;
+
 	const ModelContext& m_ctx;
 	const KnowledgeKernel& m_ker;
 	const ProofState& m_parent;

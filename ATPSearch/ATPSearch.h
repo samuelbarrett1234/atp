@@ -48,7 +48,9 @@ namespace search
 
 */
 ATP_SEARCH_API SolverPtr create_default_solver(
-	logic::KnowledgeKernelPtr p_ker);
+	logic::KnowledgeKernelPtr p_ker,
+	logic::IterSettings iter_settings =
+	logic::iter_settings::DEFAULT);
 
 
 }  // namespace search

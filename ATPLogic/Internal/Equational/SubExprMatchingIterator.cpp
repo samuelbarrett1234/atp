@@ -26,19 +26,22 @@ namespace equational
 
 std::shared_ptr<SubExprMatchingIterator> SubExprMatchingIterator::construct(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
-	const ProofState& parent, const Statement& forefront_stmt)
+	const ProofState& parent, const Statement& forefront_stmt,
+	bool randomised)
 {
 	return std::make_shared<SubExprMatchingIterator>(ctx, ker,
-		parent, forefront_stmt);
+		parent, forefront_stmt, randomised);
 }
 
 
 SubExprMatchingIterator::SubExprMatchingIterator(
 	const ModelContext& ctx, const KnowledgeKernel& ker,
-	const ProofState& parent, const Statement& forefront_stmt) :
+	const ProofState& parent, const Statement& forefront_stmt,
+	bool randomised) :
 	m_ctx(ctx), m_ker(ker), m_parent(parent),
 	m_forefront_stmt(forefront_stmt),
-	m_sub_expr_iter(forefront_stmt.begin())
+	m_sub_expr_iter(forefront_stmt.begin()),
+	m_randomised(randomised)
 {
 	// build the enumeration of free variable IDs in the forefront
 	// and constant symbol IDs
@@ -138,7 +141,7 @@ void SubExprMatchingIterator::construct_child()
 
 	m_rule_iter = RuleMatchingIterator::construct(m_ctx, m_ker,
 		m_parent, m_forefront_stmt, m_sub_expr_iter,
-		m_free_const_enum);
+		m_free_const_enum, m_randomised);
 }
 
 

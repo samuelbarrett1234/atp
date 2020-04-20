@@ -150,6 +150,9 @@
     <ClInclude Include="Internal\FreeVarMap.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\Equational\MaybeRandomIndex.h">
+      <Filter>Header Files\Internal\Equational\Implementations\Successor Iterators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPLogic.cpp">

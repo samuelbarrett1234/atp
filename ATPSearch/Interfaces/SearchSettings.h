@@ -40,6 +40,9 @@ struct ATP_SEARCH_API SearchSettings
 
 	// the maximum number of calls to step() before giving up
 	size_t max_steps;
+
+	// random number generator seed
+	size_t seed;
 };
 
 

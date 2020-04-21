@@ -69,6 +69,9 @@
     <ClInclude Include="Interfaces\IStoppingStrategy.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\BasicStoppingStrategy.h">
+      <Filter>Header Files\Internal\Stopping Strategies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp">
@@ -84,6 +87,9 @@
       <Filter>Source Files\Internal\Successor Iterators</Filter>
     </ClCompile>
     <ClCompile Include="Internal\FixedStoppingStrategy.cpp">
+      <Filter>Source Files\Internal\Stopping Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\BasicStoppingStrategy.cpp">
       <Filter>Source Files\Internal\Stopping Strategies</Filter>
     </ClCompile>
   </ItemGroup>

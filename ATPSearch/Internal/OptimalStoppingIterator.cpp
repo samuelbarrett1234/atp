@@ -17,7 +17,7 @@ namespace search
 
 OptimalStoppingIterator::OptimalStoppingIterator(
 	logic::PfStateSuccIterPtr child,
-	OptimalStoppingStrategyPtr stopping_strategy,
+	StoppingStrategyPtr stopping_strategy,
 	HeuristicPtr benefit_heuristic) :
 	m_child(std::move(child)),
 	m_stopping_strategy(std::move(stopping_strategy)),

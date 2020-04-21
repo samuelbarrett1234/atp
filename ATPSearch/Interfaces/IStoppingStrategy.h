@@ -12,7 +12,7 @@ namespace search
 
 
 /**
-\interface IOptimalStoppingStrategy
+\interface IStoppingStrategy
 
 \brief A strategy for stopping when we've seen elements with a high
 	"benefit", but every time we don't stop we incur a "cost".
@@ -26,10 +26,10 @@ namespace search
 	sequence, the stopping strategy is trivial: just return the
 	elements in nonincreasing order.
 */
-class ATP_SEARCH_API IOptimalStoppingStrategy
+class ATP_SEARCH_API IStoppingStrategy
 {
 public:
-	virtual ~IOptimalStoppingStrategy() = default;
+	virtual ~IStoppingStrategy() = default;
 
 	/**
 	\brief Register a newly extracted data point
@@ -63,7 +63,7 @@ public:
 
 
 typedef std::unique_ptr<
-	IOptimalStoppingStrategy> OptimalStoppingStrategyPtr;
+	IStoppingStrategy> StoppingStrategyPtr;
 
 
 }  // namespace search

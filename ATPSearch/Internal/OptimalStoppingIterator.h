@@ -16,7 +16,7 @@
 #include <queue>
 #include <Interfaces/IProofState.h>
 #include "../ATPSearchAPI.h"
-#include "../Interfaces/IOptimalStoppingStrategy.h"
+#include "../Interfaces/IStoppingStrategy.h"
 #include "../Interfaces/IHeuristic.h"
 
 
@@ -58,7 +58,7 @@ private:
 
 public:
     OptimalStoppingIterator(logic::PfStateSuccIterPtr child,
-        OptimalStoppingStrategyPtr stopping_strategy,
+        StoppingStrategyPtr stopping_strategy,
         HeuristicPtr benefit_heuristic);
 
     bool valid() const override;
@@ -77,7 +77,7 @@ private:
 
 private:
     logic::PfStateSuccIterPtr m_child;
-    OptimalStoppingStrategyPtr m_stopping_strategy;
+    StoppingStrategyPtr m_stopping_strategy;
     HeuristicPtr m_benefit_heuristic;
 
     // stores the states and benefits (the largest benefit being most

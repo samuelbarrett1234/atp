@@ -171,16 +171,18 @@
   <ItemGroup>
     <ClInclude Include="ATPSearch.h" />
     <ClInclude Include="ATPSearchAPI.h" />
-    <ClInclude Include="Interfaces\IOptimalStoppingStrategy.h" />
+    <ClInclude Include="Interfaces\IStoppingStrategy.h" />
     <ClInclude Include="Interfaces\ISolver.h" />
     <ClInclude Include="Interfaces\IHeuristic.h" />
     <ClInclude Include="Interfaces\SearchSettings.h" />
+    <ClInclude Include="Internal\FixedStoppingStrategy.h" />
     <ClInclude Include="Internal\IterativeDeepeningSolver.h" />
     <ClInclude Include="Internal\OptimalStoppingIterator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp" />
     <ClCompile Include="Interfaces\SearchSettings.cpp" />
+    <ClCompile Include="Internal\FixedStoppingStrategy.cpp" />
     <ClCompile Include="Internal\IterativeDeepeningSolver.cpp" />
     <ClCompile Include="Internal\OptimalStoppingIterator.cpp" />
   </ItemGroup>

@@ -77,8 +77,14 @@ void OptimalStoppingIterator::forward()
 	{
 		timer.start();
 
+		// generate next successor
 		auto p_new_state = m_child->get();
 		m_child->advance();
+
+		// compute benefit (and include this computation as part of
+		// the cost timing, as this can also be expensive).
+		const float benefit = m_benefit_heuristic->predict(
+			p_new_state);
 
 		timer.stop();
 
@@ -86,9 +92,6 @@ void OptimalStoppingIterator::forward()
 		const auto time = timer.elapsed();
 		const float time_s = static_cast<float>(time.user
 			+ time.system) * 1.0e-9f;  // convert to seconds
-
-		const float benefit = m_benefit_heuristic->predict(
-			p_new_state);
 
 		// register cost and benefit
 		m_stopping_strategy->add(benefit, time_s);

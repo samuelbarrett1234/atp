@@ -171,15 +171,18 @@
   <ItemGroup>
     <ClInclude Include="ATPSearch.h" />
     <ClInclude Include="ATPSearchAPI.h" />
+    <ClInclude Include="Interfaces\IOptimalStoppingStrategy.h" />
     <ClInclude Include="Interfaces\ISolver.h" />
-    <ClInclude Include="Interfaces\IStatementHeuristic.h" />
+    <ClInclude Include="Interfaces\IHeuristic.h" />
     <ClInclude Include="Interfaces\SearchSettings.h" />
     <ClInclude Include="Internal\IterativeDeepeningSolver.h" />
+    <ClInclude Include="Internal\OptimalStoppingIterator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp" />
     <ClCompile Include="Interfaces\SearchSettings.cpp" />
     <ClCompile Include="Internal\IterativeDeepeningSolver.cpp" />
+    <ClCompile Include="Internal\OptimalStoppingIterator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

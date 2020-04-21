@@ -19,9 +19,7 @@
 */
 
 
-#include <vector>
 #include <memory>
-#include <map>
 #include <ATPLogic.h>
 #include "../ATPSearchAPI.h"
 
@@ -33,9 +31,9 @@ namespace search
 
 
 /**
-\interface IStatementHeuristic
+\interface IHeuristic
 
-\brief Basically represents a function from statements to floats
+\brief Basically represents a function from proof states to floats
 
 \note This function has been vectorised (it operates on several
     statements, and returns a float for each of them).
@@ -43,25 +41,23 @@ namespace search
 \note This is an object, not just a function, because the model
     might need to store state e.g. access to GPU.
 */
-class ATP_SEARCH_API IStatementHeuristic
+class ATP_SEARCH_API IHeuristic
 {
 public:
-	virtual ~IStatementHeuristic() = default;
+	virtual ~IHeuristic() = default;
 
 	/**
-	\brief Evaluate the function on this array of statements
+	\brief Evaluate the function on this proof state
 
 	\pre Some heuristic implementations may be tied to a particular
-	    model contexts, in which case `p_stmts` needs to be valid
+	    model contexts, in which case `p_state` needs to be valid
 		in that context.
 	*/
-	virtual std::vector<float> predict(
-		logic::StatementArrayPtr p_stmts) = 0;
+	virtual float predict(const logic::ProofStatePtr& p_state) = 0;
 };
 
 
-typedef std::shared_ptr<IStatementHeuristic> StatementHeuristicPtr;
-typedef std::map<std::string, StatementHeuristicPtr> HeuristicCollection;
+typedef std::shared_ptr<IHeuristic> HeuristicPtr;
 
 
 }  // namespace search

@@ -14,7 +14,11 @@ namespace search
 {
 
 
-
+HeuristicPtr try_create_heuristic(
+	const boost::property_tree::ptree& ptree)
+{
+	return HeuristicPtr();  // none implemented yet
+}
 
 
 }  // namespace search

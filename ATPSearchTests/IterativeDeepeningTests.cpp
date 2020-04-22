@@ -13,6 +13,7 @@
 #include <boost/phoenix.hpp>
 #include <ATPLogic.h>
 #include <Internal/IterativeDeepeningSolver.h>
+#include <Internal/IteratorManager.h>
 #include "Test.h"
 #include "LogicSetupFixture.h"
 
@@ -26,6 +27,7 @@ using atp::logic::StmtFormat;
 using atp::logic::create_language;
 using atp::logic::ProofCompletionState;
 using atp::logic::IterSettings;
+using atp::search::IteratorManager;
 namespace iter_settings = atp::logic::iter_settings;
 namespace phxarg = boost::phoenix::arg_names;
 
@@ -64,7 +66,8 @@ BOOST_DATA_TEST_CASE(simple_proof_test,
 {
 	// create solver
 	p_ids = std::make_unique<IterativeDeepeningSolver>(p_ker,
-		/* max_depth */ 10, /* starting_depth */ 3, flags);
+		/* max_depth */ 10, /* starting_depth */ 3, flags,
+		std::make_unique<IteratorManager>(p_ker));
 
 	// provide the system with an array of statements to try to prove
 	// and which it SHOULD be able to prove in a relatively small
@@ -122,7 +125,8 @@ BOOST_DATA_TEST_CASE(false_statement_tests,
 {
 	// create solver
 	p_ids = std::make_unique<IterativeDeepeningSolver>(p_ker,
-		/* max_depth */ 10, /* starting_depth */ 3, flags);
+		/* max_depth */ 10, /* starting_depth */ 3, flags,
+		std::make_unique<IteratorManager>(p_ker));
 
 	// a selection of false statements
 	s << "*(x, y) = *(y, x) \n";

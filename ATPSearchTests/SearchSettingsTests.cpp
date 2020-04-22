@@ -70,9 +70,9 @@ BOOST_AUTO_TEST_CASE(test_get_step_settings)
 
 BOOST_AUTO_TEST_CASE(test_bad_solver_name)
 {
-	s << "{";
+	s << "{ \"solver\" : {";
 	s << "\"type\" : \"bad-solver-name\"";
-	s << "}";
+	s << "} }";
 
 	SearchSettings settings;
 	BOOST_TEST(!load_search_settings(p_ker, s,

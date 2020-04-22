@@ -15,9 +15,9 @@
 #include <istream>
 #include "../ATPSearchAPI.h"
 #include <ATPLogic.h>
-#include "ISolver.h"
-#include "IHeuristic.h"
-#include "IStoppingStrategy.h"
+#include "../Interfaces/ISolver.h"
+#include "../Interfaces/IHeuristic.h"
+#include "../Interfaces/IStoppingStrategy.h"
 
 
 namespace atp

@@ -11,6 +11,7 @@
 #include <boost/timer/timer.hpp>
 #include <boost/bind.hpp>
 #include <boost/phoenix.hpp>
+#include "IteratorManager.h"
 
 
 namespace phxarg = boost::phoenix::arg_names;
@@ -26,15 +27,20 @@ IterativeDeepeningSolver::IterativeDeepeningSolver(
 	logic::KnowledgeKernelPtr p_kernel,
 	size_t max_depth,
 	size_t starting_depth,
-	logic::IterSettings iter_settings) :
+	logic::IterSettings iter_settings,
+	std::unique_ptr<IteratorManager> p_iter_mgr) :
 	m_kernel(p_kernel),
 	m_max_depth(max_depth),
 	m_starting_depth(starting_depth),
-	m_iter_settings(iter_settings)
+	m_iter_settings(iter_settings),
+	m_iter_mgr(std::move(p_iter_mgr))
 {
 	ATP_SEARCH_PRECOND(starting_depth > 1);
 	ATP_SEARCH_PRECOND(max_depth > starting_depth);
 	ATP_SEARCH_PRECOND(m_kernel != nullptr);
+	ATP_SEARCH_PRECOND(m_iter_mgr != nullptr);
+	ATP_SEARCH_PRECOND(m_kernel->iter_settings_supported(
+		m_iter_settings));
 }
 
 
@@ -170,7 +176,8 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 	case logic::ProofCompletionState::UNFINISHED:
 		if (st.size() < m_cur_depth_limits[i])
 		{
-			auto iter = expand_candidate->succ_begin();
+			auto iter = 
+				m_iter_mgr->begin_iteration_of(expand_candidate);
 			
 			// if the begin iterator is invalid the proof state
 			// should've returned completion state as `NO_PROOF`
@@ -200,7 +207,7 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 			// advance if nonempty
 			if (!st.empty())
 			{
-				ATP_LOGIC_ASSERT(st.back().iter != nullptr &&
+				ATP_SEARCH_ASSERT(st.back().iter != nullptr &&
 					st.back().iter->valid());
 				st.back().iter->advance();
 			}
@@ -288,7 +295,7 @@ void IterativeDeepeningSolver::init_stack(size_t i)
 	{
 		// start off the iterator
 		m_stacks[i].back().iter =
-			m_stacks[i].back().node->succ_begin();
+			m_iter_mgr->begin_iteration_of(m_stacks[i].back().node);
 		ATP_SEARCH_ASSERT(m_stacks[i].back().iter->valid());
 	}
 }

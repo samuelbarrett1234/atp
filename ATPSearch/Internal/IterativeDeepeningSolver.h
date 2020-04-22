@@ -158,6 +158,7 @@ private:
 	const size_t m_starting_depth;
 
 	logic::KnowledgeKernelPtr m_kernel;
+	std::unique_ptr<IteratorManager> m_iter_mgr;
 
 	/**
 	\brief Depth limit for each target statement

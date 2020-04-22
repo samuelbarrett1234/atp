@@ -25,15 +25,15 @@
     <Filter Include="Source Files\Heuristic Tests">
       <UniqueIdentifier>{93dcaa9c-f2f0-4bc9-b2bb-b8f3bd12218b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Search Settings Tests">
+      <UniqueIdentifier>{1682bf4e-490b-493f-b8b0-fc0db19730cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DefinitionStrs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SearchSettingsTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BasicStoppingStrategyTests.cpp">
@@ -47,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="StoppingIteratorTests.cpp">
       <Filter>Source Files\Successor Iterator Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchSettingsTests.cpp">
+      <Filter>Source Files\Search Settings Tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

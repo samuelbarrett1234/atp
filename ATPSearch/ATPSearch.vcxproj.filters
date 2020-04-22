@@ -87,9 +87,6 @@
     <ClInclude Include="Internal\IteratorManager.h">
       <Filter>Header Files\Internal\Successor Iterators</Filter>
     </ClInclude>
-    <ClInclude Include="Interfaces\SearchSettings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Internal\SearchSettingsHeuristics.h">
       <Filter>Header Files\Internal\Search Settings</Filter>
     </ClInclude>
@@ -97,6 +94,9 @@
       <Filter>Header Files\Internal\Search Settings</Filter>
     </ClInclude>
     <ClInclude Include="Internal\SearchSettingsSolvers.h">
+      <Filter>Header Files\Internal\Search Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\SearchSettings.h">
       <Filter>Header Files\Internal\Search Settings</Filter>
     </ClInclude>
   </ItemGroup>
@@ -119,9 +119,6 @@
     <ClCompile Include="Internal\IteratorManager.cpp">
       <Filter>Source Files\Internal\Successor Iterators</Filter>
     </ClCompile>
-    <ClCompile Include="Interfaces\SearchSettings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Internal\SearchSettingsHeuristics.cpp">
       <Filter>Source Files\Search Settings</Filter>
     </ClCompile>
@@ -129,6 +126,9 @@
       <Filter>Source Files\Search Settings</Filter>
     </ClCompile>
     <ClCompile Include="Internal\SearchSettingsSolvers.cpp">
+      <Filter>Source Files\Search Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SearchSettings.cpp">
       <Filter>Source Files\Search Settings</Filter>
     </ClCompile>
   </ItemGroup>

@@ -11,10 +11,10 @@
 #include <chrono>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
-#include "../Internal/SearchSettingsHeuristics.h"
-#include "../Internal/SearchSettingsStoppingStrategies.h"
-#include "../Internal/SearchSettingsSolvers.h"
-#include "../Internal/IteratorManager.h"
+#include "SearchSettingsHeuristics.h"
+#include "SearchSettingsStoppingStrategies.h"
+#include "SearchSettingsSolvers.h"
+#include "IteratorManager.h"
 
 
 namespace pt = boost::property_tree;
@@ -85,6 +85,13 @@ bool load_search_settings(logic::KnowledgeKernelPtr p_ker,
 			p_out_settings->p_solver = try_create_solver(
 				p_ker, *solver_ptree, std::move(p_heuristic),
 				std::move(p_iter_mgr));
+
+			// if the user has provided a solver tag, then we expect
+			// the solver they give to be valid - however if this is
+			// null, they made a mistake in their specification of
+			// the solver.
+			if (!p_out_settings->p_solver)
+				return false;
 		}
 		else
 		{

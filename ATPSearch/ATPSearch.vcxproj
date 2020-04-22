@@ -174,11 +174,11 @@
     <ClInclude Include="Interfaces\IStoppingStrategy.h" />
     <ClInclude Include="Interfaces\ISolver.h" />
     <ClInclude Include="Interfaces\IHeuristic.h" />
-    <ClInclude Include="Interfaces\SearchSettings.h" />
     <ClInclude Include="Internal\BasicStoppingStrategy.h" />
     <ClInclude Include="Internal\FixedStoppingStrategy.h" />
     <ClInclude Include="Internal\IterativeDeepeningSolver.h" />
     <ClInclude Include="Internal\IteratorManager.h" />
+    <ClInclude Include="Internal\SearchSettings.h" />
     <ClInclude Include="Internal\SearchSettingsHeuristics.h" />
     <ClInclude Include="Internal\SearchSettingsSolvers.h" />
     <ClInclude Include="Internal\SearchSettingsStoppingStrategies.h" />
@@ -186,11 +186,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp" />
-    <ClCompile Include="Interfaces\SearchSettings.cpp" />
     <ClCompile Include="Internal\BasicStoppingStrategy.cpp" />
     <ClCompile Include="Internal\FixedStoppingStrategy.cpp" />
     <ClCompile Include="Internal\IterativeDeepeningSolver.cpp" />
     <ClCompile Include="Internal\IteratorManager.cpp" />
+    <ClCompile Include="Internal\SearchSettings.cpp" />
     <ClCompile Include="Internal\SearchSettingsHeuristics.cpp" />
     <ClCompile Include="Internal\SearchSettingsSolvers.cpp" />
     <ClCompile Include="Internal\SearchSettingsStoppingStrategies.cpp" />

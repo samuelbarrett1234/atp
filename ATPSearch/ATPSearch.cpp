@@ -10,6 +10,7 @@
 #include "ATPSearch.h"
 #include <algorithm>
 #include "Internal/IterativeDeepeningSolver.h"
+#include "Internal/IteratorManager.h"
 
 
 namespace atp

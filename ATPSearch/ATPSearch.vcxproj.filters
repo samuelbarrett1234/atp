@@ -54,9 +54,6 @@
     <ClInclude Include="Internal\IterativeDeepeningSolver.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\OptimalStoppingIterator.h">
-      <Filter>Header Files\Internal\Successor Iterators</Filter>
-    </ClInclude>
     <ClInclude Include="Interfaces\IHeuristic.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
@@ -72,6 +69,9 @@
     <ClInclude Include="Internal\BasicStoppingStrategy.h">
       <Filter>Header Files\Internal\Stopping Strategies</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\StoppingIterator.h">
+      <Filter>Header Files\Internal\Successor Iterators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp">
@@ -83,14 +83,14 @@
     <ClCompile Include="Interfaces\SearchSettings.cpp">
       <Filter>Source Files\Interfaces</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\OptimalStoppingIterator.cpp">
-      <Filter>Source Files\Internal\Successor Iterators</Filter>
-    </ClCompile>
     <ClCompile Include="Internal\FixedStoppingStrategy.cpp">
       <Filter>Source Files\Internal\Stopping Strategies</Filter>
     </ClCompile>
     <ClCompile Include="Internal\BasicStoppingStrategy.cpp">
       <Filter>Source Files\Internal\Stopping Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\StoppingIterator.cpp">
+      <Filter>Source Files\Internal\Successor Iterators</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

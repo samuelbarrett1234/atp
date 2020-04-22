@@ -41,7 +41,7 @@ namespace search
     successors vs returning the best seen so far. This is an optimal-
     stopping problem.
 */
-class ATP_SEARCH_API OptimalStoppingIterator :
+class ATP_SEARCH_API StoppingIterator :
 	public logic::IPfStateSuccIter
 {
 private:
@@ -57,7 +57,7 @@ private:
     };
 
 public:
-    OptimalStoppingIterator(logic::PfStateSuccIterPtr child,
+    StoppingIterator(logic::PfStateSuccIterPtr child,
         StoppingStrategyPtr stopping_strategy,
         HeuristicPtr benefit_heuristic);
 

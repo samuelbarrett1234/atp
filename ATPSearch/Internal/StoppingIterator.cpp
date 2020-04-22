@@ -5,7 +5,7 @@
 */
 
 
-#include "OptimalStoppingIterator.h"
+#include "StoppingIterator.h"
 #include <boost/timer/timer.hpp>
 
 
@@ -15,7 +15,7 @@ namespace search
 {
 
 
-OptimalStoppingIterator::OptimalStoppingIterator(
+StoppingIterator::StoppingIterator(
 	logic::PfStateSuccIterPtr child,
 	StoppingStrategyPtr stopping_strategy,
 	HeuristicPtr benefit_heuristic) :
@@ -28,13 +28,13 @@ OptimalStoppingIterator::OptimalStoppingIterator(
 }
 
 
-bool OptimalStoppingIterator::valid() const
+bool StoppingIterator::valid() const
 {
 	return m_states.empty();
 }
 
 
-logic::ProofStatePtr OptimalStoppingIterator::get() const
+logic::ProofStatePtr StoppingIterator::get() const
 {
 	ATP_SEARCH_PRECOND(valid());
 	ATP_SEARCH_ASSERT(!m_states.empty());
@@ -42,7 +42,7 @@ logic::ProofStatePtr OptimalStoppingIterator::get() const
 }
 
 
-void OptimalStoppingIterator::advance()
+void StoppingIterator::advance()
 {
 	ATP_SEARCH_PRECOND(valid());
 	ATP_SEARCH_ASSERT(!m_states.empty());
@@ -59,14 +59,14 @@ void OptimalStoppingIterator::advance()
 }
 
 
-size_t OptimalStoppingIterator::size() const
+size_t StoppingIterator::size() const
 {
 	// this is quite a rough heuristic, but it'll do
 	return m_states.size() * m_child->size();
 }
 
 
-void OptimalStoppingIterator::forward()
+void StoppingIterator::forward()
 {
 	ATP_SEARCH_ASSERT(m_stopping_strategy != nullptr);
 	ATP_SEARCH_ASSERT(m_child != nullptr);

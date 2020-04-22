@@ -105,7 +105,9 @@ void StoppingIterator::forward()
 			+ time.system) * 1.0e-9f;  // convert to seconds
 
 		// register cost and benefit
-		m_stopping_strategy->add(benefit, time_s);
+		m_stopping_strategy->add(benefit, time_s
+			+ 1.0e-6f /* just so it doesn't complain about 0 cost */
+		);
 
 		// add the state to our priority queue
 		m_states.push(std::make_pair(benefit,

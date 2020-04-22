@@ -51,6 +51,15 @@
     <ClCompile Include="SearchSettingsTests.cpp">
       <Filter>Source Files\Search Settings Tests</Filter>
     </ClCompile>
+    <ClCompile Include="IteratorManagerTests.cpp">
+      <Filter>Source Files\Successor Iterator Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchSettingsSolversTests.cpp">
+      <Filter>Source Files\Search Settings Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchSettingsStoppingStrategiesTests.cpp">
+      <Filter>Source Files\Search Settings Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">

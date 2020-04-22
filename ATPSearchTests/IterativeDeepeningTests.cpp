@@ -57,7 +57,9 @@ struct IterativeDeepeningSolverTestsFixture :
 
 
 BOOST_FIXTURE_TEST_SUITE(IterativeDeepeningSolverTests,
-	IterativeDeepeningSolverTestsFixture);
+	IterativeDeepeningSolverTestsFixture,
+	* boost::unit_test_framework::depends_on(
+		"IteratorManagerTests"));
 
 
 BOOST_DATA_TEST_CASE(simple_proof_test,

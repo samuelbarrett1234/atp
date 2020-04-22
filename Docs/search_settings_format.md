@@ -7,16 +7,12 @@ Search settings allow the user to choose a solver, and parameters for that solve
 The following settings are universal (independent of solver type):
 ```
 {
-	"name" : "User Friendly Settings File Name Here",
-	"desc" : "A relatively brief description about these settings",
-	"type" : "SolverTypeNameGoesHere",
+	"name" : "Limited Iterative-Deepening Solver",
+	"desc" : "An uninformed iterative deepening solver with low depth settings",
 	"step-size" : 1000,
 	"max-steps" : 10,
-	"no-repeats" : true,
-	"randomised" : true,
 	"seed" : "time"
 }
-
 ```
 
 `step-size` is the number of expansions to perform (on each target proof) at each iteration. `max-steps` is the maximum number of updates to perform, although the target statements may be proven earlier than this. Note that all of the above fields are optional (i.e. have default values).
@@ -25,7 +21,9 @@ The following settings are universal (independent of solver type):
 
 `seed` is the seed value used for a random number generator. You can either set this equal to the string `"time"`, which seeds it based on the current clock time when the program is launched, or you can give it a fixed integer value for reproducability. Any other string value is an error.
 
-## Iterative Deepening SolverTypeNameGoesHere
+## Solvers
+
+### Iterative Deepening Solver
 
 Here is a full example of an iterative deepening solver settings file:
 
@@ -45,3 +43,12 @@ In order to create an iterative deepening solver, you must use the type `Iterati
 
 Setting the start depth higher means less wasted work for long proofs, but it makes finding short proofs much less efficient than they otherwise would be.
 
+## Stopping Strategies
+
+### Fixed Stopping Strategy
+
+### Basic Stopping Strategy
+
+## Heuristics
+
+As of yet there are no heuristics implemented.

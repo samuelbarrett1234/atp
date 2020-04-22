@@ -1,12 +1,20 @@
 {
 	"name" : "Extended Iterative-Deepening Solver",
 	"desc" : "An uninformed iterative deepening solver with high settings to allow it to run for longer",
-	"type" : "IterativeDeepeningSolver",
+	"solver" : {
+		"type" : "IterativeDeepeningSolver",
+		"max-depth" : 10,
+		"start-depth" : 3,
+		"no-repeats" : true,
+		"randomised" : true
+	},
+	"stopping-strategy" : {
+		"type" : "BasicStoppingStrategy",
+		"initial-size" : 10,
+		"lambda" : 10.0,
+		"alpha" : 0.05
+	},
 	"step-size" : 10000,
 	"max-steps" : 25,
-	"max-depth" : 6,
-	"start-depth" : 3,
-	"no-repeats" : true,
-	"randomised" : true,
-	"seed" : 0
+	"seed" : "time"
 }

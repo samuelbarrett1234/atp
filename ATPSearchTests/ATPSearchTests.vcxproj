@@ -178,7 +178,10 @@
     <ClCompile Include="DefinitionStrs.cpp" />
     <ClCompile Include="FixedStoppingStrategyTests.cpp" />
     <ClCompile Include="IterativeDeepeningTests.cpp" />
+    <ClCompile Include="IteratorManagerTests.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SearchSettingsSolversTests.cpp" />
+    <ClCompile Include="SearchSettingsStoppingStrategiesTests.cpp" />
     <ClCompile Include="SearchSettingsTests.cpp" />
     <ClCompile Include="StoppingIteratorTests.cpp" />
   </ItemGroup>

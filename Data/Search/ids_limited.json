@@ -1,16 +1,12 @@
 {
 	"name" : "Limited Iterative-Deepening Solver",
 	"desc" : "An uninformed iterative deepening solver with low depth settings",
-	"type" : ,
 	"solver" : {
 		"type" : "IterativeDeepeningSolver",
 		"max-depth" : 5,
 		"start-depth" : 3,
 		"no-repeats" : true,
 		"randomised" : true
-	},
-	"heuristic" : {
-		"type" : "???"
 	},
 	"stopping-strategy" : {
 		"type" : "BasicStoppingStrategy",

@@ -178,6 +178,10 @@
     <ClInclude Include="Internal\BasicStoppingStrategy.h" />
     <ClInclude Include="Internal\FixedStoppingStrategy.h" />
     <ClInclude Include="Internal\IterativeDeepeningSolver.h" />
+    <ClInclude Include="Internal\IteratorManager.h" />
+    <ClInclude Include="Internal\SearchSettingsHeuristics.h" />
+    <ClInclude Include="Internal\SearchSettingsSolvers.h" />
+    <ClInclude Include="Internal\SearchSettingsStoppingStrategies.h" />
     <ClInclude Include="Internal\StoppingIterator.h" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +190,10 @@
     <ClCompile Include="Internal\BasicStoppingStrategy.cpp" />
     <ClCompile Include="Internal\FixedStoppingStrategy.cpp" />
     <ClCompile Include="Internal\IterativeDeepeningSolver.cpp" />
+    <ClCompile Include="Internal\IteratorManager.cpp" />
+    <ClCompile Include="Internal\SearchSettingsHeuristics.cpp" />
+    <ClCompile Include="Internal\SearchSettingsSolvers.cpp" />
+    <ClCompile Include="Internal\SearchSettingsStoppingStrategies.cpp" />
     <ClCompile Include="Internal\StoppingIterator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

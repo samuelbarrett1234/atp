@@ -16,6 +16,8 @@
 #include "../ATPSearchAPI.h"
 #include <ATPLogic.h>
 #include "ISolver.h"
+#include "IHeuristic.h"
+#include "IStoppingStrategy.h"
 
 
 namespace atp

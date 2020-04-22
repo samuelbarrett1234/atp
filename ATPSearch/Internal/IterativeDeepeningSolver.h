@@ -33,6 +33,9 @@ namespace search
 {
 
 
+class IteratorManager;  // forward declaration
+
+
 class ATP_SEARCH_API IterativeDeepeningSolver : public ISolver
 {
 private:
@@ -60,7 +63,9 @@ public:
 		size_t max_depth,
 		size_t starting_depth = 3,
 		logic::IterSettings iter_settings =
-		logic::iter_settings::DEFAULT);
+		logic::iter_settings::DEFAULT,
+		std::unique_ptr<IteratorManager> p_iter_mgr = 
+		std::unique_ptr<IteratorManager>());
 
 	void set_targets(logic::StatementArrayPtr p_stmts) override;
 

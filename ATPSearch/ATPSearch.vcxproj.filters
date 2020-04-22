@@ -22,9 +22,6 @@
     <Filter Include="Source Files\Internal">
       <UniqueIdentifier>{7d612c25-217b-4cc4-a176-e0baeab49d18}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Interfaces">
-      <UniqueIdentifier>{602adfee-7fa4-4fd1-9c3a-cfcead7d134c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Internal\Successor Iterators">
       <UniqueIdentifier>{31012aa4-af40-4407-a141-ae4b96541aca}</UniqueIdentifier>
     </Filter>
@@ -49,6 +46,12 @@
     <Filter Include="Header Files\Internal\Solvers">
       <UniqueIdentifier>{472cb82a-b805-401e-baea-6983b286a63d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Internal\Search Settings">
+      <UniqueIdentifier>{bb7ac8ac-f0fc-4c97-849f-0d9731ce0f0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Search Settings">
+      <UniqueIdentifier>{d5afd037-b359-4238-abad-abc456ea40a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -66,9 +69,6 @@
     <ClInclude Include="Interfaces\IHeuristic.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Interfaces\SearchSettings.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="Internal\FixedStoppingStrategy.h">
       <Filter>Header Files\Internal\Stopping Strategies</Filter>
     </ClInclude>
@@ -84,13 +84,25 @@
     <ClInclude Include="Internal\IterativeDeepeningSolver.h">
       <Filter>Header Files\Internal\Solvers</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\IteratorManager.h">
+      <Filter>Header Files\Internal\Successor Iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaces\SearchSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\SearchSettingsHeuristics.h">
+      <Filter>Header Files\Internal\Search Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\SearchSettingsStoppingStrategies.h">
+      <Filter>Header Files\Internal\Search Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\SearchSettingsSolvers.h">
+      <Filter>Header Files\Internal\Search Settings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Interfaces\SearchSettings.cpp">
-      <Filter>Source Files\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="Internal\FixedStoppingStrategy.cpp">
       <Filter>Source Files\Internal\Stopping Strategies</Filter>
@@ -103,6 +115,21 @@
     </ClCompile>
     <ClCompile Include="Internal\IterativeDeepeningSolver.cpp">
       <Filter>Source Files\Internal\Solvers</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\IteratorManager.cpp">
+      <Filter>Source Files\Internal\Successor Iterators</Filter>
+    </ClCompile>
+    <ClCompile Include="Interfaces\SearchSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SearchSettingsHeuristics.cpp">
+      <Filter>Source Files\Search Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SearchSettingsStoppingStrategies.cpp">
+      <Filter>Source Files\Search Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SearchSettingsSolvers.cpp">
+      <Filter>Source Files\Search Settings</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

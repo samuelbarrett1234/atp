@@ -38,6 +38,8 @@ public:
 	\param N The number of successors that should be maintained in
 		memory (bigger means more memory usage but closer to an
 		optimal evaluation order).
+
+	\pre N >= 1
 	*/
 	FixedStoppingStrategy(size_t N);
 

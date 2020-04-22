@@ -16,7 +16,9 @@ namespace search
 
 FixedStoppingStrategy::FixedStoppingStrategy(size_t N) :
 	m_N(N), m_cur(0)
-{ }
+{
+	ATP_SEARCH_PRECOND(m_N >= 1);
+}
 
 
 void FixedStoppingStrategy::add(float benefit, float cost)

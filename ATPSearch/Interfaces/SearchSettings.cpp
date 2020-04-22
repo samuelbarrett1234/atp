@@ -11,7 +11,10 @@
 #include <chrono>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
-#include "../Internal/IterativeDeepeningSolver.h"
+#include "../Internal/SearchSettingsHeuristics.h"
+#include "../Internal/SearchSettingsStoppingStrategies.h"
+#include "../Internal/SearchSettingsSolvers.h"
+#include "../Internal/IteratorManager.h"
 
 
 namespace pt = boost::property_tree;
@@ -21,23 +24,6 @@ namespace atp
 {
 namespace search
 {
-
-
-/**
-\brief Try to create the iteration settings flags
-*/
-logic::IterSettings try_get_flags(const pt::ptree& ptree);
-
-
-/**
-\brief Try to create an IterativeDeepeningSolver from the given ptree
-
-\returns Nullptr on failure, otherwise returns the solver object
-
-\throws Anything that might be thrown by the ptree.
-*/
-SolverPtr try_create_IDS(logic::KnowledgeKernelPtr p_ker,
-	logic::IterSettings settings, const pt::ptree& ptree);
 
 
 bool load_search_settings(logic::KnowledgeKernelPtr p_ker,
@@ -75,33 +61,35 @@ bool load_search_settings(logic::KnowledgeKernelPtr p_ker,
 				"seed");
 		}
 
-		// defaults to empty string (representing the user not
-		// wanting to create a solver) if type is not set
-		const std::string solver_type = ptree.get<std::string>(
-			"type", "");
-
-		auto iter_settings = try_get_flags(ptree);
-
-		if (solver_type == "IterativeDeepeningSolver")
+		HeuristicPtr p_heuristic;
+		if (auto heuristic_ptree =
+			ptree.get_child_optional("heuristic"))
 		{
-			p_out_settings->p_solver = try_create_IDS(
-				p_ker, iter_settings, ptree);
-
-			if (p_out_settings->p_solver == nullptr)
-			{
-				// failed to create the solver we wanted
-				return false;
-			}
+			p_heuristic = try_create_heuristic(*heuristic_ptree);
 		}
-		// else if... [other solver types go here]
-		else if (solver_type.empty())
+
+		auto p_iter_mgr = std::make_unique<IteratorManager>(p_ker);
+
+		p_iter_mgr->set_heuristic(p_heuristic);
+
+		if (auto stop_strat_ptree =
+			ptree.get_child_optional("stopping-strategy"))
+		{
+			if (!try_load_stopping_strategies(*p_iter_mgr,
+				*stop_strat_ptree))
+				return false;
+		}
+
+		if (auto solver_ptree = ptree.get_child_optional("solver"))
+		{
+			p_out_settings->p_solver = try_create_solver(
+				p_ker, *solver_ptree, std::move(p_heuristic),
+				std::move(p_iter_mgr));
+		}
+		else
 		{
 			// default solver is empty
 			p_out_settings->p_solver.reset();
-		}
-		else  // if (!solver_type.empty())
-		{
-			return false;  // bad solver type
 		}
 	}
 	catch(pt::ptree_error&)
@@ -115,42 +103,6 @@ bool load_search_settings(logic::KnowledgeKernelPtr p_ker,
 	return true;
 }
 
-
-logic::IterSettings try_get_flags(const pt::ptree& ptree)
-{
-	logic::IterSettings flags = logic::iter_settings::DEFAULT;
-
-	// each of these flags is optional to provide, and if it is
-	// provided, it should either be `true` or `false`.
-
-	if (auto b = ptree.get_optional<bool>("no-repeats"))
-	{
-		if (b.get())
-			flags |= logic::iter_settings::NO_REPEATS;
-		else
-			flags &= ~logic::iter_settings::NO_REPEATS;
-	}
-
-	if (auto b = ptree.get_optional<bool>("randomised"))
-	{
-		if (b.get())
-			flags |= logic::iter_settings::RANDOMISED;
-		else
-			flags &= ~logic::iter_settings::RANDOMISED;
-	}
-
-	return flags;
-}
-
-
-SolverPtr try_create_IDS(logic::KnowledgeKernelPtr p_ker,
-	logic::IterSettings iter_settings, const pt::ptree& ptree)
-{
-	return std::make_shared<IterativeDeepeningSolver>(
-		p_ker, ptree.get<size_t>("max-depth", 10),
-		ptree.get<size_t>("starting-depth", 3),
-		iter_settings);
-}
 
 
 }  // namespace search

@@ -37,6 +37,18 @@
     <Filter Include="Source Files\Internal\Stopping Strategies">
       <UniqueIdentifier>{0482eee8-a9a8-45a2-bbe4-5a5e30e7f254}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Internal\Heuristics">
+      <UniqueIdentifier>{32b00e4d-3384-4c22-8622-c40f38c3d36d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Internal\Heuristics">
+      <UniqueIdentifier>{298efeb7-d88e-4490-919d-22bed072c6a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Internal\Solvers">
+      <UniqueIdentifier>{800b3425-39c4-471e-9de5-2f6531ecbef6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Internal\Solvers">
+      <UniqueIdentifier>{472cb82a-b805-401e-baea-6983b286a63d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -50,9 +62,6 @@
     </ClInclude>
     <ClInclude Include="Interfaces\ISolver.h">
       <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\IterativeDeepeningSolver.h">
-      <Filter>Header Files\Internal</Filter>
     </ClInclude>
     <ClInclude Include="Interfaces\IHeuristic.h">
       <Filter>Header Files\Interfaces</Filter>
@@ -72,13 +81,13 @@
     <ClInclude Include="Internal\StoppingIterator.h">
       <Filter>Header Files\Internal\Successor Iterators</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\IterativeDeepeningSolver.h">
+      <Filter>Header Files\Internal\Solvers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\IterativeDeepeningSolver.cpp">
-      <Filter>Source Files\Internal</Filter>
     </ClCompile>
     <ClCompile Include="Interfaces\SearchSettings.cpp">
       <Filter>Source Files\Interfaces</Filter>
@@ -91,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="Internal\StoppingIterator.cpp">
       <Filter>Source Files\Internal\Successor Iterators</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\IterativeDeepeningSolver.cpp">
+      <Filter>Source Files\Internal\Solvers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -23,6 +23,10 @@ StoppingIterator::StoppingIterator(
 	m_stopping_strategy(std::move(stopping_strategy)),
 	m_benefit_heuristic(std::move(benefit_heuristic))
 {
+	ATP_SEARCH_PRECOND(m_child != nullptr);
+	ATP_SEARCH_PRECOND(m_stopping_strategy != nullptr);
+	ATP_SEARCH_PRECOND(m_benefit_heuristic != nullptr);
+
 	// prepare the iterator
 	forward();
 }
@@ -30,7 +34,12 @@ StoppingIterator::StoppingIterator(
 
 bool StoppingIterator::valid() const
 {
-	return m_states.empty();
+	const bool valid = !m_states.empty();
+	
+	ATP_SEARCH_ASSERT(!valid || (m_child != nullptr
+		&& m_child->valid()));
+
+	return valid;
 }
 
 
@@ -46,7 +55,8 @@ void StoppingIterator::advance()
 {
 	ATP_SEARCH_PRECOND(valid());
 	ATP_SEARCH_ASSERT(!m_states.empty());
-	ATP_SEARCH_ASSERT(!m_child->valid() || m_stopping_strategy->is_stopped());
+	ATP_SEARCH_ASSERT(!m_child->valid() ||
+		m_stopping_strategy->is_stopped());
 
 	m_states.pop();
 

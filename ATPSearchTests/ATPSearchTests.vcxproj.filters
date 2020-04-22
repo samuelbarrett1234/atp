@@ -13,12 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Solver Tests">
+      <UniqueIdentifier>{ba3489c3-ddc2-4201-96bd-301aadde8ef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Stopping Strategy Tests">
+      <UniqueIdentifier>{1ce529ed-70de-4599-afc2-ea4793617dac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Successor Iterator Tests">
+      <UniqueIdentifier>{f74c430c-41dd-45b9-a1eb-0853caee18c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Heuristic Tests">
+      <UniqueIdentifier>{93dcaa9c-f2f0-4bc9-b2bb-b8f3bd12218b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IterativeDeepeningTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DefinitionStrs.cpp">
@@ -27,11 +36,17 @@
     <ClCompile Include="SearchSettingsTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FixedStoppingStrategyTests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BasicStoppingStrategyTests.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Stopping Strategy Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedStoppingStrategyTests.cpp">
+      <Filter>Source Files\Stopping Strategy Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="IterativeDeepeningTests.cpp">
+      <Filter>Source Files\Solver Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="StoppingIteratorTests.cpp">
+      <Filter>Source Files\Successor Iterator Tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -39,6 +54,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DefinitionStrs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicSetupFixture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

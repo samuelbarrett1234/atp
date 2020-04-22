@@ -14,7 +14,7 @@
 #include <ATPLogic.h>
 #include <Internal/IterativeDeepeningSolver.h>
 #include "Test.h"
-#include "DefinitionStrs.h"
+#include "LogicSetupFixture.h"
 
 
 using atp::search::IterativeDeepeningSolver;
@@ -47,22 +47,9 @@ static const IterSettings iter_flags[] =
 };
 
 
-struct IterativeDeepeningSolverTestsFixture
+struct IterativeDeepeningSolverTestsFixture :
+	public LogicSetupFixture
 {
-	IterativeDeepeningSolverTestsFixture()
-	{
-		// use group theory context
-		std::stringstream defn_in(group_theory_definition_str);
-
-		p_lang = create_language(LangType::EQUATIONAL_LOGIC);
-		p_ctx = p_lang->try_create_context(defn_in);
-		p_ker = p_lang->try_create_kernel(*p_ctx);
-	}
-
-	std::stringstream s;
-	LanguagePtr p_lang;
-	ModelContextPtr p_ctx;
-	KnowledgeKernelPtr p_ker;
 	std::unique_ptr<IterativeDeepeningSolver> p_ids;
 };
 

@@ -89,7 +89,9 @@ BOOST_DATA_TEST_CASE(simple_proof_test,
 	s << "e = *(i(*(x, y)), *(x, y)) \n";  // still easy
 	s << "i(e) = e \n";  // reasonable
 	s << "*(x, e) = *(e, x) \n";  // reasonable
-	s << "i(i(x)) = x";  // a bit harder
+#ifndef _DEBUG
+	s << "i(i(x)) = x";  // a bit harder (too hard for debug mode!)
+#endif
 
 	auto stmts = p_lang->deserialise_stmts(s,
 		StmtFormat::TEXT, *p_ctx);
@@ -104,7 +106,13 @@ BOOST_DATA_TEST_CASE(simple_proof_test,
 
 	// none of these proofs should take more than 1000 node
 	// expansions (I think)
-	p_ids->step(20000);
+	p_ids->step(
+#ifndef _DEBUG
+		20000  // this is waaaaay too slow for debug mode
+#else
+		100
+#endif
+	);
 
 	auto proofs = p_ids->get_proofs();
 	auto pf_states = p_ids->get_states();
@@ -141,7 +149,13 @@ BOOST_DATA_TEST_CASE(false_statement_tests,
 	p_ids->set_targets(stmts);
 
 	// no proof should be found in any of these steps
-	p_ids->step(1000);
+	p_ids->step(
+#ifndef _DEBUG
+		1000  // this is waaaaay too slow for debug mode
+#else
+		100
+#endif
+	);
 
 	auto proofs = p_ids->get_proofs();
 	auto states = p_ids->get_states();

@@ -174,7 +174,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BasicStoppingStrategyTests.cpp" />
     <ClCompile Include="DefinitionStrs.cpp" />
+    <ClCompile Include="FixedStoppingStrategyTests.cpp" />
     <ClCompile Include="IterativeDeepeningTests.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SearchSettingsTests.cpp" />

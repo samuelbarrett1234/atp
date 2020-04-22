@@ -36,7 +36,7 @@ void BasicStoppingStrategy::add(float benefit, float cost)
 	ATP_SEARCH_PRECOND(!is_stopped());
 	ATP_SEARCH_PRECOND(cost > 0.0f);  // lognormal cannot be 0
 
-	const float log_cost = std::log(cost);
+	const float log_cost = cost;
 
 	m_remaining_benefits.push(benefit);
 
@@ -57,16 +57,14 @@ void BasicStoppingStrategy::add(float benefit, float cost)
 
 void BasicStoppingStrategy::compute_stopped()
 {
-	ATP_SEARCH_ASSERT(m_sum_sq_benefits > 0.0f);
-	ATP_SEARCH_ASSERT(m_sum_sq_log_costs > 0.0f);
-	ATP_SEARCH_ASSERT(m_data_size > 0);
-
 	if (m_num_initial_left > 0)
 	{
 		// still need to collect initial data
 		m_stopped = false;
 		return;
-	} 
+	}
+
+	ATP_SEARCH_ASSERT(m_data_size > 0);
 
 	if (m_remaining_benefits.empty())
 	{
@@ -82,16 +80,28 @@ void BasicStoppingStrategy::compute_stopped()
 	auto [log_cost_mean, log_cost_var] = compute_mean_variance(
 		m_sum_log_costs, m_sum_sq_log_costs, m_data_size);
 
+	// lambda^2 * benefit_variance + log_cost_variance
+	const float overall_var = m_lambda *
+		m_lambda * benefit_var + log_cost_var;
+
+	if (overall_var < 1.0e-6f)
+	{
+		// bad variance
+		m_stopped = true;
+		return;
+	}
+
 	// compute distribution of lambda*Benefit-log(Cost)
 
 	boost::math::normal_distribution<float> dist(
 		m_lambda * benefit_mean - log_cost_mean,
-		std::sqrt(m_lambda * m_lambda * benefit_var + log_cost_var));
+		std::sqrt(overall_var));
 
 	// compute threshold
 
 	const float thresh = m_lambda * m_remaining_benefits.top()
-		+ m_sum_log_costs;
+		+ m_sum_log_costs * (float)m_remaining_benefits.size()
+		/ (float)m_data_size;
 
 	/*
 	Now, the event that dist > thresh is precisely the event that
@@ -102,7 +112,7 @@ void BasicStoppingStrategy::compute_stopped()
 		dist, thresh));
 
 	// does this probability exceed the significance threshold?
-	m_stopped = (p > m_alpha);
+	m_stopped = (p < m_alpha);
 }
 
 

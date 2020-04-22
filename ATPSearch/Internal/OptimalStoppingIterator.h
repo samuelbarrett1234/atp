@@ -83,6 +83,7 @@ private:
     // stores the states and benefits (the largest benefit being most
     // desirable).
     std::priority_queue<std::pair<float, logic::ProofStatePtr>,
+        std::vector<std::pair<float, logic::ProofStatePtr>>,
         PQComparator> m_states;
 };
 

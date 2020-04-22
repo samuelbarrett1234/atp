@@ -29,6 +29,9 @@ namespace search
 	modelled as lognormal. At each timestep, we compute the
 	tradeoff between (i) a potential increase in the highest benefit
 	we have seen so far vs (ii) an increase in the total cost.
+
+\warning If the benefit samples exposed so far have zero variance,
+	the strategy stops until empty.
 */
 class ATP_SEARCH_API BasicStoppingStrategy :
 	public IStoppingStrategy

@@ -38,7 +38,7 @@ logic::ProofStatePtr OptimalStoppingIterator::get() const
 {
 	ATP_SEARCH_PRECOND(valid());
 	ATP_SEARCH_ASSERT(!m_states.empty());
-	return m_states.top()->get();
+	return m_states.top().second;
 }
 
 
@@ -61,7 +61,8 @@ void OptimalStoppingIterator::advance()
 
 size_t OptimalStoppingIterator::size() const
 {
-	return m_states.size() * m_states.top()->size();
+	// this is quite a rough heuristic, but it'll do
+	return m_states.size() * m_child->size();
 }
 
 

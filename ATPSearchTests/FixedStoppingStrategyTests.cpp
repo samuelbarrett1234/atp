@@ -14,6 +14,7 @@
 using atp::search::FixedStoppingStrategy;
 
 
+BOOST_AUTO_TEST_SUITE(StoppingStrategyTests);
 BOOST_AUTO_TEST_SUITE(FixedStoppingStrategyTests);
 
 
@@ -39,6 +40,7 @@ BOOST_AUTO_TEST_CASE(basic_test)
 }
 
 
+BOOST_AUTO_TEST_SUITE_END();
 BOOST_AUTO_TEST_SUITE_END();
 
 

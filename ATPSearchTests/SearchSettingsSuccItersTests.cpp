@@ -12,13 +12,13 @@
 #include <sstream>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
-#include <Internal/SearchSettingsStoppingStrategies.h>
+#include <Internal/SearchSettingsSuccIters.h>
 #include <Internal/IteratorManager.h>
 #include "Test.h"
 #include "LogicSetupFixture.h"
 
 
-using atp::search::try_load_stopping_strategies;
+using atp::search::try_load_succ_iter_settings;
 using atp::search::try_load_fixed_stopping_strategy;
 using atp::search::try_load_basic_stopping_strategy;
 using atp::search::IteratorManager;
@@ -26,7 +26,7 @@ using boost::property_tree::ptree;
 using boost::property_tree::read_json;
 
 
-struct SearchSettingsStoppingStrategiesTestsFixture :
+struct SearchSettingsSuccItersTestsFixture :
 	public LogicSetupFixture
 {
 	std::unique_ptr<IteratorManager> p_iter_mgr =
@@ -36,8 +36,11 @@ struct SearchSettingsStoppingStrategiesTestsFixture :
 };
 
 
-BOOST_FIXTURE_TEST_SUITE(SearchSettingsStoppingStrategiesTests,
-	SearchSettingsStoppingStrategiesTestsFixture);
+BOOST_AUTO_TEST_SUITE(SearchSettingsTests);
+BOOST_FIXTURE_TEST_SUITE(SearchSettingsSuccItersTests,
+	SearchSettingsSuccItersTestsFixture,
+	* boost::unit_test_framework::depends_on(
+	"SuccessorIteratorTests"));
 
 
 BOOST_AUTO_TEST_CASE(test_bad_strat_type)
@@ -47,7 +50,7 @@ BOOST_AUTO_TEST_CASE(test_bad_strat_type)
 	ptree pt;
 	read_json(s, pt);
 
-	BOOST_TEST(!try_load_stopping_strategies(
+	BOOST_TEST(!try_load_succ_iter_settings(
 		*p_iter_mgr, pt));
 }
 
@@ -69,7 +72,7 @@ BOOST_DATA_TEST_CASE(test_fixed_stopping_strategy,
 	BOOST_TEST(try_load_fixed_stopping_strategy(*p_iter_mgr,
 		pt) == is_valid);
 
-	BOOST_TEST(try_load_stopping_strategies(*p_iter_mgr,
+	BOOST_TEST(try_load_succ_iter_settings(*p_iter_mgr,
 		pt) == is_valid);
 }
 
@@ -105,11 +108,12 @@ BOOST_DATA_TEST_CASE(test_basic_stopping_strategy,
 	BOOST_TEST(try_load_basic_stopping_strategy(*p_iter_mgr,
 		pt) == is_valid);
 
-	BOOST_TEST(try_load_stopping_strategies(*p_iter_mgr,
+	BOOST_TEST(try_load_succ_iter_settings(*p_iter_mgr,
 		pt) == is_valid);
 }
 
 
+BOOST_AUTO_TEST_SUITE_END();
 BOOST_AUTO_TEST_SUITE_END();
 
 

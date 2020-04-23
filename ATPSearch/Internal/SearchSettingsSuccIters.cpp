@@ -5,7 +5,7 @@
 */
 
 
-#include "SearchSettingsStoppingStrategies.h"
+#include "SearchSettingsSuccIters.h"
 #include "IteratorManager.h"
 
 
@@ -15,7 +15,7 @@ namespace search
 {
 
 
-bool try_load_stopping_strategies(IteratorManager& iter_mgr,
+bool try_load_succ_iter_settings(IteratorManager& iter_mgr,
 	const boost::property_tree::ptree& ptree)
 {
 	const std::string type = ptree.get<std::string>("type");

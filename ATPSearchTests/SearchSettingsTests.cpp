@@ -44,8 +44,13 @@ struct SearchSettingsTestFixture
 };
 
 
-BOOST_FIXTURE_TEST_SUITE(SearchSettingsTests,
-	SearchSettingsTestFixture);
+BOOST_AUTO_TEST_SUITE(SearchSettingsTests);
+BOOST_FIXTURE_TEST_SUITE(CoreSearchSettingsTests,
+	SearchSettingsTestFixture,
+	* boost::unit_test_framework::depends_on(
+	"SearchSettingsTests/SearchSettingsSolversTests")
+	* boost::unit_test_framework::depends_on(
+		"SearchSettingsTests/SearchSettingsSuccItersTests"));
 
 
 BOOST_AUTO_TEST_CASE(test_get_step_settings)
@@ -80,6 +85,19 @@ BOOST_AUTO_TEST_CASE(test_bad_solver_name)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_error_when_stop_strat_but_no_heuristic)
+{
+	// don't provide a heuristic!
+	s << "{ \"stopping-strategy\" : {";
+	s << "\"type\" : \"FixedStoppingStrategy\", \"size\" : 5";
+	s << "} }";
+
+	SearchSettings settings;
+	BOOST_TEST(!load_search_settings(p_ker, s,
+		&settings));
+}
+
+
 BOOST_AUTO_TEST_CASE(test_bad_json_syntax)
 {
 	s << "{ bad : 7 }";
@@ -90,6 +108,7 @@ BOOST_AUTO_TEST_CASE(test_bad_json_syntax)
 }
 
 
+BOOST_AUTO_TEST_SUITE_END();
 BOOST_AUTO_TEST_SUITE_END();
 
 

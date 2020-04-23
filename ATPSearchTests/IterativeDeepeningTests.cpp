@@ -56,10 +56,11 @@ struct IterativeDeepeningSolverTestsFixture :
 };
 
 
+BOOST_AUTO_TEST_SUITE(SolverTests);
 BOOST_FIXTURE_TEST_SUITE(IterativeDeepeningSolverTests,
 	IterativeDeepeningSolverTestsFixture,
 	* boost::unit_test_framework::depends_on(
-		"IteratorManagerTests"));
+		"SuccessorIteratorTests"));
 
 
 BOOST_DATA_TEST_CASE(simple_proof_test,
@@ -165,6 +166,7 @@ BOOST_DATA_TEST_CASE(false_statement_tests,
 }
 
 
+BOOST_AUTO_TEST_SUITE_END();
 BOOST_AUTO_TEST_SUITE_END();
 
 

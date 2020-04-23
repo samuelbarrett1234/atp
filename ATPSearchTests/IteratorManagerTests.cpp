@@ -60,8 +60,11 @@ struct IteratorManagerTestsFixture :
 };
 
 
+BOOST_AUTO_TEST_SUITE(SuccessorIteratorTests);
 BOOST_FIXTURE_TEST_SUITE(IteratorManagerTests,
-	IteratorManagerTestsFixture);
+	IteratorManagerTestsFixture,
+	* boost::unit_test_framework::depends_on(
+	"StoppingStrategyTests"));
 
 
 BOOST_AUTO_TEST_CASE(test_no_stopping_strategy)
@@ -152,6 +155,7 @@ BOOST_AUTO_TEST_CASE(test_basic_stopping_strategy)
 }
 
 
+BOOST_AUTO_TEST_SUITE_END();
 BOOST_AUTO_TEST_SUITE_END();
 
 

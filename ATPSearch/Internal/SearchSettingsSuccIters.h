@@ -33,7 +33,7 @@ class IteratorManager;  // forward declaration
 
 \throws Anything that might be thrown by the ptree.
 */
-ATP_SEARCH_API bool try_load_stopping_strategies(
+ATP_SEARCH_API bool try_load_succ_iter_settings(
 	IteratorManager& iter_mgr,
 	const boost::property_tree::ptree& ptree);
 

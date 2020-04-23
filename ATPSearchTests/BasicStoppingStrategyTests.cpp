@@ -31,6 +31,7 @@ struct BasicStoppingStrategyTestsFixture
 };
 
 
+BOOST_AUTO_TEST_SUITE(StoppingStrategyTests);
 BOOST_FIXTURE_TEST_SUITE(BasicStoppingStrategyTests,
 	BasicStoppingStrategyTestsFixture);
 
@@ -63,7 +64,7 @@ BOOST_DATA_TEST_CASE(test_initial_fill,
 
 BOOST_AUTO_TEST_CASE(test_not_stopped,
 	* boost::unit_test_framework::depends_on(
-		"BasicStoppingStrategyTests/test_initial_fill"))
+		"StoppingStrategyTests/BasicStoppingStrategyTests/test_initial_fill"))
 {
 	strat.add(1.0f, 0.1f);
 	strat.add(2.0f, 0.15f);
@@ -75,7 +76,7 @@ BOOST_AUTO_TEST_CASE(test_not_stopped,
 
 BOOST_AUTO_TEST_CASE(test_stopped_after_costly_data,
 	*boost::unit_test_framework::depends_on(
-		"BasicStoppingStrategyTests/test_not_stopped"))
+		"StoppingStrategyTests/BasicStoppingStrategyTests/test_not_stopped"))
 {
 	strat.add(1.0f, 0.1f);
 	strat.add(2.0f, 0.15f);
@@ -100,7 +101,7 @@ BOOST_AUTO_TEST_CASE(test_stopped_after_big_input)
 
 BOOST_AUTO_TEST_CASE(test_not_stopped_after_big_input_removed,
 	* boost::unit_test_framework::depends_on(
-		"BasicStoppingStrategyTests/test_stopped_after_big_input"))
+		"StoppingStrategyTests/BasicStoppingStrategyTests/test_stopped_after_big_input"))
 {
 	strat.add(1.0f, 0.1f);
 	strat.add(1.2f, 0.2f);
@@ -131,6 +132,7 @@ BOOST_DATA_TEST_CASE(test_resistant_to_no_variance,
 }
 
 
+BOOST_AUTO_TEST_SUITE_END();
 BOOST_AUTO_TEST_SUITE_END();
 
 

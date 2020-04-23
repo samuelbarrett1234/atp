@@ -90,13 +90,13 @@
     <ClInclude Include="Internal\SearchSettingsHeuristics.h">
       <Filter>Header Files\Internal\Search Settings</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\SearchSettingsStoppingStrategies.h">
-      <Filter>Header Files\Internal\Search Settings</Filter>
-    </ClInclude>
     <ClInclude Include="Internal\SearchSettingsSolvers.h">
       <Filter>Header Files\Internal\Search Settings</Filter>
     </ClInclude>
     <ClInclude Include="Internal\SearchSettings.h">
+      <Filter>Header Files\Internal\Search Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\SearchSettingsSuccIters.h">
       <Filter>Header Files\Internal\Search Settings</Filter>
     </ClInclude>
   </ItemGroup>
@@ -122,13 +122,13 @@
     <ClCompile Include="Internal\SearchSettingsHeuristics.cpp">
       <Filter>Source Files\Search Settings</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\SearchSettingsStoppingStrategies.cpp">
-      <Filter>Source Files\Search Settings</Filter>
-    </ClCompile>
     <ClCompile Include="Internal\SearchSettingsSolvers.cpp">
       <Filter>Source Files\Search Settings</Filter>
     </ClCompile>
     <ClCompile Include="Internal\SearchSettings.cpp">
+      <Filter>Source Files\Search Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SearchSettingsSuccIters.cpp">
       <Filter>Source Files\Search Settings</Filter>
     </ClCompile>
   </ItemGroup>

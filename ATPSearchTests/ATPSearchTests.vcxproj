@@ -181,7 +181,7 @@
     <ClCompile Include="IteratorManagerTests.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SearchSettingsSolversTests.cpp" />
-    <ClCompile Include="SearchSettingsStoppingStrategiesTests.cpp" />
+    <ClCompile Include="SearchSettingsSuccItersTests.cpp" />
     <ClCompile Include="SearchSettingsTests.cpp" />
     <ClCompile Include="StoppingIteratorTests.cpp" />
   </ItemGroup>

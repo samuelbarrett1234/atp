@@ -33,8 +33,11 @@ struct SearchSettingsSolversTestsFixture :
 };
 
 
+BOOST_AUTO_TEST_SUITE(SearchSettingsTests);
 BOOST_FIXTURE_TEST_SUITE(SearchSettingsSolversTests,
-	SearchSettingsSolversTestsFixture);
+	SearchSettingsSolversTestsFixture,
+	* boost::unit_test_framework::depends_on(
+	"SolverTests"));
 
 
 BOOST_AUTO_TEST_CASE(test_bad_solver_name)
@@ -125,7 +128,7 @@ BOOST_DATA_TEST_CASE(test_create_ids,
 // test that the generic version can create an IDS
 BOOST_AUTO_TEST_CASE(test_create_solver_can_make_ids,
 	* boost::unit_test_framework::depends_on(
-		"SearchSettingsSolversTests/test_create_ids"))
+		"SearchSettingsTests/SearchSettingsSolversTests/test_create_ids"))
 {
 	s << "{ \"type\" : \"IterativeDeepeningSolver\",";
 	s << "\"max-depth\" : " << 5 << ", ";
@@ -144,6 +147,7 @@ BOOST_AUTO_TEST_CASE(test_create_solver_can_make_ids,
 }
 
 
+BOOST_AUTO_TEST_SUITE_END();
 BOOST_AUTO_TEST_SUITE_END();
 
 

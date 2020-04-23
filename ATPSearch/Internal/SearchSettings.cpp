@@ -12,7 +12,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include "SearchSettingsHeuristics.h"
-#include "SearchSettingsStoppingStrategies.h"
+#include "SearchSettingsSuccIters.h"
 #include "SearchSettingsSolvers.h"
 #include "IteratorManager.h"
 
@@ -75,7 +75,11 @@ bool load_search_settings(logic::KnowledgeKernelPtr p_ker,
 		if (auto stop_strat_ptree =
 			ptree.get_child_optional("stopping-strategy"))
 		{
-			if (!try_load_stopping_strategies(*p_iter_mgr,
+			// cannot have a stopping strategy without a heuristic
+			if (p_heuristic == nullptr)
+				return false;
+
+			if (!try_load_succ_iter_settings(*p_iter_mgr,
 				*stop_strat_ptree))
 				return false;
 		}

@@ -69,10 +69,11 @@ struct StoppingIteratorTestsFixture :
 };
 
 
+BOOST_AUTO_TEST_SUITE(SuccessorIteratorTests);
 BOOST_FIXTURE_TEST_SUITE(StoppingIteratorTests,
 	StoppingIteratorTestsFixture,
 	* boost::unit_test_framework::depends_on(
-	"FixedStoppingStrategyTests"));
+	"StoppingStrategyTests"));
 
 
 BOOST_AUTO_TEST_CASE(size_test)
@@ -95,7 +96,7 @@ BOOST_AUTO_TEST_CASE(test_initially_valid)
 
 BOOST_AUTO_TEST_CASE(test_advance_adds_extra_item,
 	* boost::unit_test_framework::depends_on(
-	"StoppingIteratorTests/test_initially_valid"))
+	"SuccessorIteratorTests/StoppingIteratorTests/test_initially_valid"))
 {
 	const size_t n = p_heuristic->m_num_calls;
 
@@ -105,6 +106,7 @@ BOOST_AUTO_TEST_CASE(test_advance_adds_extra_item,
 }
 
 
+BOOST_AUTO_TEST_SUITE_END();
 BOOST_AUTO_TEST_SUITE_END();
 
 

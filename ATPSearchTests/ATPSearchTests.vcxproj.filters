@@ -57,7 +57,7 @@
     <ClCompile Include="SearchSettingsSolversTests.cpp">
       <Filter>Source Files\Search Settings Tests</Filter>
     </ClCompile>
-    <ClCompile Include="SearchSettingsStoppingStrategiesTests.cpp">
+    <ClCompile Include="SearchSettingsSuccItersTests.cpp">
       <Filter>Source Files\Search Settings Tests</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,5 +1,5 @@
 {
-	"name" : "Limited Iterative-Deepening Solver",
+	"name" : "Uninformed Limited Iterative-Deepening Solver",
 	"desc" : "An uninformed iterative deepening solver with low depth settings",
 	"solver" : {
 		"type" : "IterativeDeepeningSolver",
@@ -7,12 +7,6 @@
 		"starting-depth" : 3,
 		"no-repeats" : true,
 		"randomised" : true
-	},
-	"stopping-strategy" : {
-		"type" : "BasicStoppingStrategy",
-		"initial-size" : 10,
-		"lambda" : 10.0,
-		"alpha" : 0.05
 	},
 	"step-size" : 1000,
 	"max-steps" : 10,

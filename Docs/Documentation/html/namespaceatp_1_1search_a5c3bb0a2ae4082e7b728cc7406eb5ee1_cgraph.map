@@ -1,0 +1,5 @@
+<map id="atp::search::try_create_solver" name="atp::search::try_create_solver">
+<area shape="rect" id="node1" title="Try to create a solver, based on the type given in ptree." alt="" coords="5,27,159,69"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#a4a53fff8340c6ca3591b18f003869385" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="207,5,388,32"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="230,57,365,98"/>
+</map>

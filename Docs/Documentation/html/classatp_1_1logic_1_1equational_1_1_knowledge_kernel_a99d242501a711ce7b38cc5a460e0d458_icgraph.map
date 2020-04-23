@@ -1,0 +1,4 @@
+<map id="atp::logic::equational::KnowledgeKernel::iter_settings_supported" name="atp::logic::equational::KnowledgeKernel::iter_settings_supported">
+<area shape="rect" id="node1" title="Determine if the given flags are supported by this kind of knowledge kernel." alt="" coords="223,5,379,61"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a1bc70b5d8063b5c949d9fc2bebd50c68" title="Create a new proof state which, initially empty, is set to try and prove stmt." alt="" coords="5,5,175,61"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="atp::search::BasicStoppingStrategy::max_removed" name="atp::search::BasicStoppingStrategy::max_removed">
+<area shape="rect" id="node1" title="Register the fact that we have returned the highest benefit element." alt="" coords="5,5,184,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1search_1_1_basic_stopping_strategy.html#a96eb765b43ae87915397716ad7c7c13c" title="Determine if the strategy is saying you should stop and return the maximum." alt="" coords="232,5,411,47"/>
+</map>

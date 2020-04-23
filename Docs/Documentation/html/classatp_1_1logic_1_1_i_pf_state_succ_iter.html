@@ -84,12 +84,10 @@ Inheritance diagram for atp::logic::IPfStateSuccIter:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1_i_pf_state_succ_iter__inherit__graph.png" border="0" usemap="#atp_1_1logic_1_1_i_pf_state_succ_iter_inherit__map" alt="Inheritance graph"/></div>
 <map name="atp_1_1logic_1_1_i_pf_state_succ_iter_inherit__map" id="atp_1_1logic_1_1_i_pf_state_succ_iter_inherit__map">
-<area shape="rect" title="This is an interface for enumerating through successors of a proof state." alt="" coords="5,143,183,170"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html" title="Produces statement successors by iterating over possible assignments of free variables not covered by..." alt="" coords="231,5,416,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_match_results_iterator.html" title="Produces statement successors by iterating over the results of a successful matching." alt="" coords="248,71,399,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html" title="The NoRepeatIterator blocks states that have already been seen on the path from the root to the curre..." alt="" coords="252,136,395,177"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html" title="Produces successor statements by iterating over possible matchings." alt="" coords="249,201,398,243"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html" title="Produces successor statements by iterating over all subtrees of a statement to try matching." alt="" coords="237,267,410,308"/>
+<area shape="rect" title="This is an interface for enumerating through successors of a proof state." alt="" coords="5,78,183,105"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html" title="The NoRepeatIterator blocks states that have already been seen on the path from the root to the curre..." alt="" coords="253,5,395,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html" title="Produces successor statements by iterating over all subtrees of a statement to try matching." alt="" coords="237,71,411,112"/>
+<area shape="rect" href="classatp_1_1search_1_1_stopping_iterator.html" title="Wraps around an iterator by extracting several successors at a time from it, and returning the &quot;best&quot;..." alt="" coords="231,137,417,163"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -164,7 +162,7 @@ Public Member Functions</h2></td></tr>
 <p>Increment the iterator; move on to the next successor. </p>
 <dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1logic_1_1_i_pf_state_succ_iter.html#ae9795a4557f355ec0bff3fdecdf21b71">valid()</a> </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#aed130449d93ae4914a1880f20c3c5ee4">atp::logic::equational::FreeVarAssignmentIterator</a>, <a class="el" href="classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#ada7c35d826149060bdc33e7fa660dc6c">atp::logic::equational::MatchResultsIterator</a>, <a class="el" href="classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a995e5041c3713c1fe02d88a2be722d73">atp::logic::equational::RuleMatchingIterator</a>, <a class="el" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a4f6caf310dc06e6602586ee730a67945">atp::logic::equational::SubExprMatchingIterator</a>, and <a class="el" href="classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#a9fb97687cab3bf7ff7148924673bf705">atp::logic::equational::NoRepeatIterator</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a4f6caf310dc06e6602586ee730a67945">atp::logic::equational::SubExprMatchingIterator</a>, <a class="el" href="classatp_1_1search_1_1_stopping_iterator.html#aa8cc70952eaca57cf553213cd5f21cae">atp::search::StoppingIterator</a>, and <a class="el" href="classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#a9fb97687cab3bf7ff7148924673bf705">atp::logic::equational::NoRepeatIterator</a>.</p>
 
 </div>
 </div>
@@ -194,7 +192,7 @@ Public Member Functions</h2></td></tr>
 <p>Get the successor pointed to by this iterator. </p>
 <dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1logic_1_1_i_pf_state_succ_iter.html#ae9795a4557f355ec0bff3fdecdf21b71">valid()</a> </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#ad360d332f30341a63116dd1945dafc16">atp::logic::equational::FreeVarAssignmentIterator</a>, <a class="el" href="classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#a83ae61615b5e99a125175dcaf6e8d28b">atp::logic::equational::MatchResultsIterator</a>, <a class="el" href="classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#ad5b47aaad2b7443f3d00dc58522dc3a4">atp::logic::equational::RuleMatchingIterator</a>, <a class="el" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a0744a6f9aec3d992dc8136485cac65e1">atp::logic::equational::SubExprMatchingIterator</a>, and <a class="el" href="classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#af89256c1ab704388e614b0850988fe05">atp::logic::equational::NoRepeatIterator</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a0744a6f9aec3d992dc8136485cac65e1">atp::logic::equational::SubExprMatchingIterator</a>, <a class="el" href="classatp_1_1search_1_1_stopping_iterator.html#a0de05b1afa6bf47a0499f107dc677922">atp::search::StoppingIterator</a>, and <a class="el" href="classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#af89256c1ab704388e614b0850988fe05">atp::logic::equational::NoRepeatIterator</a>.</p>
 
 </div>
 </div>
@@ -226,7 +224,7 @@ Public Member Functions</h2></td></tr>
 <p>This is only for performance tracking (in the search library.)</p>
 <dl class="section pre"><dt>Precondition</dt><dd><a class="el" href="classatp_1_1logic_1_1_i_pf_state_succ_iter.html#ae9795a4557f355ec0bff3fdecdf21b71">valid()</a> </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#afe30d1b7576ec27d3afa3701574ea009">atp::logic::equational::FreeVarAssignmentIterator</a>, <a class="el" href="classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#ac7b152ade35ee6b2a37c6bddb709f8fb">atp::logic::equational::MatchResultsIterator</a>, <a class="el" href="classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#aa417b7c7d704c49d70023231a4e4ada3">atp::logic::equational::RuleMatchingIterator</a>, <a class="el" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a9288a1ce917b82b28cbec16d0c755a35">atp::logic::equational::SubExprMatchingIterator</a>, and <a class="el" href="classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#a560a1a621fa2622b34f87fdc582d8125">atp::logic::equational::NoRepeatIterator</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a9288a1ce917b82b28cbec16d0c755a35">atp::logic::equational::SubExprMatchingIterator</a>, <a class="el" href="classatp_1_1search_1_1_stopping_iterator.html#a41d013f2b582bf4c22812d1b5be3aea3">atp::search::StoppingIterator</a>, and <a class="el" href="classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#a560a1a621fa2622b34f87fdc582d8125">atp::logic::equational::NoRepeatIterator</a>.</p>
 
 </div>
 </div>
@@ -254,7 +252,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>True iff this iterator points to a successor (i.e. is dereferencable.) </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#a31622b34555e4db84418a80db45b2311">atp::logic::equational::FreeVarAssignmentIterator</a>, <a class="el" href="classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#a6ebf77cf2d2694da3c19b4163a637573">atp::logic::equational::MatchResultsIterator</a>, <a class="el" href="classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a8c136d6406f8f6448c2ddfffee7bb20d">atp::logic::equational::RuleMatchingIterator</a>, <a class="el" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a1f1ed484319a9bd2a1f732caac9afdcd">atp::logic::equational::SubExprMatchingIterator</a>, and <a class="el" href="classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#a1575042228df9f2693e2006b7152aa43">atp::logic::equational::NoRepeatIterator</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a1f1ed484319a9bd2a1f732caac9afdcd">atp::logic::equational::SubExprMatchingIterator</a>, <a class="el" href="classatp_1_1search_1_1_stopping_iterator.html#a62834aa19864775286530183c3c0466e">atp::search::StoppingIterator</a>, and <a class="el" href="classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#a1575042228df9f2693e2006b7152aa43">atp::logic::equational::NoRepeatIterator</a>.</p>
 
 </div>
 </div>

@@ -1,0 +1,4 @@
+<map id="atp::search::try_load_basic_stopping_strategy" name="atp::search::try_load_basic_stopping_strategy">
+<area shape="rect" id="node1" title="Try to load info for a BasicStoppingStrategy." alt="" coords="5,5,176,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="224,5,420,47"/>
+</map>

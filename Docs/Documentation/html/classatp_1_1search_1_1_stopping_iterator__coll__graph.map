@@ -1,0 +1,4 @@
+<map id="atp::search::StoppingIterator" name="atp::search::StoppingIterator">
+<area shape="rect" id="node1" title="Wraps around an iterator by extracting several successors at a time from it, and returning the &quot;best&quot;..." alt="" coords="5,80,192,107"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1_i_pf_state_succ_iter.html" title="This is an interface for enumerating through successors of a proof state." alt="" coords="10,5,187,32"/>
+</map>

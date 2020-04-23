@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['constantsyntaxnode_353',['ConstantSyntaxNode',['../classatp_1_1logic_1_1equational_1_1_constant_syntax_node.html',1,'atp::logic::equational']]]
+  ['basicstoppingstrategy_399',['BasicStoppingStrategy',['../classatp_1_1search_1_1_basic_stopping_strategy.html',1,'atp::search']]]
 ];

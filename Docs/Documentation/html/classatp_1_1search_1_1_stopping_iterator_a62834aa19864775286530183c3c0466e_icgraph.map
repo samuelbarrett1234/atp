@@ -1,0 +1,5 @@
+<map id="atp::search::StoppingIterator::valid" name="atp::search::StoppingIterator::valid">
+<area shape="rect" id="node1" title=" " alt="" coords="265,35,452,76"/>
+<area shape="rect" id="node2" href="$classatp_1_1search_1_1_stopping_iterator.html#aa8cc70952eaca57cf553213cd5f21cae" title="Increment the iterator; move on to the next successor." alt="" coords="18,5,205,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1search_1_1_stopping_iterator.html#a0de05b1afa6bf47a0499f107dc677922" title="Get the successor pointed to by this iterator." alt="" coords="5,71,217,98"/>
+</map>

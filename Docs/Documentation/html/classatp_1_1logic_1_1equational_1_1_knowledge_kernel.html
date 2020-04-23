@@ -106,9 +106,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4c122c0c52a6dc8b77975749d2710535"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a4c122c0c52a6dc8b77975749d2710535">get_integrity_code</a> () const override</td></tr>
 <tr class="memdesc:a4c122c0c52a6dc8b77975749d2710535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Characterises the information provided to this knowledge kernel in a single integer code.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a4c122c0c52a6dc8b77975749d2710535">More...</a><br /></td></tr>
 <tr class="separator:a4c122c0c52a6dc8b77975749d2710535"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a944b4138dab6675676fa741ac5a43950"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">ProofStatePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a944b4138dab6675676fa741ac5a43950">begin_proof_of</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;stmt) const override</td></tr>
-<tr class="memdesc:a944b4138dab6675676fa741ac5a43950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new proof state which, initially empty, is set to try and prove <code>stmt</code>.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a944b4138dab6675676fa741ac5a43950">More...</a><br /></td></tr>
-<tr class="separator:a944b4138dab6675676fa741ac5a43950"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bc70b5d8063b5c949d9fc2bebd50c68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">ProofStatePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a1bc70b5d8063b5c949d9fc2bebd50c68">begin_proof_of</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;stmt, <a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">IterSettings</a> flags) const override</td></tr>
+<tr class="memdesc:a1bc70b5d8063b5c949d9fc2bebd50c68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new proof state which, initially empty, is set to try and prove <code>stmt</code>.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a1bc70b5d8063b5c949d9fc2bebd50c68">More...</a><br /></td></tr>
+<tr class="separator:a1bc70b5d8063b5c949d9fc2bebd50c68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99d242501a711ce7b38cc5a460e0d458"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a99d242501a711ce7b38cc5a460e0d458">iter_settings_supported</a> (<a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">IterSettings</a> flags) const override</td></tr>
+<tr class="memdesc:a99d242501a711ce7b38cc5a460e0d458"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if the given flags are supported by this kind of knowledge kernel.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a99d242501a711ce7b38cc5a460e0d458">More...</a><br /></td></tr>
+<tr class="separator:a99d242501a711ce7b38cc5a460e0d458"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cef52c01d3e910298cce145ed26a8a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6">is_trivial</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;stmt) const override</td></tr>
 <tr class="memdesc:a0cef52c01d3e910298cce145ed26a8a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A "trivial" statement is either reflexive or implied directly by one of the axioms.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a0cef52c01d3e910298cce145ed26a8a6">More...</a><br /></td></tr>
 <tr class="separator:a0cef52c01d3e910298cce145ed26a8a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -118,6 +121,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5aa3eb3d5134095f32e88047d66b9044"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a5aa3eb3d5134095f32e88047d66b9044">remove_theorems</a> (size_t ref_id) override</td></tr>
 <tr class="memdesc:a5aa3eb3d5134095f32e88047d66b9044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unload the set of previously added theorems.  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a5aa3eb3d5134095f32e88047d66b9044">More...</a><br /></td></tr>
 <tr class="separator:a5aa3eb3d5134095f32e88047d66b9044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5f189c4d68ab1d0bdefeb299e0f3e05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5f189c4d68ab1d0bdefeb299e0f3e05">set_seed</a> (size_t seed) override</td></tr>
+<tr class="memdesc:af5f189c4d68ab1d0bdefeb299e0f3e05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the random number generation seed (overwrites last value if any)  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5f189c4d68ab1d0bdefeb299e0f3e05">More...</a><br /></td></tr>
+<tr class="separator:af5f189c4d68ab1d0bdefeb299e0f3e05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8c8d8f79ba5880c73c61d9c591f18c8"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae8c8d8f79ba5880c73c61d9c591f18c8">generate_rand</a> () const override</td></tr>
+<tr class="memdesc:ae8c8d8f79ba5880c73c61d9c591f18c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a random number (think of this as just std::rand)  <a href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae8c8d8f79ba5880c73c61d9c591f18c8">More...</a><br /></td></tr>
+<tr class="separator:ae8c8d8f79ba5880c73c61d9c591f18c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b3702fe7637376677759df32b519d39"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement_array.html">StatementArray</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a5b3702fe7637376677759df32b519d39">get_active_rules</a> () const</td></tr>
 <tr class="separator:a5b3702fe7637376677759df32b519d39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1f63f4bdd1bda0d227b8f6475db147b"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ad1f63f4bdd1bda0d227b8f6475db147b">get_rule_free_id_bound</a> () const</td></tr>
@@ -198,8 +207,8 @@ p_thms-&gt;size() &gt; 0 </dd></dl>
 
 </div>
 </div>
-<a id="a944b4138dab6675676fa741ac5a43950"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a944b4138dab6675676fa741ac5a43950">&#9670;&nbsp;</a></span>begin_proof_of()</h2>
+<a id="a1bc70b5d8063b5c949d9fc2bebd50c68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bc70b5d8063b5c949d9fc2bebd50c68">&#9670;&nbsp;</a></span>begin_proof_of()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,8 +220,18 @@ p_thms-&gt;size() &gt; 0 </dd></dl>
           <td class="memname"><a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">ProofStatePtr</a> atp::logic::equational::KnowledgeKernel::begin_proof_of </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;&#160;</td>
-          <td class="paramname"><em>stmt</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"><em>stmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">IterSettings</a>&#160;</td>
+          <td class="paramname"><em>flags</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -223,9 +242,57 @@ p_thms-&gt;size() &gt; 0 </dd></dl>
 </div><div class="memdoc">
 
 <p>Create a new proof state which, initially empty, is set to try and prove <code>stmt</code>. </p>
-<dl class="section pre"><dt>Precondition</dt><dd><code>stmt</code> is a valid statement within the context of this knowledge kernel. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stmt</td><td>The statement to target proving</td></tr>
+    <tr><td class="paramname">flags</td><td>Flags indicating how the returned proof state should iterate over successors.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>stmt</code> is a valid statement within the context of this knowledge kernel.</dd>
+<dd>
+iter_settings_supported(flags) </dd></dl>
 
-<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a20ac896a2d3869f2c680d35443c8c450">atp::logic::IKnowledgeKernel</a>.</p>
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a104a22e70d0affd3be11650b6670c8b9">atp::logic::IKnowledgeKernel</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a1bc70b5d8063b5c949d9fc2bebd50c68_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a1bc70b5d8063b5c949d9fc2bebd50c68_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a1bc70b5d8063b5c949d9fc2bebd50c68_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a1bc70b5d8063b5c949d9fc2bebd50c68_cgraph">
+<area shape="rect" title="Create a new proof state which, initially empty, is set to try and prove stmt." alt="" coords="5,5,175,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a99d242501a711ce7b38cc5a460e0d458" title="Determine if the given flags are supported by this kind of knowledge kernel." alt="" coords="223,5,379,61"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ae8c8d8f79ba5880c73c61d9c591f18c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8c8d8f79ba5880c73c61d9c591f18c8">&#9670;&nbsp;</a></span>generate_rand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t atp::logic::equational::KnowledgeKernel::generate_rand </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Generate a random number (think of this as just std::rand) </p>
+<dl class="section note"><dt>Note</dt><dd>Random number generation may be used by components of this library created by the knowledge kernel, for example to iterate over proof state successors randomly. </dd></dl>
+
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#ab1d8cadad7a0a8c758dc26dfe714eb2e">atp::logic::IKnowledgeKernel</a>.</p>
 
 </div>
 </div>
@@ -328,7 +395,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ad1f63f4bdd1bda0d227b8f6475db147b_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ad1f63f4bdd1bda0d227b8f6475db147b_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ad1f63f4bdd1bda0d227b8f6475db147b_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_ad1f63f4bdd1bda0d227b8f6475db147b_icgraph">
 <area shape="rect" title="Returns the largest free variable ID which occurs in any of the rules." alt="" coords="227,5,383,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a0a0f49c45801e3b62e046d9254fe3a03" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="5,5,179,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#afefebfa75df496b5fa955baa3adaf47c" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="5,5,179,61"/>
 </map>
 </div>
 
@@ -390,6 +457,46 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a99d242501a711ce7b38cc5a460e0d458"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99d242501a711ce7b38cc5a460e0d458">&#9670;&nbsp;</a></span>iter_settings_supported()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool atp::logic::equational::KnowledgeKernel::iter_settings_supported </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">IterSettings</a>&#160;</td>
+          <td class="paramname"><em>flags</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determine if the given flags are supported by this kind of knowledge kernel. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if supported, false if not. </dd></dl>
+
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a6914f8b4fec30cdc92b977d970bb00a7">atp::logic::IKnowledgeKernel</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a99d242501a711ce7b38cc5a460e0d458_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a99d242501a711ce7b38cc5a460e0d458_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a99d242501a711ce7b38cc5a460e0d458_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a99d242501a711ce7b38cc5a460e0d458_icgraph">
+<area shape="rect" title="Determine if the given flags are supported by this kind of knowledge kernel." alt="" coords="223,5,379,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a1bc70b5d8063b5c949d9fc2bebd50c68" title="Create a new proof state which, initially empty, is set to try and prove stmt." alt="" coords="5,5,175,61"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a6384bf7a77765b99ced49a91d5cb59a2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6384bf7a77765b99ced49a91d5cb59a2">&#9670;&nbsp;</a></span>match_results_at()</h2>
 
@@ -424,13 +531,13 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a6384bf7a77765b99ced49a91d5cb59a2_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a6384bf7a77765b99ced49a91d5cb59a2_cgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a6384bf7a77765b99ced49a91d5cb59a2_cgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_a6384bf7a77765b99ced49a91d5cb59a2_cgraph">
-<area shape="rect" title="Get the possible effects of a given matching and matching substitution. (Returns the results with the..." alt="" coords="5,151,180,207"/>
-<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#affadeaa48774a3e1c638117dbf7fdca8" title=" " alt="" coords="230,5,385,47"/>
-<area shape="rect" href="classatp_1_1logic_1_1_free_var_id_set.html#af4f5a4eed9c7daa7c22b6f46835c9d4f" title=" " alt="" coords="228,71,387,112"/>
-<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#ad01467cfed620e6083907846f9b2211f" title=" " alt="" coords="435,166,617,193"/>
-<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#a56bb3544550dc9ebaab240de02fecb38" title=" " alt="" coords="230,188,385,229"/>
-<area shape="rect" href="classatp_1_1logic_1_1_free_var_id_set.html#a123e34de05a8e83ad025999d17c16854" title=" " alt="" coords="228,253,387,295"/>
-<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#acfd10a676b13c4127cfabb6f56b1186e" title=" " alt="" coords="230,319,385,360"/>
+<area shape="rect" title="Get the possible effects of a given matching and matching substitution. (Returns the results with the..." alt="" coords="5,158,180,214"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#affadeaa48774a3e1c638117dbf7fdca8" title=" " alt="" coords="242,5,397,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_id_set.html#af4f5a4eed9c7daa7c22b6f46835c9d4f" title=" " alt="" coords="240,71,399,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#a63f5bc1a22b97cf4822d117855bc9936" title=" " alt="" coords="242,136,397,177"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#ad01467cfed620e6083907846f9b2211f" title=" " alt="" coords="228,202,411,229"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_id_set.html#a123e34de05a8e83ad025999d17c16854" title=" " alt="" coords="240,253,399,295"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#acfd10a676b13c4127cfabb6f56b1186e" title=" " alt="" coords="242,319,397,360"/>
 </map>
 </div>
 
@@ -463,12 +570,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af9ca30f84344d52a76abc68cf64ce372_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af9ca30f84344d52a76abc68cf64ce372_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af9ca30f84344d52a76abc68cf64ce372_icgraph" id="classatp_1_1logic_1_1equational_1_1_knowledge_kernel_af9ca30f84344d52a76abc68cf64ce372_icgraph">
-<area shape="rect" title=" " alt="" coords="432,51,595,107"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a995e5041c3713c1fe02d88a2be722d73" title="Increment the iterator; move on to the next successor." alt="" coords="21,5,171,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#ae0d36ea2d1625806d5a9b07df27c57c4" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="235,51,384,107"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a8c136d6406f8f6448c2ddfffee7bb20d" title=" " alt="" coords="235,131,384,187"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#ad5b47aaad2b7443f3d00dc58522dc3a4" title="Get the successor pointed to by this iterator." alt="" coords="9,105,183,146"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#aa417b7c7d704c49d70023231a4e4ada3" title="Get the number of proof states currently held in memory by this iterator." alt="" coords="5,170,187,211"/>
+<area shape="rect" title=" " alt="" coords="203,5,365,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a4c176746c077271a7104c39545c5eb79" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="5,5,155,61"/>
 </map>
 </div>
 
@@ -508,6 +611,37 @@ Here is the caller graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd><code>ref_id</code> must have been returned from an earlier call to <code>add_theorems</code>, and must not have already been removed. </dd></dl>
 
 <p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a7695c86f7a5cd80783f1ce4d29e75e76">atp::logic::IKnowledgeKernel</a>.</p>
+
+</div>
+</div>
+<a id="af5f189c4d68ab1d0bdefeb299e0f3e05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5f189c4d68ab1d0bdefeb299e0f3e05">&#9670;&nbsp;</a></span>set_seed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void atp::logic::equational::KnowledgeKernel::set_seed </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>seed</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the random number generation seed (overwrites last value if any) </p>
+<dl class="section note"><dt>Note</dt><dd>Random number generation may be used by components of this library created by the knowledge kernel, for example to iterate over proof state successors randomly. </dd></dl>
+
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a1cbb9772c9f66d9221ef7d11e475181f">atp::logic::IKnowledgeKernel</a>.</p>
 
 </div>
 </div>

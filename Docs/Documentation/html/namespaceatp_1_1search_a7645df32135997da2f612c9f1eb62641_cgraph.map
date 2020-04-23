@@ -1,0 +1,7 @@
+<map id="atp::search::try_load_succ_iter_settings" name="atp::search::try_load_succ_iter_settings">
+<area shape="rect" id="node1" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="5,39,147,80"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#a268a88f64715291bf40d64d1121c8eaf" title="Try to load info for a BasicStoppingStrategy." alt="" coords="195,5,365,47"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1search.html#a288fbf05486211567d8d0661f3991681" title="Try to load info for a FixedStoppingStrategy." alt="" coords="197,71,363,112"/>
+<area shape="rect" id="node3" href="$classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="413,5,609,47"/>
+<area shape="rect" id="node5" href="$classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="415,71,607,112"/>
+</map>

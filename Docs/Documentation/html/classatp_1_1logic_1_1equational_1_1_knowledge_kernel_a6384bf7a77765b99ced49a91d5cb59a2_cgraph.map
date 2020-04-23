@@ -1,9 +1,9 @@
 <map id="atp::logic::equational::KnowledgeKernel::match_results_at" name="atp::logic::equational::KnowledgeKernel::match_results_at">
-<area shape="rect" id="node1" title="Get the possible effects of a given matching and matching substitution. (Returns the results with the..." alt="" coords="5,151,180,207"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1_free_var_map.html#affadeaa48774a3e1c638117dbf7fdca8" title=" " alt="" coords="230,5,385,47"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1_free_var_id_set.html#af4f5a4eed9c7daa7c22b6f46835c9d4f" title=" " alt="" coords="228,71,387,112"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1_free_var_map.html#ad01467cfed620e6083907846f9b2211f" title=" " alt="" coords="435,166,617,193"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1_free_var_map.html#a56bb3544550dc9ebaab240de02fecb38" title=" " alt="" coords="230,188,385,229"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1_free_var_id_set.html#a123e34de05a8e83ad025999d17c16854" title=" " alt="" coords="228,253,387,295"/>
-<area shape="rect" id="node7" href="$classatp_1_1logic_1_1_free_var_map.html#acfd10a676b13c4127cfabb6f56b1186e" title=" " alt="" coords="230,319,385,360"/>
+<area shape="rect" id="node1" title="Get the possible effects of a given matching and matching substitution. (Returns the results with the..." alt="" coords="5,158,180,214"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1_free_var_map.html#affadeaa48774a3e1c638117dbf7fdca8" title=" " alt="" coords="242,5,397,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1_free_var_id_set.html#af4f5a4eed9c7daa7c22b6f46835c9d4f" title=" " alt="" coords="240,71,399,112"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1_free_var_map.html#a63f5bc1a22b97cf4822d117855bc9936" title=" " alt="" coords="242,136,397,177"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1_free_var_map.html#ad01467cfed620e6083907846f9b2211f" title=" " alt="" coords="228,202,411,229"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1_free_var_id_set.html#a123e34de05a8e83ad025999d17c16854" title=" " alt="" coords="240,253,399,295"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1_free_var_map.html#acfd10a676b13c4127cfabb6f56b1186e" title=" " alt="" coords="242,319,397,360"/>
 </map>

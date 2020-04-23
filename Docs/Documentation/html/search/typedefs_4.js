@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['heuristiccollection_681',['HeuristicCollection',['../namespaceatp_1_1search.html#a7926bd62ba8aa9635c64e4ce8247406e',1,'atp::search']]]
+  ['heuristicptr_777',['HeuristicPtr',['../namespaceatp_1_1search.html#aa9b471dd0b51a5e48442f4e326df7a1a',1,'atp::search']]]
 ];

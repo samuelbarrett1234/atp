@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>atp: ATPSearch/Interfaces/SearchSettings.cpp File Reference</title>
+<title>atp: ATPSearch/Internal/SearchSettings.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_a362363da98bf8c5d70e0893fdc67ed1.html">ATPSearch</a></li><li class="navelem"><a class="el" href="dir_a42d6b7ac87a4042dbbaa118627d2a8d.html">Interfaces</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_a362363da98bf8c5d70e0893fdc67ed1.html">ATPSearch</a></li><li class="navelem"><a class="el" href="dir_708afc7c34d62e7271c52edf85ed554a.html">Internal</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,38 +75,47 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="_search_settings_8h.html">SearchSettings.h</a>&quot;</code><br />
+<code>#include &lt;chrono&gt;</code><br />
 <code>#include &lt;boost/property_tree/ptree.hpp&gt;</code><br />
 <code>#include &lt;boost/property_tree/json_parser.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="_iterative_deepening_solver_8h.html">../Internal/IterativeDeepeningSolver.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_search_settings_heuristics_8h.html">SearchSettingsHeuristics.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_search_settings_succ_iters_8h.html">SearchSettingsSuccIters.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_search_settings_solvers_8h.html">SearchSettingsSolvers.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_iterator_manager_8h.html">IteratorManager.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for SearchSettings.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="_search_settings_8cpp__incl.png" border="0" usemap="#_a_t_p_search_2_interfaces_2_search_settings_8cpp" alt=""/></div>
-<map name="_a_t_p_search_2_interfaces_2_search_settings_8cpp" id="_a_t_p_search_2_interfaces_2_search_settings_8cpp">
-<area shape="rect" title=" " alt="" coords="919,5,1067,47"/>
-<area shape="rect" href="_search_settings_8h.html" title="Contains code for loading user search settings." alt="" coords="649,102,772,129"/>
-<area shape="rect" title=" " alt="" coords="1018,95,1153,136"/>
-<area shape="rect" title=" " alt="" coords="1177,95,1311,136"/>
-<area shape="rect" href="_iterative_deepening_solver_8h.html" title="Contains a basic uninformed search strategy, IDS." alt="" coords="809,95,994,136"/>
-<area shape="rect" title=" " alt="" coords="43,423,109,449"/>
-<area shape="rect" href="_a_t_p_search_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="554,259,686,285"/>
-<area shape="rect" href="_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="719,259,809,285"/>
-<area shape="rect" href="_i_solver_8h.html" title="Interface for proof solving strategies." alt="" coords="749,184,819,211"/>
-<area shape="rect" title=" " alt="" coords="275,721,341,748"/>
-<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="557,647,667,673"/>
-<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="266,572,422,599"/>
-<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="700,497,887,524"/>
-<area shape="rect" href="_i_language_8h.html" title="Contains the ILanguage interface which acts as a factory class for each type of logic in the library." alt="" coords="480,341,632,367"/>
-<area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a structure for performing logical deductio..." alt="" coords="801,423,937,449"/>
-<area shape="rect" href="_i_proof_state_8h.html" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="337,497,434,524"/>
-<area shape="rect" href="_i_model_context_8h.html" title="Contains the IModelContext interface for managing definitions and axioms." alt="" coords="458,497,574,524"/>
-<area shape="rect" href="_i_propositional_knowledge_kernel_8h.html" title="Contains a common specialisation of the IKnowledgeKernel interface." alt="" coords="895,333,1055,375"/>
-<area shape="rect" title=" " alt="" coords="374,647,429,673"/>
-<area shape="rect" title=" " alt="" coords="1048,572,1104,599"/>
-<area shape="rect" title=" " alt="" coords="809,572,879,599"/>
-<area shape="rect" title=" " alt="" coords="404,423,473,449"/>
-<area shape="rect" title=" " alt="" coords="895,184,934,211"/>
-<area shape="rect" title=" " alt="" coords="959,184,1087,211"/>
+<div class="center"><img src="_search_settings_8cpp__incl.png" border="0" usemap="#_a_t_p_search_2_internal_2_search_settings_8cpp" alt=""/></div>
+<map name="_a_t_p_search_2_internal_2_search_settings_8cpp" id="_a_t_p_search_2_internal_2_search_settings_8cpp">
+<area shape="rect" title=" " alt="" coords="559,5,699,47"/>
+<area shape="rect" href="_search_settings_8h.html" title="Contains code for loading user search settings." alt="" coords="798,102,921,129"/>
+<area shape="rect" title=" " alt="" coords="945,102,1006,129"/>
+<area shape="rect" title=" " alt="" coords="27,184,161,225"/>
+<area shape="rect" title=" " alt="" coords="1031,95,1165,136"/>
+<area shape="rect" href="_search_settings_heuristics_8h.html" title="Contains functions for loading heuristics from the search settings file." alt="" coords="259,102,439,129"/>
+<area shape="rect" href="_search_settings_succ_iters_8h.html" title="Contains functions for loading stopping strategies from the search settings file." alt="" coords="5,102,183,129"/>
+<area shape="rect" href="_search_settings_solvers_8h.html" title="Contains functions for loading solvers from the search settings file." alt="" coords="463,102,627,129"/>
+<area shape="rect" href="_iterator_manager_8h.html" title="Contains a class for managing the handling of successor iteration within a solver." alt="" coords="651,102,774,129"/>
+<area shape="rect" title=" " alt="" coords="1688,437,1753,464"/>
+<area shape="rect" href="_a_t_p_search_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="243,273,375,300"/>
+<area shape="rect" href="_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="1125,273,1215,300"/>
+<area shape="rect" href="_i_solver_8h.html" title="Interface for proof solving strategies." alt="" coords="907,191,1049,218"/>
+<area shape="rect" href="_i_heuristic_8h.html" title="Interfaces for search heuristic functions." alt="" coords="571,191,729,218"/>
+<area shape="rect" href="_i_stopping_strategy_8h.html" title=" " alt="" coords="338,191,546,218"/>
+<area shape="rect" title=" " alt="" coords="700,736,765,763"/>
+<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="1075,661,1185,688"/>
+<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="1440,587,1596,613"/>
+<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="754,512,941,539"/>
+<area shape="rect" href="_i_language_8h.html" title="Contains the ILanguage interface which acts as a factory class for each type of logic in the library." alt="" coords="1310,355,1462,382"/>
+<area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a structure for performing logical deductio..." alt="" coords="1029,437,1165,464"/>
+<area shape="rect" href="_i_proof_state_8h.html" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="1168,512,1265,539"/>
+<area shape="rect" href="_i_model_context_8h.html" title="Contains the IModelContext interface for managing definitions and axioms." alt="" coords="1341,512,1457,539"/>
+<area shape="rect" href="_i_propositional_knowledge_kernel_8h.html" title="Contains a common specialisation of the IKnowledgeKernel interface." alt="" coords="890,348,1050,389"/>
+<area shape="rect" title=" " alt="" coords="1432,661,1487,688"/>
+<area shape="rect" title=" " alt="" coords="1026,587,1082,613"/>
+<area shape="rect" title=" " alt="" coords="631,587,701,613"/>
+<area shape="rect" title=" " alt="" coords="1442,437,1511,464"/>
+<area shape="rect" title=" " alt="" coords="754,191,831,218"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -120,9 +129,6 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8580f538a27bb6bedc5dd3929c4dc791"><td class="memItemLeft" align="right" valign="top">SolverPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a8580f538a27bb6bedc5dd3929c4dc791">atp::search::try_create_ids</a> (logic::KnowledgeKernelPtr p_ker, const pt::ptree &amp;ptree)</td></tr>
-<tr class="memdesc:a8580f538a27bb6bedc5dd3929c4dc791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create an <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html">IterativeDeepeningSolver</a> from the given ptree.  <a href="namespaceatp_1_1search.html#a8580f538a27bb6bedc5dd3929c4dc791">More...</a><br /></td></tr>
-<tr class="separator:a8580f538a27bb6bedc5dd3929c4dc791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a930f63264b08ed19a50adf1476e8d4be"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be">atp::search::load_search_settings</a> (logic::KnowledgeKernelPtr p_ker, std::istream &amp;in, SearchSettings *p_out_settings)</td></tr>
 <tr class="memdesc:a930f63264b08ed19a50adf1476e8d4be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to load a solver from a configuration file.  <a href="namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be">More...</a><br /></td></tr>
 <tr class="separator:a930f63264b08ed19a50adf1476e8d4be"><td class="memSeparator" colspan="2">&#160;</td></tr>

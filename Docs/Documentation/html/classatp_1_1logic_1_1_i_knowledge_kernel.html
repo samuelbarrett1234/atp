@@ -97,9 +97,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a26a0b198729c2ffbd5ff8c144a60491a"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a26a0b198729c2ffbd5ff8c144a60491a">get_integrity_code</a> () const =0</td></tr>
 <tr class="memdesc:a26a0b198729c2ffbd5ff8c144a60491a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Characterises the information provided to this knowledge kernel in a single integer code.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a26a0b198729c2ffbd5ff8c144a60491a">More...</a><br /></td></tr>
 <tr class="separator:a26a0b198729c2ffbd5ff8c144a60491a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20ac896a2d3869f2c680d35443c8c450"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">ProofStatePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a20ac896a2d3869f2c680d35443c8c450">begin_proof_of</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;stmt) const =0</td></tr>
-<tr class="memdesc:a20ac896a2d3869f2c680d35443c8c450"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new proof state which, initially empty, is set to try and prove <code>stmt</code>.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a20ac896a2d3869f2c680d35443c8c450">More...</a><br /></td></tr>
-<tr class="separator:a20ac896a2d3869f2c680d35443c8c450"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a104a22e70d0affd3be11650b6670c8b9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">ProofStatePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a104a22e70d0affd3be11650b6670c8b9">begin_proof_of</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;stmt, <a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">IterSettings</a> flags=iter_settings::DEFAULT) const =0</td></tr>
+<tr class="memdesc:a104a22e70d0affd3be11650b6670c8b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new proof state which, initially empty, is set to try and prove <code>stmt</code>.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a104a22e70d0affd3be11650b6670c8b9">More...</a><br /></td></tr>
+<tr class="separator:a104a22e70d0affd3be11650b6670c8b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6914f8b4fec30cdc92b977d970bb00a7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a6914f8b4fec30cdc92b977d970bb00a7">iter_settings_supported</a> (<a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">IterSettings</a> flags) const =0</td></tr>
+<tr class="memdesc:a6914f8b4fec30cdc92b977d970bb00a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine if the given flags are supported by this kind of knowledge kernel.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a6914f8b4fec30cdc92b977d970bb00a7">More...</a><br /></td></tr>
+<tr class="separator:a6914f8b4fec30cdc92b977d970bb00a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf40e509e80375b2708d3fd2883c6963"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#aaf40e509e80375b2708d3fd2883c6963">is_trivial</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;stmt) const =0</td></tr>
 <tr class="memdesc:aaf40e509e80375b2708d3fd2883c6963"><td class="mdescLeft">&#160;</td><td class="mdescRight">A "trivial" statement is either reflexive or implied directly by one of the axioms.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#aaf40e509e80375b2708d3fd2883c6963">More...</a><br /></td></tr>
 <tr class="separator:aaf40e509e80375b2708d3fd2883c6963"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,6 +112,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7695c86f7a5cd80783f1ce4d29e75e76"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a7695c86f7a5cd80783f1ce4d29e75e76">remove_theorems</a> (size_t ref_id)=0</td></tr>
 <tr class="memdesc:a7695c86f7a5cd80783f1ce4d29e75e76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unload the set of previously added theorems.  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a7695c86f7a5cd80783f1ce4d29e75e76">More...</a><br /></td></tr>
 <tr class="separator:a7695c86f7a5cd80783f1ce4d29e75e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cbb9772c9f66d9221ef7d11e475181f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a1cbb9772c9f66d9221ef7d11e475181f">set_seed</a> (size_t seed)=0</td></tr>
+<tr class="memdesc:a1cbb9772c9f66d9221ef7d11e475181f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the random number generation seed (overwrites last value if any)  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#a1cbb9772c9f66d9221ef7d11e475181f">More...</a><br /></td></tr>
+<tr class="separator:a1cbb9772c9f66d9221ef7d11e475181f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1d8cadad7a0a8c758dc26dfe714eb2e"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#ab1d8cadad7a0a8c758dc26dfe714eb2e">generate_rand</a> () const =0</td></tr>
+<tr class="memdesc:ab1d8cadad7a0a8c758dc26dfe714eb2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a random number (think of this as just std::rand)  <a href="classatp_1_1logic_1_1_i_knowledge_kernel.html#ab1d8cadad7a0a8c758dc26dfe714eb2e">More...</a><br /></td></tr>
+<tr class="separator:ab1d8cadad7a0a8c758dc26dfe714eb2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a collection of definitions and axioms, associated with a particular <a class="el" href="classatp_1_1logic_1_1_i_language.html" title="Manages model contexts and knowledge kernels within a logical language framework.">ILanguage</a>, and performs logical deduction. </p>
@@ -174,8 +183,8 @@ p_thms-&gt;size() &gt; 0 </dd></dl>
 
 </div>
 </div>
-<a id="a20ac896a2d3869f2c680d35443c8c450"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20ac896a2d3869f2c680d35443c8c450">&#9670;&nbsp;</a></span>begin_proof_of()</h2>
+<a id="a104a22e70d0affd3be11650b6670c8b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a104a22e70d0affd3be11650b6670c8b9">&#9670;&nbsp;</a></span>begin_proof_of()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,8 +196,18 @@ p_thms-&gt;size() &gt; 0 </dd></dl>
           <td class="memname">virtual <a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">ProofStatePtr</a> atp::logic::IKnowledgeKernel::begin_proof_of </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;&#160;</td>
-          <td class="paramname"><em>stmt</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"><em>stmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">IterSettings</a>&#160;</td>
+          <td class="paramname"><em>flags</em> = <code>iter_settings::DEFAULT</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -199,9 +218,48 @@ p_thms-&gt;size() &gt; 0 </dd></dl>
 </div><div class="memdoc">
 
 <p>Create a new proof state which, initially empty, is set to try and prove <code>stmt</code>. </p>
-<dl class="section pre"><dt>Precondition</dt><dd><code>stmt</code> is a valid statement within the context of this knowledge kernel. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stmt</td><td>The statement to target proving</td></tr>
+    <tr><td class="paramname">flags</td><td>Flags indicating how the returned proof state should iterate over successors.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>stmt</code> is a valid statement within the context of this knowledge kernel.</dd>
+<dd>
+iter_settings_supported(flags) </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a944b4138dab6675676fa741ac5a43950">atp::logic::equational::KnowledgeKernel</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a1bc70b5d8063b5c949d9fc2bebd50c68">atp::logic::equational::KnowledgeKernel</a>.</p>
+
+</div>
+</div>
+<a id="ab1d8cadad7a0a8c758dc26dfe714eb2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1d8cadad7a0a8c758dc26dfe714eb2e">&#9670;&nbsp;</a></span>generate_rand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual size_t atp::logic::IKnowledgeKernel::generate_rand </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Generate a random number (think of this as just std::rand) </p>
+<dl class="section note"><dt>Note</dt><dd>Random number generation may be used by components of this library created by the knowledge kernel, for example to iterate over proof state successors randomly. </dd></dl>
+
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ae8c8d8f79ba5880c73c61d9c591f18c8">atp::logic::equational::KnowledgeKernel</a>.</p>
 
 </div>
 </div>
@@ -266,6 +324,37 @@ p_thms-&gt;size() &gt; 0 </dd></dl>
 
 </div>
 </div>
+<a id="a6914f8b4fec30cdc92b977d970bb00a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6914f8b4fec30cdc92b977d970bb00a7">&#9670;&nbsp;</a></span>iter_settings_supported()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool atp::logic::IKnowledgeKernel::iter_settings_supported </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">IterSettings</a>&#160;</td>
+          <td class="paramname"><em>flags</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determine if the given flags are supported by this kind of knowledge kernel. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if supported, false if not. </dd></dl>
+
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a99d242501a711ce7b38cc5a460e0d458">atp::logic::equational::KnowledgeKernel</a>.</p>
+
+</div>
+</div>
 <a id="a7695c86f7a5cd80783f1ce4d29e75e76"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7695c86f7a5cd80783f1ce4d29e75e76">&#9670;&nbsp;</a></span>remove_theorems()</h2>
 
@@ -300,6 +389,37 @@ p_thms-&gt;size() &gt; 0 </dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><code>ref_id</code> must have been returned from an earlier call to <code>add_theorems</code>, and must not have already been removed. </dd></dl>
 
 <p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a5aa3eb3d5134095f32e88047d66b9044">atp::logic::equational::KnowledgeKernel</a>.</p>
+
+</div>
+</div>
+<a id="a1cbb9772c9f66d9221ef7d11e475181f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cbb9772c9f66d9221ef7d11e475181f">&#9670;&nbsp;</a></span>set_seed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void atp::logic::IKnowledgeKernel::set_seed </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>seed</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the random number generation seed (overwrites last value if any) </p>
+<dl class="section note"><dt>Note</dt><dd>Random number generation may be used by components of this library created by the knowledge kernel, for example to iterate over proof state successors randomly. </dd></dl>
+
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#af5f189c4d68ab1d0bdefeb299e0f3e05">atp::logic::equational::KnowledgeKernel</a>.</p>
 
 </div>
 </div>

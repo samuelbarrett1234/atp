@@ -1,0 +1,4 @@
+<map id="atp::search::BasicStoppingStrategy" name="atp::search::BasicStoppingStrategy">
+<area shape="rect" id="node1" title="This strategy uses a simple cost vs benefit tradeoff." alt="" coords="15,80,194,121"/>
+<area shape="rect" id="node2" href="$classatp_1_1search_1_1_i_stopping_strategy.html" title="A strategy for stopping when we&#39;ve seen elements with a high &quot;benefit&quot;, but every time we don&#39;t stop ..." alt="" coords="5,5,204,32"/>
+</map>

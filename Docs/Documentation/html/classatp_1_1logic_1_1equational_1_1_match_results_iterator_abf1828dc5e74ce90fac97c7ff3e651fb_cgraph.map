@@ -1,0 +1,6 @@
+<map id="atp::logic::equational::MatchResultsIterator::advance" name="atp::logic::equational::MatchResultsIterator::advance">
+<area shape="rect" id="node1" title=" " alt="" coords="5,57,156,113"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_maybe_random_index.html#addd873c12fb96269d49bf8d28d902b12" title="Advance the index to the next one." alt="" coords="204,5,407,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_maybe_random_index.html#aa2ca128ff1164ccebcd154abea71f269" title="Determine if this is an end index." alt="" coords="455,64,649,105"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#aa72de114983e229994bb5b1a6c21892d" title=" " alt="" coords="230,122,381,178"/>
+</map>

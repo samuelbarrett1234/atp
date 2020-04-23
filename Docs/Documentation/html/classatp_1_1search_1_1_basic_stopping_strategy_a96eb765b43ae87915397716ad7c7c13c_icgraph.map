@@ -1,0 +1,5 @@
+<map id="atp::search::BasicStoppingStrategy::is_stopped" name="atp::search::BasicStoppingStrategy::is_stopped">
+<area shape="rect" id="node1" title="Determine if the strategy is saying you should stop and return the maximum." alt="" coords="232,39,411,80"/>
+<area shape="rect" id="node2" href="$classatp_1_1search_1_1_basic_stopping_strategy.html#a8b605a5400a34591a3d2546c31c83f54" title="Register a newly extracted data point." alt="" coords="5,5,184,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1search_1_1_basic_stopping_strategy.html#a93eafcd09b805ad8c39bee4781822671" title="Register the fact that we have returned the highest benefit element." alt="" coords="5,71,184,112"/>
+</map>

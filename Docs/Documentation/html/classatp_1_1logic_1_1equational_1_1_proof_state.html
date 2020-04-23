@@ -107,10 +107,10 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a44e84aee481b1af76eeff767b995314a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a44e84aee481b1af76eeff767b995314a">ProofState</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;ctx, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html">KnowledgeKernel</a> &amp;ker, <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> target, <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> current)</td></tr>
-<tr class="separator:a44e84aee481b1af76eeff767b995314a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78539f6cafd491d9b2bb592be6760873"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a78539f6cafd491d9b2bb592be6760873">ProofState</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;ctx, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html">KnowledgeKernel</a> &amp;ker, <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> target)</td></tr>
-<tr class="separator:a78539f6cafd491d9b2bb592be6760873"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8322e11c3931ddfe7288471f93bb6b13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a8322e11c3931ddfe7288471f93bb6b13">ProofState</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;ctx, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html">KnowledgeKernel</a> &amp;ker, <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> target, <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> current, bool no_repeats, bool randomised)</td></tr>
+<tr class="separator:a8322e11c3931ddfe7288471f93bb6b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a671c328282966c3cbfb21317093d35b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a671c328282966c3cbfb21317093d35b6">ProofState</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;ctx, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html">KnowledgeKernel</a> &amp;ker, <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> target, bool no_repeats, bool randomised)</td></tr>
+<tr class="separator:a671c328282966c3cbfb21317093d35b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51fba9672c2e2615fc9612f576653013"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a51fba9672c2e2615fc9612f576653013">ProofState</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html">ProofState</a> &amp;parent, <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> <a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#abf8eb4014df92e183381278d5355663c">forefront</a>)</td></tr>
 <tr class="separator:a51fba9672c2e2615fc9612f576653013"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3708148d088b5f1af9590e7f3bca8171"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">IStatement</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a3708148d088b5f1af9590e7f3bca8171">target_stmt</a> () const override</td></tr>
@@ -137,8 +137,8 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Proof states for equational logic. </p>
 <p>A proof state in equational logic is just a linked list of statements, where the head element is the target statement and the last element is the "forefront" of the proof. The proof is complete when the forefront statement is trivial. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a44e84aee481b1af76eeff767b995314a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44e84aee481b1af76eeff767b995314a">&#9670;&nbsp;</a></span>ProofState() <span class="overload">[1/3]</span></h2>
+<a id="a8322e11c3931ddfe7288471f93bb6b13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8322e11c3931ddfe7288471f93bb6b13">&#9670;&nbsp;</a></span>ProofState() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,7 +165,19 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td>
-          <td class="paramname"><em>current</em>&#160;</td>
+          <td class="paramname"><em>current</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>no_repeats</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>randomised</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -177,8 +189,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a78539f6cafd491d9b2bb592be6760873"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78539f6cafd491d9b2bb592be6760873">&#9670;&nbsp;</a></span>ProofState() <span class="overload">[2/3]</span></h2>
+<a id="a671c328282966c3cbfb21317093d35b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a671c328282966c3cbfb21317093d35b6">&#9670;&nbsp;</a></span>ProofState() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,7 +211,19 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td>
-          <td class="paramname"><em>target</em>&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>no_repeats</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>randomised</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

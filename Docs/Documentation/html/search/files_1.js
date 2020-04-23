@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['context_5ffile_5fformat_2emd_408',['context_file_format.md',['../context__file__format_8md.html',1,'']]]
+  ['basicstoppingstrategy_2ecpp_462',['BasicStoppingStrategy.cpp',['../_basic_stopping_strategy_8cpp.html',1,'']]],
+  ['basicstoppingstrategy_2eh_463',['BasicStoppingStrategy.h',['../_basic_stopping_strategy_8h.html',1,'']]]
 ];

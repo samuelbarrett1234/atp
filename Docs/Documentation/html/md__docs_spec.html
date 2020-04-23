@@ -67,7 +67,7 @@ $(function() {
 <div class="title">Automated Theorem Prover Specification </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md21"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md26"></a>
 Main ideas and principles</h1>
 <ul>
 <li>A theorem prover / knowledge engine which is intended to be continuously running on some powerful machines, and thus building up a large database of knowledge.</li>
@@ -79,7 +79,7 @@ Main ideas and principles</h1>
 <li>A team of people constantly formalising new contexts that might be useful to work with (and if this could be automated too, it would be fantastic.)</li>
 <li>The objective function is to solve the customer-set problems by their deadlines, but if the deadlines are far enough in the future it might make sense to spend time early on accumulating knowledge.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 Main Applications and Libraries</h1>
 <ul>
 <li>Logical kernels</li>
@@ -90,10 +90,10 @@ Main Applications and Libraries</h1>
 <li>Web application for remotely monitoring a server's proof processes</li>
 <li>Statistical model implementations</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md28"></a>
 Logical Kernels</h1>
 <p>This library contains the code for making logical inferences in various different logical languages (for example, first order logic, equational logic, etc.)</p>
-<h1><a class="anchor" id="autotoc_md24"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 Core search functionality</h1>
 <p>This library contains algorithms which search through a space of rewrite rules for a reduction of an object to some canonical/normal form. It is independent of the logic and context chosen. It does not include process management, database management, any statistical models, any server applications, etc.</p>
 <p>Types of search that it could include are:</p><ul>
@@ -102,17 +102,17 @@ Core search functionality</h1>
 <li>An "aimless" search whichjust tries to construct an 'interesting' statement from a search space. This requires a statistical model of 'interestingness'. It generates the proof (sequence of reduction actions) as it goes along.</li>
 </ul>
 <p>It will also need various interfaces for choosing actions and running statistical models.</p>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md30"></a>
 Theorem and logic file parsing</h1>
 <p>This library contains concrete information about what a statement is, how to parse axiom files and logic files, inference rules and axioms and theorems, contains data structures for determining what rules can be applied next. It does not include process management, database management, any statistical models, any server applications, etc.</p>
 <p>Essentially, this library revolves around some "knowledge kernel" object which, for a given statement, can either produce all of the statements that can be reached in one step, or which can deduce that statement in one step.</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md31"></a>
 Theorem database management</h1>
 <p>This library contains ways of storing masses of theorems into a database file. It will also need to consider different environments, and auxiliary information being associated with theorems. It will also have to store their proofs.</p>
 <p>Note that one of the stretch-goals of this application is to make it distributed. This library should be written in anticipation of a distibuted environment, where theorems and proofs are coming in from external sources as well as internal sources.</p>
 <p>It should also have a process &amp; resource management system, to handle database locking etc, and to easily facilitate concurrent proving.</p>
 <p>It is also quite crucial that this database management system makes available a lot of information about its system (for example, database size, access time, etc) so that the scheduler can update its opinion on how "useful and interesting" a theorem should be in order to be saved to the ever-growing database).</p>
-<h1><a class="anchor" id="autotoc_md27"></a>
+<h1><a class="anchor" id="autotoc_md32"></a>
 ATP application</h1>
 <p>This application ties together the libraries into a tool that can be run from command line. It can be run in client mode or server mode.</p>
 <p>In client mode, you could specify something like "launch 3 threads which should each do 4 proofs".</p>
@@ -131,7 +131,7 @@ ATP application</h1>
 <li>links between models (e.g. if the proof of some analysis theorem used group theory, that connection is <em>very</em> important and valuable).</li>
 <li>eventually the user will want to input a statement and have the system determine its truth.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md33"></a>
 Statistical models implementation</h1>
 <p>A wrapper around a neural network library (e.g. TensorFlow) which implements the statistical models which are used elsewhere in the application.</p>
 <p>All this needs to be is a reasonably loose wrapper around the underlying library, constructing particular models for us (e.g. a transformer) and allowing hyperparameters to be tweaked, etc.</p>

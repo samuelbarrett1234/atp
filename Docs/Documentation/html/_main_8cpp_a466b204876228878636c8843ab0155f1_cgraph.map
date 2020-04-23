@@ -5,9 +5,17 @@
 <area shape="rect" id="node6" href="$class_proof_application.html#abaf8da21de83b7d7a1a75f1b79fc8d4e" title="Loads the language and knowledge kernel from a given context file." alt="" coords="199,123,341,164"/>
 <area shape="rect" id="node8" href="$class_proof_application.html#ab9866cf70cba58dcf91d17fa0607ca61" title="Loads the solver." alt="" coords="199,188,341,229"/>
 <area shape="rect" id="node4" href="$namespaceatp_1_1logic.html#aa0bf7e3fc379b924cf7031f1110c685d" title="Concatenate two statement arrays of the same type." alt="" coords="412,71,535,98"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a8b3c78a186b26edcc519caad57901111" title=" " alt="" coords="621,57,765,113"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a8b3c78a186b26edcc519caad57901111" title=" " alt="" coords="609,57,753,113"/>
 <area shape="rect" id="node7" href="$namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="414,123,533,164"/>
-<area shape="rect" id="node9" href="$namespaceatp_1_1search.html#a67d536a1b5016ee06353a9bf66762a76" title="Create this library&#39;s designated &quot;default solver&quot;." alt="" coords="408,188,539,229"/>
+<area shape="rect" id="node9" href="$namespaceatp_1_1search.html#aa8dd2f9c72b427c8a08e2c78534f57de" title="Create this library&#39;s designated &quot;default solver&quot;." alt="" coords="408,188,539,229"/>
 <area shape="rect" id="node10" href="$namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be" title="Try to load a solver from a configuration file." alt="" coords="391,253,556,295"/>
-<area shape="rect" id="node11" href="$namespaceatp_1_1search.html#a8580f538a27bb6bedc5dd3929c4dc791" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="604,261,781,287"/>
+<area shape="rect" id="node11" href="$namespaceatp_1_1search.html#a73efa9f6df8c0de0aa8b42a7e185c47b" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="604,188,757,229"/>
+<area shape="rect" id="node12" href="$namespaceatp_1_1search.html#a5c3bb0a2ae4082e7b728cc7406eb5ee1" title="Try to create a solver, based on the type given in ptree." alt="" coords="604,253,757,295"/>
+<area shape="rect" id="node15" href="$namespaceatp_1_1search.html#a7645df32135997da2f612c9f1eb62641" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="610,319,751,360"/>
+<area shape="rect" id="node13" href="$namespaceatp_1_1search.html#a4a53fff8340c6ca3591b18f003869385" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="805,202,987,229"/>
+<area shape="rect" id="node14" href="$namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="829,253,963,295"/>
+<area shape="rect" id="node16" href="$namespaceatp_1_1search.html#a268a88f64715291bf40d64d1121c8eaf" title="Try to load info for a BasicStoppingStrategy." alt="" coords="811,319,981,360"/>
+<area shape="rect" id="node18" href="$namespaceatp_1_1search.html#a288fbf05486211567d8d0661f3991681" title="Try to load info for a FixedStoppingStrategy." alt="" coords="813,384,979,425"/>
+<area shape="rect" id="node17" href="$classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="1035,319,1231,360"/>
+<area shape="rect" id="node19" href="$classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="1037,384,1229,425"/>
 </map>

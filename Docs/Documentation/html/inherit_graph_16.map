@@ -1,8 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classatp_1_1logic_1_1_i_pf_state_succ_iter.html" title="This is an interface for enumerating through successors of a proof state." alt="" coords="5,143,183,170"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html" title="Produces statement successors by iterating over possible assignments of free variables not covered by..." alt="" coords="231,5,416,47"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_match_results_iterator.html" title="Produces statement successors by iterating over the results of a successful matching." alt="" coords="248,71,399,112"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html" title="The NoRepeatIterator blocks states that have already been seen on the path from the root to the curre..." alt="" coords="252,136,395,177"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html" title="Produces successor statements by iterating over possible matchings." alt="" coords="249,201,398,243"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html" title="Produces successor statements by iterating over all subtrees of a statement to try matching." alt="" coords="237,267,410,308"/>
+<area shape="rect" id="node1" href="$classatp_1_1logic_1_1_free_var_map_1_1__iterator.html" title=" " alt="" coords="5,5,177,76"/>
 </map>

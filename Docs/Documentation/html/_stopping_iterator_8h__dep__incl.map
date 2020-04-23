@@ -1,0 +1,5 @@
+<map id="ATPSearch/Internal/StoppingIterator.h" name="ATPSearch/Internal/StoppingIterator.h">
+<area shape="rect" id="node1" title="Contains an iterator for wrapping around another iterator and enumerating the successors of the child..." alt="" coords="91,5,226,47"/>
+<area shape="rect" id="node2" href="$_iterator_manager_8cpp.html" title=" " alt="" coords="5,95,147,136"/>
+<area shape="rect" id="node3" href="$_stopping_iterator_8cpp.html" title=" " alt="" coords="171,95,314,136"/>
+</map>

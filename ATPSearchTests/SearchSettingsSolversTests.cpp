@@ -29,7 +29,7 @@ struct SearchSettingsSolversTestsFixture :
 	public LogicSetupFixture
 {
 	std::unique_ptr<IteratorManager> p_iter_mgr =
-		std::make_unique<IteratorManager>();
+		std::make_unique<IteratorManager>(p_ker);
 };
 
 
@@ -107,7 +107,7 @@ BOOST_DATA_TEST_CASE(test_create_ids,
 {
 	s << "{ \"type\" : \"IterativeDeepeningSolver\",";
 	s << "\"max-depth\" : " << max_depth << ", ";
-	s << "\"start-depth\" : " << start_depth << ", ";
+	s << "\"starting-depth\" : " << starting_depth << ", ";
 	s << "\"no-repeats\" : " << (no_repeats ? "true" : "false") << ", ";
 	s << "\"randomised\" : " << (randomised ? "true" : "false");
 	s << "}";
@@ -115,8 +115,8 @@ BOOST_DATA_TEST_CASE(test_create_ids,
 	ptree pt;
 	read_json(s, pt);
 
-	auto p_result = try_create_IDS(p_ker, pt, nullptr,
-		std::move(p_iter_mgr));
+	auto p_result = try_create_IDS(p_ker, pt,
+		iter_settings::DEFAULT, nullptr, std::move(p_iter_mgr));
 
 	BOOST_TEST((p_result != nullptr) == is_valid);
 }

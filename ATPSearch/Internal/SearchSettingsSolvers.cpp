@@ -77,7 +77,7 @@ SolverPtr try_create_IDS(logic::KnowledgeKernelPtr p_ker,
 	const size_t max_depth = ptree.get<size_t>("max-depth", 10);
 	const size_t starting_depth = ptree.get<size_t>("starting-depth", 3);
 
-	if (starting_depth == 0 || starting_depth >= max_depth)
+	if (starting_depth <= 1 || starting_depth >= max_depth)
 		return SolverPtr();  // invalid params
 
 	return std::make_shared<IterativeDeepeningSolver>(

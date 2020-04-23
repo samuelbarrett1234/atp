@@ -30,7 +30,7 @@ namespace search
 
 \throws Anything that might be thrown by the ptree.
 */
-HeuristicPtr try_create_heuristic(
+ATP_SEARCH_API HeuristicPtr try_create_heuristic(
 	const boost::property_tree::ptree& ptree);
 
 

@@ -33,7 +33,8 @@ class IteratorManager;  // forward declaration
 
 \throws Anything that might be thrown by the ptree.
 */
-SolverPtr try_create_solver(logic::KnowledgeKernelPtr p_ker,
+ATP_SEARCH_API SolverPtr try_create_solver(
+	logic::KnowledgeKernelPtr p_ker,
 	const boost::property_tree::ptree& ptree,
 	HeuristicPtr p_heuristic,
 	std::unique_ptr<IteratorManager> p_iter_mgr);
@@ -42,7 +43,7 @@ SolverPtr try_create_solver(logic::KnowledgeKernelPtr p_ker,
 /**
 \brief Try to create the iteration settings flags
 */
-logic::IterSettings try_get_flags(
+ATP_SEARCH_API logic::IterSettings try_get_flags(
 	const boost::property_tree::ptree& ptree);
 
 
@@ -53,7 +54,8 @@ logic::IterSettings try_get_flags(
 
 \throws Anything that might be thrown by the ptree.
 */
-SolverPtr try_create_IDS(logic::KnowledgeKernelPtr p_ker,
+ATP_SEARCH_API SolverPtr try_create_IDS(
+	logic::KnowledgeKernelPtr p_ker,
 	const boost::property_tree::ptree& ptree,
 	logic::IterSettings settings,
 	HeuristicPtr p_heuristic,

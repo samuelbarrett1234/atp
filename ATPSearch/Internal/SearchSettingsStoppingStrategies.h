@@ -33,7 +33,7 @@ class IteratorManager;  // forward declaration
 
 \throws Anything that might be thrown by the ptree.
 */
-bool try_load_stopping_strategies(
+ATP_SEARCH_API bool try_load_stopping_strategies(
 	IteratorManager& iter_mgr,
 	const boost::property_tree::ptree& ptree);
 
@@ -45,7 +45,7 @@ bool try_load_stopping_strategies(
 
 \throws Anything that might be thrown by the ptree.
 */
-bool try_load_fixed_stopping_strategy(
+ATP_SEARCH_API bool try_load_fixed_stopping_strategy(
 	IteratorManager& iter_mgr,
 	const boost::property_tree::ptree& ptree);
 
@@ -57,7 +57,7 @@ bool try_load_fixed_stopping_strategy(
 
 \throws Anything that might be thrown by the ptree.
 */
-bool try_load_basic_stopping_strategy(
+ATP_SEARCH_API bool try_load_basic_stopping_strategy(
 	IteratorManager& iter_mgr,
 	const boost::property_tree::ptree& ptree);
 

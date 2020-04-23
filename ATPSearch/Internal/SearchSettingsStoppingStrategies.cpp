@@ -40,7 +40,7 @@ bool try_load_fixed_stopping_strategy(IteratorManager& iter_mgr,
 {
 	const size_t size = ptree.get<size_t>("size");
 
-	if (size <= 1)
+	if (size == 0)
 		return false;
 
 	iter_mgr.set_fixed_stopping_strategy(size);

@@ -15,6 +15,7 @@
 #include <Internal/SearchSettingsStoppingStrategies.h>
 #include <Internal/IteratorManager.h>
 #include "Test.h"
+#include "LogicSetupFixture.h"
 
 
 using atp::search::try_load_stopping_strategies;
@@ -25,10 +26,11 @@ using boost::property_tree::ptree;
 using boost::property_tree::read_json;
 
 
-struct SearchSettingsStoppingStrategiesTestsFixture
+struct SearchSettingsStoppingStrategiesTestsFixture :
+	public LogicSetupFixture
 {
 	std::unique_ptr<IteratorManager> p_iter_mgr =
-		std::make_unique<IteratorManager>();
+		std::make_unique<IteratorManager>(p_ker);
 
 	std::stringstream s;
 };
@@ -73,8 +75,8 @@ BOOST_DATA_TEST_CASE(test_fixed_stopping_strategy,
 
 
 BOOST_DATA_TEST_CASE(test_basic_stopping_strategy,
-	(boost::unit_test::data::make({ 0, 1, 10 }) ^
-	boost::unit_test::data::make({ false, true, true }))
+	(boost::unit_test::data::make({ 0, 1, 2, 10 }) ^
+	boost::unit_test::data::make({ false, false, true, true }))
 	*
 	(boost::unit_test::data::make({ -1.0f, 0.0f, 1.0f }) ^
 	boost::unit_test::data::make({ false, false, true }))

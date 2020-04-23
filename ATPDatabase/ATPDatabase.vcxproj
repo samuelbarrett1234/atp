@@ -178,6 +178,7 @@
     <ClInclude Include="Interfaces\Data.h" />
     <ClInclude Include="Interfaces\DBContainers.h" />
     <ClInclude Include="Interfaces\DBIterators.h" />
+    <ClInclude Include="Interfaces\IBufferManager.h" />
     <ClInclude Include="Interfaces\ILockManager.h" />
   </ItemGroup>
   <ItemGroup>

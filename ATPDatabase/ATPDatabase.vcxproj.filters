@@ -22,6 +22,18 @@
     <Filter Include="Source Files\Internal">
       <UniqueIdentifier>{2e4c945f-079c-46b8-9604-deeeab292de6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Internal\Indices">
+      <UniqueIdentifier>{06915bcc-04ae-4208-89be-1afdd4efd54d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Internal\Iterators">
+      <UniqueIdentifier>{3f0d1f35-deea-4ce2-ba16-8ae28531631e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Internal\Indices">
+      <UniqueIdentifier>{32d677ad-e2ed-44c9-8155-85f1e131ba34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Internal\Iterators">
+      <UniqueIdentifier>{6a218472-1c50-41bb-8ba0-3c50e785c7ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -43,6 +55,9 @@
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Interfaces\ILockManager.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaces\IBufferManager.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
   </ItemGroup>

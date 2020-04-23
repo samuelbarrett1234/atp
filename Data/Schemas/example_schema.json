@@ -1,6 +1,7 @@
 {
 	"name" : "An example schema",
 	"desc" : "Example equational logic theorem database (without data for benefit heuristic estimation).",
+	"target" : "either-a-folder-name-or-a-connection-string",
 	
 	"tables" :
 	[

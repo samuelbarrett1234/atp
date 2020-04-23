@@ -3,14 +3,14 @@
 
 namespace atp
 {
-namespace database
+namespace db
 {
 
 
 
 
 
-}  // namespace database
+}  // namespace db
 }  // namespace atp
 
 

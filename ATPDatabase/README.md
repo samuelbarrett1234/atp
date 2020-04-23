@@ -1,4 +1,4 @@
 # ATPDatabase
 
-This project contains code for loading, saving, and efficiently querying databases of theorems, axioms, and logic.
+This project contains code for loading, saving, and efficiently querying databases of theorems.
 

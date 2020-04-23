@@ -1,0 +1,23 @@
+{
+	"name" : "An example schema",
+	"desc" : "Example equational logic theorem database (without data for benefit heuristic estimation).",
+	
+	"tables" :
+	[
+		{
+			"name" : "equational-logic-theorems",
+			"logic" : "EQUATIONAL",
+			"filename" : "equational-logic-theorems.bin",
+			
+			"columns" :
+			[
+				{ "name" : "thm-id", "type" : "uint", "unique" : true, "index" : "hash" },
+				{ "name" : "thm", "type" : "statement", "index" : "ternary-expr-matching" },
+				{ "name" : "proof-completion-state", "type" : "int" },
+				{ "name" : "proof-time", "type" : "float" },
+				{ "name" : "proof-max-mem", "type" : "int" },
+				{ "name" : "proof-num-expansions", "type" : "int" }
+			]
+		}
+	]
+}

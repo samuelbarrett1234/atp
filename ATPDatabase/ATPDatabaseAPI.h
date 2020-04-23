@@ -3,9 +3,11 @@
 
 /*
 
-ATPDatabaseAPI.h
+\file
 
-This is the common header file to all parts of this library.
+\author Samuel Barrett
+
+\brief This is the common header file to all parts of this library.
 
 */
 

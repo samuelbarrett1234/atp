@@ -16,6 +16,7 @@
 
 
 #include <memory>
+#include <boost/optional.hpp>
 #include "../ATPDatabaseAPI.h"
 #include "Data.h"
 #include "DBIterators.h"
@@ -57,6 +58,16 @@ enum class QuerySupport
 class ATP_DATABASE_API DBContainerQuery
 {
 public:
+	enum class QueryKind
+	{
+		SELECT, UPDATE, DELETE
+	};
+	enum class WhereKind
+	{
+		FIND_ALL, FIND_VALUE, FIND_RANGE,
+		FIND_MATCHING, FIND_EQUIVALENT
+	};
+
 	// builder functions
 
 	/**
@@ -66,7 +77,11 @@ public:
 
 	\returns *this
 	*/
-	DBContainerQuery& select();
+	inline DBContainerQuery& select()
+	{
+		m_kind = QueryKind::SELECT;
+		return *this;
+	}
 
 	/**
 	\brief Indicates that this is an update operation
@@ -75,7 +90,11 @@ public:
 
 	\returns *this
 	*/
-	DBContainerQuery& update();
+	inline DBContainerQuery& update()
+	{
+		m_kind = QueryKind::UPDATE;
+		return *this;
+	}
 	
 	/**
 	\brief Indicates that this is a delete operation
@@ -84,7 +103,23 @@ public:
 
 	\returns *this
 	*/
-	DBContainerQuery& delete_rows();
+	inline DBContainerQuery& delete_rows()
+	{
+		m_kind = QueryKind::DELETE;
+		return *this;
+	}
+
+	/**
+	\brief Apply the select/update/delete to all rows.
+	*/
+	DBContainerQuery& all()
+	{
+		m_val1.reset();
+		m_val2.reset();
+		m_col.reset();
+		m_where = WhereKind::FIND_ALL;
+		return *this;
+	}
 
 	/**
 	\brief Filter out such that we only iterate over results where
@@ -96,7 +131,15 @@ public:
 
 	\returns *this
 	*/
-	DBContainerQuery& where_equal(const Column& col, const DValue& value);
+	DBContainerQuery& where_equal(const Column& col,
+		const DValue& value)
+	{
+		m_col = col;
+		m_val1 = value;
+		m_val2.reset();
+		m_where = WhereKind::FIND_VALUE;
+		return *this;
+	}
 
 	/**
 	\brief Filter out such that we only iterate over results where
@@ -108,7 +151,14 @@ public:
 	\returns *this
 	*/
 	DBContainerQuery& where_between(const Column& col,
-		const DValue& lower_val, const DValue& upper_val);
+		const DValue& lower_val, const DValue& upper_val)
+	{
+		m_where = WhereKind::FIND_RANGE;
+		m_col = col;
+		m_val1 = lower_val;
+		m_val2 = upper_val;
+		return *this;
+	}
 
 	/**
 	\brief Filter out such that we only iterate over statements
@@ -119,7 +169,14 @@ public:
 	\returns *this
 	*/
 	DBContainerQuery& where_equivalent(const Column& col,
-		const DValue& value);
+		const DValue& value)
+	{
+		m_col = col;
+		m_val1 = value;
+		m_val2.reset();
+		m_where = WhereKind::FIND_EQUIVALENT;
+		return *this;
+	}
 
 	/**
 	\brief Filter out such that we only iterate over statements
@@ -131,7 +188,14 @@ public:
 	\returns *this
 	*/
 	DBContainerQuery& where_matching(const Column& col,
-		const DValue& value);
+		const DValue& value)
+	{
+		m_col = col;
+		m_val1 = value;
+		m_val2.reset();
+		m_where = WhereKind::FIND_MATCHING;
+		return *this;
+	}
 
 	/**
 	\brief Use the given lock to access the resources.
@@ -140,12 +204,51 @@ public:
 		obtain its own lock, and if this fails, the construction
 		of the iterator will fail.
 	*/
-	DBContainerQuery& with_lock(
-		std::shared_ptr<ILock> p_lock);
+	inline DBContainerQuery& with_lock(
+		std::shared_ptr<ILock> p_lock)
+	{
+		m_lock = p_lock;
+		return *this;
+	}
 
 	// getter functions (after having been built)
 
-	// TODO
+	inline QueryKind query_kind() const
+	{
+		return m_kind;
+	}
+	inline WhereKind where_kind() const
+	{
+		return m_where;
+	}
+	inline const std::shared_ptr<ILock>& lock() const
+	{
+		return m_lock;
+	}
+	inline DValue val1() const
+	{
+		ATP_DATABASE_PRECOND(m_val1.has_value());
+		return *m_val1;
+	}
+	inline DValue val2() const
+	{
+		ATP_DATABASE_PRECOND(m_val2.has_value());
+		return *m_val2;
+	}
+	inline Column col() const
+	{
+		ATP_DATABASE_PRECOND(m_col.has_value());
+		return *m_col;
+	}
+
+private:
+	QueryKind m_kind = QueryKind::SELECT;
+	WhereKind m_where = WhereKind::FIND_ALL;
+	std::shared_ptr<ILock> m_lock;
+
+	// for comparisons, if applicable
+	boost::optional<DValue> m_val1, m_val2;
+	boost::optional<Column> m_col;
 };
 
 

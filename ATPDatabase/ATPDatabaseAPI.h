@@ -29,24 +29,24 @@
 #ifdef _DEBUG
 
 // set if we should be writing defensive code
-#define ATP_DB_DEFENSIVE
+#define ATP_DATABASE_DEFENSIVE
 
 #endif
 
 
 // only enable the checks below if we are in defensive mode
-#ifdef ATP_DB_DEFENSIVE
+#ifdef ATP_DATABASE_DEFENSIVE
 
 // assertion for checking invariants
-#define ATP_DB_ASSERT(expr) assert(expr)
+#define ATP_DATABASE_ASSERT(expr) assert(expr)
 
 // assertion for checking preconditions
-#define ATP_DB_PRECOND(expr) assert(expr)
+#define ATP_DATABASE_PRECOND(expr) assert(expr)
 
 #else
 
-#define ATP_DB_ASSERT(expr) ((void)0)
-#define ATP_DB_PRECOND(expr) ((void)0)
+#define ATP_DATABASE_ASSERT(expr) ((void)0)
+#define ATP_DATABASE_PRECOND(expr) ((void)0)
 
 #endif
 

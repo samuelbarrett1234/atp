@@ -9,6 +9,7 @@
 
 #include "SearchSettings.h"
 #include <chrono>
+#include <boost/bind.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include "SearchSettingsHeuristics.h"
@@ -24,6 +25,39 @@ namespace atp
 {
 namespace search
 {
+
+
+SolverPtr create_solver(logic::KnowledgeKernelPtr p_ker,
+	HeuristicPtr p_heuristic,
+	pt::ptree ptree)
+{
+	auto p_iter_mgr = std::make_unique<IteratorManager>(p_ker);
+
+	p_iter_mgr->set_heuristic(p_heuristic);
+
+	if (auto stop_strat_ptree =
+		ptree.get_child_optional("stopping-strategy"))
+	{
+		// cannot have a stopping strategy without a heuristic
+		if (p_heuristic == nullptr)
+			return nullptr;
+
+		if (!try_load_succ_iter_settings(*p_iter_mgr,
+			*stop_strat_ptree))
+			return nullptr;
+	}
+
+	auto solver_ptree = ptree.get_child("solver");
+	
+	// if the user has provided a solver tag, then we expect
+	// the solver they give to be valid - however if this is
+	// null, they made a mistake in their specification of
+	// the solver.
+
+	return try_create_solver(
+		p_ker, solver_ptree, std::move(p_heuristic),
+		std::move(p_iter_mgr));
+}
 
 
 bool load_search_settings(logic::KnowledgeKernelPtr p_ker,
@@ -68,52 +102,39 @@ bool load_search_settings(logic::KnowledgeKernelPtr p_ker,
 			p_heuristic = try_create_heuristic(*heuristic_ptree);
 		}
 
-		auto p_iter_mgr = std::make_unique<IteratorManager>(p_ker);
+		if (!ptree.get_child_optional("solver"))
+			return true;  // no solver is not an error
 
-		p_iter_mgr->set_heuristic(p_heuristic);
+		// it is very important that we copy by value here!
+		p_out_settings->create_solver = boost::bind(&create_solver,
+			p_ker, p_heuristic, ptree);
 
-		if (auto stop_strat_ptree =
-			ptree.get_child_optional("stopping-strategy"))
+		// warning: hacky solution for checking if the solver
+		// creation was valid:
+		if (p_out_settings->create_solver() == nullptr)
 		{
-			// cannot have a stopping strategy without a heuristic
-			if (p_heuristic == nullptr)
-				return false;
+			// error! for some reason we cannot produce solvers.
 
-			if (!try_load_succ_iter_settings(*p_iter_mgr,
-				*stop_strat_ptree))
-				return false;
+			// reset this
+			p_out_settings->create_solver =
+				std::function<SolverPtr()>();
+
+			return false;
 		}
 
-		if (auto solver_ptree = ptree.get_child_optional("solver"))
-		{
-			p_out_settings->p_solver = try_create_solver(
-				p_ker, *solver_ptree, std::move(p_heuristic),
-				std::move(p_iter_mgr));
-
-			// if the user has provided a solver tag, then we expect
-			// the solver they give to be valid - however if this is
-			// null, they made a mistake in their specification of
-			// the solver.
-			if (!p_out_settings->p_solver)
-				return false;
-		}
-		else
-		{
-			// default solver is empty
-			p_out_settings->p_solver.reset();
-		}
+		// else we are done
+		return true;
 	}
 	catch(pt::ptree_error&)
 	{
 		// in case we had already loaded this
-		p_out_settings->p_solver.reset();
+		p_out_settings->create_solver = std::function<SolverPtr()>();
 
 		return false;
 	}
 
 	return true;
 }
-
 
 
 }  // namespace search

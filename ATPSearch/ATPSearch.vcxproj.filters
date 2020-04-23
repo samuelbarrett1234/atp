@@ -46,11 +46,11 @@
     <Filter Include="Header Files\Internal\Solvers">
       <UniqueIdentifier>{472cb82a-b805-401e-baea-6983b286a63d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Internal\Search Settings">
-      <UniqueIdentifier>{bb7ac8ac-f0fc-4c97-849f-0d9731ce0f0c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Search Settings">
       <UniqueIdentifier>{d5afd037-b359-4238-abad-abc456ea40a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Search Settings">
+      <UniqueIdentifier>{bb7ac8ac-f0fc-4c97-849f-0d9731ce0f0c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -88,16 +88,16 @@
       <Filter>Header Files\Internal\Successor Iterators</Filter>
     </ClInclude>
     <ClInclude Include="Internal\SearchSettingsHeuristics.h">
-      <Filter>Header Files\Internal\Search Settings</Filter>
+      <Filter>Header Files\Search Settings</Filter>
     </ClInclude>
     <ClInclude Include="Internal\SearchSettingsSolvers.h">
-      <Filter>Header Files\Internal\Search Settings</Filter>
+      <Filter>Header Files\Search Settings</Filter>
     </ClInclude>
     <ClInclude Include="Internal\SearchSettings.h">
-      <Filter>Header Files\Internal\Search Settings</Filter>
+      <Filter>Header Files\Search Settings</Filter>
     </ClInclude>
     <ClInclude Include="Internal\SearchSettingsSuccIters.h">
-      <Filter>Header Files\Internal\Search Settings</Filter>
+      <Filter>Header Files\Search Settings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

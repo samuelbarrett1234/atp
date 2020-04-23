@@ -22,6 +22,14 @@
 #include "Interfaces/IDatabase.h"
 
 
+/**
+\namespace atp::db
+
+\brief The namespace containing all database-related functions and
+	objects.
+*/
+
+
 namespace atp
 {
 namespace db
@@ -72,6 +80,16 @@ ATP_DATABASE_API DatabasePtr load_from_config_file(
 */
 ATP_DATABASE_API DatabasePtr create_in_mem_db_from_schema(
 	std::istream& in_json_schema);
+
+
+/**
+\brief Helper function for converting from the database's array type
+	to the logic's statement array type.
+
+\pre d_arr.type() == STMT
+*/
+ATP_DATABASE_API logic::StatementArrayPtr db_arr_to_stmt_arr(
+	const DArray& d_arr);
 
 
 }  // namespace db

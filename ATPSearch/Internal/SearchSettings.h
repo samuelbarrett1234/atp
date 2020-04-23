@@ -33,8 +33,6 @@ namespace search
 */
 struct ATP_SEARCH_API SearchSettings
 {
-	SolverPtr p_solver;
-
 	// name of configuration and a brief description
 	std::string name, desc;
 
@@ -45,6 +43,10 @@ struct ATP_SEARCH_API SearchSettings
 
 	// random number generator seed
 	size_t seed;
+	
+	// a functor for creating solvers using the search settings that
+	// have been loaded.
+	std::function<SolverPtr()> create_solver;
 };
 
 

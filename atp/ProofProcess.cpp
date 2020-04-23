@@ -112,7 +112,7 @@ void ProofProcess::init_kernel()
 
 		auto dbarr = p_readable_op->col_values(0);
 
-		auto p_stmt_arr = atp::db::db_to_stmt_arr(dbarr);
+		auto p_stmt_arr = atp::db::db_arr_to_stmt_arr(dbarr);
 
 		m_ker->add_theorems(p_stmt_arr);
 	}

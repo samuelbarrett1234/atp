@@ -69,7 +69,8 @@ BOOST_AUTO_TEST_CASE(test_get_step_settings)
 	BOOST_TEST(settings.desc == "test-desc");
 	BOOST_TEST(settings.max_steps == 1);
 	BOOST_TEST(settings.step_size == 2);
-	BOOST_TEST(settings.p_solver.get() == nullptr);
+	auto p_solver = settings.create_solver();
+	BOOST_TEST(p_solver.get() == nullptr);
 }
 
 

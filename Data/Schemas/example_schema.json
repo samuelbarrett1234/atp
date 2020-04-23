@@ -1,14 +1,15 @@
 {
 	"name" : "An example schema",
 	"desc" : "Example equational logic theorem database (without data for benefit heuristic estimation).",
+	"logic" : "EQUATIONAL",
 	"target" : "either-a-folder-name-or-a-connection-string",
 	
 	"tables" :
 	[
 		{
-			"name" : "equational-logic-theorems",
-			"logic" : "EQUATIONAL",
-			"filename" : "equational-logic-theorems.bin",
+			"name" : "group-theory-thms",
+			"filename" : "group-theory-theorems.bin",
+			"context" : "../Data/Definitions/group_theory.json",
 			
 			"columns" :
 			[

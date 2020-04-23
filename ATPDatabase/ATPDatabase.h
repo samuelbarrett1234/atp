@@ -16,6 +16,10 @@
 #include "Interfaces/Data.h"
 #include "Interfaces/DBIterators.h"
 #include "Interfaces/DBContainers.h"
+#include "Interfaces/ILockManager.h"
+#include "Interfaces/IBufferManager.h"
+#include "Interfaces/DBOperations.h"
+#include "Interfaces/IDatabase.h"
 
 
 namespace atp

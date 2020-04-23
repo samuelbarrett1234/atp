@@ -219,6 +219,54 @@ public:
 
 
 /**
+\brief A container which supports insert operations (so the table
+	can increase in size).
+
+\note Without this, containers cannot increase in size.
+*/
+class ATP_DATABASE_API IDBInsertableContainer :
+	public virtual IDBContainer
+{
+public:
+	virtual ~IDBInsertableContainer() = default;
+
+	/**
+	\brief Insert a row of data.
+
+	\pre `row` matches `cols()` in length and the corresponding types
+		also match up.
+
+	\note There may be an error inserting the rows that is not the
+		library user's fault - for example, if one of the columns is
+		marked as unique, and this insertion violates that. Such a
+		mistake is not a precondition of this function. Use the
+		return value to check for errors like this.
+
+	\returns The number of rows (successfully) inserted.
+	*/
+	virtual size_t insert(const std::vector<DValue>& row) = 0;
+
+	/**
+	\brief Insert many rows of data.
+
+	\pre Every array in `rows` has the same size, and the types of
+		the arrays in `rows` matches up with the types of the
+		columns `cols()` which necessarily means the two arrays have
+		the same size.
+
+	\note There may be an error inserting the rows that is not the
+		library user's fault - for example, if one of the columns is
+		marked as unique, and this insertion violates that. Such a
+		mistake is not a precondition of this function. Use the
+		return value to check for errors like this.
+
+	\returns The number of rows (successfully) inserted.
+	*/
+	virtual size_t insert(const std::vector<DArray>& rows) = 0;
+};
+
+
+/**
 \brief A container which has a special designated "key" column for
 	which it is particularly good at performing queries on that value
 

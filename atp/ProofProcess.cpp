@@ -15,8 +15,7 @@ ProofProcess::ProofProcess(
 	atp::logic::ModelContextPtr p_ctx,
 	atp::db::DatabasePtr p_db,
 	atp::search::SearchSettings& search_settings,
-	atp::logic::StatementArrayPtr p_target_stmts,
-	std::function<void(atp::search::SolverPtr)> finish_callback) :
+	atp::logic::StatementArrayPtr p_target_stmts) :
 	m_proc_state(ProcessState::AWAITING_LOCK),
 	m_proof_state(ProofProcessState::INITIALISE_KERNEL),
 	m_max_steps(search_settings.max_steps),
@@ -25,15 +24,13 @@ ProofProcess::ProofProcess(
 	m_lang(std::move(p_lang)),
 	m_ctx(std::move(p_ctx)),
 	m_db(std::move(p_db)),
+	m_targets(std::move(p_target_stmts)),
 	m_ker(m_lang->try_create_kernel(*m_ctx)),
-	on_finished(finish_callback),
 	m_solver(search_settings.create_solver())
 {
 	m_ker->set_seed(search_settings.seed);
-	m_solver->set_targets(std::move(p_target_stmts));
-
-	// TODO: set up kernel-initialising database operation
-	ATP_ASSERT(false);
+	m_solver->set_targets(m_targets);
+	setup_init_kernel_operation();
 }
 
 
@@ -85,12 +82,92 @@ void ProofProcess::step_solver()
 	{
 		m_proc_state = ProcessState::AWAITING_LOCK;
 		m_proof_state = ProofProcessState::SAVE_RESULTS;
-		on_finished(m_solver);
+		setup_save_results_operation();
+
+		// output:
+
+		// count the number successful / failed / unfinished:
+		const auto states = m_solver->get_states();
+		size_t num_true = 0, num_failed = 0,
+			num_unfinished = 0;
+		for (auto st : states)
+			switch (st)
+			{
+			case atp::logic::ProofCompletionState::PROVEN:
+				++num_true;
+				break;
+			case atp::logic::ProofCompletionState::NO_PROOF:
+				++num_failed;
+				break;
+			case atp::logic::ProofCompletionState::UNFINISHED:
+				++num_unfinished;
+				break;
+			}
+
+		m_out << "Proof Process update --- ";
+		m_out << "Done! Results:" << std::endl
+			<< '\t' << num_true << " theorem(s) were proven true,"
+			<< std::endl
+			<< '\t' << num_failed << " theorem(s) have no proof,"
+			<< std::endl
+			<< '\t' << num_unfinished <<
+			" theorem(s) did not finish in the allotted time."
+			<< std::endl;
+
+		m_out << "More details:" << std::endl;
+
+		auto proofs = m_solver->get_proofs();
+		auto times = m_solver->get_agg_time();
+		auto mems = m_solver->get_max_mem();
+		auto exps = m_solver->get_num_expansions();
+
+		for (size_t i = 0; i < proofs.size(); i++)
+		{
+			switch (states[i])
+			{
+			case atp::logic::ProofCompletionState::PROVEN:
+				m_out << "Proof of \"" << m_targets->at(i).to_str()
+					<< "\" was successful; the statement is true."
+					<< std::endl << "Proof:" << std::endl
+					<< proofs[i]->to_str() << std::endl << std::endl;
+				break;
+			case atp::logic::ProofCompletionState::NO_PROOF:
+				m_out << "Proof of \"" << m_targets->at(i).to_str()
+					<< "\" was unsuccessful; it was impossible to prove "
+					<< "using the given solver and the current settings."
+					<< std::endl;
+				break;
+			case atp::logic::ProofCompletionState::UNFINISHED:
+				m_out << "Proof of \"" << m_targets->at(i).to_str()
+					<< "\" was unsuccessful; not enough time allocated."
+					<< std::endl;
+				break;
+			}
+
+			m_out << "Total time taken: " << times[i] << "s"
+				<< std::endl;
+			m_out << "Max nodes in memory: " << mems[i]
+				<< std::endl;
+			m_out << "Total node expansions: " << exps[i]
+				<< std::endl;
+			m_out << std::endl;
+		}
 	}
 	else
 	{
 		m_solver->step(m_step_size);
 		++m_cur_step;
+
+		// output
+
+		const auto states = m_solver->get_states();
+		m_out << "Proof Process update --- ";
+		m_out << (m_cur_step + 1) << '/'
+			<< m_max_steps << " : " <<
+			std::count(states.begin(), states.end(),
+				atp::logic::ProofCompletionState::UNFINISHED) <<
+			" proof(s) remaining.";
+		m_out << std::endl;
 	}
 }
 
@@ -115,6 +192,11 @@ void ProofProcess::init_kernel()
 		auto p_stmt_arr = atp::db::db_arr_to_stmt_arr(dbarr);
 
 		m_ker->add_theorems(p_stmt_arr);
+
+		m_out << "Proof Process update --- ";
+		m_out << "Loaded " << p_stmt_arr->size() << " theorems from";
+		m_out << " the theorem database!";
+		m_out << std::endl;
 	}
 	else
 	{
@@ -133,6 +215,11 @@ void ProofProcess::save_results()
 		m_db_op.reset();
 
 		m_proc_state = ProcessState::DONE;
+
+		m_out << "Proof Process update --- ";
+		m_out << "Finished saving the true theorems to the database";
+		m_out << ", so they can be used in future proofs!";
+		m_out << std::endl;
 	}
 	else
 	{

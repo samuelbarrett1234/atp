@@ -11,6 +11,10 @@
 */
 
 
+#include <memory>
+#include <ostream>
+
+
 /*
 \enum ProcessState
 
@@ -69,6 +73,22 @@ public:
 		the ProcessState::RUNNING state.
 	*/
 	virtual void try_acquire_lock() = 0;
+
+	/**
+	\brief Give the process a chance to write any information it has
+		to the given logs.
+
+	\details The process can assume that it is the sole owner of this
+		output stream. The processes will have this called
+		periodically, but in between calls the processes should
+		keep track of what information they would like to output. Of
+		course, processes are not obliged to do anything here, but it
+		helps contribute to user output.
+	*/
+	virtual void dump_log(std::ostream& out) = 0;
 };
+
+
+typedef std::shared_ptr<IProcess> ProcessPtr;
 
 

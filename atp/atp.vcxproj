@@ -174,12 +174,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ProcessManager.cpp" />
     <ClCompile Include="ProofApplication.cpp" />
     <ClCompile Include="ProofProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ATP.h" />
     <ClInclude Include="IProcess.h" />
+    <ClInclude Include="ProcessManager.h" />
     <ClInclude Include="ProofApplication.h" />
     <ClInclude Include="ProofProcess.h" />
   </ItemGroup>

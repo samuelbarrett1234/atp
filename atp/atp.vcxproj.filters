@@ -33,6 +33,9 @@
     <ClCompile Include="ProofProcess.cpp">
       <Filter>Source Files\Process Management</Filter>
     </ClCompile>
+    <ClCompile Include="ProcessManager.cpp">
+      <Filter>Source Files\Process Management</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProofApplication.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files\Process Management</Filter>
     </ClInclude>
     <ClInclude Include="ProofProcess.h">
+      <Filter>Header Files\Process Management</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessManager.h">
       <Filter>Header Files\Process Management</Filter>
     </ClInclude>
   </ItemGroup>

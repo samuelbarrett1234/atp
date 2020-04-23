@@ -90,6 +90,8 @@ For parameters `lambda > 0` and `alpha \in (0,1)`.
 
 Note that, in order to help gather data to estimate the distributions in the early moments of the successor enumeration, this stopping strategy inputs an integer `initial-size` and it starts by adding in this many successors, regardless to their cost/benefit values. This helps get reliable estimates for the distribution parameters first.
 
+Finally, note that since this is a statistical-based strategy, it will assume the successors are IID, hence it is better to use `randomised = true` whenever this stopping strategy is used.
+
 Here is an example of how to specify it in a search settings file:
 
 ```

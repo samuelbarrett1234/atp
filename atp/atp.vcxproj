@@ -175,10 +175,13 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ProofApplication.cpp" />
+    <ClCompile Include="ProofProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ATP.h" />
+    <ClInclude Include="IProcess.h" />
     <ClInclude Include="ProofApplication.h" />
+    <ClInclude Include="ProofProcess.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

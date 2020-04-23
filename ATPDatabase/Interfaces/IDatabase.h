@@ -61,7 +61,7 @@ public:
 	*/
 	virtual OpStarterPtr begin_operation(const std::string& op_str) const = 0;
 };
-typedef std::unique_ptr<IDatabase> DatabasePtr;
+typedef std::shared_ptr<IDatabase> DatabasePtr;
 
 
 /**

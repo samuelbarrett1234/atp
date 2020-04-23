@@ -6,6 +6,7 @@
 
 */
 
+
 #include "ProofApplication.h"
 #include <sstream>
 #include <fstream>
@@ -77,6 +78,34 @@ bool ProofApplication::set_context_file(std::string path)
 	m_out << "Successfully loaded the context file \"" << 
 		m_ctx->context_name() << "\"." << std::endl;
 	return true;  // success
+}
+
+
+bool ProofApplication::set_db(std::string path)
+{
+	ATP_PRECOND(m_solver == nullptr);
+
+	std::ifstream in(path);
+
+	if (!in)
+	{
+		m_out << "Could not open the database configuration file "
+			<< '"' << path << '"' << std::endl;
+		return false;
+	}
+
+	m_db = atp::db::load_from_config_file(in);
+
+	if (m_db == nullptr)
+	{
+		m_out << "Failed to create the database! Check the database "
+			<< "configuration file at \"" << path << "\" is correct "
+			<< "and that none of the files it references have been "
+			<< "deleted or moved." << std::endl;
+		return false;
+	}
+
+	return true;
 }
 
 

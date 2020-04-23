@@ -16,6 +16,7 @@
 #include <vector>
 #include <ATPLogic.h>
 #include <ATPSearch.h>
+#include <ATPDatabase.h>
 
 
 /**
@@ -49,6 +50,16 @@ public:
 	bool set_context_file(std::string path);
 
 	/**
+	\brief Loads the database configuration file
+
+	\pre IF a database is going to be set, then it must be done
+		**before** the search settings file.
+
+	\returns True iff success.
+	*/
+	bool set_db(std::string db_config_file);
+
+	/**
 	\brief Loads the solver
 
 	\pre The context file was successfully loaded.
@@ -56,6 +67,7 @@ public:
 	\returns True iff success.
 	*/
 	bool set_search_file(std::string path);
+
 
 	// add a new set of target statements to the collection of proof
 	// tasks. this can either be a path to a file containing a list
@@ -86,6 +98,7 @@ private:
 	atp::logic::ModelContextPtr m_ctx;
 	atp::logic::KnowledgeKernelPtr m_ker;
 	atp::search::SolverPtr m_solver;
+	atp::db::DatabasePtr m_db;  // this is optional
 	size_t m_max_steps, m_step_size;
 	std::vector<atp::logic::StatementArrayPtr> m_tasks;
 };

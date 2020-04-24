@@ -187,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp" />
+    <ClCompile Include="Interfaces\Data.cpp" />
     <ClCompile Include="Internal\BasicFileBufferManager.cpp" />
     <ClCompile Include="Internal\StrictLockManager.cpp" />
   </ItemGroup>

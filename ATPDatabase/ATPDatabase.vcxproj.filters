@@ -83,5 +83,8 @@
     <ClCompile Include="Internal\BasicFileBufferManager.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
+    <ClCompile Include="Interfaces\Data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

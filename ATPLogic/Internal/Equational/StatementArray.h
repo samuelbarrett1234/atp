@@ -267,6 +267,10 @@ public:
 	{
 		return compute_slice_size(m_start, m_stop, m_step);
 	}
+	inline bool empty() const override
+	{
+		return (size() == 0);
+	}
 
 	// interface `at` implementation
 	const IStatement& at(size_t i) const override

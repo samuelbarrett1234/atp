@@ -43,6 +43,11 @@ public:
 			ResourceList my_resources);
 		~Lock();
 
+		inline ResourceList get_locked_resources() const
+		{
+			return m_my_resources;
+		}
+
 	private:
 		StrictLockManager* const m_parent;
 		ResourceList m_my_resources;

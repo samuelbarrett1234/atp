@@ -13,6 +13,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <boost/variant2/variant.hpp>
 #include <ATPLogic.h>
 #include "../ATPDatabaseAPI.h"
@@ -146,6 +147,30 @@ private:
 class ATP_DATABASE_API DArray
 {
 public:
+	/**
+	\brief Boost variant doesn't seem to like having a reference
+		type in its union, so we create a separate struct to
+		help this.
+	*/
+	struct StmtArrRef
+	{
+		StmtArrRef(logic::IStatementArray& ref) :
+			ref(ref)
+		{ }
+
+		inline size_t size() const
+		{
+			return ref.size();
+		}
+		inline bool empty() const
+		{
+			return ref.empty();
+		}
+
+		logic::IStatementArray& ref;
+	};
+
+public:
 	DArray(std::vector<int> arr) :
 		m_type(DType::INT),
 		m_data(std::move(arr))
@@ -218,7 +243,7 @@ private:
 		std::vector<size_t>,
 		std::vector<float>,
 		std::vector<std::string>,
-		logic::IStatementArray&> m_data;
+		StmtArrRef> m_data;
 };
 
 

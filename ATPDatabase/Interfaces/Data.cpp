@@ -8,6 +8,7 @@
 
 #include "Data.h"
 #include <algorithm>
+#include <boost/bind.hpp>
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/StatementArray.h>
 
@@ -18,11 +19,81 @@ namespace db
 {
 
 
+logic::StatementArrayPtr create_from_dvalues(
+	const std::vector<DValue>& vals)
+{
+	// check type beforehand
+	if (std::any_of(vals.begin(), vals.end(),
+		boost::bind(&DValue::type, _1) != DType::STMT))
+		return nullptr;
+
+	std::vector<logic::StatementArrayPtr> singletons;
+	singletons.reserve(vals.size());
+
+	// bit inefficient :(
+	for (const DValue& dv : vals)
+	{
+		ATP_DATABASE_ASSERT(dv.type() == DType::STMT);
+
+		singletons.emplace_back(logic::from_statement(
+			*dv.as_stmt()));
+	}
+
+	return logic::concat(singletons);
+}
+
+
+boost::variant2::variant<
+	std::vector<int>,
+	std::vector<size_t>,
+	std::vector<float>,
+	std::vector<std::string>,
+	DArray::StmtArrRef> create_variant_from_dvalues(
+		const std::vector<DValue>& vals,
+		const logic::StatementArrayPtr& ptr)
+{
+	// precondition: they all have the same type
+	const DType all_type = 
+		vals.empty() ? DType::INT : vals.front().type();
+	ATP_DATABASE_PRECOND(std::all_of(vals.begin(),
+		vals.end(), boost::bind(&DValue::type, _1)
+		== all_type));
+
+	if (ptr != nullptr)
+	{
+		ATP_DATABASE_ASSERT(all_type == DType::STMT);
+
+		return DArray::StmtArrRef(*ptr);
+	}
+	else
+	{
+		ATP_DATABASE_ASSERT(all_type != DType::STMT);
+
+		switch (all_type)
+		{
+		case DType::INT:
+			return std::vector<int>();
+		case DType::UINT:
+			return std::vector<size_t>();
+		case DType::FLOAT:
+			return std::vector<float>();
+		case DType::STR:
+			return std::vector<std::string>();
+		}
+	}
+}
+
+
 // for getting a DValue at a given index
 struct DArrayValueAtVisitor
 {
+	const size_t i;
+	DArrayValueAtVisitor(size_t i) :
+		i(i)
+	{ }
+
 	template<typename T>
-	DValue operator()(const T& arr, size_t i)
+	DValue operator()(const T& arr)
 	{
 		return DValue(arr.at(i));
 	}
@@ -35,11 +106,11 @@ struct DArrayValueAtVisitor
 	function, so we have to specialise this to the logic type! :(
 	*/
 	template<>
-	DValue operator()<const logic::IStatementArray&>(
-		const logic::IStatementArray& arr, size_t i)
+	DValue operator()<DArray::StmtArrRef>(
+		const DArray::StmtArrRef& arr)
 	{
 		if (auto p_arr = dynamic_cast<
-			const logic::equational::StatementArray*>(&arr))
+			const logic::equational::StatementArray*>(&arr.ref))
 		{
 			return DValue(std::make_shared<logic::equational::Statement>(
 				p_arr->my_at(i)));
@@ -56,14 +127,19 @@ struct DArrayValueAtVisitor
 // for reserving an amount of memory in the array
 struct DArrayReserveVisitor
 {
+	const size_t m;
+	DArrayReserveVisitor(size_t m) :
+		m(m)
+	{ }
+
 	template<typename T>
-	void operator()(T& arr, size_t m)
+	void operator()(T& arr)
 	{
 		arr.reserve(m);
 	}
 	template<>
-	void operator()<logic::IStatementArray>(
-		logic::IStatementArray& arr, size_t m)
+	void operator()<DArray::StmtArrRef>(
+		DArray::StmtArrRef& arr)
 	{
 		// cannot reserve this kind of array
 	}
@@ -73,14 +149,19 @@ struct DArrayReserveVisitor
 // for reserving an amount of memory in the array
 struct DArrayPushBackVisitor
 {
+	const DValue& val;
+	DArrayPushBackVisitor(const DValue& val) :
+		val(val)
+	{ }
+
 	template<typename T>
-	void operator()(T& arr, const DValue& val)
+	void operator()(T& arr)
 	{
 		arr.push_back((typename T::value_type)val);
 	}
 	template<>
-	void operator()<logic::IStatementArray>(
-		logic::IStatementArray& _, const DValue& val)
+	void operator()<DArray::StmtArrRef>(
+		DArray::StmtArrRef& _)
 	{
 		// don't implement - we handle this separately
 	}
@@ -88,43 +169,26 @@ struct DArrayPushBackVisitor
 
 
 DArray::DArray(const std::vector<DValue>& arr) :
-	m_type(arr.empty() ? DType::INT : arr.front().type())
+	m_type(arr.empty() ? DType::INT : arr.front().type()),
+	m_maybe_arr(create_from_dvalues(arr)),
+	m_data(create_variant_from_dvalues(arr, m_maybe_arr))
 {
-	ATP_DATABASE_PRECOND(std::all_of(arr.begin(),
-		arr.end(), [this](const DValue& dv)
-		{ return dv.type() == m_type; }));
-
-	boost::variant2::visit(DArrayReserveVisitor(), m_data,
-		arr.size());
+	boost::variant2::visit(DArrayReserveVisitor(arr.size()), m_data);
 
 	if (m_type != DType::STMT)
 	{
 		for (const DValue& dv : arr)
 		{
-			boost::variant2::visit(DArrayPushBackVisitor(),
-				m_data, dv);
+			boost::variant2::visit(DArrayPushBackVisitor(dv),
+				m_data);
 		}
-	}
-	else
-	{
-		// bit inefficient :(
-
-		std::vector<logic::StatementArrayPtr> singletons;
-		singletons.reserve(arr.size());
-		for (const DValue& dv : arr)
-		{
-			singletons.emplace_back(logic::from_statement(
-				*dv.as_stmt()));
-		}
-		m_maybe_arr = logic::concat(singletons);
-		m_data = *m_maybe_arr;
 	}
 }
 
 
 DValue DArray::val_at(size_t idx) const
 {
-	return boost::variant2::visit(DArrayValueAtVisitor(), m_data);
+	return boost::variant2::visit(DArrayValueAtVisitor(idx), m_data);
 }
 
 

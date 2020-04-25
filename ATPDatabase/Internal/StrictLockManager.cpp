@@ -40,22 +40,21 @@ LockPtr StrictLockManager::request_write_access(
 		if (iter != m_locked.end() && iter->second)
 			return LockPtr();
 
+		// else if we haven't seen it before, create it and set it
+		// to "unlocked"
+		iter = m_locked.insert({ res, false }).first;
+
 		res_iters.push_back(iter);
 	}
 
 	// if we get to this point, none of the resources were locked and
-	// we may proceed
+	// we may proceed to obtain the lock!
 	for (MapIter& iter : res_iters)
 	{
-		if (iter == m_locked.end())
-		{
-			// not a resource we have seen before
-			m_locked[iter->first] = true;
-		}
-		else
-		{
-			iter->second = true;
-		}
+		// no end iterators - we should've filled in any new
+		// resources earlier
+		ATP_DATABASE_ASSERT(iter != m_locked.end());
+		iter->second = true;
 	}
 
 	return std::make_shared<Lock>(this, res_list);

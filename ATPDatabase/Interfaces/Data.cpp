@@ -19,6 +19,29 @@ namespace db
 {
 
 
+std::shared_ptr<logic::IStatement> stmt_ref_to_ptr(
+	const logic::IStatement& stmt)
+{
+	if (auto p_stmt = dynamic_cast<
+		const logic::equational::Statement*>(&stmt))
+	{
+		return std::make_shared<logic::equational::Statement>(*p_stmt);
+	}
+	else
+	{
+		ATP_DATABASE_ASSERT(false && "bad statement type!");
+		return nullptr;
+	}
+}
+
+
+DValue::DValue(const logic::IStatement& x) :
+	m_data(stmt_ref_to_ptr(x)),
+	m_type(DType::STMT)
+{
+}
+
+
 logic::StatementArrayPtr create_from_dvalues(
 	const std::vector<DValue>& vals)
 {
@@ -227,6 +250,12 @@ void ColumnList::insert(const Column& col)
 {
 	if (col.has_index() && m_other_name_array != nullptr)
 	{
+		// check that, at least, the names agree (even if the two
+		// pointers are different).
+		ATP_DATABASE_PRECOND(col.m_name_array == nullptr ||
+			col.m_name_array->at(col.m_idx) ==
+			m_other_name_array->at(col.m_idx));
+
 		const size_t idx = col.index();
 		ATP_DATABASE_PRECOND(idx < m_other_name_array->size());
 		m_indices.push_back(idx);

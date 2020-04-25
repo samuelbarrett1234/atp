@@ -27,9 +27,21 @@
     <ClCompile Include="StrictLockManagerTests.cpp">
       <Filter>Source Files\LockManagerTests</Filter>
     </ClCompile>
+    <ClCompile Include="DataTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DefinitionStrs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicSetupFixture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DefinitionStrs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

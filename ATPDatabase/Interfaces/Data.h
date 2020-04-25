@@ -76,6 +76,7 @@ public:
 		m_type(DType::STMT),
 		m_data(std::move(x))
 	{ }
+	DValue(const logic::IStatement& x);
 
 	inline DType type() const
 	{
@@ -257,11 +258,17 @@ private:
 class ATP_DATABASE_API Column
 {
 private:
+	friend class ColumnList;
 	static const constexpr size_t no_index = static_cast<size_t>(-1);
 
 public:
 	Column(size_t idx) :
 		m_idx(idx),
+		m_name_array(nullptr)
+	{ }
+	Column(const char* name) :
+		m_idx(no_index),
+		m_name(name),
 		m_name_array(nullptr)
 	{ }
 	Column(std::string name) :
@@ -300,8 +307,6 @@ public:
 
 	inline bool has_name() const
 	{
-		// check name_array == null => idx == no_index
-		ATP_DATABASE_ASSERT(m_name_array != nullptr || m_idx == no_index);
 		return ((m_name_array != nullptr) == (m_idx != no_index));
 	}
 	inline bool has_index() const

@@ -183,12 +183,14 @@
     <ClInclude Include="Interfaces\IDatabase.h" />
     <ClInclude Include="Interfaces\ILockManager.h" />
     <ClInclude Include="Internal\BasicFileBufferManager.h" />
+    <ClInclude Include="Internal\Equational\Database.h" />
     <ClInclude Include="Internal\StrictLockManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp" />
     <ClCompile Include="Interfaces\Data.cpp" />
     <ClCompile Include="Internal\BasicFileBufferManager.cpp" />
+    <ClCompile Include="Internal\Equational\Database.cpp" />
     <ClCompile Include="Internal\StrictLockManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

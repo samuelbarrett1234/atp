@@ -46,6 +46,10 @@ namespace db
 	the database again in the future. Should be a stream expecting to
 	read human-readable text.
 
+\post We save the output DB config file to the given stream iff we
+	return a valid database object. Hence if we fail to load anything
+	the output stream is unmodified.
+
 \returns A new database object if success, otherwise returns nullptr
 	on failure.
 */
@@ -65,21 +69,6 @@ ATP_DATABASE_API DatabasePtr create_from_schema(
 */
 ATP_DATABASE_API DatabasePtr load_from_config_file(
 	std::istream& in_db_config_file);
-
-
-/**
-\brief Create an in-memory database from the given schema, which will
-	lose all of its data when it gets destroyed.
-
-\warning There is no supported way to easily save all the data once
-	this database object is created, if you were to change your mind
-	about it being a purely in-memory database.
-
-\returns A new database object if success, otherwise returns nullptr
-	on failure.
-*/
-ATP_DATABASE_API DatabasePtr create_in_mem_db_from_schema(
-	std::istream& in_json_schema);
 
 
 /**

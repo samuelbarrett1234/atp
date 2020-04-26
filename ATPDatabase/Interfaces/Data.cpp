@@ -102,6 +102,9 @@ boost::variant2::variant<
 			return std::vector<float>();
 		case DType::STR:
 			return std::vector<std::string>();
+		default:
+			ATP_DATABASE_ASSERT(false && "bad DType!");
+			throw std::exception();
 		}
 	}
 }

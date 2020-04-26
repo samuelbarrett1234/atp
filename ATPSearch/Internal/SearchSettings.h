@@ -13,6 +13,7 @@
 
 
 #include <istream>
+#include <functional>
 #include "../ATPSearchAPI.h"
 #include <ATPLogic.h>
 #include "../Interfaces/ISolver.h"

@@ -142,7 +142,7 @@ bool ProofApplication::set_search_file(std::string path)
 
 	// now extract information from the `settings` object:
 
-	if (settings.p_solver == nullptr)
+	if (!settings.create_solver)
 	{
 		// use the default solver
 
@@ -151,7 +151,7 @@ bool ProofApplication::set_search_file(std::string path)
 	}
 	else
 	{
-		m_solver = settings.p_solver;
+		m_solver = settings.create_solver();
 	}
 
 	m_max_steps = settings.max_steps;

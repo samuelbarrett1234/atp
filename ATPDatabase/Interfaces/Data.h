@@ -189,7 +189,7 @@ public:
 		m_data(std::move(arr))
 	{ }
 	DArray(logic::StatementArrayPtr arr) :
-		m_type(DType::INT),
+		m_type(DType::STMT),
 		m_maybe_arr(std::move(arr)),
 		m_data(*m_maybe_arr)
 	{ }
@@ -352,7 +352,8 @@ public:
 		m_other_name_array(nullptr)
 	{ }
 	ColumnList(std::vector<std::string> names) :
-		m_name_array(std::move(names))
+		m_name_array(std::move(names)),
+		m_other_name_array(nullptr)
 	{ }
 	ColumnList(std::vector<size_t> indices,
 		const std::vector<std::string>* other_name_array) :
@@ -374,9 +375,9 @@ public:
 	}
 	inline bool empty() const
 	{
-		ATP_DATABASE_ASSERT(m_name_array.empty() !=
+		ATP_DATABASE_ASSERT(m_name_array.empty() ||
 			m_indices.empty());
-		// exactly one of these should be empty anyway
+		// at most one of these should be nonempty
 		// (see above assertion)
 		return m_name_array.empty() && m_indices.empty();
 	}
@@ -386,7 +387,7 @@ public:
 		if (m_other_name_array != nullptr)
 		{
 			ATP_DATABASE_PRECOND(idx < m_indices.size());
-			return Column(idx, m_other_name_array);
+			return Column(m_indices[idx], m_other_name_array);
 		}
 		else
 		{

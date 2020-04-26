@@ -53,6 +53,22 @@ BOOST_FIXTURE_TEST_SUITE(CoreSearchSettingsTests,
 		"SearchSettingsTests/SearchSettingsSuccItersTests"));
 
 
+BOOST_AUTO_TEST_CASE(test_no_solver)
+{
+	s << "{";
+	s << "\"name\" : \"test-name\",";
+	s << "\"desc\" : \"test-desc\",";
+	s << "\"max-steps\" : 1,";
+	s << "\"step-size\" : 2";
+	s << "}";
+
+	SearchSettings settings;
+	BOOST_TEST(load_search_settings(p_ker, s,
+		&settings));
+	BOOST_TEST(!((bool)settings.create_solver));
+}
+
+
 BOOST_AUTO_TEST_CASE(test_get_step_settings)
 {
 	s << "{";
@@ -69,8 +85,6 @@ BOOST_AUTO_TEST_CASE(test_get_step_settings)
 	BOOST_TEST(settings.desc == "test-desc");
 	BOOST_TEST(settings.max_steps == 1);
 	BOOST_TEST(settings.step_size == 2);
-	auto p_solver = settings.create_solver();
-	BOOST_TEST(p_solver.get() == nullptr);
 }
 
 
@@ -91,7 +105,8 @@ BOOST_AUTO_TEST_CASE(test_error_when_stop_strat_but_no_heuristic)
 	// don't provide a heuristic!
 	s << "{ \"stopping-strategy\" : {";
 	s << "\"type\" : \"FixedStoppingStrategy\", \"size\" : 5";
-	s << "} }";
+	s << "}, \"solver\" : { \"type\" : \"IterativeDeepeningSolver\"";
+	s << " }";
 
 	SearchSettings settings;
 	BOOST_TEST(!load_search_settings(p_ker, s,

@@ -54,7 +54,7 @@ public:
 		arbitrary.
 	*/
 	static std::unique_ptr<Table> load_from_config(
-		logic::LanguagePtr p_lang,
+		const logic::LanguagePtr& p_lang,
 		const boost::property_tree::ptree& cfg_in,
 		const std::string& target_dir,
 		std::map<ResourceName, std::string>& out_res_files
@@ -110,15 +110,12 @@ public:  // other functions
 	{
 		return m_name;
 	}
-	inline const std::string& desc() const
-	{
-		return m_desc;
-	}
 
 private:
-	std::string m_name, m_desc;
+	std::string m_name;
 
 	std::vector<std::string> m_col_names;
+	std::vector<DType> m_col_types;
 	boost::optional<size_t>
 		m_autokey_col;  // index of the autokey col, if it exists
 	std::vector<bool>

@@ -82,6 +82,14 @@ DatabasePtr Database::load_from_config(
 
 			if (p_db->m_tables.back() == nullptr)
 				return nullptr;  // this table failed to load
+
+			// if the table we just created uses a name that we have
+			// already used,
+			if (std::find_if(std::next(p_db->m_tables.rbegin()),
+				p_db->m_tables.rend(), [&p_db](const auto& p_tab) -> bool
+				{ return p_tab->name() == p_db->m_tables.back()->name(); })
+				!= p_db->m_tables.rend())
+				return nullptr;
 		}
 
 		if (p_db->m_tables.empty())

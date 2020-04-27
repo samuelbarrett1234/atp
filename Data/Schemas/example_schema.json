@@ -10,15 +10,6 @@
 			"name" : "group-theory-thms",
 			"context" : "../Data/Definitions/group_theory.json",
 			
-			"indices" :
-			[
-				{
-					"type" : "hash",
-					"key" : "thm-id",
-					"filename" : "group-theory-thms.bin"
-				}
-			]
-			
 			"columns" :
 			[
 				{
@@ -29,6 +20,15 @@
 				{ "name" : "proof-time", "type" : "float" },
 				{ "name" : "proof-max-mem", "type" : "int" },
 				{ "name" : "proof-num-expansions", "type" : "int" }
+			],
+			
+			"indices" :
+			[
+				{
+					"type" : "hash",
+					"key" : "thm-id",
+					"filename" : "group-theory-thms.bin"
+				}
 			]
 		}
 	]

@@ -14,11 +14,13 @@
 #include <istream>
 #include <ostream>
 #include <boost/property_tree/ptree.hpp>
+#include <ATPLogic.h>
 #include "../../ATPDatabaseAPI.h"
 #include "../../Interfaces/IDatabase.h"
 #include "../../Interfaces/IBufferManager.h"
 #include "../StrictLockManager.h"
 #include "../BasicFileBufferManager.h"
+#include "Table.h"
 
 
 /**
@@ -103,9 +105,11 @@ public:  // interface functions
 	}
 
 private:
-	std::string m_name, m_desc;
+	std::string m_name, m_desc, m_target_dir;
 	StrictLockManager m_lk_mgr;
 	std::unique_ptr<IBufferManager> m_buf_mgr;
+	std::vector<std::unique_ptr<Table>> m_tables;
+	logic::LanguagePtr m_lang;
 };
 
 

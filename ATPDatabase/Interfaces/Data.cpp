@@ -285,6 +285,56 @@ void ColumnList::insert(const Column& col)
 }
 
 
+size_t ColumnList::index_of(const Column& col) const
+{
+	if (col.has_name())
+	{
+		// find by name
+
+		if (m_other_name_array != nullptr)
+		{
+			// we have an array of names, and they have an array of
+			// names, so we need to make the two collaborate (going
+			// via our array of indices, too).
+
+			const auto iter = std::find(m_other_name_array->begin(),
+				m_other_name_array->end(), col.name());
+
+			const size_t idx = std::distance(
+				m_other_name_array->begin(), iter);
+
+			const auto idx_iter = std::find(m_indices.begin(),
+				m_indices.end(), idx);
+
+			return std::distance(m_indices.begin(), idx_iter);
+		}
+		else
+		{
+			// we have an array of names, and they have an array of
+			// names, so we need to make the two collaborate.
+			// However, we don't have an array of indices to worry
+			// about.
+
+			const auto iter = std::find(m_name_array.begin(),
+				m_name_array.end(), col.name());
+
+			return std::distance(
+				m_name_array.begin(), iter);
+		}
+	}
+	else
+	{
+		ATP_DATABASE_ASSERT(col.m_name_array == nullptr);
+		ATP_DATABASE_ASSERT(col.m_name.empty());
+
+		// this case is easy, as the column is just an index with no
+		// name array associated with it.
+
+		return col.m_idx;
+	}
+}
+
+
 }  // namespace db
 }  // namespace atp
 

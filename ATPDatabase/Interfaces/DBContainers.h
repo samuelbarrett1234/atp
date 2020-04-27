@@ -370,35 +370,67 @@ public:
 
 
 /**
-\brief A container which has a special designated "key" column for
-	which it is particularly good at performing queries on that value
+\brief See the column decorator container interface.
+*/
+enum class ColumnFlag
+{
+	// if this is set, it *does not allow* insertions that cause
+	// duplicate values of this column
+	UNIQUE,
+
+	// if this is set, it automatically implies UNIQUE, and its
+	// behaviour is as follows: row insertions ignore this column,
+	// and we automatically generate values for it.
+	// warning: we override the value provided in `insert`.
+	// at most one column can have the AUTO_KEY flag.
+	AUTO_KEY
+
+	// examples of what could be added:
+	// SORTED,  // hint to store data in sorted order
+	// ALLOW_NULLS
+};
+
+
+/**
+\brief A container which has extra information about each column, and
+	supports various column "decorators" (just additional info about
+	a column)
 
 \note All operations on this container are THREAD-SAFE.
 */
-class ATP_DATABASE_API IDBKeyValueContainer :
+class ATP_DATABASE_API IDBColumnDecoratorContainer :
 	public virtual IDBContainer
 {
 public:
-	virtual ~IDBKeyValueContainer() = default;
+	virtual ~IDBColumnDecoratorContainer() = default;
 
 	/**
-	\brief Get the key column.
+	\brief Does any column in this container have the AUTO_KEY flag?
 
 	\note Generally, containers will support efficient operations on
-		their key column.
+		their auto key column.
 
-	\post cols().contains(key_col())
+	\post any(cols(), has_col_flag(AUTO_KEY, col)) == true
 	*/
-	virtual Column key_col() const = 0;
+	virtual bool has_autokey_col() const = 0;
 
 	/**
-	\brief Get the rest of the columns (the non-key ones) which are
-		thought of as the "values".
-	
-	\post val_cols() is a subset of cols() and
-		!val_cols().contains(key_col())
+	\brief If we have an autokey column, it is unique, so this
+		function will return it.
+
+	\pre has_autokey_col()
+
+	\post has_col_flag(AUTO_KEY, get_autokey_col()) == true
 	*/
-	virtual ColumnList val_cols() const = 0;
+	virtual Column get_autokey_col() const = 0;
+
+	/**
+	\brief Does the given column have the given flag?
+
+	\pre cols().contains(col)
+	*/
+	virtual bool has_col_flag(ColumnFlag cf,
+		const Column& col) const = 0;
 };
 
 

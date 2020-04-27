@@ -296,6 +296,56 @@ BOOST_AUTO_TEST_CASE(col_list_insert_test_no_name_array)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_index_of_for_value_version_of_col_list)
+{
+	ColumnList col_list({
+		"col name 1", "col name 2", "col name 3",
+		"col name 4" });
+
+
+	// there are many different ways in which we can get the index
+	// of a Column object - test all of them!
+
+	// find by name
+	BOOST_TEST(col_list.index_of("col name 4") == 3);
+
+	// find by name, but going via a separate list
+	std::vector<std::string> col_names{
+		"col name 1", "col name 2", "col name 3",
+		"col name 4"
+	};
+	BOOST_TEST(col_list.index_of(Column(1, &col_names)) == 1);
+
+	// find by index, which is just the identity function
+	BOOST_TEST(col_list.index_of(Column(2)) == 2);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_index_of_for_pointer_version_of_col_list)
+{
+	std::vector<std::string> col_names{
+		"col name 1", "col name 2", "col name 3",
+		"col name 4"
+	};
+
+	ColumnList col_list(std::vector<size_t>{ 3, 2, 1, 0 },
+		&col_names);
+
+	// there are many different ways in which we can get the index
+	// of a Column object - test all of them!
+
+	// find by name
+	BOOST_TEST(col_list.index_of("col name 1") == 3);
+
+	// find by name, but going via a potentially separate list, and
+	// in this case - a list in a different order
+	BOOST_TEST(col_list.index_of(Column(1, &col_names)) == 2);
+
+	// find by index, which is just the identity function
+	BOOST_TEST(col_list.index_of(Column(2)) == 2);
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();
 
 

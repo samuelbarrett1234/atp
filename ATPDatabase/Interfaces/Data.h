@@ -362,6 +362,16 @@ public:
 	{
 		ATP_DATABASE_PRECOND(m_other_name_array != nullptr);
 	}
+	ColumnList(const std::vector<std::string>* other_name_array) :
+		m_other_name_array(other_name_array)
+	{
+		// todo: optimise this constructor a bit
+
+		m_indices.resize(m_other_name_array->size());
+
+		for (size_t i = 0; i < m_other_name_array->size(); ++i)
+			m_indices[i] = i;
+	}
 
 	bool contains(const Column& col) const;
 	inline size_t size() const
@@ -395,6 +405,13 @@ public:
 			return Column(m_name_array.at(idx));
 		}
 	}
+
+	/**
+	\brief Get the index of the given column in this col list
+
+	\pre contains(col)
+	*/
+	size_t index_of(const Column& col) const;
 
 private:
 	// invariant: a column list is either an array of names, or it

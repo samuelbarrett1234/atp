@@ -10,15 +10,19 @@
 			"name" : "group-theory-thms",
 			"context" : "../Data/Definitions/group_theory.json",
 			
+			"indices" :
+			[
+				{
+					"type" : "hash",
+					"key" : "thm-id",
+					"filename" : "group-theory-thms.bin"
+				}
+			]
+			
 			"columns" :
 			[
 				{
-					"name" : "thm-id", "type" : "uint", "unique" : true,
-					"index" :
-					{
-						"type" : "hash",
-						"filename" : "group-theory-thms.bin"
-					}
+					"name" : "thm-id", "type" : "uint", "unique" : true, "auto-key" : true
 				},
 				{ "name" : "thm", "type" : "statement" },
 				{ "name" : "proof-completion-state", "type" : "int" },

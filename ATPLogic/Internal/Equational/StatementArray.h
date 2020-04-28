@@ -253,6 +253,15 @@ public:
 	static StatementArrayPtr try_concat(
 		const std::vector<StatementArrayPtr>& stmts);
 	///@}
+	
+	/**
+	\brief Create a new object from a binary stream, which must be of
+		the correct format.
+
+	\param in The (binary) input stream.
+	*/
+	static StatementArray load_from_bin(
+		const ModelContext& ctx, std::istream& in);
 
 public:
 	/**
@@ -302,6 +311,13 @@ public:
 
 	StatementArrayPtr slice(size_t start, size_t end,
 		size_t step = 1) const override;
+
+	/**
+	\brief Save this object to the given (binary) output
+
+	\param out The (binary) output stream.
+	*/
+	void save(std::ostream& out) const;
 
 private:
 	ArrPtr m_array;

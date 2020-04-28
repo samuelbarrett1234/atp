@@ -98,7 +98,8 @@ StatementArrayPtr Language::deserialise_stmts(std::istream& in,
 		return std::make_shared<StatementArray>(pStmtArr);
 	}
 	case StmtFormat::BINARY:
-		return StatementArrayPtr();  // not implemented yet!!
+		return std::make_shared<StatementArray>(
+			StatementArray::load_from_bin(*p_ctx, in));
 	default:
 		ATP_LOGIC_PRECOND(false && "invalid statement type!");
 		return StatementArrayPtr();
@@ -134,7 +135,8 @@ void Language::serialise_stmts(std::ostream& out,
 	}
 		break;
 	case StmtFormat::BINARY:
-		break;  // not implemented yet!!
+		p_stmts->save(out);
+		break;
 	default:
 		ATP_LOGIC_PRECOND(false && "invalid statement type!");
 		break;

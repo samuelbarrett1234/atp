@@ -219,6 +219,63 @@ BOOST_AUTO_TEST_CASE(test_slice_iterator)
 }
 
 
+BOOST_DATA_TEST_CASE(test_binary_serialisation,
+	boost::unit_test::data::make({
+		"x = y", "e = e", "i(x) = x",
+		"*(x, i(x)) = e", "x = x", "x = e",
+		"i(i(i(i(x)))) = x", "i(i(e)) = e",
+		"*(x, y) = *(y, x)",
+		"*(x, *(y, z)) = *(*(x, y), z)",
+		"e = e \n x = x \n y = x" }),
+	stmt_str)
+{
+	s << stmt_str;
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmts = dynamic_cast<const StatementArray&>(
+		*p_stmts);
+
+	std::stringstream mem_stream;
+
+	stmts.save(mem_stream);
+
+	auto stmts2 = StatementArray::load_from_bin(ctx, mem_stream);
+
+	BOOST_REQUIRE(stmts.size() == stmts2.size());
+
+	for (size_t i = 0; i < stmts.size(); ++i)
+	{
+		BOOST_TEST(stmts.my_at(i).identical(stmts2.my_at(i)));
+	}
+}
+
+
+BOOST_AUTO_TEST_CASE(test_binary_serialisation_with_slice)
+{
+	s << "x = x \n x = y \n i(x) = x \n e = e \n *(x, y) = *(y, x)";
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	p_stmts = p_stmts->slice(1, 5, 2);  // slice!!
+	auto stmts = dynamic_cast<const StatementArray&>(
+		*p_stmts);
+
+	std::stringstream mem_stream;
+
+	stmts.save(mem_stream);
+
+	auto stmts2 = StatementArray::load_from_bin(ctx, mem_stream);
+
+	BOOST_REQUIRE(stmts.size() == stmts2.size());
+
+	for (size_t i = 0; i < stmts.size(); ++i)
+	{
+		BOOST_TEST(stmts.my_at(i).identical(stmts2.my_at(i)));
+	}
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();  // StatementArrayTests
 BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
 

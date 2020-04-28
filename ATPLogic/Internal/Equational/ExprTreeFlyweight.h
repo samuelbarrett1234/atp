@@ -66,6 +66,15 @@ private:
     }
 
 public:
+    /**
+    \brief Create a new object from a binary stream, which must be of
+        the correct format.
+
+    \param in The (binary) input stream.
+    */
+    static ExprTreeFlyweight load_from_bin(std::istream& in);
+
+public:
     ExprTreeFlyweight();
     ExprTreeFlyweight(const ExprTreeFlyweight& other);
     ExprTreeFlyweight(ExprTreeFlyweight&& other) noexcept;
@@ -262,6 +271,13 @@ public:
         of the root function **adjusted as a result of the merge**.
     */
     size_t merge_from(const ExprTreeFlyweight& other);
+
+    /**
+    \brief Save this object to the given (binary) output
+
+    \param out The (binary) output stream.
+    */
+    void save(std::ostream& out) const;
 
 #ifdef ATP_LOGIC_DEFENSIVE
 private:

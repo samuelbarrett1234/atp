@@ -180,6 +180,44 @@ BOOST_DATA_TEST_CASE(test_serialisation_in_one_free_variable,
 }
 
 
+BOOST_DATA_TEST_CASE(test_binary_serialisation,
+	boost::unit_test::data::make({
+		" x = i(x) \n *(x, y) = y",
+		" *(*(x, y), z) = *(x, *(y, z))",
+		" *(x, i(x)) = e \n e = e \n x = x",
+		""  /* empty string! */,
+		"*(x, y) = i(y) # a comment \n i(x) = i(i(x))" }),
+	stmts_str)
+{
+	auto p_ctx = lang.try_create_context(ctx_file);
+	BOOST_REQUIRE(p_ctx != nullptr);
+	const auto& ctx = dynamic_cast<const ModelContext&>(*p_ctx);
+
+	s << stmts_str;
+
+	auto stmts_by_text = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+
+	std::stringstream mem_stream;
+
+	lang.serialise_stmts(mem_stream, stmts_by_text,
+		StmtFormat::BINARY);
+
+	auto stmts_by_binary = lang.deserialise_stmts(mem_stream,
+		StmtFormat::BINARY, ctx);
+
+	BOOST_TEST(stmts_by_text->size() == stmts_by_binary->size());
+
+	auto p1 = dynamic_cast<StatementArray*>(stmts_by_text.get());
+	auto p2 = dynamic_cast<StatementArray*>(stmts_by_binary.get());
+
+	for (size_t i = 0; i < p1->size(); ++i)
+	{
+		BOOST_TEST(p1->my_at(i).identical(p2->my_at(i)));
+	}
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();  // LanguageTests
 BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
 

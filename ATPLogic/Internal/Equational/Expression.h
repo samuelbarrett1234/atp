@@ -63,6 +63,14 @@ public:
         const SyntaxNodePtr& p_root);
 	static ExpressionPtr construct(
 		Expression&& expr);
+	/**
+	\brief Create a new object from a binary stream, which must be of
+		the correct format.
+
+	\param in The (binary) input stream.
+	*/
+	static Expression load_from_bin(
+		const ModelContext& ctx, std::istream& in);
 
 public:
 	/**
@@ -462,6 +470,13 @@ public:
 	*/
 	bool try_match(const Expression& expr,
 		FreeVarMap<Expression>* p_out_subs) const;
+
+	/**
+	\brief Save this object to the given (binary) output
+
+	\param out The (binary) output stream.
+	*/
+	void save(std::ostream& out) const;
 
     /**
     \brief Perform a fold operation over this expression.

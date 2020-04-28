@@ -141,6 +141,29 @@ StatementArrayPtr StatementArray::try_concat(
 }
 
 
+StatementArray StatementArray::load_from_bin(
+	const ModelContext& ctx, std::istream& in)
+{
+	StatementArray result;
+
+	in.read((char*)&result.m_start, sizeof(result.m_start));
+	in.read((char*)&result.m_stop, sizeof(result.m_stop));
+	in.read((char*)&result.m_step, sizeof(result.m_step));
+
+	// .size() is now safe to call, as it only uses start/stop/step
+	result.m_array = std::make_shared<ArrType>();
+	result.m_array->reserve(result.size());
+
+	for (size_t i = 0; i < result.size(); ++i)
+	{
+		result.m_array->emplace_back(Statement::load_from_bin(ctx,
+			in));
+	}
+
+	return result;
+}
+
+
 StatementArray::StatementArray(ArrPtr p_array,
 	size_t start, size_t end, size_t step) :
 	m_array(p_array), m_start(start),
@@ -200,6 +223,24 @@ StatementArrayPtr StatementArray::slice(size_t start,
 #endif
 
 	return p_result;
+}
+
+
+void StatementArray::save(std::ostream& out) const
+{
+	// if we are a slice, only output the contents of our slice, to
+	// save memory!
+
+	const size_t zero = 0, one = 1, sz = size();
+
+	out.write((const char*)&zero, sizeof(zero));
+	out.write((const char*)&sz, sizeof(sz));
+	out.write((const char*)&one, sizeof(one));
+
+	for (size_t i = 0; i < sz; ++i)
+	{
+		my_at(i).save(out);
+	}
 }
 
 

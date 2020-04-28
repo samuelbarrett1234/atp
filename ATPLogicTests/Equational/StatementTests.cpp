@@ -913,6 +913,32 @@ BOOST_AUTO_TEST_CASE(test_increment_free_var_ids)
 }
 
 
+BOOST_DATA_TEST_CASE(test_binary_serialisation,
+	boost::unit_test::data::make({
+		"x = y", "e = e", "i(x) = x",
+		"*(x, i(x)) = e", "x = x", "x = e",
+		"i(i(i(i(x)))) = x", "i(i(e)) = e",
+		"*(x, y) = *(y, x)",
+		"*(x, *(y, z)) = *(*(x, y), z)" }),
+	stmt_str)
+{
+	s << stmt_str;
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(
+		p_stmts->at(0));
+
+	std::stringstream mem_stream;
+
+	stmt.save(mem_stream);
+
+	Statement stmt2 = Statement::load_from_bin(ctx, mem_stream);
+
+	BOOST_TEST(stmt.identical(stmt2));
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();  // StatementTests
 BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
 

@@ -8,6 +8,12 @@
 
 
 #include "ExprTreeFlyweight.h"
+#include <boost/serialization/serialization.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/serialization/shared_ptr.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/array.hpp>
 
 
 namespace atp
@@ -221,6 +227,45 @@ void ExprTreeFlyweight::_check_invariant() const
 	}
 }
 #endif
+
+
+ExprTreeFlyweight ExprTreeFlyweight::load_from_bin(std::istream& in)
+{
+	ExprTreeFlyweight result;
+
+	auto i = boost::archive::binary_iarchive(in);
+
+	// this must appear in the same order as it does in `save`
+
+	i >> result.m_root >> result.m_root_type;
+	i >> result.m_func_symb_ids >> result.m_func_arity;
+	i >> result.m_func_children >> result.m_func_child_types;
+
+#ifdef ATP_LOGIC_DEFENSIVE
+	// check for corruption
+
+	ATP_LOGIC_PRECOND((result.m_root_type == SyntaxNodeType::FREE)
+		|| (result.m_root_type == SyntaxNodeType::CONSTANT)
+		|| (result.m_root_type == SyntaxNodeType::FUNC));
+
+	result._check_invariant();
+#endif
+
+	return result;
+}
+
+
+void ExprTreeFlyweight::save(std::ostream& out) const
+{
+	auto o = boost::archive::binary_oarchive(out);
+
+	// this must appear in the same order as it does in
+	// `load_from_bin`
+
+	o << m_root << m_root_type << m_func_symb_ids;
+	o << m_func_arity << m_func_children;
+	o << m_func_child_types;
+}
 
 
 }  // namespace equational

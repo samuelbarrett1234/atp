@@ -28,6 +28,15 @@ namespace equational
 {
 
 
+Statement Statement::load_from_bin(
+	const ModelContext& ctx, std::istream& in)
+{
+	Expression lhs = Expression::load_from_bin(ctx, in);
+	Expression rhs = Expression::load_from_bin(ctx, in);
+	return Statement(ctx, std::move(lhs), std::move(rhs));
+}
+
+
 Statement::Statement(
 	const ModelContext& ctx,
 	const SyntaxNodePtr& p_root) :
@@ -490,6 +499,14 @@ bool Statement::implies(const Statement& conclusion) const
 		&lmap) && m_sides.second->try_match(
 			*conclusion.m_sides.first, &rmap)
 		&& maps_compatible(lmap, rmap);
+}
+
+
+
+void Statement::save(std::ostream& out) const
+{
+	m_sides.first->save(out);
+	m_sides.second->save(out);
 }
 
 

@@ -137,6 +137,48 @@ BOOST_AUTO_TEST_CASE(test_move)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_free_const_binary_serialisation)
+{
+	ExprTreeFlyweight fw;
+	fw.set_root(7, SyntaxNodeType::FREE);
+
+	std::stringstream mem_stream;
+
+	fw.save(mem_stream);
+
+	auto fw2 = ExprTreeFlyweight::load_from_bin(mem_stream);
+
+	BOOST_TEST(fw2.root_id() == 7);
+	BOOST_TEST((fw2.root_type() == SyntaxNodeType::FREE));
+}
+
+
+BOOST_AUTO_TEST_CASE(test_func_binary_serialisation)
+{
+	ExprTreeFlyweight fw;
+
+	size_t child[] = { 2 };
+	SyntaxNodeType child_type[] = { SyntaxNodeType::CONSTANT };
+
+	fw.add_func(4, 1, child, child + 1, child_type, child_type + 1);
+	fw.set_root(0, SyntaxNodeType::FUNC);
+
+	std::stringstream mem_stream;
+
+	fw.save(mem_stream);
+
+	auto fw2 = ExprTreeFlyweight::load_from_bin(mem_stream);
+
+	BOOST_TEST(fw2.root_id() == 0);
+	BOOST_TEST((fw2.root_type() == SyntaxNodeType::FUNC));
+	BOOST_TEST(fw2.func_arity(0) == 1);
+	BOOST_TEST(fw2.func_symb_id(0) == 4);
+	BOOST_TEST((fw2.func_child_types(0).at(0) ==
+		SyntaxNodeType::CONSTANT));
+	BOOST_TEST(fw2.func_children(0).at(0) == 2);
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();  // ExprTreeFlyweightTests
 BOOST_AUTO_TEST_SUITE_END();  // EquationalTests
 

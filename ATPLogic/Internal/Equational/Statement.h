@@ -169,6 +169,15 @@ public:
 
 public:
 	/**
+	\brief Create a new object from a binary stream, which must be of
+		the correct format.
+
+	\param in The (binary) input stream.
+	*/
+	static Statement load_from_bin(
+		const ModelContext& ctx, std::istream& in);
+
+	/**
 	\pre p_root->get_type() == SyntaxNodeType::EQ
 	*/
 	Statement(const ModelContext& ctx,
@@ -321,6 +330,13 @@ public:
 		readable in both directions.
 	*/
 	bool implies(const Statement& conclusion) const;
+
+	/**
+	\brief Save this object to the given (binary) output
+
+	\param out The (binary) output stream.
+	*/
+	void save(std::ostream& out) const;
 
 	/**
 	\see atp::logic::equational::fold_syntax_tree

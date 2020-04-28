@@ -45,6 +45,22 @@ ExpressionPtr Expression::construct(Expression&& expr)
 }
 
 
+Expression Expression::load_from_bin(
+	const ModelContext& ctx, std::istream& in)
+{
+	// create it using a bogus initialisation, first
+	Expression result(ctx, 0, SyntaxNodeType::FREE);
+
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+	in.read((char*)&result.m_height, sizeof(result.m_height));
+#endif
+
+	result.m_tree = ExprTreeFlyweight::load_from_bin(in);
+
+	return result;
+}
+
+
 Expression::Expression(const ModelContext& ctx,
 	size_t root_id, SyntaxNodeType root_type) :
 	m_ctx(ctx)
@@ -748,6 +764,16 @@ bool Expression::try_match(const Expression& expr,
 		p_out_subs->clear();
 
 	return success;
+}
+
+
+void Expression::save(std::ostream& out) const
+{
+#ifdef ATP_LOGIC_EXPR_USE_HEIGHT
+	out.write((const char*)m_height, sizeof(m_height));
+#endif
+
+	m_tree.save(out);
 }
 
 

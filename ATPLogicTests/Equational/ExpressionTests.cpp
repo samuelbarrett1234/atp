@@ -386,6 +386,30 @@ BOOST_DATA_TEST_CASE(test_height,
 #endif
 
 
+BOOST_DATA_TEST_CASE(test_binary_serialisation,
+	boost::unit_test::data::make({
+		"x", "e", "i(x)", "*(x, i(x))",
+		"i(i(i(i(x))))", "i(i(e))",
+		"*(x, y)", "*(x, *(y, z))" }),
+	expr_str)
+{
+	s << expr_str << " = e\n";  // arbitrary rhs
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto expr = dynamic_cast<const Statement&>(
+		p_stmts->at(0)).lhs();
+
+	std::stringstream mem_stream;
+
+	expr.save(mem_stream);
+
+	Expression expr2 = Expression::load_from_bin(ctx, mem_stream);
+
+	BOOST_TEST(expr.identical(expr2));
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();
 BOOST_AUTO_TEST_SUITE_END();
 

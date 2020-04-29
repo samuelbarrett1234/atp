@@ -183,6 +183,7 @@
     <ClInclude Include="Interfaces\IDatabase.h" />
     <ClInclude Include="Interfaces\ILockManager.h" />
     <ClInclude Include="Internal\BasicArrayIndex.h" />
+    <ClInclude Include="Internal\BasicArrayIndexIterators.h" />
     <ClInclude Include="Internal\BasicFileBufferManager.h" />
     <ClInclude Include="Internal\Equational\Database.h" />
     <ClInclude Include="Internal\Equational\Table.h" />
@@ -191,6 +192,8 @@
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp" />
     <ClCompile Include="Interfaces\Data.cpp" />
+    <ClCompile Include="Internal\BasicArrayIndex.cpp" />
+    <ClCompile Include="Internal\BasicArrayIndexIterators.cpp" />
     <ClCompile Include="Internal\BasicFileBufferManager.cpp" />
     <ClCompile Include="Internal\Equational\Database.cpp" />
     <ClCompile Include="Internal\Equational\Table.cpp" />

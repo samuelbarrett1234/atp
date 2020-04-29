@@ -55,7 +55,7 @@ public:
 	\returns True if this iterator is valid, false if it is an end
 		iterator.
 	*/
-	virtual bool valid() = 0;
+	virtual bool valid() const = 0;
 };
 
 
@@ -169,10 +169,43 @@ public:
 
 
 /**
+\brief Extends the base iterator with the ability to insert the
+	data it holds.
+
+\warning This iterator's `advance` function will **SKIP** inserting
+	the current row. There is very little reason to do this, however
+	that implementation of `advance` would be most true to its
+	declaration.
+*/
+class ATP_DATABASE_API IDBInsertIterator :
+	public virtual IDBIterator
+{
+public:
+	virtual ~IDBInsertIterator() = default;
+
+	/**
+	\brief Insert the current row of data, and then move onto the
+		next one.
+
+	\details If this was the last row to insert, then the insert
+		iterator will be made invalid after calling this.
+
+	\pre valid()
+	*/
+	virtual void insert_advance() = 0;
+};
+
+
+/**
 \brief Extends the select iterator with the ability to delete the
 	current row.
 
 \warning There is no going back after a row is deleted.
+
+\warning This iterator's `advance` function will **SKIP** deleting
+	the current row. There is very little reason to do this, however
+	that implementation of `advance` would be most true to its
+	declaration.
 */
 class ATP_DATABASE_API IDBDeleteIterator :
 	public virtual IDBSelectIterator
@@ -182,6 +215,9 @@ public:
 
 	/**
 	\brief Delete the current row, and then advance to the next one.
+
+	\details If this was the last row to delete, then the delete
+		iterator will be made invalid after calling this.
 
 	\pre valid()
 

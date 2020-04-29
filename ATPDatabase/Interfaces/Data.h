@@ -195,7 +195,8 @@ public:
 	{ }
 	DArray(const std::vector<DValue>& arr);
 
-	static DArray load_from_bin(std::istream& binary_input_stream);
+	static DArray load_from_bin(std::istream& binary_input_stream,
+		);
 
 	/**
 	\brief Helper function for converting DArray into the logic's

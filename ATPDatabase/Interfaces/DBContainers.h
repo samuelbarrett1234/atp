@@ -492,7 +492,7 @@ enum class ColumnFlag
 	// behaviour is as follows: row insertions ignore this column,
 	// and we automatically generate values for it.
 	// warning: we override the value provided in `insert`.
-	// at most one column can have the AUTO_KEY flag.
+	// note: at most one column can have the AUTO_KEY flag.
 	AUTO_KEY
 
 	// examples of what could be added:

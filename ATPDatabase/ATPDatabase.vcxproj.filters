@@ -93,6 +93,9 @@
     <ClInclude Include="Internal\BasicArrayIndex.h">
       <Filter>Header Files\Internal\Indices</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\BasicArrayIndexIterators.h">
+      <Filter>Header Files\Internal\Iterators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp">
@@ -112,6 +115,12 @@
     </ClCompile>
     <ClCompile Include="Internal\Equational\Table.cpp">
       <Filter>Source Files\Internal\Databases\Equational</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\BasicArrayIndex.cpp">
+      <Filter>Source Files\Internal\Indices</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\BasicArrayIndexIterators.cpp">
+      <Filter>Source Files\Internal\Iterators</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

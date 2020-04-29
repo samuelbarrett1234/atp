@@ -13,11 +13,8 @@
 
 
 #include <boost/optional.hpp>
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
 #include "../ATPDatabaseAPI.h"
 #include "../Interfaces/DBContainers.h"
-#include "../Interfaces/IBufferManager.h"
 
 
 namespace atp
@@ -26,11 +23,13 @@ namespace db
 {
 
 
+class IBufferManager;  // forward declaration
+class ILockManager;  // forward declaration
+
+
 /**
 \brief An index which stores the table row by row (however actually
 	stores it column-major).
-
-\tparam StmtT The concrete statement type of the logic to be used.
 
 \details This index tries to store the data as an array of column
 	arrays, rather than an array of rows, however since we are
@@ -40,23 +39,14 @@ namespace db
 	each block has a capacity. Once the capacity has been reached,
 	we add a new block to the end of the file.
 */
-template<typename StmtT>
-class BasicArrayIndex :
+class ATP_DATABASE_API BasicArrayIndex :
 	public IDBColumnDecoratorContainer
 {
-private:
-	struct Block
-	{
-		std::vector<size_t> cur_col_sizes,
-			col_capacities;
-	};
-
 public:
-	BasicArrayIndex(IBufferManager& buf_mgr, ResourceName my_name,
+	BasicArrayIndex(IBufferManager& buf_mgr, ILockManager& lk_mgr,
+		ResourceName my_name,
 		const std::vector<std::string>& col_names,
-		const std::vector<DType>& col_types) :
-		m_buf_mgr(buf_mgr), m_name(my_name), m_cols(my_cols)
-	{ }
+		const std::vector<DType>& col_types);
 
 	inline ColumnList cols() const override
 	{
@@ -64,7 +54,7 @@ public:
 	}
 	inline size_t num_cols() const override
 	{
-		return m_cols.size();
+		return m_col_names.size();
 	}
 	QuerySupport get_support(
 		const DBContainerQuery& q) const override;
@@ -77,22 +67,27 @@ public:
 		res_list.push_back(m_name);
 		return res_list;
 	}
-	bool has_autokey_col() const override;
-	Column get_autokey_col() const override;
+	inline bool has_autokey_col() const override
+	{
+		return m_autokey_col.has_value();
+	}
+	inline Column get_autokey_col() const override
+	{
+		ATP_DATABASE_PRECOND(has_autokey_col());
+		return Column(*m_autokey_col, &m_col_names);
+	}
 	bool has_col_flag(ColumnFlag cf,
 		const Column& col) const override;
 
 private:
 	IBufferManager& m_buf_mgr;
+	ILockManager& m_lock_mgr;
 	const ResourceName m_name;
 
 	std::vector<std::string> m_col_names;
 	std::vector<DType> m_col_types;
 	boost::optional<size_t>
 		m_autokey_col;  // index of the autokey col, if it exists
-	std::vector<bool>
-		m_col_unique;  // whether each col is unique
-
 };
 
 

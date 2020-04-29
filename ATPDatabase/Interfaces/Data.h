@@ -195,6 +195,8 @@ public:
 	{ }
 	DArray(const std::vector<DValue>& arr);
 
+	static DArray load_from_bin(std::istream& binary_input_stream);
+
 	/**
 	\brief Helper function for converting DArray into the logic's
 		statement array type.
@@ -227,6 +229,11 @@ public:
 	// kind of slow for statements :(
 	// (convert it to a statementarray in that case, preferably)
 	DValue val_at(size_t idx) const;
+
+	/**
+	\brief Save this array to a binary output stream.
+	*/
+	void save(std::ostream& out) const;
 
 private:
 	// note that, if we are storing arrays of statements, we use the

@@ -34,8 +34,7 @@ namespace equational
 \warning This class needs to be thread safe!
 */
 class ATP_DATABASE_API Table :
-	public virtual IDBInsertableContainer,
-	public virtual IDBColumnDecoratorContainer
+	public IDBColumnDecoratorContainer
 {
 public:
 	/**
@@ -70,18 +69,6 @@ public:  // interface functions
 	{
 		return m_col_names.size();
 	}
-	inline size_t num_rows() const override
-	{
-		// all indices should have the same number of rows
-		const size_t rows = m_indices.front()->num_rows();
-
-		ATP_DATABASE_ASSERT(std::all_of(m_indices.begin(),
-			m_indices.end(),
-			[rows](const auto& p_index)
-			{ return p_index->num_rows() == rows; }));
-
-		return rows;
-	}
 	QuerySupport get_support(
 		const DBContainerQuery& q) const override;
 	std::shared_ptr<IDBIterator> begin_query(
@@ -91,8 +78,6 @@ public:  // interface functions
 	{
 		return m_res_list;
 	}
-	size_t insert(const std::vector<DValue>& row) override;
-	size_t insert(const std::vector<DArray>& rows) override;
 	inline bool has_autokey_col() const override
 	{
 		return m_autokey_col.has_value();

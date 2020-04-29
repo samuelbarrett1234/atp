@@ -182,6 +182,7 @@
     <ClInclude Include="Interfaces\IBufferManager.h" />
     <ClInclude Include="Interfaces\IDatabase.h" />
     <ClInclude Include="Interfaces\ILockManager.h" />
+    <ClInclude Include="Internal\BasicArrayIndex.h" />
     <ClInclude Include="Internal\BasicFileBufferManager.h" />
     <ClInclude Include="Internal\Equational\Database.h" />
     <ClInclude Include="Internal\Equational\Table.h" />

@@ -17,6 +17,7 @@
 
 #include <memory>
 #include <boost/optional.hpp>
+#include <boost/bind.hpp>
 #include "../ATPDatabaseAPI.h"
 #include "Data.h"
 #include "DBIterators.h"
@@ -60,12 +61,17 @@ class ATP_DATABASE_API DBContainerQuery
 public:
 	enum class QueryKind
 	{
-		SELECT, UPDATE, DELETE
+		SELECT, UPDATE, DELETE, INSERT
 	};
 	enum class WhereKind
 	{
 		FIND_ALL, FIND_VALUE, FIND_RANGE,
 		FIND_MATCHING, FIND_EQUIVALENT
+	};
+	enum class TraversalMode
+	{
+		// how to enumerate the results of the query?
+		DEFAULT, RANDOM, ASCENDING, DESCENDING
 	};
 
 	// builder functions
@@ -95,6 +101,57 @@ public:
 		m_kind = QueryKind::UPDATE;
 		return *this;
 	}
+
+	/**
+	\brief Insert a single given row of data.
+
+	\details Ignores any ordering / "where". The datatypes of the
+		row data need to match up with the table's columns if the
+		insert operation is to be supported.
+
+	\note Overrides any previous calls to select/update/delete
+
+	\returns *this
+	*/
+	inline DBContainerQuery& insert(std::vector<DValue> row)
+	{
+		ATP_DATABASE_PRECOND(!row.empty());
+		m_kind = QueryKind::INSERT;
+		m_insert_row = std::move(row);
+		m_insert_rows.reset();
+		return *this;
+	}
+
+	/**
+	\brief Insert many rows of data.
+
+	\details Ignores any ordering / "where". The datatypes of the
+		rows data need to match up with the table's columns if the
+		insert operation is to be supported.
+
+	\param rows The rows to insert, in column-major order.
+
+	\pre Every DArray in `rows` must have the same size (and that
+		size is equal to the number of elements being inserted).
+
+	\note Overrides any previous calls to select/update/delete
+
+	\returns *this
+	*/
+	inline DBContainerQuery& insert(std::vector<DArray> rows)
+	{
+		ATP_DATABASE_PRECOND(!rows.empty());
+
+		// check all the arrays have the same size
+		const size_t num_rows = rows.front().size();
+		ATP_DATABASE_PRECOND(std::all_of(rows.begin(), rows.end(),
+			boost::bind(&DArray::size, _1) == num_rows));
+
+		m_kind = QueryKind::INSERT;
+		m_insert_row.reset();
+		m_insert_rows = std::move(rows);
+		return *this;
+	}
 	
 	/**
 	\brief Indicates that this is a delete operation
@@ -112,7 +169,7 @@ public:
 	/**
 	\brief Apply the select/update/delete to all rows.
 	*/
-	DBContainerQuery& all()
+	inline DBContainerQuery& all()
 	{
 		m_val1.reset();
 		m_val2.reset();
@@ -131,7 +188,7 @@ public:
 
 	\returns *this
 	*/
-	DBContainerQuery& where_equal(const Column& col,
+	inline DBContainerQuery& where_equal(const Column& col,
 		const DValue& value)
 	{
 		m_col = col;
@@ -150,7 +207,7 @@ public:
 
 	\returns *this
 	*/
-	DBContainerQuery& where_between(const Column& col,
+	inline DBContainerQuery& where_between(const Column& col,
 		const DValue& lower_val, const DValue& upper_val)
 	{
 		m_where = WhereKind::FIND_RANGE;
@@ -168,7 +225,7 @@ public:
 
 	\returns *this
 	*/
-	DBContainerQuery& where_equivalent(const Column& col,
+	inline DBContainerQuery& where_equivalent(const Column& col,
 		const DValue& value)
 	{
 		m_col = col;
@@ -187,13 +244,84 @@ public:
 
 	\returns *this
 	*/
-	DBContainerQuery& where_matching(const Column& col,
+	inline DBContainerQuery& where_matching(const Column& col,
 		const DValue& value)
 	{
 		m_col = col;
 		m_val1 = value;
 		m_val2.reset();
 		m_where = WhereKind::FIND_MATCHING;
+		return *this;
+	}
+
+	/**
+	\brief Enumerate the results of the query in their "default"
+		order, which is just the order they are represented in the
+		table.
+
+	\returns *this
+	*/
+	inline DBContainerQuery& default_order()
+	{
+		m_trav = TraversalMode::DEFAULT;
+		m_sort_col.reset();
+		return *this;
+	}
+
+	/**
+	\brief Enumerate the results of the query in a shuffled, random
+		order.
+
+	\warning The implementation is free to approximate this operation
+		and it doesn't have to be a truly random shuffle, as that may
+		be hard to implement efficiently.
+
+	\returns *this
+	*/
+	inline DBContainerQuery& shuffle()
+	{
+		m_trav = TraversalMode::RANDOM;
+		m_sort_col.reset();
+		return *this;
+	}
+
+	/**
+	\brief Enumerate the results of this query in descending order
+		of this column.
+
+	\note The column will (probably) have to have numeric type, or
+		at least not Statement type, to be orderable. However this
+		just depends on the container, so check support first. But
+		if you are unexpectedly getting no support for your query,
+		it may be because you're trying to sort by a statement-valued
+		column.
+
+	returns *this.
+	*/
+	inline DBContainerQuery& sort_descending_by(const Column& col)
+	{
+		m_trav = TraversalMode::DESCENDING;
+		m_sort_col = col;
+		return *this;
+	}
+
+	/**
+	\brief Enumerate the results of this query in ascending order
+		of this column.
+
+	\note The column will (probably) have to have numeric type, or
+		at least not Statement type, to be orderable. However this
+		just depends on the container, so check support first. But
+		if you are unexpectedly getting no support for your query,
+		it may be because you're trying to sort by a statement-valued
+		column.
+
+	returns *this.
+	*/
+	inline DBContainerQuery& sort_ascending_by(const Column& col)
+	{
+		m_trav = TraversalMode::ASCENDING;
+		m_sort_col = col;
 		return *this;
 	}
 
@@ -221,6 +349,10 @@ public:
 	{
 		return m_where;
 	}
+	inline TraversalMode traversal_mode() const
+	{
+		return m_trav;
+	}
 	inline const std::shared_ptr<ILock>& lock() const
 	{
 		return m_lock;
@@ -240,15 +372,46 @@ public:
 		ATP_DATABASE_PRECOND(m_col.has_value());
 		return *m_col;
 	}
+	inline Column sort_by_col() const
+	{
+		ATP_DATABASE_PRECOND(m_trav == TraversalMode::ASCENDING
+			|| m_trav == TraversalMode::DESCENDING);
+		return *m_sort_col;
+	}
+	inline bool is_inserting_many_rows() const
+	{
+		ATP_DATABASE_PRECOND(m_kind == QueryKind::INSERT);
+
+		// exactly one of these should be nonempty:
+		ATP_DATABASE_ASSERT(m_insert_row.has_value() !-
+			m_insert_rows.has_value());
+
+		return m_insert_rows.has_value();
+	}
+	inline const std::vector<DValue>& row() const
+	{
+		ATP_DATABASE_PRECOND(m_kind == QueryKind::INSERT);
+		ATP_DATABASE_PRECOND(!is_inserting_many_rows());
+		return *m_insert_row;
+	}
+	inline const std::vector<DArray>& rows() const
+	{
+		ATP_DATABASE_PRECOND(m_kind == QueryKind::INSERT);
+		ATP_DATABASE_PRECOND(is_inserting_many_rows());
+		return *m_insert_rows;
+	}
 
 private:
 	QueryKind m_kind = QueryKind::SELECT;
 	WhereKind m_where = WhereKind::FIND_ALL;
+	TraversalMode m_trav = TraversalMode::DEFAULT;
 	std::shared_ptr<ILock> m_lock;
 
 	// for comparisons, if applicable
 	boost::optional<DValue> m_val1, m_val2;
-	boost::optional<Column> m_col;
+	boost::optional<Column> m_col, m_sort_col;
+	boost::optional<std::vector<DValue>> m_insert_row;
+	boost::optional<std::vector<DArray>> m_insert_rows;
 };
 
 
@@ -277,11 +440,6 @@ public:
 	\brief Equivalent to cols().size()
 	*/
 	virtual size_t num_cols() const = 0;
-
-	/**
-	\returns The number of rows in this container.
-	*/
-	virtual size_t num_rows() const = 0;
 
 	/**
 	\brief Determine the support for the given query.
@@ -318,54 +476,6 @@ public:
 	*/
 	virtual ResourceList get_resources(
 		const DBContainerQuery& q) const = 0;
-};
-
-
-/**
-\brief A container which supports insert operations (so the table
-	can increase in size).
-
-\note Without this, containers cannot increase in size.
-*/
-class ATP_DATABASE_API IDBInsertableContainer :
-	public virtual IDBContainer
-{
-public:
-	virtual ~IDBInsertableContainer() = default;
-
-	/**
-	\brief Insert a row of data.
-
-	\pre `row` matches `cols()` in length and the corresponding types
-		also match up.
-
-	\note There may be an error inserting the rows that is not the
-		library user's fault - for example, if one of the columns is
-		marked as unique, and this insertion violates that. Such a
-		mistake is not a precondition of this function. Use the
-		return value to check for errors like this.
-
-	\returns The number of rows (successfully) inserted.
-	*/
-	virtual size_t insert(const std::vector<DValue>& row) = 0;
-
-	/**
-	\brief Insert many rows of data.
-
-	\pre Every array in `rows` has the same size, and the types of
-		the arrays in `rows` matches up with the types of the
-		columns `cols()` which necessarily means the two arrays have
-		the same size.
-
-	\note There may be an error inserting the rows that is not the
-		library user's fault - for example, if one of the columns is
-		marked as unique, and this insertion violates that. Such a
-		mistake is not a precondition of this function. Use the
-		return value to check for errors like this.
-
-	\returns The number of rows (successfully) inserted.
-	*/
-	virtual size_t insert(const std::vector<DArray>& rows) = 0;
 };
 
 

@@ -143,7 +143,11 @@ std::shared_ptr<IDBIterator> BasicArrayIndex::begin_query(
 	// else we are good to go; construct the right iterator:
 	switch (q.query_kind())
 	{
-
+	case DBContainerQuery::QueryKind::INSERT:
+		return std::make_shared<
+			basic_array_index_detail::InsertIterator>(
+				std::move(p_lock), std::move(p_stream), q.rows(),
+				m_col_types, m_col_names);
 	default:
 		ATP_DATABASE_ASSERT(false && "bad query kind!");
 		return nullptr;

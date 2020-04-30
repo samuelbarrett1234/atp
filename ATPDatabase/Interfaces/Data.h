@@ -36,7 +36,7 @@ typedef std::vector<ResourceName> ResourceList;
 enum class DType
 {
 	// basic
-	INT, UINT, FLOAT, STR,
+	INT, UINT, FLOAT, STR, BOOL,
 
 	// the concrete implementation of a statement of course depends
 	// on the underlying logic!
@@ -66,6 +66,10 @@ public:
 	{ }
 	DValue(float x) :
 		m_type(DType::FLOAT),
+		m_data(x)
+	{ }
+	DValue(bool x) :
+		m_type(DType::BOOL),
 		m_data(x)
 	{ }
 	DValue(std::string x) :
@@ -98,15 +102,20 @@ public:
 		ATP_DATABASE_PRECOND(m_type == DType::FLOAT);
 		return boost::variant2::get<2>(m_data);
 	}
+	inline bool as_bool() const
+	{
+		ATP_DATABASE_PRECOND(m_type == DType::BOOL);
+		return boost::variant2::get<3>(m_data);
+	}
 	inline const std::string& as_str() const
 	{
 		ATP_DATABASE_PRECOND(m_type == DType::STR);
-		return boost::variant2::get<3>(m_data);
+		return boost::variant2::get<4>(m_data);
 	}
 	inline const std::shared_ptr<logic::IStatement>& as_stmt() const
 	{
 		ATP_DATABASE_PRECOND(m_type == DType::STMT);
-		return boost::variant2::get<4>(m_data);
+		return boost::variant2::get<5>(m_data);
 	}
 
 	inline operator int() const
@@ -121,6 +130,10 @@ public:
 	{
 		return as_float();
 	}
+	inline operator bool() const
+	{
+		return as_bool();
+	}
 	inline operator const std::string&() const
 	{
 		return as_str();
@@ -132,7 +145,7 @@ public:
 
 private:
 	DType m_type;
-	boost::variant2::variant<int, size_t, float, std::string,
+	boost::variant2::variant<int, size_t, float, bool, std::string,
 		std::shared_ptr<logic::IStatement>> m_data;
 };
 
@@ -182,6 +195,10 @@ public:
 	{ }
 	DArray(std::vector<float> arr) :
 		m_type(DType::FLOAT),
+		m_data(std::move(arr))
+	{ }
+	DArray(std::vector<bool> arr) :
+		m_type(DType::BOOL),
 		m_data(std::move(arr))
 	{ }
 	DArray(std::vector<std::string> arr) :
@@ -261,6 +278,7 @@ private:
 		std::vector<int>,
 		std::vector<size_t>,
 		std::vector<float>,
+		std::vector<bool>,
 		std::vector<std::string>,
 		StmtArrRef> m_data;
 };

@@ -71,6 +71,7 @@ boost::variant2::variant<
 	std::vector<int>,
 	std::vector<size_t>,
 	std::vector<float>,
+	std::vector<bool>,
 	std::vector<std::string>,
 	DArray::StmtArrRef> create_variant_from_dvalues(
 		const std::vector<DValue>& vals,
@@ -101,6 +102,8 @@ boost::variant2::variant<
 			return std::vector<size_t>();
 		case DType::FLOAT:
 			return std::vector<float>();
+		case DType::BOOL:
+			return std::vector<bool>();
 		case DType::STR:
 			return std::vector<std::string>();
 		default:

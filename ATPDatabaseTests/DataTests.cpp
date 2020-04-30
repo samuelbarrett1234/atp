@@ -51,6 +51,16 @@ BOOST_AUTO_TEST_CASE(test_float_dvalue)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_bool_dvalue)
+{
+	DValue dv(true);
+
+	BOOST_TEST(dv.type() == DType::BOOL);
+
+	BOOST_TEST(dv.as_bool() == true);
+}
+
+
 BOOST_AUTO_TEST_CASE(test_str_dvalue)
 {
 	DValue dv((std::string)"test");
@@ -113,6 +123,17 @@ BOOST_AUTO_TEST_CASE(test_float_darray)
 	BOOST_TEST(darr.size() == 4);
 	BOOST_TEST(!darr.empty());
 	BOOST_TEST(darr.val_at(1).as_float() == 3.0f);
+}
+
+
+BOOST_AUTO_TEST_CASE(test_bool_darray)
+{
+	DArray darr(std::vector<bool>{ true, false, false, true });
+
+	BOOST_TEST(darr.type() == DType::FLOAT);
+	BOOST_TEST(darr.size() == 4);
+	BOOST_TEST(!darr.empty());
+	BOOST_TEST(darr.val_at(1).as_bool() == false);
 }
 
 

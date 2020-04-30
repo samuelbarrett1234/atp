@@ -71,6 +71,8 @@ std::unique_ptr<Table> Table::load_from_config(
 				type_actual = DType::UINT;
 			else if (type_name == "float")
 				type_actual = DType::FLOAT;
+			else if (type_name == "bool")
+				type_actual = DType::BOOL;
 			else if (type_name == "str")
 				type_actual = DType::STR;
 			else if (type_name == "statement")

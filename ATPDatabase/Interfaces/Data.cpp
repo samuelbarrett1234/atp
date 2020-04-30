@@ -9,6 +9,7 @@
 #include "Data.h"
 #include <algorithm>
 #include <boost/bind.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/StatementArray.h>
 
@@ -194,6 +195,97 @@ struct DArrayPushBackVisitor
 };
 
 
+struct DArraySaveVisitor
+{
+	std::ostream& out;
+	std::vector<size_t>* p_opt_elem_offs;
+
+	DArraySaveVisitor(std::ostream& out,
+		std::vector<size_t>* p_opt_elem_offs) :
+		out(out), p_opt_elem_offs(p_opt_elem_offs)
+	{ }
+
+	template<typename T>
+	void operator()(const T& arr)
+	{
+		using ValueType = typename T::value_type;
+
+		// this version is for primitive data types
+		std::ostream_iterator<ValueType> os_iter(out);
+		std::copy(arr.begin(), arr.end(), os_iter);
+
+		if (p_opt_elem_offs != nullptr)
+		{
+			// it's easy to compute the size for these data types
+
+			p_opt_elem_offs->resize(arr.size());
+
+			for (size_t i = 0; i < arr.size(); ++i)
+			{
+				p_opt_elem_offs->at(i) =
+					sizeof(typename T::value_type) * (i + 1);
+			}
+		}
+	}
+
+	template<>
+	void operator()(const std::vector<std::string>& arr)
+	{
+		boost::archive::binary_oarchive bo(out);
+
+		if (p_opt_elem_offs != nullptr)
+			p_opt_elem_offs->reserve(arr.size());
+
+		const auto start = out.tellp();
+
+		for (const auto& str : arr)
+		{
+			bo << str;
+
+			if (p_opt_elem_offs != nullptr)
+			{
+				p_opt_elem_offs->push_back(out.tellp() - start);
+			}
+		}
+	}
+
+	template<>
+	void operator()(const DArray::StmtArrRef& arr)
+	{
+		if (p_opt_elem_offs != nullptr)
+			p_opt_elem_offs->reserve(arr.size());
+
+		const auto start = out.tellp();
+
+		if (auto p_arr = dynamic_cast<
+			logic::equational::StatementArray*>(&arr.ref))
+		{
+			// need to use our own saving function! This is because
+			// our version does not store array sizes (whereas the
+			// standard StatementArray saving does in fact store the
+			// size etc).
+			// it is also less intrusive doing it by ourselves as
+			// their implementation doesn't return the element
+			// offsets/sizes
+
+			for (size_t i = 0; i < p_arr->size(); ++i)
+			{
+				p_arr->my_at(i).save(out);
+
+				if (p_opt_elem_offs != nullptr)
+				{
+					p_opt_elem_offs->push_back(out.tellp() - start);
+				}
+			}
+		}
+		else  // bad type!
+		{
+			ATP_DATABASE_ASSERT(false && "bad statement array type!");
+		}
+	}
+};
+
+
 DArray::DArray(const std::vector<DValue>& arr) :
 	m_type(arr.empty() ? DType::INT : arr.front().type()),
 	m_maybe_arr(create_from_dvalues(arr)),
@@ -215,6 +307,14 @@ DArray::DArray(const std::vector<DValue>& arr) :
 DValue DArray::val_at(size_t idx) const
 {
 	return boost::variant2::visit(DArrayValueAtVisitor(idx), m_data);
+}
+
+
+void DArray::save_raw(std::ostream& out,
+	std::vector<size_t>* p_opt_elem_offs) const
+{
+	boost::variant2::visit(DArraySaveVisitor(out, p_opt_elem_offs),
+		m_data);
 }
 
 

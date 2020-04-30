@@ -195,16 +195,14 @@ public:
 	{ }
 	DArray(const std::vector<DValue>& arr);
 
-	static DArray load_from_bin(std::istream& binary_input_stream,
-		);
-
 	/**
 	\brief Helper function for converting DArray into the logic's
 		statement array type.
 
 	\pre d_arr.type() == DType::STMT
 	*/
-	static inline logic::StatementArrayPtr to_stmt_arr(const DArray& d_arr)
+	static inline logic::StatementArrayPtr to_stmt_arr(
+		const DArray& d_arr)
 	{
 		ATP_DATABASE_PRECOND(d_arr.m_type == DType::STMT);
 		ATP_DATABASE_ASSERT(d_arr.m_maybe_arr != nullptr);
@@ -233,8 +231,20 @@ public:
 
 	/**
 	\brief Save this array to a binary output stream.
+
+	\param p_opt_elem_offs This is an optional parameter which, if
+		not null, will store the amount of memory used by each
+		element of the array. More specifically, if p_opt_elem_offs
+		is not null, it will be updated so that (*p_opt_elem_offs)[i]
+		contains the number of bytes needed to store elements 0..i
+		INCLUSIVE.
+
+	\warning This save operation is "raw" because it ONLY writes the
+		data to the stream, and does NOT store type / size
+		information.
 	*/
-	void save(std::ostream& out) const;
+	void save_raw(std::ostream& out,
+		std::vector<size_t>* p_opt_elem_offs = nullptr) const;
 
 private:
 	// note that, if we are storing arrays of statements, we use the

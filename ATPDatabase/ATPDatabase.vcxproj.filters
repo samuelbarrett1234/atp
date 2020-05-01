@@ -46,6 +46,12 @@
     <Filter Include="Source Files\Internal\Databases\Equational">
       <UniqueIdentifier>{5b6cb6b7-3bc5-4232-8797-021fc05131ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Internal\Iterators\BasicArrayIndex">
+      <UniqueIdentifier>{8aa07cb7-fb96-41e8-8beb-6b0af061a566}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Internal\Iterators\BasicArrayIndex">
+      <UniqueIdentifier>{732bc0d9-14a8-402b-ac12-140e0efe5dcb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -93,8 +99,20 @@
     <ClInclude Include="Internal\BasicArrayIndex.h">
       <Filter>Header Files\Internal\Indices</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\BasicArrayIndexIterators.h">
-      <Filter>Header Files\Internal\Iterators</Filter>
+    <ClInclude Include="Internal\BasicArrayIndexFileBlock.h">
+      <Filter>Header Files\Internal\Iterators\BasicArrayIndex</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\BasicArrayIndexIteratorBase.h">
+      <Filter>Header Files\Internal\Iterators\BasicArrayIndex</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\BasicArrayIndexInsertIterator.h">
+      <Filter>Header Files\Internal\Iterators\BasicArrayIndex</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\BasicArrayIndexSelectAllIterator.h">
+      <Filter>Header Files\Internal\Iterators\BasicArrayIndex</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\BasicArrayIndexUpdateIterator.h">
+      <Filter>Header Files\Internal\Iterators\BasicArrayIndex</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -119,8 +137,20 @@
     <ClCompile Include="Internal\BasicArrayIndex.cpp">
       <Filter>Source Files\Internal\Indices</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\BasicArrayIndexIterators.cpp">
-      <Filter>Source Files\Internal\Iterators</Filter>
+    <ClCompile Include="Internal\BasicArrayIndexFileBlock.cpp">
+      <Filter>Source Files\Internal\Iterators\BasicArrayIndex</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\BasicArrayIndexIteratorBase.cpp">
+      <Filter>Source Files\Internal\Iterators\BasicArrayIndex</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\BasicArrayIndexInsertIterator.cpp">
+      <Filter>Source Files\Internal\Iterators\BasicArrayIndex</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\BasicArrayIndexSelectAllIterator.cpp">
+      <Filter>Source Files\Internal\Iterators\BasicArrayIndex</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\BasicArrayIndexUpdateIterator.cpp">
+      <Filter>Source Files\Internal\Iterators\BasicArrayIndex</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

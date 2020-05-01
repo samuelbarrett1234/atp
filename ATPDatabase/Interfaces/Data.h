@@ -81,6 +81,32 @@ public:
 		m_data(std::move(x))
 	{ }
 	DValue(const logic::IStatement& x);
+	DValue(const DValue& x) :
+		m_type(x.m_type),
+		m_data(x.m_data)
+	{ }
+	DValue(DValue&& x) noexcept :
+		m_type(x.m_type),
+		m_data(std::move(x.m_data))
+	{ }
+	DValue& operator= (const DValue& x)
+	{
+		if (this != &x)
+		{
+			m_type = x.m_type;
+			m_data = x.m_data;
+		}
+		return *this;
+	}
+	DValue& operator= (DValue&& x) noexcept
+	{
+		if (this != &x)
+		{
+			m_type = x.m_type;
+			m_data = std::move(x.m_data);
+		}
+		return *this;
+	}
 
 	inline DType type() const
 	{
@@ -143,6 +169,28 @@ public:
 		return as_stmt().get();
 	}
 
+	/**
+	\brief Load a data value of the given type from the given binary
+		input stream. (The logic objects are there in case one needs
+		to construct a statement object).
+
+	\param type The data type that it should construct from the
+		stream.
+	*/
+	static DValue load(std::istream& in,
+		DType type,
+		const logic::ILanguage& lang,
+		const logic::IModelContext& ctx);
+
+	/**
+	\brief Save the data held in this DValue, but not the type (hence
+		the name "raw").
+
+	\warning You are expected to get the type information from
+		elsewhere when loading this data back in again.
+	*/
+	void save_raw(std::ostream& out) const;
+
 private:
 	DType m_type;
 	boost::variant2::variant<int, size_t, float, bool, std::string,
@@ -168,20 +216,20 @@ public:
 	*/
 	struct StmtArrRef
 	{
-		StmtArrRef(logic::IStatementArray& ref) :
-			ref(ref)
+		StmtArrRef(logic::IStatementArray* ptr) :
+			ptr(ptr)
 		{ }
 
 		inline size_t size() const
 		{
-			return ref.size();
+			return ptr->size();
 		}
 		inline bool empty() const
 		{
-			return ref.empty();
+			return ptr->empty();
 		}
 
-		logic::IStatementArray& ref;
+		logic::IStatementArray* ptr;
 	};
 
 public:
@@ -208,9 +256,39 @@ public:
 	DArray(logic::StatementArrayPtr arr) :
 		m_type(DType::STMT),
 		m_maybe_arr(std::move(arr)),
-		m_data(*m_maybe_arr)
+		m_data(m_maybe_arr.get())
 	{ }
 	DArray(const std::vector<DValue>& arr);
+	DArray(const DArray& arr) :
+		m_type(arr.m_type),
+		m_maybe_arr(arr.m_maybe_arr),
+		m_data(arr.m_data)
+	{ }
+	DArray(DArray&& arr) noexcept :
+		m_type(arr.m_type),
+		m_maybe_arr(std::move(arr.m_maybe_arr)),
+		m_data(std::move(arr.m_data))
+	{ }
+	DArray& operator= (const DArray& arr)
+	{
+		if (this != &arr)
+		{
+			m_type = arr.m_type;
+			m_maybe_arr = arr.m_maybe_arr;
+			m_data = arr.m_data;
+		}
+		return *this;
+	}
+	DArray& operator= (DArray&& arr) noexcept
+	{
+		if (this != &arr)
+		{
+			m_type = arr.m_type;
+			m_maybe_arr = std::move(arr.m_maybe_arr);
+			m_data = std::move(arr.m_data);
+		}
+		return *this;
+	}
 
 	/**
 	\brief Helper function for converting DArray into the logic's

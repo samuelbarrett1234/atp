@@ -88,7 +88,7 @@ boost::variant2::variant<
 	{
 		ATP_DATABASE_ASSERT(all_type == DType::STMT);
 
-		return DArray::StmtArrRef(*ptr);
+		return DArray::StmtArrRef(ptr.get());
 	}
 	else
 	{
@@ -140,7 +140,7 @@ struct DArrayValueAtVisitor
 		const DArray::StmtArrRef& arr)
 	{
 		if (auto p_arr = dynamic_cast<
-			const logic::equational::StatementArray*>(&arr.ref))
+			const logic::equational::StatementArray*>(arr.ptr))
 		{
 			return DValue(std::make_shared<logic::equational::Statement>(
 				p_arr->my_at(i)));
@@ -261,7 +261,7 @@ struct DArraySaveVisitor
 		const auto start = out.tellp();
 
 		if (auto p_arr = dynamic_cast<
-			logic::equational::StatementArray*>(&arr.ref))
+			logic::equational::StatementArray*>(arr.ptr))
 		{
 			// need to use our own saving function! This is because
 			// our version does not store array sizes (whereas the

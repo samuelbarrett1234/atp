@@ -16,6 +16,7 @@
 #include "../Interfaces/Data.h"
 #include "../Interfaces/DBIterators.h"
 #include "../Interfaces/IBufferManager.h"
+#include "BasicArrayIndex.h"
 
 
 namespace atp
@@ -107,7 +108,13 @@ public:
 	\brief The byte offset (from the end of the current block) of the
 		start of the given column.
 	*/
-	size_t col_offset(size_t col_idx) const;
+	size_t col_start_offset(size_t col_idx) const;
+
+	/**
+	\brief The byte offset of the start of the given element in the
+		given column.
+	*/
+	size_t col_elem_offset(size_t col_idx, size_t row_idx) const;
 
 	/**
 	\brief The byte offset of the start of the next block from the
@@ -213,7 +220,7 @@ private:
 	type.
 */
 class ATP_DATABASE_API IteratorBase :
-	public virtual IDBIterator
+	public IDBIterator
 {
 public:
 	IteratorBase(std::shared_ptr<ILock> p_lock,
@@ -238,7 +245,6 @@ protected:
 
 protected:
 	Block m_cur_block;
-	size_t m_cur_idx_in_block;
 	const std::vector<DType>& m_col_types;
 	const std::vector<std::string>& m_col_names;
 
@@ -249,9 +255,16 @@ private:
 };
 
 
+/**
+\brief Implementation of IDBInsertIterator for the BasicArrayIndex.
+
+\details Works by immediately seeking to the last block of the file
+	and then adding the rows to the end, provided the block has
+	enough capacity, and creating new blocks where necessary.
+*/
 class ATP_DATABASE_API InsertIterator :
-	public virtual IteratorBase,
-	public virtual IDBInsertIterator
+	public IteratorBase,
+	public IDBInsertIterator
 {
 public:
 	InsertIterator(std::shared_ptr<ILock> p_lock,
@@ -288,7 +301,8 @@ private:
 private:
 	// here we will serialise the data for each column into a
 	// single memory stream
-	std::vector<std::stringstream> m_col_mem_streams;
+	std::vector<std::shared_ptr<
+		std::stringstream>> m_col_mem_streams;
 	// here we will record the offset of the END of each row
 	// element in bytes, for each column.
 	std::vector<std::vector<size_t>> m_col_element_offs;
@@ -304,6 +318,107 @@ private:
 
 	// INVARIANT: the output stream always points to the end of the
 	// current block.
+};
+
+
+/**
+\brief Implementation of the IDBSelectIterator for BasicArrayIndex.
+
+\details Also used to do some of the heavy lifting for update/delete
+	iterators. Note that this iterator has no support for row
+	predicates (only selecting some of the rows), hence you would
+	need to create a wrapper iterator to do that for you.
+*/
+class ATP_DATABASE_API SelectAllIterator :
+	public IteratorBase,
+	public IDBSelectIterator
+{
+public:
+	SelectAllIterator(const logic::ILanguage& lang,
+		const logic::IModelContext& ctx,
+		const BasicArrayIndex& parent,
+		std::shared_ptr<ILock> p_lock,
+		std::shared_ptr<IReadableStream> p_stream,
+		const std::vector<DType>& col_types,
+		const std::vector<std::string>& col_names);
+
+	void advance() override;
+	bool valid() const override;
+
+	inline ColumnList cols() const override
+	{
+		return m_parent.cols();
+	}
+	size_t num_cols() const override
+	{
+		return m_parent.num_cols();
+	}
+	DType type(const Column& col) const override;
+	DValue get(const Column& col) const override;
+	inline std::vector<DValue> get_all() const override
+	{
+		return m_row;
+	}
+
+private:
+	/**
+	\brief Read the row data at `m_cur_idx_in_block`
+
+	\warning Does not check the row predicate `m_row_pred`
+	*/
+	void readrow();
+
+protected:
+	// NOTE: the SelectAllIterator imposes NO invariant on the current
+	// input/output stream positions!
+
+	// for creating statements
+	const logic::ILanguage& m_lang;
+	const logic::IModelContext& m_ctx;
+
+	const BasicArrayIndex& m_parent;
+
+	// the currently-read row, which would be placed at index
+	// m_cur_idx_in_block
+	std::vector<DValue> m_row;
+
+	// index of the next row to read from the block
+	size_t m_cur_idx_in_block;
+
+	// the file offset of the end of the current block
+	size_t m_cur_block_end_off;
+
+	// the file offset of the start of the next block
+	size_t m_next_block_off;
+};
+
+
+class ATP_DATABASE_API UpdateIterator :
+	public SelectAllIterator,
+	public IDBUpdateIterator
+{
+public:
+	UpdateIterator(const logic::ILanguage& lang,
+		const logic::IModelContext& ctx,
+		const BasicArrayIndex& parent,
+		std::shared_ptr<ILock> p_lock,
+		std::shared_ptr<IReadableStream> p_stream,
+		const std::vector<DType>& col_types,
+		const std::vector<std::string>& col_names);
+
+	inline bool is_mutable(const Column& col) const override
+	{
+		return true;
+	}
+	inline bool all_mutable() const override
+	{
+		return true;
+	}
+	void set(const Column& col, const DValue& value) override;
+	void set_all(const std::vector<DValue>& values) override;
+
+private:
+	void set(size_t idx, const DValue& value);
 };
 
 

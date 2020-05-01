@@ -383,7 +383,7 @@ public:
 		ATP_DATABASE_PRECOND(m_kind == QueryKind::INSERT);
 
 		// exactly one of these should be nonempty:
-		ATP_DATABASE_ASSERT(m_insert_row.has_value() !-
+		ATP_DATABASE_ASSERT(m_insert_row.has_value() !=
 			m_insert_rows.has_value());
 
 		return m_insert_rows.has_value();

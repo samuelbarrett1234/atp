@@ -183,7 +183,11 @@
     <ClInclude Include="Interfaces\IDatabase.h" />
     <ClInclude Include="Interfaces\ILockManager.h" />
     <ClInclude Include="Internal\BasicArrayIndex.h" />
-    <ClInclude Include="Internal\BasicArrayIndexIterators.h" />
+    <ClInclude Include="Internal\BasicArrayIndexFileBlock.h" />
+    <ClInclude Include="Internal\BasicArrayIndexInsertIterator.h" />
+    <ClInclude Include="Internal\BasicArrayIndexIteratorBase.h" />
+    <ClInclude Include="Internal\BasicArrayIndexUpdateIterator.h" />
+    <ClInclude Include="Internal\BasicArrayIndexSelectAllIterator.h" />
     <ClInclude Include="Internal\BasicFileBufferManager.h" />
     <ClInclude Include="Internal\Equational\Database.h" />
     <ClInclude Include="Internal\Equational\Table.h" />
@@ -193,7 +197,11 @@
     <ClCompile Include="ATPDatabase.cpp" />
     <ClCompile Include="Interfaces\Data.cpp" />
     <ClCompile Include="Internal\BasicArrayIndex.cpp" />
-    <ClCompile Include="Internal\BasicArrayIndexIterators.cpp" />
+    <ClCompile Include="Internal\BasicArrayIndexFileBlock.cpp" />
+    <ClCompile Include="Internal\BasicArrayIndexInsertIterator.cpp" />
+    <ClCompile Include="Internal\BasicArrayIndexIteratorBase.cpp" />
+    <ClCompile Include="Internal\BasicArrayIndexUpdateIterator.cpp" />
+    <ClCompile Include="Internal\BasicArrayIndexSelectAllIterator.cpp" />
     <ClCompile Include="Internal\BasicFileBufferManager.cpp" />
     <ClCompile Include="Internal\Equational\Database.cpp" />
     <ClCompile Include="Internal\Equational\Table.cpp" />

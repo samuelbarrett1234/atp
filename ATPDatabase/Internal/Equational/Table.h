@@ -13,6 +13,8 @@
 
 
 #include <map>
+#include <vector>
+#include <memory>
 #include <boost/optional.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <ATPLogic.h>
@@ -109,7 +111,7 @@ private:
 	ResourceList m_res_list;  // all resources for this table
 
 	// invariant: all these indices have the same number of rows!
-	std::vector<std::unique_ptr<IDBInsertableContainer>> m_indices;
+	std::vector<std::shared_ptr<IDBContainer>> m_indices;
 
 	logic::LanguagePtr m_lang;
 	logic::ModelContextPtr m_ctx;

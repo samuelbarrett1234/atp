@@ -15,8 +15,6 @@
 #include "../ATPDatabaseAPI.h"
 #include "../Interfaces/Data.h"
 #include "../Interfaces/DBIterators.h"
-#include "../Interfaces/IBufferManager.h"
-#include "BasicArrayIndex.h"
 #include "BasicArrayIndexIteratorBase.h"
 
 

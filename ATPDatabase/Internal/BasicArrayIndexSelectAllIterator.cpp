@@ -8,6 +8,7 @@
 
 #include "BasicArrayIndexSelectAllIterator.h"
 #include "../Interfaces/ILockManager.h"
+#include "BasicArrayIndex.h"
 
 
 namespace atp

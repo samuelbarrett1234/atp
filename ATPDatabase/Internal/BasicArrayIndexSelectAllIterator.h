@@ -15,8 +15,6 @@
 #include "../ATPDatabaseAPI.h"
 #include "../Interfaces/Data.h"
 #include "../Interfaces/DBIterators.h"
-#include "../Interfaces/IBufferManager.h"
-#include "BasicArrayIndex.h"
 #include "BasicArrayIndexIteratorBase.h"
 
 
@@ -24,6 +22,11 @@ namespace atp
 {
 namespace db
 {
+
+
+class BasicArrayIndex;  // forward declaration
+
+
 namespace basic_array_index_detail
 {
 

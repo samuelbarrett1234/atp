@@ -39,12 +39,21 @@
     <ClInclude Include="Internal\EquationalDatabase.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
+    <ClInclude Include="Interfaces\ITransaction.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\SQLiteTransaction.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Internal\EquationalDatabase.cpp">
+      <Filter>Source Files\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SQLiteTransaction.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
   </ItemGroup>

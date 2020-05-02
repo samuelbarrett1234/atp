@@ -61,6 +61,9 @@ public:
 		return m_lang;
 	}
 
+	TransactionPtr begin_transaction(
+		const std::string& query_text) override;
+
 	boost::optional<std::string> model_context_filename(
 		const std::string& model_context_name) override;
 

@@ -11,8 +11,9 @@
 */
 
 
-#include <ATPLogic.h>
+#include <memory>
 #include <boost/optional.hpp>
+#include <ATPLogic.h>
 #include "../ATPDatabaseAPI.h"
 
 
@@ -20,6 +21,10 @@ namespace atp
 {
 namespace db
 {
+
+
+class ITransaction;  // forward declaration
+typedef std::unique_ptr<ITransaction> TransactionPtr;
 
 
 /**
@@ -42,7 +47,14 @@ public:
 	virtual std::string description() const = 0;
 	virtual logic::LanguagePtr logic_lang() const = 0;
 
-	// database operations
+	/**
+	\brief Begin executing a transaction.
+
+	\returns A new transaction, or nullptr if the query failed to
+		build.
+	*/
+	virtual TransactionPtr begin_transaction(
+		const std::string& query_text) = 0;
 
 	/**
 	\brief Get model context filename, from corresponding name, if

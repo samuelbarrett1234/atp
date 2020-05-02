@@ -10,6 +10,7 @@
 #include <sstream>
 #include <sqlite3.h>
 #include <boost/filesystem.hpp>
+#include "SQLiteTransaction.h"
 
 
 namespace atp
@@ -46,6 +47,24 @@ EquationalDatabase::~EquationalDatabase()
 }
 
 
+TransactionPtr EquationalDatabase::begin_transaction(const std::string& query_text)
+{
+	sqlite3_stmt* stmt = nullptr;
+
+	const int rc = sqlite3_prepare_v2(m_db, query_text.c_str(), -1,
+		&stmt, nullptr);
+
+	if (rc != SQLITE_OK || stmt == nullptr)
+	{
+		ATP_DATABASE_ASSERT(stmt == nullptr);
+
+		return nullptr;
+	}
+
+	return std::make_unique<SQLiteQueryTransaction>(m_db, stmt);
+}
+
+
 boost::optional<std::string>
 EquationalDatabase::model_context_filename(
 	const std::string& model_context_name)
@@ -61,15 +80,10 @@ EquationalDatabase::model_context_filename(
 	rc = sqlite3_prepare_v2(m_db, query_str.c_str(), -1, &p_stmt,
 		nullptr);
 
-	if (rc != SQLITE_OK)
+	if (rc != SQLITE_OK || p_stmt == nullptr)
 	{
 		ATP_DATABASE_ASSERT(p_stmt == nullptr);
 
-		return boost::none;
-	}
-
-	if (p_stmt == nullptr)
-	{
 		return boost::none;
 	}
 

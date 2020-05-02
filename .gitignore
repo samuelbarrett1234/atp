@@ -43,3 +43,5 @@ Temp/*
 # Output directory:
 Output/*
 
+# Database files:
+Data/DB/*

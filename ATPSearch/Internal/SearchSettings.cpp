@@ -60,11 +60,10 @@ SolverPtr create_solver(logic::KnowledgeKernelPtr p_ker,
 }
 
 
-bool load_search_settings(logic::KnowledgeKernelPtr p_ker,
-	std::istream& in, SearchSettings* p_out_settings)
+bool load_search_settings(std::istream& in,
+	SearchSettings* p_out_settings)
 {
 	ATP_SEARCH_PRECOND(p_out_settings != nullptr);
-	ATP_SEARCH_PRECOND(p_ker != nullptr);
 
 	pt::ptree ptree;
 
@@ -107,20 +106,7 @@ bool load_search_settings(logic::KnowledgeKernelPtr p_ker,
 
 		// it is very important that we copy by value here!
 		p_out_settings->create_solver = boost::bind(&create_solver,
-			p_ker, p_heuristic, ptree);
-
-		// warning: hacky solution for checking if the solver
-		// creation was valid:
-		if (p_out_settings->create_solver() == nullptr)
-		{
-			// error! for some reason we cannot produce solvers.
-
-			// reset this
-			p_out_settings->create_solver =
-				std::function<SolverPtr()>();
-
-			return false;
-		}
+			_1, p_heuristic, ptree);
 
 		// else we are done
 		return true;
@@ -128,7 +114,8 @@ bool load_search_settings(logic::KnowledgeKernelPtr p_ker,
 	catch(pt::ptree_error&)
 	{
 		// in case we had already loaded this
-		p_out_settings->create_solver = std::function<SolverPtr()>();
+		p_out_settings->create_solver = std::function<SolverPtr(
+			logic::KnowledgeKernelPtr)>();
 
 		return false;
 	}

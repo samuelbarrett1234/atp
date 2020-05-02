@@ -27,9 +27,10 @@ ProofProcess::ProofProcess(
 	m_db(std::move(p_db)),
 	m_targets(std::move(p_target_stmts)),
 	m_ker(m_lang->try_create_kernel(*m_ctx)),
-	m_solver(search_settings.create_solver()),
+	m_solver(search_settings.create_solver(m_ker)),
 	m_ctx_id(ctx_id)
 {
+	ATP_PRECOND(m_solver != nullptr);  // will fail if bad model ctx
 	m_ker->set_seed(search_settings.seed);
 	m_solver->set_targets(m_targets);
 	setup_init_kernel_operation();
@@ -215,9 +216,11 @@ void ProofProcess::init_kernel()
 						<< "statement value in database. Type "
 						<< "could be null?" << std::endl;
 				}
-
-				m_temp_results << boost::variant2::get<2>(stmt_str)
-					<< std::endl;
+				else
+				{
+					m_temp_results << boost::variant2::get<2>(
+						stmt_str) << std::endl;
+				}
 			}
 		}
 
@@ -272,6 +275,8 @@ void ProofProcess::setup_init_kernel_operation()
 
 	m_db_op = m_db->get_theorems_for_kernel_transaction(
 		m_ctx_id, m_ctx, m_targets);
+
+	ATP_ASSERT(m_db_op != nullptr);
 }
 
 
@@ -285,7 +290,9 @@ void ProofProcess::setup_save_results_operation()
 	auto exps = m_solver->get_num_expansions();
 
 	m_db_op = m_db->finished_proof_attempt_transaction(m_ctx_id,
-		m_ctx, proofs, times, mems, exps);
+		m_ctx, m_targets, proofs, times, mems, exps);
+
+	ATP_ASSERT(m_db_op != nullptr);
 }
 
 

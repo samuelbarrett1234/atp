@@ -11,14 +11,14 @@
 #include <sstream>
 #include <fstream>
 #include <boost/filesystem.hpp>
+#include <boost/bind.hpp>
 #include <ATPSearch.h>
 #include "ATP.h"
+#include "ProofProcess.h"
 
 
 ProofApplication::ProofApplication(std::ostream& out) :
-	m_out(out),
-	m_max_steps(10),
-	m_step_size(1000)
+	m_out(out)
 { }
 
 
@@ -44,13 +44,16 @@ bool ProofApplication::set_context_name(const std::string& name)
 	ATP_PRECOND(m_db != nullptr);
 
 	const auto maybe_path = m_db->model_context_filename(name);
+	const auto maybe_id = m_db->model_context_id(name);
 
-	if (!maybe_path)
+	if (!maybe_path || !maybe_id)
 	{
 		m_out << "Error: context name \"" << name << "\" could not"
 			<< " be obtained from the database. Check spelling and "
 			<< "the database's `model_contexts` table." << std::endl;
 	}
+
+	m_ctx_id = *maybe_id;
 
 	const auto path = *maybe_path;
 
@@ -92,19 +95,6 @@ bool ProofApplication::set_context_name(const std::string& name)
 		return false;
 	}
 
-	m_ker = m_lang->try_create_kernel(*m_ctx);
-
-	// if we fail here, it's because the logical syntax checking
-	// returned false - note that the axioms aren't checked for
-	// syntax errors until we try to create the kernel.
-	if (!m_ker)
-	{
-		m_out << "There was a problem loading the file \"" <<
-			path << "\". Check for Statement syntax mistakes." << std::endl;
-
-		return false;
-	}
-
 	m_out << "Successfully loaded the context file \"" << 
 		m_ctx->context_name() << "\"." << std::endl;
 
@@ -114,7 +104,7 @@ bool ProofApplication::set_context_name(const std::string& name)
 
 bool ProofApplication::set_search_file(const std::string& path)
 {
-	ATP_PRECOND(m_ker != nullptr);
+	ATP_PRECOND(m_ctx != nullptr);
 
 	if (!boost::filesystem::is_regular_file(path))
 	{
@@ -133,10 +123,8 @@ bool ProofApplication::set_search_file(const std::string& path)
 		return false;
 	}
 
-	atp::search::SearchSettings settings;
-
-	if (!atp::search::load_search_settings(m_ker,
-		in, &settings))
+	if (!atp::search::load_search_settings(
+		in, &m_search_settings))
 	{
 		m_out << "There was a problem parsing the file \"" <<
 			path << "\"." << std::endl;
@@ -145,25 +133,17 @@ bool ProofApplication::set_search_file(const std::string& path)
 
 	// now extract information from the `settings` object:
 
-	if (!settings.create_solver)
+	if (!m_search_settings.create_solver)
 	{
 		// use the default solver
 
-		m_solver = atp::search::create_default_solver(
-			m_ker);
+		m_search_settings.create_solver = boost::bind(
+			&atp::search::create_default_solver, _1,
+			atp::logic::iter_settings::DEFAULT);
 	}
-	else
-	{
-		m_solver = settings.create_solver();
-	}
-
-	m_max_steps = settings.max_steps;
-	m_step_size = settings.step_size;
-
-	m_ker->set_seed(settings.seed);
 
 	m_out << "Successfully loaded search settings \"" <<
-		settings.name << "\"" << std::endl;
+		m_search_settings.name << "\"" << std::endl;
 
 	return true;  // success
 }
@@ -171,7 +151,7 @@ bool ProofApplication::set_search_file(const std::string& path)
 
 bool ProofApplication::add_proof_task(std::string path_or_stmt)
 {
-	if (!m_lang || !m_ker)
+	if (!m_lang || !m_ctx)
 		return false;  // context file not set
 
 	atp::logic::StatementArrayPtr p_stmts;
@@ -218,95 +198,16 @@ bool ProofApplication::add_proof_task(std::string path_or_stmt)
 void ProofApplication::run()
 {
 	// concatenate all the tasks together into one big array
-	const auto tasks = atp::logic::concat(m_tasks);
-	m_solver->set_targets(tasks);
+	auto tasks = atp::logic::concat(m_tasks);
 
-	m_out << "Solver initialised; starting proofs..." << std::endl;
+	auto proof_proc = std::make_unique<ProofProcess>(m_lang,
+		m_ctx_id, m_ctx, m_db, m_search_settings, std::move(tasks));
 
-	for (size_t i = 0; i < m_max_steps
-		&& m_solver->any_proof_not_done(); ++i)
+	while (!proof_proc->done())
 	{
-		m_solver->step(m_step_size);
-
-		const auto states = m_solver->get_states();
-		m_out << (i + 1) << '/'
-			<< m_max_steps << " : " <<
-			std::count(states.begin(), states.end(),
-				atp::logic::ProofCompletionState::UNFINISHED) <<
-			" proof(s) remaining." << std::endl;
+		proof_proc->run_step();
+		proof_proc->dump_log(m_out);
 	}
-
-	// count the number successful / failed / unfinished:
-
-	const auto states = m_solver->get_states();
-	size_t num_true = 0, num_failed = 0,
-		num_unfinished = 0;
-	for (auto st : states)
-		switch (st)
-		{
-		case atp::logic::ProofCompletionState::PROVEN:
-			++num_true;
-			break;
-		case atp::logic::ProofCompletionState::NO_PROOF:
-			++num_failed;
-			break;
-		case atp::logic::ProofCompletionState::UNFINISHED:
-			++num_unfinished;
-			break;
-		}
-
-
-	m_out << "Done! Results:" << std::endl
-		<< '\t' << num_true << " theorem(s) were proven true,"
-		<< std::endl
-		<< '\t' << num_failed << " theorem(s) have no proof,"
-		<< std::endl
-		<< '\t' << num_unfinished <<
-		" theorem(s) did not finish in the allotted time."
-		<< std::endl;
-
-	m_out << "More details:" << std::endl;
-
-	auto proofs = m_solver->get_proofs();
-	auto times = m_solver->get_agg_time();
-	auto mems = m_solver->get_max_mem();
-	auto exps = m_solver->get_num_expansions();
-
-	for (size_t i = 0; i < proofs.size(); i++)
-	{
-		switch (states[i])
-		{
-		case atp::logic::ProofCompletionState::PROVEN:
-			m_out << "Proof of \"" << tasks->at(i).to_str()
-				<< "\" was successful; the statement is true."
-				<< std::endl << "Proof:" << std::endl
-				<< proofs[i]->to_str() << std::endl << std::endl;
-			break;
-		case atp::logic::ProofCompletionState::NO_PROOF:
-			m_out << "Proof of \"" << tasks->at(i).to_str()
-				<< "\" was unsuccessful; it was impossible to prove "
-				<< "using the given solver and the current settings."
-				<< std::endl;
-			break;
-		case atp::logic::ProofCompletionState::UNFINISHED:
-			m_out << "Proof of \"" << tasks->at(i).to_str()
-				<< "\" was unsuccessful; not enough time allocated."
-				<< std::endl;
-			break;
-		}
-
-		m_out << "Total time taken: " << times[i] << "s"
-			<< std::endl;
-		m_out << "Max nodes in memory: " << mems[i]
-			<< std::endl;
-		m_out << "Total node expansions: " << exps[i]
-			<< std::endl;
-
-		m_out << std::endl;
-	}
-
-	// reset its state
-	m_solver->clear();
 }
 
 

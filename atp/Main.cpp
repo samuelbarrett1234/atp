@@ -41,7 +41,7 @@ int main(int argc, const char* const argv[])
 			"Path to a file containing statements to prove, or write"
 			" a statement with no spaces f(x)=y to try to prove")
 
-		("database,db", po::value<std::vector<std::string>>(),
+		("database,db", po::value<std::string>(),
 			"Path to database file")
 	;
 

@@ -23,6 +23,9 @@ SQLiteQueryTransaction::SQLiteQueryTransaction(sqlite3* db,
 {
 	ATP_DATABASE_PRECOND(db != nullptr);
 	ATP_DATABASE_PRECOND(stmt != nullptr);
+
+	// get first result
+	step();
 }
 
 

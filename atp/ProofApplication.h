@@ -92,11 +92,10 @@ private:
 	std::ostream& m_out;
 	atp::logic::LanguagePtr m_lang;
 	atp::logic::ModelContextPtr m_ctx;
-	atp::logic::KnowledgeKernelPtr m_ker;
-	atp::search::SolverPtr m_solver;
-	atp::db::DatabasePtr m_db;  // this is optional
-	size_t m_max_steps, m_step_size;
+	size_t m_ctx_id;
+	atp::db::DatabasePtr m_db;
 	std::vector<atp::logic::StatementArrayPtr> m_tasks;
+	atp::search::SearchSettings m_search_settings;
 };
 
 

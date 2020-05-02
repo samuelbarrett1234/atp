@@ -89,6 +89,7 @@ public:
 	virtual TransactionPtr finished_proof_attempt_transaction(
 		size_t ctx_id,
 		const logic::ModelContextPtr& p_ctx,
+		const logic::StatementArrayPtr& targets,
 		const std::vector<atp::logic::ProofStatePtr>& proof_states,
 		const std::vector<float>& proof_times,
 		const std::vector<size_t>& max_mem_usages,

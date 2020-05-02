@@ -16,7 +16,7 @@ INSERT INTO model_contexts (name, filename) VALUES (
 CREATE TABLE IF NOT EXISTS theorems (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	stmt TEXT NOT NULL UNIQUE,  /* target statement as text */
-	ctx UNSIGNED INTEGER NOT NULL,  /* the model context */
+	ctx INTEGER NOT NULL,  /* the model context */
 	FOREIGN KEY (ctx) REFERENCES model_contexts(ctx_id));
 
 
@@ -25,7 +25,7 @@ a proof attempt is successful iff there exists an entry in the proof
 table which references this attempt.
 */
 CREATE TABLE IF NOT EXISTS proof_attempts (
-	thm_id UNSIGNED INTEGER UNIQUE NOT NULL,	
+	thm_id INTEGER UNIQUE NOT NULL,	
 	time_cost REAL NOT NULL,
 	max_mem UNSIGNED INTEGER NOT NULL,
 	num_expansions UNSIGNED INTEGER NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS proof_attempts (
 
 
 CREATE TABLE IF NOT EXISTS proofs (
-	thm_id UNSIGNED INTEGER UNIQUE NOT NULL,
+	thm_id INTEGER UNIQUE NOT NULL,
 	proof TEXT,  /* human readable proof as string */
 	FOREIGN KEY (thm_id) REFERENCES theorems(id));
 

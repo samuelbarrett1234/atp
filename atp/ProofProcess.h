@@ -62,7 +62,7 @@ public:
 	inline void dump_log(std::ostream& out) override
 	{
 		out << m_out.str();
-		m_out.clear();
+		m_out = std::stringstream();
 	}
 
 private:

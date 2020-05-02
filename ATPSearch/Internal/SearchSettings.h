@@ -47,7 +47,8 @@ struct ATP_SEARCH_API SearchSettings
 	
 	// a functor for creating solvers using the search settings that
 	// have been loaded.
-	std::function<SolverPtr()> create_solver;
+	std::function<SolverPtr(logic::KnowledgeKernelPtr)
+		> create_solver;
 };
 
 
@@ -62,7 +63,7 @@ struct ATP_SEARCH_API SearchSettings
 \param p_out_settings The settings struct which we will write our
 	search settings to.
 
-\pre p_out_settings != nullptr && p_ker != nullptr
+\pre p_out_settings != nullptr
 
 \returns True iff success.
 
@@ -73,7 +74,6 @@ struct ATP_SEARCH_API SearchSettings
 
 */
 ATP_SEARCH_API bool load_search_settings(
-	logic::KnowledgeKernelPtr p_ker,
 	std::istream& in, SearchSettings* p_out_settings);
 
 

@@ -74,32 +74,32 @@
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SQLITE_DIR);$(IncludePath)</IncludePath>
+    <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(SQLITE_DIR);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SQLITE_DIR);$(IncludePath)</IncludePath>
+    <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(SQLITE_DIR);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SQLITE_DIR);$(IncludePath)</IncludePath>
+    <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(SQLITE_DIR);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SQLITE_DIR);$(IncludePath)</IncludePath>
+    <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(SQLITE_DIR);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -113,7 +113,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;sqlite3.def;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -128,7 +128,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;sqlite3.def;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -147,7 +147,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;sqlite3.def;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -166,7 +166,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;sqlite3.def;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -175,18 +175,11 @@
   <ItemGroup>
     <ClInclude Include="ATPDatabase.h" />
     <ClInclude Include="ATPDatabaseAPI.h" />
-    <ClInclude Include="Interfaces\Data.h" />
-    <ClInclude Include="Interfaces\DBContainers.h" />
-    <ClInclude Include="Interfaces\DBIterators.h" />
-    <ClInclude Include="Interfaces\DBOperations.h" />
-    <ClInclude Include="Interfaces\IBufferManager.h" />
     <ClInclude Include="Interfaces\IDatabase.h" />
-    <ClInclude Include="Interfaces\ILockManager.h" />
     <ClInclude Include="Internal\Equational\Database.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp" />
-    <ClCompile Include="Interfaces\Data.cpp" />
     <ClCompile Include="Internal\Equational\Database.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

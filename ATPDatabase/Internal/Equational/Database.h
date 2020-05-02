@@ -17,7 +17,6 @@
 #include <ATPLogic.h>
 #include "../../ATPDatabaseAPI.h"
 #include "../../Interfaces/IDatabase.h"
-#include "../../Interfaces/IBufferManager.h"
 
 
 /**
@@ -92,17 +91,13 @@ public:  // interface functions
 	{
 		return m_desc;
 	}
-	inline ILockManager& lock_mgr() override
-	{
-		return m_lk_mgr;
-	}
 	inline logic::LangType logic_lang() const override
 	{
 		return logic::LangType::EQUATIONAL_LOGIC;
 	}
 
 private:
-	std::string m_name, m_desc, m_target_dir;
+	std::string m_name, m_desc;
 	logic::LanguagePtr m_lang;
 };
 

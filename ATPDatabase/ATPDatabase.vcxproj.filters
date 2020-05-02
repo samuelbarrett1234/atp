@@ -45,25 +45,7 @@
     <ClInclude Include="ATPDatabaseAPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Interfaces\DBIterators.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Interfaces\Data.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Interfaces\DBContainers.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Interfaces\ILockManager.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Interfaces\IBufferManager.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="Interfaces\IDatabase.h">
-      <Filter>Header Files\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Interfaces\DBOperations.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Internal\Equational\Database.h">
@@ -72,9 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Interfaces\Data.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Internal\Equational\Database.cpp">

@@ -6,8 +6,8 @@
 */
 
 
-#include "ATPDatabase.h"
-#include "Internal/EquationalDatabase.h"
+#include "EquationalDatabase.h"
+#include <boost/filesystem.hpp>
 
 
 namespace atp

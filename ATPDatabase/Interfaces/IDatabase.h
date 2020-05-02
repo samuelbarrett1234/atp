@@ -43,6 +43,15 @@ public:
 
 	// database operations
 
+	/**
+	\brief Create a model context from the given model context name,
+		using the database to find the right model context file.
+
+	\returns Nullptr if either the name was invalid, or the file in
+		the database was not found.
+	*/
+	virtual logic::ModelContextPtr create_model_context(
+		const std::string& model_context_name) = 0;
 
 };
 typedef std::shared_ptr<IDatabase> DatabasePtr;

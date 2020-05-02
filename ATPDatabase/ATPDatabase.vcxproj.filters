@@ -22,18 +22,6 @@
     <Filter Include="Source Files\Internal">
       <UniqueIdentifier>{2e4c945f-079c-46b8-9604-deeeab292de6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Internal\Databases">
-      <UniqueIdentifier>{65cc8385-5ceb-4490-b3e6-49016bed75bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Internal\Databases">
-      <UniqueIdentifier>{6e5ca51a-1ae8-49ad-a08e-50fc095b191c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Internal\Databases\Equational">
-      <UniqueIdentifier>{2c28090e-f06a-4705-8a7c-d46944197bf9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Internal\Databases\Equational">
-      <UniqueIdentifier>{5b6cb6b7-3bc5-4232-8797-021fc05131ed}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -48,16 +36,16 @@
     <ClInclude Include="Interfaces\IDatabase.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\Equational\Database.h">
-      <Filter>Header Files\Internal\Databases\Equational</Filter>
+    <ClInclude Include="Internal\EquationalDatabase.h">
+      <Filter>Header Files\Internal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\Equational\Database.cpp">
-      <Filter>Source Files\Internal\Databases\Equational</Filter>
+    <ClCompile Include="Internal\EquationalDatabase.cpp">
+      <Filter>Source Files\Internal</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

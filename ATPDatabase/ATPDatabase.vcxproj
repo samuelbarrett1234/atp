@@ -176,11 +176,11 @@
     <ClInclude Include="ATPDatabase.h" />
     <ClInclude Include="ATPDatabaseAPI.h" />
     <ClInclude Include="Interfaces\IDatabase.h" />
-    <ClInclude Include="Internal\Equational\Database.h" />
+    <ClInclude Include="Internal\EquationalDatabase.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp" />
-    <ClCompile Include="Internal\Equational\Database.cpp" />
+    <ClCompile Include="Internal\EquationalDatabase.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

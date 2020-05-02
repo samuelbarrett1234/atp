@@ -248,7 +248,8 @@ TransactionPtr EquationalDatabase::finished_proof_attempt_transaction(
 			<< ", " << num_node_expansions[i] << ");\n\n";
 
 		// IF THE PROOF WAS SUCCESSFUL, add the proof to the database
-		if (proof_states[i]->completion_state() ==
+		if (proof_states[i] != nullptr &&
+			proof_states[i]->completion_state() ==
 			atp::logic::ProofCompletionState::PROVEN)
 		{
 			query_builder << "INSERT INTO proofs (thm_id, proof) "

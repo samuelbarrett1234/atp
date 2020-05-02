@@ -38,8 +38,13 @@ public:
 	/**
 	\param finish_callback A function to call when the solver is
 		finished.
+
+	\param ctx_id The ID of the given model context from the data-
+		base. This cannot be obtained via a lookup from p_ctx or
+		p_db. 
 	*/
 	ProofProcess(atp::logic::LanguagePtr p_lang,
+		size_t ctx_id,
 		atp::logic::ModelContextPtr p_ctx,
 		atp::db::DatabasePtr p_db,
 		atp::search::SearchSettings& search_settings,
@@ -73,6 +78,7 @@ private:
 	ProofProcessState m_proof_state;
 	const size_t m_max_steps, m_step_size;
 	size_t m_cur_step;
+	const size_t m_ctx_id;
 	atp::logic::LanguagePtr m_lang;
 	atp::logic::ModelContextPtr m_ctx;
 	atp::db::DatabasePtr m_db;

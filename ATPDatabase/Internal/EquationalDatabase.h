@@ -67,6 +67,22 @@ public:
 	boost::optional<std::string> model_context_filename(
 		const std::string& model_context_name) override;
 
+	boost::optional<size_t> model_context_id(
+		const std::string& model_context_name) override;
+
+	TransactionPtr get_theorems_for_kernel_transaction(
+		size_t ctx_id,
+		const logic::ModelContextPtr& p_ctx,
+		const logic::StatementArrayPtr& targets) override;
+
+	TransactionPtr finished_proof_attempt_transaction(
+		size_t ctx_id,
+		const logic::ModelContextPtr& p_ctx,
+		const std::vector<atp::logic::ProofStatePtr>& proof_states,
+		const std::vector<float>& proof_times,
+		const std::vector<size_t>& max_mem_usages,
+		const std::vector<size_t>& num_node_expansions) override;
+
 private:
 	std::string m_name, m_desc;
 	logic::LanguagePtr m_lang;

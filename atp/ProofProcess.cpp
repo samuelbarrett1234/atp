@@ -12,6 +12,7 @@
 
 ProofProcess::ProofProcess(
 	atp::logic::LanguagePtr p_lang,
+	size_t ctx_id,
 	atp::logic::ModelContextPtr p_ctx,
 	atp::db::DatabasePtr p_db,
 	atp::search::SearchSettings& search_settings,
@@ -26,7 +27,8 @@ ProofProcess::ProofProcess(
 	m_db(std::move(p_db)),
 	m_targets(std::move(p_target_stmts)),
 	m_ker(m_lang->try_create_kernel(*m_ctx)),
-	m_solver(search_settings.create_solver())
+	m_solver(search_settings.create_solver()),
+	m_ctx_id(ctx_id)
 {
 	m_ker->set_seed(search_settings.seed);
 	m_solver->set_targets(m_targets);
@@ -264,42 +266,26 @@ void ProofProcess::save_results()
 }
 
 
+void ProofProcess::setup_init_kernel_operation()
+{
+	ATP_ASSERT(m_db_op == nullptr);
+
+	m_db_op = m_db->get_theorems_for_kernel_transaction(
+		m_ctx_id, m_ctx, m_targets);
+}
+
+
 void ProofProcess::setup_save_results_operation()
 {
-	std::stringstream query_builder;
-	query_builder << "BEGIN TRANSACTION;";
+	ATP_ASSERT(m_db_op == nullptr);
 
 	auto proofs = m_solver->get_proofs();
 	auto times = m_solver->get_agg_time();
 	auto mems = m_solver->get_max_mem();
 	auto exps = m_solver->get_num_expansions();
 
-	for (size_t i = 0; i < proofs.size(); i++)
-	{
-		const std::string find_thm_id =
-			"(SELECT thm_id FROM theorems WHERE stmt = \"" +
-			proofs[i]->target_stmt().to_str() + "\")";
-
-		query_builder << "INSERT OR REPLACE INTO theorems (stmt, "
-			<< "ctx) VALUES (" << proofs[i]->target_stmt().to_str()
-			<< ", " << m_ctx_id << "); ";
-
-		query_builder << "INSERT INTO proof_attempts (thm_id, "
-			<< "time_cost, max_mem, num_expansions) VALUES ("
-			<< find_thm_id << ", "
-			<< times[i] << ", " << mems[i] << ", " << exps[i]
-			<< "); ";
-
-		if (proofs[i]->completion_state() ==
-			atp::logic::ProofCompletionState::PROVEN)
-		{
-			query_builder << "INSERT INTO proofs (thm_id, proof) "
-				<< "VALUES (" << find_thm_id << ", \""
-				<< proofs[i]->to_str() << "\"); ";
-		}
-	}
-
-	query_builder << "COMMIT;";
+	m_db_op = m_db->finished_proof_attempt_transaction(m_ctx_id,
+		m_ctx, proofs, times, mems, exps);
 }
 
 

@@ -16,7 +16,7 @@ INSERT INTO model_contexts (name, filename) VALUES (
 CREATE TABLE IF NOT EXISTS theorems (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	stmt TEXT NOT NULL UNIQUE,  /* target statement as text */
-	ctx INTEGER NOT NULL,  /* the model context */
+	ctx UNSIGNED INTEGER NOT NULL,  /* the model context */
 	FOREIGN KEY (ctx) REFERENCES model_contexts(ctx_id));
 
 
@@ -25,22 +25,22 @@ a proof attempt is successful iff there exists an entry in the proof
 table which references this attempt.
 */
 CREATE TABLE IF NOT EXISTS proof_attempts (
-	thm_id INTEGER UNIQUE NOT NULL,	
+	thm_id UNSIGNED INTEGER UNIQUE NOT NULL,	
 	time_cost REAL NOT NULL,
-	max_mem INTEGER NOT NULL,
-	num_expansions INTEGER NOT NULL,
+	max_mem UNSIGNED INTEGER NOT NULL,
+	num_expansions UNSIGNED INTEGER NOT NULL,
 	FOREIGN KEY(thm_id) REFERENCES theorems(id)
 	);
 
 
 CREATE TABLE IF NOT EXISTS proofs (
-	thm_id INTEGER UNIQUE NOT NULL,
+	thm_id UNSIGNED INTEGER UNIQUE NOT NULL,
 	proof TEXT,  /* human readable proof as string */
 	FOREIGN KEY (thm_id) REFERENCES theorems(id));
 
 
 CREATE INDEX IF NOT EXISTS thm_by_id ON theorems(id);
 CREATE INDEX IF NOT EXISTS thm_stmt ON theorems(stmt);
-CREATE INDEX IF NOT EXISTS pf_attempts ON proof_attempts(attempt_id);
-CREATE INDEX IF NOT EXISTS pfs ON proofs(attempt_id);
+CREATE INDEX IF NOT EXISTS attempt_thm_ids ON proof_attempts(thm_id);
+CREATE INDEX IF NOT EXISTS proof_thm_ids ON proofs(thm_id);
 

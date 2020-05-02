@@ -22,18 +22,6 @@
     <Filter Include="Source Files\Internal">
       <UniqueIdentifier>{2e4c945f-079c-46b8-9604-deeeab292de6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Internal\Indices">
-      <UniqueIdentifier>{06915bcc-04ae-4208-89be-1afdd4efd54d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Internal\Iterators">
-      <UniqueIdentifier>{3f0d1f35-deea-4ce2-ba16-8ae28531631e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Internal\Indices">
-      <UniqueIdentifier>{32d677ad-e2ed-44c9-8155-85f1e131ba34}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Internal\Iterators">
-      <UniqueIdentifier>{6a218472-1c50-41bb-8ba0-3c50e785c7ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Internal\Databases">
       <UniqueIdentifier>{65cc8385-5ceb-4490-b3e6-49016bed75bb}</UniqueIdentifier>
     </Filter>
@@ -45,12 +33,6 @@
     </Filter>
     <Filter Include="Source Files\Internal\Databases\Equational">
       <UniqueIdentifier>{5b6cb6b7-3bc5-4232-8797-021fc05131ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Internal\Iterators\BasicArrayIndex">
-      <UniqueIdentifier>{8aa07cb7-fb96-41e8-8beb-6b0af061a566}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Internal\Iterators\BasicArrayIndex">
-      <UniqueIdentifier>{732bc0d9-14a8-402b-ac12-140e0efe5dcb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,73 +66,19 @@
     <ClInclude Include="Interfaces\DBOperations.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\StrictLockManager.h">
-      <Filter>Header Files\Internal</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\BasicFileBufferManager.h">
-      <Filter>Header Files\Internal</Filter>
-    </ClInclude>
     <ClInclude Include="Internal\Equational\Database.h">
       <Filter>Header Files\Internal\Databases\Equational</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\Equational\Table.h">
-      <Filter>Header Files\Internal\Databases\Equational</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\BasicArrayIndex.h">
-      <Filter>Header Files\Internal\Indices</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\BasicArrayIndexFileBlock.h">
-      <Filter>Header Files\Internal\Iterators\BasicArrayIndex</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\BasicArrayIndexIteratorBase.h">
-      <Filter>Header Files\Internal\Iterators\BasicArrayIndex</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\BasicArrayIndexInsertIterator.h">
-      <Filter>Header Files\Internal\Iterators\BasicArrayIndex</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\BasicArrayIndexSelectAllIterator.h">
-      <Filter>Header Files\Internal\Iterators\BasicArrayIndex</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\BasicArrayIndexUpdateIterator.h">
-      <Filter>Header Files\Internal\Iterators\BasicArrayIndex</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\StrictLockManager.cpp">
-      <Filter>Source Files\Internal</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\BasicFileBufferManager.cpp">
-      <Filter>Source Files\Internal</Filter>
-    </ClCompile>
     <ClCompile Include="Interfaces\Data.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Internal\Equational\Database.cpp">
       <Filter>Source Files\Internal\Databases\Equational</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\Equational\Table.cpp">
-      <Filter>Source Files\Internal\Databases\Equational</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\BasicArrayIndex.cpp">
-      <Filter>Source Files\Internal\Indices</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\BasicArrayIndexFileBlock.cpp">
-      <Filter>Source Files\Internal\Iterators\BasicArrayIndex</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\BasicArrayIndexIteratorBase.cpp">
-      <Filter>Source Files\Internal\Iterators\BasicArrayIndex</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\BasicArrayIndexInsertIterator.cpp">
-      <Filter>Source Files\Internal\Iterators\BasicArrayIndex</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\BasicArrayIndexSelectAllIterator.cpp">
-      <Filter>Source Files\Internal\Iterators\BasicArrayIndex</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\BasicArrayIndexUpdateIterator.cpp">
-      <Filter>Source Files\Internal\Iterators\BasicArrayIndex</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -12,6 +12,7 @@
 
 
 #include <ATPLogic.h>
+#include <boost/optional.hpp>
 #include "../ATPDatabaseAPI.h"
 
 
@@ -39,18 +40,15 @@ public:
 
 	virtual std::string name() const = 0;
 	virtual std::string description() const = 0;
-	virtual logic::LangType logic_lang() const = 0;
+	virtual logic::LanguagePtr logic_lang() const = 0;
 
 	// database operations
 
 	/**
-	\brief Create a model context from the given model context name,
-		using the database to find the right model context file.
-
-	\returns Nullptr if either the name was invalid, or the file in
-		the database was not found.
+	\brief Get model context filename, from corresponding name, if
+		it exists in the database.
 	*/
-	virtual logic::ModelContextPtr create_model_context(
+	virtual boost::optional<std::string> model_context_filename(
 		const std::string& model_context_name) = 0;
 
 };

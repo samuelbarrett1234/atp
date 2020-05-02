@@ -11,10 +11,12 @@
 */
 
 
-#include <sqlite3.h>
 #include <ATPLogic.h>
 #include "../ATPDatabaseAPI.h"
 #include "../Interfaces/IDatabase.h"
+
+
+struct sqlite3;  // forward declaration
 
 
 namespace atp
@@ -43,7 +45,8 @@ public:  // builder functions
 	static DatabasePtr load_from_file(
 		const std::string& filename);
 
-public:  // interface functions
+public:
+	~EquationalDatabase();
 
 	inline std::string name() const override
 	{
@@ -53,14 +56,18 @@ public:  // interface functions
 	{
 		return m_desc;
 	}
-	inline logic::LangType logic_lang() const override
+	inline logic::LanguagePtr logic_lang() const override
 	{
-		return logic::LangType::EQUATIONAL_LOGIC;
+		return m_lang;
 	}
+
+	boost::optional<std::string> model_context_filename(
+		const std::string& model_context_name) override;
 
 private:
 	std::string m_name, m_desc;
 	logic::LanguagePtr m_lang;
+	sqlite3* m_db;
 };
 
 

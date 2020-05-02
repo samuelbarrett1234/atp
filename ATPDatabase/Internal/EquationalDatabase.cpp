@@ -229,9 +229,11 @@ TransactionPtr EquationalDatabase::finished_proof_attempt_transaction(
 	{
 		// add the theorem to the database if it's not in there
 		// already
-		query_builder << "INSERT OR REPLACE INTO theorems (stmt, "
-			<< "ctx) VALUES ('" << targets->at(i).to_str()
-			<< "', " << ctx_id << ");\n\n";
+		query_builder << "INSERT INTO theorems (stmt, "
+			<< "ctx) SELECT '" << targets->at(i).to_str()
+			<< "', " << ctx_id << " WHERE NOT EXISTS("
+			<< "SELECT 1 FROM theorems WHERE stmt == '"
+			<< targets->at(i).to_str() << "');\n\n";
 
 		// a query for finding the theorem ID of the target statement
 		const std::string find_thm_id =

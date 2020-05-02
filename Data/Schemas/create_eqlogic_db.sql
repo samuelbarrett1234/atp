@@ -25,7 +25,7 @@ a proof attempt is successful iff there exists an entry in the proof
 table which references this attempt.
 */
 CREATE TABLE IF NOT EXISTS proof_attempts (
-	thm_id INTEGER UNIQUE NOT NULL,	
+	thm_id INTEGER NOT NULL,	
 	time_cost REAL NOT NULL,
 	max_mem UNSIGNED INTEGER NOT NULL,
 	num_expansions UNSIGNED INTEGER NOT NULL,

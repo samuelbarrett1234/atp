@@ -22,8 +22,38 @@ ProofApplication::ProofApplication(std::ostream& out) :
 { }
 
 
-bool ProofApplication::set_context_file(std::string path)
+bool ProofApplication::set_db(const std::string& path)
 {
+	m_db = atp::db::load_from_file(path,
+		atp::logic::LangType::EQUATIONAL_LOGIC);
+
+	if (m_db == nullptr)
+	{
+		m_out << "Failed to create the database! Check the database "
+			<< "file at \"" << path << "\" exists and is correct."
+			<< std::endl;
+		return false;
+	}
+
+	return true;
+}
+
+
+bool ProofApplication::set_context_name(const std::string& name)
+{
+	ATP_PRECOND(m_db != nullptr);
+
+	const auto maybe_path = m_db->model_context_filename(name);
+
+	if (!maybe_path)
+	{
+		m_out << "Error: context name \"" << name << "\" could not"
+			<< " be obtained from the database. Check spelling and "
+			<< "the database's `model_contexts` table." << std::endl;
+	}
+
+	const auto path = *maybe_path;
+
 	if (!boost::filesystem::is_regular_file(path))
 	{
 		m_out << "Error: context file \"" << path <<
@@ -77,39 +107,12 @@ bool ProofApplication::set_context_file(std::string path)
 
 	m_out << "Successfully loaded the context file \"" << 
 		m_ctx->context_name() << "\"." << std::endl;
+
 	return true;  // success
 }
 
 
-bool ProofApplication::set_db(std::string path)
-{
-	ATP_PRECOND(m_solver == nullptr);
-
-	std::ifstream in(path);
-
-	if (!in)
-	{
-		m_out << "Could not open the database configuration file "
-			<< '"' << path << '"' << std::endl;
-		return false;
-	}
-
-	m_db = atp::db::load_from_config_file(in);
-
-	if (m_db == nullptr)
-	{
-		m_out << "Failed to create the database! Check the database "
-			<< "configuration file at \"" << path << "\" is correct "
-			<< "and that none of the files it references have been "
-			<< "deleted or moved." << std::endl;
-		return false;
-	}
-
-	return true;
-}
-
-
-bool ProofApplication::set_search_file(std::string path)
+bool ProofApplication::set_search_file(const std::string& path)
 {
 	ATP_PRECOND(m_ker != nullptr);
 

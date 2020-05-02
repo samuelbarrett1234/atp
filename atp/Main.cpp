@@ -22,7 +22,6 @@ namespace po = boost::program_options;
 
 
 int run_proof_application(const po::variables_map& vm);
-int run_create_db_from_schema(const po::variables_map& vm);
 
 
 int main(int argc, const char* const argv[])
@@ -33,7 +32,7 @@ int main(int argc, const char* const argv[])
 
 	desc.add_options()
 		("context,ctx", po::value<std::string>(),
-			"Path to the file containing the context for the proofs")
+			"Context name (see `model_contexts` database table)")
 
 		("search-settings,ss", po::value<std::string>(),
 			"Path to the file containing the search settings")
@@ -43,10 +42,7 @@ int main(int argc, const char* const argv[])
 			" a statement with no spaces f(x)=y to try to prove")
 
 		("database,db", po::value<std::vector<std::string>>(),
-			"Path to database configuration file.")
-
-		("dbschema,dbsch", po::value<std::vector<std::string>>(),
-			"Path to database schema to create a new database from.")
+			"Path to database file")
 	;
 
 	// parse the arguments:
@@ -63,14 +59,6 @@ int main(int argc, const char* const argv[])
 			<< " command line arguments: " << ex.what()
 			<< std::endl;
 		return -1;
-	}
-
-	if (vm.count("dbschema"))
-	{
-		// user wants to create a new database
-		const int r = run_create_db_from_schema(vm);
-		if (r != 0)
-			return r;
 	}
 
 	if (vm.count("prove"))
@@ -94,10 +82,16 @@ int run_proof_application(const po::variables_map& vm)
 
 	ATP_ASSERT(vm.count("prove"));
 
+	if (!vm.count("database"))
+	{
+		std::cout << "Error: need to provide a database file."
+			<< " Use --database <filename>" << std::endl;
+		return -1;
+	}
 	if (!vm.count("context"))
 	{
-		std::cout << "Error: need to provide a context file."
-			<< " Use --context <filename>" << std::endl;
+		std::cout << "Error: need to provide a context name."
+			<< " Use --context <name>" << std::endl;
 		return -1;
 	}
 	if (!vm.count("search-settings"))
@@ -107,24 +101,20 @@ int run_proof_application(const po::variables_map& vm)
 		return -1;
 	}
 
-	const std::string ctx_file = vm["context"].as<std::string>();
+	const std::string db_file = vm["database"].as<std::string>();
 
-	// try to load context file
-	if (!app.set_context_file(ctx_file))
+	// try to load database config file
+	if (!app.set_db(db_file))
 	{
 		return -1;
 	}
 
-	// optional
-	if (vm.count("database"))
-	{
-		std::string db_file = vm["database"].as<std::string>();
+	const std::string ctx_name = vm["context"].as<std::string>();
 
-		// try to load database config file
-		if (!app.set_db(db_file))
-		{
-			return -1;
-		}
+	// try to load context file
+	if (!app.set_context_name(ctx_name))
+	{
+		return -1;
 	}
 
 	const std::string ss_file = vm["search-settings"].as<std::string>();
@@ -147,57 +137,6 @@ int run_proof_application(const po::variables_map& vm)
 
 	app.run();
 
-	return 0;
-}
-
-
-int run_create_db_from_schema(const po::variables_map& vm)
-{
-	if (!vm.count("database"))
-	{
-		std::cout << "Error: need to provide path to output the "
-			<< "database config file once done. Use --database "
-			<< "<a-place-to-output-the-db-config-file>" << std::endl;
-		return -1;
-	}
-
-	const std::string in_file = vm["dbschema"].as<std::string>();
-	const std::string out_file = vm["database"].as<std::string>();
-
-	std::ifstream in(in_file);
-	std::ofstream out(out_file);
-
-	if (!in)
-	{
-		std::cout << "Failed to open file \"" << in_file << "\"." <<
-			std::endl;
-		return -1;
-	}
-
-	if (!out)
-	{
-		std::cout << "Failed to create file \"" << out_file << "\"." <<
-			std::endl;
-		return -1;
-	}
-
-	auto result = atp::db::create_from_schema(in, out);
-
-	if (!result)
-	{
-		std::cout << "Conversion operation failed! Check the JSON "
-			<< "schema at \"" << in_file << "\" is in the correct "
-			<< "format." << std::endl;
-
-		out.close();
-
-		// delete the output file in case anything was written
-		boost::filesystem::remove(out_file);
-
-		return -1;
-	}
-
-	// all files will automatically close here.
 	return 0;
 }
 

@@ -16,7 +16,7 @@ ProofProcess::ProofProcess(
 	atp::db::DatabasePtr p_db,
 	atp::search::SearchSettings& search_settings,
 	atp::logic::StatementArrayPtr p_target_stmts) :
-	m_proc_state(ProcessState::AWAITING_LOCK),
+	m_done(false),
 	m_proof_state(ProofProcessState::INITIALISE_KERNEL),
 	m_max_steps(search_settings.max_steps),
 	m_step_size(search_settings.step_size),
@@ -51,36 +51,11 @@ void ProofProcess::run_step()
 }
 
 
-void ProofProcess::try_acquire_lock()
-{
-	ATP_ASSERT(m_op_starter != nullptr);
-	ATP_ASSERT(m_db_op == nullptr);
-
-	/**
-	\todo: be more careful about whether we need read/write access.
-	*/
-
-	// try to obtain a lock
-	auto p_lock = m_db->lock_mgr().request_write_access(
-		m_op_starter->res_needed());
-
-	if (p_lock != nullptr)
-	{
-		// got it!
-		m_db_op = m_op_starter->lock_obtained(std::move(p_lock));
-		m_proc_state = ProcessState::RUNNING;
-		m_op_starter.reset();
-	}
-	// else do nothing and try again next time
-}
-
-
 void ProofProcess::step_solver()
 {
 	if (!m_solver->any_proof_not_done() ||
 		m_cur_step == m_max_steps)
 	{
-		m_proc_state = ProcessState::AWAITING_LOCK;
 		m_proof_state = ProofProcessState::SAVE_RESULTS;
 		setup_save_results_operation();
 
@@ -175,32 +150,87 @@ void ProofProcess::step_solver()
 void ProofProcess::init_kernel()
 {
 	ATP_ASSERT(m_db_op != nullptr);
-	ATP_ASSERT(m_op_starter == nullptr);
 
-	if (m_db_op->done())
+	switch (m_db_op->state())
 	{
-		// get results of call
-		// set them as a statement array
-		auto p_readable_op = dynamic_cast<atp::db::IDBReadOperation*>
+	case atp::db::TransactionState::COMPLETED:
+	{
+		// our next state will be to run the proof
+		m_proof_state = ProofProcessState::RUNNING_PROOF;
+		
+		// set the statements in the kernel:
+		auto p_stmts = m_lang->deserialise_stmts(m_temp_results,
+			atp::logic::StmtFormat::TEXT, *m_ctx);
+
+		if (p_stmts == nullptr)
+		{
+			m_out << "ERROR! Failed to initialise kernel. There was"
+				<< " a problem with the following batch of "
+				<< "statements retrieved from the database: " << '"'
+				<< m_temp_results.str() << '"' << std::endl;
+		}
+		else
+		{
+			m_out << "Proof Process update --- ";
+			m_out << "Loaded " << p_stmts->size() << " theorems";
+			m_out << " from the theorem database!" << std::endl;
+
+			m_ker->add_theorems(p_stmts);
+		}
+
+		m_temp_results = std::stringstream();  // reset this
+		m_db_op.reset();  // and this
+	}
+		break;
+
+	case atp::db::TransactionState::RUNNING:
+	{
+		// still running the query; extract the current results:
+
+		auto p_readable_op = dynamic_cast<atp::db::IQueryTransaction*>
 			(m_db_op.get());
 
 		ATP_ASSERT(p_readable_op != nullptr);
-		ATP_ASSERT(p_readable_op->num_cols() == 1);
 
-		auto dbarr = p_readable_op->col_values(0);
+		if (p_readable_op->has_values())
+		{
+			if (p_readable_op->arity() != 1)
+			{
+				m_out << "ERROR! Failed to initialise kernel. Kernel"
+					<< " initialisation query returned an arity of "
+					<< p_readable_op->arity() << ", which differed "
+					<< "from the expected result of 1. Ignoring "
+					<< "query..." << std::endl;
+			}
+			else
+			{
+				atp::db::DValue stmt_str;
 
-		auto p_stmt_arr = atp::db::db_arr_to_stmt_arr(dbarr);
+				if (!p_readable_op->try_get(0, atp::db::DType::STR,
+					&stmt_str))
+				{
+					m_out << "WARNING! Encountered non-string "
+						<< "statement value in database. Type "
+						<< "could be null?" << std::endl;
+				}
 
-		m_ker->add_theorems(p_stmt_arr);
+				m_temp_results << boost::variant2::get<2>(stmt_str)
+					<< std::endl;
+			}
+		}
 
-		m_out << "Proof Process update --- ";
-		m_out << "Loaded " << p_stmt_arr->size() << " theorems from";
-		m_out << " the theorem database!";
-		m_out << std::endl;
+		m_db_op->step();
 	}
-	else
-	{
-		m_db_op->tick();
+		break;
+
+	default:
+		m_out << "ERROR! Failed to initialise kernel. Database query"
+			<< " failed unexpectedly. Ignoring query and proceeding"
+			<< "..." << std::endl;
+		m_proof_state = ProofProcessState::RUNNING_PROOF;
+		m_temp_results = std::stringstream();  // reset this
+		m_db_op.reset();  // and this
+		break;
 	}
 }
 
@@ -208,23 +238,68 @@ void ProofProcess::init_kernel()
 void ProofProcess::save_results()
 {
 	ATP_ASSERT(m_db_op != nullptr);
-	ATP_ASSERT(m_op_starter == nullptr);
 
-	if (m_db_op->done())
+	switch (m_db_op->state())
 	{
+	case atp::db::TransactionState::RUNNING:
+		m_db_op->step();
+		break;
+
+	case atp::db::TransactionState::COMPLETED:
+		m_done = true;
 		m_db_op.reset();
-
-		m_proc_state = ProcessState::DONE;
-
 		m_out << "Proof Process update --- ";
 		m_out << "Finished saving the true theorems to the database";
 		m_out << ", so they can be used in future proofs!";
 		m_out << std::endl;
+		break;
+
+	default:
+		m_out << "ERROR! Failed to save proof results. Unexpected "
+			<< "error while executing query." << std::endl;
+		m_done = true;
+		m_db_op.reset();
+		break;
 	}
-	else
+}
+
+
+void ProofProcess::setup_save_results_operation()
+{
+	std::stringstream query_builder;
+	query_builder << "BEGIN TRANSACTION;";
+
+	auto proofs = m_solver->get_proofs();
+	auto times = m_solver->get_agg_time();
+	auto mems = m_solver->get_max_mem();
+	auto exps = m_solver->get_num_expansions();
+
+	for (size_t i = 0; i < proofs.size(); i++)
 	{
-		m_db_op->tick();
+		const std::string find_thm_id =
+			"(SELECT thm_id FROM theorems WHERE stmt = \"" +
+			proofs[i]->target_stmt().to_str() + "\")";
+
+		query_builder << "INSERT OR REPLACE INTO theorems (stmt, "
+			<< "ctx) VALUES (" << proofs[i]->target_stmt().to_str()
+			<< ", " << m_ctx_id << "); ";
+
+		query_builder << "INSERT INTO proof_attempts (thm_id, "
+			<< "time_cost, max_mem, num_expansions) VALUES ("
+			<< find_thm_id << ", "
+			<< times[i] << ", " << mems[i] << ", " << exps[i]
+			<< "); ";
+
+		if (proofs[i]->completion_state() ==
+			atp::logic::ProofCompletionState::PROVEN)
+		{
+			query_builder << "INSERT INTO proofs (thm_id, proof) "
+				<< "VALUES (" << find_thm_id << ", \""
+				<< proofs[i]->to_str() << "\"); ";
+		}
 	}
+
+	query_builder << "COMMIT;";
 }
 
 

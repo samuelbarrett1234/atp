@@ -38,26 +38,22 @@ public:
 	ProofApplication(std::ostream& out);
 
 	/**
-	\brief Loads the language and knowledge kernel from a given
-	    context file
-		
-	\details A context file specifies the language, the
-		location of the definition file, and the location of the
-		axiom file.
+	\brief Loads the database file (this has to be done first)
 
 	\returns True iff success.
 	*/
-	bool set_context_file(std::string path);
+	bool set_db(const std::string& db_config_file);
 
 	/**
-	\brief Loads the database configuration file
-
-	\pre IF a database is going to be set, then it must be done
-		**before** the search settings file.
+	\brief Loads the language and knowledge kernel from a given
+	    context (filename obtained from database).
+		
+	\details A context file specifies the language, and the
+		definitions and axioms.
 
 	\returns True iff success.
 	*/
-	bool set_db(std::string db_config_file);
+	bool set_context_name(const std::string& name);
 
 	/**
 	\brief Loads the solver
@@ -66,7 +62,7 @@ public:
 
 	\returns True iff success.
 	*/
-	bool set_search_file(std::string path);
+	bool set_search_file(const std::string& path);
 
 
 	// add a new set of target statements to the collection of proof

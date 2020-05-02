@@ -12,7 +12,7 @@
 
 
 #include <mutex>
-#include <list>
+#include <queue>
 #include <ATPDatabase.h>
 #include "IProcess.h"
 
@@ -41,13 +41,13 @@ public:
 private:
 	bool done() const;
 	ProcessPtr pop_running();
-	ProcessPtr pop_awaiting_lock();
+	ProcessPtr pop_waiting();
 	void push_running(ProcessPtr p_proc);
-	void push_awaiting_lock(ProcessPtr p_proc);
+	void push_waiting(ProcessPtr p_proc);
 
 private:
 	mutable std::mutex m_mutex;
-	std::list<ProcessPtr> m_running, m_awaiting_lock;
+	std::queue<ProcessPtr> m_running, m_waiting;
 };
 
 

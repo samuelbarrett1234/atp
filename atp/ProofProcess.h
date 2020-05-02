@@ -45,12 +45,15 @@ public:
 		atp::search::SearchSettings& search_settings,
 		atp::logic::StatementArrayPtr p_target_stmts);
 
-	inline ProcessState state() const override
+	inline bool done() const override
 	{
-		return m_proc_state;
+		return m_done;
+	}
+	inline bool waiting() const override
+	{
+		return (m_db_op != nullptr && m_db_op->waiting());
 	}
 	void run_step() override;
-	void try_acquire_lock() override;
 	inline void dump_log(std::ostream& out) override
 	{
 		out << m_out.str();
@@ -66,7 +69,7 @@ private:
 
 private:
 	std::stringstream m_out;
-	ProcessState m_proc_state;
+	bool m_done;
 	ProofProcessState m_proof_state;
 	const size_t m_max_steps, m_step_size;
 	size_t m_cur_step;
@@ -78,8 +81,10 @@ private:
 	atp::logic::StatementArrayPtr m_targets;
 
 	// these are either for init kernel or save results
-	atp::db::OpStarterPtr m_op_starter;
-	atp::db::DBOpPtr m_db_op;
+	atp::db::TransactionPtr m_db_op;
+
+	// this is for storing intermediate results:
+	std::stringstream m_temp_results;
 };
 
 

@@ -25,7 +25,6 @@ a proof attempt is successful iff there exists an entry in the proof
 table which references this attempt.
 */
 CREATE TABLE IF NOT EXISTS proof_attempts (
-	attempt_id INTEGER PRIMARY KEY AUTOINCREMENT,
 	thm_id INTEGER UNIQUE NOT NULL,	
 	time_cost REAL NOT NULL,
 	max_mem INTEGER NOT NULL,
@@ -35,9 +34,9 @@ CREATE TABLE IF NOT EXISTS proof_attempts (
 
 
 CREATE TABLE IF NOT EXISTS proofs (
-	attempt_id INTEGER UNIQUE NOT NULL,
+	thm_id INTEGER UNIQUE NOT NULL,
 	proof TEXT,  /* human readable proof as string */
-	FOREIGN KEY (attempt_id) REFERENCES proof_attempts(id));
+	FOREIGN KEY (thm_id) REFERENCES theorems(id));
 
 
 CREATE INDEX IF NOT EXISTS thm_by_id ON theorems(id);

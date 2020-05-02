@@ -23,9 +23,6 @@ SQLiteQueryTransaction::SQLiteQueryTransaction(sqlite3* db,
 {
 	ATP_DATABASE_PRECOND(db != nullptr);
 	ATP_DATABASE_PRECOND(stmt != nullptr);
-
-	// get first result
-	step();
 }
 
 
@@ -62,7 +59,10 @@ void SQLiteQueryTransaction::step()
 bool SQLiteQueryTransaction::has_values() const
 {
 	ATP_DATABASE_PRECOND(state() == TransactionState::RUNNING);
-	return sqlite3_column_count(m_stmt) > 0;
+
+	// this function returns true iff m_stmt has been stepped at
+	// least once
+	return sqlite3_stmt_busy(m_stmt) != 0;
 }
 
 

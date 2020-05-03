@@ -12,6 +12,8 @@
 #include <boost/filesystem.hpp>
 #include "SQLiteTransaction.h"
 #include "TransactionListWrapper.h"
+#include "SQLiteRndProvenThmSelectQryBder.h"
+#include "SQLiteSaveProofResultsQryBder.h"
 
 
 namespace atp
@@ -99,6 +101,22 @@ TransactionPtr SQLiteDatabase::begin_transaction(
 }
 
 
+QueryBuilderPtr SQLiteDatabase::create_query_builder(
+	QueryBuilderType qb_type)
+{
+	switch (qb_type)
+	{
+	case QueryBuilderType::RANDOM_PROVEN_THM_SELECTION:
+		return std::make_unique<SQLiteRndProvenThmSelectQryBder>();
+	case QueryBuilderType::SAVE_THMS_AND_PROOFS:
+		return std::make_unique<SQLiteSaveProofResultsQryBder>();
+	default:
+		ATP_DATABASE_PRECOND(false && "bad type!");
+		return nullptr;
+	}
+}
+
+
 boost::optional<std::string>
 SQLiteDatabase::model_context_filename(
 	const std::string& model_context_name)
@@ -165,91 +183,6 @@ boost::optional<size_t> SQLiteDatabase::search_settings_id(
 		return boost::none;
 	else
 		return (size_t)get_int(*value);
-}
-
-
-TransactionPtr SQLiteDatabase::get_theorems_for_kernel_transaction(
-	size_t ctx_id, size_t ss_id,
-	const logic::ModelContextPtr& p_ctx,
-	const logic::StatementArrayPtr& targets)
-{
-	// limit on number returned (arbitrary, for now)
-	static const size_t N = 25;
-
-	std::stringstream query_builder;
-
-	// IMPORTANT: only load theorems for which there exist proofs!
-	query_builder << "SELECT stmt FROM theorems JOIN proofs ON thm_id=id"
-		" WHERE ctx = " << ctx_id <<
-		" ORDER BY RANDOM() LIMIT " << N << ";";
-
-	return begin_transaction(query_builder.str());
-}
-
-
-TransactionPtr SQLiteDatabase::finished_proof_attempt_transaction(
-	size_t ctx_id, size_t ss_id,
-	const logic::ModelContextPtr& p_ctx,
-	const logic::StatementArrayPtr& targets,
-	const std::vector<atp::logic::ProofStatePtr>& proof_states,
-	const std::vector<float>& proof_times,
-	const std::vector<size_t>& max_mem_usages,
-	const std::vector<size_t>& num_node_expansions)
-{
-	ATP_DATABASE_PRECOND(targets->size() ==
-		proof_states.size());
-	ATP_DATABASE_PRECOND(proof_times.size() ==
-		proof_states.size());
-	ATP_DATABASE_PRECOND(max_mem_usages.size() ==
-		proof_states.size());
-	ATP_DATABASE_PRECOND(num_node_expansions.size() ==
-		proof_states.size());
-
-	std::stringstream query_builder;
-	query_builder << "BEGIN TRANSACTION;\n\n";
-
-	for (size_t i = 0; i < proof_states.size(); i++)
-	{
-		// add the theorem to the database if it's not in there
-		// already
-		query_builder << "INSERT INTO theorems (stmt, "
-			<< "ctx) SELECT '" << targets->at(i).to_str()
-			<< "', " << ctx_id << " WHERE NOT EXISTS("
-			<< "SELECT 1 FROM theorems WHERE stmt == '"
-			<< targets->at(i).to_str() << "');\n\n";
-
-		// a query for finding the theorem ID of the target statement
-		const std::string find_thm_id =
-			"(SELECT id FROM theorems WHERE stmt = '" +
-			targets->at(i).to_str() + "')";
-
-		// add proof attempt to database
-		query_builder << "INSERT INTO proof_attempts(thm_id, ss_id, "
-			<< "time_cost, max_mem, num_expansions) VALUES ("
-			<< find_thm_id << ", " << ss_id << ", "
-			<< proof_times[i] << ", " << max_mem_usages[i]
-			<< ", " << num_node_expansions[i] << ");\n\n";
-
-		// IF THE PROOF WAS SUCCESSFUL, add the proof to the database
-		if (proof_states[i] != nullptr &&
-			proof_states[i]->completion_state() ==
-			atp::logic::ProofCompletionState::PROVEN)
-		{
-			// make sure to not try inserting a new proof if there
-			// is already a proof in the database!
-			query_builder << "INSERT INTO proofs (thm_id, proof) "
-				<< "SELECT " << find_thm_id << " , '"
-				<< proof_states[i]->to_str() << "' WHERE NOT EXISTS"
-				<< " (SELECT 1 FROM proofs JOIN theorems ON "
-				<< "thm_id=id WHERE stmt = '"
-				<< targets->at(i).to_str() << "');\n\n";
-		}
-		// obviously we do not want to do this if it failed ^
-	}
-
-	query_builder << "COMMIT;";
-
-	return begin_transaction(query_builder.str());
 }
 
 

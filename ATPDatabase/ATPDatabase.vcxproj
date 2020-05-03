@@ -179,12 +179,16 @@
     <ClInclude Include="Interfaces\ITransaction.h" />
     <ClInclude Include="Interfaces\IQueryBuilders.h" />
     <ClInclude Include="Internal\SQLiteDatabase.h" />
+    <ClInclude Include="Internal\SQLiteRndProvenThmSelectQryBder.h" />
+    <ClInclude Include="Internal\SQLiteSaveProofResultsQryBder.h" />
     <ClInclude Include="Internal\SQLiteTransaction.h" />
     <ClInclude Include="Internal\TransactionListWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp" />
     <ClCompile Include="Internal\SQLiteDatabase.cpp" />
+    <ClCompile Include="Internal\SQLiteRndProvenThmSelectQryBder.cpp" />
+    <ClCompile Include="Internal\SQLiteSaveProofResultsQryBder.cpp" />
     <ClCompile Include="Internal\SQLiteTransaction.cpp" />
     <ClCompile Include="Internal\TransactionListWrapper.cpp" />
   </ItemGroup>

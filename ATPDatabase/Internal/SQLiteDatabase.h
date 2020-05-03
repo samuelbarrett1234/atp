@@ -59,6 +59,9 @@ public:
 	TransactionPtr begin_transaction(
 		const std::string& query_text) override;
 
+	QueryBuilderPtr create_query_builder(
+		QueryBuilderType qb_type) override;
+
 	boost::optional<std::string> model_context_filename(
 		const std::string& model_context_name) override;
 
@@ -70,20 +73,6 @@ public:
 
 	boost::optional<size_t> search_settings_id(
 		const std::string& search_settings_name) override;
-
-	TransactionPtr get_theorems_for_kernel_transaction(
-		size_t ctx_id, size_t ss_id,
-		const logic::ModelContextPtr& p_ctx,
-		const logic::StatementArrayPtr& targets) override;
-
-	TransactionPtr finished_proof_attempt_transaction(
-		size_t ctx_id, size_t ss_id,
-		const logic::ModelContextPtr& p_ctx,
-		const logic::StatementArrayPtr& targets,
-		const std::vector<atp::logic::ProofStatePtr>& proof_states,
-		const std::vector<float>& proof_times,
-		const std::vector<size_t>& max_mem_usages,
-		const std::vector<size_t>& num_node_expansions) override;
 
 private:
 	std::string m_name, m_desc;

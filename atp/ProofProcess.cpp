@@ -273,8 +273,19 @@ void ProofProcess::setup_init_kernel_operation()
 {
 	ATP_ASSERT(m_db_op == nullptr);
 
-	m_db_op = m_db->get_theorems_for_kernel_transaction(
-		m_ctx_id, m_ss_id, m_ctx, m_targets);
+	auto _p_bder = m_db->create_query_builder(
+		atp::db::QueryBuilderType::RANDOM_PROVEN_THM_SELECTION);
+
+	auto p_bder = dynamic_cast<
+		atp::db::IRndProvenThmSelectQryBder*>(_p_bder.get());
+
+	ATP_ASSERT(p_bder != nullptr);
+
+	p_bder->set_limit(25)->set_context(m_ctx_id, m_ctx);
+
+	const auto query = p_bder->build();
+
+	m_db_op = m_db->begin_transaction(query);
 
 	ATP_ASSERT(m_db_op != nullptr);
 }
@@ -284,13 +295,25 @@ void ProofProcess::setup_save_results_operation()
 {
 	ATP_ASSERT(m_db_op == nullptr);
 
-	auto proofs = m_solver->get_proofs();
-	auto times = m_solver->get_agg_time();
-	auto mems = m_solver->get_max_mem();
-	auto exps = m_solver->get_num_expansions();
+	auto _p_bder = m_db->create_query_builder(
+		atp::db::QueryBuilderType::SAVE_THMS_AND_PROOFS);
 
-	m_db_op = m_db->finished_proof_attempt_transaction(m_ctx_id,
-		m_ss_id, m_ctx, m_targets, proofs, times, mems, exps);
+	auto p_bder = dynamic_cast<
+		atp::db::ISaveProofResultsQryBder*>(_p_bder.get());
+
+	ATP_ASSERT(p_bder != nullptr);
+
+	p_bder->set_context(m_ctx_id, m_ctx)
+		->set_search_settings(m_ss_id)
+		->add_proof_states(m_solver->get_proofs())
+		->add_target_thms(m_targets)
+		->add_proof_times(m_solver->get_agg_time())
+		->add_max_mem_usages(m_solver->get_max_mem())
+		->add_num_node_expansions(m_solver->get_num_expansions());
+
+	const auto query = p_bder->build();
+
+	m_db_op = m_db->begin_transaction(query);
 
 	ATP_ASSERT(m_db_op != nullptr);
 }

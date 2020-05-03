@@ -14,6 +14,7 @@
 
 #include "ATPDatabaseAPI.h"
 #include "Interfaces/ITransaction.h"
+#include "Interfaces/IQueryBuilders.h"
 #include "Interfaces/IDatabase.h"
 
 

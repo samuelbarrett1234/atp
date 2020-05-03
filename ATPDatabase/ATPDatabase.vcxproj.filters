@@ -22,6 +22,12 @@
     <Filter Include="Source Files\Internal">
       <UniqueIdentifier>{2e4c945f-079c-46b8-9604-deeeab292de6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Internal\SQLite">
+      <UniqueIdentifier>{84dc6e94-16be-406d-86af-dccbd64f62e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Internal\SQLite">
+      <UniqueIdentifier>{8b4e1c03-25f1-479a-885f-9c4f05a2aade}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -39,31 +45,43 @@
     <ClInclude Include="Interfaces\ITransaction.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\SQLiteTransaction.h">
-      <Filter>Header Files\Internal</Filter>
-    </ClInclude>
     <ClInclude Include="Internal\TransactionListWrapper.h">
-      <Filter>Header Files\Internal</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\SQLiteDatabase.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
     <ClInclude Include="Interfaces\IQueryBuilders.h">
       <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\SQLiteTransaction.h">
+      <Filter>Header Files\Internal\SQLite</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\SQLiteDatabase.h">
+      <Filter>Header Files\Internal\SQLite</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\SQLiteRndProvenThmSelectQryBder.h">
+      <Filter>Header Files\Internal\SQLite</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\SQLiteSaveProofResultsQryBder.h">
+      <Filter>Header Files\Internal\SQLite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\SQLiteTransaction.cpp">
-      <Filter>Source Files\Internal</Filter>
-    </ClCompile>
     <ClCompile Include="Internal\TransactionListWrapper.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
+    <ClCompile Include="Internal\SQLiteTransaction.cpp">
+      <Filter>Source Files\Internal\SQLite</Filter>
+    </ClCompile>
     <ClCompile Include="Internal\SQLiteDatabase.cpp">
-      <Filter>Source Files\Internal</Filter>
+      <Filter>Source Files\Internal\SQLite</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SQLiteRndProvenThmSelectQryBder.cpp">
+      <Filter>Source Files\Internal\SQLite</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SQLiteSaveProofResultsQryBder.cpp">
+      <Filter>Source Files\Internal\SQLite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

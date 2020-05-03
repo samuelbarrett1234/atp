@@ -15,7 +15,7 @@
 #include <boost/optional.hpp>
 #include <ATPLogic.h>
 #include "../ATPDatabaseAPI.h"
-#include "ITransactionBuilders.h"
+#include "IQueryBuilders.h"
 
 
 namespace atp
@@ -57,6 +57,14 @@ public:
 		const std::string& query_text) = 0;
 
 	/**
+	\brief Create a query builder for the given type of query.
+
+	\returns A new query object.
+	*/
+	virtual QueryBuilderPtr create_query_builder(
+		QueryBuilderType qb_type) = 0;
+
+	/**
 	\brief Get model context filename, from corresponding name, if
 		it exists in the database.
 	*/
@@ -83,31 +91,6 @@ public:
 	*/
 	virtual boost::optional<size_t> search_settings_id(
 		const std::string& search_settings_name) = 0;
-
-	/**
-	\brief This creates a transaction which obtains a set of
-		statements chosen from the database
-		
-	\details You may wish to give to the kernel, to provide it with
-		enough statements to complete the proof.
-	*/
-	virtual TransactionPtr get_theorems_for_kernel_transaction(
-		size_t ctx_id, size_t ss_id,
-		const logic::ModelContextPtr& p_ctx,
-		const logic::StatementArrayPtr& targets) = 0;
-
-	/**
-	\brief This creates a transaction which represents finishing a
-		proof attempt at a given set of statements.
-	*/
-	virtual TransactionPtr finished_proof_attempt_transaction(
-		size_t ctx_id, size_t ss_id,
-		const logic::ModelContextPtr& p_ctx,
-		const logic::StatementArrayPtr& targets,
-		const std::vector<atp::logic::ProofStatePtr>& proof_states,
-		const std::vector<float>& proof_times,
-		const std::vector<size_t>& max_mem_usages,
-		const std::vector<size_t>& num_node_expansions) = 0;
 
 };
 typedef std::shared_ptr<IDatabase> DatabasePtr;

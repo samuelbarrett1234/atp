@@ -227,7 +227,7 @@ void ProofApplication::run()
 {
 	std::list<std::thread> threads;
 
-	for (size_t i = 0; i < m_num_threads; ++i)
+	for (size_t i = 0; i < m_num_threads - 1; ++i)
 	{
 		threads.emplace_back(boost::bind(
 			&ProcessManager::commit_thread, boost::ref(m_proc_mgr),

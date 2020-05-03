@@ -12,7 +12,7 @@
 
 ProofProcess::ProofProcess(
 	atp::logic::LanguagePtr p_lang,
-	size_t ctx_id,
+	size_t ctx_id, size_t ss_id,
 	atp::logic::ModelContextPtr p_ctx,
 	atp::db::DatabasePtr p_db,
 	atp::search::SearchSettings& search_settings,
@@ -28,7 +28,7 @@ ProofProcess::ProofProcess(
 	m_targets(std::move(p_target_stmts)),
 	m_ker(m_lang->try_create_kernel(*m_ctx)),
 	m_solver(search_settings.create_solver(m_ker)),
-	m_ctx_id(ctx_id)
+	m_ctx_id(ctx_id), m_ss_id(ss_id)
 {
 	ATP_PRECOND(m_solver != nullptr);  // will fail if bad model ctx
 	m_ker->set_seed(search_settings.seed);
@@ -274,7 +274,7 @@ void ProofProcess::setup_init_kernel_operation()
 	ATP_ASSERT(m_db_op == nullptr);
 
 	m_db_op = m_db->get_theorems_for_kernel_transaction(
-		m_ctx_id, m_ctx, m_targets);
+		m_ctx_id, m_ss_id, m_ctx, m_targets);
 
 	ATP_ASSERT(m_db_op != nullptr);
 }
@@ -290,7 +290,7 @@ void ProofProcess::setup_save_results_operation()
 	auto exps = m_solver->get_num_expansions();
 
 	m_db_op = m_db->finished_proof_attempt_transaction(m_ctx_id,
-		m_ctx, m_targets, proofs, times, mems, exps);
+		m_ss_id, m_ctx, m_targets, proofs, times, mems, exps);
 
 	ATP_ASSERT(m_db_op != nullptr);
 }

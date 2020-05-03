@@ -70,13 +70,19 @@ public:
 	boost::optional<size_t> model_context_id(
 		const std::string& model_context_name) override;
 
+	boost::optional<std::string> search_settings_filename(
+		const std::string& search_settings_name) override;
+
+	boost::optional<size_t> search_settings_id(
+		const std::string& search_settings_name) override;
+
 	TransactionPtr get_theorems_for_kernel_transaction(
-		size_t ctx_id,
+		size_t ctx_id, size_t ss_id,
 		const logic::ModelContextPtr& p_ctx,
 		const logic::StatementArrayPtr& targets) override;
 
 	TransactionPtr finished_proof_attempt_transaction(
-		size_t ctx_id,
+		size_t ctx_id, size_t ss_id,
 		const logic::ModelContextPtr& p_ctx,
 		const logic::StatementArrayPtr& targets,
 		const std::vector<atp::logic::ProofStatePtr>& proof_states,

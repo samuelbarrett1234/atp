@@ -51,6 +51,8 @@ bool ProofApplication::set_context_name(const std::string& name)
 		m_out << "Error: context name \"" << name << "\" could not"
 			<< " be obtained from the database. Check spelling and "
 			<< "the database's `model_contexts` table." << std::endl;
+
+		return false;
 	}
 
 	m_ctx_id = *maybe_id;
@@ -102,9 +104,26 @@ bool ProofApplication::set_context_name(const std::string& name)
 }
 
 
-bool ProofApplication::set_search_file(const std::string& path)
+bool ProofApplication::set_search_name(const std::string& name)
 {
 	ATP_PRECOND(m_ctx != nullptr);
+	ATP_PRECOND(m_db != nullptr);
+
+	const auto maybe_path = m_db->search_settings_filename(name);
+	const auto maybe_id = m_db->search_settings_id(name);
+
+	if (!maybe_path || !maybe_id)
+	{
+		m_out << "Error: search settings name \"" << name
+			<< "\" could not be obtained from the database. Check "
+			"spelling and the database's `search_settings` table."
+			<< std::endl;
+		return false;
+	}
+
+	m_ss_id = *maybe_id;
+
+	const auto path = *maybe_path;
 
 	if (!boost::filesystem::is_regular_file(path))
 	{
@@ -201,7 +220,8 @@ void ProofApplication::run()
 	auto tasks = atp::logic::concat(m_tasks);
 
 	auto proof_proc = std::make_unique<ProofProcess>(m_lang,
-		m_ctx_id, m_ctx, m_db, m_search_settings, std::move(tasks));
+		m_ctx_id, m_ss_id, m_ctx, m_db, m_search_settings,
+		std::move(tasks));
 
 	while (!proof_proc->done())
 	{

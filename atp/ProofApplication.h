@@ -62,7 +62,7 @@ public:
 
 	\returns True iff success.
 	*/
-	bool set_search_file(const std::string& path);
+	bool set_search_name(const std::string& path);
 
 
 	// add a new set of target statements to the collection of proof
@@ -92,7 +92,7 @@ private:
 	std::ostream& m_out;
 	atp::logic::LanguagePtr m_lang;
 	atp::logic::ModelContextPtr m_ctx;
-	size_t m_ctx_id;
+	size_t m_ctx_id, m_ss_id;  // ctx and search IDs from database
 	atp::db::DatabasePtr m_db;
 	std::vector<atp::logic::StatementArrayPtr> m_tasks;
 	atp::search::SearchSettings m_search_settings;

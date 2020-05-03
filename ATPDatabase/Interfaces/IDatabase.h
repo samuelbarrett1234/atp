@@ -71,6 +71,20 @@ public:
 		const std::string& model_context_name) = 0;
 
 	/**
+	\brief Get search settings filename, from corresponding name, if
+		it exists in the database.
+	*/
+	virtual boost::optional<std::string> search_settings_filename(
+		const std::string& search_settings_name) = 0;
+
+	/**
+	\brief Get search settings ID, from corresponding name, if
+		it exists in the database.
+	*/
+	virtual boost::optional<size_t> search_settings_id(
+		const std::string& search_settings_name) = 0;
+
+	/**
 	\brief This creates a transaction which obtains a set of
 		statements chosen from the database
 		
@@ -78,7 +92,7 @@ public:
 		enough statements to complete the proof.
 	*/
 	virtual TransactionPtr get_theorems_for_kernel_transaction(
-		size_t ctx_id,
+		size_t ctx_id, size_t ss_id,
 		const logic::ModelContextPtr& p_ctx,
 		const logic::StatementArrayPtr& targets) = 0;
 
@@ -87,7 +101,7 @@ public:
 		proof attempt at a given set of statements.
 	*/
 	virtual TransactionPtr finished_proof_attempt_transaction(
-		size_t ctx_id,
+		size_t ctx_id, size_t ss_id,
 		const logic::ModelContextPtr& p_ctx,
 		const logic::StatementArrayPtr& targets,
 		const std::vector<atp::logic::ProofStatePtr>& proof_states,

@@ -35,7 +35,7 @@ int main(int argc, const char* const argv[])
 			"Context name (see `model_contexts` database table)")
 
 		("search-settings,ss", po::value<std::string>(),
-			"Path to the file containing the search settings")
+			"Search settings name (see `search_settings` database table)")
 
 		("prove,P", po::value<std::vector<std::string>>(),
 			"Path to a file containing statements to prove, or write"
@@ -96,8 +96,8 @@ int run_proof_application(const po::variables_map& vm)
 	}
 	if (!vm.count("search-settings"))
 	{
-		std::cout << "Error: need to provide a search settings file."
-			<< " Use --search-settings <filename>" << std::endl;
+		std::cout << "Error: need to provide a search settings name."
+			<< " Use --search-settings <name>" << std::endl;
 		return -1;
 	}
 
@@ -117,10 +117,10 @@ int run_proof_application(const po::variables_map& vm)
 		return -1;
 	}
 
-	const std::string ss_file = vm["search-settings"].as<std::string>();
+	const std::string ss_name = vm["search-settings"].as<std::string>();
 
 	// try to load search file
-	if (!app.set_search_file(ss_file))
+	if (!app.set_search_name(ss_name))
 	{
 		return -1;
 	}

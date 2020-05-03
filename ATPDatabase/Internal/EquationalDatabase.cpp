@@ -20,6 +20,13 @@ namespace db
 {
 
 
+/**
+\brief Helper function for queries which just return a single value
+*/
+boost::optional<DValue> try_get_value(EquationalDatabase* db,
+	const std::string& query, DType dtype);
+
+
 DatabasePtr EquationalDatabase::load_from_file(
 	const std::string& filename)
 {
@@ -99,95 +106,73 @@ boost::optional<std::string>
 EquationalDatabase::model_context_filename(
 	const std::string& model_context_name)
 {
-	sqlite3_stmt* p_stmt = nullptr;
-	int rc;
-
 	std::stringstream query_builder;
 	query_builder << "SELECT filename FROM model_contexts WHERE"
 		<< " name = " << '"' << model_context_name << '"' << ';';
-	const std::string query_str = query_builder.str();
 
-	rc = sqlite3_prepare_v2(m_db, query_str.c_str(), -1, &p_stmt,
-		nullptr);
+	auto value = try_get_value(this, query_builder.str(),
+		DType::STR);
 
-	if (rc != SQLITE_OK || p_stmt == nullptr)
-	{
-		ATP_DATABASE_ASSERT(p_stmt == nullptr);
-
+	if (!value.has_value())
 		return boost::none;
-	}
-
-	rc = sqlite3_step(p_stmt);
-	boost::optional<std::string> result = boost::none;
-
-	if (rc == SQLITE_ROW)
-	{
-		auto type = sqlite3_column_type(p_stmt, 0);
-
-		if (type == SQLITE_TEXT)
-		{
-			result = std::string((const char*)
-				sqlite3_column_text(p_stmt, 0));
-		}
-	}
-	// else no results
-	// warning: if rc == SQLITE_BUSY then we failed to obtain a lock!
-
-	sqlite3_finalize(p_stmt);
-
-	return result;
+	else
+		return get_str(*value);
 }
 
 
 boost::optional<size_t> EquationalDatabase::model_context_id(
 	const std::string& model_context_name)
 {
-	sqlite3_stmt* p_stmt = nullptr;
-	int rc;
-
 	std::stringstream query_builder;
 	query_builder << "SELECT ctx_id FROM model_contexts WHERE"
 		<< " name = " << '"' << model_context_name << '"' << ';';
-	const std::string query_str = query_builder.str();
 
-	rc = sqlite3_prepare_v2(m_db, query_str.c_str(), -1, &p_stmt,
-		nullptr);
+	auto value = try_get_value(this, query_builder.str(),
+		DType::INT);
 
-	if (rc != SQLITE_OK || p_stmt == nullptr)
-	{
-		ATP_DATABASE_ASSERT(p_stmt == nullptr);
-
+	if (!value.has_value() || get_int(*value) < 0)
 		return boost::none;
-	}
+	else
+		return (size_t)get_int(*value);
+}
 
-	rc = sqlite3_step(p_stmt);
-	boost::optional<size_t> result = boost::none;
 
-	if (rc == SQLITE_ROW)
-	{
-		const auto type = sqlite3_column_type(p_stmt, 0);
+boost::optional<std::string> EquationalDatabase::search_settings_filename(
+	const std::string& search_settings_name)
+{
+	std::stringstream query_builder;
+	query_builder << "SELECT filename FROM search_settings WHERE"
+		<< " name = " << '"' << search_settings_name << '"' << ';';
 
-		if (type == SQLITE_INTEGER)
-		{
-			const int maybe_result = sqlite3_column_int(p_stmt, 0);
-			
-			if (maybe_result < 0)
-				return boost::none;  // bad
+	auto value = try_get_value(this, query_builder.str(),
+		DType::STR);
 
-			result = (size_t)maybe_result;
-		}
-	}
-	// else no results
-	// warning: if rc == SQLITE_BUSY then we failed to obtain a lock!
+	if (!value.has_value())
+		return boost::none;
+	else
+		return get_str(*value);
+}
 
-	sqlite3_finalize(p_stmt);
 
-	return result;
+boost::optional<size_t> EquationalDatabase::search_settings_id(
+	const std::string& search_settings_name)
+{
+	std::stringstream query_builder;
+	query_builder << "SELECT ss_id FROM search_settings WHERE"
+		<< " name = " << '"' << search_settings_name << '"' << ';';
+
+	auto value = try_get_value(this, query_builder.str(),
+		DType::INT);
+
+	if (!value.has_value() || get_int(*value) < 0)
+		return boost::none;
+	else
+		return (size_t)get_int(*value);
 }
 
 
 TransactionPtr EquationalDatabase::get_theorems_for_kernel_transaction(
-	size_t ctx_id,
+	size_t ctx_id, size_t ss_id,
 	const logic::ModelContextPtr& p_ctx,
 	const logic::StatementArrayPtr& targets)
 {
@@ -205,7 +190,7 @@ TransactionPtr EquationalDatabase::get_theorems_for_kernel_transaction(
 
 
 TransactionPtr EquationalDatabase::finished_proof_attempt_transaction(
-	size_t ctx_id,
+	size_t ctx_id, size_t ss_id,
 	const logic::ModelContextPtr& p_ctx,
 	const logic::StatementArrayPtr& targets,
 	const std::vector<atp::logic::ProofStatePtr>& proof_states,
@@ -241,9 +226,9 @@ TransactionPtr EquationalDatabase::finished_proof_attempt_transaction(
 			targets->at(i).to_str() + "')";
 
 		// add proof attempt to database
-		query_builder << "INSERT INTO proof_attempts (thm_id, "
+		query_builder << "INSERT INTO proof_attempts(thm_id, ss_id, "
 			<< "time_cost, max_mem, num_expansions) VALUES ("
-			<< find_thm_id << ", "
+			<< find_thm_id << ", " << ss_id << ", "
 			<< proof_times[i] << ", " << max_mem_usages[i]
 			<< ", " << num_node_expansions[i] << ");\n\n";
 
@@ -262,6 +247,46 @@ TransactionPtr EquationalDatabase::finished_proof_attempt_transaction(
 	query_builder << "COMMIT;";
 
 	return begin_transaction(query_builder.str());
+}
+
+
+boost::optional<DValue> try_get_value(EquationalDatabase* db,
+	const std::string& query, DType dtype)
+{
+	auto p_trans = db->begin_transaction(query);
+
+	if (p_trans == nullptr)
+	{
+		return boost::none;  // query bad? DB must be in a bad state
+	}
+
+	auto p_query = dynamic_cast<IQueryTransaction*>(p_trans.get());
+	ATP_DATABASE_ASSERT(p_query != nullptr);
+
+	// get query into a ready position (try at most N times)
+	static const size_t N = 100;
+	for (size_t i = 0; i < N && p_query->state() ==
+		TransactionState::RUNNING && !p_query->has_values(); ++i)
+		p_query->step();
+
+	if (p_query->state() ==
+		TransactionState::RUNNING && p_query->has_values()
+		&& p_query->arity() > 0)
+	{
+		DValue dv;
+		if (p_query->try_get(0, dtype, &dv))
+		{
+			return dv;
+		}
+		else
+		{
+			return boost::none;
+		}
+	}
+	else
+	{
+		return boost::none;
+	}
 }
 
 

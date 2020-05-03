@@ -39,6 +39,26 @@ enum class DType
 };
 typedef boost::variant2::variant<bool, int, std::string, float,
 	std::vector<unsigned char>, boost::none_t> DValue;
+static constexpr inline bool get_bool(const DValue& dv)
+{
+	return boost::variant2::get<0>(dv);
+}
+static constexpr inline int get_int(const DValue& dv)
+{
+	return boost::variant2::get<1>(dv);
+}
+static inline const std::string& get_str(const DValue& dv)
+{
+	return boost::variant2::get<2>(dv);
+}
+static constexpr inline float get_float(const DValue& dv)
+{
+	return boost::variant2::get<3>(dv);
+}
+static inline const std::vector<unsigned char>& get_binary(const DValue& dv)
+{
+	return boost::variant2::get<4>(dv);
+}
 
 
 /**

@@ -44,7 +44,7 @@ public:
 		p_db. 
 	*/
 	ProofProcess(atp::logic::LanguagePtr p_lang,
-		size_t ctx_id,
+		size_t ctx_id, size_t ss_id,
 		atp::logic::ModelContextPtr p_ctx,
 		atp::db::DatabasePtr p_db,
 		atp::search::SearchSettings& search_settings,
@@ -78,7 +78,8 @@ private:
 	ProofProcessState m_proof_state;
 	const size_t m_max_steps, m_step_size;
 	size_t m_cur_step;
-	const size_t m_ctx_id;
+	const size_t m_ctx_id;  // from DB
+	const size_t m_ss_id;  // from DB
 	atp::logic::LanguagePtr m_lang;
 	atp::logic::ModelContextPtr m_ctx;
 	atp::db::DatabasePtr m_db;

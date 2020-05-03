@@ -1,0 +1,4 @@
+<map id="atp::db::IDatabase" name="atp::db::IDatabase">
+<area shape="rect" id="node1" title="The core object of this library &#45; basically represents a collection of tables." alt="" coords="24,5,152,32"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_s_q_lite_database.html" title="A database which uses SQLite internally." alt="" coords="5,80,171,107"/>
+</map>

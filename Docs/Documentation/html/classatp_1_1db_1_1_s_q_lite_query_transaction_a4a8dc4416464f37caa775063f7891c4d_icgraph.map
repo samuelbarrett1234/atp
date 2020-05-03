@@ -1,0 +1,4 @@
+<map id="atp::db::SQLiteQueryTransaction::arity" name="atp::db::SQLiteQueryTransaction::arity">
+<area shape="rect" id="node1" title="Get the arity (i.e. number of columns) of the current set of values." alt="" coords="265,5,477,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_s_q_lite_query_transaction.html#a81cec52db2dc4e97d005fa1dfd79e3bc" title="Try to get the value at the given index." alt="" coords="5,5,217,47"/>
+</map>

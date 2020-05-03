@@ -1,0 +1,4 @@
+<map id="ProofApplication::set_context_name" name="ProofApplication::set_context_name">
+<area shape="rect" id="node1" title="Loads the language and knowledge kernel from a given context (filename obtained from database)." alt="" coords="5,5,148,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="196,5,315,47"/>
+</map>

@@ -1,0 +1,28 @@
+<map id="atp/ProcessManager.h" name="atp/ProcessManager.h">
+<area shape="rect" id="node1" title=" " alt="" coords="769,5,923,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="679,80,738,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="763,80,820,107"/>
+<area shape="rect" id="node4" href="$_a_t_p_database_8h.html" title=" " alt="" coords="844,80,957,107"/>
+<area shape="rect" id="node26" href="$_i_process_8h.html" title="File containing interfaces for process management." alt="" coords="1677,386,1761,413"/>
+<area shape="rect" id="node5" href="$_a_t_p_database_a_p_i_8h.html" title=" " alt="" coords="5,304,140,331"/>
+<area shape="rect" id="node7" href="$_i_transaction_8h.html" title="Contains an abstraction of a database transaction." alt="" coords="625,229,787,256"/>
+<area shape="rect" id="node24" href="$_i_query_builders_8h.html" title="Query builders are objects which create SQL statements for specific operations common to ATPDatabase ..." alt="" coords="811,229,990,256"/>
+<area shape="rect" id="node25" href="$_i_database_8h.html" title="Contains the core Database object interface of this library." alt="" coords="945,155,1096,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="532,767,597,793"/>
+<area shape="rect" id="node8" title=" " alt="" coords="432,692,487,719"/>
+<area shape="rect" id="node9" title=" " alt="" coords="1330,617,1399,644"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1474,304,1602,331"/>
+<area shape="rect" id="node11" title=" " alt="" coords="165,304,333,331"/>
+<area shape="rect" id="node12" href="$_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="896,304,985,331"/>
+<area shape="rect" id="node13" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="879,692,989,719"/>
+<area shape="rect" id="node14" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="599,617,755,644"/>
+<area shape="rect" id="node15" href="$_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="841,543,1027,569"/>
+<area shape="rect" id="node17" href="$_i_language_8h.html" title="Contains the ILanguage interface which acts as a factory class for each type of logic in the library." alt="" coords="1205,386,1357,413"/>
+<area shape="rect" id="node20" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a structure for performing logical deductio..." alt="" coords="978,468,1114,495"/>
+<area shape="rect" id="node21" href="$_i_proof_state_8h.html" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="1153,543,1251,569"/>
+<area shape="rect" id="node22" href="$_i_model_context_8h.html" title="Contains the IModelContext interface for managing definitions and axioms." alt="" coords="599,543,715,569"/>
+<area shape="rect" id="node23" href="$_i_propositional_knowledge_kernel_8h.html" title="Contains a common specialisation of the IKnowledgeKernel interface." alt="" coords="743,379,903,420"/>
+<area shape="rect" id="node16" title=" " alt="" coords="838,617,894,644"/>
+<area shape="rect" id="node18" title=" " alt="" coords="1240,468,1305,495"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1431,468,1501,495"/>
+</map>

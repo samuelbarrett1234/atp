@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classatp_1_1logic_1_1equational_1_1_expression_1_1iterator.html" title="For iterating over all subtrees (subexpressions) of a given expression in pre&#45;order traversal." alt="" coords="5,5,148,47"/>
+<area shape="rect" id="node1" href="$classatp_1_1db_1_1_i_query_builder.html" title="An object for producing queries." alt="" coords="5,46,153,73"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_i_rnd_proven_thm_select_qry_bder.html" title="Interface for setting data for the Random Proven Theorem Select Query Builder." alt="" coords="201,5,399,47"/>
+<area shape="rect" id="node4" href="$classatp_1_1db_1_1_i_save_proof_results_qry_bder.html" title=" " alt="" coords="213,71,387,112"/>
+<area shape="rect" id="node3" href="$classatp_1_1db_1_1_s_q_lite_rnd_proven_thm_select_qry_bder.html" title=" " alt="" coords="447,5,619,47"/>
+<area shape="rect" id="node5" href="$classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html" title=" " alt="" coords="449,71,617,112"/>
 </map>

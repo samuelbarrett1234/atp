@@ -1,0 +1,4 @@
+<map id="atp::search::try_load_fixed_stopping_strategy" name="atp::search::try_load_fixed_stopping_strategy">
+<area shape="rect" id="node1" title="Try to load info for a FixedStoppingStrategy." alt="" coords="5,5,172,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="220,5,412,47"/>
+</map>

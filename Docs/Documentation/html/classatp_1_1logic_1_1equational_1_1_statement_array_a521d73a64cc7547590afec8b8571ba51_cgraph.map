@@ -1,0 +1,7 @@
+<map id="atp::logic::equational::StatementArray::save" name="atp::logic::equational::StatementArray::save">
+<area shape="rect" id="node1" title="Save this object to the given (binary) output." alt="" coords="5,71,160,112"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a7e085c1a690875b8d3077bf2f322ac59" title=" " alt="" coords="208,5,373,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a1e885080d2f019ecdbcef7bf1ad0718a" title="Save this object to the given (binary) output." alt="" coords="219,71,362,112"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612" title=" " alt="" coords="214,136,367,177"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d" title="Helper function for computing the number of elements in slices." alt="" coords="421,136,567,177"/>
+</map>

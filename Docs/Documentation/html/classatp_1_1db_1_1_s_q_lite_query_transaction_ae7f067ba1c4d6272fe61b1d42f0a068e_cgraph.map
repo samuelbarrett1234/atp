@@ -1,0 +1,4 @@
+<map id="atp::db::SQLiteQueryTransaction::has_values" name="atp::db::SQLiteQueryTransaction::has_values">
+<area shape="rect" id="node1" title="Determine if the query has a row value at the current time (this function is constant between step() ..." alt="" coords="5,5,217,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_s_q_lite_query_transaction.html#adeff467537bced069d62aa8d9837a4f6" title="Get the state of this transaction." alt="" coords="265,5,477,47"/>
+</map>

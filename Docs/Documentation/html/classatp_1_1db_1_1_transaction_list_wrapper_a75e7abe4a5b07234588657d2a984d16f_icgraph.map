@@ -1,0 +1,5 @@
+<map id="atp::db::TransactionListWrapper::state" name="atp::db::TransactionListWrapper::state">
+<area shape="rect" id="node1" title="Get the state of this transaction." alt="" coords="212,39,371,80"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_transaction_list_wrapper.html#af7ef6851ae18d080f61090d20d4c9609" title="Perform one more &quot;unit of computation&quot;." alt="" coords="5,5,164,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1db_1_1_transaction_list_wrapper.html#a7a9a8ffbc5f3592f4ce9308920c8d042" title="Determine if the statement is waiting on resources, so cannot execute." alt="" coords="5,71,164,112"/>
+</map>

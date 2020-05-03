@@ -1,0 +1,4 @@
+<map id="atp::logic::equational::Expression::load_from_bin" name="atp::logic::equational::Expression::load_from_bin">
+<area shape="rect" id="node1" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="5,13,188,54"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#ae5e09db06ead8e9118fc249918d3fe12" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="236,5,405,61"/>
+</map>

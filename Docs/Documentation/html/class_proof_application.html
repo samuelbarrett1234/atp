@@ -80,12 +80,15 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8e42bcfb6e109d3be37ec5a23f630107"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_proof_application.html#a8e42bcfb6e109d3be37ec5a23f630107">ProofApplication</a> (std::ostream &amp;out)</td></tr>
 <tr class="separator:a8e42bcfb6e109d3be37ec5a23f630107"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaf8da21de83b7d7a1a75f1b79fc8d4e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_proof_application.html#abaf8da21de83b7d7a1a75f1b79fc8d4e">set_context_file</a> (std::string path)</td></tr>
-<tr class="memdesc:abaf8da21de83b7d7a1a75f1b79fc8d4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the language and knowledge kernel from a given context file.  <a href="class_proof_application.html#abaf8da21de83b7d7a1a75f1b79fc8d4e">More...</a><br /></td></tr>
-<tr class="separator:abaf8da21de83b7d7a1a75f1b79fc8d4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9866cf70cba58dcf91d17fa0607ca61"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_proof_application.html#ab9866cf70cba58dcf91d17fa0607ca61">set_search_file</a> (std::string path)</td></tr>
-<tr class="memdesc:ab9866cf70cba58dcf91d17fa0607ca61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the solver.  <a href="class_proof_application.html#ab9866cf70cba58dcf91d17fa0607ca61">More...</a><br /></td></tr>
-<tr class="separator:ab9866cf70cba58dcf91d17fa0607ca61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55952f329e33812b215766f75dfd3bbf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_proof_application.html#a55952f329e33812b215766f75dfd3bbf">set_db</a> (const std::string &amp;db_config_file)</td></tr>
+<tr class="memdesc:a55952f329e33812b215766f75dfd3bbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the database file (this has to be done first)  <a href="class_proof_application.html#a55952f329e33812b215766f75dfd3bbf">More...</a><br /></td></tr>
+<tr class="separator:a55952f329e33812b215766f75dfd3bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ce031b1839dbdf928b1b06d603ce402"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_proof_application.html#a5ce031b1839dbdf928b1b06d603ce402">set_context_name</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:a5ce031b1839dbdf928b1b06d603ce402"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the language and knowledge kernel from a given context (filename obtained from database).  <a href="class_proof_application.html#a5ce031b1839dbdf928b1b06d603ce402">More...</a><br /></td></tr>
+<tr class="separator:a5ce031b1839dbdf928b1b06d603ce402"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fb4d1c25fda62897397ec4afd28ac79"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79">set_search_name</a> (const std::string &amp;path)</td></tr>
+<tr class="memdesc:a8fb4d1c25fda62897397ec4afd28ac79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the solver.  <a href="class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79">More...</a><br /></td></tr>
+<tr class="separator:a8fb4d1c25fda62897397ec4afd28ac79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ef09aab15e935fc8cbd9e8126a707c5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_proof_application.html#a6ef09aab15e935fc8cbd9e8126a707c5">add_proof_task</a> (std::string path_or_stmt)</td></tr>
 <tr class="memdesc:a6ef09aab15e935fc8cbd9e8126a707c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new one/many target statements, to attempt to prove when <code>run</code> is called.  <a href="class_proof_application.html#a6ef09aab15e935fc8cbd9e8126a707c5">More...</a><br /></td></tr>
 <tr class="separator:a6ef09aab15e935fc8cbd9e8126a707c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -199,40 +202,40 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="abaf8da21de83b7d7a1a75f1b79fc8d4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abaf8da21de83b7d7a1a75f1b79fc8d4e">&#9670;&nbsp;</a></span>set_context_file()</h2>
+<a id="a5ce031b1839dbdf928b1b06d603ce402"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ce031b1839dbdf928b1b06d603ce402">&#9670;&nbsp;</a></span>set_context_name()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool ProofApplication::set_context_file </td>
+          <td class="memname">bool ProofApplication::set_context_name </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Loads the language and knowledge kernel from a given context file. </p>
-<p>A context file specifies the language, the location of the definition file, and the location of the axiom file.</p>
+<p>Loads the language and knowledge kernel from a given context (filename obtained from database). </p>
+<p>A context file specifies the language, and the definitions and axioms.</p>
 <dl class="section return"><dt>Returns</dt><dd>True iff success. </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_cgraph.png" border="0" usemap="#class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_cgraph" alt=""/></div>
-<map name="class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_cgraph" id="class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_cgraph">
-<area shape="rect" title="Loads the language and knowledge kernel from a given context file." alt="" coords="5,5,148,47"/>
+<div class="center"><img src="class_proof_application_a5ce031b1839dbdf928b1b06d603ce402_cgraph.png" border="0" usemap="#class_proof_application_a5ce031b1839dbdf928b1b06d603ce402_cgraph" alt=""/></div>
+<map name="class_proof_application_a5ce031b1839dbdf928b1b06d603ce402_cgraph" id="class_proof_application_a5ce031b1839dbdf928b1b06d603ce402_cgraph">
+<area shape="rect" title="Loads the language and knowledge kernel from a given context (filename obtained from database)." alt="" coords="5,5,148,47"/>
 <area shape="rect" href="namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="196,5,315,47"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_icgraph.png" border="0" usemap="#class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_icgraph" alt=""/></div>
-<map name="class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_icgraph" id="class_proof_application_abaf8da21de83b7d7a1a75f1b79fc8d4e_icgraph">
-<area shape="rect" title="Loads the language and knowledge kernel from a given context file." alt="" coords="296,5,439,47"/>
+<div class="center"><img src="class_proof_application_a5ce031b1839dbdf928b1b06d603ce402_icgraph.png" border="0" usemap="#class_proof_application_a5ce031b1839dbdf928b1b06d603ce402_icgraph" alt=""/></div>
+<map name="class_proof_application_a5ce031b1839dbdf928b1b06d603ce402_icgraph" id="class_proof_application_a5ce031b1839dbdf928b1b06d603ce402_icgraph">
+<area shape="rect" title="Loads the language and knowledge kernel from a given context (filename obtained from database)." alt="" coords="296,5,439,47"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
 </map>
@@ -240,16 +243,57 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ab9866cf70cba58dcf91d17fa0607ca61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9866cf70cba58dcf91d17fa0607ca61">&#9670;&nbsp;</a></span>set_search_file()</h2>
+<a id="a55952f329e33812b215766f75dfd3bbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55952f329e33812b215766f75dfd3bbf">&#9670;&nbsp;</a></span>set_db()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool ProofApplication::set_search_file </td>
+          <td class="memname">bool ProofApplication::set_db </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>db_config_file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads the database file (this has to be done first) </p>
+<dl class="section return"><dt>Returns</dt><dd>True iff success. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_proof_application_a55952f329e33812b215766f75dfd3bbf_cgraph.png" border="0" usemap="#class_proof_application_a55952f329e33812b215766f75dfd3bbf_cgraph" alt=""/></div>
+<map name="class_proof_application_a55952f329e33812b215766f75dfd3bbf_cgraph" id="class_proof_application_a55952f329e33812b215766f75dfd3bbf_cgraph">
+<area shape="rect" title="Loads the database file (this has to be done first)" alt="" coords="5,13,168,39"/>
+<area shape="rect" href="namespaceatp_1_1db.html#a0d04b0bd46a32a2aa0f5499b0977adf5" title="Create a new database object from the given SQLite database filename." alt="" coords="216,13,365,39"/>
+<area shape="rect" href="classatp_1_1db_1_1_s_q_lite_database.html#a0e9b5d9f5570686f02f75ee14073b0c5" title="Create a new database object from the given SQLite database filename." alt="" coords="413,5,579,47"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_proof_application_a55952f329e33812b215766f75dfd3bbf_icgraph.png" border="0" usemap="#class_proof_application_a55952f329e33812b215766f75dfd3bbf_icgraph" alt=""/></div>
+<map name="class_proof_application_a55952f329e33812b215766f75dfd3bbf_icgraph" id="class_proof_application_a55952f329e33812b215766f75dfd3bbf_icgraph">
+<area shape="rect" title="Loads the database file (this has to be done first)" alt="" coords="296,5,459,32"/>
+<area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,5,248,32"/>
+<area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,5,56,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a8fb4d1c25fda62897397ec4afd28ac79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fb4d1c25fda62897397ec4afd28ac79">&#9670;&nbsp;</a></span>set_search_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ProofApplication::set_search_name </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>path</em></td><td>)</td>
           <td></td>
         </tr>
@@ -262,27 +306,28 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_proof_application_ab9866cf70cba58dcf91d17fa0607ca61_cgraph.png" border="0" usemap="#class_proof_application_ab9866cf70cba58dcf91d17fa0607ca61_cgraph" alt=""/></div>
-<map name="class_proof_application_ab9866cf70cba58dcf91d17fa0607ca61_cgraph" id="class_proof_application_ab9866cf70cba58dcf91d17fa0607ca61_cgraph">
-<area shape="rect" title="Loads the solver." alt="" coords="5,39,148,80"/>
-<area shape="rect" href="namespaceatp_1_1search.html#aa8dd2f9c72b427c8a08e2c78534f57de" title="Create this library&#39;s designated &quot;default solver&quot;." alt="" coords="213,5,344,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be" title="Try to load a solver from a configuration file." alt="" coords="196,71,361,112"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a73efa9f6df8c0de0aa8b42a7e185c47b" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="409,5,563,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a5c3bb0a2ae4082e7b728cc7406eb5ee1" title="Try to create a solver, based on the type given in ptree." alt="" coords="409,71,563,112"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a7645df32135997da2f612c9f1eb62641" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="415,136,557,177"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a4a53fff8340c6ca3591b18f003869385" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="611,19,792,46"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="634,71,769,112"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a268a88f64715291bf40d64d1121c8eaf" title="Try to load info for a BasicStoppingStrategy." alt="" coords="616,136,787,177"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a288fbf05486211567d8d0661f3991681" title="Try to load info for a FixedStoppingStrategy." alt="" coords="618,201,785,243"/>
-<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="840,136,1036,177"/>
-<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="842,201,1034,243"/>
+<div class="center"><img src="class_proof_application_a8fb4d1c25fda62897397ec4afd28ac79_cgraph.png" border="0" usemap="#class_proof_application_a8fb4d1c25fda62897397ec4afd28ac79_cgraph" alt=""/></div>
+<map name="class_proof_application_a8fb4d1c25fda62897397ec4afd28ac79_cgraph" id="class_proof_application_a8fb4d1c25fda62897397ec4afd28ac79_cgraph">
+<area shape="rect" title="Loads the solver." alt="" coords="5,90,148,131"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aa8dd2f9c72b427c8a08e2c78534f57de" title="Create this library&#39;s designated &quot;default solver&quot;." alt="" coords="213,57,344,98"/>
+<area shape="rect" href="namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa" title="Try to load a solver from a configuration file." alt="" coords="196,122,361,163"/>
+<area shape="rect" href="namespaceatp_1_1search.html#af1274bf19e83a50812b02f37c53ec691" title=" " alt="" coords="421,89,551,130"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a73efa9f6df8c0de0aa8b42a7e185c47b" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="409,154,563,195"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="611,57,764,98"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="617,122,758,163"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="812,5,993,32"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="835,57,970,98"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="817,122,988,163"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342" title="Try to load info for a FixedStoppingStrategy." alt="" coords="819,187,986,229"/>
+<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="1041,122,1237,163"/>
+<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="1043,187,1235,229"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_proof_application_ab9866cf70cba58dcf91d17fa0607ca61_icgraph.png" border="0" usemap="#class_proof_application_ab9866cf70cba58dcf91d17fa0607ca61_icgraph" alt=""/></div>
-<map name="class_proof_application_ab9866cf70cba58dcf91d17fa0607ca61_icgraph" id="class_proof_application_ab9866cf70cba58dcf91d17fa0607ca61_icgraph">
+<div class="center"><img src="class_proof_application_a8fb4d1c25fda62897397ec4afd28ac79_icgraph.png" border="0" usemap="#class_proof_application_a8fb4d1c25fda62897397ec4afd28ac79_icgraph" alt=""/></div>
+<map name="class_proof_application_a8fb4d1c25fda62897397ec4afd28ac79_icgraph" id="class_proof_application_a8fb4d1c25fda62897397ec4afd28ac79_icgraph">
 <area shape="rect" title="Loads the solver." alt="" coords="296,5,439,47"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>

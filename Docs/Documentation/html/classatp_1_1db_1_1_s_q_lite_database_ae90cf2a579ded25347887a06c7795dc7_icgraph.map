@@ -1,0 +1,8 @@
+<map id="atp::db::SQLiteDatabase::begin_transaction" name="atp::db::SQLiteDatabase::begin_transaction">
+<area shape="rect" id="node1" title="Begin executing a transaction." alt="" coords="425,104,591,145"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1db.html#ade5c44de8245ee03f9bc28349081ee48" title="Helper function for queries which just return a single value." alt="" coords="231,111,377,138"/>
+<area shape="rect" id="node3" href="$classatp_1_1db_1_1_s_q_lite_database.html#a2c354f72872c71e257ee075031523f0a" title="Get model context filename, from corresponding name, if it exists in the database." alt="" coords="9,5,179,47"/>
+<area shape="rect" id="node4" href="$classatp_1_1db_1_1_s_q_lite_database.html#a2e83d3412253a3d569eb7d452120e19e" title="Get model context ID, from corresponding name, if it exists in the database." alt="" coords="11,71,177,112"/>
+<area shape="rect" id="node5" href="$classatp_1_1db_1_1_s_q_lite_database.html#a8a1aebedbf4406f19cc7e04f7f6d50ee" title="Get search settings filename, from corresponding name, if it exists in the database." alt="" coords="5,136,183,177"/>
+<area shape="rect" id="node6" href="$classatp_1_1db_1_1_s_q_lite_database.html#a47e09bbe86b52f77d22522b45b43844c" title="Get search settings ID, from corresponding name, if it exists in the database." alt="" coords="11,201,177,243"/>
+</map>

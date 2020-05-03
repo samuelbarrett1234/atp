@@ -79,30 +79,35 @@ Navigation</h1>
 <li><code>ATPLogicTests</code> : the unit tests for the logic library,</li>
 <li><code>ATPSearch</code> : the library of search algorithms for finding proofs,</li>
 <li><code>ATPSearchTests</code> : the unit tests for the search library,</li>
-<li><code>ATPDatabase</code> : the library for the management of proven theorems and also concurrent process management,</li>
+<li><code>ATPDatabase</code> : the library for the management of proven theorems,</li>
 <li><code>Docs</code> : specifications, documentation, and example code,</li>
 <li><code>Data</code> : definition files, theorem databases.</li>
 </ul>
 <p>Note that when you build the application, the binaries can be found in the <code>Output</code> folder, and <code>Temp</code> will contain Visual Studio intermediate files.</p>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Installation</h1>
-<p>The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. This project uses the Boost C++ libaries. Please ensure that they are installed, and that the environment variable <code>BOOST_DIR</code> to be set to the root of Boost's installation directory. Ensure you build Boost with the correct compiler and C++ version, otherwise you may experience compilation errors.</p>
-<p>After installation, try building the library and running the unit tests to check everything is working correctly.</p>
+<p>The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. This project uses the Boost C++ libaries, and SQLite3. Please ensure that they are installed, and that the environment variable <code>BOOST_DIR</code> to be set to the root of Boost's installation directory, and <code>SQLITE_DIR</code> likewise set for the SQLite3 directory (where the application will look for the code and the DLL). Ensure you build Boost with the correct compiler and C++ version (C++17), otherwise you may experience compilation errors.</p>
+<p>Note that we will assume that <code>SQLITE_DIR</code> is also on your <code>PATH</code>, so that you can use the SQLite command line.</p>
+<p>SQLite can be obtained from here: <a href="https://www.sqlite.org/download.html">https://www.sqlite.org/download.html</a> and Boost can be obtained from here: <a href="https://www.boost.org/">https://www.boost.org/</a></p>
+<p>After installation, try building the library and running the unit tests to check everything is working correctly. After running the tests you now need to create a database (see below).</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
+Setting up the database</h1>
+<p>Open the command prompt and navigate to the <code>Data\DB</code> directory (create it if it doesn't exist already). Type the command <code>sqlite3 eqlogic.db</code> to create a new database called <code>eqlogic</code> for equational logic.</p>
+<p>There is already a script for setting up the database. To run it, type (into the SQLite application, which should now be running): <code>.read ../Queries/create_eqlogic_db.sql</code>. This will initialise all the tables etc.</p>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Running the client</h1>
 <p>At the moment, the application only supports a single <code>prove</code> mode. Usage:</p>
-<p><code>atp --context &lt;context-filename&gt; --search-settings &lt;search-settings&gt; --prove &lt;statement-filename&gt;</code></p>
-<p>Note that, in the above example, you may need to change <code>atp</code> to <code>atp_Releasex64</code> or something similar, depending on your build settings. Check the <code>Output</code> folder to see which versions of the application you have built.</p>
+<p><code>atp --db &lt;database-filename&gt; --ctx &lt;context-name&gt; --ss &lt;search-settings-name&gt; --prove &lt;statement-filename-or-in-quotes&gt;</code></p>
+<p><code>--ctx</code> tells the ATP which context you want to prove in - e.g. group theory, ring theory, etc. To get details on what context names are allowed, look at the database's <code>model_contexts</code> table. The name is looked-up in here, where the filename will be found. Similarly, <code>--ss</code> tells the solver what search settings to use. The different settings can be found in the <code>search_settings</code> table in the database.</p>
+<p><b>Example</b>: <code>atp_Releasex64 --db ../Data/DB/eqlogic.db --ctx group-theory --ss ids-uninformed-extended --prove "i(i(x0)) = x0"</code></p>
+<p>Note that, in the above example, you may need to change <code>atp</code> to <code>atp_Releasex64</code> or something similar (as in the example), depending on your build settings. Check the <code>Output</code> folder to see which versions of the application you have built.</p>
 <p>See <code>Docs</code> for documentation about context files and search settings files.</p>
-<h1><a class="anchor" id="autotoc_md5"></a>
-TODO (beyond minimum viable product)</h1>
-<p>At the moment the project is working towards a minimum viable product, using only equational logic and uninformed search strategies. This repository still needs the following:</p><ul>
-<li>a statistics and machine learning library, for modelling the statements and searches, so we can start to use informed search strategies,</li>
-<li>a networking component so the application can be run in a server mode (for delivering reports over the web, or for remote monitoring and control.)</li>
-<li>the <code>ATPLogic</code> library needs implementations of other kinds of logic (e.g. first order logic, second order logic.)</li>
-<li>the <code>ATPSearch</code> library needs to use some more sophisticated, informed search strategies. </li>
-</ul>
-</div></div><!-- PageDoc -->
+<h1><a class="anchor" id="autotoc_md6"></a>
+Appendix: Prettier Printing with SQLite</h1>
+<p>From <a href="https://dba.stackexchange.com/questions/40656/how-to-properly-format-sqlite-shell-output/40672">https://dba.stackexchange.com/questions/40656/how-to-properly-format-sqlite-shell-output/40672</a> I gather that, if you want prettier SQLite outputs from <code>SELECT</code> statements in the shell application, type:</p>
+<div class="fragment"><div class="line">sqlite&gt; .mode column</div>
+<div class="line">sqlite&gt; .headers on</div>
+</div><!-- fragment --> </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

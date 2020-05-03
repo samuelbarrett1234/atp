@@ -1,0 +1,4 @@
+<map id="atp::db::load_from_file" name="atp::db::load_from_file">
+<area shape="rect" id="node1" title="Create a new database object from the given SQLite database filename." alt="" coords="5,13,155,39"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_s_q_lite_database.html#a0e9b5d9f5570686f02f75ee14073b0c5" title="Create a new database object from the given SQLite database filename." alt="" coords="203,5,368,47"/>
+</map>

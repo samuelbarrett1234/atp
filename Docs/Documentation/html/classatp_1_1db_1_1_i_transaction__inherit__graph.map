@@ -1,0 +1,6 @@
+<map id="atp::db::ITransaction" name="atp::db::ITransaction">
+<area shape="rect" id="node1" title="A transaction is any database operation which is either (i) not instantaneous, or (ii) can fail (at p..." alt="" coords="136,5,276,32"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_i_query_transaction.html" title="A query transaction is a transaction which can return results." alt="" coords="24,87,199,114"/>
+<area shape="rect" id="node4" href="$classatp_1_1db_1_1_transaction_list_wrapper.html" title="This object is a wrapper for a list of transactions." alt="" coords="223,80,381,121"/>
+<area shape="rect" id="node3" href="$classatp_1_1db_1_1_s_q_lite_query_transaction.html" title="All SQLite queries can (at least try to) get values." alt="" coords="5,169,217,196"/>
+</map>

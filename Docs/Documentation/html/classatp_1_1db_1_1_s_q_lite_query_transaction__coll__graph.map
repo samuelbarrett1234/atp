@@ -1,0 +1,5 @@
+<map id="atp::db::SQLiteQueryTransaction" name="atp::db::SQLiteQueryTransaction">
+<area shape="rect" id="node1" title="All SQLite queries can (at least try to) get values." alt="" coords="5,155,217,181"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_i_query_transaction.html" title="A query transaction is a transaction which can return results." alt="" coords="24,80,199,107"/>
+<area shape="rect" id="node3" href="$classatp_1_1db_1_1_i_transaction.html" title="A transaction is any database operation which is either (i) not instantaneous, or (ii) can fail (at p..." alt="" coords="41,5,181,32"/>
+</map>

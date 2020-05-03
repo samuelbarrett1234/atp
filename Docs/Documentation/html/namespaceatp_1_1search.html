@@ -116,6 +116,10 @@ Typedefs</h2></td></tr>
 <tr class="separator:a0acdc071811f1c4f3b31d99cd136a683"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30d0664015b80cf7901fc713966ccad3"><td class="memItemLeft" align="right" valign="top">typedef std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_i_stopping_strategy.html">IStoppingStrategy</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a30d0664015b80cf7901fc713966ccad3">StoppingStrategyPtr</a></td></tr>
 <tr class="separator:a30d0664015b80cf7901fc713966ccad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eff2966d8cef9143ccac7b604a25b16"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; <a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">SolverPtr</a>(<a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a>, std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &gt;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a3eff2966d8cef9143ccac7b604a25b16">SolverCreator</a></td></tr>
+<tr class="separator:a3eff2966d8cef9143ccac7b604a25b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9beeb4aabc71b9fd2452fcd5b463d9b"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(<a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#af9beeb4aabc71b9fd2452fcd5b463d9b">SuccIterCreator</a></td></tr>
+<tr class="separator:af9beeb4aabc71b9fd2452fcd5b463d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -124,30 +128,32 @@ Functions</h2></td></tr>
 <tr class="separator:aa8dd2f9c72b427c8a08e2c78534f57de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af516415f9453508a4282934f390b9045"><td class="memItemLeft" align="right" valign="top">std::pair&lt; float, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#af516415f9453508a4282934f390b9045">compute_mean_variance</a> (float sum, float sum_sq, size_t n)</td></tr>
 <tr class="separator:af516415f9453508a4282934f390b9045"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a930f63264b08ed19a50adf1476e8d4be"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be">load_search_settings</a> (<a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a> p_ker, std::istream &amp;in, <a class="el" href="structatp_1_1search_1_1_search_settings.html">SearchSettings</a> *p_out_settings)</td></tr>
-<tr class="memdesc:a930f63264b08ed19a50adf1476e8d4be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to load a solver from a configuration file.  <a href="namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be">More...</a><br /></td></tr>
-<tr class="separator:a930f63264b08ed19a50adf1476e8d4be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1274bf19e83a50812b02f37c53ec691"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#af1274bf19e83a50812b02f37c53ec691">create_solver_creator</a> (std::function&lt; <a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">SolverPtr</a>(<a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a>)&gt; &amp;creator, <a class="el" href="namespaceatp_1_1search.html#aa9b471dd0b51a5e48442f4e326df7a1a">HeuristicPtr</a> p_heuristic, pt::ptree ptree)</td></tr>
+<tr class="separator:af1274bf19e83a50812b02f37c53ec691"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfcaf2b18b0f857caa3deeb23836adaa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa">load_search_settings</a> (std::istream &amp;in, <a class="el" href="structatp_1_1search_1_1_search_settings.html">SearchSettings</a> *p_out_settings)</td></tr>
+<tr class="memdesc:abfcaf2b18b0f857caa3deeb23836adaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to load a solver from a configuration file.  <a href="namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa">More...</a><br /></td></tr>
+<tr class="separator:abfcaf2b18b0f857caa3deeb23836adaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73efa9f6df8c0de0aa8b42a7e185c47b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1search.html#aa9b471dd0b51a5e48442f4e326df7a1a">HeuristicPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a73efa9f6df8c0de0aa8b42a7e185c47b">try_create_heuristic</a> (const boost::property_tree::ptree &amp;ptree)</td></tr>
 <tr class="memdesc:a73efa9f6df8c0de0aa8b42a7e185c47b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create a heuristic object from the tree rooted at the given parameter.  <a href="namespaceatp_1_1search.html#a73efa9f6df8c0de0aa8b42a7e185c47b">More...</a><br /></td></tr>
 <tr class="separator:a73efa9f6df8c0de0aa8b42a7e185c47b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c3bb0a2ae4082e7b728cc7406eb5ee1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">SolverPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a5c3bb0a2ae4082e7b728cc7406eb5ee1">try_create_solver</a> (<a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a> p_ker, const boost::property_tree::ptree &amp;ptree, <a class="el" href="namespaceatp_1_1search.html#aa9b471dd0b51a5e48442f4e326df7a1a">HeuristicPtr</a> p_heuristic, std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &gt; p_iter_mgr)</td></tr>
-<tr class="memdesc:a5c3bb0a2ae4082e7b728cc7406eb5ee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create a solver, based on the type given in <code>ptree</code>.  <a href="namespaceatp_1_1search.html#a5c3bb0a2ae4082e7b728cc7406eb5ee1">More...</a><br /></td></tr>
-<tr class="separator:a5c3bb0a2ae4082e7b728cc7406eb5ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63dff82536a7665670203db4cdc0a20a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a">try_create_solver</a> (const boost::property_tree::ptree &amp;ptree, <a class="el" href="namespaceatp_1_1search.html#a3eff2966d8cef9143ccac7b604a25b16">SolverCreator</a> &amp;creator)</td></tr>
+<tr class="memdesc:a63dff82536a7665670203db4cdc0a20a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create a solver, based on the type given in <code>ptree</code>.  <a href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a">More...</a><br /></td></tr>
+<tr class="separator:a63dff82536a7665670203db4cdc0a20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7450148ff8935d3c6c05e190b25b25d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">logic::IterSettings</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5">try_get_flags</a> (const boost::property_tree::ptree &amp;ptree)</td></tr>
 <tr class="memdesc:a7450148ff8935d3c6c05e190b25b25d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create the iteration settings flags.  <a href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5">More...</a><br /></td></tr>
 <tr class="separator:a7450148ff8935d3c6c05e190b25b25d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a53fff8340c6ca3591b18f003869385"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">SolverPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a4a53fff8340c6ca3591b18f003869385">try_create_IDS</a> (<a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a> p_ker, const boost::property_tree::ptree &amp;ptree, <a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">logic::IterSettings</a> settings, <a class="el" href="namespaceatp_1_1search.html#aa9b471dd0b51a5e48442f4e326df7a1a">HeuristicPtr</a> p_heuristic, std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &gt; p_iter_mgr)</td></tr>
-<tr class="memdesc:a4a53fff8340c6ca3591b18f003869385"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create an <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html">IterativeDeepeningSolver</a> from the given ptree.  <a href="namespaceatp_1_1search.html#a4a53fff8340c6ca3591b18f003869385">More...</a><br /></td></tr>
-<tr class="separator:a4a53fff8340c6ca3591b18f003869385"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7645df32135997da2f612c9f1eb62641"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a7645df32135997da2f612c9f1eb62641">try_load_succ_iter_settings</a> (<a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &amp;iter_mgr, const boost::property_tree::ptree &amp;ptree)</td></tr>
-<tr class="memdesc:a7645df32135997da2f612c9f1eb62641"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create a stopping strategy from the subtree rooted at the given node. Load them into the iterator manager.  <a href="namespaceatp_1_1search.html#a7645df32135997da2f612c9f1eb62641">More...</a><br /></td></tr>
-<tr class="separator:a7645df32135997da2f612c9f1eb62641"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a288fbf05486211567d8d0661f3991681"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a288fbf05486211567d8d0661f3991681">try_load_fixed_stopping_strategy</a> (<a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &amp;iter_mgr, const boost::property_tree::ptree &amp;ptree)</td></tr>
-<tr class="memdesc:a288fbf05486211567d8d0661f3991681"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to load info for a <a class="el" href="classatp_1_1search_1_1_fixed_stopping_strategy.html" title="This is a naive, simple stopping strategy: always keep N successors in memory, and always just return...">FixedStoppingStrategy</a>.  <a href="namespaceatp_1_1search.html#a288fbf05486211567d8d0661f3991681">More...</a><br /></td></tr>
-<tr class="separator:a288fbf05486211567d8d0661f3991681"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a268a88f64715291bf40d64d1121c8eaf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a268a88f64715291bf40d64d1121c8eaf">try_load_basic_stopping_strategy</a> (<a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &amp;iter_mgr, const boost::property_tree::ptree &amp;ptree)</td></tr>
-<tr class="memdesc:a268a88f64715291bf40d64d1121c8eaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to load info for a <a class="el" href="classatp_1_1search_1_1_basic_stopping_strategy.html" title="This strategy uses a simple cost vs benefit tradeoff.">BasicStoppingStrategy</a>.  <a href="namespaceatp_1_1search.html#a268a88f64715291bf40d64d1121c8eaf">More...</a><br /></td></tr>
-<tr class="separator:a268a88f64715291bf40d64d1121c8eaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ad02c440d9ad48494fcf0667c7c3edd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd">try_create_IDS</a> (const boost::property_tree::ptree &amp;ptree, <a class="el" href="namespaceatp_1_1search.html#a3eff2966d8cef9143ccac7b604a25b16">SolverCreator</a> &amp;creator, <a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">logic::IterSettings</a> iter_settings)</td></tr>
+<tr class="memdesc:a4ad02c440d9ad48494fcf0667c7c3edd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create an <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html">IterativeDeepeningSolver</a> from the given ptree.  <a href="namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd">More...</a><br /></td></tr>
+<tr class="separator:a4ad02c440d9ad48494fcf0667c7c3edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab323763e8bdb7015baadfcecd9dbfba2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2">try_load_succ_iter_settings</a> (<a class="el" href="namespaceatp_1_1search.html#af9beeb4aabc71b9fd2452fcd5b463d9b">SuccIterCreator</a> &amp;creator, const boost::property_tree::ptree &amp;ptree)</td></tr>
+<tr class="memdesc:ab323763e8bdb7015baadfcecd9dbfba2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create a stopping strategy from the subtree rooted at the given node. Load them into the iterator manager.  <a href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2">More...</a><br /></td></tr>
+<tr class="separator:ab323763e8bdb7015baadfcecd9dbfba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5d181aaf3c4a5ed3a94694e1682e342"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342">try_load_fixed_stopping_strategy</a> (<a class="el" href="namespaceatp_1_1search.html#af9beeb4aabc71b9fd2452fcd5b463d9b">SuccIterCreator</a> &amp;creator, const boost::property_tree::ptree &amp;ptree)</td></tr>
+<tr class="memdesc:ad5d181aaf3c4a5ed3a94694e1682e342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to load info for a <a class="el" href="classatp_1_1search_1_1_fixed_stopping_strategy.html" title="This is a naive, simple stopping strategy: always keep N successors in memory, and always just return...">FixedStoppingStrategy</a>.  <a href="namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342">More...</a><br /></td></tr>
+<tr class="separator:ad5d181aaf3c4a5ed3a94694e1682e342"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a476af625bba58960534cfd90427c8b5c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c">try_load_basic_stopping_strategy</a> (<a class="el" href="namespaceatp_1_1search.html#af9beeb4aabc71b9fd2452fcd5b463d9b">SuccIterCreator</a> &amp;creator, const boost::property_tree::ptree &amp;ptree)</td></tr>
+<tr class="memdesc:a476af625bba58960534cfd90427c8b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to load info for a <a class="el" href="classatp_1_1search_1_1_basic_stopping_strategy.html" title="This strategy uses a simple cost vs benefit tradeoff.">BasicStoppingStrategy</a>.  <a href="namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c">More...</a><br /></td></tr>
+<tr class="separator:a476af625bba58960534cfd90427c8b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The namespace of the ATPSearch library. </p>
@@ -160,6 +166,20 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="classatp_1_1search_1_1_i_heuristic.html">IHeuristic</a>&gt; <a class="el" href="namespaceatp_1_1search.html#aa9b471dd0b51a5e48442f4e326df7a1a">atp::search::HeuristicPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3eff2966d8cef9143ccac7b604a25b16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3eff2966d8cef9143ccac7b604a25b16">&#9670;&nbsp;</a></span>SolverCreator</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::function&lt;<a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">SolverPtr</a>( <a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a>, std::unique_ptr&lt;<a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a>&gt;)&gt; <a class="el" href="namespaceatp_1_1search.html#a3eff2966d8cef9143ccac7b604a25b16">atp::search::SolverCreator</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -188,6 +208,20 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">typedef std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_i_stopping_strategy.html">IStoppingStrategy</a>&gt; <a class="el" href="namespaceatp_1_1search.html#a30d0664015b80cf7901fc713966ccad3">atp::search::StoppingStrategyPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af9beeb4aabc71b9fd2452fcd5b463d9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9beeb4aabc71b9fd2452fcd5b463d9b">&#9670;&nbsp;</a></span>SuccIterCreator</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::function&lt;void(<a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a>&amp;)&gt; <a class="el" href="namespaceatp_1_1search.html#af9beeb4aabc71b9fd2452fcd5b463d9b">atp::search::SuccIterCreator</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -265,7 +299,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="namespaceatp_1_1search_aa8dd2f9c72b427c8a08e2c78534f57de_icgraph.png" border="0" usemap="#namespaceatp_1_1search_aa8dd2f9c72b427c8a08e2c78534f57de_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_aa8dd2f9c72b427c8a08e2c78534f57de_icgraph" id="namespaceatp_1_1search_aa8dd2f9c72b427c8a08e2c78534f57de_icgraph">
 <area shape="rect" title="Create this library&#39;s designated &quot;default solver&quot;." alt="" coords="487,5,617,47"/>
-<area shape="rect" href="class_proof_application.html#ab9866cf70cba58dcf91d17fa0607ca61" title="Loads the solver." alt="" coords="296,5,439,47"/>
+<area shape="rect" href="class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79" title="Loads the solver." alt="" coords="296,5,439,47"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
 </map>
@@ -273,8 +307,70 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a930f63264b08ed19a50adf1476e8d4be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a930f63264b08ed19a50adf1476e8d4be">&#9670;&nbsp;</a></span>load_search_settings()</h2>
+<a id="af1274bf19e83a50812b02f37c53ec691"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1274bf19e83a50812b02f37c53ec691">&#9670;&nbsp;</a></span>create_solver_creator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool atp::search::create_solver_creator </td>
+          <td>(</td>
+          <td class="paramtype">std::function&lt; <a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">SolverPtr</a>(<a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a>)&gt; &amp;&#160;</td>
+          <td class="paramname"><em>creator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1search.html#aa9b471dd0b51a5e48442f4e326df7a1a">HeuristicPtr</a>&#160;</td>
+          <td class="paramname"><em>p_heuristic</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pt::ptree&#160;</td>
+          <td class="paramname"><em>ptree</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceatp_1_1search_af1274bf19e83a50812b02f37c53ec691_cgraph.png" border="0" usemap="#namespaceatp_1_1search_af1274bf19e83a50812b02f37c53ec691_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_af1274bf19e83a50812b02f37c53ec691_cgraph" id="namespaceatp_1_1search_af1274bf19e83a50812b02f37c53ec691_cgraph">
+<area shape="rect" title=" " alt="" coords="5,90,136,131"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="184,57,337,98"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="190,122,331,163"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="385,5,567,32"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="409,57,543,98"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="391,122,561,163"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342" title="Try to load info for a FixedStoppingStrategy." alt="" coords="393,187,559,229"/>
+<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="615,122,811,163"/>
+<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="617,187,809,229"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceatp_1_1search_af1274bf19e83a50812b02f37c53ec691_icgraph.png" border="0" usemap="#namespaceatp_1_1search_af1274bf19e83a50812b02f37c53ec691_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_af1274bf19e83a50812b02f37c53ec691_icgraph" id="namespaceatp_1_1search_af1274bf19e83a50812b02f37c53ec691_icgraph">
+<area shape="rect" title=" " alt="" coords="700,5,831,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
+<area shape="rect" href="class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79" title="Loads the solver." alt="" coords="296,5,439,47"/>
+<area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
+<area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="abfcaf2b18b0f857caa3deeb23836adaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfcaf2b18b0f857caa3deeb23836adaa">&#9670;&nbsp;</a></span>load_search_settings()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -282,12 +378,6 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> bool atp::search::load_search_settings </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a>&#160;</td>
-          <td class="paramname"><em>p_ker</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">std::istream &amp;&#160;</td>
           <td class="paramname"><em>in</em>, </td>
         </tr>
@@ -314,33 +404,34 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondition</dt><dd>p_out_settings != nullptr &amp;&amp; p_ker != nullptr</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>p_out_settings != nullptr</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>True iff success.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>If the user doesn't provide certain info, default values may be set instead - for example, if the file provides no solver, p_solver will be set to null but this may not be an error. Check the return value! </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a930f63264b08ed19a50adf1476e8d4be_cgraph.png" border="0" usemap="#namespaceatp_1_1search_a930f63264b08ed19a50adf1476e8d4be_cgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a930f63264b08ed19a50adf1476e8d4be_cgraph" id="namespaceatp_1_1search_a930f63264b08ed19a50adf1476e8d4be_cgraph">
-<area shape="rect" title="Try to load a solver from a configuration file." alt="" coords="5,71,171,112"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a73efa9f6df8c0de0aa8b42a7e185c47b" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="219,5,372,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a5c3bb0a2ae4082e7b728cc7406eb5ee1" title="Try to create a solver, based on the type given in ptree." alt="" coords="219,71,372,112"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a7645df32135997da2f612c9f1eb62641" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="225,136,366,177"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a4a53fff8340c6ca3591b18f003869385" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="420,19,601,46"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="443,71,578,112"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a268a88f64715291bf40d64d1121c8eaf" title="Try to load info for a BasicStoppingStrategy." alt="" coords="425,136,596,177"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a288fbf05486211567d8d0661f3991681" title="Try to load info for a FixedStoppingStrategy." alt="" coords="427,201,594,243"/>
-<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="649,136,845,177"/>
-<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="651,201,843,243"/>
+<div class="center"><img src="namespaceatp_1_1search_abfcaf2b18b0f857caa3deeb23836adaa_cgraph.png" border="0" usemap="#namespaceatp_1_1search_abfcaf2b18b0f857caa3deeb23836adaa_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_abfcaf2b18b0f857caa3deeb23836adaa_cgraph" id="namespaceatp_1_1search_abfcaf2b18b0f857caa3deeb23836adaa_cgraph">
+<area shape="rect" title="Try to load a solver from a configuration file." alt="" coords="5,122,171,163"/>
+<area shape="rect" href="namespaceatp_1_1search.html#af1274bf19e83a50812b02f37c53ec691" title=" " alt="" coords="230,89,361,130"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a73efa9f6df8c0de0aa8b42a7e185c47b" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="219,154,372,195"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="420,57,573,98"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="426,122,567,163"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="621,5,803,32"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="645,57,779,98"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="627,122,797,163"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342" title="Try to load info for a FixedStoppingStrategy." alt="" coords="629,187,795,229"/>
+<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="851,122,1047,163"/>
+<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="853,187,1045,229"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a930f63264b08ed19a50adf1476e8d4be_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a930f63264b08ed19a50adf1476e8d4be_icgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a930f63264b08ed19a50adf1476e8d4be_icgraph" id="namespaceatp_1_1search_a930f63264b08ed19a50adf1476e8d4be_icgraph">
+<div class="center"><img src="namespaceatp_1_1search_abfcaf2b18b0f857caa3deeb23836adaa_icgraph.png" border="0" usemap="#namespaceatp_1_1search_abfcaf2b18b0f857caa3deeb23836adaa_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_abfcaf2b18b0f857caa3deeb23836adaa_icgraph" id="namespaceatp_1_1search_abfcaf2b18b0f857caa3deeb23836adaa_icgraph">
 <area shape="rect" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
-<area shape="rect" href="class_proof_application.html#ab9866cf70cba58dcf91d17fa0607ca61" title="Loads the solver." alt="" coords="296,5,439,47"/>
+<area shape="rect" href="class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79" title="Loads the solver." alt="" coords="296,5,439,47"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
 </map>
@@ -378,8 +469,8 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="namespaceatp_1_1search_a73efa9f6df8c0de0aa8b42a7e185c47b_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a73efa9f6df8c0de0aa8b42a7e185c47b_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_a73efa9f6df8c0de0aa8b42a7e185c47b_icgraph" id="namespaceatp_1_1search_a73efa9f6df8c0de0aa8b42a7e185c47b_icgraph">
 <area shape="rect" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="700,5,853,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
-<area shape="rect" href="class_proof_application.html#ab9866cf70cba58dcf91d17fa0607ca61" title="Loads the solver." alt="" coords="296,5,439,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
+<area shape="rect" href="class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79" title="Loads the solver." alt="" coords="296,5,439,47"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
 </map>
@@ -387,41 +478,29 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a4a53fff8340c6ca3591b18f003869385"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a53fff8340c6ca3591b18f003869385">&#9670;&nbsp;</a></span>try_create_IDS()</h2>
+<a id="a4ad02c440d9ad48494fcf0667c7c3edd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ad02c440d9ad48494fcf0667c7c3edd">&#9670;&nbsp;</a></span>try_create_IDS()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> <a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">SolverPtr</a> atp::search::try_create_IDS </td>
+          <td class="memname"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> bool atp::search::try_create_IDS </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a>&#160;</td>
-          <td class="paramname"><em>p_ker</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const boost::property_tree::ptree &amp;&#160;</td>
           <td class="paramname"><em>ptree</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1search.html#a3eff2966d8cef9143ccac7b604a25b16">SolverCreator</a> &amp;&#160;</td>
+          <td class="paramname"><em>creator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">logic::IterSettings</a>&#160;</td>
-          <td class="paramname"><em>settings</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1search.html#aa9b471dd0b51a5e48442f4e326df7a1a">HeuristicPtr</a>&#160;</td>
-          <td class="paramname"><em>p_heuristic</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &gt;&#160;</td>
-          <td class="paramname"><em>p_iter_mgr</em>&#160;</td>
+          <td class="paramname"><em>iter_settings</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -432,7 +511,13 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Try to create an <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html">IterativeDeepeningSolver</a> from the given ptree. </p>
-<dl class="section return"><dt>Returns</dt><dd>Nullptr on failure, otherwise returns the solver object</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">creator</td><td>This function will be assigned a value iff success.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True iff success</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">Anything</td><td>that might be thrown by the ptree. </td></tr>
@@ -442,12 +527,13 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a4a53fff8340c6ca3591b18f003869385_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a4a53fff8340c6ca3591b18f003869385_icgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a4a53fff8340c6ca3591b18f003869385_icgraph" id="namespaceatp_1_1search_a4a53fff8340c6ca3591b18f003869385_icgraph">
-<area shape="rect" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="901,13,1083,39"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a5c3bb0a2ae4082e7b728cc7406eb5ee1" title="Try to create a solver, based on the type given in ptree." alt="" coords="700,5,853,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
-<area shape="rect" href="class_proof_application.html#ab9866cf70cba58dcf91d17fa0607ca61" title="Loads the solver." alt="" coords="296,5,439,47"/>
+<div class="center"><img src="namespaceatp_1_1search_a4ad02c440d9ad48494fcf0667c7c3edd_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a4ad02c440d9ad48494fcf0667c7c3edd_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_a4ad02c440d9ad48494fcf0667c7c3edd_icgraph" id="namespaceatp_1_1search_a4ad02c440d9ad48494fcf0667c7c3edd_icgraph">
+<area shape="rect" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="1080,13,1261,39"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="879,5,1032,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#af1274bf19e83a50812b02f37c53ec691" title=" " alt="" coords="700,5,831,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
+<area shape="rect" href="class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79" title="Loads the solver." alt="" coords="296,5,439,47"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
 </map>
@@ -455,35 +541,23 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a5c3bb0a2ae4082e7b728cc7406eb5ee1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c3bb0a2ae4082e7b728cc7406eb5ee1">&#9670;&nbsp;</a></span>try_create_solver()</h2>
+<a id="a63dff82536a7665670203db4cdc0a20a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63dff82536a7665670203db4cdc0a20a">&#9670;&nbsp;</a></span>try_create_solver()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> <a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">SolverPtr</a> atp::search::try_create_solver </td>
+          <td class="memname"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> bool atp::search::try_create_solver </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a>&#160;</td>
-          <td class="paramname"><em>p_ker</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const boost::property_tree::ptree &amp;&#160;</td>
           <td class="paramname"><em>ptree</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1search.html#aa9b471dd0b51a5e48442f4e326df7a1a">HeuristicPtr</a>&#160;</td>
-          <td class="paramname"><em>p_heuristic</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &gt;&#160;</td>
-          <td class="paramname"><em>p_iter_mgr</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1search.html#a3eff2966d8cef9143ccac7b604a25b16">SolverCreator</a> &amp;&#160;</td>
+          <td class="paramname"><em>creator</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -494,7 +568,13 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Try to create a solver, based on the type given in <code>ptree</code>. </p>
-<dl class="section return"><dt>Returns</dt><dd>Nullptr on failure, otherwise returns the solver object</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">creator</td><td>This function will be assigned a value iff success.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True iff success</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">Anything</td><td>that might be thrown by the ptree. </td></tr>
@@ -504,21 +584,22 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a5c3bb0a2ae4082e7b728cc7406eb5ee1_cgraph.png" border="0" usemap="#namespaceatp_1_1search_a5c3bb0a2ae4082e7b728cc7406eb5ee1_cgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a5c3bb0a2ae4082e7b728cc7406eb5ee1_cgraph" id="namespaceatp_1_1search_a5c3bb0a2ae4082e7b728cc7406eb5ee1_cgraph">
+<div class="center"><img src="namespaceatp_1_1search_a63dff82536a7665670203db4cdc0a20a_cgraph.png" border="0" usemap="#namespaceatp_1_1search_a63dff82536a7665670203db4cdc0a20a_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_a63dff82536a7665670203db4cdc0a20a_cgraph" id="namespaceatp_1_1search_a63dff82536a7665670203db4cdc0a20a_cgraph">
 <area shape="rect" title="Try to create a solver, based on the type given in ptree." alt="" coords="5,27,159,69"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a4a53fff8340c6ca3591b18f003869385" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="207,5,388,32"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="207,5,388,32"/>
 <area shape="rect" href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="230,57,365,98"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a5c3bb0a2ae4082e7b728cc7406eb5ee1_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a5c3bb0a2ae4082e7b728cc7406eb5ee1_icgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a5c3bb0a2ae4082e7b728cc7406eb5ee1_icgraph" id="namespaceatp_1_1search_a5c3bb0a2ae4082e7b728cc7406eb5ee1_icgraph">
-<area shape="rect" title="Try to create a solver, based on the type given in ptree." alt="" coords="700,5,853,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
-<area shape="rect" href="class_proof_application.html#ab9866cf70cba58dcf91d17fa0607ca61" title="Loads the solver." alt="" coords="296,5,439,47"/>
+<div class="center"><img src="namespaceatp_1_1search_a63dff82536a7665670203db4cdc0a20a_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a63dff82536a7665670203db4cdc0a20a_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_a63dff82536a7665670203db4cdc0a20a_icgraph" id="namespaceatp_1_1search_a63dff82536a7665670203db4cdc0a20a_icgraph">
+<area shape="rect" title="Try to create a solver, based on the type given in ptree." alt="" coords="879,5,1032,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#af1274bf19e83a50812b02f37c53ec691" title=" " alt="" coords="700,5,831,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
+<area shape="rect" href="class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79" title="Loads the solver." alt="" coords="296,5,439,47"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
 </map>
@@ -543,15 +624,22 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Try to create the iteration settings flags. </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Anything</td><td>that might be thrown by the ptree. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1search_a7450148ff8935d3c6c05e190b25b25d5_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a7450148ff8935d3c6c05e190b25b25d5_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_a7450148ff8935d3c6c05e190b25b25d5_icgraph" id="namespaceatp_1_1search_a7450148ff8935d3c6c05e190b25b25d5_icgraph">
-<area shape="rect" title="Try to create the iteration settings flags." alt="" coords="901,5,1036,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a5c3bb0a2ae4082e7b728cc7406eb5ee1" title="Try to create a solver, based on the type given in ptree." alt="" coords="700,5,853,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
-<area shape="rect" href="class_proof_application.html#ab9866cf70cba58dcf91d17fa0607ca61" title="Loads the solver." alt="" coords="296,5,439,47"/>
+<area shape="rect" title="Try to create the iteration settings flags." alt="" coords="1080,5,1215,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="879,5,1032,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#af1274bf19e83a50812b02f37c53ec691" title=" " alt="" coords="700,5,831,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
+<area shape="rect" href="class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79" title="Loads the solver." alt="" coords="296,5,439,47"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
 </map>
@@ -559,8 +647,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a268a88f64715291bf40d64d1121c8eaf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a268a88f64715291bf40d64d1121c8eaf">&#9670;&nbsp;</a></span>try_load_basic_stopping_strategy()</h2>
+<a id="a476af625bba58960534cfd90427c8b5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a476af625bba58960534cfd90427c8b5c">&#9670;&nbsp;</a></span>try_load_basic_stopping_strategy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -568,8 +656,8 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> bool atp::search::try_load_basic_stopping_strategy </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &amp;&#160;</td>
-          <td class="paramname"><em>iter_mgr</em>, </td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1search.html#af9beeb4aabc71b9fd2452fcd5b463d9b">SuccIterCreator</a> &amp;&#160;</td>
+          <td class="paramname"><em>creator</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -586,6 +674,12 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Try to load info for a <a class="el" href="classatp_1_1search_1_1_basic_stopping_strategy.html" title="This strategy uses a simple cost vs benefit tradeoff.">BasicStoppingStrategy</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">creator</td><td>This function will be assigned a value iff success.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>True iff success.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
@@ -596,8 +690,8 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a268a88f64715291bf40d64d1121c8eaf_cgraph.png" border="0" usemap="#namespaceatp_1_1search_a268a88f64715291bf40d64d1121c8eaf_cgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a268a88f64715291bf40d64d1121c8eaf_cgraph" id="namespaceatp_1_1search_a268a88f64715291bf40d64d1121c8eaf_cgraph">
+<div class="center"><img src="namespaceatp_1_1search_a476af625bba58960534cfd90427c8b5c_cgraph.png" border="0" usemap="#namespaceatp_1_1search_a476af625bba58960534cfd90427c8b5c_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_a476af625bba58960534cfd90427c8b5c_cgraph" id="namespaceatp_1_1search_a476af625bba58960534cfd90427c8b5c_cgraph">
 <area shape="rect" title="Try to load info for a BasicStoppingStrategy." alt="" coords="5,5,176,47"/>
 <area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="224,5,420,47"/>
 </map>
@@ -605,12 +699,13 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a268a88f64715291bf40d64d1121c8eaf_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a268a88f64715291bf40d64d1121c8eaf_icgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a268a88f64715291bf40d64d1121c8eaf_icgraph" id="namespaceatp_1_1search_a268a88f64715291bf40d64d1121c8eaf_icgraph">
-<area shape="rect" title="Try to load info for a BasicStoppingStrategy." alt="" coords="889,5,1060,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a7645df32135997da2f612c9f1eb62641" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="700,5,841,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
-<area shape="rect" href="class_proof_application.html#ab9866cf70cba58dcf91d17fa0607ca61" title="Loads the solver." alt="" coords="296,5,439,47"/>
+<div class="center"><img src="namespaceatp_1_1search_a476af625bba58960534cfd90427c8b5c_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a476af625bba58960534cfd90427c8b5c_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_a476af625bba58960534cfd90427c8b5c_icgraph" id="namespaceatp_1_1search_a476af625bba58960534cfd90427c8b5c_icgraph">
+<area shape="rect" title="Try to load info for a BasicStoppingStrategy." alt="" coords="1068,5,1239,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="879,5,1020,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#af1274bf19e83a50812b02f37c53ec691" title=" " alt="" coords="700,5,831,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
+<area shape="rect" href="class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79" title="Loads the solver." alt="" coords="296,5,439,47"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
 </map>
@@ -618,8 +713,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a288fbf05486211567d8d0661f3991681"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a288fbf05486211567d8d0661f3991681">&#9670;&nbsp;</a></span>try_load_fixed_stopping_strategy()</h2>
+<a id="ad5d181aaf3c4a5ed3a94694e1682e342"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5d181aaf3c4a5ed3a94694e1682e342">&#9670;&nbsp;</a></span>try_load_fixed_stopping_strategy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -627,8 +722,8 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> bool atp::search::try_load_fixed_stopping_strategy </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &amp;&#160;</td>
-          <td class="paramname"><em>iter_mgr</em>, </td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1search.html#af9beeb4aabc71b9fd2452fcd5b463d9b">SuccIterCreator</a> &amp;&#160;</td>
+          <td class="paramname"><em>creator</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -645,6 +740,12 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Try to load info for a <a class="el" href="classatp_1_1search_1_1_fixed_stopping_strategy.html" title="This is a naive, simple stopping strategy: always keep N successors in memory, and always just return...">FixedStoppingStrategy</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">creator</td><td>This function will be assigned a value iff success.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>True iff success.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
@@ -655,8 +756,8 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a288fbf05486211567d8d0661f3991681_cgraph.png" border="0" usemap="#namespaceatp_1_1search_a288fbf05486211567d8d0661f3991681_cgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a288fbf05486211567d8d0661f3991681_cgraph" id="namespaceatp_1_1search_a288fbf05486211567d8d0661f3991681_cgraph">
+<div class="center"><img src="namespaceatp_1_1search_ad5d181aaf3c4a5ed3a94694e1682e342_cgraph.png" border="0" usemap="#namespaceatp_1_1search_ad5d181aaf3c4a5ed3a94694e1682e342_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_ad5d181aaf3c4a5ed3a94694e1682e342_cgraph" id="namespaceatp_1_1search_ad5d181aaf3c4a5ed3a94694e1682e342_cgraph">
 <area shape="rect" title="Try to load info for a FixedStoppingStrategy." alt="" coords="5,5,172,47"/>
 <area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="220,5,412,47"/>
 </map>
@@ -664,12 +765,13 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a288fbf05486211567d8d0661f3991681_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a288fbf05486211567d8d0661f3991681_icgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a288fbf05486211567d8d0661f3991681_icgraph" id="namespaceatp_1_1search_a288fbf05486211567d8d0661f3991681_icgraph">
-<area shape="rect" title="Try to load info for a FixedStoppingStrategy." alt="" coords="889,5,1056,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a7645df32135997da2f612c9f1eb62641" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="700,5,841,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
-<area shape="rect" href="class_proof_application.html#ab9866cf70cba58dcf91d17fa0607ca61" title="Loads the solver." alt="" coords="296,5,439,47"/>
+<div class="center"><img src="namespaceatp_1_1search_ad5d181aaf3c4a5ed3a94694e1682e342_icgraph.png" border="0" usemap="#namespaceatp_1_1search_ad5d181aaf3c4a5ed3a94694e1682e342_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_ad5d181aaf3c4a5ed3a94694e1682e342_icgraph" id="namespaceatp_1_1search_ad5d181aaf3c4a5ed3a94694e1682e342_icgraph">
+<area shape="rect" title="Try to load info for a FixedStoppingStrategy." alt="" coords="1068,5,1235,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="879,5,1020,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#af1274bf19e83a50812b02f37c53ec691" title=" " alt="" coords="700,5,831,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
+<area shape="rect" href="class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79" title="Loads the solver." alt="" coords="296,5,439,47"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
 </map>
@@ -677,8 +779,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a7645df32135997da2f612c9f1eb62641"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7645df32135997da2f612c9f1eb62641">&#9670;&nbsp;</a></span>try_load_succ_iter_settings()</h2>
+<a id="ab323763e8bdb7015baadfcecd9dbfba2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab323763e8bdb7015baadfcecd9dbfba2">&#9670;&nbsp;</a></span>try_load_succ_iter_settings()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -686,8 +788,8 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> bool atp::search::try_load_succ_iter_settings </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &amp;&#160;</td>
-          <td class="paramname"><em>iter_mgr</em>, </td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1search.html#af9beeb4aabc71b9fd2452fcd5b463d9b">SuccIterCreator</a> &amp;&#160;</td>
+          <td class="paramname"><em>creator</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -704,6 +806,12 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Try to create a stopping strategy from the subtree rooted at the given node. Load them into the iterator manager. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">creator</td><td>This function will be assigned a value iff success.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>True iff success.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
@@ -714,11 +822,11 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a7645df32135997da2f612c9f1eb62641_cgraph.png" border="0" usemap="#namespaceatp_1_1search_a7645df32135997da2f612c9f1eb62641_cgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a7645df32135997da2f612c9f1eb62641_cgraph" id="namespaceatp_1_1search_a7645df32135997da2f612c9f1eb62641_cgraph">
+<div class="center"><img src="namespaceatp_1_1search_ab323763e8bdb7015baadfcecd9dbfba2_cgraph.png" border="0" usemap="#namespaceatp_1_1search_ab323763e8bdb7015baadfcecd9dbfba2_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_ab323763e8bdb7015baadfcecd9dbfba2_cgraph" id="namespaceatp_1_1search_ab323763e8bdb7015baadfcecd9dbfba2_cgraph">
 <area shape="rect" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="5,39,147,80"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a268a88f64715291bf40d64d1121c8eaf" title="Try to load info for a BasicStoppingStrategy." alt="" coords="195,5,365,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a288fbf05486211567d8d0661f3991681" title="Try to load info for a FixedStoppingStrategy." alt="" coords="197,71,363,112"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="195,5,365,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342" title="Try to load info for a FixedStoppingStrategy." alt="" coords="197,71,363,112"/>
 <area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="413,5,609,47"/>
 <area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="415,71,607,112"/>
 </map>
@@ -726,11 +834,12 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a7645df32135997da2f612c9f1eb62641_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a7645df32135997da2f612c9f1eb62641_icgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a7645df32135997da2f612c9f1eb62641_icgraph" id="namespaceatp_1_1search_a7645df32135997da2f612c9f1eb62641_icgraph">
-<area shape="rect" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="700,5,841,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a930f63264b08ed19a50adf1476e8d4be" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
-<area shape="rect" href="class_proof_application.html#ab9866cf70cba58dcf91d17fa0607ca61" title="Loads the solver." alt="" coords="296,5,439,47"/>
+<div class="center"><img src="namespaceatp_1_1search_ab323763e8bdb7015baadfcecd9dbfba2_icgraph.png" border="0" usemap="#namespaceatp_1_1search_ab323763e8bdb7015baadfcecd9dbfba2_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_ab323763e8bdb7015baadfcecd9dbfba2_icgraph" id="namespaceatp_1_1search_ab323763e8bdb7015baadfcecd9dbfba2_icgraph">
+<area shape="rect" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="879,5,1020,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#af1274bf19e83a50812b02f37c53ec691" title=" " alt="" coords="700,5,831,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
+<area shape="rect" href="class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79" title="Loads the solver." alt="" coords="296,5,439,47"/>
 <area shape="rect" href="_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" href="_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
 </map>

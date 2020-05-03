@@ -1,8 +1,13 @@
 <map id="atp::logic::equational::Expression::construct" name="atp::logic::equational::Expression::construct">
-<area shape="rect" id="node1" title=" " alt="" coords="428,123,585,165"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a4f14e95373eb16153018d9915b868bfb" title=" " alt="" coords="221,123,380,165"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ad8083ceacee1e9c873e4ca5d3323da29" title="Add a particular value to the ID of every free variable in this statement." alt="" coords="12,5,167,61"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_statement.html#adfc8c3e839809b2e9ee0dceaef0fd23b" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="18,86,161,127"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a04d4ffb3b0c6f406c08de29158034443" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="5,152,173,208"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a657354ecd032bece42a728b8ad69a004" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="5,232,173,288"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1285,151,1443,193"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a4f14e95373eb16153018d9915b868bfb" title=" " alt="" coords="1079,151,1237,193"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ad8083ceacee1e9c873e4ca5d3323da29" title="Add a particular value to the ID of every free variable in this statement." alt="" coords="864,5,1019,61"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_statement.html#af45f2b2d4b0e71b5abc5004010a2afd2" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="852,86,1031,127"/>
+<area shape="rect" id="node9" href="$classatp_1_1logic_1_1equational_1_1_statement.html#adfc8c3e839809b2e9ee0dceaef0fd23b" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="870,151,1013,193"/>
+<area shape="rect" id="node10" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a04d4ffb3b0c6f406c08de29158034443" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="857,217,1025,273"/>
+<area shape="rect" id="node11" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a657354ecd032bece42a728b8ad69a004" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="857,297,1025,353"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a80adf6e4c2a2495b585463103d43ec0d" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="651,79,804,135"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="407,86,603,127"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="205,79,359,135"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,79,157,135"/>
 </map>

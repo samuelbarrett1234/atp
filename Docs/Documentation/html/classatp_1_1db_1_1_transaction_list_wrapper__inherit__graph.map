@@ -1,0 +1,4 @@
+<map id="atp::db::TransactionListWrapper" name="atp::db::TransactionListWrapper">
+<area shape="rect" id="node1" title="This object is a wrapper for a list of transactions." alt="" coords="5,80,164,121"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_i_transaction.html" title="A transaction is any database operation which is either (i) not instantaneous, or (ii) can fail (at p..." alt="" coords="15,5,155,32"/>
+</map>

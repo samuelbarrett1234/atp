@@ -1,14 +1,16 @@
 <map id="ATPSearch/Interfaces/ISolver.h" name="ATPSearch/Interfaces/ISolver.h">
-<area shape="rect" id="node1" title="Interface for proof solving strategies." alt="" coords="277,5,425,47"/>
-<area shape="rect" id="node2" href="$_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="68,191,237,218"/>
-<area shape="rect" id="node7" href="$_search_settings_8h.html" title="Contains code for loading user search settings." alt="" coords="196,95,331,136"/>
-<area shape="rect" id="node9" href="$_iterative_deepening_solver_8h.html" title="Contains a basic uninformed search strategy, IDS." alt="" coords="555,95,732,136"/>
-<area shape="rect" id="node12" href="$_search_settings_solvers_8h.html" title="Contains functions for loading solvers from the search settings file." alt="" coords="355,95,523,136"/>
+<area shape="rect" id="node1" title="Interface for proof solving strategies." alt="" coords="333,5,481,47"/>
+<area shape="rect" id="node2" href="$_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="124,191,293,218"/>
+<area shape="rect" id="node9" href="$_search_settings_8h.html" title="Contains code for loading user search settings." alt="" coords="252,95,387,136"/>
+<area shape="rect" id="node11" href="$_iterative_deepening_solver_8h.html" title="Contains a basic uninformed search strategy, IDS." alt="" coords="611,95,788,136"/>
+<area shape="rect" id="node14" href="$_search_settings_solvers_8h.html" title="Contains functions for loading solvers from the search settings file." alt="" coords="411,95,579,136"/>
 <area shape="rect" id="node3" href="$_proof_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="22,273,171,300"/>
 <area shape="rect" id="node5" href="$_proof_application_8cpp.html" title=" " alt="" coords="127,348,290,375"/>
-<area shape="rect" id="node6" href="$_a_t_p_search_8cpp.html" title=" " alt="" coords="400,273,583,300"/>
-<area shape="rect" id="node4" href="$_main_8cpp.html" title=" " alt="" coords="5,348,103,375"/>
-<area shape="rect" id="node8" href="$_search_settings_8cpp.html" title=" " alt="" coords="261,184,401,225"/>
-<area shape="rect" id="node10" href="$_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="684,184,875,225"/>
-<area shape="rect" id="node11" href="$_search_settings_solvers_8cpp.html" title=" " alt="" coords="425,184,608,225"/>
+<area shape="rect" id="node6" href="$_proof_process_8h.html" title="A process for proving a set of statements." alt="" coords="246,273,379,300"/>
+<area shape="rect" id="node8" href="$_a_t_p_search_8cpp.html" title=" " alt="" coords="507,273,689,300"/>
+<area shape="rect" id="node4" href="$_main_8cpp.html" title="Entrypoint for atp command line application." alt="" coords="5,348,103,375"/>
+<area shape="rect" id="node7" href="$_proof_process_8cpp.html" title=" " alt="" coords="314,348,461,375"/>
+<area shape="rect" id="node10" href="$_search_settings_8cpp.html" title=" " alt="" coords="317,184,457,225"/>
+<area shape="rect" id="node12" href="$_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="740,184,931,225"/>
+<area shape="rect" id="node13" href="$_search_settings_solvers_8cpp.html" title=" " alt="" coords="481,184,664,225"/>
 </map>

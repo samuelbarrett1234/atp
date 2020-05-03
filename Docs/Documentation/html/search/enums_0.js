@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['langtype_798',['LangType',['../namespaceatp_1_1logic.html#a86775702f28d47ba503e3ed7304270e2',1,'atp::logic']]]
+  ['dtype_977',['DType',['../namespaceatp_1_1db.html#afb2f75874310d011b7db4fc0846d9c88',1,'atp::db']]]
 ];

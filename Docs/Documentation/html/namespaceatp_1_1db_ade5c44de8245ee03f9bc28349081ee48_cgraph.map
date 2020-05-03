@@ -1,0 +1,4 @@
+<map id="atp::db::try_get_value" name="atp::db::try_get_value">
+<area shape="rect" id="node1" title="Helper function for queries which just return a single value." alt="" coords="5,13,152,39"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_s_q_lite_database.html#ae90cf2a579ded25347887a06c7795dc7" title="Begin executing a transaction." alt="" coords="200,5,365,47"/>
+</map>

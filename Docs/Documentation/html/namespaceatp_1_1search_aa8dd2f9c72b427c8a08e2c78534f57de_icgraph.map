@@ -1,6 +1,6 @@
 <map id="atp::search::create_default_solver" name="atp::search::create_default_solver">
 <area shape="rect" id="node1" title="Create this library&#39;s designated &quot;default solver&quot;." alt="" coords="487,5,617,47"/>
-<area shape="rect" id="node2" href="$class_proof_application.html#ab9866cf70cba58dcf91d17fa0607ca61" title="Loads the solver." alt="" coords="296,5,439,47"/>
+<area shape="rect" id="node2" href="$class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79" title="Loads the solver." alt="" coords="296,5,439,47"/>
 <area shape="rect" id="node3" href="$_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
 <area shape="rect" id="node4" href="$_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
 </map>

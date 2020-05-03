@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">atp::logic::equational::ExprTreeFlyweight Class Reference</div>  </div>
@@ -122,6 +123,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a635d2d8e2a4765bb3b1c107b8aafcad0"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a635d2d8e2a4765bb3b1c107b8aafcad0">merge_from</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html">ExprTreeFlyweight</a> &amp;other)</td></tr>
 <tr class="memdesc:a635d2d8e2a4765bb3b1c107b8aafcad0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Append, to each array in this object, the arrays in the other object. Also, update their function indices to make them still consistent.  <a href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a635d2d8e2a4765bb3b1c107b8aafcad0">More...</a><br /></td></tr>
 <tr class="separator:a635d2d8e2a4765bb3b1c107b8aafcad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52b4dcc793e3d9f76c92b1367626a6b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a52b4dcc793e3d9f76c92b1367626a6b7">save</a> (std::ostream &amp;out) const</td></tr>
+<tr class="memdesc:a52b4dcc793e3d9f76c92b1367626a6b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save this object to the given (binary) output.  <a href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a52b4dcc793e3d9f76c92b1367626a6b7">More...</a><br /></td></tr>
+<tr class="separator:a52b4dcc793e3d9f76c92b1367626a6b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ae5e09db06ead8e9118fc249918d3fe12"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html">ExprTreeFlyweight</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#ae5e09db06ead8e9118fc249918d3fe12">load_from_bin</a> (std::istream &amp;in)</td></tr>
+<tr class="memdesc:ae5e09db06ead8e9118fc249918d3fe12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new object from a binary stream, which must be of the correct format.  <a href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#ae5e09db06ead8e9118fc249918d3fe12">More...</a><br /></td></tr>
+<tr class="separator:ae5e09db06ead8e9118fc249918d3fe12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class encapsulates the complexity of storing an expression's syntax tree efficiently. </p>
@@ -411,6 +421,54 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="ae5e09db06ead8e9118fc249918d3fe12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5e09db06ead8e9118fc249918d3fe12">&#9670;&nbsp;</a></span>load_from_bin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html">ExprTreeFlyweight</a> atp::logic::equational::ExprTreeFlyweight::load_from_bin </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>in</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new object from a binary stream, which must be of the correct format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>The (binary) input stream. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight_ae5e09db06ead8e9118fc249918d3fe12_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight_ae5e09db06ead8e9118fc249918d3fe12_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight_ae5e09db06ead8e9118fc249918d3fe12_icgraph" id="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight_ae5e09db06ead8e9118fc249918d3fe12_icgraph">
+<area shape="rect" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="1309,5,1479,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#aee3072c55256831e2c5a96088678b466" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="1079,13,1261,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#af45f2b2d4b0e71b5abc5004010a2afd2" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="852,13,1031,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a80adf6e4c2a2495b585463103d43ec0d" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="651,5,804,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="407,13,603,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="205,5,359,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,5,157,61"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a635d2d8e2a4765bb3b1c107b8aafcad0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a635d2d8e2a4765bb3b1c107b8aafcad0">&#9670;&nbsp;</a></span>merge_from()</h2>
 
@@ -575,6 +633,41 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="5,283,192,324"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#aeee9e7dcfe3da4ed1f7f2b40de534488" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="26,348,171,389"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#af93dc45b37aefe9d2f66ce8a4318fa6f" title="Try to match this expression to the given expression." alt="" coords="18,413,179,455"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a52b4dcc793e3d9f76c92b1367626a6b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52b4dcc793e3d9f76c92b1367626a6b7">&#9670;&nbsp;</a></span>save()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void atp::logic::equational::ExprTreeFlyweight::save </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Save this object to the given (binary) output. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">out</td><td>The (binary) output stream. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight_a52b4dcc793e3d9f76c92b1367626a6b7_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight_a52b4dcc793e3d9f76c92b1367626a6b7_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight_a52b4dcc793e3d9f76c92b1367626a6b7_icgraph" id="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight_a52b4dcc793e3d9f76c92b1367626a6b7_icgraph">
+<area shape="rect" title="Save this object to the given (binary) output." alt="" coords="196,5,367,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a0bffc5f68515600447e2a2990ac5a880" title="Save this object to the given (binary) output." alt="" coords="5,5,148,47"/>
 </map>
 </div>
 

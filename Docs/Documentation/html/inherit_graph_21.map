@@ -1,4 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classatp_1_1logic_1_1_i_proof_state.html" title="A proof state encapsulates the idea of a proof (which may be a WIP) and contains many different state..." alt="" coords="5,13,152,39"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html" title="Proof states for equational logic." alt="" coords="200,5,343,47"/>
+<area shape="rect" id="node1" href="$classatp_1_1logic_1_1_i_knowledge_kernel.html" title="Represents a collection of definitions and axioms, associated with a particular ILanguage,..." alt="" coords="5,46,192,73"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html" title="IKnowledgeKernel implementation for equational logic." alt="" coords="249,5,392,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html" title=" " alt="" coords="240,71,401,112"/>
 </map>

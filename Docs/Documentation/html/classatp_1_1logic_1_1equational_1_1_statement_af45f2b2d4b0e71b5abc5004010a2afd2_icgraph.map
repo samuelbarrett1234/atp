@@ -1,0 +1,7 @@
+<map id="atp::logic::equational::Statement::load_from_bin" name="atp::logic::equational::Statement::load_from_bin">
+<area shape="rect" id="node1" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="852,13,1031,54"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a80adf6e4c2a2495b585463103d43ec0d" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="651,5,804,61"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="407,13,603,54"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="205,5,359,61"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,5,157,61"/>
+</map>

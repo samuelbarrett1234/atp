@@ -1,0 +1,7 @@
+<map id="atp::db::IQueryBuilder" name="atp::db::IQueryBuilder">
+<area shape="rect" id="node1" title="An object for producing queries." alt="" coords="135,5,283,32"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_i_rnd_proven_thm_select_qry_bder.html" title="Interface for setting data for the Random Proven Theorem Select Query Builder." alt="" coords="5,80,203,121"/>
+<area shape="rect" id="node4" href="$classatp_1_1db_1_1_i_save_proof_results_qry_bder.html" title=" " alt="" coords="227,80,402,121"/>
+<area shape="rect" id="node3" href="$classatp_1_1db_1_1_s_q_lite_rnd_proven_thm_select_qry_bder.html" title=" " alt="" coords="18,169,190,211"/>
+<area shape="rect" id="node5" href="$classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html" title=" " alt="" coords="231,169,399,211"/>
+</map>

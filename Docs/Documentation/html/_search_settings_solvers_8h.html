@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">SearchSettingsSolvers.h File Reference</div>  </div>
@@ -77,20 +78,22 @@ $(function() {
 
 <p>Contains functions for loading solvers from the search settings file.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="_a_t_p_search_a_p_i_8h.html">../ATPSearchAPI.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;boost/property_tree/ptree.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="_a_t_p_search_a_p_i_8h.html">../ATPSearchAPI.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_i_solver_8h.html">../Interfaces/ISolver.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_i_heuristic_8h.html">../Interfaces/IHeuristic.h</a>&quot;</code><br />
-<code>#include &lt;boost/property_tree/ptree.hpp&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for SearchSettingsSolvers.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_search_settings_solvers_8h__incl.png" border="0" usemap="#_a_t_p_search_2_internal_2_search_settings_solvers_8h" alt=""/></div>
 <map name="_a_t_p_search_2_internal_2_search_settings_solvers_8h" id="_a_t_p_search_2_internal_2_search_settings_solvers_8h">
-<area shape="rect" title="Contains functions for loading solvers from the search settings file." alt="" coords="637,5,805,47"/>
+<area shape="rect" title="Contains functions for loading solvers from the search settings file." alt="" coords="404,5,572,47"/>
+<area shape="rect" title=" " alt="" coords="156,102,233,129"/>
+<area shape="rect" title=" " alt="" coords="258,95,393,136"/>
 <area shape="rect" href="_a_t_p_search_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="714,184,846,211"/>
 <area shape="rect" href="_i_solver_8h.html" title="Interface for proof solving strategies." alt="" coords="417,102,559,129"/>
 <area shape="rect" href="_i_heuristic_8h.html" title="Interfaces for search heuristic functions." alt="" coords="583,102,742,129"/>
-<area shape="rect" title=" " alt="" coords="818,95,953,136"/>
 <area shape="rect" title=" " alt="" coords="962,647,1027,673"/>
 <area shape="rect" title=" " alt="" coords="383,497,452,524"/>
 <area shape="rect" href="_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="601,184,690,211"/>
@@ -127,17 +130,22 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:namespaceatp_1_1search"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace of the ATPSearch library. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a3eff2966d8cef9143ccac7b604a25b16"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; SolverPtr(logic::KnowledgeKernelPtr, std::unique_ptr&lt; IteratorManager &gt;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a3eff2966d8cef9143ccac7b604a25b16">atp::search::SolverCreator</a></td></tr>
+<tr class="separator:a3eff2966d8cef9143ccac7b604a25b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5c3bb0a2ae4082e7b728cc7406eb5ee1"><td class="memItemLeft" align="right" valign="top">SolverPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a5c3bb0a2ae4082e7b728cc7406eb5ee1">atp::search::try_create_solver</a> (logic::KnowledgeKernelPtr p_ker, const boost::property_tree::ptree &amp;ptree, HeuristicPtr p_heuristic, std::unique_ptr&lt; IteratorManager &gt; p_iter_mgr)</td></tr>
-<tr class="memdesc:a5c3bb0a2ae4082e7b728cc7406eb5ee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create a solver, based on the type given in <code>ptree</code>.  <a href="namespaceatp_1_1search.html#a5c3bb0a2ae4082e7b728cc7406eb5ee1">More...</a><br /></td></tr>
-<tr class="separator:a5c3bb0a2ae4082e7b728cc7406eb5ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63dff82536a7665670203db4cdc0a20a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a">atp::search::try_create_solver</a> (const boost::property_tree::ptree &amp;ptree, SolverCreator &amp;creator)</td></tr>
+<tr class="memdesc:a63dff82536a7665670203db4cdc0a20a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create a solver, based on the type given in <code>ptree</code>.  <a href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a">More...</a><br /></td></tr>
+<tr class="separator:a63dff82536a7665670203db4cdc0a20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7450148ff8935d3c6c05e190b25b25d5"><td class="memItemLeft" align="right" valign="top">logic::IterSettings&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5">atp::search::try_get_flags</a> (const boost::property_tree::ptree &amp;ptree)</td></tr>
 <tr class="memdesc:a7450148ff8935d3c6c05e190b25b25d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create the iteration settings flags.  <a href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5">More...</a><br /></td></tr>
 <tr class="separator:a7450148ff8935d3c6c05e190b25b25d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a53fff8340c6ca3591b18f003869385"><td class="memItemLeft" align="right" valign="top">SolverPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a4a53fff8340c6ca3591b18f003869385">atp::search::try_create_IDS</a> (logic::KnowledgeKernelPtr p_ker, const boost::property_tree::ptree &amp;ptree, logic::IterSettings settings, HeuristicPtr p_heuristic, std::unique_ptr&lt; IteratorManager &gt; p_iter_mgr)</td></tr>
-<tr class="memdesc:a4a53fff8340c6ca3591b18f003869385"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create an <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html">IterativeDeepeningSolver</a> from the given ptree.  <a href="namespaceatp_1_1search.html#a4a53fff8340c6ca3591b18f003869385">More...</a><br /></td></tr>
-<tr class="separator:a4a53fff8340c6ca3591b18f003869385"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ad02c440d9ad48494fcf0667c7c3edd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd">atp::search::try_create_IDS</a> (const boost::property_tree::ptree &amp;ptree, SolverCreator &amp;creator, logic::IterSettings iter_settings)</td></tr>
+<tr class="memdesc:a4ad02c440d9ad48494fcf0667c7c3edd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create an <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html">IterativeDeepeningSolver</a> from the given ptree.  <a href="namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd">More...</a><br /></td></tr>
+<tr class="separator:a4ad02c440d9ad48494fcf0667c7c3edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains functions for loading solvers from the search settings file. </p>

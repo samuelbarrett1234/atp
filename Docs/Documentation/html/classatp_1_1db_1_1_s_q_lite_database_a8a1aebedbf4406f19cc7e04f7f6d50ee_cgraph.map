@@ -1,0 +1,5 @@
+<map id="atp::db::SQLiteDatabase::search_settings_filename" name="atp::db::SQLiteDatabase::search_settings_filename">
+<area shape="rect" id="node1" title="Get search settings filename, from corresponding name, if it exists in the database." alt="" coords="5,5,183,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1db.html#ade5c44de8245ee03f9bc28349081ee48" title="Helper function for queries which just return a single value." alt="" coords="231,13,377,39"/>
+<area shape="rect" id="node3" href="$classatp_1_1db_1_1_s_q_lite_database.html#ae90cf2a579ded25347887a06c7795dc7" title="Begin executing a transaction." alt="" coords="425,5,591,47"/>
+</map>

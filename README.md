@@ -22,7 +22,11 @@ Note that when you build the application, the binaries can be found in the `Outp
 
 ## Installation
 
-The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. This project uses the Boost C++ libaries, and SQLite3. Please ensure that they are installed, and that the environment variable `BOOST_DIR` to be set to the root of Boost's installation directory, and `SQLITE_DIR` likewise set for the SQLite3 directory (where the application will look for the code and the DLL). Ensure you build Boost with the correct compiler and C++ version, otherwise you may experience compilation errors.
+The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. This project uses the Boost C++ libaries, and SQLite3. Please ensure that they are installed, and that the environment variable `BOOST_DIR` to be set to the root of Boost's installation directory, and `SQLITE_DIR` likewise set for the SQLite3 directory (where the application will look for the code and the DLL). Ensure you build Boost with the correct compiler and C++ version (C++17), otherwise you may experience compilation errors.
+
+Note that we will assume that `SQLITE_DIR` is also on your `PATH`, so that you can use the SQLite command line.
+
+SQLite can be obtained from here: https://www.sqlite.org/download.html and Boost can be obtained from here: https://www.boost.org/
 
 After installation, try building the library and running the unit tests to check everything is working correctly. After running the tests you now need to create a database (see below).
 
@@ -40,7 +44,18 @@ At the moment, the application only supports a single `prove` mode. Usage:
 
 `--ctx` tells the ATP which context you want to prove in - e.g. group theory, ring theory, etc. To get details on what context names are allowed, look at the database's `model_contexts` table. The name is looked-up in here, where the filename will be found. Similarly, `--ss` tells the solver what search settings to use. The different settings can be found in the `search_settings` table in the database.
 
-Note that, in the above example, you may need to change `atp` to `atp_Releasex64` or something similar, depending on your build settings. Check the `Output` folder to see which versions of the application you have built.
+**Example**: `atp_Releasex64 --db ../Data/DB/eqlogic.db --ctx group-theory --ss ids-uninformed-extended --prove "i(i(x0)) = x0"`
+
+Note that, in the above example, you may need to change `atp` to `atp_Releasex64` or something similar (as in the example), depending on your build settings. Check the `Output` folder to see which versions of the application you have built.
 
 See `Docs` for documentation about context files and search settings files.
+
+## Appendix: Prettier Printing with SQLite
+
+From https://dba.stackexchange.com/questions/40656/how-to-properly-format-sqlite-shell-output/40672 I gather that, if you want prettier SQLite outputs from `SELECT` statements in the shell application, type:
+
+```
+sqlite> .mode column
+sqlite> .headers on
+```
 

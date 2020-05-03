@@ -1,0 +1,5 @@
+<map id="atp::db::SQLiteQueryTransaction::arity" name="atp::db::SQLiteQueryTransaction::arity">
+<area shape="rect" id="node1" title="Get the arity (i.e. number of columns) of the current set of values." alt="" coords="5,5,217,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_s_q_lite_query_transaction.html#ae7f067ba1c4d6272fe61b1d42f0a068e" title="Determine if the query has a row value at the current time (this function is constant between step() ..." alt="" coords="265,5,477,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1db_1_1_s_q_lite_query_transaction.html#adeff467537bced069d62aa8d9837a4f6" title="Get the state of this transaction." alt="" coords="525,5,737,47"/>
+</map>

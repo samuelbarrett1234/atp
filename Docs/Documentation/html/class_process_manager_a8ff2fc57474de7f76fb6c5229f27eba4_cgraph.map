@@ -1,0 +1,4 @@
+<map id="ProcessManager::commit_thread" name="ProcessManager::commit_thread">
+<area shape="rect" id="node1" title="Make the current thread work for the process manager." alt="" coords="5,5,176,47"/>
+<area shape="rect" id="node2" href="$class_process_manager.html#ae53d8a08edacd33851f0d00fa106dff6" title="Add the given process to the mix." alt="" coords="224,13,373,39"/>
+</map>

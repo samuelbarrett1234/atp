@@ -1,0 +1,4 @@
+<map id="atp::db::TransactionListWrapper::step" name="atp::db::TransactionListWrapper::step">
+<area shape="rect" id="node1" title="Perform one more &quot;unit of computation&quot;." alt="" coords="5,5,164,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_transaction_list_wrapper.html#a75e7abe4a5b07234588657d2a984d16f" title="Get the state of this transaction." alt="" coords="212,5,371,47"/>
+</map>

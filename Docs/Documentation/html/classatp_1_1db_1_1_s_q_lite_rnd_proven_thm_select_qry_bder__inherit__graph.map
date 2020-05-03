@@ -1,0 +1,5 @@
+<map id="atp::db::SQLiteRndProvenThmSelectQryBder" name="atp::db::SQLiteRndProvenThmSelectQryBder">
+<area shape="rect" id="node1" title=" " alt="" coords="18,169,190,211"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_i_rnd_proven_thm_select_qry_bder.html" title="Interface for setting data for the Random Proven Theorem Select Query Builder." alt="" coords="5,80,203,121"/>
+<area shape="rect" id="node3" href="$classatp_1_1db_1_1_i_query_builder.html" title="An object for producing queries." alt="" coords="30,5,178,32"/>
+</map>

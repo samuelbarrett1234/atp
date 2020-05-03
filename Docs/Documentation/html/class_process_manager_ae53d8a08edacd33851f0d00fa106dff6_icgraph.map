@@ -1,0 +1,4 @@
+<map id="ProcessManager::add" name="ProcessManager::add">
+<area shape="rect" id="node1" title="Add the given process to the mix." alt="" coords="224,13,373,39"/>
+<area shape="rect" id="node2" href="$class_process_manager.html#a8ff2fc57474de7f76fb6c5229f27eba4" title="Make the current thread work for the process manager." alt="" coords="5,5,176,47"/>
+</map>

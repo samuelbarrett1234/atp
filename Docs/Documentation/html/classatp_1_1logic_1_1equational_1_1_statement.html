@@ -70,6 +70,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classatp_1_1logic_1_1equational_1_1_statement-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">atp::logic::equational::Statement Class Reference</div>  </div>
@@ -162,6 +163,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab9b15f8fcce46b7b55ef154fc6ce8de5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#ab9b15f8fcce46b7b55ef154fc6ce8de5">implies</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> &amp;conclusion) const</td></tr>
 <tr class="memdesc:ab9b15f8fcce46b7b55ef154fc6ce8de5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true iff there exists a substitution in the premise (the callee) which would produce the conclusion.  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#ab9b15f8fcce46b7b55ef154fc6ce8de5">More...</a><br /></td></tr>
 <tr class="separator:ab9b15f8fcce46b7b55ef154fc6ce8de5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e885080d2f019ecdbcef7bf1ad0718a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a1e885080d2f019ecdbcef7bf1ad0718a">save</a> (std::ostream &amp;out) const</td></tr>
+<tr class="memdesc:a1e885080d2f019ecdbcef7bf1ad0718a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save this object to the given (binary) output.  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#a1e885080d2f019ecdbcef7bf1ad0718a">More...</a><br /></td></tr>
+<tr class="separator:a1e885080d2f019ecdbcef7bf1ad0718a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6292a9c6f2ae60a34ea37220fd3765e5"><td class="memTemplParams" colspan="2">template&lt;typename ResultT , typename EqFuncT , typename FreeFuncT , typename ConstFuncT , typename FFuncT &gt; </td></tr>
 <tr class="memitem:a6292a9c6f2ae60a34ea37220fd3765e5"><td class="memTemplItemLeft" align="right" valign="top">ResultT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#a6292a9c6f2ae60a34ea37220fd3765e5">fold</a> (EqFuncT eq_func, FreeFuncT free_func, ConstFuncT const_func, FFuncT f_func) const</td></tr>
 <tr class="separator:a6292a9c6f2ae60a34ea37220fd3765e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -172,6 +176,12 @@ Public Member Functions</h2></td></tr>
 <tr class="inherit_header pub_methods_classatp_1_1logic_1_1_i_statement"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classatp_1_1logic_1_1_i_statement')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classatp_1_1logic_1_1_i_statement.html">atp::logic::IStatement</a></td></tr>
 <tr class="memitem:a2d538a88c057dbb56307c4e3c22f808f inherit pub_methods_classatp_1_1logic_1_1_i_statement"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_statement.html#a2d538a88c057dbb56307c4e3c22f808f">~IStatement</a> ()=default</td></tr>
 <tr class="separator:a2d538a88c057dbb56307c4e3c22f808f inherit pub_methods_classatp_1_1logic_1_1_i_statement"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af45f2b2d4b0e71b5abc5004010a2afd2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#af45f2b2d4b0e71b5abc5004010a2afd2">load_from_bin</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;ctx, std::istream &amp;in)</td></tr>
+<tr class="memdesc:af45f2b2d4b0e71b5abc5004010a2afd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new object from a binary stream, which must be of the correct format.  <a href="classatp_1_1logic_1_1equational_1_1_statement.html#af45f2b2d4b0e71b5abc5004010a2afd2">More...</a><br /></td></tr>
+<tr class="separator:af45f2b2d4b0e71b5abc5004010a2afd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of the <a class="el" href="classatp_1_1logic_1_1_i_statement.html" title="Represents a single, syntactically correct logical statement.">IStatement</a> interface for equational logic.</p>
@@ -222,11 +232,16 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_a4f14e95373eb16153018d9915b868bfb_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_a4f14e95373eb16153018d9915b868bfb_icgraph" alt=""/></div>
 <map name="classatp_1_1logic_1_1equational_1_1_statement_a4f14e95373eb16153018d9915b868bfb_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_a4f14e95373eb16153018d9915b868bfb_icgraph">
-<area shape="rect" title=" " alt="" coords="221,123,380,165"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad8083ceacee1e9c873e4ca5d3323da29" title="Add a particular value to the ID of every free variable in this statement." alt="" coords="12,5,167,61"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#adfc8c3e839809b2e9ee0dceaef0fd23b" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="18,86,161,127"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a04d4ffb3b0c6f406c08de29158034443" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="5,152,173,208"/>
-<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a657354ecd032bece42a728b8ad69a004" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="5,232,173,288"/>
+<area shape="rect" title=" " alt="" coords="1079,151,1237,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad8083ceacee1e9c873e4ca5d3323da29" title="Add a particular value to the ID of every free variable in this statement." alt="" coords="864,5,1019,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#af45f2b2d4b0e71b5abc5004010a2afd2" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="852,86,1031,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#adfc8c3e839809b2e9ee0dceaef0fd23b" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="870,151,1013,193"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a04d4ffb3b0c6f406c08de29158034443" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="857,217,1025,273"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a657354ecd032bece42a728b8ad69a004" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="857,297,1025,353"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a80adf6e4c2a2495b585463103d43ec0d" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="651,79,804,135"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="407,86,603,127"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="205,79,359,135"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,79,157,135"/>
 </map>
 </div>
 
@@ -725,6 +740,89 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_af3201a9d8f5687f932b5cb222e3e1ce6_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_af3201a9d8f5687f932b5cb222e3e1ce6_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_af3201a9d8f5687f932b5cb222e3e1ce6_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_af3201a9d8f5687f932b5cb222e3e1ce6_icgraph">
+<area shape="rect" title=" " alt="" coords="1079,13,1221,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#af45f2b2d4b0e71b5abc5004010a2afd2" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="852,13,1031,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a80adf6e4c2a2495b585463103d43ec0d" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="651,5,804,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="407,13,603,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="205,5,359,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,5,157,61"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="af45f2b2d4b0e71b5abc5004010a2afd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af45f2b2d4b0e71b5abc5004010a2afd2">&#9670;&nbsp;</a></span>load_from_bin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html">Statement</a> atp::logic::equational::Statement::load_from_bin </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1equational_1_1_model_context.html">ModelContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>in</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new object from a binary stream, which must be of the correct format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in</td><td>The (binary) input stream. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_af45f2b2d4b0e71b5abc5004010a2afd2_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_af45f2b2d4b0e71b5abc5004010a2afd2_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_af45f2b2d4b0e71b5abc5004010a2afd2_cgraph" id="classatp_1_1logic_1_1equational_1_1_statement_af45f2b2d4b0e71b5abc5004010a2afd2_cgraph">
+<area shape="rect" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="5,104,184,145"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#af3201a9d8f5687f932b5cb222e3e1ce6" title=" " alt="" coords="252,5,395,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#aee3072c55256831e2c5a96088678b466" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="232,71,415,112"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#afdfcf348c0a2e2b2f5c6ee0bcc1c30f9" title=" " alt="" coords="252,136,395,177"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#a4f14e95373eb16153018d9915b868bfb" title=" " alt="" coords="244,201,403,243"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#ae5e09db06ead8e9118fc249918d3fe12" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="463,63,632,119"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#ab6cbc2437c4081c6577d59359a3e3bb0" title=" " alt="" coords="469,201,626,243"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_af45f2b2d4b0e71b5abc5004010a2afd2_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_af45f2b2d4b0e71b5abc5004010a2afd2_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_af45f2b2d4b0e71b5abc5004010a2afd2_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_af45f2b2d4b0e71b5abc5004010a2afd2_icgraph">
+<area shape="rect" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="852,13,1031,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a80adf6e4c2a2495b585463103d43ec0d" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="651,5,804,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="407,13,603,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="205,5,359,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,5,157,61"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -982,6 +1080,54 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_afdfcf348c0a2e2b2f5c6ee0bcc1c30f9_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_afdfcf348c0a2e2b2f5c6ee0bcc1c30f9_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_afdfcf348c0a2e2b2f5c6ee0bcc1c30f9_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_afdfcf348c0a2e2b2f5c6ee0bcc1c30f9_icgraph">
+<area shape="rect" title=" " alt="" coords="1079,13,1221,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement.html#af45f2b2d4b0e71b5abc5004010a2afd2" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="852,13,1031,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a80adf6e4c2a2495b585463103d43ec0d" title="Create a new object from a binary stream, which must be of the correct format." alt="" coords="651,5,804,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#a69f343234c2d15259f98c635a70fd017" title="Load an array of statements from an input stream, in the given context." alt="" coords="407,13,603,54"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#addf8285cbe27bb9cf0002f07c97f4bd7" title="A builder function for this model context implementation." alt="" coords="205,5,359,61"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_language.html#ac5e49a1ba6f54c4616f3b8f3021d8c8b" title="Create a knowledge kernel corresponding to a given model context." alt="" coords="5,5,157,61"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a1e885080d2f019ecdbcef7bf1ad0718a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e885080d2f019ecdbcef7bf1ad0718a">&#9670;&nbsp;</a></span>save()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void atp::logic::equational::Statement::save </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>out</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Save this object to the given (binary) output. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">out</td><td>The (binary) output stream. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_statement_a1e885080d2f019ecdbcef7bf1ad0718a_icgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_statement_a1e885080d2f019ecdbcef7bf1ad0718a_icgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_statement_a1e885080d2f019ecdbcef7bf1ad0718a_icgraph" id="classatp_1_1logic_1_1equational_1_1_statement_a1e885080d2f019ecdbcef7bf1ad0718a_icgraph">
+<area shape="rect" title="Save this object to the given (binary) output." alt="" coords="208,5,351,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_statement_array.html#a521d73a64cc7547590afec8b8571ba51" title="Save this object to the given (binary) output." alt="" coords="5,5,160,47"/>
+</map>
+</div>
 
 </div>
 </div>

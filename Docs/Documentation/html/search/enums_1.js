@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['parsenodetype_799',['ParseNodeType',['../namespaceatp_1_1logic_1_1equational.html#a379b0decdece9de86db218c905d4f930',1,'atp::logic::equational']]],
-  ['proofcompletionstate_800',['ProofCompletionState',['../namespaceatp_1_1logic.html#aba304dd7ca39fd2317110f7095e2f61c',1,'atp::logic']]]
+  ['langtype_978',['LangType',['../namespaceatp_1_1logic.html#a86775702f28d47ba503e3ed7304270e2',1,'atp::logic']]]
 ];

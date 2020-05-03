@@ -1,0 +1,5 @@
+<map id="atp::db::SQLiteDatabase::model_context_id" name="atp::db::SQLiteDatabase::model_context_id">
+<area shape="rect" id="node1" title="Get model context ID, from corresponding name, if it exists in the database." alt="" coords="5,5,171,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1db.html#ade5c44de8245ee03f9bc28349081ee48" title="Helper function for queries which just return a single value." alt="" coords="219,13,365,39"/>
+<area shape="rect" id="node3" href="$classatp_1_1db_1_1_s_q_lite_database.html#ae90cf2a579ded25347887a06c7795dc7" title="Begin executing a transaction." alt="" coords="413,5,579,47"/>
+</map>

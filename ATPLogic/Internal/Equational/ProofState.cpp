@@ -155,6 +155,110 @@ PfStateSuccIterPtr ProofState::compute_begin() const
 }
 
 
+std::vector<size_t> ProofState::get_usage(
+	const StatementArrayPtr& _p_stmts) const
+{
+	auto p_stmts = dynamic_cast<const StatementArray*>(
+		_p_stmts.get());
+	ATP_LOGIC_PRECOND(p_stmts != nullptr);
+
+	std::vector<size_t> results;
+	results.resize(p_stmts->size(), 0);
+
+	// go back through the proof
+	auto p_list = m_proof.get();
+	while (p_list->tail != nullptr)
+	{
+		// count whether each statement could take us from `pre` to
+		// `post`
+		const auto& pre = p_list->tail->head;
+		const auto& post = p_list->head;
+		const size_t max_free_id = std::max(pre.free_var_ids().max(),
+			post.free_var_ids().max());
+
+		// count each statement for this pre/post match
+		for (size_t i = 0; i < p_stmts->size(); ++i)
+		{
+			// STRATEGY
+			// could we go via statement i to deduce pre from post?
+			// we determine this by:
+			// does there exist a substitution for one side of stmt i
+			// s.t. it matches one subexpr of `pre`, and then after the
+			// substitution, produces something identical to `post`?
+
+			const Expression stmt_sides[2] =
+			{
+				// don't forget to increment the free IDs! This makes
+				// it easier for us later
+				p_stmts->my_at(i).lhs()
+				.increment_free_var_ids(max_free_id),
+				p_stmts->my_at(i).rhs()
+				.increment_free_var_ids(max_free_id)
+			};
+
+			// for every location to look for a substitution...
+			for (auto pre_iter = pre.begin(); pre_iter != pre.end();
+				++pre_iter)
+			{
+				// for each side of the statement `i`...
+				for (size_t j = 0; j < 2; ++j)
+				{
+					// try to obtain a match at this position
+					FreeVarMap<Expression> sub;
+					if (stmt_sides[j].try_match(*pre_iter, &sub))
+					{
+						// if got a match, carry it through to a
+						// substitution
+
+						// extend `sub` to make it total:
+						for (auto id_iter =
+							p_stmts->my_at(i).free_var_ids().begin();
+							id_iter !=
+							p_stmts->my_at(i).free_var_ids().end();
+							++id_iter)
+						{
+							// don't forget that, also, we've
+							// incremented this:
+							const size_t id = *id_iter + max_free_id;
+							if (!sub.contains(id))
+							{
+								sub.insert(id, Expression(m_ctx,
+									id, SyntaxNodeType::FREE));
+							}
+						}
+
+						// perform the substitution on the other side
+						// of the match
+						auto side_to_sub = stmt_sides
+							[1 - j].map_free_vars(sub);
+
+						// finally, insert our result and we'll see
+						// what it looks like
+						auto result = pre.replace(pre_iter,
+							side_to_sub);
+
+						// if the substitution result was what we
+						// wanted...
+						// (we need to use `implies` here to assign
+						// values to any additional free variables
+						// which have been introduced)
+						if (result.implies(post) ||
+							result.implies(post.transpose()))
+						{
+							++results[i];
+						}
+					}
+				}
+			}
+		}
+
+		p_list = p_list->tail.get();
+	}
+
+	return results;
+}
+
+
 }  // namespace equational
 }  // namespace logic
 }  // namespace atp

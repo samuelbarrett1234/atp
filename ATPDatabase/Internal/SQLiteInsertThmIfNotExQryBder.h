@@ -44,6 +44,7 @@ public:
 	{
 		m_ctx_id = boost::none;
 		m_thm = boost::none;
+		return this;
 	}
 
 private:

@@ -13,9 +13,11 @@
 */
 
 
+#include <vector>
 #include <memory>
 #include "../ATPLogicAPI.h"
 #include "IStatement.h"
+#include "IStatementArray.h"
 
 
 namespace atp
@@ -99,6 +101,23 @@ public:
         state - it works regardless.
     */
     virtual std::string to_str() const = 0;
+
+    /**
+    \brief Get the number of times each statement is used in this
+        proof state.
+
+    \details This is a bit of a "soft" function, intended to help
+        compute usefulness-heuristics. What entails a single "use"
+        of a theorem is implementation-dependent. For example,
+        it could be taken to mean either: (i) an equivalent statement
+        was used, or (ii) this exact statement was used, etc.
+
+    \returns An array of the same size as p_stmts of integers, where
+        each integer is the number of times that statement COULD be
+        used in this proof.
+    */
+    virtual std::vector<size_t> get_usage(
+        const StatementArrayPtr& p_stmts) const = 0;
 };
 typedef std::shared_ptr<IProofState> ProofStatePtr;
 

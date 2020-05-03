@@ -87,7 +87,7 @@ private:
 	atp::db::DatabasePtr m_db;
 	atp::logic::KnowledgeKernelPtr m_ker;
 	atp::search::SolverPtr m_solver;
-	atp::logic::StatementArrayPtr m_targets;
+	atp::logic::StatementArrayPtr m_targets, m_helpers;
 
 	// these are either for init kernel or save results
 	atp::db::TransactionPtr m_db_op;

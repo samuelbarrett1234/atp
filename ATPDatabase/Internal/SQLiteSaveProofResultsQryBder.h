@@ -60,6 +60,16 @@ public:
 		m_targets = p_targets;
 		return this;
 	}
+	inline ISaveProofResultsQryBder* add_helper_thms(
+		const logic::StatementArrayPtr& p_helpers) override
+	{
+		// optional
+		if (p_helpers != nullptr)
+		{
+			m_helpers = p_helpers;
+		}
+		return this;
+	}
 	inline ISaveProofResultsQryBder* add_proof_states(
 		const std::vector<logic::ProofStatePtr>& proof_states) override
 	{
@@ -105,7 +115,7 @@ private:
 private:
 	boost::optional<size_t> m_ctx_id, m_ss_id, m_size;
 	boost::optional<logic::ModelContextPtr> m_ctx;
-	boost::optional<logic::StatementArrayPtr> m_targets;
+	boost::optional<logic::StatementArrayPtr> m_targets, m_helpers;
 	boost::optional<
 		std::vector<logic::ProofStatePtr>> m_proof_states;
 	boost::optional<std::vector<float>> m_times;

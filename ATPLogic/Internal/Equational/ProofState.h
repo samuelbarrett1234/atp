@@ -97,6 +97,9 @@ public:
 
 	std::string to_str() const override;
 
+	std::vector<size_t> get_usage(
+		const StatementArrayPtr& p_stmts) const override;
+
 private:
 	/**
 	\brief Check that the forefront statement's free variable IDs

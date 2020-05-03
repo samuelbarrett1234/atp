@@ -162,10 +162,10 @@ void ProofProcess::init_kernel()
 		m_proof_state = ProofProcessState::RUNNING_PROOF;
 		
 		// set the statements in the kernel:
-		auto p_stmts = m_lang->deserialise_stmts(m_temp_results,
+		m_helpers = m_lang->deserialise_stmts(m_temp_results,
 			atp::logic::StmtFormat::TEXT, *m_ctx);
 
-		if (p_stmts == nullptr)
+		if (m_helpers == nullptr)
 		{
 			m_out << "ERROR! Failed to initialise kernel. There was"
 				<< " a problem with the following batch of "
@@ -175,10 +175,10 @@ void ProofProcess::init_kernel()
 		else
 		{
 			m_out << "Proof Process update --- ";
-			m_out << "Loaded " << p_stmts->size() << " theorems";
+			m_out << "Loaded " << m_helpers->size() << " theorems";
 			m_out << " from the theorem database!" << std::endl;
 
-			m_ker->add_theorems(p_stmts);
+			m_ker->add_theorems(m_helpers);
 		}
 
 		m_temp_results = std::stringstream();  // reset this
@@ -281,7 +281,8 @@ void ProofProcess::setup_init_kernel_operation()
 
 	ATP_ASSERT(p_bder != nullptr);
 
-	p_bder->set_limit(25)->set_context(m_ctx_id, m_ctx);
+	p_bder->set_limit(25  /* todo: don't hardcode */)
+		->set_context(m_ctx_id, m_ctx);
 
 	const auto query = p_bder->build();
 
@@ -307,6 +308,7 @@ void ProofProcess::setup_save_results_operation()
 		->set_search_settings(m_ss_id)
 		->add_proof_states(m_solver->get_proofs())
 		->add_target_thms(m_targets)
+		->add_helper_thms(m_helpers)
 		->add_proof_times(m_solver->get_agg_time())
 		->add_max_mem_usages(m_solver->get_max_mem())
 		->add_num_node_expansions(m_solver->get_num_expansions());

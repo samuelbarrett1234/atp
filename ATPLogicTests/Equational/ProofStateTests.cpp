@@ -305,6 +305,82 @@ BOOST_DATA_TEST_CASE(test_tricky_proof,
 }
 
 
+BOOST_AUTO_TEST_CASE(test_get_usage)
+{
+	std::list<std::string> proof_strs = {
+		"i(*(x, y)) = *(i(y), i(x))",
+		// multiply on RHS by e
+		"i(*(x, y)) = *( *(i(y), i(x)) , e )",
+		// e = *(*(x, y), i(*(x, y)))
+		"i(*(x, y)) = *( *(i(y), i(x)) , *(*(x, y), i(*(x, y))) )",
+		// associativity
+		"i(*(x, y)) = *( i(y), *(i(x), *(*(x, y), i(*(x, y)))) )",
+		// associativity
+		"i(*(x, y)) = *( i(y), *(i(x), *(x, *(y, i(*(x, y))))) )",
+		// associativity
+		"i(*(x, y)) = *( i(y), *(*(i(x), x),  *(y, i(*(x, y)))) )",
+		// *(i(x), x) = e
+		"i(*(x, y)) = *( i(y), *(e,  *(y, i(*(x, y)))) )",
+		// *(e, expr) = expr
+		"i(*(x, y)) = *( i(y), *(y, i(*(x, y))) )",
+		// associativity
+		"i(*(x, y)) = *( *(i(y), y), i(*(x, y)) )",
+		// *(i(y), y) = e
+		"i(*(x, y)) = *( e, i(*(x, y)) )",
+		// *(e, expr) = expr
+		"i(*(x, y)) = i(*(x, y))",
+	};
+
+	s << boost::algorithm::join(proof_strs, "\n");
+	auto _pf_statements = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto pf_statements = dynamic_cast<StatementArray*>(
+		_pf_statements.get());
+
+	// construct proof state:
+	auto state = std::make_shared<ProofState>(
+		ctx, ker, pf_statements->my_at(0), false, false);
+	for (size_t i = 1; i < pf_statements->size(); ++i)
+	{
+		state = std::make_shared<ProofState>(*state,
+			pf_statements->my_at(i));
+	}
+
+	// now construct the statements to test for usage:
+	s = std::stringstream();
+	s << "*(x, *(y, z)) = *(*(x, y), z)\n";  // associativity
+	s << "*(i(x), x) = e\n";  // inverses on left
+	s << "*(x, i(x)) = e\n";  // inverses on right
+	s << "*(e, x) = x\n";  // identity on left
+	s << "*(x, e) = x\n";  // identity on right
+	s << "e = *(*(x, y), i(*(x, y)))\n";  // special theorem
+	s << "*(x, y) = *(y, x)\n";  // plainly false; not used
+	s << "i(i(i(x))) = i(x)\n";  // true, but not used
+	auto p_helper_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+
+	std::vector<size_t> true_usages =
+	{
+		4,
+		2,
+		0,
+		2,
+		1,
+		1,
+		0, 0
+	};
+
+	auto usages = state->get_usage(p_helper_stmts);
+
+	BOOST_REQUIRE(usages.size() == true_usages.size());
+
+	for (size_t i = 0; i < usages.size(); ++i)
+	{
+		BOOST_TEST(usages[i] == true_usages[i]);
+	}
+}
+
+
 BOOST_FIXTURE_TEST_CASE(test_no_successors_case,
 	EmptyTestFixture)
 {

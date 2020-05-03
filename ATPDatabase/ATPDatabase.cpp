@@ -7,7 +7,7 @@
 
 
 #include "ATPDatabase.h"
-#include "Internal/EquationalDatabase.h"
+#include "Internal/SQLiteDatabase.h"
 
 
 namespace atp
@@ -20,13 +20,8 @@ DatabasePtr load_from_file(
 	const std::string& filename,
 	logic::LangType lang_type)
 {
-	switch (lang_type)
-	{
-	case logic::LangType::EQUATIONAL_LOGIC:
-		return EquationalDatabase::load_from_file(filename);
-	default:
-		return nullptr;  // bad type
-	}
+	// ignore language type (for now)
+	return SQLiteDatabase::load_from_file(filename);
 }
 
 

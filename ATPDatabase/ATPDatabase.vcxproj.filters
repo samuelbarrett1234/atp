@@ -36,9 +36,6 @@
     <ClInclude Include="Interfaces\IDatabase.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\EquationalDatabase.h">
-      <Filter>Header Files\Internal</Filter>
-    </ClInclude>
     <ClInclude Include="Interfaces\ITransaction.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
@@ -48,18 +45,24 @@
     <ClInclude Include="Internal\TransactionListWrapper.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\SQLiteDatabase.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaces\IQueryBuilders.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\EquationalDatabase.cpp">
-      <Filter>Source Files\Internal</Filter>
-    </ClCompile>
     <ClCompile Include="Internal\SQLiteTransaction.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
     <ClCompile Include="Internal\TransactionListWrapper.cpp">
+      <Filter>Source Files\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SQLiteDatabase.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
   </ItemGroup>

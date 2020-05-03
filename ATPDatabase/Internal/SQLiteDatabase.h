@@ -6,7 +6,7 @@
 
 \author Samuel Barrett
 
-\brief IDatabase implementation for equational logic
+\brief IDatabase implementation for SQLite databases
 
 */
 
@@ -26,10 +26,9 @@ namespace db
 
 
 /**
-\brief Represents a database which handles with equational logic
-	statements only.
+\brief A database which uses SQLite internally
 */
-class ATP_DATABASE_API EquationalDatabase :
+class ATP_DATABASE_API SQLiteDatabase :
 	public IDatabase
 {
 public:  // builder functions
@@ -46,7 +45,7 @@ public:  // builder functions
 		const std::string& filename);
 
 public:
-	~EquationalDatabase();
+	~SQLiteDatabase();
 
 	inline std::string name() const override
 	{
@@ -55,10 +54,6 @@ public:
 	inline std::string description() const override
 	{
 		return m_desc;
-	}
-	inline logic::LanguagePtr logic_lang() const override
-	{
-		return m_lang;
 	}
 
 	TransactionPtr begin_transaction(
@@ -92,7 +87,6 @@ public:
 
 private:
 	std::string m_name, m_desc;
-	logic::LanguagePtr m_lang;
 	sqlite3* m_db;
 };
 

@@ -6,7 +6,7 @@
 */
 
 
-#include "EquationalDatabase.h"
+#include "SQLiteDatabase.h"
 #include <sstream>
 #include <sqlite3.h>
 #include <boost/filesystem.hpp>
@@ -23,17 +23,17 @@ namespace db
 /**
 \brief Helper function for queries which just return a single value
 */
-boost::optional<DValue> try_get_value(EquationalDatabase* db,
+boost::optional<DValue> try_get_value(SQLiteDatabase* db,
 	const std::string& query, DType dtype);
 
 
-DatabasePtr EquationalDatabase::load_from_file(
+DatabasePtr SQLiteDatabase::load_from_file(
 	const std::string& filename)
 {
 	if (!boost::filesystem::is_regular_file(filename))
 		return nullptr;
 
-	auto p_db = std::make_shared<EquationalDatabase>();
+	auto p_db = std::make_shared<SQLiteDatabase>();
 	int rc;
 
 	rc = sqlite3_open(filename.c_str(), &p_db->m_db);
@@ -43,20 +43,17 @@ DatabasePtr EquationalDatabase::load_from_file(
 	}
 	ATP_DATABASE_ASSERT(p_db->m_db != nullptr);
 
-	p_db->m_lang = logic::create_language(
-		logic::LangType::EQUATIONAL_LOGIC);
-
 	return p_db;
 }
 
 
-EquationalDatabase::~EquationalDatabase()
+SQLiteDatabase::~SQLiteDatabase()
 {
 	sqlite3_close(m_db);
 }
 
 
-TransactionPtr EquationalDatabase::begin_transaction(
+TransactionPtr SQLiteDatabase::begin_transaction(
 	const std::string& query_text)
 {
 	// warning: there may be many transactions involved here!
@@ -103,7 +100,7 @@ TransactionPtr EquationalDatabase::begin_transaction(
 
 
 boost::optional<std::string>
-EquationalDatabase::model_context_filename(
+SQLiteDatabase::model_context_filename(
 	const std::string& model_context_name)
 {
 	std::stringstream query_builder;
@@ -120,7 +117,7 @@ EquationalDatabase::model_context_filename(
 }
 
 
-boost::optional<size_t> EquationalDatabase::model_context_id(
+boost::optional<size_t> SQLiteDatabase::model_context_id(
 	const std::string& model_context_name)
 {
 	std::stringstream query_builder;
@@ -137,7 +134,7 @@ boost::optional<size_t> EquationalDatabase::model_context_id(
 }
 
 
-boost::optional<std::string> EquationalDatabase::search_settings_filename(
+boost::optional<std::string> SQLiteDatabase::search_settings_filename(
 	const std::string& search_settings_name)
 {
 	std::stringstream query_builder;
@@ -154,7 +151,7 @@ boost::optional<std::string> EquationalDatabase::search_settings_filename(
 }
 
 
-boost::optional<size_t> EquationalDatabase::search_settings_id(
+boost::optional<size_t> SQLiteDatabase::search_settings_id(
 	const std::string& search_settings_name)
 {
 	std::stringstream query_builder;
@@ -171,7 +168,7 @@ boost::optional<size_t> EquationalDatabase::search_settings_id(
 }
 
 
-TransactionPtr EquationalDatabase::get_theorems_for_kernel_transaction(
+TransactionPtr SQLiteDatabase::get_theorems_for_kernel_transaction(
 	size_t ctx_id, size_t ss_id,
 	const logic::ModelContextPtr& p_ctx,
 	const logic::StatementArrayPtr& targets)
@@ -190,7 +187,7 @@ TransactionPtr EquationalDatabase::get_theorems_for_kernel_transaction(
 }
 
 
-TransactionPtr EquationalDatabase::finished_proof_attempt_transaction(
+TransactionPtr SQLiteDatabase::finished_proof_attempt_transaction(
 	size_t ctx_id, size_t ss_id,
 	const logic::ModelContextPtr& p_ctx,
 	const logic::StatementArrayPtr& targets,
@@ -256,7 +253,7 @@ TransactionPtr EquationalDatabase::finished_proof_attempt_transaction(
 }
 
 
-boost::optional<DValue> try_get_value(EquationalDatabase* db,
+boost::optional<DValue> try_get_value(SQLiteDatabase* db,
 	const std::string& query, DType dtype)
 {
 	auto p_trans = db->begin_transaction(query);

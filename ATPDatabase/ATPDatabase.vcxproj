@@ -177,13 +177,14 @@
     <ClInclude Include="ATPDatabaseAPI.h" />
     <ClInclude Include="Interfaces\IDatabase.h" />
     <ClInclude Include="Interfaces\ITransaction.h" />
-    <ClInclude Include="Internal\EquationalDatabase.h" />
+    <ClInclude Include="Interfaces\IQueryBuilders.h" />
+    <ClInclude Include="Internal\SQLiteDatabase.h" />
     <ClInclude Include="Internal\SQLiteTransaction.h" />
     <ClInclude Include="Internal\TransactionListWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp" />
-    <ClCompile Include="Internal\EquationalDatabase.cpp" />
+    <ClCompile Include="Internal\SQLiteDatabase.cpp" />
     <ClCompile Include="Internal\SQLiteTransaction.cpp" />
     <ClCompile Include="Internal\TransactionListWrapper.cpp" />
   </ItemGroup>

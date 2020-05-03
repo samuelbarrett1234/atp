@@ -15,6 +15,7 @@
 #include <boost/optional.hpp>
 #include <ATPLogic.h>
 #include "../ATPDatabaseAPI.h"
+#include "ITransactionBuilders.h"
 
 
 namespace atp
@@ -45,7 +46,6 @@ public:
 
 	virtual std::string name() const = 0;
 	virtual std::string description() const = 0;
-	virtual logic::LanguagePtr logic_lang() const = 0;
 
 	/**
 	\brief Begin executing a transaction.

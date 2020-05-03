@@ -46,6 +46,8 @@ bool create_solver_creator(
 		if (!try_load_succ_iter_settings(succ_iter_creator,
 			*stop_strat_ptree))
 			return false;
+
+		ATP_SEARCH_ASSERT((bool)succ_iter_creator);
 	}
 
 	auto solver_ptree = ptree.get_child("solver");
@@ -58,15 +60,30 @@ bool create_solver_creator(
 	if (!try_create_solver(solver_ptree, solver_creator))
 		return false;
 
-	creator = [succ_iter_creator, solver_creator,
-		p_heuristic](logic::KnowledgeKernelPtr p_ker)
+	ATP_SEARCH_ASSERT((bool)solver_creator);
+
+	// use move capture:
+	creator = [succ_iter_creator{ std::move(succ_iter_creator) },
+		solver_creator{ std::move(solver_creator) },
+		p_heuristic{ std::move(p_heuristic) }](
+			logic::KnowledgeKernelPtr p_ker)
 	{
+		ATP_SEARCH_PRECOND(p_ker != nullptr);
+
+		// not optional
+		ATP_SEARCH_ASSERT((bool)solver_creator);
+
 		auto p_iter_mgr = std::make_unique<IteratorManager>(p_ker);
 
-		p_iter_mgr->set_heuristic(p_heuristic);
+		// this is optional
+		if (p_heuristic != nullptr)
+			p_iter_mgr->set_heuristic(p_heuristic);
 
-		succ_iter_creator(*p_iter_mgr);
+		// this is optional
+		if ((bool)succ_iter_creator)
+			succ_iter_creator(*p_iter_mgr);
 
+		// not optional
 		return solver_creator(p_ker, std::move(p_iter_mgr));
 	};
 

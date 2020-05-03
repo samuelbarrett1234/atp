@@ -56,7 +56,9 @@ public:
 	}
 	inline bool waiting() const override
 	{
-		return (m_db_op != nullptr && m_db_op->waiting());
+		return (m_db_op != nullptr && m_db_op->state() ==
+			atp::db::TransactionState::RUNNING &&
+			m_db_op->waiting());
 	}
 	void run_step() override;
 	inline void dump_log(std::ostream& out) override

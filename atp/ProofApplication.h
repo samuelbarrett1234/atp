@@ -17,6 +17,7 @@
 #include <ATPLogic.h>
 #include <ATPSearch.h>
 #include <ATPDatabase.h>
+#include "ProcessManager.h"
 
 
 /**
@@ -34,8 +35,13 @@ class ProofApplication
 public:
 	/**
 	\param out The stream to write all application text output.
+
+	\param num_threads The number of threads to devote to execution.
+
+	\pre num_threads > 0
 	*/
-	ProofApplication(std::ostream& out);
+	ProofApplication(std::ostream& out,
+		size_t num_threads);
 
 	/**
 	\brief Loads the database file (this has to be done first)
@@ -89,13 +95,14 @@ public:
 	void run();
 
 private:
+	const size_t m_num_threads;
 	std::ostream& m_out;
 	atp::logic::LanguagePtr m_lang;
 	atp::logic::ModelContextPtr m_ctx;
 	size_t m_ctx_id, m_ss_id;  // ctx and search IDs from database
 	atp::db::DatabasePtr m_db;
-	std::vector<atp::logic::StatementArrayPtr> m_tasks;
 	atp::search::SearchSettings m_search_settings;
+	ProcessManager m_proc_mgr;
 };
 
 

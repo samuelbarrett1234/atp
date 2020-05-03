@@ -17,9 +17,13 @@
 #include "ProofProcess.h"
 
 
-ProofApplication::ProofApplication(std::ostream& out) :
-	m_out(out)
-{ }
+ProofApplication::ProofApplication(std::ostream& out,
+	size_t num_threads) :
+	m_out(out),
+	m_num_threads(num_threads)
+{
+	ATP_PRECOND(num_threads > 0);
+}
 
 
 bool ProofApplication::set_db(const std::string& path)
@@ -170,8 +174,8 @@ bool ProofApplication::set_search_name(const std::string& name)
 
 bool ProofApplication::add_proof_task(std::string path_or_stmt)
 {
-	if (!m_lang || !m_ctx)
-		return false;  // context file not set
+	if (!m_lang || !m_ctx || !m_db)
+		return false;  // not properly loaded
 
 	atp::logic::StatementArrayPtr p_stmts;
 
@@ -208,7 +212,10 @@ bool ProofApplication::add_proof_task(std::string path_or_stmt)
 		return false;
 	}
 
-	m_tasks.push_back(p_stmts);
+	// add a proof process
+	m_proc_mgr.add(std::make_unique<ProofProcess>(m_lang,
+		m_ctx_id, m_ss_id, m_ctx, m_db, m_search_settings,
+		std::move(p_stmts)));
 
 	return true;
 }
@@ -216,18 +223,8 @@ bool ProofApplication::add_proof_task(std::string path_or_stmt)
 
 void ProofApplication::run()
 {
-	// concatenate all the tasks together into one big array
-	auto tasks = atp::logic::concat(m_tasks);
-
-	auto proof_proc = std::make_unique<ProofProcess>(m_lang,
-		m_ctx_id, m_ss_id, m_ctx, m_db, m_search_settings,
-		std::move(tasks));
-
-	while (!proof_proc->done())
-	{
-		proof_proc->run_step();
-		proof_proc->dump_log(m_out);
-	}
+	// TODO: create some threads
+	m_proc_mgr.commit_thread(m_out);
 }
 
 

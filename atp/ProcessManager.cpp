@@ -12,41 +12,20 @@
 
 void ProcessManager::add(ProcessPtr p_proc)
 {
-	if (!p_proc->done())
-	{
-		if (p_proc->waiting())
-			push_waiting(std::move(p_proc));
-		else
-			push_running(std::move(p_proc));
-	}
-	// else do nothing and let the process destruct!
+	m_queue.push(std::move(p_proc));
 }
 
 
 void ProcessManager::commit_thread(std::ostream& output)
 {
-	// every N iterations we will check waiting procs
-	const size_t N = 5;
-	size_t i = 0;  // invariant: i < N
-
-	while (!done())
+	while (!m_queue.done())
 	{
-		ProcessPtr p_proc;
+		// may be null!!
+		ProcessPtr p_proc = m_queue.try_pop();
 
-		i = (i + 1) % N;
-
-		if (i == 0)
-		{
-			p_proc = pop_waiting();
-
-			ATP_ASSERT(p_proc->waiting());
-		}
-		else
-		{
-			p_proc = pop_running();
-
-			ATP_ASSERT(!p_proc->waiting());
-		}
+		// try again if we didn't get one:
+		if (p_proc == nullptr)
+			continue;
 
 		ATP_ASSERT(!p_proc->done());
 		p_proc->run_step();
@@ -54,53 +33,74 @@ void ProcessManager::commit_thread(std::ostream& output)
 		// log process stuff
 		p_proc->dump_log(output);
 
-		// put the process back in the queues if necessary.
-		add(std::move(p_proc));
+		// always put the process back onto the queue, regardless
+		// of its current state
+		m_queue.push(std::move(p_proc));
 	}
 }
 
 
-bool ProcessManager::done() const
-{
-	std::scoped_lock<std::mutex> lock(m_mutex);
+ProcessManager::ProcQueue::ProcQueue() :
+	// every N iterations we will check waiting procs
+	N(10),
+	i(0)
+{ }
 
-	return m_waiting.empty() && m_running.empty();
+
+void ProcessManager::ProcQueue::push(ProcessPtr p_proc)
+{
+	ATP_PRECOND(p_proc != nullptr);
+	std::scoped_lock<std::mutex> lk(m_mutex);
+
+	// remove this from the executing set, if it was in there
+	m_executing.erase(p_proc.get());
+
+	if (!p_proc->done())
+	{
+		if (p_proc->waiting())
+		{
+			m_waiting.emplace(std::move(p_proc));
+		}
+		else
+		{
+			m_running.emplace(std::move(p_proc));
+		}
+	}
 }
 
 
-ProcessPtr ProcessManager::pop_running()
+ProcessPtr ProcessManager::ProcQueue::try_pop()
 {
-	std::scoped_lock<std::mutex> lock(m_mutex);
+	std::scoped_lock<std::mutex> lk(m_mutex);
 
-	auto p_result = std::move(m_running.front());
-	m_running.pop();
-	return p_result;
+	if (m_running.empty() && m_waiting.empty())
+		return nullptr;
+
+	i = (i + 1) % N;
+
+	if ((i == 0 && !m_waiting.empty()) || m_running.empty())
+	{
+		auto result = std::move(m_waiting.front());
+		m_waiting.pop();
+		m_executing.insert(result.get());
+		return result;
+	}
+	else
+	{
+		auto result = std::move(m_running.front());
+		m_running.pop();
+		m_executing.insert(result.get());
+		return result;
+	}
 }
 
 
-ProcessPtr ProcessManager::pop_waiting()
+bool ProcessManager::ProcQueue::done() const
 {
-	std::scoped_lock<std::mutex> lock(m_mutex);
+	std::scoped_lock<std::mutex> lk(m_mutex);
 
-	auto p_result = std::move(m_waiting.front());
-	m_waiting.pop();
-	return p_result;
-}
-
-
-void ProcessManager::push_running(ProcessPtr p_proc)
-{
-	std::scoped_lock<std::mutex> lock(m_mutex);
-
-	m_running.emplace(std::move(p_proc));
-}
-
-
-void ProcessManager::push_waiting(ProcessPtr p_proc)
-{
-	std::scoped_lock<std::mutex> lock(m_mutex);
-
-	m_waiting.emplace(std::move(p_proc));
+	return m_running.empty() && m_waiting.empty() &&
+		m_executing.empty();
 }
 
 

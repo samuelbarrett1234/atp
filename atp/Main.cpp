@@ -43,6 +43,9 @@ int main(int argc, const char* const argv[])
 
 		("database,db", po::value<std::string>(),
 			"Path to database file")
+
+		("nthreads,nt", po::value<size_t>(),
+			"The number of threads to commit to the task at hand.")
 	;
 
 	// parse the arguments:
@@ -76,7 +79,16 @@ int main(int argc, const char* const argv[])
 
 int run_proof_application(const po::variables_map& vm)
 {
-	ProofApplication app(std::cout);
+	const size_t num_threads = vm.count("nthreads") ?
+		vm.at("nthreads").as<size_t>() : 1;
+
+	if (num_threads == 0)
+	{
+		std::cout << "Error: need at least one thread." << std::endl;
+		return -1;
+	}
+
+	ProofApplication app(std::cout, num_threads);
 
 	// check command line arguments
 

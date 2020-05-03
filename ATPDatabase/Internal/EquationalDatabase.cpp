@@ -238,9 +238,14 @@ TransactionPtr EquationalDatabase::finished_proof_attempt_transaction(
 			proof_states[i]->completion_state() ==
 			atp::logic::ProofCompletionState::PROVEN)
 		{
+			// make sure to not try inserting a new proof if there
+			// is already a proof in the database!
 			query_builder << "INSERT INTO proofs (thm_id, proof) "
-				<< "VALUES (" << find_thm_id << " , '"
-				<< proof_states[i]->to_str() << "');\n\n";
+				<< "SELECT " << find_thm_id << " , '"
+				<< proof_states[i]->to_str() << "' WHERE NOT EXISTS"
+				<< " (SELECT 1 FROM proofs JOIN theorems ON "
+				<< "thm_id=id WHERE stmt = '"
+				<< targets->at(i).to_str() << "');\n\n";
 		}
 		// obviously we do not want to do this if it failed ^
 	}

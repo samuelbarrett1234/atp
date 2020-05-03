@@ -1,10 +1,10 @@
-SELECT stmt, time_agg, max_mem_agg, num_exp_agg, num_proofs
+SELECT stmt, num_attempts, num_proofs, time_agg, max_mem_agg, num_exp_agg
 FROM theorems JOIN
 
 (
 	-- get aggregate information about each theorem's proof attempts
 	(SELECT thm_id, SUM(time_cost) as time_agg, MAX(max_mem) as max_mem_agg,
-		SUM(num_expansions) as num_exp_agg
+		SUM(num_expansions) as num_exp_agg, COUNT(thm_id) as num_attempts
 		FROM proof_attempts GROUP BY thm_id)
 		
 	NATURAL JOIN

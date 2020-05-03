@@ -181,7 +181,8 @@ TransactionPtr EquationalDatabase::get_theorems_for_kernel_transaction(
 
 	std::stringstream query_builder;
 
-	query_builder << "SELECT stmt FROM theorems"
+	// IMPORTANT: only load theorems for which there exist proofs!
+	query_builder << "SELECT stmt FROM theorems JOIN proofs ON thm_id=id"
 		" WHERE ctx = " << ctx_id <<
 		" ORDER BY RANDOM() LIMIT " << N << ";";
 

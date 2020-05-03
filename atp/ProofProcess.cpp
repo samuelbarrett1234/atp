@@ -140,7 +140,7 @@ void ProofProcess::step_solver()
 
 		const auto states = m_solver->get_states();
 		m_out << "Proof Process update --- ";
-		m_out << (m_cur_step + 1) << '/'
+		m_out << m_cur_step << '/'
 			<< m_max_steps << " : " <<
 			std::count(states.begin(), states.end(),
 				atp::logic::ProofCompletionState::UNFINISHED) <<

@@ -10,6 +10,8 @@
 #include "ProofApplication.h"
 #include <sstream>
 #include <fstream>
+#include <list>
+#include <thread>
 #include <boost/filesystem.hpp>
 #include <boost/bind.hpp>
 #include <ATPSearch.h>
@@ -223,8 +225,19 @@ bool ProofApplication::add_proof_task(std::string path_or_stmt)
 
 void ProofApplication::run()
 {
-	// TODO: create some threads
+	std::list<std::thread> threads;
+
+	for (size_t i = 0; i < m_num_threads; ++i)
+	{
+		threads.emplace_back(boost::bind(
+			&ProcessManager::commit_thread, boost::ref(m_proc_mgr),
+			boost::ref(m_out)));
+	}
+
 	m_proc_mgr.commit_thread(m_out);
+
+	for (auto& th : threads)
+		th.join();
 }
 
 

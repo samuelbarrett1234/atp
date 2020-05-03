@@ -27,6 +27,9 @@
 		"or(A, not(A)) = true",
 		"and(A, not(A)) = false",
 		
+		"not(or(A, B)) = and(not(A), not(B))",
+		"not(false) = true", "not(true) = false",
+		
 		"implies(A, B) = or(not(A), B)"
 	]
 }

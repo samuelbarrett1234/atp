@@ -106,6 +106,9 @@ bool ProofApplication::set_context_name(const std::string& name)
 	m_out << "Successfully loaded the context file \"" << 
 		m_ctx->context_name() << "\"." << std::endl;
 
+	// here is a good place to do the check:
+	check_axioms_in_db();
+
 	return true;  // success
 }
 
@@ -238,6 +241,50 @@ void ProofApplication::run()
 
 	for (auto& th : threads)
 		th.join();
+}
+
+
+void ProofApplication::check_axioms_in_db()
+{
+	ATP_PRECOND(m_db != nullptr);
+	ATP_PRECOND(m_ctx != nullptr);
+
+	auto _p_bder = m_db->create_query_builder(
+		atp::db::QueryBuilderType::INSERT_THM_IF_NOT_EXISTS);
+	auto p_bder = dynamic_cast<atp::db::IInsertThmIfNotExQryBder*>(
+		_p_bder.get());
+
+	ATP_ASSERT(p_bder != nullptr);
+	p_bder->set_ctx(m_ctx_id);
+
+	for (size_t i = 0; i < m_ctx->num_axioms(); ++i)
+	{
+		p_bder->set_thm(m_ctx->axiom_at(i));
+
+		auto p_trans = m_db->begin_transaction(p_bder->build());
+
+		if (p_trans == nullptr)
+		{
+			m_out << "Error: could not create query to save axiom to"
+				<< " DB: '" << m_ctx->axiom_at(i) << "'";
+			continue;
+		}
+
+		// try to execute the transaction (max N attempts)
+		static const size_t N = 25;
+		for (size_t j = 0; j < N && p_trans->state() ==
+			atp::db::TransactionState::RUNNING; ++j)
+		{
+			p_trans->step();
+		}
+
+		if (p_trans->state() != atp::db::TransactionState::COMPLETED)
+		{
+			m_out << "Error: could not save the following axiom to "
+				<< "DB: '" << m_ctx->axiom_at(i) << "'";
+			continue;
+		}
+	}
 }
 
 

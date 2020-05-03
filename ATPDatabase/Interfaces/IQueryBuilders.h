@@ -44,7 +44,10 @@ enum class QueryBuilderType
 
 	// save a set of theorems, possibly with proofs and proof
 	// attempts, to the database
-	SAVE_THMS_AND_PROOFS
+	SAVE_THMS_AND_PROOFS,
+
+	// ensure that a particular theorem exists in the database
+	INSERT_THM_IF_NOT_EXISTS
 };
 
 
@@ -102,6 +105,9 @@ public:
 };
 
 
+/**
+\brief Interface for saving a collection of proof attempt results.
+*/
 class ATP_DATABASE_API ISaveProofResultsQryBder :
 	public IQueryBuilder
 {
@@ -143,6 +149,29 @@ public:
 	*/
 	virtual ISaveProofResultsQryBder* add_target_thms(
 		const logic::StatementArrayPtr& p_targets) = 0;
+
+	/**
+	\brief Set which theorems were loaded from the database in order
+		to assist finding proofs, if any. This is optional.
+
+	\note This function is optional, and is not needed for building
+		the query.
+
+	\details This will have been exactly the set of theorems you
+		added to the knowledge kernel in order to help generate more
+		successors. These are needed so that we can determine their
+		usage in the proof, to keep track of how "useful" every
+		theorem is.
+
+	\pre p_helpers != nullptr
+
+	\note Of course, this array doesn't have to be the same size as
+		all the others.
+
+	\returns this
+	*/
+	virtual ISaveProofResultsQryBder* add_helper_thms(
+		const logic::StatementArrayPtr& p_helpers) = 0;
 
 	/**
 	\brief Add the proof states of those which were successfully
@@ -188,6 +217,42 @@ public:
 	*/
 	virtual ISaveProofResultsQryBder* add_num_node_expansions(
 		const std::vector<size_t>& num_node_expansions) = 0;
+};
+
+
+/**
+\brief Interface for inserting a theorem into the database (if it
+	doesn't already exist).
+*/
+class ATP_DATABASE_API IInsertThmIfNotExQryBder :
+	public IQueryBuilder
+{
+public:
+	virtual ~IInsertThmIfNotExQryBder() = default;
+
+	/**
+	\brief Set the text of the theorem to check
+
+	\returns this
+	*/
+	virtual IInsertThmIfNotExQryBder* set_thm(
+		const std::string& thm) = 0;
+
+	/**
+	\brief Set the context of this theorem
+
+	\returns this
+	*/
+	virtual IInsertThmIfNotExQryBder* set_ctx(
+		size_t ctx_id) = 0;
+
+	/**
+	\brief Restore this object's state to the same as it was when it
+		was created.
+
+	\returns this
+	*/
+	virtual IInsertThmIfNotExQryBder* reset() = 0;
 };
 
 

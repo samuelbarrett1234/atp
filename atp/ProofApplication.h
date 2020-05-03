@@ -95,6 +95,19 @@ public:
 	void run();
 
 private:
+	/**
+	\brief If any axioms are not stored as theorems in the database,
+		add them.
+
+	\details It is assumed in the proof processes that this is the
+		case, and this seems like the best place to fix it if it's
+		not the case.
+
+	\pre m_db != nullptr && m_ctx != nullptr
+	*/
+	void check_axioms_in_db();
+
+private:
 	const size_t m_num_threads;
 	std::ostream& m_out;
 	atp::logic::LanguagePtr m_lang;

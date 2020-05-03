@@ -14,6 +14,7 @@
 #include "TransactionListWrapper.h"
 #include "SQLiteRndProvenThmSelectQryBder.h"
 #include "SQLiteSaveProofResultsQryBder.h"
+#include "SQLiteInsertThmIfNotExQryBder.h"
 
 
 namespace atp
@@ -110,6 +111,8 @@ QueryBuilderPtr SQLiteDatabase::create_query_builder(
 		return std::make_unique<SQLiteRndProvenThmSelectQryBder>();
 	case QueryBuilderType::SAVE_THMS_AND_PROOFS:
 		return std::make_unique<SQLiteSaveProofResultsQryBder>();
+	case QueryBuilderType::INSERT_THM_IF_NOT_EXISTS:
+		return std::make_unique<SQLiteInsertThmIfNotExQryBder>();
 	default:
 		ATP_DATABASE_PRECOND(false && "bad type!");
 		return nullptr;

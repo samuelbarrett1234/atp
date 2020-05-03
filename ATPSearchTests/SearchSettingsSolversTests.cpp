@@ -21,6 +21,7 @@ using atp::search::IteratorManager;
 using atp::search::try_create_solver;
 using atp::search::try_get_flags;
 using atp::search::try_create_IDS;
+using atp::search::SolverCreator;
 using atp::logic::IterSettings;
 namespace iter_settings = atp::logic::iter_settings;
 
@@ -47,10 +48,12 @@ BOOST_AUTO_TEST_CASE(test_bad_solver_name)
 	ptree pt;
 	read_json(s, pt);
 
-	auto p_result = try_create_solver(p_ker, pt,
-		nullptr, std::move(p_iter_mgr));
+	SolverCreator creator;
 
-	BOOST_TEST(p_result == nullptr);
+	BOOST_TEST(!try_create_solver(pt,
+		creator));
+
+	BOOST_TEST((!(bool)creator));
 }
 
 
@@ -118,10 +121,19 @@ BOOST_DATA_TEST_CASE(test_create_ids,
 	ptree pt;
 	read_json(s, pt);
 
-	auto p_result = try_create_IDS(p_ker, pt,
-		iter_settings::DEFAULT, nullptr, std::move(p_iter_mgr));
+	SolverCreator creator;
 
-	BOOST_TEST((p_result != nullptr) == is_valid);
+	BOOST_TEST(try_create_IDS(pt,
+		creator, iter_settings::DEFAULT) == is_valid);
+
+	BOOST_TEST(((bool)creator) == is_valid);
+
+	if ((bool)creator)
+	{
+		auto p_result = creator(p_ker, std::move(p_iter_mgr));
+
+		BOOST_TEST((p_result != nullptr) == is_valid);
+	}
 }
 
 
@@ -140,8 +152,14 @@ BOOST_AUTO_TEST_CASE(test_create_solver_can_make_ids,
 	ptree pt;
 	read_json(s, pt);
 
-	auto p_result = try_create_solver(p_ker, pt, nullptr,
-		std::move(p_iter_mgr));
+	SolverCreator creator;
+
+	BOOST_TEST(try_create_solver(pt,
+		creator));
+
+	BOOST_REQUIRE((bool)creator);
+
+	auto p_result = creator(p_ker, std::move(p_iter_mgr));
 
 	BOOST_TEST(p_result != nullptr);
 }

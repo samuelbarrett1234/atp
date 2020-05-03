@@ -27,24 +27,25 @@ namespace search
 {
 
 
-SolverPtr create_solver(logic::KnowledgeKernelPtr p_ker,
+bool create_solver_creator(
+	std::function<SolverPtr(
+		logic::KnowledgeKernelPtr)>& creator,
 	HeuristicPtr p_heuristic,
 	pt::ptree ptree)
 {
-	auto p_iter_mgr = std::make_unique<IteratorManager>(p_ker);
-
-	p_iter_mgr->set_heuristic(p_heuristic);
+	SuccIterCreator succ_iter_creator;
+	SolverCreator solver_creator;
 
 	if (auto stop_strat_ptree =
 		ptree.get_child_optional("stopping-strategy"))
 	{
 		// cannot have a stopping strategy without a heuristic
 		if (p_heuristic == nullptr)
-			return nullptr;
+			return false;
 
-		if (!try_load_succ_iter_settings(*p_iter_mgr,
+		if (!try_load_succ_iter_settings(succ_iter_creator,
 			*stop_strat_ptree))
-			return nullptr;
+			return false;
 	}
 
 	auto solver_ptree = ptree.get_child("solver");
@@ -54,9 +55,22 @@ SolverPtr create_solver(logic::KnowledgeKernelPtr p_ker,
 	// null, they made a mistake in their specification of
 	// the solver.
 
-	return try_create_solver(
-		p_ker, solver_ptree, std::move(p_heuristic),
-		std::move(p_iter_mgr));
+	if (!try_create_solver(solver_ptree, solver_creator))
+		return false;
+
+	creator = [succ_iter_creator, solver_creator,
+		p_heuristic](logic::KnowledgeKernelPtr p_ker)
+	{
+		auto p_iter_mgr = std::make_unique<IteratorManager>(p_ker);
+
+		p_iter_mgr->set_heuristic(p_heuristic);
+
+		succ_iter_creator(*p_iter_mgr);
+
+		return solver_creator(p_ker, std::move(p_iter_mgr));
+	};
+
+	return true;
 }
 
 
@@ -104,9 +118,9 @@ bool load_search_settings(std::istream& in,
 		if (!ptree.get_child_optional("solver"))
 			return true;  // no solver is not an error
 
-		// it is very important that we copy by value here!
-		p_out_settings->create_solver = boost::bind(&create_solver,
-			_1, p_heuristic, ptree);
+		if (!create_solver_creator(p_out_settings->create_solver,
+			p_heuristic, ptree))
+			return false;
 
 		// else we are done
 		return true;

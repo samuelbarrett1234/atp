@@ -22,6 +22,7 @@ using atp::search::try_load_succ_iter_settings;
 using atp::search::try_load_fixed_stopping_strategy;
 using atp::search::try_load_basic_stopping_strategy;
 using atp::search::IteratorManager;
+using atp::search::SuccIterCreator;
 using boost::property_tree::ptree;
 using boost::property_tree::read_json;
 
@@ -50,8 +51,12 @@ BOOST_AUTO_TEST_CASE(test_bad_strat_type)
 	ptree pt;
 	read_json(s, pt);
 
+	SuccIterCreator creator;
+
 	BOOST_TEST(!try_load_succ_iter_settings(
-		*p_iter_mgr, pt));
+		creator, pt));
+
+	BOOST_TEST(!(bool)creator);
 }
 
 
@@ -68,11 +73,12 @@ BOOST_DATA_TEST_CASE(test_fixed_stopping_strategy,
 
 	// try both functions (the second should just delegate to the
 	// first).
+	SuccIterCreator creator;
 
-	BOOST_TEST(try_load_fixed_stopping_strategy(*p_iter_mgr,
+	BOOST_TEST(try_load_fixed_stopping_strategy(creator,
 		pt) == is_valid);
 
-	BOOST_TEST(try_load_succ_iter_settings(*p_iter_mgr,
+	BOOST_TEST(try_load_succ_iter_settings(creator,
 		pt) == is_valid);
 }
 
@@ -105,10 +111,12 @@ BOOST_DATA_TEST_CASE(test_basic_stopping_strategy,
 	// try both functions (the second should just delegate to the
 	// first).
 
-	BOOST_TEST(try_load_basic_stopping_strategy(*p_iter_mgr,
+	SuccIterCreator creator;
+
+	BOOST_TEST(try_load_basic_stopping_strategy(creator,
 		pt) == is_valid);
 
-	BOOST_TEST(try_load_succ_iter_settings(*p_iter_mgr,
+	BOOST_TEST(try_load_succ_iter_settings(creator,
 		pt) == is_valid);
 }
 

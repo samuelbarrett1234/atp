@@ -17,9 +17,9 @@ namespace search
 {
 
 
-SolverPtr try_create_solver(logic::KnowledgeKernelPtr p_ker,
-	const boost::property_tree::ptree& ptree, HeuristicPtr p_heuristic,
-	std::unique_ptr<IteratorManager> p_iter_mgr)
+bool try_create_solver(
+	const boost::property_tree::ptree& ptree,
+	SolverCreator& creator)
 {
 	const std::string solver_type = ptree.get<std::string>(
 		"type");
@@ -29,13 +29,11 @@ SolverPtr try_create_solver(logic::KnowledgeKernelPtr p_ker,
 	if (solver_type == "IterativeDeepeningSolver")
 	{
 		// may or may not fail
-		return try_create_IDS(
-			p_ker, ptree, iter_settings,
-			p_heuristic, std::move(p_iter_mgr));
+		return try_create_IDS(ptree, creator, iter_settings);
 	}
 	else
 	{
-		return nullptr;  // bad solver type
+		return false;  // bad solver type
 	}
 }
 
@@ -68,21 +66,27 @@ logic::IterSettings try_get_flags(
 }
 
 
-SolverPtr try_create_IDS(logic::KnowledgeKernelPtr p_ker,
+bool try_create_IDS(
 	const boost::property_tree::ptree& ptree,
-	logic::IterSettings settings,
-	HeuristicPtr p_heuristic,
-	std::unique_ptr<IteratorManager> p_iter_mgr)
+	SolverCreator& creator,
+	logic::IterSettings iter_settings)
 {
 	const size_t max_depth = ptree.get<size_t>("max-depth", 10);
 	const size_t starting_depth = ptree.get<size_t>("starting-depth", 3);
 
 	if (starting_depth <= 1 || starting_depth >= max_depth)
-		return SolverPtr();  // invalid params
+		return false;  // invalid params
 
-	return std::make_shared<IterativeDeepeningSolver>(
-		p_ker, max_depth, starting_depth, settings,
-		std::move(p_iter_mgr));
+	creator = [max_depth, starting_depth, iter_settings](
+		logic::KnowledgeKernelPtr p_ker,
+		std::unique_ptr<IteratorManager> p_iter_mgr)
+	{
+		return std::make_shared<IterativeDeepeningSolver>(
+			p_ker, max_depth, starting_depth, iter_settings,
+			std::move(p_iter_mgr));
+	};
+
+	return true;
 }
 
 

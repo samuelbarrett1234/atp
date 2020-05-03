@@ -15,18 +15,18 @@ namespace search
 {
 
 
-bool try_load_succ_iter_settings(IteratorManager& iter_mgr,
+bool try_load_succ_iter_settings(SuccIterCreator& creator,
 	const boost::property_tree::ptree& ptree)
 {
 	const std::string type = ptree.get<std::string>("type");
 
 	if (type == "FixedStoppingStrategy")
 	{
-		return try_load_fixed_stopping_strategy(iter_mgr, ptree);
+		return try_load_fixed_stopping_strategy(creator, ptree);
 	}
 	else if (type == "BasicStoppingStrategy")
 	{
-		return try_load_basic_stopping_strategy(iter_mgr, ptree);
+		return try_load_basic_stopping_strategy(creator, ptree);
 	}
 	else
 	{
@@ -35,7 +35,7 @@ bool try_load_succ_iter_settings(IteratorManager& iter_mgr,
 }
 
 
-bool try_load_fixed_stopping_strategy(IteratorManager& iter_mgr,
+bool try_load_fixed_stopping_strategy(SuccIterCreator& creator,
 	const boost::property_tree::ptree& ptree)
 {
 	const size_t size = ptree.get<size_t>("size");
@@ -43,13 +43,15 @@ bool try_load_fixed_stopping_strategy(IteratorManager& iter_mgr,
 	if (size == 0)
 		return false;
 
-	iter_mgr.set_fixed_stopping_strategy(size);
+	creator = boost::bind(
+		&IteratorManager::set_fixed_stopping_strategy,
+		_1, size);
 
 	return true;
 }
 
 
-bool try_load_basic_stopping_strategy(IteratorManager& iter_mgr,
+bool try_load_basic_stopping_strategy(SuccIterCreator& creator,
 	const boost::property_tree::ptree& ptree)
 {
 	const size_t initial_size = ptree.get<size_t>("initial-size", 3);
@@ -60,8 +62,9 @@ bool try_load_basic_stopping_strategy(IteratorManager& iter_mgr,
 		|| alpha >= 1.0f)
 		return false;
 
-	iter_mgr.set_basic_stopping_strategy(initial_size, lambda,
-		alpha);
+	creator = boost::bind(
+		&IteratorManager::set_basic_stopping_strategy,
+		_1, initial_size, lambda, alpha);
 
 	return true;
 }

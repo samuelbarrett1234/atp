@@ -36,9 +36,9 @@ There is already a script for setting up the database. To run it, type (into the
 
 At the moment, the application only supports a single `prove` mode. Usage:
 
-`atp --db <database-filename> --ctx <context-name> --ss <search-settings-filename> --prove <statement-filename-or-in-quotes>`
+`atp --db <database-filename> --ctx <context-name> --ss <search-settings-name> --prove <statement-filename-or-in-quotes>`
 
-`--ctx` tells the ATP which context you want to prove in - e.g. group theory, ring theory, etc. To get details on what context names are allowed, look at the database's `model_contexts` table. The name is looked-up in here, where the filename will be found.
+`--ctx` tells the ATP which context you want to prove in - e.g. group theory, ring theory, etc. To get details on what context names are allowed, look at the database's `model_contexts` table. The name is looked-up in here, where the filename will be found. Similarly, `--ss` tells the solver what search settings to use. The different settings can be found in the `search_settings` table in the database.
 
 Note that, in the above example, you may need to change `atp` to `atp_Releasex64` or something similar, depending on your build settings. Check the `Output` folder to see which versions of the application you have built.
 

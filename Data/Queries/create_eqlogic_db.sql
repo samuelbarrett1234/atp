@@ -13,6 +13,8 @@ INSERT INTO model_contexts (name, filename) VALUES (
 	"reg-expr", "../Data/Definitions/reg_expr.json");
 INSERT INTO model_contexts (name, filename) VALUES (
 	"ring-arithmetic", "../Data/Definitions/ring_arithmetic.json");
+INSERT INTO model_contexts (name, filename) VALUES (
+	"calculus-algebra", "../Data/Definitions/calculus_algebra.json");
 
 
 CREATE TABLE IF NOT EXISTS search_settings (

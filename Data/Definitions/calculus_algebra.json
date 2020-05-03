@@ -1,0 +1,47 @@
+{
+	"name" : "Algebra of Calculus",
+	"definitions" : [
+		{ "name" : "0", "arity" : 0 },
+		{ "name" : "1", "arity" : 0 },
+		{ "name" : "exp", "arity" : 0 },
+		{ "name" : "sin", "arity" : 0 },
+		{ "name" : "cos", "arity" : 0 },
+		{ "name" : "id", "arity" : 0 },
+		{ "name" : "D", "arity" : 1 },
+		{ "name" : "I", "arity" : 1 },
+		{ "name" : ".", "arity" : 2 },
+		{ "name" : "*", "arity" : 2 },
+		{ "name" : "+", "arity" : 2 },
+		{ "name" : "-", "arity" : 1 }
+	],
+	"axioms" : [
+		"+(f, g) = +(g, f)",
+		"*(f, g) = *(g, f)",
+		"+(f, +(g, h)) = +(+(f, g), h)",
+		"*(f, *(g, h)) = *(*(f, g), h)",
+		"+(f, -(f)) = 0",
+		"+(f, 0) = f",
+		"*(f, 1) = f",
+		"*(f, +(g, h)) = +(*(f, g), *(f, h))",
+		".(f, id) = f",
+		".(id, f) = f",
+		".(0, f) = 0",
+		".(1, f) = 1",
+	
+		"D(+(f, g)) = +(D(f), D(g))",
+		"D(*(f, g)) = +(*(D(f), g), *(f, D(g)))",
+		"D(.(f, g)) = *(.(D(f), g), D(g))",
+		
+		"D(I(f)) = f",
+		
+		"D(sin) = cos",
+		"D(cos) = -(sin)",
+		"D(exp) = exp",
+		"D(1) = 0",
+		"D(0) = 0",
+		"D(id) = 1",
+		
+		"+(*(sin, sin), *(cos, cos)) = 1",
+		".(exp, +(f, g)) = *(.(exp, f), .(exp, g))"
+	]
+}

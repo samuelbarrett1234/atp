@@ -24,17 +24,21 @@ Note that when you build the application, the binaries can be found in the `Outp
 
 The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. This project uses the Boost C++ libaries, and SQLite3. Please ensure that they are installed, and that the environment variable `BOOST_DIR` to be set to the root of Boost's installation directory, and `SQLITE_DIR` likewise set for the SQLite3 directory (where the application will look for the code and the DLL). Ensure you build Boost with the correct compiler and C++ version, otherwise you may experience compilation errors.
 
-After installation, try building the library and running the unit tests to check everything is working correctly.
+After installation, try building the library and running the unit tests to check everything is working correctly. After running the tests you now need to create a database (see below).
 
 ## Setting up the database
 
-TODO.
+Open the command prompt and navigate to the `Data\DB` directory (create it if it doesn't exist already). Type the command `sqlite3 eqlogic.db` to create a new database called `eqlogic` for equational logic.
+
+There is already a script for setting up the database. To run it, type (into the SQLite application, which should now be running): `.read ../Queries/create_eqlogic_db.sql`. This will initialise all the tables etc.
 
 ## Running the client
 
 At the moment, the application only supports a single `prove` mode. Usage:
 
-`atp --context <context-filename> --search-settings <search-settings> --prove <statement-filename>`
+`atp --db <database-filename> --ctx <context-name> --ss <search-settings-filename> --prove <statement-filename-or-in-quotes>`
+
+`--ctx` tells the ATP which context you want to prove in - e.g. group theory, ring theory, etc. To get details on what context names are allowed, look at the database's `model_contexts` table. The name is looked-up in here, where the filename will be found.
 
 Note that, in the above example, you may need to change `atp` to `atp_Releasex64` or something similar, depending on your build settings. Check the `Output` folder to see which versions of the application you have built.
 

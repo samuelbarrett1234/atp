@@ -10,11 +10,12 @@
 #include <sstream>
 #include <sqlite3.h>
 #include <boost/filesystem.hpp>
+#include <boost/bind.hpp>
 #include "SQLiteTransaction.h"
 #include "TransactionListWrapper.h"
 #include "SQLiteRndProvenThmSelectQryBder.h"
 #include "SQLiteSaveProofResultsQryBder.h"
-#include "SQLiteInsertThmIfNotExQryBder.h"
+#include "SQLiteCheckAxInDbQryBder.h"
 
 
 namespace atp
@@ -65,9 +66,18 @@ TransactionPtr SQLiteDatabase::begin_transaction(
 	const char* p_cur = p_begin;
 	const char* p_end = p_begin + query_text.size();
 
+	// we are done iff there is only whitespace between p_cur and
+	// p_end
+	auto is_done = [&p_cur, &p_end]() -> bool
+	{
+		return std::find_if(p_cur, p_end,
+			[](char c) { return std::isspace(c) == 0; })
+			== p_end;
+	};
+
 	auto trans_list_builder = TransactionListWrapper::Builder();
 
-	while (p_cur != p_end)
+	while (!is_done())
 	{
 		sqlite3_stmt* stmt = nullptr;
 
@@ -111,8 +121,8 @@ QueryBuilderPtr SQLiteDatabase::create_query_builder(
 		return std::make_unique<SQLiteRndProvenThmSelectQryBder>();
 	case QueryBuilderType::SAVE_THMS_AND_PROOFS:
 		return std::make_unique<SQLiteSaveProofResultsQryBder>();
-	case QueryBuilderType::INSERT_THM_IF_NOT_EXISTS:
-		return std::make_unique<SQLiteInsertThmIfNotExQryBder>();
+	case QueryBuilderType::CHECK_AXIOMS_IN_DB:
+		return std::make_unique<SQLiteCheckAxInDbQryBder>();
 	default:
 		ATP_DATABASE_PRECOND(false && "bad type!");
 		return nullptr;

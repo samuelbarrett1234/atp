@@ -27,6 +27,7 @@ std::string SQLiteRndProvenThmSelectQryBder::build()
 	// IMPORTANT: only load theorems for which there exist proofs!
 	query_builder << "SELECT stmt FROM theorems JOIN proofs ON thm_id=id"
 		" WHERE ctx = " << *m_ctx_id <<
+		" AND is_axiom = 0" <<  // don't load axioms!
 		" ORDER BY RANDOM() LIMIT " << *m_limit << ";";
 
 	return query_builder.str();

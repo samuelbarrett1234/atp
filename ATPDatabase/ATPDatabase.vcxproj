@@ -179,7 +179,7 @@
     <ClInclude Include="Interfaces\ITransaction.h" />
     <ClInclude Include="Interfaces\IQueryBuilders.h" />
     <ClInclude Include="Internal\SQLiteDatabase.h" />
-    <ClInclude Include="Internal\SQLiteInsertThmIfNotExQryBder.h" />
+    <ClInclude Include="Internal\SQLiteCheckAxInDbQryBder.h" />
     <ClInclude Include="Internal\SQLiteRndProvenThmSelectQryBder.h" />
     <ClInclude Include="Internal\SQLiteSaveProofResultsQryBder.h" />
     <ClInclude Include="Internal\SQLiteTransaction.h" />
@@ -188,7 +188,7 @@
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp" />
     <ClCompile Include="Internal\SQLiteDatabase.cpp" />
-    <ClCompile Include="Internal\SQLiteInsertThmIfNotExQryBder.cpp" />
+    <ClCompile Include="Internal\SQLiteCheckAxInDbQryBder.cpp" />
     <ClCompile Include="Internal\SQLiteRndProvenThmSelectQryBder.cpp" />
     <ClCompile Include="Internal\SQLiteSaveProofResultsQryBder.cpp" />
     <ClCompile Include="Internal\SQLiteTransaction.cpp" />

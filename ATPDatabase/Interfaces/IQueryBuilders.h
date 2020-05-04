@@ -46,8 +46,8 @@ enum class QueryBuilderType
 	// attempts, to the database
 	SAVE_THMS_AND_PROOFS,
 
-	// ensure that a particular theorem exists in the database
-	INSERT_THM_IF_NOT_EXISTS
+	// check that all the axioms are appropriately loaded into the DB
+	CHECK_AXIOMS_IN_DB
 };
 
 
@@ -221,30 +221,31 @@ public:
 
 
 /**
-\brief Interface for inserting a theorem into the database (if it
-	doesn't already exist).
+\brief Interface for making sure all of the axioms of a given context
+	are appropriately set in the database before doing any proving.
 */
-class ATP_DATABASE_API IInsertThmIfNotExQryBder :
+class ATP_DATABASE_API ICheckAxInDbQryBder :
 	public IQueryBuilder
 {
 public:
-	virtual ~IInsertThmIfNotExQryBder() = default;
-
-	/**
-	\brief Set the text of the theorem to check
-
-	\returns this
-	*/
-	virtual IInsertThmIfNotExQryBder* set_thm(
-		const std::string& thm) = 0;
+	virtual ~ICheckAxInDbQryBder() = default;
 
 	/**
 	\brief Set the context of this theorem
 
 	\returns this
 	*/
-	virtual IInsertThmIfNotExQryBder* set_ctx(
-		size_t ctx_id) = 0;
+	virtual ICheckAxInDbQryBder* set_ctx(
+		size_t ctx_id,
+		const logic::ModelContextPtr& p_ctx) = 0;
+
+	/**
+	\brief Set the language associated with the given context
+
+	\returns this
+	*/
+	virtual ICheckAxInDbQryBder* set_lang(
+		const logic::LanguagePtr& p_lang) = 0;
 
 	/**
 	\brief Restore this object's state to the same as it was when it
@@ -252,7 +253,7 @@ public:
 
 	\returns this
 	*/
-	virtual IInsertThmIfNotExQryBder* reset() = 0;
+	virtual ICheckAxInDbQryBder* reset() = 0;
 };
 
 

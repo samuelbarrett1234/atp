@@ -63,7 +63,7 @@
     <ClInclude Include="Internal\SQLiteSaveProofResultsQryBder.h">
       <Filter>Header Files\Internal\SQLite</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\SQLiteInsertThmIfNotExQryBder.h">
+    <ClInclude Include="Internal\SQLiteCheckAxInDbQryBder.h">
       <Filter>Header Files\Internal\SQLite</Filter>
     </ClInclude>
   </ItemGroup>
@@ -86,7 +86,7 @@
     <ClCompile Include="Internal\SQLiteSaveProofResultsQryBder.cpp">
       <Filter>Source Files\Internal\SQLite</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\SQLiteInsertThmIfNotExQryBder.cpp">
+    <ClCompile Include="Internal\SQLiteCheckAxInDbQryBder.cpp">
       <Filter>Source Files\Internal\SQLite</Filter>
     </ClCompile>
   </ItemGroup>

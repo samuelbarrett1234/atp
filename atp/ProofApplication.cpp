@@ -250,54 +250,40 @@ void ProofApplication::check_axioms_in_db()
 	ATP_PRECOND(m_ctx != nullptr);
 
 	auto _p_bder = m_db->create_query_builder(
-		atp::db::QueryBuilderType::INSERT_THM_IF_NOT_EXISTS);
-	auto p_bder = dynamic_cast<atp::db::IInsertThmIfNotExQryBder*>(
+		atp::db::QueryBuilderType::CHECK_AXIOMS_IN_DB);
+	auto p_bder = dynamic_cast<atp::db::ICheckAxInDbQryBder*>(
 		_p_bder.get());
 
 	ATP_ASSERT(p_bder != nullptr);
-	p_bder->set_ctx(m_ctx_id);
+	p_bder->set_ctx(m_ctx_id, m_ctx)
+		->set_lang(m_lang);
 
-	for (size_t i = 0; i < m_ctx->num_axioms(); ++i)
+	auto p_trans = m_db->begin_transaction(p_bder->build());
+
+	if (p_trans == nullptr)
 	{
-		// WARNING: `ax_name` may be in a form which uses bad
-		// variable names (like x and y vs x0 and x1), and a
-		// quick and dirty solution is to serialise it and then
-		// deserialise it, putting it into a more standardised
-		// form!
-		std::string ax_name = m_ctx->axiom_at(i);
-		{
-			std::stringstream s(ax_name);
-			auto p_stmts = m_lang->deserialise_stmts(s,
-				atp::logic::StmtFormat::TEXT, *m_ctx);
-			ATP_ASSERT(p_stmts != nullptr);
-			ax_name = p_stmts->at(0).to_str();
-		}
-		p_bder->set_thm(ax_name);
-
-		auto p_trans = m_db->begin_transaction(p_bder->build());
-
-		if (p_trans == nullptr)
-		{
-			m_out << "Error: could not create query to save axiom to"
-				<< " DB: '" << m_ctx->axiom_at(i) << "'";
-			continue;
-		}
-
-		// try to execute the transaction (max N attempts)
-		static const size_t N = 25;
-		for (size_t j = 0; j < N && p_trans->state() ==
-			atp::db::TransactionState::RUNNING; ++j)
-		{
-			p_trans->step();
-		}
-
-		if (p_trans->state() != atp::db::TransactionState::COMPLETED)
-		{
-			m_out << "Error: could not save the following axiom to "
-				<< "DB: '" << m_ctx->axiom_at(i) << "'";
-			continue;
-		}
+		m_out << "ERROR! Failed to create the query which checks "
+			<< "that all the axioms are loaded into the database."
+			<< std::endl;
+		return;
 	}
+
+	// run the transaction (for at most N steps, but it should be
+	// reasonably done in N steps)
+	static const size_t N = 100;
+	for (size_t i = 0; i < N &&
+		p_trans->state() == atp::db::TransactionState::RUNNING;
+		++i)
+		p_trans->step();
+
+	if (p_trans->state() != atp::db::TransactionState::COMPLETED)
+	{
+		m_out << "ERROR! Failed to run query which checks that all"
+			<< " the axioms are loaded into the database."
+			<< std::endl;
+		return;
+	}
+	// else we're all good
 }
 
 

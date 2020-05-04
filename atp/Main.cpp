@@ -31,11 +31,7 @@ int main(int argc, const char* const argv[])
 	po::options_description desc("Options:");
 
 	desc.add_options()
-		("context,ctx", po::value<std::string>(),
-			"Context name (see `model_contexts` database table)")
-
-		("search-settings,ss", po::value<std::string>(),
-			"Search settings name (see `search_settings` database table)")
+		("help,h", "produce help message.")
 
 		("prove,P", po::value<std::vector<std::string>>(),
 			"Path to a file containing statements to prove, or write"
@@ -43,6 +39,12 @@ int main(int argc, const char* const argv[])
 
 		("database,db", po::value<std::string>(),
 			"Path to database file")
+
+		("context,ctx", po::value<std::string>(),
+			"Context name (see `model_contexts` database table)")
+
+		("search-settings,ss", po::value<std::string>(),
+			"Search settings name (see `search_settings` database table)")
 
 		("nthreads,nt", po::value<size_t>(),
 			"The number of threads to commit to the task at hand.")
@@ -52,9 +54,15 @@ int main(int argc, const char* const argv[])
 	po::variables_map vm;
 	try
 	{
-		po::store(po::command_line_parser(argc, argv)
-			.options(desc).run(), vm);
+		po::store(po::parse_command_line(argc, argv, desc), vm);
 		po::notify(vm);
+
+		// if user wants help!
+		if (vm.count("help"))
+		{
+			std::cout << desc << std::endl;
+			return 0;
+		}
 	}
 	catch(std::exception& ex)
 	{

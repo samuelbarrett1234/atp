@@ -66,15 +66,27 @@ CREATE TABLE IF NOT EXISTS proof_attempts (
 A theorem is proven true iff there exists a proof of it in this
 table.
 We also store the proofs as text, however we suspect that not to
-be very useful!
+be very useful! Do not rely on the structure of the proofs too much.
 Whenever there is a proof of a theorem, there is also a proof
-attempt.
+attempt, UNLESS it is an AXIOM!
 Note that we store which theorems were used in the proof in a
 separate table.
 */
 CREATE TABLE IF NOT EXISTS proofs (
 	thm_id INTEGER UNIQUE NOT NULL,
-	proof TEXT,  /* human readable proof as string, line-separated */
+	
+	/*
+	human readable proof as string, line-separated, can be null
+	*/
+	proof TEXT,
+	
+	/*
+	1 if this is an axiom, in which case the proof will be null/empty,
+	or 0 if this is an actual theorem.
+	*/
+	is_axiom INTEGER NOT NULL DEFAULT 0,
+	CHECK(is_axiom IN (0, 1)),
+	
 	FOREIGN KEY (thm_id) REFERENCES theorems(id)
 	ON DELETE CASCADE ON UPDATE CASCADE);
 

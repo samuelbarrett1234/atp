@@ -7,7 +7,7 @@
 */
 
 
-#include "ProofApplication.h"
+#include "Application.h"
 #include <sstream>
 #include <fstream>
 #include <list>
@@ -19,7 +19,7 @@
 #include "ProofProcess.h"
 
 
-ProofApplication::ProofApplication(std::ostream& out,
+Application::Application(std::ostream& out,
 	size_t num_threads) :
 	m_out(out),
 	m_num_threads(num_threads)
@@ -28,7 +28,7 @@ ProofApplication::ProofApplication(std::ostream& out,
 }
 
 
-bool ProofApplication::set_db(const std::string& path)
+bool Application::set_db(const std::string& path)
 {
 	m_db = atp::db::load_from_file(path,
 		atp::logic::LangType::EQUATIONAL_LOGIC);
@@ -45,7 +45,7 @@ bool ProofApplication::set_db(const std::string& path)
 }
 
 
-bool ProofApplication::set_context_name(const std::string& name)
+bool Application::set_context_name(const std::string& name)
 {
 	ATP_PRECOND(m_db != nullptr);
 
@@ -113,7 +113,7 @@ bool ProofApplication::set_context_name(const std::string& name)
 }
 
 
-bool ProofApplication::set_search_name(const std::string& name)
+bool Application::set_search_name(const std::string& name)
 {
 	ATP_PRECOND(m_ctx != nullptr);
 	ATP_PRECOND(m_db != nullptr);
@@ -177,7 +177,7 @@ bool ProofApplication::set_search_name(const std::string& name)
 }
 
 
-bool ProofApplication::add_proof_task(std::string path_or_stmt)
+bool Application::add_proof_task(std::string path_or_stmt)
 {
 	if (!m_lang || !m_ctx || !m_db)
 		return false;  // not properly loaded
@@ -226,7 +226,7 @@ bool ProofApplication::add_proof_task(std::string path_or_stmt)
 }
 
 
-void ProofApplication::run()
+void Application::run()
 {
 	std::list<std::thread> threads;
 
@@ -244,7 +244,7 @@ void ProofApplication::run()
 }
 
 
-void ProofApplication::check_axioms_in_db()
+void Application::check_axioms_in_db()
 {
 	ATP_PRECOND(m_db != nullptr);
 	ATP_PRECOND(m_ctx != nullptr);

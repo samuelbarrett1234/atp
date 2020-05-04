@@ -30,7 +30,7 @@
 	statements all in one go." It does not store the results in the
 	database; this application is intended to be quick and simple.
 */
-class ProofApplication
+class Application
 {
 public:
 	/**
@@ -40,7 +40,7 @@ public:
 
 	\pre num_threads > 0
 	*/
-	ProofApplication(std::ostream& out,
+	Application(std::ostream& out,
 		size_t num_threads);
 
 	/**

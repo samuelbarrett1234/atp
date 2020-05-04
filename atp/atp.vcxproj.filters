@@ -27,9 +27,6 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ProofApplication.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ProofProcess.cpp">
       <Filter>Source Files\Process Management</Filter>
     </ClCompile>
@@ -39,11 +36,11 @@
     <ClCompile Include="ConjectureProcess.cpp">
       <Filter>Source Files\Process Management</Filter>
     </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ProofApplication.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ATP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -58,6 +55,9 @@
     </ClInclude>
     <ClInclude Include="ConjectureProcess.h">
       <Filter>Header Files\Process Management</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

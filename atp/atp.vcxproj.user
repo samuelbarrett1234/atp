@@ -3,21 +3,21 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--database ../Data/DB/eqlogic.db --context group-theory --search-settings ids-uninformed-limited --prove "i(i(x0)) = x0"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--database ../Data/DB/eqlogic.db --context group-theory --search-settings ids-uninformed-limited --prove "i(i(i(i(e)))) = e"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--database ../Data/DB/eqlogic.db --context group-theory --search-settings ids-uninformed-limited --prove "i(i(x0)) = x0"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--database ../Data/DB/eqlogic.db --context group-theory --search-settings ids-uninformed-limited --prove "i(i(i(i(e)))) = e"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--database ../Data/DB/eqlogic.db --context group-theory --search-settings ids-uninformed-limited --prove "i(i(x0)) = x0"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--database ../Data/DB/eqlogic.db --context group-theory --search-settings ids-uninformed-limited --prove "i(i(i(i(e)))) = e"</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--database ../Data/DB/eqlogic.db --context group-theory --search-settings ids-uninformed-limited --prove "i(i(x0)) = x0"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--database ../Data/DB/eqlogic.db --context group-theory --search-settings ids-uninformed-limited --prove "i(i(i(i(e)))) = e"</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

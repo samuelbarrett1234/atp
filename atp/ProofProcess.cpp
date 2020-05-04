@@ -172,7 +172,7 @@ void ProofProcess::init_kernel()
 				<< "statements retrieved from the database: " << '"'
 				<< m_temp_results.str() << '"' << std::endl;
 		}
-		else
+		else if (m_helpers->size() > 0)
 		{
 			m_out << "Proof Process update --- ";
 			m_out << "Loaded " << m_helpers->size() << " theorems";

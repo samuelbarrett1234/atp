@@ -173,7 +173,14 @@ std::vector<size_t> ProofState::get_usage(
 		// `post`
 		const auto& pre = p_list->tail->head;
 		const auto& post = p_list->head;
-		const size_t max_free_id = std::max(pre.free_var_ids().max(),
+
+		// get a free ID bound, so we can avoid free ID clashes later
+		// on (but of course, either of them may not have any free
+		// variables!)
+		const size_t max_free_id = std::max(
+			pre.free_var_ids().empty() ? 0 :
+			pre.free_var_ids().max(),
+			post.free_var_ids().empty() ? 0 :
 			post.free_var_ids().max());
 
 		// count each statement for this pre/post match

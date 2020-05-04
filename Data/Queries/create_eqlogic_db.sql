@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS theorem_usage (
 	cnt UNSIGNED INTEGER NOT NULL,  -- the count (number of usages)
 	
 	CHECK(cnt > 0),
+	CHECK(target_thm_id != used_thm_id),  -- avoid circularity!
 	
 	FOREIGN KEY (target_thm_id) REFERENCES proofs(thm_id)
 	ON DELETE CASCADE ON UPDATE CASCADE,

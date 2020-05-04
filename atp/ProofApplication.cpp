@@ -259,7 +259,20 @@ void ProofApplication::check_axioms_in_db()
 
 	for (size_t i = 0; i < m_ctx->num_axioms(); ++i)
 	{
-		p_bder->set_thm(m_ctx->axiom_at(i));
+		// WARNING: `ax_name` may be in a form which uses bad
+		// variable names (like x and y vs x0 and x1), and a
+		// quick and dirty solution is to serialise it and then
+		// deserialise it, putting it into a more standardised
+		// form!
+		std::string ax_name = m_ctx->axiom_at(i);
+		{
+			std::stringstream s(ax_name);
+			auto p_stmts = m_lang->deserialise_stmts(s,
+				atp::logic::StmtFormat::TEXT, *m_ctx);
+			ATP_ASSERT(p_stmts != nullptr);
+			ax_name = p_stmts->at(0).to_str();
+		}
+		p_bder->set_thm(ax_name);
 
 		auto p_trans = m_db->begin_transaction(p_bder->build());
 

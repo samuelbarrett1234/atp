@@ -42,17 +42,19 @@ std::string SQLiteSaveProofResultsQryBder::build()
 			<< "SELECT 1 FROM theorems WHERE stmt == '"
 			<< (*m_targets)->at(i).to_str() << "');\n\n";
 
-		// a query for finding the theorem ID of the target statement
-		const std::string find_thm_id =
-			"(SELECT id FROM theorems WHERE stmt = '" +
-			(*m_targets)->at(i).to_str() + "')";
+		// a common table expression for finding the theorem ID of the
+		// target statement
+		const std::string thm_id_with_expr =
+			"WITH my_thm(my_id) AS (SELECT id FROM theorems WHERE stmt = '" +
+			(*m_targets)->at(i).to_str() + "')\n";
 
 		// add proof attempt to database
+		query_builder << thm_id_with_expr;
 		query_builder << "INSERT INTO proof_attempts(thm_id, ss_id, "
-			<< "time_cost, max_mem, num_expansions) VALUES ("
-			<< find_thm_id << ", " << *m_ss_id << ", "
-			<< (*m_times)[i] << ", " << (*m_max_mems)[i]
-			<< ", " << (*m_num_exps)[i] << ");\n\n";
+			<< "time_cost, max_mem, num_expansions) VALUES ((SELECT my_id FROM my_thm), "
+			<< *m_ss_id << ", " << (*m_times)[i] << ", "
+			<< (*m_max_mems)[i] << ", " << (*m_num_exps)[i]
+			<< ");\n\n";
 
 		// IF THE PROOF WAS SUCCESSFUL, add the proof to the database
 		// (obviously we do not want to do this if it failed)
@@ -62,12 +64,14 @@ std::string SQLiteSaveProofResultsQryBder::build()
 		{
 			// make sure to not try inserting a new proof if there
 			// is already a proof in the database!
-			query_builder << "INSERT INTO proofs (thm_id, proof) "
-				<< "SELECT " << find_thm_id << " , '"
-				<< (*m_proof_states)[i]->to_str() << "' WHERE NOT EXISTS"
-				<< " (SELECT 1 FROM proofs JOIN theorems ON "
-				<< "thm_id=id WHERE stmt = '"
-				<< (*m_targets)->at(i).to_str() << "');\n\n";
+			// WARNING: this theorem might already have a proof in
+			// the database - don't add it again!
+			query_builder << thm_id_with_expr;
+			query_builder << "INSERT OR IGNORE INTO proofs "
+				<< "(thm_id, proof) SELECT (SELECT my_id FROM my_thm), '"
+				<< (*m_proof_states)[i]->to_str()
+				<< "' WHERE NOT EXISTS"
+				<< " (SELECT 1 FROM proofs WHERE thm_id=(SELECT my_id FROM my_thm));\n\n";
 
 			// add theorem usages:
 			if (m_helpers.has_value())
@@ -75,20 +79,28 @@ std::string SQLiteSaveProofResultsQryBder::build()
 				const auto& pf_state = m_proof_states->at(i);
 				auto usages = pf_state->get_usage(*m_helpers);
 
-				for (size_t i = 0; i < usages.size(); ++i)
+				for (size_t j = 0; j < usages.size(); ++j)
 				{
-					// a query for finding the theorem ID of the
-					// helper statement
-					const std::string find_helper_thm_id =
-						"(SELECT id FROM theorems WHERE stmt = '" +
-						(*m_helpers)->at(i).to_str() + "')";
+					// cannot add entries with zero count!
+					if (usages[j] > 0)
+					{
+						// a common table expression for finding the
+						// theorem ID of the helper statement (this
+						// appears after the first WITH cte)
+						const std::string helper_thm_id_with_expr =
+							", helper_thm(helper_id) AS (SELECT id FROM theorems "
+							"WHERE stmt = '" +
+							(*m_helpers)->at(j).to_str() + "')\n";
 
-					// add it:
-					query_builder << "INSERT INTO theorem_usage "
-						<< "(target_thm_id, used_thm_id, cnt) VALUES"
-						<< "( " << find_thm_id << ", "
-						<< find_helper_thm_id << ", " << usages[i]
-						<< ");\n\n";
+						// add it:
+						query_builder << thm_id_with_expr
+							<< helper_thm_id_with_expr;
+						query_builder << "INSERT OR IGNORE INTO "
+							<< "theorem_usage (target_thm_id, "
+							<< "used_thm_id, cnt) VALUES((SELECT my_id FROM my_thm), "
+							<< "(SELECT helper_id FROM helper_thm), " << usages[j]
+							<< ");\n\n";
+					}
 				}
 			}
 		}

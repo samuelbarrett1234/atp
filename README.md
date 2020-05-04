@@ -56,6 +56,7 @@ From https://dba.stackexchange.com/questions/40656/how-to-properly-format-sqlite
 
 ```
 sqlite> .mode column
+sqlite> .width 50
 sqlite> .headers on
 ```
 

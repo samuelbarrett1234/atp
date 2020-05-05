@@ -96,6 +96,7 @@ int main(int argc, const char* const argv[])
 	// handle logging before creating application
 
 	setup_logs(vm);
+	ATP_LOG(trace) << "Starting up application...";
 
 	// create application:
 
@@ -145,32 +146,36 @@ int setup_logs(const po::variables_map& vm)
 
 	boost::log::add_common_attributes();
 
+	const int console_severity = (vm.count("verbose") ?
+		(int)severity_level::trace : (vm.count("surpress") ?
+			(int)severity_level::warning : (int)severity_level::info));
+	const int file_severity = (int)severity_level::trace;
+
 	boost::log::add_console_log(
 		std::cout,
-		boost::log::keywords::format = "%Severity% : %Message%",
-
-		// determine severity level from --verbose and --surpress
-		keywords::severity = (vm.count("verbose") ?
-			severity_level::trace : (vm.count("surpress") ?
-				severity_level::warning : severity_level::info)));
+		boost::log::keywords::format = "%Severity% : %Message%")
+		->set_filter(boost::log::trivial::severity
+			>= console_severity);
 
 	if (vm.count("logfile"))
 	{
 		boost::log::add_file_log(
 			keywords::file_name = vm["logfile"].as<std::string>(),
-			keywords::severity = severity_level::trace,
-			keywords::format = "%TimeStamp% [Thread %ThreadID%] %Severity% : %Message%"
-		);
+			keywords::format = "%TimeStamp% [Thread %ThreadID%] %Severity% : %Message%",
+			keywords::open_mode = std::ios_base::app
+		)->set_filter(boost::log::trivial::severity
+			>= file_severity);
 	}
 	else if (!vm.count("nologfile"))
 	{
 		boost::log::add_file_log(
 			keywords::file_name = "atp_log_%N.txt",
-			keywords::severity = severity_level::trace,
 			// rotate every 10Mb
 			keywords::rotation_size = 10 * 1024 * 1024,
-			keywords::format = "%TimeStamp% [Thread %ThreadID%] %Severity% : %Message%"
-		);
+			keywords::format = "%TimeStamp% [Thread %ThreadID%] %Severity% : %Message%",
+			keywords::open_mode = std::ios_base::app
+		)->set_filter(boost::log::trivial::severity
+			>= file_severity);
 	}
 	// else the user doesn't want a log file
 

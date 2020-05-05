@@ -22,13 +22,17 @@ Note that when you build the application, the binaries can be found in the `Outp
 
 ## Installation
 
-The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. This project uses the Boost C++ libaries, and SQLite3. Please ensure that they are installed, and that the environment variable `BOOST_DIR` to be set to the root of Boost's installation directory, and `SQLITE_DIR` likewise set for the SQLite3 directory (where the application will look for the code and the DLL). Ensure you build Boost with the correct compiler and C++ version (C++17), otherwise you may experience compilation errors.
-
-Note that we will assume that `SQLITE_DIR` is also on your `PATH`, so that you can use the SQLite command line.
-
-SQLite can be obtained from here: https://www.sqlite.org/download.html and Boost can be obtained from here: https://www.boost.org/
-
-After installation, try building the library and running the unit tests to check everything is working correctly. After running the tests you now need to create a database (see below).
+1. Install Microsoft Visual Studio 2019, if you haven't got it already.
+2. Download the Boost C++ libraries from [here](https://www.boost.org/), and set the `BOOST_DIR` environment variable to point to the root of the Boost directory (so that when you type `#include <boost/some-boost-library>`, the compiler will be able to find it.)
+3. Now you need to build the Boost libraries from source. You may want to follow the official Boost documentation on how to install this, but when you come to running the `b2` command, use this: `b2 toolset=msvc-14.2 cxxflags="/std:c++17" --build-type=complete --abbreviate-paths architecture=x86 address-model=64 define=BOOST_LOG_DYN_LINK stage`. There are a few extra bits to note in that command: we have forced usage of C++17, and we have also specified that the Boost logging library should be built in dynamic-link mode.
+4. Check the directory you specified under the environment variable `BOOST_DIR` contains a directory `/stage/lib/` which contains all of the Boost `.lib` and `.dll` files.
+5. Copy files of the form `boost_*.dll` to the `Output` folder of the `atp` project (you may need to create the `Output` folder if it's not there already).
+6. [Download SQLite3](https://www.sqlite.org/download.html), making sure to get the **binaries and the shell command line**, too.
+7. If the binaries you downloaded included a `.exp` file but **not** a `.lib` file, then you need to convert the `.exp` file into a `.lib` file. Visual studio [ships with a tool](https://docs.microsoft.com/en-us/cpp/build/reference/lib-reference?view=vs-2019) to do this.
+8. Add the folder containing the SQLite source, binaries and command line to your `PATH` and to the environment variable `SQLITE_DIR`.
+9. Now you are ready to try compiling the whole `ATP` solution (the easiest way to do this is with a *batch build*).
+10. Run all the unit tests to make sure everything passes.
+11. Follow the steps in the next section to create the database.
 
 ## Setting up the database
 
@@ -48,7 +52,7 @@ At the moment, the application only supports a single `prove` mode. Usage:
 
 Note that, in the above example, you may need to change `atp` to `atp_Releasex64` or something similar (as in the example), depending on your build settings. Check the `Output` folder to see which versions of the application you have built.
 
-See `Docs` for documentation about context files and search settings files.
+See `Docs` for documentation about context files and search settings files. Also, try typing `atp --help` for a full list of commands.
 
 ## Appendix: Prettier Printing with SQLite
 

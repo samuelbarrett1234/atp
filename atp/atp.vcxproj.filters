@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Process Management">
-      <UniqueIdentifier>{0a1de1bd-36d9-4550-8ef1-4eacb84c9ec9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Process Management">
-      <UniqueIdentifier>{71a1fbc2-4e71-4ada-bf8f-c3c3b9380702}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -27,37 +21,5 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ProofProcess.cpp">
-      <Filter>Source Files\Process Management</Filter>
-    </ClCompile>
-    <ClCompile Include="ProcessManager.cpp">
-      <Filter>Source Files\Process Management</Filter>
-    </ClCompile>
-    <ClCompile Include="ConjectureProcess.cpp">
-      <Filter>Source Files\Process Management</Filter>
-    </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ATP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IProcess.h">
-      <Filter>Header Files\Process Management</Filter>
-    </ClInclude>
-    <ClInclude Include="ProofProcess.h">
-      <Filter>Header Files\Process Management</Filter>
-    </ClInclude>
-    <ClInclude Include="ProcessManager.h">
-      <Filter>Header Files\Process Management</Filter>
-    </ClInclude>
-    <ClInclude Include="ConjectureProcess.h">
-      <Filter>Header Files\Process Management</Filter>
-    </ClInclude>
-    <ClInclude Include="Application.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

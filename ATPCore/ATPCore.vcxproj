@@ -166,11 +166,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Application.h" />
     <ClInclude Include="ATPCore.h" />
     <ClInclude Include="ATPCoreAPI.h" />
+    <ClInclude Include="Processes\ConjectureProcess.h" />
+    <ClInclude Include="Processes\IProcess.h" />
+    <ClInclude Include="Processes\ProcessManager.h" />
+    <ClInclude Include="Processes\ProofProcess.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="ATPCore.cpp" />
+    <ClCompile Include="Processes\ConjectureProcess.cpp" />
+    <ClCompile Include="Processes\ProcessManager.cpp" />
+    <ClCompile Include="Processes\ProofProcess.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

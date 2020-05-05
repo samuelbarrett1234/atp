@@ -173,19 +173,7 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConjectureProcess.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="ProcessManager.cpp" />
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="ProofProcess.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ATP.h" />
-    <ClInclude Include="ConjectureProcess.h" />
-    <ClInclude Include="IProcess.h" />
-    <ClInclude Include="ProcessManager.h" />
-    <ClInclude Include="Application.h" />
-    <ClInclude Include="ProofProcess.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,18 +8,20 @@
 */
 
 
-#include "ATP.h"
+#define BOOST_LOG_DYN_LINK  // has to be first
 #include <memory>
 #include <vector>
 #include <iostream>
+#include <boost/log/trivial.hpp>
 #include <boost/log/utility/setup/console.hpp>
 #include <boost/log/utility/setup/file.hpp>
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
-#include <ATPLogic.h>
-#include <ATPDatabase.h>
-#include "Application.h"
+#include <ATPCore.h>
+
+
+#define ATP_LOG(level) BOOST_LOG_TRIVIAL(level)
 
 
 namespace po = boost::program_options;
@@ -161,7 +163,8 @@ int setup_logs(const po::variables_map& vm)
 	{
 		boost::log::add_file_log(
 			keywords::file_name = vm["logfile"].as<std::string>(),
-			keywords::format = "%TimeStamp% [Thread %ThreadID%] %Severity% : %Message%",
+			keywords::format =
+			"%TimeStamp% [Thread %ThreadID%] %Severity% : %Message%",
 			keywords::open_mode = std::ios_base::app
 		)->set_filter(boost::log::trivial::severity
 			>= file_severity);
@@ -172,7 +175,8 @@ int setup_logs(const po::variables_map& vm)
 			keywords::file_name = "atp_log_%N.txt",
 			// rotate every 10Mb
 			keywords::rotation_size = 10 * 1024 * 1024,
-			keywords::format = "%TimeStamp% [Thread %ThreadID%] %Severity% : %Message%",
+			keywords::format =
+			"%TimeStamp% [Thread %ThreadID%] %Severity% : %Message%",
 			keywords::open_mode = std::ios_base::app
 		)->set_filter(boost::log::trivial::severity
 			>= file_severity);

@@ -8,6 +8,7 @@
 */
 
 
+#include "ATP.h"
 #include <memory>
 #include <vector>
 #include <iostream>
@@ -18,7 +19,6 @@
 #include <boost/filesystem.hpp>
 #include <ATPLogic.h>
 #include <ATPDatabase.h>
-#include "ATP.h"
 #include "Application.h"
 
 

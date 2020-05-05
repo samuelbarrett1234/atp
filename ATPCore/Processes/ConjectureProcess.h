@@ -27,7 +27,7 @@ namespace core
 \brief This is a process which will run an automated conjecturing
 	procedure continuously.
 */
-class ATP_CORE_API ConjectureProcess :
+class ConjectureProcess :
 	public IProcess
 {
 public:

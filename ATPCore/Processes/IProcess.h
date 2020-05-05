@@ -12,7 +12,13 @@
 
 
 #include <memory>
-#include <ostream>
+#include "../ATPCoreAPI.h"
+
+
+namespace atp
+{
+namespace core
+{
 
 
 /**
@@ -26,7 +32,7 @@
 
 \warning Processes should never hold more than one lock.
 */
-class IProcess
+class ATP_CORE_API IProcess
 {
 public:
 	virtual ~IProcess() = default;
@@ -59,5 +65,9 @@ public:
 
 
 typedef std::shared_ptr<IProcess> ProcessPtr;
+
+
+}  // namespace core
+}  // namespace atp
 
 

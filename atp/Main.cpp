@@ -8,7 +8,7 @@
 */
 
 
-#define BOOST_LOG_DYN_LINK  // has to be first
+#include "ATP.h"  // has to be first
 #include <memory>
 #include <vector>
 #include <iostream>
@@ -18,10 +18,7 @@
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
-#include <ATPCore.h>
-
-
-#define ATP_LOG(level) BOOST_LOG_TRIVIAL(level)
+#include "Application.h"
 
 
 namespace po = boost::program_options;

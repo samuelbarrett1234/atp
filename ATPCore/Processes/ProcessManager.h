@@ -14,8 +14,14 @@
 #include <set>
 #include <mutex>
 #include <queue>
-#include <ATPDatabase.h>
+#include "../ATPCoreAPI.h"
 #include "IProcess.h"
+
+
+namespace atp
+{
+namespace core
+{
 
 
 /**
@@ -24,7 +30,7 @@
 \details This class is used by "committing" threads to execute
 	all the processes in it until they are all finished.
 */
-class ProcessManager
+class ATP_CORE_API ProcessManager
 {
 private:
 	/**
@@ -96,5 +102,9 @@ public:
 private:
 	ProcQueue m_queue;
 };
+
+
+}  // namespace core
+}  // namespace atp
 
 

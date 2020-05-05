@@ -11,17 +11,23 @@
 */
 
 
-#include "ATP.h"
 #include <ATPLogic.h>
 #include <ATPDatabase.h>
+#include "../ATPCoreAPI.h"
 #include "IProcess.h"
+
+
+namespace atp
+{
+namespace core
+{
 
 
 /**
 \brief This is a process which will run an automated conjecturing
 	procedure continuously.
 */
-class ConjectureProcess :
+class ATP_CORE_API ConjectureProcess :
 	public IProcess
 {
 public:
@@ -37,5 +43,9 @@ private:
 	atp::logic::LanguagePtr m_lang;
 
 };
+
+
+}  // namespace core
+}  // namespace atp
 
 

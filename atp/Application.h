@@ -18,7 +18,7 @@
 #include <ATPLogic.h>
 #include <ATPSearch.h>
 #include <ATPDatabase.h>
-#include "ProcessManager.h"
+#include <ATPCore.h>
 
 
 /**
@@ -112,7 +112,7 @@ private:
 	size_t m_ctx_id, m_ss_id;  // ctx and search IDs from database
 	atp::db::DatabasePtr m_db;
 	atp::search::SearchSettings m_search_settings;
-	ProcessManager m_proc_mgr;
+	atp::core::ProcessManager m_proc_mgr;
 };
 
 

@@ -16,7 +16,6 @@
 #include <boost/bind.hpp>
 #include <ATPSearch.h>
 #include "ATP.h"
-#include "ProofProcess.h"
 
 
 Application::Application(size_t num_threads) :
@@ -226,7 +225,7 @@ bool Application::add_proof_task(std::string path_or_stmt)
 		"process...";
 
 	// add a proof process
-	m_proc_mgr.add(std::make_unique<ProofProcess>(m_lang,
+	m_proc_mgr.add(std::make_unique<atp::core::ProofProcess>(m_lang,
 		m_ctx_id, m_ss_id, m_ctx, m_db, m_search_settings,
 		std::move(p_stmts)));
 
@@ -242,7 +241,8 @@ void Application::run()
 	{
 		ATP_LOG(trace) << "Launching new thread...";
 		threads.emplace_back(boost::bind(
-			&ProcessManager::commit_thread, boost::ref(m_proc_mgr)));
+			&atp::core::ProcessManager::commit_thread,
+			boost::ref(m_proc_mgr)));
 	}
 
 	ATP_LOG(trace) << "Committing main thread...";

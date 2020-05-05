@@ -12,13 +12,20 @@
 
 
 #include <sstream>
-#include "IProcess.h"
 #include <ATPLogic.h>
 #include <ATPSearch.h>
 #include <ATPDatabase.h>
+#include "../ATPCoreAPI.h"
+#include "IProcess.h"
 
 
-class ProofProcess :
+namespace atp
+{
+namespace core
+{
+
+
+class ATP_CORE_API ProofProcess :
 	public IProcess
 {
 private:
@@ -41,7 +48,7 @@ public:
 
 	\param ctx_id The ID of the given model context from the data-
 		base. This cannot be obtained via a lookup from p_ctx or
-		p_db. 
+		p_db.
 	*/
 	ProofProcess(atp::logic::LanguagePtr p_lang,
 		size_t ctx_id, size_t ss_id,
@@ -89,5 +96,9 @@ private:
 	// this is for storing intermediate results:
 	std::stringstream m_temp_results;
 };
+
+
+}  // namespace core
+}  // namespace atp
 
 

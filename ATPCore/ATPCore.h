@@ -13,6 +13,9 @@
 
 
 #include "ATPCoreAPI.h"
+#include "Processes/IProcess.h"
+#include "Processes/ProcessManager.h"
+#include "Processes/ProofProcess.h"
 
 
 /**

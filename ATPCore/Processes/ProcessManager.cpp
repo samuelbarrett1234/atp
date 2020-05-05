@@ -7,7 +7,12 @@
 
 
 #include "ProcessManager.h"
-#include "ATP.h"
+
+
+namespace atp
+{
+namespace core
+{
 
 
 void ProcessManager::add(ProcessPtr p_proc)
@@ -27,7 +32,7 @@ void ProcessManager::commit_thread()
 		if (p_proc == nullptr)
 			continue;
 
-		ATP_ASSERT(!p_proc->done());
+		ATP_CORE_ASSERT(!p_proc->done());
 		p_proc->run_step();
 
 		// always put the process back onto the queue, regardless
@@ -46,7 +51,7 @@ ProcessManager::ProcQueue::ProcQueue() :
 
 void ProcessManager::ProcQueue::push(ProcessPtr p_proc)
 {
-	ATP_PRECOND(p_proc != nullptr);
+	ATP_CORE_PRECOND(p_proc != nullptr);
 	std::scoped_lock<std::mutex> lk(m_mutex);
 
 	// remove this from the executing set, if it was in there
@@ -99,5 +104,9 @@ bool ProcessManager::ProcQueue::done() const
 	return m_running.empty() && m_waiting.empty() &&
 		m_executing.empty();
 }
+
+
+}  // namespace core
+}  // namespace atp
 
 

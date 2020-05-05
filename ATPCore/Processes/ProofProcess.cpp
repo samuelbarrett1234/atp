@@ -7,7 +7,12 @@
 
 
 #include "ProofProcess.h"
-#include "ATP.h"
+
+
+namespace atp
+{
+namespace core
+{
 
 
 ProofProcess::ProofProcess(
@@ -30,8 +35,8 @@ ProofProcess::ProofProcess(
 	m_solver(search_settings.create_solver(m_ker)),
 	m_ctx_id(ctx_id), m_ss_id(ss_id)
 {
-	ATP_LOG(trace) << "Created a new proof process.";
-	ATP_PRECOND(m_solver != nullptr);  // will fail if bad model ctx
+	ATP_CORE_LOG(trace) << "Created a new proof process.";
+	ATP_CORE_PRECOND(m_solver != nullptr);  // will fail if bad model ctx
 	m_ker->set_seed(search_settings.seed);
 	m_solver->set_targets(m_targets);
 	setup_init_kernel_operation();
@@ -60,7 +65,7 @@ void ProofProcess::step_solver()
 	if (!m_solver->any_proof_not_done() ||
 		m_cur_step == m_max_steps)
 	{
-		ATP_LOG(trace) << "Finished running solver, for "
+		ATP_CORE_LOG(trace) << "Finished running solver, for "
 			<< m_cur_step << "/" << m_max_steps << " steps.";
 
 		m_proof_state = ProofProcessState::SAVE_RESULTS;
@@ -86,7 +91,7 @@ void ProofProcess::step_solver()
 				break;
 			}
 
-		ATP_LOG(info) << "Proof Process update --- "
+		ATP_CORE_LOG(info) << "Proof Process update --- "
 			<< "Proof process finished proving! Results:" << std::endl
 			<< '\t' << num_true << " theorem(s) were proven true,"
 			<< std::endl
@@ -107,23 +112,23 @@ void ProofProcess::step_solver()
 			switch (states[i])
 			{
 			case atp::logic::ProofCompletionState::PROVEN:
-				ATP_LOG(info) << "Proof of \"" << m_targets->at(i).to_str()
+				ATP_CORE_LOG(info) << "Proof of \"" << m_targets->at(i).to_str()
 					<< "\" was successful; the statement is true.";
 				break;
 			case atp::logic::ProofCompletionState::NO_PROOF:
-				ATP_LOG(info) << "Proof of \"" << m_targets->at(i).to_str()
+				ATP_CORE_LOG(info) << "Proof of \"" << m_targets->at(i).to_str()
 					<< "\" was unsuccessful; it was impossible to prove "
 					<< "using the given solver and the current settings.";
 				break;
 			case atp::logic::ProofCompletionState::UNFINISHED:
-				ATP_LOG(info) << "Proof of \"" << m_targets->at(i).to_str()
+				ATP_CORE_LOG(info) << "Proof of \"" << m_targets->at(i).to_str()
 					<< "\" was unsuccessful; not enough time allocated.";
 				break;
 			}
 
-			ATP_LOG(info) << "Total time taken: " << times[i] << "s";
-			ATP_LOG(info) << "Max nodes in memory: " << mems[i];
-			ATP_LOG(info) << "Total node expansions: " << exps[i];
+			ATP_CORE_LOG(info) << "Total time taken: " << times[i] << "s";
+			ATP_CORE_LOG(info) << "Max nodes in memory: " << mems[i];
+			ATP_CORE_LOG(info) << "Total node expansions: " << exps[i];
 		}
 	}
 	else
@@ -134,7 +139,7 @@ void ProofProcess::step_solver()
 		// output
 
 		const auto states = m_solver->get_states();
-		ATP_LOG(info) << "Proof Process update --- "
+		ATP_CORE_LOG(info) << "Proof Process update --- "
 			<< "Step " << m_cur_step << '/'
 			<< m_max_steps << " : " <<
 			std::count(states.begin(), states.end(),
@@ -146,7 +151,7 @@ void ProofProcess::step_solver()
 
 void ProofProcess::init_kernel()
 {
-	ATP_ASSERT(m_db_op != nullptr);
+	ATP_CORE_ASSERT(m_db_op != nullptr);
 
 	switch (m_db_op->state())
 	{
@@ -154,33 +159,33 @@ void ProofProcess::init_kernel()
 	{
 		// our next state will be to run the proof
 		m_proof_state = ProofProcessState::RUNNING_PROOF;
-		
+
 		// set the statements in the kernel:
 		m_helpers = m_lang->deserialise_stmts(m_temp_results,
 			atp::logic::StmtFormat::TEXT, *m_ctx);
 
 		if (m_helpers == nullptr)
 		{
-			ATP_LOG(error) << "Failed to initialise kernel. There was"
+			ATP_CORE_LOG(error) << "Failed to initialise kernel. There was"
 				<< " a problem with the following batch of "
 				<< "statements retrieved from the database: " << '"'
 				<< m_temp_results.str() << '"';
 		}
 		else if (m_helpers->size() > 0)
 		{
-			ATP_LOG(info) << "Proof Process update --- "
+			ATP_CORE_LOG(info) << "Proof Process update --- "
 				<< "Loaded " << m_helpers->size() << " theorems"
 				<< " from the theorem database!";
 
 			m_ker->add_theorems(m_helpers);
 		}
-		else ATP_LOG(warning) << "Proof process could not find any "
+		else ATP_CORE_LOG(warning) << "Proof process could not find any "
 			"theorems to load from the database.";
 
 		m_temp_results = std::stringstream();  // reset this
 		m_db_op.reset();  // and this
 	}
-		break;
+	break;
 
 	case atp::db::TransactionState::RUNNING:
 	{
@@ -189,13 +194,13 @@ void ProofProcess::init_kernel()
 		auto p_readable_op = dynamic_cast<atp::db::IQueryTransaction*>
 			(m_db_op.get());
 
-		ATP_ASSERT(p_readable_op != nullptr);
+		ATP_CORE_ASSERT(p_readable_op != nullptr);
 
 		if (p_readable_op->has_values())
 		{
 			if (p_readable_op->arity() != 1)
 			{
-				ATP_LOG(error) << "Failed to initialise kernel. Kernel"
+				ATP_CORE_LOG(error) << "Failed to initialise kernel. Kernel"
 					<< " initialisation query returned an arity of "
 					<< p_readable_op->arity() << ", which differed "
 					<< "from the expected result of 1. Ignoring "
@@ -208,13 +213,13 @@ void ProofProcess::init_kernel()
 				if (!p_readable_op->try_get(0, atp::db::DType::STR,
 					&stmt_str))
 				{
-					ATP_LOG(warning) << "Encountered non-string "
+					ATP_CORE_LOG(warning) << "Encountered non-string "
 						<< "statement value in database. Type "
 						<< "could be null?";
 				}
 				else
 				{
-					ATP_LOG(debug) << "Adding '" << atp::db::get_str(stmt_str)
+					ATP_CORE_LOG(debug) << "Adding '" << atp::db::get_str(stmt_str)
 						<< "' to helper theorems.";
 
 					m_temp_results << atp::db::get_str(stmt_str) << std::endl;
@@ -224,10 +229,10 @@ void ProofProcess::init_kernel()
 
 		m_db_op->step();
 	}
-		break;
+	break;
 
 	default:
-		ATP_LOG(error) << "Failed to initialise kernel. Database query"
+		ATP_CORE_LOG(error) << "Failed to initialise kernel. Database query"
 			<< " failed unexpectedly. Ignoring query and proceeding"
 			<< "...";
 		m_proof_state = ProofProcessState::RUNNING_PROOF;
@@ -240,7 +245,7 @@ void ProofProcess::init_kernel()
 
 void ProofProcess::save_results()
 {
-	ATP_ASSERT(m_db_op != nullptr);
+	ATP_CORE_ASSERT(m_db_op != nullptr);
 
 	switch (m_db_op->state())
 	{
@@ -251,13 +256,13 @@ void ProofProcess::save_results()
 	case atp::db::TransactionState::COMPLETED:
 		m_done = true;
 		m_db_op.reset();
-		ATP_LOG(info) << "Proof Process update --- "
+		ATP_CORE_LOG(info) << "Proof Process update --- "
 			<< "Finished saving the true theorems to the database"
 			<< ", so they can be used in future proofs!";
 		break;
 
 	default:
-		ATP_LOG(error) << "Failed to save proof results. Unexpected "
+		ATP_CORE_LOG(error) << "Failed to save proof results. Unexpected "
 			<< "error while executing query. Cancelling...";
 		m_done = true;
 		m_db_op.reset();
@@ -268,9 +273,9 @@ void ProofProcess::save_results()
 
 void ProofProcess::setup_init_kernel_operation()
 {
-	ATP_ASSERT(m_db_op == nullptr);
+	ATP_CORE_ASSERT(m_db_op == nullptr);
 
-	ATP_LOG(trace) << "Setting up kernel initialisation query...";
+	ATP_CORE_LOG(trace) << "Setting up kernel initialisation query...";
 
 	auto _p_bder = m_db->create_query_builder(
 		atp::db::QueryBuilderType::RANDOM_PROVEN_THM_SELECTION);
@@ -278,7 +283,7 @@ void ProofProcess::setup_init_kernel_operation()
 	auto p_bder = dynamic_cast<
 		atp::db::IRndProvenThmSelectQryBder*>(_p_bder.get());
 
-	ATP_ASSERT(p_bder != nullptr);
+	ATP_CORE_ASSERT(p_bder != nullptr);
 
 	p_bder->set_limit(25  /* todo: don't hardcode */)
 		->set_context(m_ctx_id, m_ctx);
@@ -287,15 +292,15 @@ void ProofProcess::setup_init_kernel_operation()
 
 	m_db_op = m_db->begin_transaction(query);
 
-	ATP_ASSERT(m_db_op != nullptr);
+	ATP_CORE_ASSERT(m_db_op != nullptr);
 }
 
 
 void ProofProcess::setup_save_results_operation()
 {
-	ATP_ASSERT(m_db_op == nullptr);
+	ATP_CORE_ASSERT(m_db_op == nullptr);
 
-	ATP_LOG(trace) << "Setting up result-saving query...";
+	ATP_CORE_LOG(trace) << "Setting up result-saving query...";
 
 	auto _p_bder = m_db->create_query_builder(
 		atp::db::QueryBuilderType::SAVE_THMS_AND_PROOFS);
@@ -303,7 +308,7 @@ void ProofProcess::setup_save_results_operation()
 	auto p_bder = dynamic_cast<
 		atp::db::ISaveProofResultsQryBder*>(_p_bder.get());
 
-	ATP_ASSERT(p_bder != nullptr);
+	ATP_CORE_ASSERT(p_bder != nullptr);
 
 	p_bder->set_context(m_ctx_id, m_ctx)
 		->set_search_settings(m_ss_id)
@@ -318,7 +323,11 @@ void ProofProcess::setup_save_results_operation()
 
 	m_db_op = m_db->begin_transaction(query);
 
-	ATP_ASSERT(m_db_op != nullptr);
+	ATP_CORE_ASSERT(m_db_op != nullptr);
 }
+
+
+}  // namespace core
+}  // namespace atp
 
 

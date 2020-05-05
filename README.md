@@ -34,6 +34,7 @@ Note that when you build the application, the binaries can be found in the `Outp
 9. Now you are ready to try compiling the whole `ATP` solution (the easiest way to do this is with a *batch build*).
 10. Run all the unit tests to make sure everything passes.
 11. Follow the steps in the next section to create the database.
+12. *Optional.* If you want to automatically build documentation, [install Doxygen](http://www.doxygen.nl/).
 
 ## Setting up the database
 

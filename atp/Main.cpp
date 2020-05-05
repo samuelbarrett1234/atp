@@ -11,6 +11,9 @@
 #include <memory>
 #include <vector>
 #include <iostream>
+#include <boost/log/utility/setup/console.hpp>
+#include <boost/log/utility/setup/file.hpp>
+#include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
 #include <ATPLogic.h>
@@ -25,6 +28,7 @@ namespace po = boost::program_options;
 std::unique_ptr<Application> g_app;
 
 
+int setup_logs(const po::variables_map& vm);
 int load_db(const po::variables_map& vm);
 int load_ctx(const po::variables_map& vm);
 int load_ss(const po::variables_map& vm);
@@ -38,7 +42,16 @@ int main(int argc, const char* const argv[])
 	po::options_description desc("Options:");
 
 	desc.add_options()
-		("help,h", "produce help message.")
+		("help,h", "Produce help message, then exit.")
+
+		("verbose,v", "Print extra (trace) information to console.")
+
+		("surpress,s", "Only print errors and warnings.")
+
+		("logfile,lf", po::value<std::string>(),
+			"Change file to write log info to.")
+
+		("nologfile,nlf", "Don't write any log files.")
 
 		("prove,P", po::value<std::vector<std::string>>(),
 			"Path to a file containing statements to prove, or write"
@@ -66,18 +79,23 @@ int main(int argc, const char* const argv[])
 	}
 	catch(std::exception& ex)
 	{
-		std::cout << "An error occurred while parsing the"
-			<< " command line arguments: " << ex.what()
-			<< std::endl;
+		ATP_LOG(error)
+			<< "An error occurred while parsing the"
+			<< " command line arguments: " << ex.what();
 		return -1;
 	}
 
 	// if user wants help!
 	if (vm.count("help"))
 	{
+		// don't use logging here, it's not set up yet
 		std::cout << desc << std::endl;
 		return 0;
 	}
+
+	// handle logging before creating application
+
+	setup_logs(vm);
 
 	// create application:
 
@@ -85,11 +103,10 @@ int main(int argc, const char* const argv[])
 		vm.at("nthreads").as<size_t>() : 1;
 	if (num_threads == 0)
 	{
-		std::cout << "Error: need at least one thread." << std::endl;
+		ATP_LOG(error) << "Need at least one thread.";
 		return -1;
 	}
-	g_app = std::make_unique<Application>(std::cout,
-		num_threads);
+	g_app = std::make_unique<Application>(num_threads);
 
 	if (int rc = load_db(vm))
 		return rc;
@@ -102,7 +119,61 @@ int main(int argc, const char* const argv[])
 
 	g_app->run();
 
-	std::cout << "Done. Exiting..." << std::endl;
+	ATP_LOG(trace) << "Done. Exiting...";
+	return 0;
+}
+
+
+int setup_logs(const po::variables_map& vm)
+{
+	namespace keywords = boost::log::keywords;
+	using boost::log::trivial::severity_level;
+
+	if (vm.count("verbose") && vm.count("surpress"))
+	{
+		std::cout << "Error: cannot use both --verbose and "
+			"--surpress." << std::endl;
+		return -1;
+	}
+
+	if (vm.count("logfile") && vm.count("nologfile"))
+	{
+		std::cout << "Error: cannot use both --verbose and "
+			"--surpress." << std::endl;
+		return -1;
+	}
+
+	boost::log::add_common_attributes();
+
+	boost::log::add_console_log(
+		std::cout,
+		boost::log::keywords::format = "%Severity% : %Message%",
+
+		// determine severity level from --verbose and --surpress
+		keywords::severity = (vm.count("verbose") ?
+			severity_level::trace : (vm.count("surpress") ?
+				severity_level::warning : severity_level::info)));
+
+	if (vm.count("logfile"))
+	{
+		boost::log::add_file_log(
+			keywords::file_name = vm["logfile"].as<std::string>(),
+			keywords::severity = severity_level::trace,
+			keywords::format = "%TimeStamp% [Thread %ThreadID%] %Severity% : %Message%"
+		);
+	}
+	else if (!vm.count("nologfile"))
+	{
+		boost::log::add_file_log(
+			keywords::file_name = "atp_log_%N.txt",
+			keywords::severity = severity_level::trace,
+			// rotate every 10Mb
+			keywords::rotation_size = 10 * 1024 * 1024,
+			keywords::format = "%TimeStamp% [Thread %ThreadID%] %Severity% : %Message%"
+		);
+	}
+	// else the user doesn't want a log file
+
 	return 0;
 }
 
@@ -111,8 +182,9 @@ int load_db(const po::variables_map& vm)
 {
 	if (!vm.count("database"))
 	{
-		std::cout << "Error: need to provide a database file."
-			<< " Use --database <filename>" << std::endl;
+		ATP_LOG(error)
+			<< "Need to provide a database file."
+			<< " Use --database <filename>";
 		return -1;
 	}
 
@@ -132,8 +204,9 @@ int load_ctx(const po::variables_map& vm)
 {
 	if (!vm.count("context"))
 	{
-		std::cout << "Error: need to provide a context name."
-			<< " Use --context <name>" << std::endl;
+		ATP_LOG(error)
+			<< "Need to provide a context name."
+			<< " Use --context <name>";
 		return -1;
 	}
 
@@ -153,8 +226,9 @@ int load_ss(const po::variables_map& vm)
 {
 	if (!vm.count("search-settings"))
 	{
-		std::cout << "Error: need to provide a search settings name."
-			<< " Use --search-settings <name>" << std::endl;
+		ATP_LOG(error)
+			<< "Need to provide a search settings name."
+			<< " Use --search-settings <name>";
 		return -1;
 	}
 
@@ -178,6 +252,8 @@ int add_proof(const po::variables_map& vm)
 	{
 		if (!g_app->add_proof_task(task))
 		{
+			ATP_LOG(error)
+				<< "Failed to load proof task: '" << task << '\'';
 			return -1;
 		}
 	}

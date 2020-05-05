@@ -16,7 +16,7 @@ void ProcessManager::add(ProcessPtr p_proc)
 }
 
 
-void ProcessManager::commit_thread(std::ostream& output)
+void ProcessManager::commit_thread()
 {
 	while (!m_queue.done())
 	{
@@ -29,9 +29,6 @@ void ProcessManager::commit_thread(std::ostream& output)
 
 		ATP_ASSERT(!p_proc->done());
 		p_proc->run_step();
-
-		// log process stuff
-		p_proc->dump_log(output);
 
 		// always put the process back onto the queue, regardless
 		// of its current state

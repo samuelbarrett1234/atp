@@ -61,11 +61,6 @@ public:
 			m_db_op->waiting());
 	}
 	void run_step() override;
-	inline void dump_log(std::ostream& out) override
-	{
-		out << m_out.str();
-		m_out = std::stringstream();
-	}
 
 private:
 	void step_solver();
@@ -75,7 +70,6 @@ private:
 	void setup_save_results_operation();
 
 private:
-	std::stringstream m_out;
 	bool m_done;
 	ProofProcessState m_proof_state;
 	const size_t m_max_steps, m_step_size;

@@ -34,14 +34,11 @@ class Application
 {
 public:
 	/**
-	\param out The stream to write all application text output.
-
 	\param num_threads The number of threads to devote to execution.
 
 	\pre num_threads > 0
 	*/
-	Application(std::ostream& out,
-		size_t num_threads);
+	Application(size_t num_threads);
 
 	/**
 	\brief Loads the database file (this has to be done first)
@@ -109,7 +106,6 @@ private:
 
 private:
 	const size_t m_num_threads;
-	std::ostream& m_out;
 	atp::logic::LanguagePtr m_lang;
 	atp::logic::ModelContextPtr m_ctx;
 	size_t m_ctx_id, m_ss_id;  // ctx and search IDs from database

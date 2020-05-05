@@ -91,7 +91,7 @@ public:
 
 	\details This will block until the process manager is empty.
 	*/
-	void commit_thread(std::ostream& output);
+	void commit_thread();
 
 private:
 	ProcQueue m_queue;

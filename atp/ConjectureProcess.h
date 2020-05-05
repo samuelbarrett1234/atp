@@ -11,7 +11,6 @@
 */
 
 
-#include <sstream>
 #include <ATPLogic.h>
 #include <ATPDatabase.h>
 #include "IProcess.h"
@@ -26,21 +25,15 @@ class ConjectureProcess :
 {
 public:
 	ConjectureProcess(atp::db::DatabasePtr p_db,
-		atp::logic::LanguagePtr p_lang);
+		atp::logic::LanguagePtr p_lang, bool training_mode);
 
 	bool done() const override;
 	bool waiting() const override;
 	void run_step() override;
-	inline void dump_log(std::ostream& out) override
-	{
-		out << m_out.str();
-		m_out = std::stringstream();
-	}
 
 private:
 	atp::db::DatabasePtr m_db;
 	atp::logic::LanguagePtr m_lang;
-	std::stringstream m_out;
 
 };
 

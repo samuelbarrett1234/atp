@@ -30,6 +30,7 @@ ProofProcess::ProofProcess(
 	m_solver(search_settings.create_solver(m_ker)),
 	m_ctx_id(ctx_id), m_ss_id(ss_id)
 {
+	ATP_LOG(trace) << "Created a new proof process.";
 	ATP_PRECOND(m_solver != nullptr);  // will fail if bad model ctx
 	m_ker->set_seed(search_settings.seed);
 	m_solver->set_targets(m_targets);
@@ -59,6 +60,9 @@ void ProofProcess::step_solver()
 	if (!m_solver->any_proof_not_done() ||
 		m_cur_step == m_max_steps)
 	{
+		ATP_LOG(trace) << "Finished running solver, for "
+			<< m_cur_step << "/" << m_max_steps << " steps.";
+
 		m_proof_state = ProofProcessState::SAVE_RESULTS;
 		setup_save_results_operation();
 
@@ -82,17 +86,16 @@ void ProofProcess::step_solver()
 				break;
 			}
 
-		m_out << "Proof Process update --- ";
-		m_out << "Done! Results:" << std::endl
+		ATP_LOG(info) << "Proof Process update --- "
+			<< "Proof process finished proving! Results:" << std::endl
 			<< '\t' << num_true << " theorem(s) were proven true,"
 			<< std::endl
 			<< '\t' << num_failed << " theorem(s) have no proof,"
 			<< std::endl
 			<< '\t' << num_unfinished <<
 			" theorem(s) did not finish in the allotted time."
-			<< std::endl;
-
-		m_out << "More details:" << std::endl;
+			<< std::endl
+			<< "More details:" << std::endl;
 
 		auto proofs = m_solver->get_proofs();
 		auto times = m_solver->get_agg_time();
@@ -104,31 +107,23 @@ void ProofProcess::step_solver()
 			switch (states[i])
 			{
 			case atp::logic::ProofCompletionState::PROVEN:
-				m_out << "Proof of \"" << m_targets->at(i).to_str()
-					<< "\" was successful; the statement is true."
-					<< std::endl << "Proof:" << std::endl
-					<< proofs[i]->to_str() << std::endl << std::endl;
+				ATP_LOG(info) << "Proof of \"" << m_targets->at(i).to_str()
+					<< "\" was successful; the statement is true.";
 				break;
 			case atp::logic::ProofCompletionState::NO_PROOF:
-				m_out << "Proof of \"" << m_targets->at(i).to_str()
+				ATP_LOG(info) << "Proof of \"" << m_targets->at(i).to_str()
 					<< "\" was unsuccessful; it was impossible to prove "
-					<< "using the given solver and the current settings."
-					<< std::endl;
+					<< "using the given solver and the current settings.";
 				break;
 			case atp::logic::ProofCompletionState::UNFINISHED:
-				m_out << "Proof of \"" << m_targets->at(i).to_str()
-					<< "\" was unsuccessful; not enough time allocated."
-					<< std::endl;
+				ATP_LOG(info) << "Proof of \"" << m_targets->at(i).to_str()
+					<< "\" was unsuccessful; not enough time allocated.";
 				break;
 			}
 
-			m_out << "Total time taken: " << times[i] << "s"
-				<< std::endl;
-			m_out << "Max nodes in memory: " << mems[i]
-				<< std::endl;
-			m_out << "Total node expansions: " << exps[i]
-				<< std::endl;
-			m_out << std::endl;
+			ATP_LOG(info) << "Total time taken: " << times[i] << "s";
+			ATP_LOG(info) << "Max nodes in memory: " << mems[i];
+			ATP_LOG(info) << "Total node expansions: " << exps[i];
 		}
 	}
 	else
@@ -139,13 +134,12 @@ void ProofProcess::step_solver()
 		// output
 
 		const auto states = m_solver->get_states();
-		m_out << "Proof Process update --- ";
-		m_out << m_cur_step << '/'
+		ATP_LOG(info) << "Proof Process update --- "
+			<< "Step " << m_cur_step << '/'
 			<< m_max_steps << " : " <<
 			std::count(states.begin(), states.end(),
 				atp::logic::ProofCompletionState::UNFINISHED) <<
 			" proof(s) remaining.";
-		m_out << std::endl;
 	}
 }
 
@@ -167,19 +161,21 @@ void ProofProcess::init_kernel()
 
 		if (m_helpers == nullptr)
 		{
-			m_out << "ERROR! Failed to initialise kernel. There was"
+			ATP_LOG(error) << "Failed to initialise kernel. There was"
 				<< " a problem with the following batch of "
 				<< "statements retrieved from the database: " << '"'
-				<< m_temp_results.str() << '"' << std::endl;
+				<< m_temp_results.str() << '"';
 		}
 		else if (m_helpers->size() > 0)
 		{
-			m_out << "Proof Process update --- ";
-			m_out << "Loaded " << m_helpers->size() << " theorems";
-			m_out << " from the theorem database!" << std::endl;
+			ATP_LOG(info) << "Proof Process update --- "
+				<< "Loaded " << m_helpers->size() << " theorems"
+				<< " from the theorem database!";
 
 			m_ker->add_theorems(m_helpers);
 		}
+		else ATP_LOG(warning) << "Proof process could not find any "
+			"theorems to load from the database.";
 
 		m_temp_results = std::stringstream();  // reset this
 		m_db_op.reset();  // and this
@@ -199,11 +195,11 @@ void ProofProcess::init_kernel()
 		{
 			if (p_readable_op->arity() != 1)
 			{
-				m_out << "ERROR! Failed to initialise kernel. Kernel"
+				ATP_LOG(error) << "Failed to initialise kernel. Kernel"
 					<< " initialisation query returned an arity of "
 					<< p_readable_op->arity() << ", which differed "
 					<< "from the expected result of 1. Ignoring "
-					<< "query..." << std::endl;
+					<< "query...";
 			}
 			else
 			{
@@ -212,14 +208,16 @@ void ProofProcess::init_kernel()
 				if (!p_readable_op->try_get(0, atp::db::DType::STR,
 					&stmt_str))
 				{
-					m_out << "WARNING! Encountered non-string "
+					ATP_LOG(warning) << "Encountered non-string "
 						<< "statement value in database. Type "
-						<< "could be null?" << std::endl;
+						<< "could be null?";
 				}
 				else
 				{
-					m_temp_results << boost::variant2::get<2>(
-						stmt_str) << std::endl;
+					ATP_LOG(debug) << "Adding '" << atp::db::get_str(stmt_str)
+						<< "' to helper theorems.";
+
+					m_temp_results << atp::db::get_str(stmt_str) << std::endl;
 				}
 			}
 		}
@@ -229,9 +227,9 @@ void ProofProcess::init_kernel()
 		break;
 
 	default:
-		m_out << "ERROR! Failed to initialise kernel. Database query"
+		ATP_LOG(error) << "Failed to initialise kernel. Database query"
 			<< " failed unexpectedly. Ignoring query and proceeding"
-			<< "..." << std::endl;
+			<< "...";
 		m_proof_state = ProofProcessState::RUNNING_PROOF;
 		m_temp_results = std::stringstream();  // reset this
 		m_db_op.reset();  // and this
@@ -253,15 +251,14 @@ void ProofProcess::save_results()
 	case atp::db::TransactionState::COMPLETED:
 		m_done = true;
 		m_db_op.reset();
-		m_out << "Proof Process update --- ";
-		m_out << "Finished saving the true theorems to the database";
-		m_out << ", so they can be used in future proofs!";
-		m_out << std::endl;
+		ATP_LOG(info) << "Proof Process update --- "
+			<< "Finished saving the true theorems to the database"
+			<< ", so they can be used in future proofs!";
 		break;
 
 	default:
-		m_out << "ERROR! Failed to save proof results. Unexpected "
-			<< "error while executing query." << std::endl;
+		ATP_LOG(error) << "Failed to save proof results. Unexpected "
+			<< "error while executing query. Cancelling...";
 		m_done = true;
 		m_db_op.reset();
 		break;
@@ -272,6 +269,8 @@ void ProofProcess::save_results()
 void ProofProcess::setup_init_kernel_operation()
 {
 	ATP_ASSERT(m_db_op == nullptr);
+
+	ATP_LOG(trace) << "Setting up kernel initialisation query...";
 
 	auto _p_bder = m_db->create_query_builder(
 		atp::db::QueryBuilderType::RANDOM_PROVEN_THM_SELECTION);
@@ -295,6 +294,8 @@ void ProofProcess::setup_init_kernel_operation()
 void ProofProcess::setup_save_results_operation()
 {
 	ATP_ASSERT(m_db_op == nullptr);
+
+	ATP_LOG(trace) << "Setting up result-saving query...";
 
 	auto _p_bder = m_db->create_query_builder(
 		atp::db::QueryBuilderType::SAVE_THMS_AND_PROOFS);

@@ -43,6 +43,10 @@ DatabasePtr SQLiteDatabase::load_from_file(
 	rc = sqlite3_open(filename.c_str(), &p_db->m_db);
 	if (rc != 0)
 	{
+		ATP_DATABASE_LOG(error)
+			<< "Failed to open SQLite database \"" << filename <<
+			"\", error code " << rc;
+			
 		return nullptr;
 	}
 	ATP_DATABASE_ASSERT(p_db->m_db != nullptr);
@@ -53,6 +57,7 @@ DatabasePtr SQLiteDatabase::load_from_file(
 
 SQLiteDatabase::~SQLiteDatabase()
 {
+	ATP_DATABASE_LOG(debug) << "Closing SQLite database...";
 	sqlite3_close(m_db);
 }
 
@@ -60,6 +65,8 @@ SQLiteDatabase::~SQLiteDatabase()
 TransactionPtr SQLiteDatabase::begin_transaction(
 	const std::string& query_text)
 {
+	ATP_DATABASE_LOG(trace) << "Beginning a transaction...";
+
 	// warning: there may be many transactions involved here!
 
 	const char* p_begin = query_text.data();
@@ -81,15 +88,24 @@ TransactionPtr SQLiteDatabase::begin_transaction(
 	{
 		sqlite3_stmt* stmt = nullptr;
 
+		const char* p_last_cur = p_cur;
 		const int rc = sqlite3_prepare_v2(m_db, p_cur, -1,
 			&stmt, &p_cur);
 
 		if (rc != SQLITE_OK || stmt == nullptr)
 		{
+			ATP_DATABASE_LOG(error)
+				<< "Failed to build SQLite statement from: \""
+				<< std::string(p_cur, p_end)
+				<< "\".";
+
 			ATP_DATABASE_ASSERT(stmt == nullptr);
 
 			return nullptr;
 		}
+		else ATP_DATABASE_LOG(debug) << "Successfully built SQLite "
+			"statement from \"" << std::string(p_last_cur, p_cur)
+			<< "\".";
 
 		auto p_trans = std::make_unique<
 			SQLiteQueryTransaction>(m_db, stmt);
@@ -134,6 +150,9 @@ boost::optional<std::string>
 SQLiteDatabase::model_context_filename(
 	const std::string& model_context_name)
 {
+	ATP_DATABASE_LOG(debug) << "Querying SQLite database for model"
+		" context name \"" << model_context_name << "\".";
+
 	std::stringstream query_builder;
 	query_builder << "SELECT filename FROM model_contexts WHERE"
 		<< " name = " << '"' << model_context_name << '"' << ';';
@@ -151,6 +170,9 @@ SQLiteDatabase::model_context_filename(
 boost::optional<size_t> SQLiteDatabase::model_context_id(
 	const std::string& model_context_name)
 {
+	ATP_DATABASE_LOG(debug) << "Querying SQLite database for model"
+		" context name \"" << model_context_name << "\".";
+
 	std::stringstream query_builder;
 	query_builder << "SELECT ctx_id FROM model_contexts WHERE"
 		<< " name = " << '"' << model_context_name << '"' << ';';
@@ -168,6 +190,9 @@ boost::optional<size_t> SQLiteDatabase::model_context_id(
 boost::optional<std::string> SQLiteDatabase::search_settings_filename(
 	const std::string& search_settings_name)
 {
+	ATP_DATABASE_LOG(debug) << "Querying SQLite database for model"
+		" context name \"" << search_settings_name << "\".";
+
 	std::stringstream query_builder;
 	query_builder << "SELECT filename FROM search_settings WHERE"
 		<< " name = " << '"' << search_settings_name << '"' << ';';
@@ -185,6 +210,9 @@ boost::optional<std::string> SQLiteDatabase::search_settings_filename(
 boost::optional<size_t> SQLiteDatabase::search_settings_id(
 	const std::string& search_settings_name)
 {
+	ATP_DATABASE_LOG(debug) << "Querying SQLite database for model"
+		" context name \"" << search_settings_name << "\".";
+
 	std::stringstream query_builder;
 	query_builder << "SELECT ss_id FROM search_settings WHERE"
 		<< " name = " << '"' << search_settings_name << '"' << ';';
@@ -234,6 +262,24 @@ boost::optional<DValue> try_get_value(SQLiteDatabase* db,
 	}
 	else
 	{
+		switch (p_query->state())
+		{
+		case TransactionState::RUNNING:
+			ATP_DATABASE_LOG(warning) << "SQLite query \"" << query
+				<< "\" did not finish after being stepped "
+				<< N << " times.";
+			break;
+		case TransactionState::COMPLETED:
+			ATP_DATABASE_LOG(warning) << "SQLite query \"" << query
+				<< "\" turned up no results, even though it "
+				"finished.";
+			break;
+		case TransactionState::FAILED:
+			ATP_DATABASE_LOG(warning) << "SQLite query \"" << query
+				<< "\" failed.";
+			break;
+		}
+
 		return boost::none;
 	}
 }

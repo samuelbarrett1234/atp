@@ -12,7 +12,12 @@
 */
 
 
+#define BOOST_LOG_DYN_LINK
 #include <cassert>
+#include <boost/log/trivial.hpp>
+
+
+#define ATP_DATABASE_LOG(level) BOOST_LOG_TRIVIAL(level)
 
 
 #ifdef ATP_DATABASE_EXPORTS

@@ -28,6 +28,7 @@ SQLiteQueryTransaction::SQLiteQueryTransaction(sqlite3* db,
 
 SQLiteQueryTransaction::~SQLiteQueryTransaction()
 {
+	ATP_DATABASE_LOG(debug) << "Finishing SQLite query...";
 	sqlite3_finalize(m_stmt);
 }
 
@@ -36,6 +37,7 @@ void SQLiteQueryTransaction::step()
 {
 	ATP_DATABASE_PRECOND(state() == TransactionState::RUNNING);
 
+	ATP_DATABASE_LOG(debug) << "Stepping SQLite statement...";
 	const int rc = sqlite3_step(m_stmt);
 
 	switch (rc)
@@ -47,6 +49,8 @@ void SQLiteQueryTransaction::step()
 		m_waiting = false;
 		break;
 	case SQLITE_BUSY:  // running
+		ATP_DATABASE_LOG(debug) << "SQLite statement couldn't obtain"
+			" lock; waiting...";
 		m_waiting = true;
 		break;
 	default:
@@ -96,6 +100,8 @@ bool SQLiteQueryTransaction::try_get(size_t idx, DType dtype,
 			if (p_out_val) *p_out_val = true;
 			return true;
 		default:
+			ATP_DATABASE_LOG(warning) << "SQLite: Expected boolean, "
+				"but the integer was not 0 or 1.";
 			return false;
 		}
 	}

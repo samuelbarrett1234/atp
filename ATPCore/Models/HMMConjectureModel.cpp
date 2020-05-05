@@ -6,7 +6,7 @@
 */
 
 
-#include "ConjectureProcess.h"
+#include "HMMConjectureModel.h"
 
 
 namespace atp

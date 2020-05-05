@@ -172,14 +172,16 @@
   <ItemGroup>
     <ClInclude Include="ATPCore.h" />
     <ClInclude Include="ATPCoreAPI.h" />
-    <ClInclude Include="Processes\ConjectureProcess.h" />
+    <ClInclude Include="Models\HMMConjectureModel.h" />
+    <ClInclude Include="Processes\HMMConjectureProcess.h" />
     <ClInclude Include="Processes\IProcess.h" />
     <ClInclude Include="Processes\ProcessManager.h" />
     <ClInclude Include="Processes\ProofProcess.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp" />
-    <ClCompile Include="Processes\ConjectureProcess.cpp" />
+    <ClCompile Include="Models\HMMConjectureModel.cpp" />
+    <ClCompile Include="Processes\HMMConjectureProcess.cpp" />
     <ClCompile Include="Processes\ProcessManager.cpp" />
     <ClCompile Include="Processes\ProofProcess.cpp" />
   </ItemGroup>

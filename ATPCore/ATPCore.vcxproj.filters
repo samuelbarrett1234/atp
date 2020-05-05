@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Processes">
       <UniqueIdentifier>{19381f56-9524-4897-ba08-322c440cbcfb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Models">
+      <UniqueIdentifier>{473e8772-b3d9-449b-bc68-3d31b6d68e07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Models">
+      <UniqueIdentifier>{9acf7152-260d-4473-b908-2aee1618e134}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ATPCoreAPI.h">
@@ -26,9 +32,6 @@
     </ClInclude>
     <ClInclude Include="ATPCore.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Processes\ConjectureProcess.h">
-      <Filter>Header Files\Processes</Filter>
     </ClInclude>
     <ClInclude Include="Processes\IProcess.h">
       <Filter>Header Files\Processes</Filter>
@@ -39,19 +42,28 @@
     <ClInclude Include="Processes\ProofProcess.h">
       <Filter>Header Files\Processes</Filter>
     </ClInclude>
+    <ClInclude Include="Processes\HMMConjectureProcess.h">
+      <Filter>Header Files\Processes</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\HMMConjectureModel.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Processes\ConjectureProcess.cpp">
-      <Filter>Source Files\Processes</Filter>
     </ClCompile>
     <ClCompile Include="Processes\ProcessManager.cpp">
       <Filter>Source Files\Processes</Filter>
     </ClCompile>
     <ClCompile Include="Processes\ProofProcess.cpp">
       <Filter>Source Files\Processes</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\HMMConjectureProcess.cpp">
+      <Filter>Source Files\Processes</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\HMMConjectureModel.cpp">
+      <Filter>Source Files\Models</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

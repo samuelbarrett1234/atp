@@ -12,6 +12,9 @@
 */
 
 
+#include <random>
+#include <boost/numeric/ublas/vector.hpp>
+#include <boost/numeric/ublas/matrix.hpp>
 #include <ATPLogic.h>
 #include "../ATPCoreAPI.h"
 
@@ -37,7 +40,8 @@ namespace core
 	and propagate back upwards again, or (ii) we can make the states
 	propagate in pre-order traversal of the array. The former does
 	not allow information-sharing between disjoint subtrees, and the
-	latter does not give symmetry.
+	latter does not give symmetry. You are free to decide which you
+	will use as you are generating the results.
 
 \invariant The model always holds a distribution of hidden states,
 	and always has a current observation (which was generated from
@@ -46,68 +50,91 @@ namespace core
 class ATP_CORE_API HMMConjectureModel
 {
 public:
-	HMMConjectureModel(logic::ModelContextPtr p_ctx);
+	HMMConjectureModel(logic::ModelContextPtr p_ctx,
+		size_t num_states, float free_q,
+		boost::numeric::ublas::matrix<float> st_trans,
+		boost::numeric::ublas::matrix<float> st_obs,
+		std::vector<size_t> symbs,
+		size_t rand_seed);
 
 	/**
 	\brief Reset state distribution to the default (typically just a
 		uniform distribution).
 	*/
-	void reset_state();
+	void reset_state()
+	{
+		// initial state always uniform
+		m_state = boost::numeric::ublas::scalar_vector<float>(
+			m_num_hidden_states,
+			1.0f / (float)m_num_hidden_states);
+
+		generate_observation();
+	}
 
 	/**
 	\brief Advance the state one step and generate a new observation.
 	*/
-	void advance();
+	inline void advance()
+	{
+		m_state = boost::numeric::ublas::prod(m_st_trans, m_state);
+		generate_observation();
+	}
 
 	/*
 	\brief Either return the current symbol ID, or the free variable
 		ID.
 	*/
-	size_t current_observation() const;
+	inline size_t current_observation() const
+	{
+		return m_cur_obs;
+	}
 
 	/**
 	\returns True iff the current observation is a free variable.
 	*/
-	bool current_observation_is_free_var() const;
+	inline bool current_observation_is_free_var() const
+	{
+		return m_cur_obs_is_free;
+	}
 
 	/**
 	\returns The arity of the current symbol ID (which will be 0 if
 		current_observation_is_free_var() returns true).
 	*/
-	size_t current_observation_arity() const;
-};
+	inline size_t current_observation_arity() const
+	{
+		return m_cur_obs_arity;
+	}
 
+private:
+	void generate_observation();
 
-/**
-\brief A class for building a HMMConjectureModel out of tid-bits from
-	the database.
+private:
+	logic::ModelContextPtr m_ctx;
 
-\details This is to ensure that, once a model is obtained, it is
-	correct (invariants and preconditions satisfied).
-*/
-class ATP_CORE_API HMMConjectureModelBuilder
-{
-public:
-	HMMConjectureModelBuilder(logic::ModelContextPtr p_ctx);
+	const size_t m_num_hidden_states;
+	const float m_free_q;
+	std::vector<size_t> m_symbs;  // symbol IDs in some order
 
-	/**
-	\brief Determine if the parameters that have been set so far are
-		valid.
-	*/
-	bool can_build() const;
+	boost::numeric::ublas::vector<float> m_state;
+	boost::numeric::ublas::matrix<float> m_st_trans,
+		m_st_obs_partial_sums;
 
-	/**
-	\brief Create a new HMMConjectureModel given the parameters
+	// Note on state observation matrix:
+	// This is the state observation matrix. Each row represents a
+	// symbol observation (not a free variable observation). The
+	// symbol represented by row i is m_symbs[i]
+	// However, the state observation matrix is never used directly
+	// and instead we only need the probabilities that we observe
+	// a symbol occurring in the range m_symbs[0..i] inclusive.
 
-	\pre can_build()
-	*/
-	std::unique_ptr<HMMConjectureModel> build() const;
+	// info about current observation:
+	size_t m_cur_obs, m_cur_obs_arity;
+	bool m_cur_obs_is_free;
 
-	void set_num_hidden_states(size_t n);
-	void add_state_transition(size_t pre, size_t post, float p);
-	void add_symbol_observation(
-		size_t state, size_t symb_id, float p);
-	void set_free_geometric_q(float q);
+	// randomness:
+	std::mt19937 m_rand_device;
+	std::uniform_real_distribution<float> m_unif01;  // uniform [0,1]
 };
 
 

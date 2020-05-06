@@ -16,6 +16,9 @@
 #include "SQLiteRndProvenThmSelectQryBder.h"
 #include "SQLiteSaveProofResultsQryBder.h"
 #include "SQLiteCheckAxInDbQryBder.h"
+#include "SQLiteFindHmmConjModel.h"
+#include "SQLiteGetHmmConjStTransParams.h"
+#include "SQLiteGetHmmConjObsParams.h"
 
 
 namespace atp
@@ -139,6 +142,12 @@ QueryBuilderPtr SQLiteDatabase::create_query_builder(
 		return std::make_unique<SQLiteSaveProofResultsQryBder>();
 	case QueryBuilderType::CHECK_AXIOMS_IN_DB:
 		return std::make_unique<SQLiteCheckAxInDbQryBder>();
+	case QueryBuilderType::FIND_HMM_CONJ_MODEL:
+		return std::make_unique<SQLiteFindHmmConjModel>();
+	case QueryBuilderType::GET_HMM_CONJ_ST_TRANS_PARAMS:
+		return std::make_unique<SQLiteGetHmmConjStTransParams>();
+	case QueryBuilderType::GET_HMM_CONJ_OBS_PARAMS:
+		return std::make_unique<SQLiteGetHmmConjObsParams>();
 	default:
 		ATP_DATABASE_PRECOND(false && "bad type!");
 		return nullptr;

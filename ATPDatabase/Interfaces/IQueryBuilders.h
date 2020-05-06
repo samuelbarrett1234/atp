@@ -47,7 +47,18 @@ enum class QueryBuilderType
 	SAVE_THMS_AND_PROOFS,
 
 	// check that all the axioms are appropriately loaded into the DB
-	CHECK_AXIOMS_IN_DB
+	CHECK_AXIOMS_IN_DB,
+
+	// search for a HMM conjecture model in the database
+	FIND_HMM_CONJ_MODEL,
+
+	// given a reference to a HMM conjecture model, find all of its
+	// state transition parameters
+	GET_HMM_CONJ_ST_TRANS_PARAMS,
+
+	// given a reference to a HMM conjecture model, find all of its
+	// observation parameters.
+	GET_HMM_CONJ_OBS_PARAMS
 };
 
 
@@ -70,6 +81,8 @@ typedef std::unique_ptr<IQueryBuilder> QueryBuilderPtr;
 /**
 \brief Interface for setting data for the Random Proven Theorem
 	Select Query Builder
+
+\see RANDOM_PROVEN_THM_SELECTION
 
 \details This query is only ready to build when the limit and context
 	have been set.
@@ -107,6 +120,8 @@ public:
 
 /**
 \brief Interface for saving a collection of proof attempt results.
+
+\see SAVE_THMS_AND_PROOFS
 */
 class ATP_DATABASE_API ISaveProofResultsQryBder :
 	public IQueryBuilder
@@ -223,6 +238,8 @@ public:
 /**
 \brief Interface for making sure all of the axioms of a given context
 	are appropriately set in the database before doing any proving.
+
+\see CHECK_AXIOMS_IN_DB
 */
 class ATP_DATABASE_API ICheckAxInDbQryBder :
 	public IQueryBuilder
@@ -254,6 +271,83 @@ public:
 	\returns this
 	*/
 	virtual ICheckAxInDbQryBder* reset() = 0;
+};
+
+
+/**
+\brief Interface for getting basic information about a HMM conjecture
+	model.
+
+\see FIND_HMM_CONJ_MODEL
+*/
+class ATP_DATABASE_API IFindHmmConjModel :
+	public IQueryBuilder
+{
+public:
+	virtual ~IFindHmmConjModel() = default;
+
+	/**
+	\brief Restore object to the state it was when it was constructed
+
+	\returns this
+	*/
+	virtual IFindHmmConjModel* reset() = 0;
+
+	/**
+	\brief Optionally, provide a model ID to search for.
+
+	\returns this
+	*/
+	virtual IFindHmmConjModel* set_model_id(size_t mid) = 0;
+
+	/**
+	\brief Set the model context
+
+	\returns this
+	*/
+	virtual IFindHmmConjModel* set_ctx(
+		size_t ctx_id,
+		const logic::ModelContextPtr& p_ctx) = 0;
+};
+
+
+/**
+\brief Interface for getting the parameters of a HMM
+	conjecture model (both state transition parameters, and
+	observation parameters).
+
+\see GET_HMM_CONJ_ST_TRANS_PARAMS
+
+\see GET_HMM_CONJ_OBS_PARAMS
+*/
+class ATP_DATABASE_API IGetHmmConjectureModelParams :
+	public IQueryBuilder
+{
+public:
+	virtual ~IGetHmmConjectureModelParams() = default;
+
+	/**
+	\brief Restore object to the state it was when it was constructed
+
+	\returns this
+	*/
+	virtual IGetHmmConjectureModelParams* reset() = 0;
+
+	/**
+	\brief Set the model ID to find the parameters for.
+
+	\returns this
+	*/
+	virtual IGetHmmConjectureModelParams* set_model_id(size_t mid) = 0;
+
+	/**
+	\brief Set the model context
+
+	\returns this
+	*/
+	virtual IGetHmmConjectureModelParams* set_ctx(
+		size_t ctx_id,
+		const logic::ModelContextPtr& p_ctx) = 0;
 };
 
 

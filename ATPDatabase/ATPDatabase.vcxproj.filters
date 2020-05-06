@@ -66,6 +66,15 @@
     <ClInclude Include="Internal\SQLiteCheckAxInDbQryBder.h">
       <Filter>Header Files\Internal\SQLite</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\SQLiteFindHmmConjModel.h">
+      <Filter>Header Files\Internal\SQLite</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\SQLiteGetHmmConjStTransParams.h">
+      <Filter>Header Files\Internal\SQLite</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\SQLiteGetHmmConjObsParams.h">
+      <Filter>Header Files\Internal\SQLite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp">
@@ -87,6 +96,15 @@
       <Filter>Source Files\Internal\SQLite</Filter>
     </ClCompile>
     <ClCompile Include="Internal\SQLiteCheckAxInDbQryBder.cpp">
+      <Filter>Source Files\Internal\SQLite</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SQLiteFindHmmConjModel.cpp">
+      <Filter>Source Files\Internal\SQLite</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SQLiteGetHmmConjStTransParams.cpp">
+      <Filter>Source Files\Internal\SQLite</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SQLiteGetHmmConjObsParams.cpp">
       <Filter>Source Files\Internal\SQLite</Filter>
     </ClCompile>
   </ItemGroup>

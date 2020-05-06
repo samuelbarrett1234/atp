@@ -6,15 +6,15 @@ CREATE TABLE IF NOT EXISTS model_contexts (
 	name TEXT UNIQUE NOT NULL, filename TEXT);
 
 
-INSERT INTO model_contexts (name, filename) VALUES (
+INSERT OR IGNORE INTO model_contexts (name, filename) VALUES (
 	"group-theory", "../Data/Definitions/group_theory.json");
-INSERT INTO model_contexts (name, filename) VALUES (
+INSERT OR IGNORE INTO model_contexts (name, filename) VALUES (
 	"boolean-algebra", "../Data/Definitions/boolean_algebra.json");
-INSERT INTO model_contexts (name, filename) VALUES (
+INSERT OR IGNORE INTO model_contexts (name, filename) VALUES (
 	"reg-expr", "../Data/Definitions/reg_expr.json");
-INSERT INTO model_contexts (name, filename) VALUES (
+INSERT OR IGNORE INTO model_contexts (name, filename) VALUES (
 	"ring-arithmetic", "../Data/Definitions/ring_arithmetic.json");
-INSERT INTO model_contexts (name, filename) VALUES (
+INSERT OR IGNORE INTO model_contexts (name, filename) VALUES (
 	"calculus-algebra", "../Data/Definitions/calculus_algebra.json");
 
 
@@ -23,16 +23,16 @@ CREATE TABLE IF NOT EXISTS search_settings (
 	name TEXT UNIQUE NOT NULL, filename TEXT);
 
 
-INSERT INTO search_settings (name, filename) VALUES (
+INSERT OR IGNORE INTO search_settings (name, filename) VALUES (
 	"ids-uninformed-limited",
 	"../Data/Search/ids_uninformed_limited.json");
-INSERT INTO search_settings (name, filename) VALUES (
+INSERT OR IGNORE INTO search_settings (name, filename) VALUES (
 	"ids-uninformed-extended",
 	"../Data/Search/ids_uninformed_extended.json");
-INSERT INTO search_settings (name, filename) VALUES (
+INSERT OR IGNORE INTO search_settings (name, filename) VALUES (
 	"ids-informed-limited",
 	"../Data/Search/ids_informed_limited.json");
-INSERT INTO search_settings (name, filename) VALUES (
+INSERT OR IGNORE INTO search_settings (name, filename) VALUES (
 	"ids-informed-extended",
 	"../Data/Search/ids_informed_extended.json");
 
@@ -85,8 +85,16 @@ CREATE TABLE IF NOT EXISTS proofs (
 	or 0 if this is an actual theorem.
 	*/
 	is_axiom INTEGER NOT NULL DEFAULT 0,
-	CHECK(is_axiom IN (0, 1)),
 	
+	/*
+	Number of days from noon in Greenwich on
+	November 24, 4714 B.C up to the time where this
+	proof was entered into the database (when the
+	theorem was proven).
+	*/
+	proof_date REAL DEFAULT (julianday('now')),
+	
+	CHECK(is_axiom IN (0, 1)),
 	FOREIGN KEY (thm_id) REFERENCES theorems(id)
 	ON DELETE CASCADE ON UPDATE CASCADE);
 

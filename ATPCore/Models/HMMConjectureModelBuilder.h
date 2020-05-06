@@ -84,13 +84,13 @@ public:
 
 	/**
 	\brief Set the fact that, when in state `state`, we will observe
-		the symbol `symbol` with probability p.
+		the symbol `symbol_id` with probability p.
 
 	\note This only applies to functions and constants, not to free
 		variables.
 	*/
 	void add_symbol_observation(
-		size_t state, std::string symbol, float p);
+		size_t state, size_t symbol_id, float p);
 
 	/**
 	\brief Set the parameter q=1-p for generating the free variable

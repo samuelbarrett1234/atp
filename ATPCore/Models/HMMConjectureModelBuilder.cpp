@@ -41,23 +41,21 @@ void HMMConjectureModelBuilder::reset()
 
 
 void HMMConjectureModelBuilder::add_symbol_observation(
-	size_t state, std::string symbol, float p)
+	size_t state, size_t symbol_id, float p)
 {
-	if (!m_ctx->is_defined(symbol))
+	if (!m_ctx->is_defined(symbol_id))
 	{
 		// log this here, because even though this won't cause a
 		// problem (as this class is designed to be robust to such
 		// errors), there is nowhere else where we will have this
 		// kind of information (i.e. the specific symbol text).
 		ATP_CORE_LOG(warning) << "When building HMMConjectureModel, "
-			"encountered bogus symbol \"" << symbol << "\".";
+			"encountered bogus symbol ID " << symbol_id << ".";
 		m_valid = false;
 		return;
 	}
 
-	const size_t symb_id = m_ctx->symbol_id(std::move(symbol));
-
-	m_symb_obs[std::make_pair(state, symb_id)] = p;
+	m_symb_obs[std::make_pair(state, symbol_id)] = p;
 
 	m_valid = m_valid && p >= 0.0f && p <= 1.0f;
 }

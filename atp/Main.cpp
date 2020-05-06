@@ -8,7 +8,7 @@
 */
 
 
-#include "ATP.h"  // has to be first
+#include "ATP.h"  // first; it tells boost log to dynamic link
 #include <memory>
 #include <vector>
 #include <iostream>
@@ -32,6 +32,7 @@ int load_db(const po::variables_map& vm);
 int load_ctx(const po::variables_map& vm);
 int load_ss(const po::variables_map& vm);
 int add_proof(const po::variables_map& vm);
+int add_hmm_conj(const po::variables_map& vm);
 
 
 int main(int argc, const char* const argv[])
@@ -54,7 +55,15 @@ int main(int argc, const char* const argv[])
 
 		("prove,P", po::value<std::vector<std::string>>(),
 			"Path to a file containing statements to prove, or write"
-			" a statement with no spaces f(x)=y to try to prove")
+			" a statement with no spaces f(x)=y to try to prove. "
+			"Each separate invocation of this command will run on "
+			"a separate thread.")
+
+		("hmm-conjecture,hmmc", po::value<std::vector<size_t>>(),
+			"Generate a number of conjectures; use "
+			"--hmm-conjecture N to generate N conjectures. Each "
+			"invocation of this command will run on a separate "
+			"thread.")
 
 		("database,db", po::value<std::string>(),
 			"Path to database file")
@@ -115,6 +124,8 @@ int main(int argc, const char* const argv[])
 	if (int rc = load_ss(vm))
 		return rc;
 	if (int rc = add_proof(vm))
+		return rc;
+	if (int rc = add_hmm_conj(vm))
 		return rc;
 
 	g_app->run();
@@ -253,13 +264,32 @@ int load_ss(const po::variables_map& vm)
 int add_proof(const po::variables_map& vm)
 {
 	// try to add all of the proof tasks:
-	const auto proof_tasks = vm["prove"].as<std::vector<std::string>>();
+	const auto proof_tasks =
+		vm["prove"].as<std::vector<std::string>>();
 	for (auto task : proof_tasks)
 	{
 		if (!g_app->add_proof_task(task))
 		{
 			ATP_LOG(error)
 				<< "Failed to load proof task: '" << task << '\'';
+			return -1;
+		}
+	}
+
+	return 0;
+}
+
+
+int add_hmm_conj(const po::variables_map& vm)
+{
+	// try to add all the conjecture tasks:
+	const auto conjecture_tasks =
+		vm["hmm-conjecture"].as<std::vector<size_t>>();
+	for (auto N : conjecture_tasks)
+	{
+		if (!g_app->add_hmm_conjecture_task(N))
+		{
+			ATP_LOG(error) << "Failed to launch conjecturer.";
 			return -1;
 		}
 	}

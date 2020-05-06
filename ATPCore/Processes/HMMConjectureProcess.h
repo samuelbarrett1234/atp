@@ -19,6 +19,7 @@
 #include <ATPDatabase.h>
 #include "../ATPCoreAPI.h"
 #include "IProcess.h"
+#include "../Models/HMMConjectureModel.h"
 #include "../Models/HMMConjectureModelBuilder.h"
 
 
@@ -39,7 +40,7 @@ namespace core
 	provided in the constructor, we will issue a warning and select
 	one arbitrarily.
 */
-class HMMConjectureProcess :
+class ATP_CORE_API HMMConjectureProcess :
 	public IProcess
 {
 private:

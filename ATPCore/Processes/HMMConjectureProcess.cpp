@@ -6,6 +6,7 @@
 */
 
 
+#include <chrono>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/optional/optional_io.hpp>
 #include "HMMConjectureProcess.h"
@@ -35,6 +36,13 @@ HMMConjectureProcess::HMMConjectureProcess(
 	// initial state requires this object
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 
+	// seed the conjecture generator with the current time
+	const size_t seed = (size_t)
+		std::chrono::high_resolution_clock
+		::now().time_since_epoch().count();
+	ATP_CORE_LOG(debug) << "Seeded the HMM model with " << seed;
+	m_model_builder->set_random_seed(seed);
+
 	setup_find_model_transaction();
 }
 
@@ -52,14 +60,19 @@ void HMMConjectureProcess::run_step()
 			switch (m_state)
 			{
 			case HMMConjProcState::FINDING_MODEL:
+				ATP_CORE_LOG(trace) << "Searching for HMM model...";
 				load_model_results();
 				break;
 				
 			case HMMConjProcState::GETTING_STATE_TRANSITION_PARAMS:
+				ATP_CORE_LOG(trace) << "Loading HMM model state "
+					"transition parameters...";
 				load_state_trans_results();
 				break;
 
 			case HMMConjProcState::GETTING_OBSERVATION_PARAMS:
+				ATP_CORE_LOG(trace) << "Loading HMM model "
+					"observation parameters...";
 				load_obs_params_results();
 				break;
 
@@ -80,6 +93,7 @@ void HMMConjectureProcess::run_step()
 			switch (m_state)
 			{
 			case HMMConjProcState::FINDING_MODEL:
+				ATP_CORE_LOG(trace) << "Finished finding HMM model.";
 				m_state = HMMConjProcState::
 					GETTING_STATE_TRANSITION_PARAMS;
 				if (check_model_loaded())
@@ -87,12 +101,16 @@ void HMMConjectureProcess::run_step()
 				break;
 
 			case HMMConjProcState::GETTING_STATE_TRANSITION_PARAMS:
+				ATP_CORE_LOG(trace) << "Finished getting HMM model "
+					"state transition parameters.";
 				m_state = HMMConjProcState::
 					GETTING_OBSERVATION_PARAMS;
 				setup_get_obs_params();
 				break;
 
 			case HMMConjProcState::GETTING_OBSERVATION_PARAMS:
+				ATP_CORE_LOG(trace) << "Finished getting HMM model "
+					"observation parameters.";
 				m_state = HMMConjProcState::
 					GENERATING_CONJECTURES;
 				if (construct_model())
@@ -100,6 +118,8 @@ void HMMConjectureProcess::run_step()
 				break;
 
 			case HMMConjProcState::SAVING_RESULTS:
+				ATP_CORE_LOG(trace) << "Finished saving conjectures "
+					"produced by HMM model!";
 				m_state = HMMConjProcState::
 					DONE;
 				break;
@@ -113,10 +133,15 @@ void HMMConjectureProcess::run_step()
 	// this state is special because it isn't a DB transaction
 	else if (m_state == HMMConjProcState::GENERATING_CONJECTURES)
 	{
+		ATP_CORE_LOG(trace) << "Generating a conjecture...";
 		generate_a_conjecture();
 
 		if (m_completed.size() == m_num_to_gen)
 		{
+			ATP_CORE_LOG(info) << "Finished generating " <<
+				m_completed.size() << " conjectures; saving results "
+				"to database...";
+
 			// we are done, transition to next state:
 
 			m_state = HMMConjProcState::SAVING_RESULTS;

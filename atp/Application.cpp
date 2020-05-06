@@ -184,8 +184,9 @@ bool Application::set_search_name(const std::string& name)
 
 bool Application::add_proof_task(std::string path_or_stmt)
 {
-	if (!m_lang || !m_ctx || !m_db)
-		return false;  // not properly loaded
+	ATP_PRECOND(m_lang != nullptr);
+	ATP_PRECOND(m_ctx != nullptr);
+	ATP_PRECOND(m_db != nullptr);
 
 	atp::logic::StatementArrayPtr p_stmts;
 
@@ -230,6 +231,29 @@ bool Application::add_proof_task(std::string path_or_stmt)
 		std::move(p_stmts)));
 
 	return true;
+}
+
+
+bool Application::add_hmm_conjecture_task(size_t N)
+{
+	ATP_PRECOND(m_lang != nullptr);
+	ATP_PRECOND(m_ctx != nullptr);
+	ATP_PRECOND(m_db != nullptr);
+
+	if (N == 0)
+	{
+		ATP_LOG(warning) << "Skipping conjecture generation "
+			"as only 0 were specified in the command line arguments";
+		return true;
+	}
+	else
+	{
+		m_proc_mgr.add(std::make_unique<
+			atp::core::HMMConjectureProcess>(
+			m_db, m_lang, m_ctx_id, m_ctx, N));
+
+		return true;
+	}
 }
 
 

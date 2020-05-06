@@ -69,9 +69,6 @@ public:
 	bool set_search_name(const std::string& path);
 
 
-	// add a new set of target statements to the collection of proof
-	// tasks. this can either be a path to a file containing a list
-	// of statements, or it can be a statement itself.
 	/**
 	\brief Add a new one/many target statements, to attempt to prove
 	    when `run` is called.
@@ -86,6 +83,14 @@ public:
 
 	*/
 	bool add_proof_task(std::string path_or_stmt);
+
+	/**
+	\brief Create a new process which will generate conjectures
+		using a Hidden Markov Model.
+
+	\param N The number of conjectures to try generating.
+	*/
+	bool add_hmm_conjecture_task(size_t N);
 
 	/**
 	\brief Run all proofs that have been set.

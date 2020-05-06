@@ -121,6 +121,10 @@ public:
 /**
 \brief Interface for saving a collection of proof attempt results.
 
+\details This can be used to save theorems, theorems and proof
+	attempts, or all of: theorems, proof attempts, and proofs, and
+	theorem usages in the proofs.
+
 \see SAVE_THMS_AND_PROOFS
 */
 class ATP_DATABASE_API ISaveProofResultsQryBder :

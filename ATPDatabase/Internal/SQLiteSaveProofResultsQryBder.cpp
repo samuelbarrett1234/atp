@@ -19,15 +19,23 @@ namespace db
 std::string SQLiteSaveProofResultsQryBder::build()
 {
 	ATP_DATABASE_PRECOND(m_ctx_id.has_value());
-	ATP_DATABASE_PRECOND(m_ss_id.has_value());
 	ATP_DATABASE_PRECOND(m_size.has_value());
 	ATP_DATABASE_PRECOND(m_ctx.has_value());
 	ATP_DATABASE_PRECOND(m_targets.has_value());
-	ATP_DATABASE_PRECOND(m_proof_states.has_value());
-	ATP_DATABASE_PRECOND(m_times.has_value());
-	ATP_DATABASE_PRECOND(m_max_mems.has_value());
-	ATP_DATABASE_PRECOND(m_num_exps.has_value());
-	// don't check m_helpers, that is optional.
+	// optional: m_proof_states, m_times, m_max_mems, m_num_exps,
+	// m_helpers, m_ss_id
+	ATP_DATABASE_PRECOND(m_proof_states.has_value()
+		== m_ss_id.has_value());
+	ATP_DATABASE_PRECOND(m_proof_states.has_value()
+		== m_times.has_value());
+	ATP_DATABASE_PRECOND(m_proof_states.has_value()
+		== m_max_mems.has_value());
+	ATP_DATABASE_PRECOND(m_proof_states.has_value()
+		== m_num_exps.has_value());
+	ATP_DATABASE_PRECOND(!m_helpers.has_value() ||
+		m_proof_states.has_value());
+
+
 
 	std::stringstream query_builder;
 	query_builder << "BEGIN TRANSACTION;\n\n";
@@ -41,6 +49,11 @@ std::string SQLiteSaveProofResultsQryBder::build()
 			<< "', " << *m_ctx_id << " WHERE NOT EXISTS("
 			<< "SELECT 1 FROM theorems WHERE stmt == '"
 			<< (*m_targets)->at(i).to_str() << "');\n\n";
+
+		// skip the rest if we are only loading theorems, not proof
+		// attempts
+		if (!m_proof_states.has_value())
+			continue;
 
 		// a common table expression for finding the theorem ID of the
 		// target statement

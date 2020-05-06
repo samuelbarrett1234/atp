@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS hmm_conjecturer_models (
 	free_q REAL NOT NULL,
 	
 	CHECK(free_q >= 0.0 AND free_q <= 1.0),
-	CHECK(num_states > 0)
+	CHECK(num_states > 0),
+	CHECK(id >= 0)
 );
 
 CREATE TABLE IF NOT EXISTS hmm_conjecturer_state_transitions (
@@ -35,7 +36,9 @@ CREATE TABLE IF NOT EXISTS hmm_conjecturer_state_transitions (
 	CHECK(prob >= 0.0 AND prob <= 1.0),
 	
 	FOREIGN KEY(id) REFERENCES hmm_conjecturer_models(id)
-	ON DELETE CASCADE ON UPDATE CASCADE
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	
+	UNIQUE(id, pre_state, post_state)
 );
 
 CREATE TABLE IF NOT EXISTS hmm_conjecturer_symbol_observations (
@@ -54,6 +57,8 @@ CREATE TABLE IF NOT EXISTS hmm_conjecturer_symbol_observations (
 	CHECK(prob >= 0.0 AND prob <= 1.0),
 	
 	FOREIGN KEY(id) REFERENCES hmm_conjecturer_models(id)
-	ON DELETE CASCADE ON UPDATE CASCADE
+	ON DELETE CASCADE ON UPDATE CASCADE,
+	
+	UNIQUE(id, hidden_state, symb_id)
 );
 

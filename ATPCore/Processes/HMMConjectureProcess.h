@@ -74,7 +74,8 @@ private:
 
 		// the next child that needs to be converted (which will be
 		// appearing immediately above this entry on the stack).
-		// invariant: cur_idx < cur_obs_arity
+		// as soon as cur_idx == cur_obs_arity, this will be ready to
+		// pop from the stack
 		size_t cur_idx;
 	};
 
@@ -108,6 +109,7 @@ private:
 
 	void setup_find_model_transaction();
 	void load_model_results();
+	bool check_model_loaded();  // returns true iff success
 
 	void setup_get_state_trans_params();
 	void load_state_trans_results();
@@ -115,13 +117,16 @@ private:
 	void setup_get_obs_params();
 	void load_obs_params_results();
 
+	bool construct_model();  // returns true iff success
+
 	void setup_conjecture_generation();
 	void generate_a_conjecture();
 
 	void setup_save_results();
 
 	// helper function for `generate_a_conjecture`
-	std::string generate_expression();
+	// this can fail, but on rare occasions
+	boost::optional<std::string> generate_expression();
 
 private:
 	const db::DatabasePtr m_db;

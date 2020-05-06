@@ -84,13 +84,13 @@ public:
 
 	/**
 	\brief Set the fact that, when in state `state`, we will observe
-		the symbol `symbol_id` with probability p.
+		the symbol `symbol` with probability p.
 
 	\note This only applies to functions and constants, not to free
 		variables.
 	*/
 	void add_symbol_observation(
-		size_t state, size_t symbol_id, float p);
+		size_t state, std::string symbol, float p);
 
 	/**
 	\brief Set the parameter q=1-p for generating the free variable
@@ -102,6 +102,11 @@ public:
 		m_q = q;
 
 		m_valid = m_valid && m_q >= 0.0f && m_q <= 1.0f;
+	}
+
+	inline void set_random_seed(size_t rand_seed)
+	{
+		m_rand_seed = rand_seed;
 	}
 
 private:
@@ -135,7 +140,7 @@ private:
 	// and that we have a nonzero number of hidden states.
 
 	boost::optional<float> m_q;
-	boost::optional<size_t> m_num_states;
+	boost::optional<size_t> m_num_states, m_rand_seed;
 	std::map<std::pair<size_t, size_t>, float> m_state_trans,
 		m_symb_obs;
 };

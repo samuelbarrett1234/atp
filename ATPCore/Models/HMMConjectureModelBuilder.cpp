@@ -7,6 +7,7 @@
 
 
 #include "HMMConjectureModelBuilder.h"
+#include "HMMConjectureModel.h"
 
 
 namespace atp
@@ -26,7 +27,43 @@ HMMConjectureModelBuilder::HMMConjectureModelBuilder(logic::ModelContextPtr p_ct
 bool HMMConjectureModelBuilder::can_build() const
 {
 	return m_valid && m_q.has_value() && m_num_states.has_value()
-		&& check_state_trans() && check_obs();
+		&& m_rand_seed.has_value() && check_state_trans()
+		&& check_obs();
+}
+
+
+std::unique_ptr<HMMConjectureModel> HMMConjectureModelBuilder::build() const
+{
+	ATP_CORE_PRECOND(can_build());
+
+	// get all symbol IDs
+	auto all_symb_ids = m_ctx->all_constant_symbol_ids();
+	{
+		auto temp = m_ctx->all_function_symbol_ids();
+		all_symb_ids.insert(all_symb_ids.end(), temp.begin(),
+			temp.end());
+	}
+
+	// build the matrices for (state transitions and observations)
+	boost::numeric::ublas::matrix<float> st_trans(
+		*m_num_states, *m_num_states), st_obs(
+			all_symb_ids.size(), *m_num_states);
+	for (size_t i = 0; i < *m_num_states; ++i)
+	{
+		for (size_t j = 0; j < *m_num_states; ++j)
+		{
+			st_trans(j, i) = m_state_trans.at(std::make_pair(i, j));
+		}
+
+		for (size_t j  = 0; j < all_symb_ids.size(); ++j)
+		{
+			st_obs(j, i) = m_symb_obs.at(std::make_pair(i, j));
+		}
+	}
+
+	return std::make_unique<HMMConjectureModel>(
+		m_ctx, *m_num_states, *m_q, std::move(st_trans),
+		std::move(st_obs), std::move(all_symb_ids), *m_rand_seed);
 }
 
 
@@ -41,19 +78,21 @@ void HMMConjectureModelBuilder::reset()
 
 
 void HMMConjectureModelBuilder::add_symbol_observation(
-	size_t state, size_t symbol_id, float p)
+	size_t state, std::string symbol, float p)
 {
-	if (!m_ctx->is_defined(symbol_id))
+	if (!m_ctx->is_defined(symbol))
 	{
 		// log this here, because even though this won't cause a
 		// problem (as this class is designed to be robust to such
 		// errors), there is nowhere else where we will have this
 		// kind of information (i.e. the specific symbol text).
 		ATP_CORE_LOG(warning) << "When building HMMConjectureModel, "
-			"encountered bogus symbol ID " << symbol_id << ".";
+			"encountered bogus symbol \"" << symbol << "\".";
 		m_valid = false;
 		return;
 	}
+
+	const size_t symbol_id = m_ctx->symbol_id(symbol);
 
 	m_symb_obs[std::make_pair(state, symbol_id)] = p;
 

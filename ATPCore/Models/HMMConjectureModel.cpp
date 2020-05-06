@@ -46,7 +46,7 @@ HMMConjectureModel::HMMConjectureModel(logic::ModelContextPtr p_ctx,
 	m_st_obs_partial_sums(ub::prod(psum_matrix(m_symbs.size()),
 		st_obs)),
 	m_symbs(std::move(symbs)),
-	m_rand_device(rand_seed),
+	m_rand_device((unsigned int)rand_seed),
 	m_unif01(0.0f, 1.0f)
 {
 	ATP_CORE_PRECOND(m_ctx != nullptr);

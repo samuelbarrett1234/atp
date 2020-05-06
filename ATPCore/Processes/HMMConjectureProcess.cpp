@@ -7,6 +7,7 @@
 
 
 #include <boost/algorithm/string/join.hpp>
+#include <boost/optional/optional_io.hpp>
 #include "HMMConjectureProcess.h"
 #include "../Models/HMMConjectureModel.h"
 
@@ -350,12 +351,12 @@ void HMMConjectureProcess::load_obs_params_results()
 		db::DValue state, obs, prob;
 
 		if (p_query->try_get(0, db::DType::INT, &state)
-			&& p_query->try_get(1, db::DType::INT, &obs)
+			&& p_query->try_get(1, db::DType::STR, &obs)
 			&& p_query->try_get(2, db::DType::FLOAT, &prob))
 		{
 			m_model_builder->add_symbol_observation(
 				(size_t)db::get_int(state),
-				(size_t)db::get_int(obs),
+				db::get_str(obs),
 				db::get_float(prob));
 		}
 	}
@@ -371,15 +372,22 @@ bool HMMConjectureProcess::construct_model()
 		m_model = m_model_builder->build();
 
 		ATP_CORE_LOG(trace) << "Built HMM conjecturer model!";
+
+		m_model_builder.reset();
+
+		return true;
 	}
 	else
 	{
 		ATP_CORE_LOG(error) << "Failed to construct model! Some or "
 			"all parameters were incorrect. Please check HMM "
 			"conjecturer model with ID " << *m_model_id;
+
 		m_state = HMMConjProcState::FAILED;
+		m_model_builder.reset();
+
+		return false;
 	}
-	m_model_builder.reset();
 }
 
 

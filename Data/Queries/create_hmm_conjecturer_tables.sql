@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS hmm_conjecturer_symbol_observations (
 	id INTEGER NOT NULL,
 	
 	hidden_state INTEGER NOT NULL,
-	symb_id INTEGER NOT NULL,
+	symbol TEXT NOT NULL,
 	prob REAL NOT NULL,
 	
 	/*
@@ -59,6 +59,6 @@ CREATE TABLE IF NOT EXISTS hmm_conjecturer_symbol_observations (
 	FOREIGN KEY(id) REFERENCES hmm_conjecturer_models(id)
 	ON DELETE CASCADE ON UPDATE CASCADE,
 	
-	UNIQUE(id, hidden_state, symb_id)
+	UNIQUE(id, hidden_state, symbol)
 );
 

@@ -71,7 +71,10 @@ public:
 	virtual ~IQueryBuilder() = default;
 
 	/**
-	\brief Attempt to create a transaction
+	\brief Create a the query that you have been building.
+
+	\pre Check that you have filled in all the compulsory information
+		before calling this!
 	*/
 	virtual std::string build() = 0;
 };

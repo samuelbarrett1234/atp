@@ -7,6 +7,7 @@
 
 
 #include <sstream>
+#include <boost/optional/optional_io.hpp>
 #include "SQLiteFindHmmConjModel.h"
 
 
@@ -16,7 +17,7 @@ namespace db
 {
 
 
-std::string SQLiteFindHmmConjModel::build() const
+std::string SQLiteFindHmmConjModel::build()
 {
 	ATP_DATABASE_PRECOND(m_ctx_id.has_value());
 	ATP_DATABASE_PRECOND(m_ctx.has_value());

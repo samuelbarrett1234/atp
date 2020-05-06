@@ -16,7 +16,7 @@ namespace db
 {
 
 
-std::string SQLiteGetHmmConjStTransParams::build() const
+std::string SQLiteGetHmmConjStTransParams::build()
 {
 	ATP_DATABASE_PRECOND(m_ctx_id.has_value());
 	ATP_DATABASE_PRECOND(m_ctx.has_value());

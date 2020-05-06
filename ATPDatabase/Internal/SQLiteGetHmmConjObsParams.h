@@ -27,7 +27,7 @@ class SQLiteGetHmmConjObsParams :
 	public IGetHmmConjectureModelParams
 {
 public:
-	std::string build() const;
+	std::string build() override;
 	inline IGetHmmConjectureModelParams* reset() override
 	{
 		m_ctx_id.reset();
@@ -46,6 +46,7 @@ public:
 	{
 		m_ctx_id = ctx_id;
 		m_ctx = p_ctx;
+		return this;
 	}
 
 private:

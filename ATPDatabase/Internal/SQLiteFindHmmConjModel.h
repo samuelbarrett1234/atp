@@ -26,7 +26,7 @@ class SQLiteFindHmmConjModel :
 	public IFindHmmConjModel
 {
 public:
-	std::string build() const;
+	std::string build() override;
 	inline IFindHmmConjModel* reset() override
 	{
 		m_ctx_id.reset();
@@ -44,6 +44,7 @@ public:
 	{
 		m_ctx_id = ctx_id;
 		m_ctx = p_ctx;
+		return this;
 	}
 
 private:

@@ -57,7 +57,8 @@ std::unique_ptr<HMMConjectureModel> HMMConjectureModelBuilder::build() const
 
 		for (size_t j  = 0; j < all_symb_ids.size(); ++j)
 		{
-			st_obs(j, i) = m_symb_obs.at(std::make_pair(i, j));
+			st_obs(j, i) = m_symb_obs.at(std::make_pair(i,
+				all_symb_ids[j]));
 		}
 	}
 

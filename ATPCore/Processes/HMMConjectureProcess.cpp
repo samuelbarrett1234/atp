@@ -284,8 +284,8 @@ void HMMConjectureProcess::setup_get_state_trans_params()
 		ATP_CORE_LOG(error) << "Failed to run query: \""
 			<< query << "\", perhaps the tables aren't initialised"
 			" for the HMM conjecturer? Model context ID was " <<
-			m_ctx_id << "(" << m_ctx->context_name() << ") and "
-			"ID searched for was " << *m_model_id;
+			m_ctx_id << " (" << m_ctx->context_name() << ") and "
+			"the model ID searched for was " << *m_model_id;
 
 		m_state = HMMConjProcState::FAILED;
 	}
@@ -350,8 +350,8 @@ void HMMConjectureProcess::setup_get_obs_params()
 		ATP_CORE_LOG(error) << "Failed to run query: \""
 			<< query << "\", perhaps the tables aren't initialised"
 			" for the HMM conjecturer? Model context ID was " <<
-			m_ctx_id << "(" << m_ctx->context_name() << ") and "
-			"ID searched for was " << *m_model_id;
+			m_ctx_id << " (" << m_ctx->context_name() << ") and "
+			"the model ID searched for was " << *m_model_id;
 
 		m_state = HMMConjProcState::FAILED;
 	}
@@ -418,31 +418,10 @@ bool HMMConjectureProcess::construct_model()
 
 void HMMConjectureProcess::setup_conjecture_generation()
 {
-	ATP_CORE_ASSERT(m_model_builder.has_value());
-	ATP_CORE_ASSERT(m_model == nullptr);
-	ATP_CORE_ASSERT(m_db_op == nullptr);
-	ATP_CORE_ASSERT(m_state == HMMConjProcState::
-		GENERATING_CONJECTURES);
-	ATP_CORE_ASSERT(m_model_id.has_value());
+	// actually don't have anything to do here, function is just here
+	// to make the control flow a bit more symmetric.
 
-	// check parameters are valid first (they may not be, if data
-	// loaded from DB was rubbish)
-	if (m_model_builder->can_build())
-	{
-		// create model
-		m_model = m_model_builder->build();
-	}
-	else
-	{
-		ATP_CORE_LOG(error) << "Failed to create HMM conjecture-"
-			"generation model, because the parameters loaded from "
-			"the database were bad. Model ID was " << *m_model_id
-			<< ". Stopping conjecture process...";
-
-		m_state = HMMConjProcState::FAILED;
-	}
-
-	m_model_builder.reset();  // don't need anymore
+	// you may want to see `construct_model()`
 }
 
 
@@ -467,7 +446,7 @@ void HMMConjectureProcess::generate_a_conjecture()
 	{
 		m_completed.push_back(*expr1 + " = " + *expr2);
 
-		ATP_CORE_LOG(trace) << "HMMConjectureProcess just generated the "
+		ATP_CORE_LOG(info) << "HMMConjectureProcess just generated the "
 			"statement \"" << m_completed.back() << "\".";
 	}
 	else

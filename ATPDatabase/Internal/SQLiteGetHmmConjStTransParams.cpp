@@ -26,7 +26,7 @@ std::string SQLiteGetHmmConjStTransParams::build()
 
 	query_builder << "SELECT pre_state, post_state, prob "
 		"FROM hmm_conjecturer_state_transitions WHERE "
-		"id = " << *m_model_id;
+		"id = " << *m_model_id << ";";
 
 	return query_builder.str();
 }

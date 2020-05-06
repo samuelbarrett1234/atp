@@ -24,9 +24,9 @@ std::string SQLiteGetHmmConjObsParams::build()
 
 	std::stringstream query_builder;
 
-	query_builder << "SELECT hidden_state, symb_id, prob "
+	query_builder << "SELECT hidden_state, symbol, prob "
 		"FROM hmm_conjecturer_symbol_observations WHERE "
-		"id = " << *m_model_id;
+		"id = " << *m_model_id << ";";
 
 	return query_builder.str();
 }

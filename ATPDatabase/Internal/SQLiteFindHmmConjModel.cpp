@@ -37,7 +37,7 @@ std::string SQLiteFindHmmConjModel::build()
 	// ensure that, if there are many models possible and the user
 	// didn't specify one, we just pick arbitrarily (so, just pick
 	// the top one).
-	query_builder << " LIMIT 1";
+	query_builder << " LIMIT 1;";
 
 	return query_builder.str();
 }

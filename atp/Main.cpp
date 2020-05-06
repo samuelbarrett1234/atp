@@ -263,16 +263,20 @@ int load_ss(const po::variables_map& vm)
 
 int add_proof(const po::variables_map& vm)
 {
-	// try to add all of the proof tasks:
-	const auto proof_tasks =
-		vm["prove"].as<std::vector<std::string>>();
-	for (auto task : proof_tasks)
+	if (vm.count("prove"))
 	{
-		if (!g_app->add_proof_task(task))
+		// try to add all of the proof tasks:
+		const auto proof_tasks =
+			vm["prove"].as<std::vector<std::string>>();
+		for (auto task : proof_tasks)
 		{
-			ATP_LOG(error)
-				<< "Failed to load proof task: '" << task << '\'';
-			return -1;
+			if (!g_app->add_proof_task(task))
+			{
+				ATP_LOG(error)
+					<< "Failed to load proof task: '"
+					<< task << '\'';
+				return -1;
+			}
 		}
 	}
 
@@ -282,15 +286,18 @@ int add_proof(const po::variables_map& vm)
 
 int add_hmm_conj(const po::variables_map& vm)
 {
-	// try to add all the conjecture tasks:
-	const auto conjecture_tasks =
-		vm["hmm-conjecture"].as<std::vector<size_t>>();
-	for (auto N : conjecture_tasks)
+	if (vm.count("hmm-conjecture"))
 	{
-		if (!g_app->add_hmm_conjecture_task(N))
+		// try to add all the conjecture tasks:
+		const auto conjecture_tasks =
+			vm["hmm-conjecture"].as<std::vector<size_t>>();
+		for (auto N : conjecture_tasks)
 		{
-			ATP_LOG(error) << "Failed to launch conjecturer.";
-			return -1;
+			if (!g_app->add_hmm_conjecture_task(N))
+			{
+				ATP_LOG(error) << "Failed to launch conjecturer.";
+				return -1;
+			}
 		}
 	}
 

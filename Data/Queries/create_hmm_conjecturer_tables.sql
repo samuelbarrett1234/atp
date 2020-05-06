@@ -12,7 +12,10 @@ CREATE TABLE IF NOT EXISTS hmm_conjecturer_models (
 	geometric distribution. This is "q" (not "p") and the
 	geometric distribution parameter would be p=1-q.
 	*/
-	free_q REAL NOT NULL
+	free_q REAL NOT NULL,
+	
+	CHECK(free_q >= 0.0 AND free_q <= 1.0),
+	CHECK(num_states > 0)
 );
 
 CREATE TABLE IF NOT EXISTS hmm_conjecturer_state_transitions (

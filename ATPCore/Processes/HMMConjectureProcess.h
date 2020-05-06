@@ -11,12 +11,15 @@
 */
 
 
+#include <sstream>
+#include <vector>
+#include <memory>
 #include <boost/optional.hpp>
 #include <ATPLogic.h>
 #include <ATPDatabase.h>
 #include "../ATPCoreAPI.h"
 #include "IProcess.h"
-#include "../Models/HMMConjectureModel.h"
+#include "../Models/HMMConjectureModelBuilder.h"
 
 
 namespace atp
@@ -54,6 +57,27 @@ private:
 		DONE, FAILED
 	};
 
+	/**
+	\brief We generate conjectures in a recursive manner, hence
+		bundle up all of the data we need to put in the stack into
+		one struct.
+	*/
+	struct ATP_CORE_API CurrentStmtStackFrame
+	{
+		// observation parameters given by HMM model generation
+		const size_t cur_obs, cur_obs_arity;
+		const bool cur_obs_is_free;
+
+		// a string representing the current expression so far (as
+		// its children are completed, they will be appended here).
+		std::stringstream done_so_far;
+
+		// the next child that needs to be converted (which will be
+		// appearing immediately above this entry on the stack).
+		// invariant: cur_idx < cur_obs_arity
+		size_t cur_idx;
+	};
+
 public:
 	/**
 	\brief Create a new process to generate conjectures
@@ -73,10 +97,15 @@ public:
 		return m_state == HMMConjProcState::DONE
 			|| m_state == HMMConjProcState::FAILED;
 	}
-	bool waiting() const override;
+	inline bool waiting() const override
+	{
+		return m_db_op != nullptr && m_db_op->waiting();
+	}
 	void run_step() override;
 
 private:
+	// in order of execution:
+
 	void setup_find_model_transaction();
 	void load_model_results();
 
@@ -86,19 +115,32 @@ private:
 	void setup_get_obs_params();
 	void load_obs_params_results();
 
+	void setup_conjecture_generation();
+	void generate_a_conjecture();
+
+	void setup_save_results();
+
+	// helper function for `generate_a_conjecture`
+	std::string generate_expression();
+
 private:
-	db::DatabasePtr m_db;
-	logic::LanguagePtr m_lang;
+	const db::DatabasePtr m_db;
+	const logic::LanguagePtr m_lang;
 	const logic::ModelContextPtr m_ctx;
 	const size_t m_ctx_id;
+	const size_t m_num_to_gen;
 	HMMConjProcState m_state;
 
 	// this might be None from the constructor, but we will fill it
 	// in later if that's the case.
 	boost::optional<size_t> m_model_id;
 
-	// we will gradually put model params into here
-	HMMConjectureModelBuilder m_model_builder;
+	// we will gradually put model params into here, when in the
+	// right state
+	boost::optional<HMMConjectureModelBuilder> m_model_builder;
+
+	// once model is built, it will be put here:
+	std::unique_ptr<HMMConjectureModel> m_model;
 
 	// the current database operation (may be null)
 	db::TransactionPtr m_db_op;

@@ -24,8 +24,6 @@ std::string SQLiteCheckAxInDbQryBder::build()
 
 	std::stringstream query_builder;
 
-	query_builder << "BEGIN TRANSACTION;\n\n";
-
 	for (size_t i = 0; i < (*m_ctx)->num_axioms(); ++i)
 	{
 		// WARNING: the axiom may be in a form which uses bad
@@ -47,8 +45,6 @@ std::string SQLiteCheckAxInDbQryBder::build()
 			<< "is_axiom) VALUES ((SELECT id FROM theorems WHERE stmt='"
 			<< ax_str << "'), 1);\n\n";
 	}
-
-	query_builder << "COMMIT;\n";
 
 	return query_builder.str();
 }

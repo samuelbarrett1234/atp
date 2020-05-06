@@ -38,7 +38,6 @@ std::string SQLiteSaveProofResultsQryBder::build()
 
 
 	std::stringstream query_builder;
-	query_builder << "BEGIN TRANSACTION;\n\n";
 
 	for (size_t i = 0; i < *m_size; i++)
 	{
@@ -118,8 +117,6 @@ std::string SQLiteSaveProofResultsQryBder::build()
 			}
 		}
 	}
-
-	query_builder << "COMMIT;";
 
 	return query_builder.str();
 }

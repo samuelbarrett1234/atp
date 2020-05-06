@@ -256,14 +256,12 @@ void ProofProcess::save_results()
 		m_done = true;
 		m_db_op.reset();
 		ATP_CORE_LOG(info) << "Proof Process: "
-			"Finished saving the true theorems to the database"
-			", so they can be used in future proofs!";
+			"Finished saving the true theorems to the database.";
 		break;
 
 	default:
 		ATP_CORE_LOG(error) << "Proof Process: "
-			"Failed to save proof results. Unexpected "
-			"error while executing query. Cancelling...";
+			"Failed to save proof results - error running query.";
 		m_done = true;
 		m_db_op.reset();
 		break;

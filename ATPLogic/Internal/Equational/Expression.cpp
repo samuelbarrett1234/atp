@@ -713,10 +713,14 @@ bool Expression::try_match(const Expression& expr,
 		// value it was mapped to agrees with this
 		else
 		{
-			// optimised from `return iter->second.equivalent(
+			// WARNING: need to check identical here, NOT just
+			// equivalent! (This was a bug and it has been covered
+			// by a unit test)
+			// optimised from `return iter->second.identical(
 			// Expression(m_ctx, id_b, SyntaxNodeType::FREE));`
 			return (iter.second().m_tree.root_type() ==
-				SyntaxNodeType::FREE);
+				SyntaxNodeType::FREE &&
+				iter.second().m_tree.root_id() == id_b);
 		}
 	};
 
@@ -751,7 +755,9 @@ bool Expression::try_match(const Expression& expr,
 		}
 		// this variable has already been mapped; check that the
 		// value it was mapped to agrees with this
-		else return iter.second().equivalent(expr_right);
+		// (warning: use "identical" not "equivalent", this was the
+		// cause of a bug which has now been covered with tests)
+		else return iter.second().identical(expr_right);
 	};
 
 	const bool success = fold_pair<bool>(free_constructor,

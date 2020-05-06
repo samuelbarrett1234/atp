@@ -183,6 +183,28 @@ BOOST_AUTO_TEST_CASE(test_try_build_map_empty)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_try_build_map_negative_2)
+{
+	// here we will extract the two sides of this equation separately
+	// we will test to see if there does not exist a substitution
+	// for the LHS which makes the RHS.
+	s << "*(x, i(x)) = *(*(z, e), i(*(w, e)))";
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto stmt = dynamic_cast<const Statement&>(p_stmts->at(0));
+
+	FreeVarMap<Expression> mapping;
+
+	BOOST_TEST(!stmt.lhs().try_match(stmt.rhs(), &mapping));
+	BOOST_TEST(mapping.empty());
+
+	// try it again but with no output mapping (this is desirable
+	// behaviour that has been designed for)
+	BOOST_TEST(!stmt.lhs().try_match(stmt.rhs(), nullptr));
+}
+
+
 BOOST_DATA_TEST_CASE(replace_tests,
 	boost::unit_test::data::make({
 		// expressions to start with

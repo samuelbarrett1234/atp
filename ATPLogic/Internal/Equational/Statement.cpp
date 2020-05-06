@@ -502,7 +502,6 @@ bool Statement::implies(const Statement& conclusion) const
 }
 
 
-
 void Statement::save(std::ostream& out) const
 {
 	m_sides.first->save(out);

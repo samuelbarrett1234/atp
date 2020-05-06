@@ -37,6 +37,15 @@ boost::optional<DValue> try_get_value(SQLiteDatabase* db,
 DatabasePtr SQLiteDatabase::load_from_file(
 	const std::string& filename)
 {
+	// we better check this!
+	if (sqlite3_threadsafe() == 0)
+	{
+		ATP_DATABASE_LOG(fatal) << "SQLite3 is not thread safe! "
+			"Please find a thread-safe version of the library. "
+			"Aborting...";
+		return nullptr;
+	}
+
 	if (!boost::filesystem::is_regular_file(filename))
 		return nullptr;
 
@@ -103,6 +112,10 @@ TransactionPtr SQLiteDatabase::begin_transaction(
 				<< "\".";
 
 			ATP_DATABASE_ASSERT(stmt == nullptr);
+
+			ATP_DATABASE_LOG(error) << "Error code " << rc <<
+				" returned from SQLite query; error message: "
+				<< sqlite3_errmsg(m_db);
 
 			return nullptr;
 		}

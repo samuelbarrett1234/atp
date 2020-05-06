@@ -55,6 +55,9 @@ void SQLiteQueryTransaction::step()
 		break;
 	default:
 		m_state = TransactionState::FAILED;
+		ATP_DATABASE_LOG(error) << "Error code " << rc << " returned "
+			"from SQLite query; error message: "
+			<< sqlite3_errmsg(m_db);
 		break;
 	}
 }

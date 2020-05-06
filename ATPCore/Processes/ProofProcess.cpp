@@ -91,7 +91,7 @@ void ProofProcess::step_solver()
 				break;
 			}
 
-		ATP_CORE_LOG(info) << "Proof Process update --- "
+		ATP_CORE_LOG(info)
 			<< "Proof process finished proving! Results:" << std::endl
 			<< '\t' << num_true << " theorem(s) were proven true,"
 			<< std::endl
@@ -99,8 +99,7 @@ void ProofProcess::step_solver()
 			<< std::endl
 			<< '\t' << num_unfinished <<
 			" theorem(s) did not finish in the allotted time."
-			<< std::endl
-			<< "More details:" << std::endl;
+			<< std::endl;
 
 		auto proofs = m_solver->get_proofs();
 		auto times = m_solver->get_agg_time();
@@ -112,23 +111,23 @@ void ProofProcess::step_solver()
 			switch (states[i])
 			{
 			case atp::logic::ProofCompletionState::PROVEN:
-				ATP_CORE_LOG(info) << "Proof of \"" << m_targets->at(i).to_str()
+				ATP_CORE_LOG(trace) << "Proof of \"" << m_targets->at(i).to_str()
 					<< "\" was successful; the statement is true.";
 				break;
 			case atp::logic::ProofCompletionState::NO_PROOF:
-				ATP_CORE_LOG(info) << "Proof of \"" << m_targets->at(i).to_str()
+				ATP_CORE_LOG(trace) << "Proof of \"" << m_targets->at(i).to_str()
 					<< "\" was unsuccessful; it was impossible to prove "
 					<< "using the given solver and the current settings.";
 				break;
 			case atp::logic::ProofCompletionState::UNFINISHED:
-				ATP_CORE_LOG(info) << "Proof of \"" << m_targets->at(i).to_str()
+				ATP_CORE_LOG(trace) << "Proof of \"" << m_targets->at(i).to_str()
 					<< "\" was unsuccessful; not enough time allocated.";
 				break;
 			}
 
-			ATP_CORE_LOG(info) << "Total time taken: " << times[i] << "s";
-			ATP_CORE_LOG(info) << "Max nodes in memory: " << mems[i];
-			ATP_CORE_LOG(info) << "Total node expansions: " << exps[i];
+			ATP_CORE_LOG(trace) << "Total time taken: " << times[i] << "s";
+			ATP_CORE_LOG(trace) << "Max nodes in memory: " << mems[i];
+			ATP_CORE_LOG(trace) << "Total node expansions: " << exps[i];
 		}
 	}
 	else
@@ -139,7 +138,7 @@ void ProofProcess::step_solver()
 		// output
 
 		const auto states = m_solver->get_states();
-		ATP_CORE_LOG(info) << "Proof Process update --- "
+		ATP_CORE_LOG(info) << "Proof Process: "
 			<< "Step " << m_cur_step << '/'
 			<< m_max_steps << " : " <<
 			std::count(states.begin(), states.end(),
@@ -167,15 +166,15 @@ void ProofProcess::init_kernel()
 		if (m_helpers == nullptr)
 		{
 			ATP_CORE_LOG(error) << "Failed to initialise kernel. There was"
-				<< " a problem with the following batch of "
-				<< "statements retrieved from the database: " << '"'
+				" a problem with the following batch of "
+				"statements retrieved from the database: \""
 				<< m_temp_results.str() << '"';
 		}
 		else if (m_helpers->size() > 0)
 		{
-			ATP_CORE_LOG(info) << "Proof Process update --- "
-				<< "Loaded " << m_helpers->size() << " theorems"
-				<< " from the theorem database!";
+			ATP_CORE_LOG(info) << "Proof Process: "
+				"Loaded " << m_helpers->size() << " theorems"
+				" from the theorem database!";
 
 			m_ker->add_theorems(m_helpers);
 		}
@@ -200,11 +199,11 @@ void ProofProcess::init_kernel()
 		{
 			if (p_readable_op->arity() != 1)
 			{
-				ATP_CORE_LOG(error) << "Failed to initialise kernel. Kernel"
-					<< " initialisation query returned an arity of "
-					<< p_readable_op->arity() << ", which differed "
-					<< "from the expected result of 1. Ignoring "
-					<< "query...";
+				ATP_CORE_LOG(error) << "Failed to initialise kernel."
+					" Kernel initialisation query returned an arity "
+					"of " << p_readable_op->arity() << ", which "
+					"differed from the expected result of 1. "
+					"Ignoring query...";
 			}
 			else
 			{
@@ -256,14 +255,15 @@ void ProofProcess::save_results()
 	case atp::db::TransactionState::COMPLETED:
 		m_done = true;
 		m_db_op.reset();
-		ATP_CORE_LOG(info) << "Proof Process update --- "
-			<< "Finished saving the true theorems to the database"
-			<< ", so they can be used in future proofs!";
+		ATP_CORE_LOG(info) << "Proof Process: "
+			"Finished saving the true theorems to the database"
+			", so they can be used in future proofs!";
 		break;
 
 	default:
-		ATP_CORE_LOG(error) << "Failed to save proof results. Unexpected "
-			<< "error while executing query. Cancelling...";
+		ATP_CORE_LOG(error) << "Proof Process: "
+			"Failed to save proof results. Unexpected "
+			"error while executing query. Cancelling...";
 		m_done = true;
 		m_db_op.reset();
 		break;

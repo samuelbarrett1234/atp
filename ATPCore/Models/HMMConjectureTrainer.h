@@ -84,38 +84,6 @@ public:
 	}
 
 private:
-	/**
-	\brief Perform the "forward algorithm" for hidden Markov models.
-
-	\returns A matrix whose t^th row and i^th column represents the
-		probability that the chain was in state i at time t AND we
-		observed what we did from timesteps 0..t (where t and i are
-		zero-indexed).
-	*/
-	boost::numeric::ublas::matrix<float> forward(
-		const std::vector<size_t>& obs_seq);
-
-	/**
-	\brief Perform the "backward algorithm" for hidden Markov models.
-
-	\returns A matrix whose t^th row and i^th column represents the
-		probability that the chain would encounter observations from
-		t+1 onwards, given that it was in state i at time t.
-	*/
-	boost::numeric::ublas::matrix<float> backward(
-		const std::vector<size_t>& obs_seq);
-
-	/**
-	\brief Perform N iterations of the Baum-Welch training update to
-		the internal model parameters.
-
-	\details This will of course change the  model parameters.
-	*/
-	void baum_welch_update(
-		const std::vector<std::vector<size_t>>& obs_seqs,
-		size_t N);
-
-private:
 	const logic::LanguagePtr m_lang;
 	const size_t m_ctx_id;
 	const logic::ModelContextPtr m_ctx;

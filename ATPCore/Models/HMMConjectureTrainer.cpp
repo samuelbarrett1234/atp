@@ -69,9 +69,16 @@ Matrix HMMConjectureTrainer::get_obs_mat()
 void HMMConjectureTrainer::train(
 	const logic::StatementArrayPtr& p_stmts, size_t N)
 {
+	ATP_CORE_PRECOND(p_stmts != nullptr);
+	if (N == 0)
+		return;
+
 	const auto observations = m_stmt_to_obs.convert(p_stmts);
 
-	hmm::baum_welch(m_st_trans, m_st_obs,
+	ublas::vector<float> initial_state = ublas::scalar_vector<float>(
+		m_num_states, 1.0f / (float)m_num_states);
+
+	hmm::baum_welch(initial_state, m_st_trans, m_st_obs,
 		observations, N, m_smoothing);
 }
 

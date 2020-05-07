@@ -11,6 +11,7 @@
 
 
 namespace ublas = boost::numeric::ublas;
+typedef ublas::vector<float> Vector;
 typedef ublas::matrix<float> Matrix;
 typedef ublas::matrix_column<Matrix> MatrixCol;
 typedef ublas::matrix_row<Matrix> MatrixRow;
@@ -25,37 +26,38 @@ namespace hmm
 
 
 Matrix forward(
+	Vector& initial_state,
 	Matrix& st_trans,
 	Matrix& st_obs,
 	const std::vector<size_t>& obs_seq)
 {
 	const size_t num_states = st_trans.size1();
 	const size_t num_obs = st_obs.size2();
+	ATP_CORE_PRECOND(initial_state.size() == num_states);
+	ATP_CORE_PRECOND(st_trans.size2() == num_states);
+	ATP_CORE_PRECOND(st_obs.size2() == num_states);
 
 	Matrix A(obs_seq.size() + 1,
 		num_states);
 
 	// input initial state distribution:
-	for (size_t i = 0; i < num_states; ++i)
-	{
-		A(0, i) = 1.0f / (float)num_states;
-	}
+	MatrixRow(A, 0) = initial_state;
 
 	// now go forwards
 	for (size_t t = 1; t <= obs_seq.size(); ++t)
 	{
 		ATP_CORE_ASSERT(obs_seq[t - 1] < num_obs);
 
-		MatrixCol last_t(A, t - 1);
-		MatrixCol cur_t(A, t);
+		MatrixRow last_t(A, t - 1);
+		MatrixRow cur_t(A, t);
 		MatrixCol obs_probs(
 			st_obs, obs_seq[t - 1]);
 
-		// advance via state transition
-		cur_t = ublas::prod(ublas::trans(st_trans), last_t);
-
-		// multiply by observation probabilities
-		cur_t = ublas::element_prod(cur_t, obs_probs);
+		cur_t = ublas::element_prod(
+			// advance via state transition
+			ublas::prod(last_t, st_trans),
+			// multiply by observation probabilities
+			obs_probs);
 	}
 
 	return A;
@@ -69,6 +71,8 @@ Matrix backward(
 {
 	const size_t num_states = st_trans.size1();
 	const size_t num_obs = st_obs.size2();
+	ATP_CORE_PRECOND(st_trans.size2() == num_states);
+	ATP_CORE_PRECOND(st_obs.size2() == num_states);
 
 	Matrix B(obs_seq.size() + 1,
 		num_states);
@@ -86,16 +90,17 @@ Matrix backward(
 
 		ATP_CORE_ASSERT(obs_seq[t] < num_obs);
 
-		MatrixCol last_t(B, t + 1);
-		MatrixCol cur_t(B, t);
+		MatrixRow last_t(B, t + 1);
+		MatrixRow cur_t(B, t);
 		MatrixCol obs_probs(
 			st_obs, obs_seq[t]);
 
-		// multiply by observation probabilities
-		cur_t = ublas::element_prod(last_t, obs_probs);
-
-		// go backwards via state transition
-		cur_t = ublas::prod(st_trans, cur_t);
+		cur_t = ublas::prod(
+			// multiply by observation probabilities
+			ublas::element_prod(last_t, obs_probs),
+			// go backwards via state transition (hence multiply
+			// by the transpose)
+			ublas::trans(st_trans));
 	}
 
 	return B;
@@ -103,6 +108,7 @@ Matrix backward(
 
 
 void baum_welch(
+	Vector& initial_state,
 	Matrix& st_trans,
 	Matrix& st_obs,
 	const std::vector<std::vector<size_t>>& obs_seqs,
@@ -110,6 +116,7 @@ void baum_welch(
 {
 	const size_t num_states = st_trans.size1();
 	const size_t num_obs = st_obs.size1();
+	ATP_CORE_PRECOND(initial_state.size() == num_states);
 	ATP_CORE_PRECOND(st_trans.size2() == num_states);
 	ATP_CORE_PRECOND(st_obs.size2() == num_states);
 
@@ -124,15 +131,21 @@ void baum_welch(
 		{
 			const auto& obs_seq = obs_seqs[d];
 
-			Matrix A = forward(st_trans, st_obs, obs_seq);
+			// for good explanations of A and B, check the comments
+			// for the postconditions of `forward` and `backward`
+			Matrix A = forward(initial_state,
+				st_trans, st_obs, obs_seq);
 			Matrix B = backward(st_trans, st_obs, obs_seq);
 			Matrix AB = ublas::element_prod(A, B);
 
+			// the matrix C corresponds to the forward-backward
+			// algorithm, and C(t, i) represents the probability
+			// of being in state i at time t given ALL of the data.
 			Matrix C(obs_seq.size(), num_states);
 
 			for (size_t t = 0; t < obs_seq.size(); ++t)
 			{
-				MatrixCol C_t(C, t),
+				MatrixRow C_t(C, t),
 					AB_t(AB, t + 1);
 
 				C_t = AB_t;
@@ -144,13 +157,16 @@ void baum_welch(
 				C_t /= ublas::sum(AB_t);  // normalise
 			}
 
+			// This is a substitute for a rank-3 tensor
+			// Ds[t](i, j) represents the probability that the system
+			// jumped from state i to state j at time t.
 			std::vector<Matrix> Ds(obs_seq.size(),
 				Matrix(num_states, num_states));
 
 			for (size_t t = 0; t < obs_seq.size(); ++t)
 			{
-				MatrixCol A_t(A, t + 1), B_t(B, t + 1);
-				MatrixRow obs_probs(
+				MatrixRow A_t(A, t + 1), B_t(B, t + 1);
+				MatrixCol obs_probs(
 					st_obs, obs_seq[t - 1]);
 
 				Ds[t] = ublas::element_prod(st_trans,
@@ -167,6 +183,8 @@ void baum_welch(
 					ublas::prod(Ds[t], ones));
 			}
 
+			// given C and D, estimate the state transition and
+			// observation matrices!
 			for (size_t i = 0; i < num_states; ++i)
 			{
 				for (size_t j = 0; j < num_states; ++j)
@@ -189,6 +207,7 @@ void baum_welch(
 						if (obs_seq[t] == j)
 							csum_jth_obs += C(t, i);
 						else
+							// always make sure to do smoothing
 							csum_jth_obs += smoothing;
 					}
 					st_obs(j, i) = csum_jth_obs / csum;

@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(OutDir)</OutDir>
+    <OutDir>$(SolutionDir)Output/</OutDir>
     <IntDir>$(SolutionDir)Temp/$(ProjectName)_$(Configuration)$(Platform)/</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
     <IncludePath>$(SolutionDir)ATPCore/;$(SolutionDir)ATPLogic/;$(SolutionDir)ATPDatabase/;$(SolutionDir)ATPSearch/;$(BOOST_DIR);$(IncludePath)</IncludePath>
@@ -79,7 +79,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(OutDir)</OutDir>
+    <OutDir>$(SolutionDir)Output/</OutDir>
     <IntDir>$(SolutionDir)Temp/$(ProjectName)_$(Configuration)$(Platform)/</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
     <IncludePath>$(SolutionDir)ATPCore/;$(SolutionDir)ATPLogic/;$(SolutionDir)ATPDatabase/;$(SolutionDir)ATPSearch/;$(BOOST_DIR);$(IncludePath)</IncludePath>
@@ -87,7 +87,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(OutDir)</OutDir>
+    <OutDir>$(SolutionDir)Output/</OutDir>
     <IntDir>$(SolutionDir)Temp/$(ProjectName)_$(Configuration)$(Platform)/</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
     <IncludePath>$(SolutionDir)ATPCore/;$(SolutionDir)ATPLogic/;$(SolutionDir)ATPDatabase/;$(SolutionDir)ATPSearch/;$(BOOST_DIR);$(IncludePath)</IncludePath>
@@ -95,7 +95,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(OutDir)</OutDir>
+    <OutDir>$(SolutionDir)Output/</OutDir>
     <IntDir>$(SolutionDir)Temp/$(ProjectName)_$(Configuration)$(Platform)/</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
     <IncludePath>$(SolutionDir)ATPCore/;$(SolutionDir)ATPLogic/;$(SolutionDir)ATPDatabase/;$(SolutionDir)ATPSearch/;$(BOOST_DIR);$(IncludePath)</IncludePath>
@@ -105,7 +105,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -120,7 +120,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -137,7 +137,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -156,7 +156,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -170,6 +170,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HMMUtilityTests.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>

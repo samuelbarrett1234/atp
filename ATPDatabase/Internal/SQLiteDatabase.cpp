@@ -13,7 +13,7 @@
 #include <boost/bind.hpp>
 #include "SQLiteTransaction.h"
 #include "TransactionListWrapper.h"
-#include "SQLiteRndProvenThmSelectQryBder.h"
+#include "SQLiteRndThmSelectQryBder.h"
 #include "SQLiteSaveProofResultsQryBder.h"
 #include "SQLiteCheckAxInDbQryBder.h"
 #include "SQLiteFindHmmConjModel.h"
@@ -149,8 +149,8 @@ QueryBuilderPtr SQLiteDatabase::create_query_builder(
 {
 	switch (qb_type)
 	{
-	case QueryBuilderType::RANDOM_PROVEN_THM_SELECTION:
-		return std::make_unique<SQLiteRndProvenThmSelectQryBder>();
+	case QueryBuilderType::RANDOM_THM_SELECTION:
+		return std::make_unique<SQLiteRndThmSelectQryBder>();
 	case QueryBuilderType::SAVE_THMS_AND_PROOFS:
 		return std::make_unique<SQLiteSaveProofResultsQryBder>();
 	case QueryBuilderType::CHECK_AXIOMS_IN_DB:

@@ -40,7 +40,7 @@ namespace db
 enum class QueryBuilderType
 {
 	// randomly select a number of theorems from the database
-	RANDOM_PROVEN_THM_SELECTION,
+	RANDOM_THM_SELECTION,
 
 	// save a set of theorems, possibly with proofs and proof
 	// attempts, to the database
@@ -82,34 +82,45 @@ typedef std::unique_ptr<IQueryBuilder> QueryBuilderPtr;
 
 
 /**
-\brief Interface for setting data for the Random Proven Theorem
-	Select Query Builder
+\brief Interface for building a query to select theorems from the
+	database.
 
-\see RANDOM_PROVEN_THM_SELECTION
+\see RANDOM_THM_SELECTION
 
 \details This query is only ready to build when the limit and context
-	have been set.
+	have been set. By default, it only returns theorems with proofs,
+	however you can set it so that it only returns unproven theorems,
+	instead, if you wish.
 */
-class ATP_DATABASE_API IRndProvenThmSelectQryBder :
+class ATP_DATABASE_API IRndThmSelectQryBder :
 	public IQueryBuilder
 {
 public:
-	virtual ~IRndProvenThmSelectQryBder() = default;
+	virtual ~IRndThmSelectQryBder() = default;
 
 	/**
 	\brief Set the maximum number of theorems for the query to return
 
 	\returns this
 	*/
-	virtual IRndProvenThmSelectQryBder* set_limit(size_t N) = 0;
+	virtual IRndThmSelectQryBder* set_limit(size_t N) = 0;
 
 	/**
 	\brief Set the model context info.
 
 	\returns this
 	*/
-	virtual IRndProvenThmSelectQryBder* set_context(size_t ctx_id,
+	virtual IRndThmSelectQryBder* set_context(size_t ctx_id,
 		const logic::ModelContextPtr& p_ctx) = 0;
+
+	/*
+	\brief Select from proven theorems from the database, or unproven
+		theorems?
+
+	\param proven If true, will only select from proven theorems. If
+		false, will only select from UNproven theorems.
+	*/
+	virtual IRndThmSelectQryBder* set_proven(bool proven) = 0;
 
 	/**
 	\brief Restore this object's state to the same as it was when it
@@ -117,7 +128,7 @@ public:
 
 	\returns this
 	*/
-	virtual IRndProvenThmSelectQryBder* reset() = 0;
+	virtual IRndThmSelectQryBder* reset() = 0;
 };
 
 

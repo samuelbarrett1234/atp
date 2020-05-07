@@ -183,7 +183,7 @@
     <ClInclude Include="Internal\SQLiteFindHmmConjModel.h" />
     <ClInclude Include="Internal\SQLiteGetHmmConjObsParams.h" />
     <ClInclude Include="Internal\SQLiteGetHmmConjStTransParams.h" />
-    <ClInclude Include="Internal\SQLiteRndProvenThmSelectQryBder.h" />
+    <ClInclude Include="Internal\SQLiteRndThmSelectQryBder.h" />
     <ClInclude Include="Internal\SQLiteSaveProofResultsQryBder.h" />
     <ClInclude Include="Internal\SQLiteTransaction.h" />
     <ClInclude Include="Internal\TransactionListWrapper.h" />
@@ -195,7 +195,7 @@
     <ClCompile Include="Internal\SQLiteFindHmmConjModel.cpp" />
     <ClCompile Include="Internal\SQLiteGetHmmConjObsParams.cpp" />
     <ClCompile Include="Internal\SQLiteGetHmmConjStTransParams.cpp" />
-    <ClCompile Include="Internal\SQLiteRndProvenThmSelectQryBder.cpp" />
+    <ClCompile Include="Internal\SQLiteRndThmSelectQryBder.cpp" />
     <ClCompile Include="Internal\SQLiteSaveProofResultsQryBder.cpp" />
     <ClCompile Include="Internal\SQLiteTransaction.cpp" />
     <ClCompile Include="Internal\TransactionListWrapper.cpp" />

@@ -48,7 +48,7 @@ public:
 		index symbols.size().
 
 	\pre st_trans_init is of shape (N, N) and st_obs_init is of shape
-		(M, N) for some integers N, M such that M=symbols.size()
+		(N, M) for some integers N, M such that M=symbols.size()
 
 	\pre The array of symbols is nonempty.
 

@@ -52,12 +52,12 @@ std::unique_ptr<HMMConjectureModel> HMMConjectureModelBuilder::build() const
 	{
 		for (size_t j = 0; j < *m_num_states; ++j)
 		{
-			st_trans(j, i) = m_state_trans.at(std::make_pair(i, j));
+			st_trans(i, j) = m_state_trans.at(std::make_pair(i, j));
 		}
 
 		for (size_t j  = 0; j < all_symb_ids.size(); ++j)
 		{
-			st_obs(j, i) = m_symb_obs.at(std::make_pair(i,
+			st_obs(i, j) = m_symb_obs.at(std::make_pair(i,
 				all_symb_ids[j]));
 		}
 	}

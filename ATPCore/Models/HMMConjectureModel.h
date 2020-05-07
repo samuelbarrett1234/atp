@@ -74,11 +74,7 @@ public:
 	/**
 	\brief Advance the state one step and generate a new observation.
 	*/
-	inline void advance()
-	{
-		m_state = boost::numeric::ublas::prod(m_st_trans, m_state);
-		generate_observation();
-	}
+	void advance();
 
 	/*
 	\brief Either return the current symbol ID, or the free variable

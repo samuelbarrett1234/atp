@@ -40,20 +40,20 @@ HMMConjectureTrainer::HMMConjectureTrainer(
 	ATP_CORE_PRECOND(m_ctx != nullptr);
 	ATP_CORE_PRECOND(m_num_states > 0);
 	ATP_CORE_PRECOND(m_st_trans.size2() == m_num_states);
-	ATP_CORE_PRECOND(m_st_obs.size2() == m_num_states);
-	ATP_CORE_PRECOND(m_st_obs.size1() == m_symbols.size());
+	ATP_CORE_PRECOND(m_st_obs.size1() == m_num_states);
+	ATP_CORE_PRECOND(m_st_obs.size2() == m_symbols.size());
 	ATP_CORE_PRECOND(m_smoothing >= 0.0f);
 
 	// adjoin an extra row of observations, for free variables:
-	m_st_obs.resize(m_st_obs.size1() + 1, m_st_obs.size2());
+	m_st_obs.resize(m_st_obs.size1(), m_st_obs.size2() + 1);
 	for (size_t i = 0; i < m_num_states; ++i)
 	{
 		float sum = 0.0f;
 		for (size_t j = 0; j < m_symbols.size(); ++j)
 		{
-			sum += m_st_obs(j, i);
+			sum += m_st_obs(i, j);
 		}
-		m_st_obs(m_symbols.size(), i) = 1.0f - sum;
+		m_st_obs(i, m_symbols.size()) = 1.0f - sum;
 	}
 }
 
@@ -61,8 +61,8 @@ HMMConjectureTrainer::HMMConjectureTrainer(
 Matrix HMMConjectureTrainer::get_obs_mat()
 {
 	return MatrixRange(m_st_obs,
-		ublas::range(0, m_symbols.size()),
-		ublas::range(0, m_num_states));
+		ublas::range(0, m_num_states),
+		ublas::range(0, m_symbols.size()));
 }
 
 

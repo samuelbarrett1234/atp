@@ -10,7 +10,7 @@
 #include "HMMConjectureModel.h"
 
 
-namespace ub = boost::numeric::ublas;
+namespace ublas = boost::numeric::ublas;
 
 
 namespace atp
@@ -22,9 +22,9 @@ namespace core
 // this function creates a matrix which computes the partial sums of
 // a vector (which turns out to be a lower triangular matrix of
 // all-1s).
-ub::triangular_matrix<float, ub::lower> psum_matrix(size_t n)
+ublas::triangular_matrix<float, ublas::lower> psum_matrix(size_t n)
 {
-	ub::triangular_matrix<float, ub::lower> m(n, n);
+	ublas::triangular_matrix<float, ublas::lower> m(n, n);
 
 	for (size_t i = 0; i < n; ++i)
 		for (size_t j = 0; j <= i; ++j)
@@ -36,15 +36,15 @@ ub::triangular_matrix<float, ub::lower> psum_matrix(size_t n)
 
 HMMConjectureModel::HMMConjectureModel(logic::ModelContextPtr p_ctx,
 	size_t num_states, float free_q,
-	ub::matrix<float> st_trans, ub::matrix<float> st_obs,
+	ublas::matrix<float> st_trans, ublas::matrix<float> st_obs,
 	std::vector<size_t> symbs, size_t rand_seed) :
 	m_ctx(std::move(p_ctx)),
 	m_num_hidden_states(num_states),
 	m_free_q(free_q),
-	m_state(ub::zero_vector<float>(num_states)),
+	m_state(ublas::zero_vector<float>(num_states)),
 	m_st_trans(std::move(st_trans)),
-	m_st_obs_partial_sums(ub::prod(psum_matrix(m_symbs.size()),
-		st_obs)),
+	m_st_obs_partial_sums(ublas::prod(st_obs,
+		psum_matrix(m_symbs.size()))),
 	m_symbs(std::move(symbs)),
 	m_rand_device((unsigned int)rand_seed),
 	m_unif01(0.0f, 1.0f)
@@ -67,9 +67,36 @@ HMMConjectureModel::HMMConjectureModel(logic::ModelContextPtr p_ctx,
 }
 
 
+void HMMConjectureModel::advance()
+{
+	m_state = boost::numeric::ublas::prod(m_st_trans, m_state);
+
+#ifdef ATP_CORE_DEFENSIVE
+	if (std::abs(ublas::sum(m_state) - 1.0f) > 1.0e-6f)
+	{
+		ATP_CORE_LOG(warning) << "HMM conjecture model state "
+			"distribution didn't sum to 1; sum was "
+			<< ublas::sum(m_state);
+	}
+#endif
+
+	generate_observation();
+}
+
+
 void HMMConjectureModel::generate_observation()
 {
-	const auto obs_probs = ub::prod(m_st_obs_partial_sums, m_state);
+	const auto obs_probs = ublas::prod(ublas::trans(m_st_obs_partial_sums),
+		m_state);
+
+#ifdef ATP_CORE_DEFENSIVE
+	if (std::abs(ublas::sum(obs_probs) - 1.0f) > 1.0e-6f)
+	{
+		ATP_CORE_LOG(warning) << "HMM conjecture model observation "
+			"distribution didn't sum to 1; sum was "
+			<< ublas::sum(obs_probs);
+	}
+#endif
 
 	// generate random probability
 	const float r = m_unif01(m_rand_device);

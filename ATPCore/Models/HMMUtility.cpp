@@ -30,7 +30,7 @@ Matrix forward(
 	const std::vector<size_t>& obs_seq)
 {
 	const size_t num_states = st_trans.size1();
-	const size_t num_obs = st_obs.size1();
+	const size_t num_obs = st_obs.size2();
 
 	Matrix A(obs_seq.size() + 1,
 		num_states);
@@ -44,11 +44,11 @@ Matrix forward(
 	// now go forwards
 	for (size_t t = 1; t <= obs_seq.size(); ++t)
 	{
-		ATP_CORE_ASSERT(obs_seq[t - 1] < st_obs.size1());
+		ATP_CORE_ASSERT(obs_seq[t - 1] < num_obs);
 
 		MatrixCol last_t(A, t - 1);
 		MatrixCol cur_t(A, t);
-		MatrixRow obs_probs(
+		MatrixCol obs_probs(
 			st_obs, obs_seq[t - 1]);
 
 		// advance via state transition
@@ -68,7 +68,7 @@ Matrix backward(
 	const std::vector<size_t>& obs_seq)
 {
 	const size_t num_states = st_trans.size1();
-	const size_t num_obs = st_obs.size1();
+	const size_t num_obs = st_obs.size2();
 
 	Matrix B(obs_seq.size() + 1,
 		num_states);
@@ -84,10 +84,12 @@ Matrix backward(
 	{
 		const size_t t = _t - 1;
 
+		ATP_CORE_ASSERT(obs_seq[t] < num_obs);
+
 		MatrixCol last_t(B, t + 1);
 		MatrixCol cur_t(B, t);
-		MatrixRow obs_probs(
-			st_obs, obs_seq[t - 1]);
+		MatrixCol obs_probs(
+			st_obs, obs_seq[t]);
 
 		// multiply by observation probabilities
 		cur_t = ublas::element_prod(last_t, obs_probs);
@@ -108,6 +110,8 @@ void baum_welch(
 {
 	const size_t num_states = st_trans.size1();
 	const size_t num_obs = st_obs.size1();
+	ATP_CORE_PRECOND(st_trans.size2() == num_states);
+	ATP_CORE_PRECOND(st_obs.size2() == num_states);
 
 	ublas::vector<float> ones =
 		ublas::scalar_vector(num_states, 1.0f);

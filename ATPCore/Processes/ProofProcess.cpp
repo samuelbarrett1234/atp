@@ -165,7 +165,8 @@ void ProofProcess::init_kernel()
 
 		if (m_helpers == nullptr)
 		{
-			ATP_CORE_LOG(error) << "Failed to initialise kernel. There was"
+			ATP_CORE_LOG(error) <<
+				"Failed to initialise kernel. There was"
 				" a problem with the following batch of "
 				"statements retrieved from the database: \""
 				<< m_temp_results.str() << '"';
@@ -178,7 +179,8 @@ void ProofProcess::init_kernel()
 
 			m_ker->add_theorems(m_helpers);
 		}
-		else ATP_CORE_LOG(warning) << "Proof process could not find any "
+		else ATP_CORE_LOG(warning) <<
+			"Proof process could not find any "
 			"theorems to load from the database.";
 
 		m_temp_results = std::stringstream();  // reset this
@@ -218,10 +220,12 @@ void ProofProcess::init_kernel()
 				}
 				else
 				{
-					ATP_CORE_LOG(debug) << "Adding '" << atp::db::get_str(stmt_str)
+					ATP_CORE_LOG(debug) << "Adding '"
+						<< atp::db::get_str(stmt_str)
 						<< "' to helper theorems.";
 
-					m_temp_results << atp::db::get_str(stmt_str) << std::endl;
+					m_temp_results << atp::db::get_str(stmt_str)
+						<< std::endl;
 				}
 			}
 		}
@@ -231,7 +235,8 @@ void ProofProcess::init_kernel()
 	break;
 
 	default:
-		ATP_CORE_LOG(error) << "Failed to initialise kernel. Database query"
+		ATP_CORE_LOG(error) <<
+			"Failed to initialise kernel. Database query"
 			<< " failed unexpectedly. Ignoring query and proceeding"
 			<< "...";
 		m_proof_state = ProofProcessState::RUNNING_PROOF;
@@ -276,15 +281,16 @@ void ProofProcess::setup_init_kernel_operation()
 	ATP_CORE_LOG(trace) << "Setting up kernel initialisation query...";
 
 	auto _p_bder = m_db->create_query_builder(
-		atp::db::QueryBuilderType::RANDOM_PROVEN_THM_SELECTION);
+		atp::db::QueryBuilderType::RANDOM_THM_SELECTION);
 
 	auto p_bder = dynamic_cast<
-		atp::db::IRndProvenThmSelectQryBder*>(_p_bder.get());
+		atp::db::IRndThmSelectQryBder*>(_p_bder.get());
 
 	ATP_CORE_ASSERT(p_bder != nullptr);
 
 	p_bder->set_limit(25  /* todo: don't hardcode */)
-		->set_context(m_ctx_id, m_ctx);
+		->set_context(m_ctx_id, m_ctx)
+		->set_proven(true);  // DEFINITELY load proven statements!
 
 	const auto query = p_bder->build();
 

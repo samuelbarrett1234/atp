@@ -60,6 +60,9 @@
     <ClInclude Include="Models\HMMUtility.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
+    <ClInclude Include="Processes\HMMConjectureTrainProcess.h">
+      <Filter>Header Files\Processes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp">
@@ -88,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="Models\HMMUtility.cpp">
       <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\HMMConjectureTrainProcess.cpp">
+      <Filter>Source Files\Processes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

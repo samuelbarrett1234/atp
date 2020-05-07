@@ -43,6 +43,7 @@ HMMConjectureModel::HMMConjectureModel(logic::ModelContextPtr p_ctx,
 	m_free_q(free_q),
 	m_state(ublas::zero_vector<float>(num_states)),
 	m_st_trans(std::move(st_trans)),
+	m_st_obs(st_obs),
 	m_st_obs_partial_sums(ublas::prod(st_obs,
 		psum_matrix(m_symbs.size()))),
 	m_symbs(std::move(symbs)),
@@ -69,7 +70,7 @@ HMMConjectureModel::HMMConjectureModel(logic::ModelContextPtr p_ctx,
 
 void HMMConjectureModel::advance()
 {
-	m_state = boost::numeric::ublas::prod(m_st_trans, m_state);
+	m_state = boost::numeric::ublas::prod(m_state, m_st_trans);
 
 #ifdef ATP_CORE_DEFENSIVE
 	if (std::abs(ublas::sum(m_state) - 1.0f) > 1.0e-6f)

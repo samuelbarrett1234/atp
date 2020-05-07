@@ -102,6 +102,19 @@ public:
 		return m_cur_obs_arity;
 	}
 
+	inline const boost::numeric::ublas::matrix<float>& get_st_trans() const
+	{
+		return m_st_trans;
+	}
+	inline const boost::numeric::ublas::matrix<float>& get_st_obs() const
+	{
+		return m_st_obs;
+	}
+	inline const std::vector<size_t>& get_symbols() const
+	{
+		return m_symbs;
+	}
+
 private:
 	void generate_observation();
 
@@ -114,7 +127,7 @@ private:
 
 	boost::numeric::ublas::vector<float> m_state;
 	boost::numeric::ublas::matrix<float> m_st_trans,
-		m_st_obs_partial_sums;
+		m_st_obs_partial_sums, m_st_obs;
 
 	// Note on state observation matrix:
 	// This is the state observation matrix. Each row represents a

@@ -7,9 +7,7 @@
 
 
 #include <chrono>
-#include <boost/algorithm/string/join.hpp>
-#include <boost/optional/optional_io.hpp>
-#include "HMMConjectureProcess.h"
+#include "HMMConjectureTrainProcess.h"
 #include "../Models/HMMConjectureModel.h"
 
 
@@ -19,16 +17,25 @@ namespace core
 {
 
 
-HMMConjectureProcess::HMMConjectureProcess(
-	atp::db::DatabasePtr p_db, logic::LanguagePtr p_lang,
+// get all symbol IDs from model context
+static std::vector<size_t> get_all_symbols(
+	const logic::ModelContextPtr& p_ctx);
+
+
+HMMConjectureTrainProcess::HMMConjectureTrainProcess(
+	db::DatabasePtr p_db, logic::LanguagePtr p_lang,
 	size_t ctx_id, logic::ModelContextPtr p_ctx,
-	size_t num_to_generate, boost::optional<size_t> model_id) :
+	size_t num_epochs, size_t max_dataset_size,
+	boost::optional<size_t> model_id) :
 	m_db(std::move(p_db)), m_lang(std::move(p_lang)),
 	m_ctx(std::move(p_ctx)), m_ctx_id(ctx_id),
-	m_num_to_gen(num_to_generate), m_model_id(model_id),
-	m_model_builder(m_ctx), m_state(HMMConjProcState::FINDING_MODEL)
+	m_num_epochs(num_epochs), m_max_dataset_size(max_dataset_size),
+	m_model_id(model_id), m_model_builder(m_ctx), m_state(
+		HMMConjTrainState::FINDING_MODEL),
+	m_epochs_so_far(0), m_symbols(get_all_symbols(m_ctx))
 {
-	ATP_CORE_PRECOND(num_to_generate > 0);
+	ATP_CORE_PRECOND(m_num_epochs > 0);
+	ATP_CORE_PRECOND(m_max_dataset_size > 0);
 	ATP_CORE_PRECOND(m_db != nullptr);
 	ATP_CORE_PRECOND(m_lang != nullptr);
 	ATP_CORE_PRECOND(m_ctx != nullptr);
@@ -47,7 +54,7 @@ HMMConjectureProcess::HMMConjectureProcess(
 }
 
 
-void HMMConjectureProcess::run_step()
+void HMMConjectureTrainProcess::run_step()
 {
 	if (m_db_op != nullptr)
 	{
@@ -59,21 +66,27 @@ void HMMConjectureProcess::run_step()
 			// dispatch to load_..._results()
 			switch (m_state)
 			{
-			case HMMConjProcState::FINDING_MODEL:
+			case HMMConjTrainState::FINDING_MODEL:
 				ATP_CORE_LOG(trace) << "Searching for HMM model...";
 				load_model_results();
 				break;
-				
-			case HMMConjProcState::GETTING_STATE_TRANSITION_PARAMS:
+
+			case HMMConjTrainState::GETTING_STATE_TRANSITION_PARAMS:
 				ATP_CORE_LOG(trace) << "Loading HMM model state "
 					"transition parameters...";
 				load_state_trans_results();
 				break;
 
-			case HMMConjProcState::GETTING_OBSERVATION_PARAMS:
+			case HMMConjTrainState::GETTING_OBSERVATION_PARAMS:
 				ATP_CORE_LOG(trace) << "Loading HMM model "
 					"observation parameters...";
 				load_obs_params_results();
+				break;
+
+			case HMMConjTrainState::GETTING_STATEMENTS_TO_TRAIN:
+				ATP_CORE_LOG(trace) << "Loading statements to train "
+					"HMM on...";
+				load_statements();
 				break;
 
 				// default: do nothing
@@ -81,9 +94,9 @@ void HMMConjectureProcess::run_step()
 			break;
 		case db::TransactionState::FAILED:
 			// bail out
-			ATP_CORE_LOG(error) << "HMMConjectureProcess DB "
+			ATP_CORE_LOG(error) << "HMMConjectureTrainProcess DB "
 				"operation failed, bailing...";
-			m_state = HMMConjProcState::FAILED;
+			m_state = HMMConjTrainState::FAILED;
 			m_db_op.reset();
 			break;
 		case db::TransactionState::COMPLETED:
@@ -92,35 +105,42 @@ void HMMConjectureProcess::run_step()
 
 			switch (m_state)
 			{
-			case HMMConjProcState::FINDING_MODEL:
+			case HMMConjTrainState::FINDING_MODEL:
 				ATP_CORE_LOG(trace) << "Finished finding HMM model.";
-				m_state = HMMConjProcState::
+				m_state = HMMConjTrainState::
 					GETTING_STATE_TRANSITION_PARAMS;
 				if (check_model_loaded())
 					setup_get_state_trans_params();
 				break;
 
-			case HMMConjProcState::GETTING_STATE_TRANSITION_PARAMS:
+			case HMMConjTrainState::GETTING_STATE_TRANSITION_PARAMS:
 				ATP_CORE_LOG(trace) << "Finished getting HMM model "
 					"state transition parameters.";
-				m_state = HMMConjProcState::
+				m_state = HMMConjTrainState::
 					GETTING_OBSERVATION_PARAMS;
 				setup_get_obs_params();
 				break;
 
-			case HMMConjProcState::GETTING_OBSERVATION_PARAMS:
+			case HMMConjTrainState::GETTING_OBSERVATION_PARAMS:
 				ATP_CORE_LOG(trace) << "Finished getting HMM model "
 					"observation parameters.";
-				m_state = HMMConjProcState::
-					GENERATING_CONJECTURES;
-				if (construct_model())
-					setup_conjecture_generation();
+				m_state = HMMConjTrainState::
+					GETTING_STATEMENTS_TO_TRAIN;
+				if (construct_model_trainer())
+					setup_get_statements_transaction();
 				break;
 
-			case HMMConjProcState::SAVING_RESULTS:
+			case HMMConjTrainState::GETTING_STATEMENTS_TO_TRAIN:
+				ATP_CORE_LOG(trace) << "Finished getting statements "
+					"to train HMM on.";
+				if (finish_loading_statements())
+					m_state = HMMConjTrainState::TRAINING;
+				break;
+
+			case HMMConjTrainState::SAVING_RESULTS:
 				ATP_CORE_LOG(trace) << "Finished saving conjectures "
 					"produced by HMM model!";
-				m_state = HMMConjProcState::
+				m_state = HMMConjTrainState::
 					DONE;
 				break;
 
@@ -131,23 +151,22 @@ void HMMConjectureProcess::run_step()
 		}
 	}
 	// this state is special because it isn't a DB transaction
-	else if (m_state == HMMConjProcState::GENERATING_CONJECTURES)
+	else if (m_state == HMMConjTrainState::TRAINING)
 	{
-		ATP_CORE_LOG(trace) << "Generating a conjecture...";
-		generate_a_conjecture();
+		train_one();
 
-		if (m_completed.size() == m_num_to_gen)
+		if (m_epochs_so_far == m_num_epochs)
 		{
-			ATP_CORE_LOG(info) << "Finished generating " <<
-				m_completed.size() << " conjectures; saving results "
-				"to database...";
+			ATP_CORE_LOG(info) << "Finished training HMM model for "
+				<< m_num_epochs << " epochs. Saving results to "
+				"database...";
 
 			// we are done, transition to next state:
 
-			m_state = HMMConjProcState::SAVING_RESULTS;
+			m_state = HMMConjTrainState::SAVING_RESULTS;
 
 			// get rid of stuff we don't need anymore:
-			m_model.reset();
+			m_trainer.reset();
 
 			// initialise next section of the operation
 			setup_save_results();
@@ -156,11 +175,11 @@ void HMMConjectureProcess::run_step()
 }
 
 
-void HMMConjectureProcess::setup_find_model_transaction()
+void HMMConjectureTrainProcess::setup_find_model_transaction()
 {
-	ATP_CORE_ASSERT(m_state == HMMConjProcState::FINDING_MODEL);
+	ATP_CORE_ASSERT(m_state == HMMConjTrainState::FINDING_MODEL);
 	ATP_CORE_ASSERT(m_db_op == nullptr);
-	ATP_CORE_ASSERT(m_model == nullptr);
+	ATP_CORE_ASSERT(!m_trainer.has_value());
 	// this is set in the constructor:
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 
@@ -188,16 +207,16 @@ void HMMConjectureProcess::setup_find_model_transaction()
 			m_ctx_id << "(" << m_ctx->context_name() << ") and "
 			"ID searched for was " << m_model_id;
 
-		m_state = HMMConjProcState::FAILED;
+		m_state = HMMConjTrainState::FAILED;
 	}
 }
 
 
-void HMMConjectureProcess::load_model_results()
+void HMMConjectureTrainProcess::load_model_results()
 {
-	ATP_CORE_ASSERT(m_state == HMMConjProcState::FINDING_MODEL);
+	ATP_CORE_ASSERT(m_state == HMMConjTrainState::FINDING_MODEL);
 	ATP_CORE_ASSERT(m_db_op != nullptr);
-	ATP_CORE_ASSERT(m_model == nullptr);
+	ATP_CORE_ASSERT(!m_trainer.has_value());
 	// this is set in the constructor:
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 
@@ -222,7 +241,7 @@ void HMMConjectureProcess::load_model_results()
 		{
 			ATP_CORE_LOG(error) << "Query to obtain HMM conjecturer "
 				"model data failed - query did not return an ID.";
-			m_state = HMMConjProcState::FAILED;
+			m_state = HMMConjTrainState::FAILED;
 			m_db_op.reset();
 		}
 		m_model_id = (size_t)db::get_int(id);
@@ -242,7 +261,7 @@ void HMMConjectureProcess::load_model_results()
 }
 
 
-bool HMMConjectureProcess::check_model_loaded()
+bool HMMConjectureTrainProcess::check_model_loaded()
 {
 	// the existence of this is sufficient to proceed loading the
 	// rest of the model
@@ -250,18 +269,18 @@ bool HMMConjectureProcess::check_model_loaded()
 	// they will be caught later.
 	if (!m_model_id.has_value())
 	{
-		m_state = HMMConjProcState::FAILED;
+		m_state = HMMConjTrainState::FAILED;
 	}
 	return m_model_id.has_value();
 }
 
 
-void HMMConjectureProcess::setup_get_state_trans_params()
+void HMMConjectureTrainProcess::setup_get_state_trans_params()
 {
-	ATP_CORE_ASSERT(m_state == HMMConjProcState::
+	ATP_CORE_ASSERT(m_state == HMMConjTrainState::
 		GETTING_STATE_TRANSITION_PARAMS);
 	ATP_CORE_ASSERT(m_db_op == nullptr);
-	ATP_CORE_ASSERT(m_model == nullptr);
+	ATP_CORE_ASSERT(!m_trainer.has_value());
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 	ATP_CORE_ASSERT(m_model_id.has_value());  // should've been set
 
@@ -287,17 +306,17 @@ void HMMConjectureProcess::setup_get_state_trans_params()
 			m_ctx_id << " (" << m_ctx->context_name() << ") and "
 			"the model ID searched for was " << *m_model_id;
 
-		m_state = HMMConjProcState::FAILED;
+		m_state = HMMConjTrainState::FAILED;
 	}
 }
 
 
-void HMMConjectureProcess::load_state_trans_results()
+void HMMConjectureTrainProcess::load_state_trans_results()
 {
-	ATP_CORE_ASSERT(m_state == HMMConjProcState::
+	ATP_CORE_ASSERT(m_state == HMMConjTrainState::
 		GETTING_STATE_TRANSITION_PARAMS);
 	ATP_CORE_ASSERT(m_db_op != nullptr);
-	ATP_CORE_ASSERT(m_model == nullptr);
+	ATP_CORE_ASSERT(!m_trainer.has_value());
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 
 	auto p_query = dynamic_cast<db::IQueryTransaction*>(m_db_op.get());
@@ -322,12 +341,12 @@ void HMMConjectureProcess::load_state_trans_results()
 }
 
 
-void HMMConjectureProcess::setup_get_obs_params()
+void HMMConjectureTrainProcess::setup_get_obs_params()
 {
-	ATP_CORE_ASSERT(m_state == HMMConjProcState::
+	ATP_CORE_ASSERT(m_state == HMMConjTrainState::
 		GETTING_OBSERVATION_PARAMS);
 	ATP_CORE_ASSERT(m_db_op == nullptr);
-	ATP_CORE_ASSERT(m_model == nullptr);
+	ATP_CORE_ASSERT(!m_trainer.has_value());
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 	ATP_CORE_ASSERT(m_model_id.has_value());  // should've been set
 
@@ -353,17 +372,17 @@ void HMMConjectureProcess::setup_get_obs_params()
 			m_ctx_id << " (" << m_ctx->context_name() << ") and "
 			"the model ID searched for was " << *m_model_id;
 
-		m_state = HMMConjProcState::FAILED;
+		m_state = HMMConjTrainState::FAILED;
 	}
 }
 
 
-void HMMConjectureProcess::load_obs_params_results()
+void HMMConjectureTrainProcess::load_obs_params_results()
 {
-	ATP_CORE_ASSERT(m_state == HMMConjProcState::
+	ATP_CORE_ASSERT(m_state == HMMConjTrainState::
 		GETTING_OBSERVATION_PARAMS);
 	ATP_CORE_ASSERT(m_db_op != nullptr);
-	ATP_CORE_ASSERT(m_model == nullptr);
+	ATP_CORE_ASSERT(!m_trainer.has_value());
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 
 	auto p_query = dynamic_cast<db::IQueryTransaction*>(m_db_op.get());
@@ -388,18 +407,27 @@ void HMMConjectureProcess::load_obs_params_results()
 }
 
 
-bool HMMConjectureProcess::construct_model()
+bool HMMConjectureTrainProcess::construct_model_trainer()
 {
-	ATP_CORE_ASSERT(m_model_id.has_value());
+	ATP_CORE_ASSERT(!m_trainer.has_value());
 	ATP_CORE_ASSERT(m_model_builder.has_value());
+	ATP_CORE_ASSERT(m_epochs_so_far == 0);
+	ATP_CORE_ASSERT(m_stmts == nullptr);
+	ATP_CORE_ASSERT(m_db_op == nullptr);
+	ATP_CORE_ASSERT(m_state == HMMConjTrainState::TRAINING);
+	ATP_CORE_ASSERT(m_model_id.has_value());
 
 	if (m_model_builder->can_build())
 	{
-		m_model = m_model_builder->build();
+		auto temp_model = m_model_builder->build();
 
-		ATP_CORE_LOG(trace) << "Built HMM conjecturer model!";
+		ATP_CORE_LOG(trace) << "Built HMM from loaded params!";
 
 		m_model_builder.reset();
+
+		m_trainer.emplace(m_lang, m_ctx_id, m_ctx,
+			temp_model->get_st_trans(), temp_model->get_st_obs(),
+			temp_model->get_symbols(), 0.0f /* no smoothing */);
 
 		return true;
 	}
@@ -409,7 +437,7 @@ bool HMMConjectureProcess::construct_model()
 			"all parameters were incorrect. Please check HMM "
 			"conjecturer model with ID " << *m_model_id;
 
-		m_state = HMMConjProcState::FAILED;
+		m_state = HMMConjTrainState::FAILED;
 		m_model_builder.reset();
 
 		return false;
@@ -417,189 +445,152 @@ bool HMMConjectureProcess::construct_model()
 }
 
 
-void HMMConjectureProcess::setup_conjecture_generation()
+void HMMConjectureTrainProcess::setup_get_statements_transaction()
 {
-	// actually don't have anything to do here, function is just here
-	// to make the control flow a bit more symmetric.
-
-	// you may want to see `construct_model()`
-}
-
-
-void HMMConjectureProcess::generate_a_conjecture()
-{
-	ATP_CORE_ASSERT(m_model != nullptr);
-	ATP_CORE_ASSERT(!m_model_builder.has_value());
 	ATP_CORE_ASSERT(m_db_op == nullptr);
-	ATP_CORE_ASSERT(m_completed.size() < m_num_to_gen);
-	ATP_CORE_ASSERT(m_state == HMMConjProcState::
-		GENERATING_CONJECTURES);
+	ATP_CORE_ASSERT(m_state ==
+		HMMConjTrainState::GETTING_STATEMENTS_TO_TRAIN);
 
-	// reset state to default, before generating a new statement
-	m_model->reset_state();
-
-	// it is important that they are evaluated in this order, as the
-	// HMM state is passed between them.
-	auto expr1 = generate_expression(),
-		expr2 = generate_expression();
-
-	if (expr1.has_value() && expr2.has_value())
-	{
-		m_completed.push_back(*expr1 + " = " + *expr2);
-
-		ATP_CORE_LOG(info) << "HMMConjectureProcess just generated the "
-			"statement \"" << m_completed.back() << "\".";
-	}
-	else
-	{
-		ATP_CORE_LOG(warning) << "Failed to generate conjecture.";
-	}
-
-	// TODO: there are a few ways we could use a HMM to generate
-	// these statements; in particular, in the way we let the
-	// state transition. Is there a nice way of selecting between
-	// them? For now we will only implement the one below.
-}
-
-
-void HMMConjectureProcess::setup_save_results()
-{
-	ATP_CORE_ASSERT(m_model == nullptr);
-	ATP_CORE_ASSERT(m_db_op == nullptr);
-	ATP_CORE_ASSERT(m_completed.size() == m_num_to_gen);
-	ATP_CORE_ASSERT(m_state == HMMConjProcState::SAVING_RESULTS);
-
-	// load conjectures as statement objects
-
-	const auto conjs = boost::algorithm::join(m_completed,
-		"\n");
-	logic::StatementArrayPtr p_targets;
-	{
-		std::stringstream s(conjs);
-		p_targets = m_lang->deserialise_stmts(s,
-			logic::StmtFormat::TEXT, *m_ctx);
-	}
-
-	if (p_targets == nullptr)
-	{
-		ATP_CORE_LOG(error) << "Failed to parse generated "
-			"conjectures! Conjectures were: \"" << conjs << "\".";
-
-		m_state = HMMConjProcState::FAILED;
-		return;
-	}
-
-	// now create a query to save them
+	ATP_CORE_LOG(trace) << "Setting up query to get proven theorems"
+		" from the database to train on.";
 
 	auto _p_bder = m_db->create_query_builder(
-		db::QueryBuilderType::SAVE_THMS_AND_PROOFS);
+		atp::db::QueryBuilderType::RANDOM_THM_SELECTION);
 
-	auto p_bder = dynamic_cast<db::ISaveProofResultsQryBder*>(
-		_p_bder.get());
+	auto p_bder = dynamic_cast<
+		atp::db::IRndThmSelectQryBder*>(_p_bder.get());
 
 	ATP_CORE_ASSERT(p_bder != nullptr);
 
-	p_bder->set_context(m_ctx_id, m_ctx)
-		->add_target_thms(p_targets);
-
+	p_bder->set_limit(m_max_dataset_size)
+		->set_context(m_ctx_id, m_ctx)
+		->set_proven(true);  // DEFINITELY load proven statements!
+	
 	const auto query = p_bder->build();
+
 	m_db_op = m_db->begin_transaction(query);
 
-	if (m_db_op == nullptr)
-	{
-		ATP_CORE_LOG(error) << "Failed to create query to save "
-			"conjectures to the database! Conjectures were: \""
-			<< conjs << "\".";
-
-		m_state = HMMConjProcState::FAILED;
-	}
+	ATP_CORE_ASSERT(m_db_op != nullptr);
 }
 
 
-boost::optional<std::string> HMMConjectureProcess::generate_expression()
+void HMMConjectureTrainProcess::load_statements()
 {
-	// to ensure termination, create an iteration limit:
-	static const size_t ITERATION_LIMIT = 10000;
+	ATP_CORE_ASSERT(m_db_op != nullptr);
+	ATP_CORE_ASSERT(m_state ==
+		HMMConjTrainState::GETTING_STATEMENTS_TO_TRAIN);
 
-	ATP_CORE_ASSERT(m_model != nullptr);
+	auto p_readable_op = dynamic_cast<atp::db::IQueryTransaction*>
+		(m_db_op.get());
 
-	// do not reset model state here!
+	ATP_CORE_ASSERT(p_readable_op != nullptr);
 
-	std::vector<CurrentStmtStackFrame> stack;
-
-	auto add_cur_model_obs = [&stack, this]()
+	if (p_readable_op->has_values())
 	{
-		stack.emplace_back(CurrentStmtStackFrame{
-			m_model->current_observation(),
-			m_model->current_observation_arity(),
-			m_model->current_observation_is_free_var(),
-			std::stringstream(), 0
-			});
-
-		if (m_model->current_observation_is_free_var())
+		if (p_readable_op->arity() != 1)
 		{
-			stack.back().done_so_far << 'x' <<
-				m_model->current_observation();
+			ATP_CORE_LOG(error) << "Failed to initialise kernel."
+				" Kernel initialisation query returned an arity "
+				"of " << p_readable_op->arity() << ", which "
+				"differed from the expected result of 1. "
+				"Ignoring query...";
 		}
 		else
 		{
-			stack.back().done_so_far << m_ctx->symbol_name(
-				m_model->current_observation());
+			atp::db::DValue stmt_str;
 
-			if (m_model->current_observation_arity() > 0)
+			if (!p_readable_op->try_get(0, atp::db::DType::STR,
+				&stmt_str))
 			{
-				stack.back().done_so_far << "(";
-			}
-		}
-	};
-
-	// push first element
-	add_cur_model_obs();
-
-	size_t iters = 0;
-	while (stack.front().cur_idx < stack.front().cur_obs_arity
-		&& iters < ITERATION_LIMIT)
-	{
-		++iters;
-
-		// handle back element (top of stack)
-		if (stack.back().cur_idx < stack.back().cur_obs_arity)
-		{
-			// advance the model (to update the state):
-			m_model->advance();
-
-			add_cur_model_obs();
-		}
-		else if (stack.size() > 1)
-		{
-			auto elem = std::move(stack.back());
-			stack.pop_back();
-
-			// advance next child and add our string to it:
-			++stack.back().cur_idx;
-			stack.back().done_so_far << elem.done_so_far.str();
-
-			// add comma or closing bracket
-			if (stack.back().cur_idx < stack.back().cur_obs_arity)
-			{
-				stack.back().done_so_far << ", ";
+				ATP_CORE_LOG(warning) << "Encountered non-string "
+					<< "statement value in database. Type "
+					<< "could be null?";
 			}
 			else
 			{
-				stack.back().done_so_far << ")";
+				ATP_CORE_LOG(debug) << "Adding '"
+					<< atp::db::get_str(stmt_str)
+					<< "' to helper theorems.";
+
+				m_stmt_strs << atp::db::get_str(stmt_str)
+					<< std::endl;
 			}
 		}
 	}
 
-	if (iters == ITERATION_LIMIT)
+}
+
+
+bool HMMConjectureTrainProcess::finish_loading_statements()
+{
+	ATP_CORE_ASSERT(m_state ==
+		HMMConjTrainState::GETTING_STATEMENTS_TO_TRAIN);
+	ATP_CORE_ASSERT(m_stmts == nullptr);
+
+	m_stmts = m_lang->deserialise_stmts(m_stmt_strs,
+		atp::logic::StmtFormat::TEXT, *m_ctx);
+
+	if (m_stmts == nullptr)
 	{
-		ATP_CORE_LOG(error) << "Iteration limit reached in generating "
-			"conjecture from HMMConjectureProcess, indicating bad "
-			"model parameters. Stack size was " << stack.size() <<
-			".";
-		return boost::none;
+		ATP_CORE_LOG(error) <<
+			"Failed to get dataset for training. There was"
+			" a problem with the following batch of "
+			"statements retrieved from the database: \""
+			<< m_stmt_strs.str() << '"';
 	}
-	return stack.front().done_so_far.str();
+	else if (m_stmts->size() > 0)
+	{
+		ATP_CORE_LOG(info) << "HMM Train Process: "
+			"Loaded dataset of size" << m_stmts->size()
+			<< " from the theorem database!";
+	}
+	else
+	{
+		ATP_CORE_LOG(warning) <<
+			"HMM train process could not find any "
+			"theorems to load from the database.";
+
+		// finish immediately
+		m_state = HMMConjTrainState::DONE;
+		return true;
+	}
+
+	m_stmt_strs = std::stringstream();  // reset this
+	m_db_op.reset();  // and this
+}
+
+
+void HMMConjectureTrainProcess::train_one()
+{
+	ATP_CORE_ASSERT(m_trainer.has_value());
+	ATP_CORE_ASSERT(m_epochs_so_far < m_num_epochs);
+	ATP_CORE_ASSERT(m_stmts != nullptr);
+	ATP_CORE_ASSERT(!m_model_builder.has_value());
+	ATP_CORE_ASSERT(m_db_op == nullptr);
+	ATP_CORE_ASSERT(m_state == HMMConjTrainState::TRAINING);
+
+	// limit the number of epochs to perform in a single step
+	static const size_t num_epochs_per_step = 10;
+
+	const size_t epochs_todo_now = std::min(
+		num_epochs_per_step, m_num_epochs - m_epochs_so_far);
+
+	m_trainer->train(m_stmts, epochs_todo_now);
+
+	m_epochs_so_far += m_num_epochs;
+}
+
+
+std::vector<size_t> get_all_symbols(
+	const logic::ModelContextPtr& p_ctx)
+{
+	auto result = p_ctx->all_constant_symbol_ids();
+
+	auto temp = p_ctx->all_function_symbol_ids();
+
+	result.insert(result.end(), temp.begin(), temp.end());
+
+	return result;
 }
 
 

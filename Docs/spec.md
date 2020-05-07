@@ -3,8 +3,9 @@
 ## Main ideas and principles
 
 - A theorem prover / knowledge engine which is intended to be continuously running on some powerful machines, and thus building up a large database of knowledge.
+- Its end goal is to decide whether a given statement is *in the theory of a given model*.
 - Automatically prioritises knowledge which is useful to store (including deactivating theorems which are not very useful).
-- **Not** intended to supply proofs for human checking of its knowledge.
+- **Not** intended to supply proofs for human checking of its knowledge (it just answers "yes" or "no" to whether or not a statement is deducible from the axioms).
 - Eventually the goal is for the system to solve customer problems (which are logical in nature). Customers can supply files containing statements which need to be evaluated as true or false. The file can contain a date by which it should be done, and the system's internal scheduler uses this deadline to estimate the priority of the file.
 - The system has to balance many different processes: training statistical models, making logical inferences (in many different contexts), and solving customer problems.
 - Can make links between different contexts (e.g. using group theory in complex analysis).

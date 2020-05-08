@@ -181,6 +181,7 @@
     <ClInclude Include="Processes\IProcess.h" />
     <ClInclude Include="Processes\ProcessManager.h" />
     <ClInclude Include="Processes\ProofProcess.h" />
+    <ClInclude Include="Processes\QueryProcess.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp" />
@@ -192,6 +193,7 @@
     <ClCompile Include="Processes\HMMConjectureTrainProcess.cpp" />
     <ClCompile Include="Processes\ProcessManager.cpp" />
     <ClCompile Include="Processes\ProofProcess.cpp" />
+    <ClCompile Include="Processes\QueryProcess.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

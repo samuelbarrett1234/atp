@@ -65,7 +65,7 @@ private:
 };
 
 
-ProcessPtr create_save_results_process(
+ProcessPtr create_save_conj_results_process(
 	proc_data::HMMConjGenerationEssentials& gen_data)
 {
 	return std::make_shared<HMMSaveConjResultsProcess>(gen_data);

@@ -32,7 +32,7 @@ namespace core
 
 \returns A new process.
 */
-ATP_CORE_API ProcessPtr create_save_results_process(
+ATP_CORE_API ProcessPtr create_save_conj_results_process(
 	proc_data::HMMConjGenerationEssentials& gen_data);
 
 

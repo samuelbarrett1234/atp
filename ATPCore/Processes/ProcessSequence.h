@@ -138,29 +138,29 @@ private:
 		static_assert(i < SIZE,
 			"i out of bounds.");
 
-		if constexpr (i == 0)
+		if constexpr (i == SIZE - 1)
 		{
 			static_assert(std::is_convertible_v<
-				decltype(m_proc_creators.get<0>()),
+				decltype(m_proc_creators.get<i>()),
 				std::function<ProcessPtr(
-				decltype(m_datas.get<0>()))>>,
+				decltype(m_datas.get<i>()))>>,
 				"Process creator function has wrong type.");
 
-			// handle first process as a special case
-			m_current = m_proc_creators.get<0>()(
-				m_datas.get<0>());
+			// handle last process as a special case
+			m_current = m_proc_creators.get<i>()(
+				m_datas.get<i>());
 		}
 		else
 		{
 			static_assert(std::is_convertible_v<
 				decltype(m_proc_creators.get<i>()),
 				std::function<ProcessPtr(
-					decltype(m_datas.get<i - 1>()),
-					decltype(m_datas.get<i>()))>>,
+					decltype(m_datas.get<i>()),
+					decltype(m_datas.get<i + 1>()))>>,
 				"Process creator function has wrong type.");
 
 			m_current = m_proc_creators.get<i>()(
-				m_datas.get<i - 1>(), m_datas.get<i>());
+				m_datas.get<i>(), m_datas.get<i + 1>());
 		}
 
 		ATP_CORE_PRECOND(m_current != nullptr);

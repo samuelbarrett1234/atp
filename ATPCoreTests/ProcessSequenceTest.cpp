@@ -111,9 +111,9 @@ BOOST_AUTO_TEST_CASE(test_put_together_process_sequence)
 
 	auto p_proc = make_sequence<
 		bool, size_t, std::string>(boost::make_tuple(
-		boost::bind(&TestProcess1<bool>::make, _1),
 		boost::bind(&TestProcess2<bool, size_t>::make, _1, _2),
-		boost::bind(&TestProcess2<size_t, std::string>::make, _1, _2)
+		boost::bind(&TestProcess2<size_t, std::string>::make, _1, _2),
+		boost::bind(&TestProcess1<std::string>::make, _1)
 	));
 
 	BOOST_REQUIRE(p_proc != nullptr);

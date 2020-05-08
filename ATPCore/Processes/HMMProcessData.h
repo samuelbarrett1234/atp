@@ -33,7 +33,6 @@ struct ATP_CORE_API HMMConjBuildingEssentials :
 	public LogicEssentials
 {
 	boost::optional<size_t> model_id;
-	HMMConjectureModelBuilder builder;
 };
 
 
@@ -57,7 +56,7 @@ struct ATP_CORE_API HMMConjecturerTrainingEssentials :
 {
 	size_t num_epochs;
 	logic::StatementArrayPtr dataset;
-}
+};
 
 
 }  // namespace proc_data

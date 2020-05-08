@@ -34,7 +34,7 @@ ProcessPtr create_proof_process(
 			boost::make_tuple(
 		boost::bind(&create_proof_init_process, _1, _2),
 		boost::bind(&create_run_solver_process, _1, _2),
-		boost::bind(&create_save_results_process, _1, _2)
+		boost::bind(&create_save_results_process, _1)
 		));
 
 	// set initial data block

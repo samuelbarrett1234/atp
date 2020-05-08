@@ -74,26 +74,21 @@ private:
 
 
 ProcessPtr create_save_results_process(
-	proc_data::ProofEssentials& proof_data_before,
-	proc_data::ProofEssentials& proof_data_after)
+	proc_data::ProofEssentials& proof_data)
 {
 	// check all the data is valid:
-	ATP_CORE_PRECOND(proof_data_before.db != nullptr);
-	ATP_CORE_PRECOND(proof_data_before.lang != nullptr);
-	ATP_CORE_PRECOND(proof_data_before.ctx != nullptr);
-	ATP_CORE_PRECOND(proof_data_before.target_thms != nullptr);
-	ATP_CORE_PRECOND(proof_data_before.ker != nullptr);
-	ATP_CORE_PRECOND(proof_data_before.solver != nullptr);
-	ATP_CORE_PRECOND(proof_data_before.helper_thms != nullptr);
-	ATP_CORE_PRECOND(proof_data_before.max_steps > 0);
-	ATP_CORE_PRECOND(proof_data_before.step_size > 0);
-
-	// copy data over, it stays the same
-	if (&proof_data_before != &proof_data_after)
-		proof_data_after = proof_data_before;
+	ATP_CORE_PRECOND(proof_data.db != nullptr);
+	ATP_CORE_PRECOND(proof_data.lang != nullptr);
+	ATP_CORE_PRECOND(proof_data.ctx != nullptr);
+	ATP_CORE_PRECOND(proof_data.target_thms != nullptr);
+	ATP_CORE_PRECOND(proof_data.ker != nullptr);
+	ATP_CORE_PRECOND(proof_data.solver != nullptr);
+	ATP_CORE_PRECOND(proof_data.helper_thms != nullptr);
+	ATP_CORE_PRECOND(proof_data.max_steps > 0);
+	ATP_CORE_PRECOND(proof_data.step_size > 0);
 
 	return std::make_shared<SaveProofResultsProcess>(
-		proof_data_after);
+		proof_data);
 }
 
 

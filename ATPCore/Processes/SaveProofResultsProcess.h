@@ -32,8 +32,7 @@ namespace core
 \returns A new process.
 */
 ATP_CORE_API ProcessPtr create_save_results_process(
-	proc_data::ProofEssentials& proof_data_before,
-	proc_data::ProofEssentials& proof_data_after);
+	proc_data::ProofEssentials& proof_data);
 
 
 }  // namespace core

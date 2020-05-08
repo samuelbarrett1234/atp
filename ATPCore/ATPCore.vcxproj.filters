@@ -63,6 +63,9 @@
     <ClInclude Include="Processes\QueryProcess.h">
       <Filter>Header Files\Processes</Filter>
     </ClInclude>
+    <ClInclude Include="Processes\ProcessSequence.h">
+      <Filter>Header Files\Processes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp">

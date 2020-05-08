@@ -53,6 +53,13 @@ public:
 	virtual bool waiting() const = 0;
 
 	/**
+	\brief Returns true iff the process is in a failed state.
+
+	\post If has_failed() returns true then done() should return true
+	*/
+	virtual bool has_failed() const = 0;
+
+	/**
 	\brief Perform a step of the computation.
 
 	\pre !done()

@@ -179,6 +179,7 @@
     <ClInclude Include="Processes\HMMConjectureProcess.h" />
     <ClInclude Include="Processes\HMMConjectureTrainProcess.h" />
     <ClInclude Include="Processes\IProcess.h" />
+    <ClInclude Include="Processes\ProcessSequence.h" />
     <ClInclude Include="Processes\ProcessManager.h" />
     <ClInclude Include="Processes\ProofProcess.h" />
     <ClInclude Include="Processes\QueryProcess.h" />

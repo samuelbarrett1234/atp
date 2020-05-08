@@ -136,6 +136,41 @@ public:
 	{
 		return m_symbs;
 	}
+	inline float free_q() const
+	{
+		return m_free_q;
+	}
+	inline size_t num_states() const
+	{
+		return m_num_hidden_states;
+	}
+	inline float st_trans_prob(size_t from, size_t to) const
+	{
+		ATP_CORE_PRECOND(from < m_num_hidden_states);
+		ATP_CORE_PRECOND(to < m_num_hidden_states);
+		ATP_CORE_ASSERT(m_st_trans.size1() ==
+			m_num_hidden_states);
+		ATP_CORE_ASSERT(m_st_trans.size2() ==
+			m_num_hidden_states);
+
+		return m_st_trans(from, to);
+	}
+	inline float obs_prob(size_t state, size_t symb_id) const
+	{
+		ATP_CORE_PRECOND(state < m_num_hidden_states);
+
+		const auto iter = std::find(m_symbs.begin(), m_symbs.end(),
+			symb_id);
+		ATP_CORE_PRECOND(iter != m_symbs.end());
+
+		const auto idx = std::distance(m_symbs.begin(), iter);
+		ATP_CORE_ASSERT(idx < m_st_obs.size2());
+
+		ATP_CORE_ASSERT(m_st_obs.size1() == m_num_hidden_states);
+		ATP_CORE_ASSERT(m_st_obs.size2() == m_symbs.size());
+
+		return m_st_obs(state, idx);
+	}
 
 private:
 	void generate_observation();

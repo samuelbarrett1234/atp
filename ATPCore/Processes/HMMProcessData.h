@@ -44,10 +44,10 @@ struct ATP_CORE_API HMMConjModelEssentials :
 };
 
 
-struct ATP_CORE_API HMMConjecturingEssentials :
+struct ATP_CORE_API HMMConjGenerationEssentials :
 	public HMMConjModelEssentials
 {
-	size_t num_to_generate;
+	logic::StatementArrayPtr generated_stmts;
 };
 
 

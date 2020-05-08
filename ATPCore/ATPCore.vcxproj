@@ -179,6 +179,7 @@
     <ClInclude Include="Processes\CommonProcessData.h" />
     <ClInclude Include="Processes\HMMConjectureProcess.h" />
     <ClInclude Include="Processes\HMMConjectureTrainProcess.h" />
+    <ClInclude Include="Processes\HMMGenerateConjProcess.h" />
     <ClInclude Include="Processes\HMMModelLoaderProcess.h" />
     <ClInclude Include="Processes\HMMProcessData.h" />
     <ClInclude Include="Processes\IProcess.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Processes\ProofInitProcess.h" />
     <ClInclude Include="Processes\QueryProcess.h" />
     <ClInclude Include="Processes\RunSolverProcess.h" />
+    <ClInclude Include="Processes\SaveConjResultsProcess.h" />
     <ClInclude Include="Processes\SaveProofResultsProcess.h" />
   </ItemGroup>
   <ItemGroup>
@@ -198,12 +200,14 @@
     <ClCompile Include="Models\HMMUtility.cpp" />
     <ClCompile Include="Processes\HMMConjectureProcess.cpp" />
     <ClCompile Include="Processes\HMMConjectureTrainProcess.cpp" />
+    <ClCompile Include="Processes\HMMGenerateConjProcess.cpp" />
     <ClCompile Include="Processes\HMMModelLoaderProcess.cpp" />
     <ClCompile Include="Processes\ProcessManager.cpp" />
     <ClCompile Include="Processes\ProofProcess.cpp" />
     <ClCompile Include="Processes\ProofInitProcess.cpp" />
     <ClCompile Include="Processes\QueryProcess.cpp" />
     <ClCompile Include="Processes\RunSolverProcess.cpp" />
+    <ClCompile Include="Processes\SaveConjResultsProcess.cpp" />
     <ClCompile Include="Processes\SaveProofResultsProcess.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

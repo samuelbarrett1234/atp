@@ -102,6 +102,12 @@
     <ClInclude Include="Processes\HMMModelLoaderProcess.h">
       <Filter>Header Files\Processes\HMM</Filter>
     </ClInclude>
+    <ClInclude Include="Processes\HMMGenerateConjProcess.h">
+      <Filter>Header Files\Processes\HMM</Filter>
+    </ClInclude>
+    <ClInclude Include="Processes\SaveConjResultsProcess.h">
+      <Filter>Header Files\Processes\HMM</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp">
@@ -144,6 +150,12 @@
       <Filter>Source Files\Processes\Proof</Filter>
     </ClCompile>
     <ClCompile Include="Processes\HMMModelLoaderProcess.cpp">
+      <Filter>Source Files\Processes\HMM</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\HMMGenerateConjProcess.cpp">
+      <Filter>Source Files\Processes\HMM</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\SaveConjResultsProcess.cpp">
       <Filter>Source Files\Processes\HMM</Filter>
     </ClCompile>
   </ItemGroup>

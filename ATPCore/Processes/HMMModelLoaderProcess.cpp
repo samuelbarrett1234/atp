@@ -324,8 +324,11 @@ class BuildHMMModelProcess :
 {
 public:
 	BuildHMMModelProcess(MyHMMBuildingData& building_data,
-		proc_data::HMMConjModelEssentials& model_data)
+		proc_data::HMMConjModelEssentials& model_data) :
+		m_failed(false)
 	{
+		ATP_CORE_PRECOND(model_data.model == nullptr);
+
 		ATP_CORE_LOG(trace) << "Building HMM model...";
 
 		if (building_data.model_builder.can_build())
@@ -352,6 +355,8 @@ public:
 				"observation entry for each state and for each "
 				"symbol in the model context.";
 		}
+
+		m_failed = (model_data.model == nullptr);
 	}
 
 	inline bool done() const override
@@ -364,9 +369,12 @@ public:
 	}
 	inline bool has_failed() const override
 	{
-		return m_model_data.model == nullptr;
+		return m_failed;
 	}
 	inline void run_step() override { }
+
+private:
+	bool m_failed;
 };
 
 

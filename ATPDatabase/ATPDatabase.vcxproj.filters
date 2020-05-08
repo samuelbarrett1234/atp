@@ -75,6 +75,9 @@
     <ClInclude Include="Internal\SQLiteRndThmSelectQryBder.h">
       <Filter>Header Files\Internal\SQLite</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\SQLiteSaveHmmConjModelParams.h">
+      <Filter>Header Files\Internal\SQLite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp">
@@ -105,6 +108,9 @@
       <Filter>Source Files\Internal\SQLite</Filter>
     </ClCompile>
     <ClCompile Include="Internal\SQLiteRndThmSelectQryBder.cpp">
+      <Filter>Source Files\Internal\SQLite</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SQLiteSaveHmmConjModelParams.cpp">
       <Filter>Source Files\Internal\SQLite</Filter>
     </ClCompile>
   </ItemGroup>

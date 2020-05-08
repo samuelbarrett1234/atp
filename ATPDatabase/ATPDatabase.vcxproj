@@ -178,6 +178,7 @@
     <ClInclude Include="Interfaces\IDatabase.h" />
     <ClInclude Include="Interfaces\ITransaction.h" />
     <ClInclude Include="Interfaces\IQueryBuilders.h" />
+    <ClInclude Include="Internal\SQLiteSaveHmmConjModelParams.h" />
     <ClInclude Include="Internal\SQLiteDatabase.h" />
     <ClInclude Include="Internal\SQLiteCheckAxInDbQryBder.h" />
     <ClInclude Include="Internal\SQLiteFindHmmConjModel.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="Internal\SQLiteGetHmmConjObsParams.cpp" />
     <ClCompile Include="Internal\SQLiteGetHmmConjStTransParams.cpp" />
     <ClCompile Include="Internal\SQLiteRndThmSelectQryBder.cpp" />
+    <ClCompile Include="Internal\SQLiteSaveHmmConjModelParams.cpp" />
     <ClCompile Include="Internal\SQLiteSaveProofResultsQryBder.cpp" />
     <ClCompile Include="Internal\SQLiteTransaction.cpp" />
     <ClCompile Include="Internal\TransactionListWrapper.cpp" />

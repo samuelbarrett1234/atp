@@ -58,7 +58,10 @@ enum class QueryBuilderType
 
 	// given a reference to a HMM conjecture model, find all of its
 	// observation parameters.
-	GET_HMM_CONJ_OBS_PARAMS
+	GET_HMM_CONJ_OBS_PARAMS,
+
+	// save HMM conjecture model parameters
+	SAVE_HMM_CONJ_PARAMS
 };
 
 
@@ -366,6 +369,78 @@ public:
 	virtual IGetHmmConjectureModelParams* set_ctx(
 		size_t ctx_id,
 		const logic::ModelContextPtr& p_ctx) = 0;
+};
+
+
+/**
+\brief This query builder is for putting together a query to save
+	model parameters for the HMM conjecturer model.
+
+\details The model context information and model ID are compulsory,
+	but everything else is optional.
+*/
+class ATP_DATABASE_API ISaveHmmConjModelParams :
+	public IQueryBuilder
+{
+public:
+	virtual ~ISaveHmmConjModelParams() = default;
+
+	/**
+	\brief Reset the parameters as they were when this object was
+		constructed.
+
+	\returns this
+	*/
+	virtual ISaveHmmConjModelParams* reset() = 0;
+
+	/**
+	\brief Set the model ID to find the parameters for.
+
+	\returns this
+	*/
+	virtual ISaveHmmConjModelParams* set_model_id(size_t mid) = 0;
+
+	/**
+	\brief Set the model context
+
+	\returns this
+	*/
+	virtual ISaveHmmConjModelParams* set_ctx(
+		size_t ctx_id,
+		const logic::ModelContextPtr& p_ctx) = 0;
+
+	/**
+	\brief Set the number of hidden states in this model
+
+	\returns this
+	*/
+	virtual ISaveHmmConjModelParams* set_num_states(size_t n) = 0;
+
+	/**
+	\brief Set the "q" parameter for the geometric distribution
+		modelling the free variable IDs
+
+	\returns this
+	*/
+	virtual ISaveHmmConjModelParams* set_free_q(float q) = 0;
+
+	/**
+	\brief Add a state transition from "pre" to "post" which occurs
+		which probability "prob"
+
+	\returns this
+	*/
+	virtual ISaveHmmConjModelParams* add_state_trans(size_t pre,
+		size_t post, float prob) = 0;
+
+	/**
+	\brief State that the model observes the symbol with ID "symb_id"
+		in state "state" with probability "prob"
+
+	\returns this
+	*/
+	virtual ISaveHmmConjModelParams* add_observation(size_t state,
+		size_t symb_id, float prob) = 0;
 };
 
 

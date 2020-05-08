@@ -51,10 +51,19 @@ public:
 
 protected:  // implement these functions!
 
-	virtual std::unique_ptr<db::IQueryBuilder> create_query() = 0;
+	virtual db::QueryBuilderPtr create_query() = 0;
 	virtual void on_load_values(db::IQueryTransaction& query) { }
 	virtual void on_finished() { }
 	virtual void on_failed() { }
+
+protected:
+	// derived classes can force a failed state this way, in which
+	// case on_failed() WILL NOT be called
+	inline void force_fail()
+	{
+		m_failed = true;
+		m_done = true;
+	}
 
 private:
 	db::DatabasePtr m_db;

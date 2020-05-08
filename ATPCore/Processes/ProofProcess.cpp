@@ -7,6 +7,8 @@
 
 
 #include "ProofProcess.h"
+#include "CommonProcessData.h"
+#include "ProcessSequence.h"
 
 
 namespace atp

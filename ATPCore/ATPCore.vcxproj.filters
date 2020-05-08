@@ -66,6 +66,15 @@
     <ClInclude Include="Processes\ProcessSequence.h">
       <Filter>Header Files\Processes</Filter>
     </ClInclude>
+    <ClInclude Include="Processes\CommonProcessData.h">
+      <Filter>Header Files\Processes</Filter>
+    </ClInclude>
+    <ClInclude Include="Processes\HMMProcessData.h">
+      <Filter>Header Files\Processes</Filter>
+    </ClInclude>
+    <ClInclude Include="Processes\ProofInitProcess.h">
+      <Filter>Header Files\Processes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp">
@@ -96,6 +105,9 @@
       <Filter>Source Files\Processes</Filter>
     </ClCompile>
     <ClCompile Include="Processes\QueryProcess.cpp">
+      <Filter>Source Files\Processes</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\ProofInitProcess.cpp">
       <Filter>Source Files\Processes</Filter>
     </ClCompile>
   </ItemGroup>

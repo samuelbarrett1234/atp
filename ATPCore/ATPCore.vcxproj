@@ -176,12 +176,15 @@
     <ClInclude Include="Models\HMMConjectureModel.h" />
     <ClInclude Include="Models\HMMConjectureModelBuilder.h" />
     <ClInclude Include="Models\HMMStmtToObs.h" />
+    <ClInclude Include="Processes\CommonProcessData.h" />
     <ClInclude Include="Processes\HMMConjectureProcess.h" />
     <ClInclude Include="Processes\HMMConjectureTrainProcess.h" />
+    <ClInclude Include="Processes\HMMProcessData.h" />
     <ClInclude Include="Processes\IProcess.h" />
     <ClInclude Include="Processes\ProcessSequence.h" />
     <ClInclude Include="Processes\ProcessManager.h" />
     <ClInclude Include="Processes\ProofProcess.h" />
+    <ClInclude Include="Processes\ProofInitProcess.h" />
     <ClInclude Include="Processes\QueryProcess.h" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +197,7 @@
     <ClCompile Include="Processes\HMMConjectureTrainProcess.cpp" />
     <ClCompile Include="Processes\ProcessManager.cpp" />
     <ClCompile Include="Processes\ProofProcess.cpp" />
+    <ClCompile Include="Processes\ProofInitProcess.cpp" />
     <ClCompile Include="Processes\QueryProcess.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

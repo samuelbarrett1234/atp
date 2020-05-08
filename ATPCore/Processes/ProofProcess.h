@@ -25,6 +25,15 @@ namespace core
 {
 
 
+ATP_CORE_API ProcessPtr make_proof_process(
+	atp::logic::LanguagePtr p_lang,
+	size_t ctx_id, size_t ss_id,
+	atp::logic::ModelContextPtr p_ctx,
+	atp::db::DatabasePtr p_db,
+	atp::search::SearchSettings& search_settings,
+	atp::logic::StatementArrayPtr p_target_stmts);
+
+
 class ATP_CORE_API ProofProcess :
 	public IProcess
 {

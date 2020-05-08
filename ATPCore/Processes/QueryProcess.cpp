@@ -45,10 +45,20 @@ void QueryProcess::run_step()
 		break;
 
 		case db::TransactionState::COMPLETED:
+			ATP_CORE_ASSERT(!m_failed);
 			ATP_CORE_LOG(debug) << "Completed database transaction.";
+
+			// this may call force_fail()
 			on_finished();
+
 			m_done = true;
 			m_db_op.reset();
+
+			if (m_failed)
+			{
+				ATP_CORE_LOG(warning) << "Query process child failed"
+					" to complete operation, so we're bailing...";
+			}
 			break;
 
 		case db::TransactionState::FAILED:

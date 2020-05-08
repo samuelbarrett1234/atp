@@ -7,6 +7,7 @@
 
 
 #include <chrono>
+#include <boost/optional/optional_io.hpp>
 #include "HMMConjectureTrainProcess.h"
 #include "../Models/HMMConjectureModel.h"
 
@@ -166,7 +167,7 @@ void HMMConjectureTrainProcess::run_step()
 			m_state = HMMConjTrainState::SAVING_RESULTS;
 
 			// get rid of stuff we don't need anymore:
-			m_trainer.reset();
+			m_model.reset();
 
 			// initialise next section of the operation
 			setup_save_results();
@@ -179,7 +180,7 @@ void HMMConjectureTrainProcess::setup_find_model_transaction()
 {
 	ATP_CORE_ASSERT(m_state == HMMConjTrainState::FINDING_MODEL);
 	ATP_CORE_ASSERT(m_db_op == nullptr);
-	ATP_CORE_ASSERT(!m_trainer.has_value());
+	ATP_CORE_ASSERT(m_model == nullptr);
 	// this is set in the constructor:
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 
@@ -216,7 +217,7 @@ void HMMConjectureTrainProcess::load_model_results()
 {
 	ATP_CORE_ASSERT(m_state == HMMConjTrainState::FINDING_MODEL);
 	ATP_CORE_ASSERT(m_db_op != nullptr);
-	ATP_CORE_ASSERT(!m_trainer.has_value());
+	ATP_CORE_ASSERT(m_model == nullptr);
 	// this is set in the constructor:
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 
@@ -280,7 +281,7 @@ void HMMConjectureTrainProcess::setup_get_state_trans_params()
 	ATP_CORE_ASSERT(m_state == HMMConjTrainState::
 		GETTING_STATE_TRANSITION_PARAMS);
 	ATP_CORE_ASSERT(m_db_op == nullptr);
-	ATP_CORE_ASSERT(!m_trainer.has_value());
+	ATP_CORE_ASSERT(m_model == nullptr);
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 	ATP_CORE_ASSERT(m_model_id.has_value());  // should've been set
 
@@ -316,7 +317,7 @@ void HMMConjectureTrainProcess::load_state_trans_results()
 	ATP_CORE_ASSERT(m_state == HMMConjTrainState::
 		GETTING_STATE_TRANSITION_PARAMS);
 	ATP_CORE_ASSERT(m_db_op != nullptr);
-	ATP_CORE_ASSERT(!m_trainer.has_value());
+	ATP_CORE_ASSERT(m_model == nullptr);
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 
 	auto p_query = dynamic_cast<db::IQueryTransaction*>(m_db_op.get());
@@ -346,7 +347,7 @@ void HMMConjectureTrainProcess::setup_get_obs_params()
 	ATP_CORE_ASSERT(m_state == HMMConjTrainState::
 		GETTING_OBSERVATION_PARAMS);
 	ATP_CORE_ASSERT(m_db_op == nullptr);
-	ATP_CORE_ASSERT(!m_trainer.has_value());
+	ATP_CORE_ASSERT(m_model == nullptr);
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 	ATP_CORE_ASSERT(m_model_id.has_value());  // should've been set
 
@@ -382,7 +383,7 @@ void HMMConjectureTrainProcess::load_obs_params_results()
 	ATP_CORE_ASSERT(m_state == HMMConjTrainState::
 		GETTING_OBSERVATION_PARAMS);
 	ATP_CORE_ASSERT(m_db_op != nullptr);
-	ATP_CORE_ASSERT(!m_trainer.has_value());
+	ATP_CORE_ASSERT(m_model == nullptr);
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 
 	auto p_query = dynamic_cast<db::IQueryTransaction*>(m_db_op.get());
@@ -409,7 +410,7 @@ void HMMConjectureTrainProcess::load_obs_params_results()
 
 bool HMMConjectureTrainProcess::construct_model_trainer()
 {
-	ATP_CORE_ASSERT(!m_trainer.has_value());
+	ATP_CORE_ASSERT(m_model == nullptr);
 	ATP_CORE_ASSERT(m_model_builder.has_value());
 	ATP_CORE_ASSERT(m_epochs_so_far == 0);
 	ATP_CORE_ASSERT(m_stmts == nullptr);
@@ -419,15 +420,9 @@ bool HMMConjectureTrainProcess::construct_model_trainer()
 
 	if (m_model_builder->can_build())
 	{
-		auto temp_model = m_model_builder->build();
+		m_model = m_model_builder->build();
 
 		ATP_CORE_LOG(trace) << "Built HMM from loaded params!";
-
-		m_model_builder.reset();
-
-		m_trainer.emplace(m_lang, m_ctx_id, m_ctx,
-			temp_model->get_st_trans(), temp_model->get_st_obs(),
-			temp_model->get_symbols(), 0.0f /* no smoothing */);
 
 		return true;
 	}
@@ -562,7 +557,7 @@ bool HMMConjectureTrainProcess::finish_loading_statements()
 
 void HMMConjectureTrainProcess::train_one()
 {
-	ATP_CORE_ASSERT(m_trainer.has_value());
+	ATP_CORE_ASSERT(m_model != nullptr);
 	ATP_CORE_ASSERT(m_epochs_so_far < m_num_epochs);
 	ATP_CORE_ASSERT(m_stmts != nullptr);
 	ATP_CORE_ASSERT(!m_model_builder.has_value());
@@ -575,7 +570,7 @@ void HMMConjectureTrainProcess::train_one()
 	const size_t epochs_todo_now = std::min(
 		num_epochs_per_step, m_num_epochs - m_epochs_so_far);
 
-	m_trainer->train(m_stmts, epochs_todo_now);
+	m_model->train(m_stmts, epochs_todo_now);
 
 	m_epochs_so_far += m_num_epochs;
 }

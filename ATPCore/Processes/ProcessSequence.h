@@ -14,6 +14,8 @@
 
 #include <type_traits>
 #include <functional>
+#include <boost/tuple/tuple.hpp>
+#include <boost/bind.hpp>
 #include "../ATPCoreAPI.h"
 #include "IProcess.h"
 
@@ -40,27 +42,27 @@ namespace core
 	constructor, and is invoked only when the first process
 	finishes.
 */
-template<typename DataT, typename Proc1Creator,
-	typename Proc2Creator>
+template<typename DataTuple,
+	typename ProcCreatorTuple>
 class ProcessSequence :
 	public IProcess
 {
 public:
-	ProcessSequence(Proc1Creator p1, Proc2Creator p2) :
-		m_create_proc2(std::move(p2)),
+	ProcessSequence(ProcCreatorTuple funcs) :
+		m_proc_creators(std::move(funcs)),
 		m_idx(0), m_failed(false)
 	{
-		static_assert(std::is_convertible_v<Proc1Creator,
-			ProcessPtr(DataT&)>, "Proc1Creator must be "
-			"of type DataT& -> ProcessPtr");
+		create_proc_at<0>();
 
-		m_current = p1(m_data);
-		ATP_CORE_PRECOND(m_current != nullptr);
+		static_assert(SIZE ==
+			boost::tuples::length<DataTuple>::value,
+			"Number of process functions must be equal to "
+			"the number of data items!");
 	}
 
 	inline bool done() const override
 	{
-		return m_idx == 2;
+		return m_idx == SIZE;
 	}
 
 	inline bool waiting() const override
@@ -83,53 +85,134 @@ public:
 		{
 			++m_idx;
 
-			if (m_idx == 1)
-			{
-				static_assert(std::is_convertible_v<Proc2Creator,
-					ProcessPtr(DataT&)>,
-					"Proc2Creator must be "
-					"of type DataT& -> ProcessPtr");
+			// create the next process
 
-				m_current = m_create_proc2(m_data);
+			m_current.reset();
 
-				ATP_CORE_PRECOND(m_current != nullptr);
-			}
-			else
+			if (m_idx < SIZE)
 			{
-				m_current.reset();
+				// sprinkle a bit of template magic to utilise the fact
+				// that we know 0 <= m_idx < SIZE, so we can think of
+				// unrolling a for-loop to have the effect of calling:
+				// create_proc_at<m_idx>() but of course the latter would
+				// not be allowed.
+				ProcCreator<SIZE - 1> creator(*this);
+				creator(m_idx);
 			}
+			// else we are done
 		}
 		else if (m_current->has_failed())
 		{
 			// check postcondition of has_failed()
 			ATP_CORE_ASSERT(m_current->done());
 
+			// we have failed, so just "jump to the end"
 			m_failed = true;
-			m_idx = 2;
+			m_idx = SIZE;
 			m_current.reset();
 		}
 		else
 		{
+			// this is the normal case; just execute the current
+			// process for one step.
 			m_current->run_step();
 		}
 	}
 
 private:
+	template<size_t i>
+	void create_proc_at()
+	{
+		ATP_CORE_PRECOND(!m_failed);
+		ATP_CORE_PRECOND(m_idx == i);
+
+		static_assert(i < SIZE,
+			"i out of bounds.");
+
+		if constexpr (i == 0)
+		{
+			static_assert(std::is_convertible_v<
+				decltype(m_proc_creators.get<0>()),
+				std::function<ProcessPtr(
+				decltype(m_datas.get<0>()))>>,
+				"Process creator function has wrong type.");
+
+			// handle first process as a special case
+			m_current = m_proc_creators.get<0>()(
+				m_datas.get<0>());
+		}
+		else
+		{
+			static_assert(std::is_convertible_v<
+				decltype(m_proc_creators.get<i>()),
+				std::function<ProcessPtr(
+					decltype(m_datas.get<i - 1>()),
+					decltype(m_datas.get<i>()))>>,
+				"Process creator function has wrong type.");
+
+			m_current = m_proc_creators.get<i>()(
+				m_datas.get<i - 1>(), m_datas.get<i>());
+		}
+
+		ATP_CORE_PRECOND(m_current != nullptr);
+	}
+
+	template<size_t i>
+	struct ProcCreator
+	{
+		ProcessSequence<DataTuple, ProcCreatorTuple>& parent;
+		ProcCreator<i - 1> child;
+
+		ProcCreator(ProcessSequence<DataTuple,
+			ProcCreatorTuple>& parent) :
+			parent(parent), child(parent)
+		{ }
+
+		void operator()(size_t j)
+		{
+			if (i == j)
+				parent.create_proc_at<i>();
+			else
+				child(j);
+		}
+	};
+	template<>
+	struct ProcCreator<0>
+	{
+		ProcessSequence<DataTuple, ProcCreatorTuple>& parent;
+
+		ProcCreator(ProcessSequence<DataTuple,
+			ProcCreatorTuple>& parent) :
+			parent(parent)
+		{ }
+
+		void operator()(size_t j)
+		{
+			ATP_CORE_ASSERT(j == 0);
+			parent.create_proc_at<0>();
+		}
+	};
+
+private:
+	static constexpr const size_t SIZE =
+		boost::tuples::length<ProcCreatorTuple>::value;
 	size_t m_idx;
 	bool m_failed;
-	DataT m_data;
 	ProcessPtr m_current;
-	Proc2Creator m_create_proc2;
+	DataTuple m_datas;
+	ProcCreatorTuple m_proc_creators;
 };
 
 
-
-template<typename DataT, typename Proc1Creator,
-	typename Proc2Creator>
-ProcessPtr make_sequence(Proc1Creator p1, Proc2Creator p2)
+template<typename ... DataItems,
+	typename ... ProcCreatorFuncs>
+ProcessPtr make_sequence(
+	boost::tuple<ProcCreatorFuncs...> funcs)
 {
-	return std::make_shared<ProcessSequence<DataT,
-		Proc1Creator, Proc2Creator>>(std::move(p1), std::move(p2));
+	return std::make_shared<ProcessSequence<
+		boost::tuple<DataItems...>,
+		boost::tuple<ProcCreatorFuncs...>>>(
+			std::move(funcs));
 }
 
 

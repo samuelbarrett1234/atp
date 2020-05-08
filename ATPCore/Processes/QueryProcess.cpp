@@ -16,8 +16,7 @@ namespace core
 
 
 QueryProcess::QueryProcess(const db::DatabasePtr& p_db) :
-	m_done(false),
-	m_db(p_db)
+	m_done(false), m_failed(false), m_db(p_db)
 {
 }
 
@@ -57,6 +56,7 @@ void QueryProcess::run_step()
 				"query process bailing...";
 			on_failed();
 			m_done = true;
+			m_failed = true;
 			m_db_op.reset();
 			break;
 		}

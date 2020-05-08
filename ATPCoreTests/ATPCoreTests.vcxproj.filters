@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Models">
       <UniqueIdentifier>{aa2afc54-c5f1-48f5-85f9-aa0485777132}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Processes">
+      <UniqueIdentifier>{60daabdd-2817-4c59-9c1a-a2adae2c62c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -23,6 +26,9 @@
     </ClCompile>
     <ClCompile Include="HMMUtilityTests.cpp">
       <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessSequenceTest.cpp">
+      <Filter>Source Files\Processes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

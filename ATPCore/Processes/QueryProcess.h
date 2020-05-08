@@ -38,6 +38,10 @@ public:
 	{
 		return m_done;
 	}
+	inline bool has_failed() const override
+	{
+		return m_failed;
+	}
 	inline bool waiting() const override
 	{
 		return m_db_op != nullptr &&
@@ -55,7 +59,7 @@ protected:  // implement these functions!
 private:
 	db::DatabasePtr m_db;
 	db::TransactionPtr m_db_op;
-	bool m_done;
+	bool m_done, m_failed;
 };
 
 

@@ -16,7 +16,6 @@
 #include <ATPDatabase.h>
 #include "../ATPCoreAPI.h"
 #include "IProcess.h"
-#include "../Models/HMMConjectureTrainer.h"
 #include "../Models/HMMConjectureModelBuilder.h"
 
 
@@ -106,7 +105,7 @@ private:
 	std::stringstream m_stmt_strs;
 	logic::StatementArrayPtr m_stmts;
 	boost::optional<HMMConjectureModelBuilder> m_model_builder;
-	boost::optional<HMMConjectureTrainer> m_trainer;
+	std::unique_ptr<HMMConjectureModel> m_model;
 
 	boost::optional<size_t> m_model_id;
 

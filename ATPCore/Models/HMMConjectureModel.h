@@ -17,6 +17,7 @@
 #include <boost/numeric/ublas/matrix.hpp>
 #include <ATPLogic.h>
 #include "../ATPCoreAPI.h"
+#include "HMMStmtToObs.h"
 
 
 namespace atp
@@ -50,12 +51,22 @@ namespace core
 class ATP_CORE_API HMMConjectureModel
 {
 public:
+	/**
+	\param rand_seed A seed for the random generator for the
+		conjectures.
+
+	\param smoothing The Laplace smoothing amount for estimating the
+		probabilities during training.
+
+	\param free_q The q parameter for the geometric distribution
+		which generates the free variable IDs.
+	*/
 	HMMConjectureModel(logic::ModelContextPtr p_ctx,
 		size_t num_states, float free_q,
 		boost::numeric::ublas::matrix<float> st_trans,
 		boost::numeric::ublas::matrix<float> st_obs,
 		std::vector<size_t> symbs,
-		size_t rand_seed);
+		size_t rand_seed, float smoothing);
 
 	/**
 	\brief Reset state distribution to the default (typically just a
@@ -75,6 +86,17 @@ public:
 	\brief Advance the state one step and generate a new observation.
 	*/
 	void advance();
+
+	/**
+	\brief Train on each statement N times
+
+	\pre The statements in p_stmts are associated with the model
+		context given in the constructor.
+
+	\warning Might interfere with any existing conjecturing processes
+		going on, as it modifies the matrices.
+	*/
+	void train(const logic::StatementArrayPtr& p_stmts, size_t N);
 
 	/*
 	\brief Either return the current symbol ID, or the free variable
@@ -144,6 +166,10 @@ private:
 	// randomness:
 	std::mt19937 m_rand_device;
 	std::uniform_real_distribution<float> m_unif01;  // uniform [0,1]
+
+	// for training
+	HMMStmtToObs m_stmt_to_obs;
+	const float m_smoothing;
 };
 
 

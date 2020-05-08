@@ -64,7 +64,8 @@ std::unique_ptr<HMMConjectureModel> HMMConjectureModelBuilder::build() const
 
 	return std::make_unique<HMMConjectureModel>(
 		m_ctx, *m_num_states, *m_q, std::move(st_trans),
-		std::move(st_obs), std::move(all_symb_ids), *m_rand_seed);
+		std::move(st_obs), std::move(all_symb_ids), *m_rand_seed,
+		m_smoothing);
 }
 
 

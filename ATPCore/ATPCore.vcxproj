@@ -175,7 +175,6 @@
     <ClInclude Include="Models\HMMUtility.h" />
     <ClInclude Include="Models\HMMConjectureModel.h" />
     <ClInclude Include="Models\HMMConjectureModelBuilder.h" />
-    <ClInclude Include="Models\HMMConjectureTrainer.h" />
     <ClInclude Include="Models\HMMStmtToObs.h" />
     <ClInclude Include="Processes\HMMConjectureProcess.h" />
     <ClInclude Include="Processes\HMMConjectureTrainProcess.h" />
@@ -187,7 +186,6 @@
     <ClCompile Include="ATPCore.cpp" />
     <ClCompile Include="Models\HMMConjectureModel.cpp" />
     <ClCompile Include="Models\HMMConjectureModelBuilder.cpp" />
-    <ClCompile Include="Models\HMMConjectureTrainer.cpp" />
     <ClCompile Include="Models\HMMStmtToObs.cpp" />
     <ClCompile Include="Models\HMMUtility.cpp" />
     <ClCompile Include="Processes\HMMConjectureProcess.cpp" />

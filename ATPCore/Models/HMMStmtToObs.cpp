@@ -59,10 +59,10 @@ std::vector<std::vector<size_t>> convert_equational_logic(
 }
 
 
-HMMStmtToObs::HMMStmtToObs(const logic::LanguagePtr& p_lang,
+HMMStmtToObs::HMMStmtToObs(
 	const logic::ModelContextPtr& p_ctx,
 	std::vector<size_t> symb_ids) :
-	m_lang(p_lang), m_ctx(p_ctx), m_symb_ids(std::move(symb_ids))
+	m_ctx(p_ctx), m_symb_ids(std::move(symb_ids))
 { }
 
 

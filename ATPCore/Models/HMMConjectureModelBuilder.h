@@ -109,6 +109,11 @@ public:
 		m_rand_seed = rand_seed;
 	}
 
+	inline void set_smoothing(float smoothing)
+	{
+		m_smoothing = smoothing;
+	}
+
 private:
 	/**
 	\brief Perform validity checking on state transitions
@@ -138,6 +143,8 @@ private:
 	// invariant: m_valid is true iff all the probabilities contained
 	// herein are between 0 and 1, and all symbol IDs are valid,
 	// and that we have a nonzero number of hidden states.
+
+	float m_smoothing = 1.0e-6f;
 
 	boost::optional<float> m_q;
 	boost::optional<size_t> m_num_states, m_rand_seed;

@@ -8,6 +8,7 @@
 
 #include <boost/numeric/ublas/triangular.hpp>
 #include "HMMConjectureModel.h"
+#include "HMMUtility.h"
 
 
 namespace ublas = boost::numeric::ublas;
@@ -37,7 +38,7 @@ ublas::triangular_matrix<float, ublas::lower> psum_matrix(size_t n)
 HMMConjectureModel::HMMConjectureModel(logic::ModelContextPtr p_ctx,
 	size_t num_states, float free_q,
 	ublas::matrix<float> st_trans, ublas::matrix<float> st_obs,
-	std::vector<size_t> symbs, size_t rand_seed) :
+	std::vector<size_t> symbs, size_t rand_seed, float smoothing) :
 	m_ctx(std::move(p_ctx)),
 	m_num_hidden_states(num_states),
 	m_free_q(free_q),
@@ -48,7 +49,8 @@ HMMConjectureModel::HMMConjectureModel(logic::ModelContextPtr p_ctx,
 		psum_matrix(m_symbs.size()))),
 	m_symbs(std::move(symbs)),
 	m_rand_device((unsigned int)rand_seed),
-	m_unif01(0.0f, 1.0f)
+	m_unif01(0.0f, 1.0f), m_smoothing(smoothing),
+	m_stmt_to_obs(m_ctx, m_symbs)
 {
 	ATP_CORE_PRECOND(m_ctx != nullptr);
 	ATP_CORE_PRECOND(m_num_hidden_states > 0);
@@ -82,6 +84,23 @@ void HMMConjectureModel::advance()
 #endif
 
 	generate_observation();
+}
+
+
+void HMMConjectureModel::train(
+	const logic::StatementArrayPtr& p_stmts, size_t N)
+{
+	ATP_CORE_PRECOND(p_stmts != nullptr);
+	if (N == 0)
+		return;
+
+	const auto observations = m_stmt_to_obs.convert(p_stmts);
+
+	ublas::vector<float> initial_state = ublas::scalar_vector<float>(
+		m_num_hidden_states, 1.0f / (float)m_num_hidden_states);
+
+	hmm::baum_welch(initial_state, m_st_trans, m_st_obs,
+		observations, N, m_smoothing);
 }
 
 

@@ -36,15 +36,13 @@ namespace core
 class ATP_CORE_API HMMStmtToObs
 {
 public:
-	HMMStmtToObs(const logic::LanguagePtr& p_lang,
-		const logic::ModelContextPtr& p_ctx,
+	HMMStmtToObs(const logic::ModelContextPtr& p_ctx,
 		std::vector<size_t> symb_ids);
 
 	std::vector<std::vector<size_t>> convert(
 		const logic::StatementArrayPtr& p_stmts) const;
 
 private:
-	logic::LanguagePtr m_lang;
 	logic::ModelContextPtr m_ctx;
 	std::vector<size_t> m_symb_ids;
 };

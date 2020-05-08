@@ -25,17 +25,16 @@ namespace core
 
 
 /**
-\brief This function creates a "proof initialisation" process, which
-	creates the knowledge kernel, creates the solver, and loads the
-	"helper theorems" from the database to aid in the proof.
+\brief This function creates a process which just runs the solver to
+	completion.
 
-\pre All the data in `setup_data` is valid
+\pre All the data in `proof_data` is valid
 
 \returns A new process.
 */
-ATP_CORE_API ProcessPtr create_proof_init_process(
-	proc_data::ProofSetupEssentials& setup_data,
-	proc_data::ProofEssentials& proof_data);
+ATP_CORE_API ProcessPtr create_run_solver_process(
+	proc_data::ProofEssentials& proof_data_before,
+	proc_data::ProofEssentials& proof_data_after);
 
 
 }  // namespace core

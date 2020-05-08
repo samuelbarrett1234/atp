@@ -8,7 +8,6 @@
 
 #include <sstream>
 #include "ProofInitProcess.h"
-#include "ProcessSequence.h"
 #include "QueryProcess.h"
 
 
@@ -32,8 +31,6 @@ class ProofInitProcess :
 {
 public:
 	ProofInitProcess(
-		search::SearchSettings settings, size_t ss_id,
-		size_t num_thms_to_get_from_db,
 		proc_data::ProofSetupEssentials& setup_data,
 		proc_data::ProofEssentials& proof_data) :
 		QueryProcess(setup_data.db),
@@ -58,7 +55,10 @@ public:
 
 		m_proof_data.ker->set_seed(m_setup_data.settings.seed);
 		m_proof_data.ss_id = m_setup_data.ss_id;
-
+		m_proof_data.max_steps = m_setup_data.settings.max_steps;
+		m_proof_data.step_size = m_setup_data.settings.step_size;
+		m_proof_data.target_thms = m_setup_data.target_thms;
+		
 		ATP_CORE_LOG(trace) << "Creating solver...";
 		m_proof_data.solver =
 			m_setup_data.settings.create_solver(
@@ -181,6 +181,12 @@ ProcessPtr create_proof_init_process(
 	proc_data::ProofSetupEssentials& setup_data,
 	proc_data::ProofEssentials& proof_data)
 {
+	// check all the setup data is valid:
+	ATP_CORE_PRECOND(setup_data.db != nullptr);
+	ATP_CORE_PRECOND(setup_data.lang != nullptr);
+	ATP_CORE_PRECOND(setup_data.ctx != nullptr);
+	ATP_CORE_PRECOND(setup_data.target_thms != nullptr);
+
 	return std::make_shared<ProofInitProcess>(
 		setup_data, proof_data);
 }

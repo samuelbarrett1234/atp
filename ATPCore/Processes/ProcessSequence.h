@@ -119,6 +119,15 @@ public:
 		}
 	}
 
+	template<size_t i>
+	inline auto& get_data()
+	{
+		static_assert(i < SIZE,
+			"Data index out of range.");
+
+		return m_datas.get<i>();
+	}
+
 private:
 	template<size_t i>
 	void create_proc_at()

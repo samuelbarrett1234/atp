@@ -55,8 +55,8 @@ struct ATP_CORE_API ProofEssentials :
 {
 	logic::KnowledgeKernelPtr ker;
 	search::SolverPtr solver;
-	size_t ss_id;
-	logic::StatementArrayPtr helper_thms;
+	size_t ss_id, max_steps, step_size;
+	logic::StatementArrayPtr target_thms, helper_thms;
 };
 
 

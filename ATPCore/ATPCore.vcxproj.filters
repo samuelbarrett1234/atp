@@ -25,6 +25,24 @@
     <Filter Include="Source Files\Models">
       <UniqueIdentifier>{9acf7152-260d-4473-b908-2aee1618e134}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Processes\HMM">
+      <UniqueIdentifier>{2752447e-df5b-411c-8c2f-1d35d3d9af52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Processes\Proof">
+      <UniqueIdentifier>{155b4e13-7042-486d-b06e-4af7275508ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Processes\Base">
+      <UniqueIdentifier>{a3cd5cbc-69bd-4bd2-93ae-8dec424b2522}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Processes\HMM">
+      <UniqueIdentifier>{b8433161-ccf8-402b-a262-a4af915a9a21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Processes\Base">
+      <UniqueIdentifier>{0fedd138-aaad-44ad-9991-2b8a2b316aad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Processes\Proof">
+      <UniqueIdentifier>{0532e73e-4ae8-4565-b7cf-a64950213dfe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ATPCoreAPI.h">
@@ -32,18 +50,6 @@
     </ClInclude>
     <ClInclude Include="ATPCore.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Processes\IProcess.h">
-      <Filter>Header Files\Processes</Filter>
-    </ClInclude>
-    <ClInclude Include="Processes\ProcessManager.h">
-      <Filter>Header Files\Processes</Filter>
-    </ClInclude>
-    <ClInclude Include="Processes\ProofProcess.h">
-      <Filter>Header Files\Processes</Filter>
-    </ClInclude>
-    <ClInclude Include="Processes\HMMConjectureProcess.h">
-      <Filter>Header Files\Processes</Filter>
     </ClInclude>
     <ClInclude Include="Models\HMMConjectureModel.h">
       <Filter>Header Files\Models</Filter>
@@ -57,37 +63,46 @@
     <ClInclude Include="Models\HMMUtility.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
-    <ClInclude Include="Processes\HMMConjectureTrainProcess.h">
-      <Filter>Header Files\Processes</Filter>
-    </ClInclude>
-    <ClInclude Include="Processes\QueryProcess.h">
-      <Filter>Header Files\Processes</Filter>
-    </ClInclude>
-    <ClInclude Include="Processes\ProcessSequence.h">
-      <Filter>Header Files\Processes</Filter>
-    </ClInclude>
     <ClInclude Include="Processes\CommonProcessData.h">
-      <Filter>Header Files\Processes</Filter>
+      <Filter>Header Files\Processes\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Processes\HMMConjectureProcess.h">
+      <Filter>Header Files\Processes\HMM</Filter>
+    </ClInclude>
+    <ClInclude Include="Processes\HMMConjectureTrainProcess.h">
+      <Filter>Header Files\Processes\HMM</Filter>
     </ClInclude>
     <ClInclude Include="Processes\HMMProcessData.h">
-      <Filter>Header Files\Processes</Filter>
+      <Filter>Header Files\Processes\HMM</Filter>
+    </ClInclude>
+    <ClInclude Include="Processes\IProcess.h">
+      <Filter>Header Files\Processes\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Processes\ProcessManager.h">
+      <Filter>Header Files\Processes\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Processes\ProcessSequence.h">
+      <Filter>Header Files\Processes\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Processes\ProofProcess.h">
+      <Filter>Header Files\Processes\Proof</Filter>
     </ClInclude>
     <ClInclude Include="Processes\ProofInitProcess.h">
-      <Filter>Header Files\Processes</Filter>
+      <Filter>Header Files\Processes\Proof</Filter>
+    </ClInclude>
+    <ClInclude Include="Processes\RunSolverProcess.h">
+      <Filter>Header Files\Processes\Proof</Filter>
+    </ClInclude>
+    <ClInclude Include="Processes\QueryProcess.h">
+      <Filter>Header Files\Processes\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Processes\SaveProofResultsProcess.h">
+      <Filter>Header Files\Processes\Proof</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Processes\ProcessManager.cpp">
-      <Filter>Source Files\Processes</Filter>
-    </ClCompile>
-    <ClCompile Include="Processes\ProofProcess.cpp">
-      <Filter>Source Files\Processes</Filter>
-    </ClCompile>
-    <ClCompile Include="Processes\HMMConjectureProcess.cpp">
-      <Filter>Source Files\Processes</Filter>
     </ClCompile>
     <ClCompile Include="Models\HMMConjectureModel.cpp">
       <Filter>Source Files\Models</Filter>
@@ -102,13 +117,28 @@
       <Filter>Source Files\Models</Filter>
     </ClCompile>
     <ClCompile Include="Processes\HMMConjectureTrainProcess.cpp">
-      <Filter>Source Files\Processes</Filter>
+      <Filter>Source Files\Processes\HMM</Filter>
     </ClCompile>
-    <ClCompile Include="Processes\QueryProcess.cpp">
-      <Filter>Source Files\Processes</Filter>
+    <ClCompile Include="Processes\ProcessManager.cpp">
+      <Filter>Source Files\Processes\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\HMMConjectureProcess.cpp">
+      <Filter>Source Files\Processes\HMM</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\ProofProcess.cpp">
+      <Filter>Source Files\Processes\Proof</Filter>
     </ClCompile>
     <ClCompile Include="Processes\ProofInitProcess.cpp">
-      <Filter>Source Files\Processes</Filter>
+      <Filter>Source Files\Processes\Proof</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\QueryProcess.cpp">
+      <Filter>Source Files\Processes\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\RunSolverProcess.cpp">
+      <Filter>Source Files\Processes\Proof</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\SaveProofResultsProcess.cpp">
+      <Filter>Source Files\Processes\Proof</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

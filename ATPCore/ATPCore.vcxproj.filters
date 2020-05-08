@@ -114,6 +114,9 @@
     <ClInclude Include="Processes\HMMSaveModelParamsProcess.h">
       <Filter>Header Files\Processes\HMM</Filter>
     </ClInclude>
+    <ClInclude Include="Processes\HMMLoadTrainingDataProcess.h">
+      <Filter>Header Files\Processes\HMM</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp">
@@ -168,6 +171,9 @@
       <Filter>Source Files\Processes\HMM</Filter>
     </ClCompile>
     <ClCompile Include="Processes\HMMSaveModelParamsProcess.cpp">
+      <Filter>Source Files\Processes\HMM</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\HMMLoadTrainingDataProcess.cpp">
       <Filter>Source Files\Processes\HMM</Filter>
     </ClCompile>
   </ItemGroup>

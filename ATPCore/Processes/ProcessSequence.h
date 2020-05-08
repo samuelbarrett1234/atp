@@ -215,7 +215,10 @@ private:
 
 template<typename ... DataItems,
 	typename ... ProcCreatorFuncs>
-ProcessPtr make_sequence(
+std::shared_ptr<ProcessSequence<
+	boost::tuple<DataItems...>,
+	boost::tuple<ProcCreatorFuncs...>>>
+	make_sequence(
 	boost::tuple<ProcCreatorFuncs...> funcs)
 {
 	return std::make_shared<ProcessSequence<

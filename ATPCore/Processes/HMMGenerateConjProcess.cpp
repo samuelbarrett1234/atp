@@ -175,6 +175,8 @@ private:
 					stack.back().done_so_far << "(";
 				}
 			}
+
+			m_gen_data.model->advance();
 		};
 
 		// push first element
@@ -189,9 +191,6 @@ private:
 			// handle back element (top of stack)
 			if (stack.back().cur_idx < stack.back().cur_obs_arity)
 			{
-				// advance the model (to update the state):
-				m_gen_data.model->advance();
-
 				add_cur_model_obs();
 			}
 			else if (stack.size() > 1)

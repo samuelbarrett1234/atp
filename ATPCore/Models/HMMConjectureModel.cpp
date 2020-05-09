@@ -22,15 +22,17 @@ namespace core
 
 
 // this function creates a matrix which computes the partial sums of
-// a vector (which turns out to be a lower triangular matrix of
+// a vector (which turns out to be a upper triangular matrix of
 // all-1s).
-ublas::triangular_matrix<float, ublas::lower> psum_matrix(size_t n)
+// it has to be upper not lower because it's a stochastic matrix
+// so the vectors multiply on the LHS
+ublas::triangular_matrix<float, ublas::upper> psum_matrix(size_t n)
 {
-	ublas::triangular_matrix<float, ublas::lower> m(n, n);
+	ublas::triangular_matrix<float, ublas::upper> m(n, n);
 
 	for (size_t i = 0; i < n; ++i)
 		for (size_t j = 0; j <= i; ++j)
-			m(i, j) = 1.0f;
+			m(j, i) = 1.0f;
 
 	return m;
 }
@@ -126,6 +128,11 @@ void HMMConjectureModel::generate_observation()
 {
 	const auto obs_cum_probs = ublas::prod(
 		m_state, m_st_obs_partial_sums);
+
+#ifdef ATP_CORE_DEFENSIVE
+	ATP_CORE_ASSERT(std::is_sorted(obs_cum_probs.cbegin(),
+		obs_cum_probs.cend()));
+#endif
 
 #ifdef ATP_CORE_DEFENSIVE
 	if (obs_cum_probs(m_symbs.size() - 1) > 1.0f)

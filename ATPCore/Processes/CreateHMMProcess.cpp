@@ -147,6 +147,9 @@ private:
 		// last element is fixed
 		result.push_back(1.0f - sum);
 
+		// shuffle to make sure we're impartial to the order
+		std::shuffle(result.begin(), result.end(), m_rand_eng);
+
 		return result;
 	}
 

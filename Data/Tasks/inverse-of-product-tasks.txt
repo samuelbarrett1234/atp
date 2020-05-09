@@ -1,0 +1,16 @@
+# the steps required to prove that i(*(x0, x1)) = *(i(x1), i(x0)) in order
+
+i(*(x0, x1)) = *( e, i(*(x0, x1)) )
+i(*(x0, x1)) = *( *(i(x1), x1), i(*(x0, x1)) )
+i(*(x0, x1)) = *( i(x1), *(x1, i(*(x0, x1))) )
+i(*(x0, x1)) = *( i(x1), *(e,  *(x1, i(*(x0, x1)))) )
+i(*(x0, x1)) = *( i(x1), *(*(i(x0), x0),  *(x1, i(*(x0, x1)))) )
+i(*(x0, x1)) = *( i(x1), *(i(x0), *(x0, *(x1, i(*(x0, x1))))) )
+
+# lemma for the next step: (this is just associativity)
+*(x1, *(x0, i(*(x1, x0)))) = *(*(x1, x0), i(*(x1, x0)))
+
+i(*(x0, x1)) = *( i(x1), *(i(x0), *(*(x0, x1), i(*(x0, x1)))) )
+i(*(x0, x1)) = *( *(i(x1), i(x0)) , *(*(x0, x1), i(*(x0, x1))) )
+i(*(x0, x1)) = *( *(i(x1), i(x0)) , e )
+i(*(x0, x1)) = *(i(x1), i(x0))

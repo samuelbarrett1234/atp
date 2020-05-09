@@ -23,6 +23,16 @@ public:
 		m_pf_data(pf_data), m_cur_step(0)
 	{
 		ATP_CORE_LOG(info) << "Beginning proof sequence...";
+
+		// handle this as a special case, so the user gets at least
+		// some output
+		if (done())
+		{
+			ATP_CORE_LOG(info) << "All target theorems were trivial;"
+				" no proof search needed!";
+
+			handle_done();
+		}
 	}
 
 	inline bool done() const override

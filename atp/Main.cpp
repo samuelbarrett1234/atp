@@ -83,16 +83,14 @@ int main(int argc, const char* const argv[])
 			"invocation of this command will run on a separate "
 			"thread.")
 
-		("hmm-conjecture-train,hmmct", po::value<size_t>(),
-			"Train the HMM conjecturer model for some number of "
-			"epochs. Use --hmm-conjecture-train N to train for "
-			"N epochs (an epoch is a single pass over the training "
-			"data.")
+		("hmm-conjecture-train,hmmct", po::value<std::pair<size_t, size_t>>(),
+			"`--hmmct N,M` will train the HMM conjecturer in the "
+			"current context for N epochs on a dataset of size M."
+			" Each epoch is a single pass over the dataset.")
 
 		("create-hmm-conjecturer,chmmc", po::value<std::pair<size_t, size_t>>(),
-			"Create a new HMM conjecturer for the given context, "
-			"with the given number of hidden states. Use "
-			"`--chmmc N,M` without spaces between N and M, where N"
+			"Create a new HMM conjecturer for the current context. "
+			"Use `--chmmc N,M` without spaces between N and M, where N"
 			" is the number of hidden states, and M is the ID you'd"
 			" like to give it.")
 
@@ -361,19 +359,15 @@ int add_hmm_train(const po::variables_map& vm)
 {
 	if (vm.count("hmm-conjecture-train"))
 	{
-		const size_t epochs =
-			vm["hmm-conjecture-train"].as<size_t>();
-
-		/**
-		\todo Let the user specify the training dataset size on the
-			command line.
-		*/
-		const size_t dataset_size = 1000;
+		const auto params =
+			vm["hmm-conjecture-train"].as<std::pair<size_t, size_t>>();
+		const size_t epochs = params.first;
+		const size_t dataset_size = params.second;
 
 		if (!g_app->add_hmm_conj_train_task(epochs, dataset_size))
 		{
 			ATP_LOG(error) << "Failed to launch conjecturer "
-				"training.";
+				"training process.";
 			return -1;
 		}
 	}

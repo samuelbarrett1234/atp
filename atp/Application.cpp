@@ -293,6 +293,21 @@ bool Application::add_hmm_conj_train_task(size_t epochs,
 }
 
 
+bool Application::create_hmm_conjecturer(size_t num_hidden,
+	size_t model_id)
+{
+	if (num_hidden == 0)
+		return false;
+
+	// add the process
+
+	m_proc_mgr.add(atp::core::create_hmm_process(m_lang, m_ctx_id,
+		m_ctx, m_db, num_hidden, model_id));
+
+	return true;
+}
+
+
 void Application::run()
 {
 	std::list<std::thread> threads;

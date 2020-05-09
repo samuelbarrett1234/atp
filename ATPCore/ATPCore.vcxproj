@@ -177,6 +177,7 @@
     <ClInclude Include="Models\HMMConjectureModelBuilder.h" />
     <ClInclude Include="Models\HMMStmtToObs.h" />
     <ClInclude Include="Processes\CommonProcessData.h" />
+    <ClInclude Include="Processes\CreateHMMProcess.h" />
     <ClInclude Include="Processes\HMMConjectureProcess.h" />
     <ClInclude Include="Processes\HMMConjectureTrainProcess.h" />
     <ClInclude Include="Processes\HMMConjModelTrainProcess.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="Models\HMMConjectureModelBuilder.cpp" />
     <ClCompile Include="Models\HMMStmtToObs.cpp" />
     <ClCompile Include="Models\HMMUtility.cpp" />
+    <ClCompile Include="Processes\CreateHMMProcess.cpp" />
     <ClCompile Include="Processes\HMMConjectureProcess.cpp" />
     <ClCompile Include="Processes\HMMConjectureTrainProcess.cpp" />
     <ClCompile Include="Processes\HMMConjModelTrainProcess.cpp" />

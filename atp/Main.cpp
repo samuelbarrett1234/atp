@@ -25,6 +25,19 @@
 namespace po = boost::program_options;
 
 
+// to allow us to use command line options which are pairs of
+// integers
+namespace std
+{
+istream& operator>>(istream& in, pair<size_t, size_t>& pair)
+{
+	char c;
+	in >> pair.first >> c >> pair.second;
+	return in;
+}
+}
+
+
 std::unique_ptr<Application> g_app;
 
 
@@ -35,6 +48,7 @@ int load_ss(const po::variables_map& vm);
 int add_proof(const po::variables_map& vm);
 int add_hmm_conj(const po::variables_map& vm);
 int add_hmm_train(const po::variables_map& vm);
+int create_hmm_conj(const po::variables_map& vm);
 
 
 int main(int argc, const char* const argv[])
@@ -74,6 +88,13 @@ int main(int argc, const char* const argv[])
 			"epochs. Use --hmm-conjecture-train N to train for "
 			"N epochs (an epoch is a single pass over the training "
 			"data.")
+
+		("create-hmm-conjecturer,chmmc", po::value<std::pair<size_t, size_t>>(),
+			"Create a new HMM conjecturer for the given context, "
+			"with the given number of hidden states. Use "
+			"`--chmmc N,M` without spaces between N and M, where N"
+			" is the number of hidden states, and M is the ID you'd"
+			" like to give it.")
 
 		("database,db", po::value<std::string>(),
 			"Path to database file")
@@ -138,6 +159,8 @@ int main(int argc, const char* const argv[])
 	if (int rc = add_hmm_conj(vm))
 		return rc;
 	if (int rc = add_hmm_train(vm))
+		return rc;
+	if (int rc = create_hmm_conj(vm))
 		return rc;
 
 	g_app->run();
@@ -355,6 +378,35 @@ int add_hmm_train(const po::variables_map& vm)
 		}
 	}
 
+	return 0;
+}
+
+
+int create_hmm_conj(const po::variables_map& vm)
+{
+	if (vm.count("create-hmm-conjecturer"))
+	{
+		const auto tup =
+			vm["create-hmm-conjecturer"].as<std::pair<size_t, size_t>>();
+		const size_t num_hidden = tup.first;
+		const size_t model_id = tup.second;
+
+		if (num_hidden == 0)
+		{
+			ATP_CORE_LOG(error) <<
+				"Cannot specify no hidden states.";
+			return -1;
+		}
+		else
+		{
+			if (!g_app->create_hmm_conjecturer(num_hidden, model_id))
+			{
+				ATP_CORE_LOG(error) << "Failed to create HMM "
+					"conjecturer.";
+				return -1;
+			}
+		}
+	}
 	return 0;
 }
 

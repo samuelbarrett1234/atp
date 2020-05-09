@@ -126,6 +126,21 @@ public:
 	bool add_hmm_conj_train_task(size_t epochs, size_t dataset_size);
 
 	/**
+	\brief Create a new process which will create a new HMM
+		conjecturer model.
+
+	\param num_hidden The number of hidden states the new model
+		should have.
+
+	\param model_id The ID of the new model.
+
+	\pre Language, context file and database must be initialised.
+
+	\returns True iff success.
+	*/
+	bool create_hmm_conjecturer(size_t num_hidden, size_t model_id);
+
+	/**
 	\brief Run all proofs that have been set.
 	*/
 	void run();

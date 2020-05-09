@@ -18,6 +18,7 @@
 #include "Processes/ProofProcess.h"
 #include "Processes/HMMConjectureProcess.h"
 #include "Processes/HMMConjectureTrainProcess.h"
+#include "Processes/CreateHMMProcess.h"
 
 
 /**

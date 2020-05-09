@@ -45,7 +45,8 @@ public:
 	inline bool waiting() const override
 	{
 		return m_db_op != nullptr &&
-			m_db_op->waiting();
+			m_db_op->state() == db::TransactionState::RUNNING
+			&& m_db_op->waiting();
 	}
 	void run_step() override;
 

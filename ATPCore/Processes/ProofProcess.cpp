@@ -46,6 +46,12 @@ ProcessPtr create_proof_process(
 	p_proc->get_data<0>().settings = search_settings;
 	p_proc->get_data<0>().target_thms = std::move(p_target_stmts);
 
+	/**
+	\todo Let the user decide how many helper theorems we can load
+		from the database.
+	*/
+	p_proc->get_data<0>().num_helper_thms = 25;
+
 	return p_proc;
 }
 

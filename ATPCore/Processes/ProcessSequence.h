@@ -52,8 +52,6 @@ public:
 		m_proc_creators(std::move(funcs)),
 		m_idx(0), m_failed(false)
 	{
-		create_proc_at<0>();
-
 		static_assert(SIZE ==
 			boost::tuples::length<DataTuple>::value,
 			"Number of process functions must be equal to "
@@ -68,8 +66,8 @@ public:
 	inline bool waiting() const override
 	{
 		ATP_CORE_PRECOND(!done());
-		ATP_CORE_ASSERT(m_current != nullptr);
-		return m_current->waiting();
+		return m_current != nullptr &&
+			!m_current->done() && m_current->waiting();
 	}
 
 	inline bool has_failed() const override
@@ -79,9 +77,17 @@ public:
 
 	void run_step() override
 	{
-		ATP_CORE_ASSERT(m_current != nullptr);
+		ATP_CORE_ASSERT(m_current != nullptr || m_idx == 0);
 
-		if (m_current->done() && !m_current->has_failed())
+		// create first process upon first execution, not in the
+		// constructor
+		if (m_current == nullptr)
+		{
+			ATP_CORE_ASSERT(m_idx == 0);
+
+			create_proc_at<0>();
+		}
+		else if (m_current->done() && !m_current->has_failed())
 		{
 			++m_idx;
 

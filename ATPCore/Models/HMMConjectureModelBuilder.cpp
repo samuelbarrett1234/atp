@@ -47,7 +47,7 @@ std::unique_ptr<HMMConjectureModel> HMMConjectureModelBuilder::build() const
 	// build the matrices for (state transitions and observations)
 	boost::numeric::ublas::matrix<float> st_trans(
 		*m_num_states, *m_num_states), st_obs(
-			all_symb_ids.size(), *m_num_states);
+			*m_num_states, all_symb_ids.size());
 	for (size_t i = 0; i < *m_num_states; ++i)
 	{
 		for (size_t j = 0; j < *m_num_states; ++j)
@@ -195,7 +195,7 @@ bool HMMConjectureModelBuilder::check_obs() const
 		if (sum > 1.0f)
 			return false;  // bad probabilities
 
-		if (sum == 1.0f)
+		if (std::abs(sum - 1.0f) < 1.0e-6f)
 			ATP_CORE_LOG(warning) << "Encountered a HMM model which "
 				"had zero probability of generating a free variable";
 	}

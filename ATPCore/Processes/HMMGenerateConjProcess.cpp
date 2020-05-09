@@ -54,8 +54,7 @@ public:
 		m_gen_data(gen_data), m_num_to_generate(num_to_generate),
 		m_num_done(0), m_saved_results(false), m_failed(false)
 	{
-		ATP_CORE_LOG(trace) << "Creating HMM conjecture generation "
-			"process...";
+		ATP_CORE_LOG(info) << "Starting conjecture generation...";
 	}
 
 	inline bool done() const override
@@ -74,6 +73,7 @@ public:
 	{
 		if (m_num_done < m_num_to_generate)
 		{
+			++m_num_done;
 			generate_a_conjecture();
 		}
 		else
@@ -106,8 +106,6 @@ public:
 private:
 	void generate_a_conjecture()
 	{
-		ATP_CORE_ASSERT(m_num_done < m_num_to_generate);
-
 		// reset state to default, before generating a new statement
 		m_gen_data.model->reset_state();
 
@@ -121,7 +119,7 @@ private:
 			const std::string stmt = *expr1 + " = " + *expr2;
 			m_completed << stmt << "\n";
 
-			ATP_CORE_LOG(info) << "HMMConjectureProcess just "
+			ATP_CORE_LOG(debug) << "HMMConjectureProcess just "
 				"generated the statement \"" <<
 				stmt << "\".";
 		}

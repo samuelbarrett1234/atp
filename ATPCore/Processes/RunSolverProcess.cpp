@@ -20,9 +20,9 @@ class RunSolverProcess :
 {
 public:
 	RunSolverProcess(proc_data::ProofEssentials& pf_data) :
-		m_pf_data(pf_data)
+		m_pf_data(pf_data), m_cur_step(0)
 	{
-		ATP_CORE_LOG(trace) << "Creating Run Solver process...";
+		ATP_CORE_LOG(info) << "Beginning proof sequence...";
 	}
 
 	inline bool done() const override

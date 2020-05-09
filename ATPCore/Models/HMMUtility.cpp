@@ -35,7 +35,7 @@ Matrix forward(
 	const size_t num_obs = st_obs.size2();
 	ATP_CORE_PRECOND(initial_state.size() == num_states);
 	ATP_CORE_PRECOND(st_trans.size2() == num_states);
-	ATP_CORE_PRECOND(st_obs.size2() == num_states);
+	ATP_CORE_PRECOND(st_obs.size1() == num_states);
 
 	Matrix A(obs_seq.size() + 1,
 		num_states);
@@ -72,7 +72,7 @@ Matrix backward(
 	const size_t num_states = st_trans.size1();
 	const size_t num_obs = st_obs.size2();
 	ATP_CORE_PRECOND(st_trans.size2() == num_states);
-	ATP_CORE_PRECOND(st_obs.size2() == num_states);
+	ATP_CORE_PRECOND(st_obs.size1() == num_states);
 
 	Matrix B(obs_seq.size() + 1,
 		num_states);
@@ -118,7 +118,7 @@ void baum_welch(
 	const size_t num_obs = st_obs.size1();
 	ATP_CORE_PRECOND(initial_state.size() == num_states);
 	ATP_CORE_PRECOND(st_trans.size2() == num_states);
-	ATP_CORE_PRECOND(st_obs.size2() == num_states);
+	ATP_CORE_PRECOND(st_obs.size1() == num_states);
 
 	ublas::vector<float> ones =
 		ublas::scalar_vector(num_states, 1.0f);
@@ -130,6 +130,13 @@ void baum_welch(
 		for (size_t d = 0; d < obs_seqs.size(); ++d)
 		{
 			const auto& obs_seq = obs_seqs[d];
+
+			if (obs_seq.empty())
+			{
+				ATP_CORE_LOG(warning) << "Baum-Welch: ignoring empty"
+					" observation sequence.";
+				continue;
+			}
 
 			// for good explanations of A and B, check the comments
 			// for the postconditions of `forward` and `backward`
@@ -154,7 +161,7 @@ void baum_welch(
 				C_t += ublas::scalar_vector<float>(num_states,
 					smoothing);
 
-				C_t /= ublas::sum(AB_t);  // normalise
+				C_t /= ublas::sum(C_t);  // normalise
 			}
 
 			// This is a substitute for a rank-3 tensor
@@ -167,7 +174,7 @@ void baum_welch(
 			{
 				MatrixRow A_t(A, t + 1), B_t(B, t + 1);
 				MatrixCol obs_probs(
-					st_obs, obs_seq[t - 1]);
+					st_obs, obs_seq[t]);
 
 				Ds[t] = ublas::element_prod(st_trans,
 					ublas::outer_prod(A_t,
@@ -187,30 +194,32 @@ void baum_welch(
 			// observation matrices!
 			for (size_t i = 0; i < num_states; ++i)
 			{
+				const float csum = ublas::sum(MatrixCol(C, i));
+
+				ATP_CORE_ASSERT(csum != 0.0f);
+
 				for (size_t j = 0; j < num_states; ++j)
 				{
-					float dsum = 0.0f, csum = 0.0f;
-					for (size_t t = 0; t < obs_seq.size() - 1; ++t)
+					float dsum = 0.0f;
+					for (size_t t = 0; t < obs_seq.size(); ++t)
 					{
 						dsum += Ds[t](i, j);
-						csum += C(t, i);
 					}
 					st_trans(i, j) = dsum / csum;
 				}
 
-				for (size_t j = 0; j < num_obs + 1; ++j)
+				for (size_t j = 0; j < num_obs; ++j)
 				{
-					float csum = 0.0f, csum_jth_obs = 0.0f;
-					for (size_t t = 0; t < obs_seq.size() - 1; ++t)
+					float csum_jth_obs = 0.0f;
+					for (size_t t = 0; t < obs_seq.size(); ++t)
 					{
-						csum += C(t, i);
 						if (obs_seq[t] == j)
 							csum_jth_obs += C(t, i);
 						else
 							// always make sure to do smoothing
 							csum_jth_obs += smoothing;
 					}
-					st_obs(j, i) = csum_jth_obs / csum;
+					st_obs(i, j) = csum_jth_obs / csum;
 				}
 			}
 		}

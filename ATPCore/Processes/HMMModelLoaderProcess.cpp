@@ -43,6 +43,7 @@ public:
 		MyHMMBuildingData& data) :
 		QueryProcess(building_data.db),
 		m_building_data(building_data),
+		m_my_data(data),
 		m_model_builder(*data.model_builder)
 	{
 		ATP_CORE_LOG(trace) << "Creating HMM model loader "
@@ -95,15 +96,27 @@ protected:
 			force_fail();
 		}
 		m_building_data.model_id = (size_t)db::get_int(id);
+		m_my_data.model_id = m_building_data.model_id;
+
+		ATP_CORE_LOG(debug) << "Loaded HMM model ID " <<
+			db::get_int(id);
 
 		if (query.try_get(1, db::DType::INT, &num_states))
 		{
+			ATP_CORE_LOG(debug) << "Loaded " <<
+				db::get_int(num_states) << " hidden states for HMM "
+				"model " << m_building_data.model_id;
+
 			m_model_builder.set_num_hidden_states(
 				(size_t)db::get_int(num_states));
 		}
 
 		if (query.try_get(2, db::DType::FLOAT, &free_q))
 		{
+			ATP_CORE_LOG(debug) << "Loaded " <<
+				db::get_float(free_q) << " free q parameter for HMM "
+				"model " << m_building_data.model_id;
+
 			m_model_builder.set_free_geometric_q(
 				db::get_float(free_q));
 		}
@@ -111,8 +124,28 @@ protected:
 
 	void on_finished() override
 	{
-		ATP_CORE_LOG(trace) << "Finished loading first portion of "
-			"HMM model.";
+		ATP_CORE_ASSERT(m_building_data.model_id.has_value()
+			== m_my_data.model_id.has_value());
+
+		if (m_building_data.model_id.has_value())
+		{
+			// success
+
+			ATP_CORE_LOG(trace) << "Finished loading first portion of "
+				"HMM model.";
+		}
+		else
+		{
+			// failure
+
+			on_failed();
+
+			ATP_CORE_LOG(error) << "(The reason for the HMM loading "
+				"error is that no rows were returned from the "
+				"database.)";
+
+			force_fail();
+		}
 	}
 
 	void on_failed() override
@@ -126,6 +159,7 @@ protected:
 private:
 	HMMConjectureModelBuilder& m_model_builder;
 	proc_data::HMMConjBuildingEssentials& m_building_data;
+	MyHMMBuildingData& m_my_data;
 };
 
 
@@ -145,7 +179,7 @@ public:
 		m_model_builder(*building_data.model_builder)
 	{
 		// this is important!
-		ATP_CORE_PRECOND(m_building_data.model_id.has_value());
+		ATP_CORE_PRECOND(building_data.model_id.has_value());
 
 		ATP_CORE_LOG(trace) << "Creating HMM state transition"
 			" parameter loader process...";
@@ -188,6 +222,11 @@ protected:
 			&& query.try_get(1, db::DType::INT, &post_state)
 			&& query.try_get(2, db::DType::FLOAT, &prob))
 		{
+			ATP_CORE_LOG(debug) << "Loaded HMM state transition: "
+				"from = " << db::get_int(pre_state) << ", to = "
+				<< db::get_int(post_state) << ", prob = " <<
+				db::get_float(prob);
+
 			m_model_builder.add_state_transition(
 				(size_t)db::get_int(pre_state),
 				(size_t)db::get_int(post_state),
@@ -239,7 +278,7 @@ public:
 		m_model_builder(*building_data.model_builder)
 	{
 		// this is important!
-		ATP_CORE_PRECOND(m_building_data.model_id.has_value());
+		ATP_CORE_PRECOND(building_data.model_id.has_value());
 
 		ATP_CORE_LOG(trace) << "Creating HMM observation"
 			" parameter loader process...";
@@ -282,6 +321,11 @@ protected:
 			&& query.try_get(1, db::DType::STR, &obs)
 			&& query.try_get(2, db::DType::FLOAT, &prob))
 		{
+			ATP_CORE_LOG(debug) << "Loaded HMM state transition: "
+				"state = " << db::get_int(state) << ", symbol = "
+				<< db::get_str(obs) << ", prob = " <<
+				db::get_float(prob);
+
 			m_model_builder.add_symbol_observation(
 				(size_t)db::get_int(state),
 				db::get_str(obs),
@@ -332,8 +376,16 @@ public:
 	{
 		ATP_CORE_PRECOND(model_data.model == nullptr);
 		ATP_CORE_PRECOND(building_data.model_builder != nullptr);
+		ATP_CORE_PRECOND(building_data.model_id.has_value());
 
 		ATP_CORE_LOG(trace) << "Building HMM model...";
+
+		// seed the conjecture generator with the current time
+		const size_t seed = (size_t)
+			std::chrono::high_resolution_clock
+			::now().time_since_epoch().count();
+		ATP_CORE_LOG(debug) << "Seeded the HMM model with " << seed;
+		building_data.model_builder->set_random_seed(seed);
 
 		if (building_data.model_builder->can_build())
 		{
@@ -390,15 +442,6 @@ ProcessPtr create_hmm_model_loader_process(
 	ATP_CORE_PRECOND(building_data.db != nullptr);
 	ATP_CORE_PRECOND(building_data.lang != nullptr);
 	ATP_CORE_PRECOND(building_data.ctx != nullptr);
-
-	HMMConjectureModelBuilder builder(building_data.ctx);
-
-	// seed the conjecture generator with the current time
-	const size_t seed = (size_t)
-		std::chrono::high_resolution_clock
-		::now().time_since_epoch().count();
-	ATP_CORE_LOG(debug) << "Seeded the HMM model with " << seed;
-	builder.set_random_seed(seed);
 
 	// these are the processes we will include:
 

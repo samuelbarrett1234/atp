@@ -24,12 +24,16 @@ public:
 		proc_data::HMMConjecturerTrainingEssentials& train) :
 		m_train(train), m_cur_epoch(0)
 	{
-		ATP_CORE_LOG(trace) << "Starting up HMM training process...";
+		ATP_CORE_LOG(info) << "Starting HMM conjecturer training...";
+
+		if (m_train.num_epochs == 0)
+			ATP_CORE_LOG(warning) << "Training process created, but "
+			"zero epochs specified.";
 	}
 
 	inline bool done() const override
 	{
-		return m_cur_epoch < m_train.num_epochs;
+		return m_cur_epoch == m_train.num_epochs;
 	}
 	inline bool waiting() const override
 	{
@@ -49,6 +53,10 @@ public:
 		m_train.model->train(
 			m_train.dataset, N);
 		m_cur_epoch += N;
+
+		ATP_CORE_LOG(info) << "HMM conjecturer training: "
+			<< m_cur_epoch << "/" << m_train.num_epochs <<
+			" epochs completed.";
 	}
 
 private:

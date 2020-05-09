@@ -7,6 +7,7 @@
 
 
 #include <boost/numeric/ublas/triangular.hpp>
+#include <boost/numeric/ublas/matrix_proxy.hpp>
 #include "HMMConjectureModel.h"
 #include "HMMUtility.h"
 
@@ -66,6 +67,37 @@ HMMConjectureModel::HMMConjectureModel(logic::ModelContextPtr p_ctx,
 	// the symbol IDs contained in the model context, but this is
 	// certainly a precondition
 
+	// check the matrices are stochastic
+#ifdef ATP_CORE_DEFENSIVE
+	for (size_t i = 0; i < m_num_hidden_states; ++i)
+	{
+		float sum = 0.0f;
+		for (size_t j = 0; j < m_num_hidden_states; ++j)
+		{
+			sum += m_st_trans(i, j);
+		}
+		if (std::abs(sum - 1.0f) > 1.0e-6f)
+		{
+			ATP_CORE_LOG(warning) << "State transitions for HMM out "
+				"of state " << i << " summed to " << sum << " which "
+				"significantly differs from 1.";
+		}
+		sum = 0.0f;
+		for (size_t j = 0; j < m_symbs.size(); ++j)
+		{
+			sum += m_st_obs(i, j);
+		}
+		if (sum > 1.0f)
+		{
+			ATP_CORE_LOG(warning) << "Obesrvations for HMM out "
+				"of state " << i << " summed to " << sum << " which "
+				"is significantly greater than 1 (it doesn't matter "
+				"if the value is less than one, because any excess "
+				"is counted as free variable probability.)";
+		}
+	}
+#endif
+
 	reset_state();  // generates observation
 }
 
@@ -99,22 +131,46 @@ void HMMConjectureModel::train(
 	ublas::vector<float> initial_state = ublas::scalar_vector<float>(
 		m_num_hidden_states, 1.0f / (float)m_num_hidden_states);
 
-	hmm::baum_welch(initial_state, m_st_trans, m_st_obs,
+	ublas::matrix<float> obs_with_free = m_st_obs;
+	obs_with_free.resize(m_num_hidden_states, m_symbs.size() + 1);
+
+	// extend emission matrix with free variable observations
+	for (size_t i = 0; i < m_num_hidden_states; ++i)
+	{
+		float sum = 0.0f;
+		for (size_t j = 0; j < m_symbs.size(); ++j)
+			sum += obs_with_free(i, j);
+		obs_with_free(i, m_symbs.size()) = 1.0f - sum;
+	}
+
+	hmm::baum_welch(initial_state, m_st_trans, obs_with_free,
 		observations, N, m_smoothing);
+
+	// extract back the portion of the matrix we care about
+	m_st_obs = ublas::matrix_range<ublas::matrix<float>>(
+		obs_with_free, ublas::range(0, m_num_hidden_states),
+		ublas::range(0, m_symbs.size()));
 }
 
 
 void HMMConjectureModel::generate_observation()
 {
-	const auto obs_probs = ublas::prod(ublas::trans(m_st_obs_partial_sums),
-		m_state);
+	const auto obs_cum_probs = ublas::prod(
+		m_state, m_st_obs_partial_sums);
 
 #ifdef ATP_CORE_DEFENSIVE
-	if (std::abs(ublas::sum(obs_probs) - 1.0f) > 1.0e-6f)
+	if (obs_cum_probs(m_symbs.size() - 1) > 1.0f)
 	{
 		ATP_CORE_LOG(warning) << "HMM conjecture model observation "
 			"distribution didn't sum to 1; sum was "
-			<< ublas::sum(obs_probs);
+			<< obs_cum_probs(m_symbs.size() - 1);
+	}
+	else if (std::abs(obs_cum_probs(m_symbs.size() - 1) - 1.0f) < 1.0e-6f)
+	{
+		ATP_CORE_LOG(warning) << "HMM conjecture model observation "
+			"distribution summed to 1, excluding free variables, so "
+			"it will be impossible (/incredibly unlikely) that a "
+			"free variable is generated.";
 	}
 #endif
 
@@ -122,13 +178,13 @@ void HMMConjectureModel::generate_observation()
 	const float r = m_unif01(m_rand_device);
 
 	// find the least element in `obs_probs` which is >= r
-	const auto observation = std::upper_bound(obs_probs.cbegin(),
-		obs_probs.cend(), r);
+	const auto observation = std::upper_bound(obs_cum_probs.cbegin(),
+		obs_cum_probs.cend(), r);
 
-	if (observation != obs_probs.cend())
+	if (observation != obs_cum_probs.cend())
 	{
 		// we have generated a symbol as our current observation:
-		m_cur_obs = m_symbs[std::distance(obs_probs.cbegin(),
+		m_cur_obs = m_symbs[std::distance(obs_cum_probs.cbegin(),
 			observation)];
 		
 		ATP_CORE_ASSERT(m_ctx->is_defined(m_cur_obs));

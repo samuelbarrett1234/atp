@@ -93,9 +93,8 @@ protected:
 		else if (m_train_data.dataset->size() > 0)
 		{
 			ATP_CORE_LOG(info) << "HMM Train Process: "
-				"Loaded dataset of size" <<
-				m_train_data.dataset->size()
-				<< " from the theorem database!";
+				"Loaded training dataset of size " <<
+				m_train_data.dataset->size() << ".";
 		}
 		else
 		{

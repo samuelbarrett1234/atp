@@ -90,7 +90,7 @@ std::string SQLiteSaveHmmConjModelParams::build()
 		query_builder << "INSERT OR REPLACE INTO "
 			"hmm_conjecturer_symbol_observations (id, hidden_state, "
 			"symbol, prob) VALUES (" << *m_model_id << ", "
-			<< tup.get<0>() << ", " << tup.get<1>() << ", "
+			<< tup.get<0>() << ", '" << tup.get<1>() << "', "
 			<< tup.get<2>() << ");\n\n";
 	}
 

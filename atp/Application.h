@@ -79,7 +79,8 @@ public:
 
 	\returns True iff success.
 
-	\pre Must've already set the context file successfully.
+	\pre Language, context file, search settings and database must be
+		initialised.
 
 	*/
 	bool add_proof_task(std::string path_or_stmt);
@@ -89,8 +90,27 @@ public:
 		using a Hidden Markov Model.
 
 	\param N The number of conjectures to try generating.
+
+	\pre Language, context file and database must be initialised.
+
+	\returns True iff success.
 	*/
 	bool add_hmm_conjecture_task(size_t N);
+
+	/**
+	\brief Create a new process which will train the HMM conjecturer
+		model on existing proven theorems.
+
+	\param epochs The number of passes to perform over the dataset.
+
+	\param dataset_size The limit on the number of statements to load
+		from the database to train on.
+
+	\pre Language, context file and database must be initialised.
+
+	\returns True iff success.
+	*/
+	bool add_hmm_conj_train_task(size_t epochs, size_t dataset_size);
 
 	/**
 	\brief Run all proofs that have been set.

@@ -226,7 +226,7 @@ bool Application::add_proof_task(std::string path_or_stmt)
 		"process...";
 
 	// add a proof process
-	m_proc_mgr.add(std::make_unique<atp::core::ProofProcess>(m_lang,
+	m_proc_mgr.add(atp::core::create_proof_process(m_lang,
 		m_ctx_id, m_ss_id, m_ctx, m_db, m_search_settings,
 		std::move(p_stmts)));
 
@@ -248,9 +248,31 @@ bool Application::add_hmm_conjecture_task(size_t N)
 	}
 	else
 	{
-		m_proc_mgr.add(std::make_unique<
-			atp::core::HMMConjectureProcess>(
+		m_proc_mgr.add(atp::core::create_hmm_conjecture_process(
 			m_db, m_lang, m_ctx_id, m_ctx, N));
+
+		return true;
+	}
+}
+
+
+bool Application::add_hmm_conj_train_task(size_t epochs,
+	size_t dataset_size)
+{
+	ATP_PRECOND(m_lang != nullptr);
+	ATP_PRECOND(m_ctx != nullptr);
+	ATP_PRECOND(m_db != nullptr);
+
+	if (epochs == 0 || dataset_size == 0)
+	{
+		ATP_LOG(warning) << "Skipping conjecture HMM training "
+			"as either 0 epochs or dataset size of 0 was specified.";
+		return true;
+	}
+	else
+	{
+		m_proc_mgr.add(atp::core::create_hmm_conjecture_train_process(
+			m_db, m_lang, m_ctx_id, m_ctx, epochs, dataset_size));
 
 		return true;
 	}

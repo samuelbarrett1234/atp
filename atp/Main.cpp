@@ -33,6 +33,7 @@ int load_ctx(const po::variables_map& vm);
 int load_ss(const po::variables_map& vm);
 int add_proof(const po::variables_map& vm);
 int add_hmm_conj(const po::variables_map& vm);
+int add_hmm_train(const po::variables_map& vm);
 
 
 int main(int argc, const char* const argv[])
@@ -64,6 +65,12 @@ int main(int argc, const char* const argv[])
 			"--hmm-conjecture N to generate N conjectures. Each "
 			"invocation of this command will run on a separate "
 			"thread.")
+
+		("hmm-conjecture-train,hmmct", po::value<size_t>(),
+			"Train the HMM conjecturer model for some number of "
+			"epochs. Use --hmm-conjecture-train N to train for "
+			"N epochs (an epoch is a single pass over the training "
+			"data.")
 
 		("database,db", po::value<std::string>(),
 			"Path to database file")
@@ -126,6 +133,8 @@ int main(int argc, const char* const argv[])
 	if (int rc = add_proof(vm))
 		return rc;
 	if (int rc = add_hmm_conj(vm))
+		return rc;
+	if (int rc = add_hmm_train(vm))
 		return rc;
 
 	g_app->run();
@@ -298,6 +307,31 @@ int add_hmm_conj(const po::variables_map& vm)
 				ATP_LOG(error) << "Failed to launch conjecturer.";
 				return -1;
 			}
+		}
+	}
+
+	return 0;
+}
+
+
+int add_hmm_train(const po::variables_map& vm)
+{
+	if (vm.count("hmm-conjecture-train"))
+	{
+		const size_t epochs =
+			vm["hmm-conjecture-train"].as<size_t>();
+
+		/**
+		\todo Let the user specify the training dataset size on the
+			command line.
+		*/
+		const size_t dataset_size = 1000;
+
+		if (!g_app->add_hmm_conj_train_task(epochs, dataset_size))
+		{
+			ATP_LOG(error) << "Failed to launch conjecturer "
+				"training.";
+			return -1;
 		}
 	}
 

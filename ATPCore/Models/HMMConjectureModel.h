@@ -66,7 +66,7 @@ public:
 		boost::numeric::ublas::matrix<float> st_trans,
 		boost::numeric::ublas::matrix<float> st_obs,
 		std::vector<size_t> symbs,
-		size_t rand_seed, float smoothing);
+		size_t rand_seed, float smoothing, float decay);
 
 	/**
 	\brief Reset state distribution to the default (typically just a
@@ -211,7 +211,7 @@ private:
 
 	// for training
 	HMMStmtToObs m_stmt_to_obs;
-	const float m_smoothing;
+	const float m_smoothing, m_decay;
 };
 
 

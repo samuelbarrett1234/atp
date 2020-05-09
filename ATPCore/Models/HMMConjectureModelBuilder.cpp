@@ -18,7 +18,7 @@ namespace core
 
 HMMConjectureModelBuilder::HMMConjectureModelBuilder(logic::ModelContextPtr p_ctx) :
 	m_ctx(std::move(p_ctx)),
-	m_valid(true)
+	m_valid(true), m_decay(0.5f), m_smoothing(1.0e-9f)
 {
 	ATP_CORE_PRECOND(m_ctx != nullptr);
 }
@@ -101,7 +101,7 @@ std::unique_ptr<HMMConjectureModel> HMMConjectureModelBuilder::build() const
 	return std::make_unique<HMMConjectureModel>(
 		m_ctx, *m_num_states, *m_q, std::move(st_trans),
 		std::move(st_obs), std::move(all_symb_ids), *m_rand_seed,
-		m_smoothing);
+		m_smoothing, m_decay);
 }
 
 

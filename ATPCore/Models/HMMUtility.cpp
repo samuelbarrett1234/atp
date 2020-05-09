@@ -112,7 +112,7 @@ void baum_welch(
 	Matrix& st_trans,
 	Matrix& st_obs,
 	const std::vector<std::vector<size_t>>& obs_seqs,
-	size_t num_epochs, float smoothing)
+	size_t num_epochs, float smoothing, float decay)
 {
 	const size_t num_states = st_trans.size1();
 	const size_t num_obs = st_obs.size2();
@@ -209,7 +209,7 @@ void baum_welch(
 			// estimate state transitions
 			for (size_t j = 0; j < num_states; ++j)
 			{
-				st_trans(i, j) = 0.0f;  // reset this
+				float newparam = 0.0f;
 
 				for (size_t d = 0; d < obs_seqs.size(); ++d)
 				{
@@ -227,11 +227,12 @@ void baum_welch(
 					{
 						dsum += Ds[t](i, j);
 					}
-					st_trans(i, j) += dsum / csum_0_to_Tminus1;
+					newparam += dsum / csum_0_to_Tminus1;
 				}
 
-				// average over all data points:
-				st_trans(i, j) /= (float)obs_seqs.size();
+				// average over all data points, and apply decay:
+				st_trans(i, j) = (1.0f - decay) * st_trans(i, j) +
+					decay * newparam / (float)obs_seqs.size();
 			}
 
 			// normalise, just in case
@@ -240,7 +241,7 @@ void baum_welch(
 			// estimate observations
 			for (size_t j = 0; j < num_obs; ++j)
 			{
-				st_obs(i, j) = 0.0f;  // reset this
+				float newparam = 0.0f;
 
 				for (size_t d = 0; d < obs_seqs.size(); ++d)
 				{
@@ -262,11 +263,12 @@ void baum_welch(
 							csum_jth_obs += smoothing;
 					}
 
-					st_obs(i, j) += csum_jth_obs / csum_1_to_T;
+					newparam += csum_jth_obs / csum_1_to_T;
 				}
 
-				// average over all data points:
-				st_obs(i, j) /= (float)obs_seqs.size();
+				// average over all data points, and apply decay:
+				st_obs(i, j) = (1.0f - decay) * st_obs(i, j) +
+					decay * newparam / (float)obs_seqs.size();
 			}
 
 			// normalise, just in case

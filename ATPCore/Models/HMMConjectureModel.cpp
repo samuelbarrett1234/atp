@@ -41,10 +41,11 @@ ublas::triangular_matrix<float, ublas::upper> psum_matrix(size_t n)
 HMMConjectureModel::HMMConjectureModel(logic::ModelContextPtr p_ctx,
 	size_t num_states, float free_q,
 	ublas::matrix<float> st_trans, ublas::matrix<float> st_obs,
-	std::vector<size_t> symbs, size_t rand_seed, float smoothing) :
+	std::vector<size_t> symbs, size_t rand_seed, float smoothing,
+	float decay) :
 	m_ctx(std::move(p_ctx)),
 	m_num_hidden_states(num_states),
-	m_free_q(free_q),
+	m_free_q(free_q), m_decay(decay),
 	m_state(ublas::zero_vector<float>(num_states)),
 	m_st_trans(std::move(st_trans)),
 	m_st_obs(st_obs),
@@ -59,6 +60,9 @@ HMMConjectureModel::HMMConjectureModel(logic::ModelContextPtr p_ctx,
 	ATP_CORE_PRECOND(m_num_hidden_states > 0);
 	ATP_CORE_PRECOND(free_q >= 0.0f);
 	ATP_CORE_PRECOND(free_q <= 1.0f);
+	ATP_CORE_PRECOND(decay >= 0.0f);
+	ATP_CORE_PRECOND(decay <= 1.0f);
+	ATP_CORE_PRECOND(smoothing >= 0.0f);
 	ATP_CORE_PRECOND(m_st_trans.size1() == m_num_hidden_states);
 	ATP_CORE_PRECOND(m_st_trans.size2() == m_num_hidden_states);
 	ATP_CORE_PRECOND(m_st_obs_partial_sums.size1() ==
@@ -78,11 +82,12 @@ void HMMConjectureModel::advance()
 	m_state = boost::numeric::ublas::prod(m_state, m_st_trans);
 
 #ifdef ATP_CORE_DEFENSIVE
-	if (std::abs(ublas::sum(m_state) - 1.0f) > 1.0e-6f)
+	const float sum = ublas::sum(m_state);
+	if (std::abs(sum - 1.0f) > 1.0e-4f)
 	{
 		ATP_CORE_LOG(warning) << "HMM conjecture model state "
 			"distribution didn't sum to 1; sum was "
-			<< ublas::sum(m_state);
+			<< sum;
 	}
 #endif
 
@@ -115,7 +120,7 @@ void HMMConjectureModel::train(
 	}
 
 	hmm::baum_welch(initial_state, m_st_trans, obs_with_free,
-		observations, N, m_smoothing);
+		observations, N, m_smoothing, m_decay);
 
 	// extract back the portion of the matrix we care about
 	m_st_obs = ublas::matrix_range<ublas::matrix<float>>(

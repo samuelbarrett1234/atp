@@ -101,7 +101,7 @@ public:
 			{
 				ATP_CORE_LOG(trace) << "Successfully generated the "
 					"following " << m_num_to_generate <<
-					"conjectures: \"" << m_completed.str() << "\".";
+					" conjectures: \n" << m_completed.str();
 			}
 		}
 	}

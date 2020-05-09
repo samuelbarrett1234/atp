@@ -104,14 +104,36 @@ public:
 		m_valid = m_valid && m_q >= 0.0f && m_q <= 1.0f;
 	}
 
+	/**
+	\brief Set the random seed used for generating random conjectures
+	*/
 	inline void set_random_seed(size_t rand_seed)
 	{
 		m_rand_seed = rand_seed;
 	}
 
+	/**
+	\brief Set the smoothing factor (basically fits a Dirichlet prior
+		on the parameters of the model.) 0 represents no smoothing.
+	*/
 	inline void set_smoothing(float smoothing)
 	{
+		ATP_CORE_PRECOND(smoothing >= 0.0f);
 		m_smoothing = smoothing;
+	}
+	
+	/**
+	\brief Set the decay factor (If decay is 0, training has no
+		effect. If decay is 1, the parameters the model had
+		beforehand are not kept when the new parameters are found.
+		If decay is 0.5, each training step averages out the old and
+		new parameters equally.)
+	*/
+	inline void set_decay(float decay)
+	{
+		ATP_CORE_PRECOND(0.0f <= decay);
+		ATP_CORE_PRECOND(decay <= 1.0f);
+		m_decay = decay;
 	}
 
 private:
@@ -144,7 +166,7 @@ private:
 	// herein are between 0 and 1, and all symbol IDs are valid,
 	// and that we have a nonzero number of hidden states.
 
-	float m_smoothing = 1.0e-9f;
+	float m_smoothing, m_decay;
 
 	boost::optional<float> m_q;
 	boost::optional<size_t> m_num_states, m_rand_seed;

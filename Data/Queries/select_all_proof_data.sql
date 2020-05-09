@@ -1,7 +1,10 @@
 SELECT stmt, num_attempts, num_proofs, time_agg, max_mem_agg, num_exp_agg,
 
 -- compute the number of times this theorem could've been / was used in a proof
-IFNULL((SELECT SUM(cnt) FROM theorem_usage WHERE id=used_thm_id), 0) AS num_uses
+IFNULL((SELECT SUM(cnt) FROM theorem_usage WHERE id=used_thm_id), 0) AS num_uses,
+
+  -- convert date from julianday to something readable
+DATE(thm_date) as date_entered
 
 FROM theorems JOIN
 
@@ -21,4 +24,6 @@ FROM theorems JOIN
 )
 
 ON id=thm_id
+
+ORDER BY num_proofs DESC, num_uses DESC, num_attempts DESC
 ;

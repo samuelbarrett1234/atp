@@ -94,6 +94,10 @@ ATP_CORE_API boost::numeric::ublas::matrix<float> backward(
 
 \param smoothing The Laplace smoothing amount
 
+\param decay Multiplier for the update to the model parameters (0
+	will mean that this update has no effect, 1 means we will forget
+	the last set of parameters, 0.5 means equal average the two, etc)
+
 \pre st_trans.size1() == initial_state.size()
 
 \pre st_trans.size1() == st_trans.size2()
@@ -107,7 +111,7 @@ ATP_CORE_API void baum_welch(
 	boost::numeric::ublas::matrix<float>& st_trans,
 	boost::numeric::ublas::matrix<float>& st_obs,
 	const std::vector<std::vector<size_t>>& obs_seqs,
-	size_t num_epochs, float smoothing);
+	size_t num_epochs, float smoothing, float decay);
 
 
 }  // namespace hmm

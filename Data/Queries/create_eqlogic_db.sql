@@ -41,6 +41,14 @@ CREATE TABLE IF NOT EXISTS theorems (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	stmt TEXT NOT NULL,  /* target statement as text */
 	ctx INTEGER NOT NULL,  /* the model context */
+	
+	/*
+	Number of days from noon in Greenwich on
+	November 24, 4714 B.C up to the time where this
+	theorem was entered into the database.
+	*/
+	thm_date REAL DEFAULT (julianday('now')),
+	
 	FOREIGN KEY (ctx) REFERENCES model_contexts(ctx_id),
 	UNIQUE(stmt, ctx)  /* can have duplicate stmts across different contexts */);
 

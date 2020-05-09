@@ -39,7 +39,14 @@ public:
 	HMMStmtToObs(const logic::ModelContextPtr& p_ctx,
 		std::vector<size_t> symb_ids);
 
+	// convert an array of statements into an array of observation sequences
 	std::vector<std::vector<size_t>> convert(
+		const logic::StatementArrayPtr& p_stmts) const;
+
+	// convert an array of statements into an array A such that A[i] is the
+	// total number of occurrences of the free variable ID i in all of the
+	// statements
+	std::vector<size_t> count_free_ids(
 		const logic::StatementArrayPtr& p_stmts) const;
 
 private:

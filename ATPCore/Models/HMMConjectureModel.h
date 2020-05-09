@@ -90,6 +90,8 @@ public:
 	/**
 	\brief Train on each statement N times
 
+	\note This does NOT fit the "free q" parameter.
+
 	\pre The statements in p_stmts are associated with the model
 		context given in the constructor.
 
@@ -97,6 +99,11 @@ public:
 		going on, as it modifies the matrices.
 	*/
 	void train(const logic::StatementArrayPtr& p_stmts, size_t N);
+
+	/*
+	\brief Train the free_q parameter.
+	*/
+	void estimate_free_q(const logic::StatementArrayPtr& p_stmts);
 
 	/*
 	\brief Either return the current symbol ID, or the free variable
@@ -179,7 +186,7 @@ private:
 	logic::ModelContextPtr m_ctx;
 
 	const size_t m_num_hidden_states;
-	const float m_free_q;
+	float m_free_q;
 	std::vector<size_t> m_symbs;  // symbol IDs in some order
 
 	boost::numeric::ublas::vector<float> m_state;

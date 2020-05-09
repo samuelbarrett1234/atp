@@ -29,6 +29,9 @@ public:
 		if (m_train.num_epochs == 0)
 			ATP_CORE_LOG(warning) << "Training process created, but "
 			"zero epochs specified.";
+
+		// do this once, and right at the start:
+		m_train.model->estimate_free_q(m_train.dataset);
 	}
 
 	inline bool done() const override

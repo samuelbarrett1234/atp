@@ -189,6 +189,32 @@ void HMMConjectureModel::generate_observation()
 }
 
 
+void HMMConjectureModel::estimate_free_q(
+	const logic::StatementArrayPtr& p_stmts)
+{
+	// num_occ_id[i] is the number of occurrences of a free variable
+	// with ID = i
+	const std::vector<size_t> num_occ_id = m_stmt_to_obs.count_free_ids(
+		p_stmts);
+
+	size_t sum = 0;
+	for (size_t x : num_occ_id)
+		sum += x;
+
+	if (sum == 0)
+		return;  // avoid division by zero
+
+	// denominator of the MLE for free_q
+	float mle_denom = 0.0f;
+	for (size_t i = 0; i < num_occ_id.size(); ++i)
+	{
+		mle_denom += static_cast<float>((i + 1) * num_occ_id[i]);
+	}
+
+	m_free_q = 1.0f - (float)sum / mle_denom;
+}
+
+
 }  // namespace core
 }  // namespace atp
 

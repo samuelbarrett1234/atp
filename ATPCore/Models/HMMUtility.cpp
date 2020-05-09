@@ -115,7 +115,7 @@ void baum_welch(
 	size_t num_epochs, float smoothing)
 {
 	const size_t num_states = st_trans.size1();
-	const size_t num_obs = st_obs.size1();
+	const size_t num_obs = st_obs.size2();
 	ATP_CORE_PRECOND(initial_state.size() == num_states);
 	ATP_CORE_PRECOND(st_trans.size2() == num_states);
 	ATP_CORE_PRECOND(st_obs.size1() == num_states);

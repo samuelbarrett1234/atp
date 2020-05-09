@@ -59,6 +59,36 @@ std::vector<std::vector<size_t>> convert_equational_logic(
 }
 
 
+std::vector<size_t> count_equational_logic(
+	const logic::equational::StatementArray& arr)
+{
+	std::vector<size_t> result;
+	result.push_back(0);
+
+	for (size_t i = 0; i < arr.size(); ++i)
+	{
+		const auto& stmt = arr.my_at(i);
+
+		// find all occurrences of free variables in the statement
+		for (auto subexpr : stmt)
+		{
+			if (subexpr.root_type() ==
+				logic::equational::SyntaxNodeType::FREE)
+			{
+				// ensure there is space
+				if (result.size() <= subexpr.root_id())
+					result.resize(subexpr.root_id() + 1, 0);
+
+				// count this occurrence
+				++result[subexpr.root_id()];
+			}
+		}
+	}
+
+	return result;
+}
+
+
 HMMStmtToObs::HMMStmtToObs(
 	const logic::ModelContextPtr& p_ctx,
 	std::vector<size_t> symb_ids) :
@@ -75,6 +105,26 @@ std::vector<std::vector<size_t>> HMMStmtToObs::convert(
 		const logic::equational::StatementArray*>(p_stmts.get()))
 	{
 		return convert_equational_logic(*p_arr, m_symb_ids);
+	}
+	else
+	{
+		ATP_CORE_LOG(fatal) << "Bad logic type! (Perhaps the logic "
+			"library was updated and the other libraries were not "
+			"updated?";
+		ATP_CORE_ASSERT(false && "Bad logic type!");
+		throw std::exception();
+	}
+}
+
+
+std::vector<size_t> HMMStmtToObs::count_free_ids(const logic::StatementArrayPtr& p_stmts) const
+{
+	ATP_CORE_PRECOND(p_stmts != nullptr);
+
+	if (auto p_arr = dynamic_cast<
+		const logic::equational::StatementArray*>(p_stmts.get()))
+	{
+		return count_equational_logic(*p_arr);
 	}
 	else
 	{

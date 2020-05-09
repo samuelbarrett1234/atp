@@ -117,6 +117,9 @@
     <ClInclude Include="Processes\HMMLoadTrainingDataProcess.h">
       <Filter>Header Files\Processes\HMM</Filter>
     </ClInclude>
+    <ClInclude Include="Processes\UnprovenThmSelectorProcess.h">
+      <Filter>Header Files\Processes\Proof</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp">
@@ -175,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="Processes\HMMLoadTrainingDataProcess.cpp">
       <Filter>Source Files\Processes\HMM</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\UnprovenThmSelectorProcess.cpp">
+      <Filter>Source Files\Processes\Proof</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

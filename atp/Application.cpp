@@ -234,6 +234,20 @@ bool Application::add_proof_task(std::string path_or_stmt)
 }
 
 
+bool Application::add_proof_task(size_t num_targets)
+{
+	if (num_targets == 0)
+		return true;  // do nothing
+
+	// add a proof process
+	m_proc_mgr.add(atp::core::create_proof_process(m_lang,
+		m_ctx_id, m_ss_id, m_ctx, m_db, m_search_settings,
+		num_targets));
+
+	return true;
+}
+
+
 bool Application::add_hmm_conjecture_task(size_t N)
 {
 	ATP_PRECOND(m_lang != nullptr);

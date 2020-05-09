@@ -68,10 +68,9 @@ public:
 	*/
 	bool set_search_name(const std::string& path);
 
-
 	/**
-	\brief Add a new one/many target statements, to attempt to prove
-	    when `run` is called.
+	\brief Add a process which will try to prove the given statements
+		when `run` is called.
 
 	\param path_or_stmt Can either be a path to a file of statements
 	    or can just be a list of statements represented as a string
@@ -84,6 +83,20 @@ public:
 
 	*/
 	bool add_proof_task(std::string path_or_stmt);
+
+	/**
+	\brief Add a process which will select some arbitrary unproven
+		statements and try to prove them when `run` is called.
+
+	\param num_targets The number of unproven theorems to try proving
+
+	\returns True iff success.
+
+	\pre Language, context file, search settings and database must be
+		initialised.
+
+	*/
+	bool add_proof_task(size_t num_targets);
 
 	/**
 	\brief Create a new process which will generate conjectures

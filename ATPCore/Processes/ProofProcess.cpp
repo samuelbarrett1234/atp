@@ -10,6 +10,7 @@
 #include "ProofProcess.h"
 #include "CommonProcessData.h"
 #include "ProcessSequence.h"
+#include "UnprovenThmSelectorProcess.h"
 #include "ProofInitProcess.h"
 #include "RunSolverProcess.h"
 #include "SaveProofResultsProcess.h"
@@ -48,8 +49,46 @@ ProcessPtr create_proof_process(
 
 	/**
 	\todo Let the user decide how many helper theorems we can load
-		from the database.
+		from the database. This would be easy enough to incorporate
+		into the search settings files.
 	*/
+	p_proc->get_data<0>().num_helper_thms = 25;
+
+	return p_proc;
+}
+
+
+ProcessPtr create_proof_process(
+	logic::LanguagePtr p_lang,
+	size_t ctx_id, size_t ss_id,
+	logic::ModelContextPtr p_ctx,
+	db::DatabasePtr p_db,
+	search::SearchSettings& search_settings,
+	size_t num_targets)
+{
+	auto p_proc = make_sequence<
+		proc_data::ProofSetupEssentials,
+		proc_data::ProofSetupEssentials,
+		proc_data::ProofEssentials,
+		proc_data::ProofEssentials>(
+			boost::make_tuple(
+				boost::bind(&create_unproven_thm_select_proc,
+					num_targets, _1, _2),
+				boost::bind(&create_proof_init_process, _1, _2),
+				boost::bind(&create_run_solver_process, _1, _2),
+				boost::bind(&create_save_results_process, _1)
+			));
+
+	// set initial data block
+	p_proc->get_data<0>().db = std::move(p_db);
+	p_proc->get_data<0>().lang = std::move(p_lang);
+	p_proc->get_data<0>().ctx = std::move(p_ctx);
+	p_proc->get_data<0>().ctx_id = ctx_id;
+	p_proc->get_data<0>().ss_id = ss_id;
+	p_proc->get_data<0>().settings = search_settings;
+	// don't set target_thms
+
+	// see the comment in the above version of the function
 	p_proc->get_data<0>().num_helper_thms = 25;
 
 	return p_proc;

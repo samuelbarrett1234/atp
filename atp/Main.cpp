@@ -17,6 +17,7 @@
 #include <boost/log/utility/setup/file.hpp>
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/program_options.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
 #include "Application.h"
 
@@ -55,10 +56,12 @@ int main(int argc, const char* const argv[])
 		("nologfile,nlf", "Don't write any log files.")
 
 		("prove,P", po::value<std::vector<std::string>>(),
-			"Path to a file containing statements to prove, or write"
-			" a statement with no spaces f(x)=y to try to prove. "
-			"Each separate invocation of this command will run on "
-			"a separate thread.")
+			"Either a statement like \"f(x) = y\", a path to a file "
+			"containing line-separated statements, or an integer "
+			"representing the number of unproven theorems to try "
+			"proving (selected from the database), and attempt to "
+			"prove them! Note that each separate invocation of this "
+			"command will run on a separate thread.")
 
 		("hmm-conjecture,hmmc", po::value<std::vector<size_t>>(),
 			"Generate a number of conjectures; use "
@@ -279,12 +282,29 @@ int add_proof(const po::variables_map& vm)
 			vm["prove"].as<std::vector<std::string>>();
 		for (auto task : proof_tasks)
 		{
-			if (!g_app->add_proof_task(task))
+			try
 			{
-				ATP_LOG(error)
-					<< "Failed to load proof task: '"
-					<< task << '\'';
-				return -1;
+				// throws if not integer
+				const size_t N = boost::lexical_cast<size_t>(task);
+
+				if (!g_app->add_proof_task(N))
+				{
+					ATP_LOG(error)
+						<< "Failed to load proof task: '"
+						<< task << '\'';
+					return -1;
+				}
+			}
+			catch (boost::bad_lexical_cast&)
+			{
+				// handle as filename / statement input
+				if (!g_app->add_proof_task(task))
+				{
+					ATP_LOG(error)
+						<< "Failed to load proof task: '"
+						<< task << '\'';
+					return -1;
+				}
 			}
 		}
 	}

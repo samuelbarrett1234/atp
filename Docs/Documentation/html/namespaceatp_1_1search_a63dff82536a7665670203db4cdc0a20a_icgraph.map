@@ -1,8 +1,6 @@
 <map id="atp::search::try_create_solver" name="atp::search::try_create_solver">
-<area shape="rect" id="node1" title="Try to create a solver, based on the type given in ptree." alt="" coords="879,5,1032,47"/>
-<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#af1274bf19e83a50812b02f37c53ec691" title=" " alt="" coords="700,5,831,47"/>
-<area shape="rect" id="node3" href="$namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa" title="Try to load a solver from a configuration file." alt="" coords="487,5,652,47"/>
-<area shape="rect" id="node4" href="$class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79" title="Loads the solver." alt="" coords="296,5,439,47"/>
-<area shape="rect" id="node5" href="$_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,13,248,39"/>
-<area shape="rect" id="node6" href="$_main_8cpp.html#a814244b02f6701fd8ead246678bb3dae" title=" " alt="" coords="5,13,56,39"/>
+<area shape="rect" id="node1" title="Try to create a solver, based on the type given in ptree." alt="" coords="643,5,796,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#af1274bf19e83a50812b02f37c53ec691" title=" " alt="" coords="464,5,595,47"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa" title="Try to load a solver from a configuration file." alt="" coords="251,5,416,47"/>
+<area shape="rect" id="node4" href="$class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="5,13,203,39"/>
 </map>

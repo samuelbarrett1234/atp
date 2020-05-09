@@ -1,0 +1,8 @@
+<map id="atp::db::IQueryTransaction::arity" name="atp::db::IQueryTransaction::arity">
+<area shape="rect" id="node1" title="Get the arity (i.e. number of columns) of the current set of values." alt="" coords="276,136,451,177"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_h_m_m_load_training_data_proc.html#a1e6c764397c51a7587d37a9b7be13e93" title=" " alt="" coords="24,5,209,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_h_m_m_model_loader_process.html#aa361a1af1866a6280ded08a5a7e649c3" title=" " alt="" coords="23,71,210,112"/>
+<area shape="rect" id="node4" href="$classatp_1_1core_1_1_proof_init_process.html#a24564384429d20121ad4e2d18c6da720" title=" " alt="" coords="29,136,205,177"/>
+<area shape="rect" id="node5" href="$classatp_1_1core_1_1_h_m_m_state_trans_loader_process.html#ac0047cc416488072e8258ffda250e642" title=" " alt="" coords="29,202,204,258"/>
+<area shape="rect" id="node6" href="$classatp_1_1core_1_1_h_m_m_obs_loader_process.html#a2787068a08e2532d3d85a7615f0e22b6" title=" " alt="" coords="5,283,228,324"/>
+</map>

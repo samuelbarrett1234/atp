@@ -67,7 +67,7 @@ $(function() {
 <div class="title">Solvers and Search Settings </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md19"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md20"></a>
 Search Settings File Format</h1>
 <p>Search settings allow the user to choose a solver, and parameters for that solver, and save them into a persistent configuration file. The format is quite simple; there are some parameters which do not depend on the solver type, and some parameters depend on the type of solver.</p>
 <p>The following settings are universal (independent of solver type): </p><div class="fragment"><div class="line">{</div>
@@ -80,10 +80,10 @@ Search Settings File Format</h1>
 </div><!-- fragment --><p><code>step-size</code> is the number of expansions to perform (on each target proof) at each iteration. <code>max-steps</code> is the maximum number of updates to perform, although the target statements may be proven earlier than this. Note that all of the above fields are optional (i.e. have default values).</p>
 <p><code>no-repeats</code> is a flag indicating whether the search algorithm should avoid repeated states while searching. The benefit of this flag depends on the tradeoff between state space size, and time required to check for repeats. <code>randomised</code> is a flag telling the search to try to evaluate successors in a random order.</p>
 <p><code>seed</code> is the seed value used for a random number generator. You can either set this equal to the string <code>"time"</code>, which seeds it based on the current clock time when the program is launched, or you can give it a fixed integer value for reproducability. Any other string value is an error.</p>
-<h1><a class="anchor" id="autotoc_md20"></a>
+<h1><a class="anchor" id="autotoc_md21"></a>
 Solvers</h1>
 <p>Solvers support a set of flags which governs how the proof states iterate over their successors. These are represented by the <code>no-repeats</code> and <code>randomised</code> flags. When <code>no-repeats</code> is true, the proof states don't allow successors which have already been seen, where this is possible to implement reasonably. There is of course a tradeoff here, in that this test demands extra checks for each successor, but there will be fewer of them. When <code>randomised</code> is true, the successors are enumerated in an order which is as random as is reasonably possible. This is useful for statistical estimation, which might assume the successors are IID, however this might negatively impact cache behaviour.</p>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md22"></a>
 Iterative Deepening Solver</h2>
 <p>The iterative deepening solver is specified using the <code>IterativeDeepeningSolver</code> type, and has two parameters <code>max-depth</code> and <code>starting-depth</code> which govern the depth to which it searches to. Here is a partial example of an iterative deepening solver settings file:</p>
 <div class="fragment"><div class="line">{</div>
@@ -101,14 +101,14 @@ Iterative Deepening Solver</h2>
 </div><!-- fragment --><p>In order to create an iterative deepening solver, you must use the type <code>IterativeDeepeningSolver</code>. The new parameters are <code>max-depth</code> and <code>start-depth</code>. The former is the ultimate depth limit imposed on the iterative deepening search, and <code>start-depth</code> is the first depth limit.</p>
 <p>Setting the start depth higher means less wasted work for long proofs, but it makes finding short proofs much less efficient than they otherwise would be.</p>
 <p>Iterative deepening search will make use of any successor modifiers (e.g. stopping strategies) that are specified in the settings file (see below).</p>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md23"></a>
 Heuristics</h1>
 <p>As of yet there are no heuristics implemented.</p>
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 Stopping Strategies</h1>
 <p>Stopping strategies are a class of statistical strategies for using a heuristic function to enumerate through successors. This is useful because there may be a great many successors to a given statement, and it is costly to even generate them all. Hence we may want to generate a few at a time and pick the best.</p>
 <p>Stopping strategies only affect the order in which successors are enumerated, and not the results of the iterators. A stopping strategy cannot be successful without a good heuristic, first and foremost.</p>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<h2><a class="anchor" id="autotoc_md25"></a>
 Fixed Stopping Strategy</h2>
 <p>This is a very elementary stopping strategy. It always keeps <code>N</code> successors in memory at a time, and returns the best one. When it advances, it removes the best one from the list, and obtains the next successor. When there are no successors left, it enumerates the <code>N</code> elements in memory in nonincreasing order.</p>
 <p>Here is an example of how to specify it in a search settings file:</p>
@@ -121,7 +121,7 @@ Fixed Stopping Strategy</h2>
 <div class="line">    },</div>
 <div class="line">    ...</div>
 <div class="line">}</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md25"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md26"></a>
 Basic Stopping Strategy</h2>
 <p>This stopping strategy is statistical in nature. It models the <em>cost</em> and <em>benefit</em> of each successor as the time it took to compute, and the heuristic value, respectively. It approximates these values with a normal distribution (estimating the parameters from the data seen so far), and computes the probability that one more evaluation would result in a better benefit for a small increase in cost.</p>
 <p>More precisely, if <code>X</code> is a normally-distributed random variable representing the cost, <code>Y</code> is a normally-distributed random variable representing the benefit heuristic, <code>s</code> is the sum of the costs of the states held in memory so far, and <code>m</code> is the maximum benefit held in the states in memory at the moment, then we choose to stop evaluating successors when:</p>

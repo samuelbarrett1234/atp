@@ -1,27 +1,7 @@
 var searchData=
 [
-  ['idatabase_506',['IDatabase',['../classatp_1_1db_1_1_i_database.html',1,'atp::db']]],
-  ['identifierparsenode_507',['IdentifierParseNode',['../classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html',1,'atp::logic::equational']]],
-  ['iheuristic_508',['IHeuristic',['../classatp_1_1search_1_1_i_heuristic.html',1,'atp::search']]],
-  ['iknowledgekernel_509',['IKnowledgeKernel',['../classatp_1_1logic_1_1_i_knowledge_kernel.html',1,'atp::logic']]],
-  ['ilanguage_510',['ILanguage',['../classatp_1_1logic_1_1_i_language.html',1,'atp::logic']]],
-  ['imodelcontext_511',['IModelContext',['../classatp_1_1logic_1_1_i_model_context.html',1,'atp::logic']]],
-  ['iparsenode_512',['IParseNode',['../classatp_1_1logic_1_1equational_1_1_i_parse_node.html',1,'atp::logic::equational']]],
-  ['ipfstatesucciter_513',['IPfStateSuccIter',['../classatp_1_1logic_1_1_i_pf_state_succ_iter.html',1,'atp::logic']]],
-  ['iprocess_514',['IProcess',['../class_i_process.html',1,'']]],
-  ['iproofstate_515',['IProofState',['../classatp_1_1logic_1_1_i_proof_state.html',1,'atp::logic']]],
-  ['ipropositionalknowledgekernel_516',['IPropositionalKnowledgeKernel',['../classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html',1,'atp::logic']]],
-  ['iquerybuilder_517',['IQueryBuilder',['../classatp_1_1db_1_1_i_query_builder.html',1,'atp::db']]],
-  ['iquerytransaction_518',['IQueryTransaction',['../classatp_1_1db_1_1_i_query_transaction.html',1,'atp::db']]],
-  ['irndproventhmselectqrybder_519',['IRndProvenThmSelectQryBder',['../classatp_1_1db_1_1_i_rnd_proven_thm_select_qry_bder.html',1,'atp::db']]],
-  ['isaveproofresultsqrybder_520',['ISaveProofResultsQryBder',['../classatp_1_1db_1_1_i_save_proof_results_qry_bder.html',1,'atp::db']]],
-  ['isolver_521',['ISolver',['../classatp_1_1search_1_1_i_solver.html',1,'atp::search']]],
-  ['istatement_522',['IStatement',['../classatp_1_1logic_1_1_i_statement.html',1,'atp::logic']]],
-  ['istatementarray_523',['IStatementArray',['../classatp_1_1logic_1_1_i_statement_array.html',1,'atp::logic']]],
-  ['istoppingstrategy_524',['IStoppingStrategy',['../classatp_1_1search_1_1_i_stopping_strategy.html',1,'atp::search']]],
-  ['isyntaxnode_525',['ISyntaxNode',['../classatp_1_1logic_1_1equational_1_1_i_syntax_node.html',1,'atp::logic::equational']]],
-  ['iterativedeepeningsolver_526',['IterativeDeepeningSolver',['../classatp_1_1search_1_1_iterative_deepening_solver.html',1,'atp::search']]],
-  ['iterator_527',['iterator',['../classatp_1_1logic_1_1equational_1_1_expression_1_1iterator.html',1,'atp::logic::equational::Expression::iterator'],['../classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html',1,'atp::logic::equational::Statement::iterator'],['../classatp_1_1logic_1_1equational_1_1_statement_array_1_1iterator.html',1,'atp::logic::equational::StatementArray::iterator']]],
-  ['iteratormanager_528',['IteratorManager',['../classatp_1_1search_1_1_iterator_manager.html',1,'atp::search']]],
-  ['itransaction_529',['ITransaction',['../classatp_1_1db_1_1_i_transaction.html',1,'atp::db']]]
+  ['eqparsenode_704',['EqParseNode',['../classatp_1_1logic_1_1equational_1_1_eq_parse_node.html',1,'atp::logic::equational']]],
+  ['eqsyntaxnode_705',['EqSyntaxNode',['../classatp_1_1logic_1_1equational_1_1_eq_syntax_node.html',1,'atp::logic::equational']]],
+  ['expression_706',['Expression',['../classatp_1_1logic_1_1equational_1_1_expression.html',1,'atp::logic::equational']]],
+  ['exprtreeflyweight_707',['ExprTreeFlyweight',['../classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html',1,'atp::logic::equational']]]
 ];

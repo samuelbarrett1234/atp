@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['head_925',['head',['../structatp_1_1logic_1_1equational_1_1_proof_state_1_1_stmt_list.html#a900074d26ba5aa788ccf210829a7079c',1,'atp::logic::equational::ProofState::StmtList']]]
+  ['g_5fapp_1319',['g_app',['../_main_8cpp.html#a95a3455673b76798a0ad6bb42b186042',1,'Main.cpp']]],
+  ['generated_5fstmts_1320',['generated_stmts',['../structatp_1_1core_1_1proc__data_1_1_h_m_m_conj_generation_essentials.html#a6cb911c6aeb17f485d240265f0f7081e',1,'atp::core::proc_data::HMMConjGenerationEssentials']]]
 ];

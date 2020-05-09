@@ -75,13 +75,16 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Interface for saving a collection of proof attempt results.  
+ <a href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#details">More...</a></p>
+
 <p><code>#include &lt;IQueryBuilders.h&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for atp::db::ISaveProofResultsQryBder:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1db_1_1_i_save_proof_results_qry_bder__inherit__graph.png" border="0" usemap="#atp_1_1db_1_1_i_save_proof_results_qry_bder_inherit__map" alt="Inheritance graph"/></div>
 <map name="atp_1_1db_1_1_i_save_proof_results_qry_bder_inherit__map" id="atp_1_1db_1_1_i_save_proof_results_qry_bder_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,80,180,121"/>
+<area shape="rect" title="Interface for saving a collection of proof attempt results." alt="" coords="5,80,180,121"/>
 <area shape="rect" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html" title=" " alt="" coords="9,169,177,211"/>
 <area shape="rect" href="classatp_1_1db_1_1_i_query_builder.html" title="An object for producing queries." alt="" coords="19,5,167,32"/>
 </map>
@@ -91,7 +94,7 @@ Collaboration diagram for atp::db::ISaveProofResultsQryBder:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1db_1_1_i_save_proof_results_qry_bder__coll__graph.png" border="0" usemap="#atp_1_1db_1_1_i_save_proof_results_qry_bder_coll__map" alt="Collaboration graph"/></div>
 <map name="atp_1_1db_1_1_i_save_proof_results_qry_bder_coll__map" id="atp_1_1db_1_1_i_save_proof_results_qry_bder_coll__map">
-<area shape="rect" title=" " alt="" coords="5,80,180,121"/>
+<area shape="rect" title="Interface for saving a collection of proof attempt results." alt="" coords="5,80,180,121"/>
 <area shape="rect" href="classatp_1_1db_1_1_i_query_builder.html" title="An object for producing queries." alt="" coords="19,5,167,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -112,6 +115,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad0b43ea82e5bed0d9745791421a53158"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html">ISaveProofResultsQryBder</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#ad0b43ea82e5bed0d9745791421a53158">add_target_thms</a> (const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">logic::StatementArrayPtr</a> &amp;p_targets)=0</td></tr>
 <tr class="memdesc:ad0b43ea82e5bed0d9745791421a53158"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the theorems which were targetted by each proof.  <a href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#ad0b43ea82e5bed0d9745791421a53158">More...</a><br /></td></tr>
 <tr class="separator:ad0b43ea82e5bed0d9745791421a53158"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a806f8426de6af6a259fbb40fed1e2ff8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html">ISaveProofResultsQryBder</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#a806f8426de6af6a259fbb40fed1e2ff8">add_helper_thms</a> (const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">logic::StatementArrayPtr</a> &amp;p_helpers)=0</td></tr>
+<tr class="memdesc:a806f8426de6af6a259fbb40fed1e2ff8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set which theorems were loaded from the database in order to assist finding proofs, if any. This is optional.  <a href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#a806f8426de6af6a259fbb40fed1e2ff8">More...</a><br /></td></tr>
+<tr class="separator:a806f8426de6af6a259fbb40fed1e2ff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa28ca95fb11b75d4a44f661307cc074b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html">ISaveProofResultsQryBder</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#aa28ca95fb11b75d4a44f661307cc074b">add_proof_states</a> (const std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">logic::ProofStatePtr</a> &gt; &amp;proof_states)=0</td></tr>
 <tr class="memdesc:aa28ca95fb11b75d4a44f661307cc074b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the proof states of those which were successfully proven.  <a href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#aa28ca95fb11b75d4a44f661307cc074b">More...</a><br /></td></tr>
 <tr class="separator:aa28ca95fb11b75d4a44f661307cc074b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,10 +134,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abf8bfb0eb19be4f6830210425fbb5eff inherit pub_methods_classatp_1_1db_1_1_i_query_builder"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_i_query_builder.html#abf8bfb0eb19be4f6830210425fbb5eff">~IQueryBuilder</a> ()=default</td></tr>
 <tr class="separator:abf8bfb0eb19be4f6830210425fbb5eff inherit pub_methods_classatp_1_1db_1_1_i_query_builder"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a685d31a79d2b2803790c958f6f9eaeba inherit pub_methods_classatp_1_1db_1_1_i_query_builder"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_i_query_builder.html#a685d31a79d2b2803790c958f6f9eaeba">build</a> ()=0</td></tr>
-<tr class="memdesc:a685d31a79d2b2803790c958f6f9eaeba inherit pub_methods_classatp_1_1db_1_1_i_query_builder"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempt to create a transaction.  <a href="classatp_1_1db_1_1_i_query_builder.html#a685d31a79d2b2803790c958f6f9eaeba">More...</a><br /></td></tr>
+<tr class="memdesc:a685d31a79d2b2803790c958f6f9eaeba inherit pub_methods_classatp_1_1db_1_1_i_query_builder"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a the query that you have been building.  <a href="classatp_1_1db_1_1_i_query_builder.html#a685d31a79d2b2803790c958f6f9eaeba">More...</a><br /></td></tr>
 <tr class="separator:a685d31a79d2b2803790c958f6f9eaeba inherit pub_methods_classatp_1_1db_1_1_i_query_builder"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Interface for saving a collection of proof attempt results. </p>
+<p>This can be used to save theorems, theorems and proof attempts, or all of: theorems, proof attempts, and proofs, and theorem usages in the proofs.</p>
+<dl class="section see"><dt>See also</dt><dd>SAVE_THMS_AND_PROOFS </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afbd3951f74eaa80af581c1ab1da7e6af"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afbd3951f74eaa80af581c1ab1da7e6af">&#9670;&nbsp;</a></span>~ISaveProofResultsQryBder()</h2>
 
@@ -158,6 +168,41 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a806f8426de6af6a259fbb40fed1e2ff8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a806f8426de6af6a259fbb40fed1e2ff8">&#9670;&nbsp;</a></span>add_helper_thms()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html">ISaveProofResultsQryBder</a>* atp::db::ISaveProofResultsQryBder::add_helper_thms </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">logic::StatementArrayPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>p_helpers</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set which theorems were loaded from the database in order to assist finding proofs, if any. This is optional. </p>
+<dl class="section note"><dt>Note</dt><dd>This function is optional, and is not needed for building the query.</dd></dl>
+<p>This will have been exactly the set of theorems you added to the knowledge kernel in order to help generate more successors. These are needed so that we can determine their usage in the proof, to keep track of how "useful" every theorem is.</p>
+<dl class="section pre"><dt>Precondition</dt><dd>p_helpers != nullptr</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Of course, this array doesn't have to be the same size as all the others.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>this </dd></dl>
+
+<p>Implemented in <a class="el" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#aca2ddb53ba5ff677b4a5f6f4d78e0997">atp::db::SQLiteSaveProofResultsQryBder</a>.</p>
+
+</div>
+</div>
 <a id="a1a0612d9d6d2422372c89e43c5137598"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1a0612d9d6d2422372c89e43c5137598">&#9670;&nbsp;</a></span>add_max_mem_usages()</h2>
 

@@ -1,0 +1,5 @@
+<map id="atp::core::create_conj_model_train_process" name="atp::core::create_conj_model_train_process">
+<area shape="rect" id="node1" title="Create a process which trains a given model on a given dataset." alt="" coords="427,5,576,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1core.html#a0e758a1f3721e76b154d37c0650cdb2d" title="Create a process to train a particular HMM model." alt="" coords="204,5,379,47"/>
+<area shape="rect" id="node3" href="$class_application.html#a3e5ca8fa3dbe56d77f87f57dba5525b6" title="Create a new process which will train the HMM conjecturer model on existing proven theorems." alt="" coords="5,5,156,47"/>
+</map>

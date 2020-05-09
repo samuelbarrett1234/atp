@@ -1,6 +1,7 @@
 <map id="atp::logic::equational::Expression::end" name="atp::logic::equational::Expression::end">
-<area shape="rect" id="node1" title=" " alt="" coords="240,71,383,112"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a544d3424b54a0a94f9054ccd5b1ce725" title="Returns true iff the two expressions are identical (i.e. same free variable IDs)" alt="" coords="23,5,174,47"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="5,71,192,112"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ab98cc592e84a447cb0824fbb8dccc5cb" title=" " alt="" coords="27,136,170,177"/>
+<area shape="rect" id="node1" title=" " alt="" coords="447,71,589,112"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a544d3424b54a0a94f9054ccd5b1ce725" title="Returns true iff the two expressions are identical (i.e. same free variable IDs)" alt="" coords="230,5,381,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="212,71,399,112"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ab98cc592e84a447cb0824fbb8dccc5cb" title=" " alt="" coords="234,136,377,177"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a3a1b7919f1f10f309bffa49d3de933f7" title="Get the number of times each statement is used in this proof state." alt="" coords="5,71,164,112"/>
 </map>

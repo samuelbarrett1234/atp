@@ -1,0 +1,4 @@
+<map id="atp::core::HMMConjectureModelBuilder::add_symbol_observation" name="atp::core::HMMConjectureModelBuilder::add_symbol_observation">
+<area shape="rect" id="node1" title="Set the fact that, when in state state, we will observe the symbol symbol with probability p." alt="" coords="276,5,451,61"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_h_m_m_obs_loader_process.html#a2787068a08e2532d3d85a7615f0e22b6" title=" " alt="" coords="5,13,228,54"/>
+</map>

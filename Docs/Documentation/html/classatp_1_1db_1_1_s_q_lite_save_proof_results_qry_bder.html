@@ -82,7 +82,7 @@ Inheritance diagram for atp::db::SQLiteSaveProofResultsQryBder:</div>
 <div class="center"><img src="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder__inherit__graph.png" border="0" usemap="#atp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder_inherit__map" alt="Inheritance graph"/></div>
 <map name="atp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder_inherit__map" id="atp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder_inherit__map">
 <area shape="rect" title=" " alt="" coords="9,169,177,211"/>
-<area shape="rect" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html" title=" " alt="" coords="5,80,180,121"/>
+<area shape="rect" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html" title="Interface for saving a collection of proof attempt results." alt="" coords="5,80,180,121"/>
 <area shape="rect" href="classatp_1_1db_1_1_i_query_builder.html" title="An object for producing queries." alt="" coords="19,5,167,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -92,7 +92,7 @@ Collaboration diagram for atp::db::SQLiteSaveProofResultsQryBder:</div>
 <div class="center"><img src="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder__coll__graph.png" border="0" usemap="#atp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder_coll__map" alt="Collaboration graph"/></div>
 <map name="atp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder_coll__map" id="atp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder_coll__map">
 <area shape="rect" title=" " alt="" coords="9,169,177,211"/>
-<area shape="rect" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html" title=" " alt="" coords="5,80,180,121"/>
+<area shape="rect" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html" title="Interface for saving a collection of proof attempt results." alt="" coords="5,80,180,121"/>
 <area shape="rect" href="classatp_1_1db_1_1_i_query_builder.html" title="An object for producing queries." alt="" coords="19,5,167,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -100,7 +100,7 @@ Collaboration diagram for atp::db::SQLiteSaveProofResultsQryBder:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a7cdbd2a75e89b47b6636fafd1360e7d2"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#a7cdbd2a75e89b47b6636fafd1360e7d2">build</a> () override</td></tr>
-<tr class="memdesc:a7cdbd2a75e89b47b6636fafd1360e7d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempt to create a transaction.  <a href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#a7cdbd2a75e89b47b6636fafd1360e7d2">More...</a><br /></td></tr>
+<tr class="memdesc:a7cdbd2a75e89b47b6636fafd1360e7d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a the query that you have been building.  <a href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#a7cdbd2a75e89b47b6636fafd1360e7d2">More...</a><br /></td></tr>
 <tr class="separator:a7cdbd2a75e89b47b6636fafd1360e7d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac66dfa71c874ebb170f5a177b95ba974"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html">ISaveProofResultsQryBder</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#ac66dfa71c874ebb170f5a177b95ba974">set_context</a> (size_t ctx_id, const <a class="el" href="namespaceatp_1_1logic.html#adccb0bf82b978a71476e3d2e85e7df6a">logic::ModelContextPtr</a> &amp;p_ctx) override</td></tr>
 <tr class="memdesc:ac66dfa71c874ebb170f5a177b95ba974"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the model context info.  <a href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#ac66dfa71c874ebb170f5a177b95ba974">More...</a><br /></td></tr>
@@ -114,6 +114,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae223f786ae513b58e3c37c82aa587eb2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html">ISaveProofResultsQryBder</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#ae223f786ae513b58e3c37c82aa587eb2">add_target_thms</a> (const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">logic::StatementArrayPtr</a> &amp;p_targets) override</td></tr>
 <tr class="memdesc:ae223f786ae513b58e3c37c82aa587eb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the theorems which were targetted by each proof.  <a href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#ae223f786ae513b58e3c37c82aa587eb2">More...</a><br /></td></tr>
 <tr class="separator:ae223f786ae513b58e3c37c82aa587eb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca2ddb53ba5ff677b4a5f6f4d78e0997"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html">ISaveProofResultsQryBder</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#aca2ddb53ba5ff677b4a5f6f4d78e0997">add_helper_thms</a> (const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">logic::StatementArrayPtr</a> &amp;p_helpers) override</td></tr>
+<tr class="memdesc:aca2ddb53ba5ff677b4a5f6f4d78e0997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set which theorems were loaded from the database in order to assist finding proofs, if any. This is optional.  <a href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#aca2ddb53ba5ff677b4a5f6f4d78e0997">More...</a><br /></td></tr>
+<tr class="separator:aca2ddb53ba5ff677b4a5f6f4d78e0997"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39db65993ee96ee9b791977a3982351d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html">ISaveProofResultsQryBder</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#a39db65993ee96ee9b791977a3982351d">add_proof_states</a> (const std::vector&lt; <a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">logic::ProofStatePtr</a> &gt; &amp;proof_states) override</td></tr>
 <tr class="memdesc:a39db65993ee96ee9b791977a3982351d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the proof states of those which were successfully proven.  <a href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#a39db65993ee96ee9b791977a3982351d">More...</a><br /></td></tr>
 <tr class="separator:a39db65993ee96ee9b791977a3982351d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,6 +137,41 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:abf8bfb0eb19be4f6830210425fbb5eff inherit pub_methods_classatp_1_1db_1_1_i_query_builder"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="aca2ddb53ba5ff677b4a5f6f4d78e0997"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca2ddb53ba5ff677b4a5f6f4d78e0997">&#9670;&nbsp;</a></span>add_helper_thms()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html">ISaveProofResultsQryBder</a>* atp::db::SQLiteSaveProofResultsQryBder::add_helper_thms </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">logic::StatementArrayPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>p_helpers</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set which theorems were loaded from the database in order to assist finding proofs, if any. This is optional. </p>
+<dl class="section note"><dt>Note</dt><dd>This function is optional, and is not needed for building the query.</dd></dl>
+<p>This will have been exactly the set of theorems you added to the knowledge kernel in order to help generate more successors. These are needed so that we can determine their usage in the proof, to keep track of how "useful" every theorem is.</p>
+<dl class="section pre"><dt>Precondition</dt><dd>p_helpers != nullptr</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Of course, this array doesn't have to be the same size as all the others.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>this </dd></dl>
+
+<p>Implements <a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#a806f8426de6af6a259fbb40fed1e2ff8">atp::db::ISaveProofResultsQryBder</a>.</p>
+
+</div>
+</div>
 <a id="aa3e16cb66ef6f0dbab2f5f4fabe6e25e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa3e16cb66ef6f0dbab2f5f4fabe6e25e">&#9670;&nbsp;</a></span>add_max_mem_usages()</h2>
 
@@ -320,7 +358,8 @@ All of these arrays must be the same size.</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Attempt to create a transaction. </p>
+<p>Create a the query that you have been building. </p>
+<dl class="section pre"><dt>Precondition</dt><dd>Check that you have filled in all the compulsory information before calling this! </dd></dl>
 
 <p>Implements <a class="el" href="classatp_1_1db_1_1_i_query_builder.html#a685d31a79d2b2803790c958f6f9eaeba">atp::db::IQueryBuilder</a>.</p>
 

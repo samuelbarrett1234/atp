@@ -1,0 +1,5 @@
+<map id="ATPCore/Processes/SaveProofResultsProcess.h" name="ATPCore/Processes/SaveProofResultsProcess.h">
+<area shape="rect" id="node1" title="Contains the process which saves any proven theorems in the results of a solver&#39;s proof run." alt="" coords="151,5,354,47"/>
+<area shape="rect" id="node2" href="$_proof_process_8cpp.html" title=" " alt="" coords="5,102,252,129"/>
+<area shape="rect" id="node3" href="$_save_proof_results_process_8cpp.html" title=" " alt="" coords="277,95,479,136"/>
+</map>

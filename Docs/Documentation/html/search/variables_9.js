@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['seed_934',['seed',['../structatp_1_1search_1_1_search_settings.html#a03474b306f3b99a8571b145c373eacdb',1,'atp::search::SearchSettings']]],
-  ['skip_935',['skip',['../structatp_1_1logic_1_1equational_1_1_skipper.html#ad1deafac37fa16d15ae05e47f10135e5',1,'atp::logic::equational::Skipper']]],
-  ['skpr_936',['skpr',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#ab3e22a06fcbd7ad008fbfefdf293d57b',1,'atp::logic::equational::StatementGrammar']]],
-  ['start_937',['start',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#ad577a8ed44f4cd6745131ef0707598df',1,'atp::logic::equational::StatementGrammar']]],
-  ['statement_938',['statement',['../structatp_1_1logic_1_1equational_1_1_statement_grammar.html#a9c79567031ef9f26fed920b910a7968f',1,'atp::logic::equational::StatementGrammar']]],
-  ['step_5fsize_939',['step_size',['../structatp_1_1search_1_1_search_settings.html#a57046711336695a17f9219524eaa7ba0',1,'atp::search::SearchSettings']]]
+  ['name_1333',['name',['../structatp_1_1search_1_1_search_settings.html#a5caddbcfe429630ab375942a120aa704',1,'atp::search::SearchSettings']]],
+  ['num_5fepochs_1334',['num_epochs',['../structatp_1_1core_1_1proc__data_1_1_h_m_m_conjecturer_training_essentials.html#a17b672d5baee44aa21e0192209b33f86',1,'atp::core::proc_data::HMMConjecturerTrainingEssentials']]],
+  ['num_5fhelper_5fthms_1335',['num_helper_thms',['../structatp_1_1core_1_1proc__data_1_1_proof_setup_essentials.html#a8c7f3b826a9c01d0b4a4bb13c5a5a898',1,'atp::core::proc_data::ProofSetupEssentials']]]
 ];

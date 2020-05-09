@@ -1,8 +1,9 @@
 <map id="atp::logic::equational::ExprTreeFlyweight::update_func_child" name="atp::logic::equational::ExprTreeFlyweight::update_func_child">
-<area shape="rect" id="node1" title="Update a function&#39;s argument value and type." alt="" coords="240,144,424,200"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a40c13f6a0a0147518fe9f4d75c54a1d9" title="Add a particular value to the ID of every free variable in this expression." alt="" coords="19,5,179,61"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="5,86,192,127"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expression.html#aeee9e7dcfe3da4ed1f7f2b40de534488" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="26,151,171,193"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a9a2e0351eed3e2eeeb400fb0f5cd6544" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="26,217,171,273"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a0d5414f7a8a769933d40e63474bba502" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="26,297,171,353"/>
+<area shape="rect" id="node1" title="Update a function&#39;s argument value and type." alt="" coords="447,144,631,200"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a40c13f6a0a0147518fe9f4d75c54a1d9" title="Add a particular value to the ID of every free variable in this expression." alt="" coords="225,5,385,61"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="212,86,399,127"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#aeee9e7dcfe3da4ed1f7f2b40de534488" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="233,151,378,193"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a9a2e0351eed3e2eeeb400fb0f5cd6544" title="Special case of map_free_vars for replacing a free variable with a user&#45;defined constant." alt="" coords="233,217,378,273"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a0d5414f7a8a769933d40e63474bba502" title="Special case of map_free_vars for replacing a free variable with another free variable." alt="" coords="233,297,378,353"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a3a1b7919f1f10f309bffa49d3de933f7" title="Get the number of times each statement is used in this proof state." alt="" coords="5,86,164,127"/>
 </map>

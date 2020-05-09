@@ -1,0 +1,4 @@
+<map id="atp::core::create_unproven_thm_select_proc" name="atp::core::create_unproven_thm_select_proc">
+<area shape="rect" id="node1" title="Create a process which loads a number of theorems into target_thms." alt="" coords="205,5,380,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1core.html#a569aefeb38c2ce4ec21b454d4f7951dc" title="Create a proof process to try and prove num_targets arbitrary unproven theorems." alt="" coords="5,5,157,47"/>
+</map>

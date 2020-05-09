@@ -1,0 +1,10 @@
+<map id="Application::add_hmm_conj_train_task" name="Application::add_hmm_conj_train_task">
+<area shape="rect" id="node1" title="Create a new process which will train the HMM conjecturer model on existing proven theorems." alt="" coords="5,100,156,141"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="204,78,412,105"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1core.html#a0e758a1f3721e76b154d37c0650cdb2d" title="Create a process to train a particular HMM model." alt="" coords="221,129,395,171"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1core.html#a07907f92b319f65ab82db7a7302f7eca" title="Create a process which trains a given model on a given dataset." alt="" coords="477,5,626,47"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1core.html#aa93a769df1700ad72d0f8ac88c1b0097" title="This function creates a process which loads a HMM conjecturer model from the database." alt="" coords="472,71,631,112"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="691,107,867,134"/>
+<area shape="rect" id="node7" href="$namespaceatp_1_1core.html#ac16658ecc65f81aeb5003c10167b1a6e" title="Creates a process which loads a set of training data for the given model." alt="" coords="468,188,635,229"/>
+<area shape="rect" id="node8" href="$namespaceatp_1_1core.html#a725d86a818121ef5aff9bbd65152a290" title=" " alt="" coords="460,253,643,295"/>
+</map>

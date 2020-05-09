@@ -1,0 +1,5 @@
+<map id="ATPCore/Processes/ProofInitProcess.h" name="ATPCore/Processes/ProofInitProcess.h">
+<area shape="rect" id="node1" title="Contains the process which takes setup information about the proof setup, and creates all the informa..." alt="" coords="127,5,317,47"/>
+<area shape="rect" id="node2" href="$_proof_init_process_8cpp.html" title=" " alt="" coords="5,95,196,136"/>
+<area shape="rect" id="node3" href="$_proof_process_8cpp.html" title=" " alt="" coords="220,102,467,129"/>
+</map>

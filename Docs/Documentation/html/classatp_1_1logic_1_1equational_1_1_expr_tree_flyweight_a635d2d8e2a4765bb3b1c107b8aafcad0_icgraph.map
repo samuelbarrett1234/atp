@@ -1,5 +1,6 @@
 <map id="atp::logic::equational::ExprTreeFlyweight::merge_from" name="atp::logic::equational::ExprTreeFlyweight::merge_from">
-<area shape="rect" id="node1" title="Append, to each array in this object, the arrays in the other object. Also, update their function ind..." alt="" coords="240,39,453,80"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="5,5,192,47"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#aeee9e7dcfe3da4ed1f7f2b40de534488" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="26,71,171,112"/>
+<area shape="rect" id="node1" title="Append, to each array in this object, the arrays in the other object. Also, update their function ind..." alt="" coords="447,39,660,80"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="212,5,399,47"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expression.html#aeee9e7dcfe3da4ed1f7f2b40de534488" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="233,71,378,112"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a3a1b7919f1f10f309bffa49d3de933f7" title="Get the number of times each statement is used in this proof state." alt="" coords="5,39,164,80"/>
 </map>

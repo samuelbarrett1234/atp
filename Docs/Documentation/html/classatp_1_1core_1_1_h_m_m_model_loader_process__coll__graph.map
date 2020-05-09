@@ -1,0 +1,5 @@
+<map id="atp::core::HMMModelLoaderProcess" name="atp::core::HMMModelLoaderProcess">
+<area shape="rect" id="node1" title="This process is for loading the main model parameters (like the ID, the number of hidden states,..." alt="" coords="5,155,192,196"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_query_process.html" title="This process implements the IProcess virtual functions in terms of other virtual functions which are ..." alt="" coords="17,80,181,107"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_i_process.html" title="Represents a computation to be performed over time." alt="" coords="33,5,165,32"/>
+</map>

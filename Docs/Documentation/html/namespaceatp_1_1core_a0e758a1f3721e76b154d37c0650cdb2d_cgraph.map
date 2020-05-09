@@ -1,0 +1,8 @@
+<map id="atp::core::create_hmm_conjecture_train_process" name="atp::core::create_hmm_conjecture_train_process">
+<area shape="rect" id="node1" title="Create a process to train a particular HMM model." alt="" coords="5,129,180,171"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1core.html#a07907f92b319f65ab82db7a7302f7eca" title="Create a process which trains a given model on a given dataset." alt="" coords="245,5,394,47"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1core.html#aa93a769df1700ad72d0f8ac88c1b0097" title="This function creates a process which loads a HMM conjecturer model from the database." alt="" coords="240,71,399,112"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="459,107,635,134"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1core.html#ac16658ecc65f81aeb5003c10167b1a6e" title="Creates a process which loads a set of training data for the given model." alt="" coords="236,188,403,229"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1core.html#a725d86a818121ef5aff9bbd65152a290" title=" " alt="" coords="228,253,411,295"/>
+</map>

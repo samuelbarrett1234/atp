@@ -1,0 +1,5 @@
+<map id="Application::create_hmm_conjecturer" name="Application::create_hmm_conjecturer">
+<area shape="rect" id="node1" title="Create a new process which will create a new HMM conjecturer model." alt="" coords="5,27,136,69"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="184,5,392,32"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1core.html#ab807a83f4b761d5b389081611aa8e0d6" title="Create a new HMM conjecturer in the database." alt="" coords="211,57,365,98"/>
+</map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pointer_932',['pointer',['../classatp_1_1logic_1_1equational_1_1_expression_1_1iterator.html#a931f8c4d0dcbd97697887a35cc734d32',1,'atp::logic::equational::Expression::iterator::pointer()'],['../classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html#a18392fe82917e22b9bcfb1a1cc12b0c9',1,'atp::logic::equational::Statement::iterator::pointer()'],['../classatp_1_1logic_1_1equational_1_1_statement_array_1_1iterator.html#a1ec1d7896a30ec52f76c12c22fea6d49',1,'atp::logic::equational::StatementArray::iterator::pointer()']]]
+  ['lang_1326',['lang',['../structatp_1_1core_1_1proc__data_1_1_logic_essentials.html#a70cecd2d46c6444ecf96660b72c8d831',1,'atp::core::proc_data::LogicEssentials']]]
 ];

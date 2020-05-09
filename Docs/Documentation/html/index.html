@@ -75,21 +75,32 @@ Documentation</h1>
 Navigation</h1>
 <p>Directory list:</p><ul>
 <li><code>atp</code> : the command line application for running the theorem prover,</li>
+<li><code>ATPCore</code> : the project containing processes and operations which are used in the frontend applications,</li>
 <li><code>ATPLogic</code> : the library which contains the logical inference code, and also the parsers,</li>
 <li><code>ATPLogicTests</code> : the unit tests for the logic library,</li>
 <li><code>ATPSearch</code> : the library of search algorithms for finding proofs,</li>
 <li><code>ATPSearchTests</code> : the unit tests for the search library,</li>
 <li><code>ATPDatabase</code> : the library for the management of proven theorems,</li>
 <li><code>Docs</code> : specifications, documentation, and example code,</li>
-<li><code>Data</code> : definition files, theorem databases.</li>
+<li><code>Data</code> : definition files, theorem databases, queries, search settings.</li>
 </ul>
 <p>Note that when you build the application, the binaries can be found in the <code>Output</code> folder, and <code>Temp</code> will contain Visual Studio intermediate files.</p>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Installation</h1>
-<p>The C++ solution was built and tested using Microsoft Visual Studio 2019, on a Windows 10 machine. This project uses the Boost C++ libaries, and SQLite3. Please ensure that they are installed, and that the environment variable <code>BOOST_DIR</code> to be set to the root of Boost's installation directory, and <code>SQLITE_DIR</code> likewise set for the SQLite3 directory (where the application will look for the code and the DLL). Ensure you build Boost with the correct compiler and C++ version (C++17), otherwise you may experience compilation errors.</p>
-<p>Note that we will assume that <code>SQLITE_DIR</code> is also on your <code>PATH</code>, so that you can use the SQLite command line.</p>
-<p>SQLite can be obtained from here: <a href="https://www.sqlite.org/download.html">https://www.sqlite.org/download.html</a> and Boost can be obtained from here: <a href="https://www.boost.org/">https://www.boost.org/</a></p>
-<p>After installation, try building the library and running the unit tests to check everything is working correctly. After running the tests you now need to create a database (see below).</p>
+<ol type="1">
+<li>Install Microsoft Visual Studio 2019, if you haven't got it already.</li>
+<li>Download the Boost C++ libraries from <a href="https://www.boost.org/">here</a>, and set the <code>BOOST_DIR</code> environment variable to point to the root of the Boost directory (so that when you type <code>#include &lt;boost/some-boost-library&gt;</code>, the compiler will be able to find it.)</li>
+<li>Now you need to build the Boost libraries from source. You may want to follow the official Boost documentation on how to install this, but when you come to running the <code>b2</code> command, use this: <code>b2 toolset=msvc-14.2 cxxflags="/std:c++17" --build-type=complete --abbreviate-paths architecture=x86 address-model=64 define=BOOST_LOG_DYN_LINK stage</code>. There are a few extra bits to note in that command: we have forced usage of C++17, and we have also specified that the Boost logging library should be built in dynamic-link mode.</li>
+<li>Check the directory you specified under the environment variable <code>BOOST_DIR</code> contains a directory <code>/stage/lib/</code> which contains all of the Boost <code>.lib</code> and <code>.dll</code> files.</li>
+<li>Copy files of the form <code>boost_*.dll</code> to the <code>Output</code> folder of the <code>atp</code> project (you may need to create the <code>Output</code> folder if it's not there already).</li>
+<li><a href="https://www.sqlite.org/download.html">Download SQLite3</a>, making sure to get the <b>binaries and the shell command line</b>, too.</li>
+<li>If the binaries you downloaded included a <code>.exp</code> file but <b>not</b> a <code>.lib</code> file, then you need to convert the <code>.exp</code> file into a <code>.lib</code> file. Visual studio <a href="https://docs.microsoft.com/en-us/cpp/build/reference/lib-reference?view=vs-2019">ships with a tool</a> to do this.</li>
+<li>Add the folder containing the SQLite source, binaries and command line to your <code>PATH</code> and to the environment variable <code>SQLITE_DIR</code>.</li>
+<li>Now you are ready to try compiling the whole <code>ATP</code> solution (the easiest way to do this is with a <em>batch build</em>).</li>
+<li>Run all the unit tests to make sure everything passes.</li>
+<li>Follow the steps in the next section to create the database.</li>
+<li><em>Optional.</em> If you want to automatically build documentation, <a href="http://www.doxygen.nl/">install Doxygen</a>.</li>
+</ol>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Setting up the database</h1>
 <p>Open the command prompt and navigate to the <code>Data\DB</code> directory (create it if it doesn't exist already). Type the command <code>sqlite3 eqlogic.db</code> to create a new database called <code>eqlogic</code> for equational logic.</p>
@@ -101,11 +112,12 @@ Running the client</h1>
 <p><code>--ctx</code> tells the ATP which context you want to prove in - e.g. group theory, ring theory, etc. To get details on what context names are allowed, look at the database's <code>model_contexts</code> table. The name is looked-up in here, where the filename will be found. Similarly, <code>--ss</code> tells the solver what search settings to use. The different settings can be found in the <code>search_settings</code> table in the database.</p>
 <p><b>Example</b>: <code>atp_Releasex64 --db ../Data/DB/eqlogic.db --ctx group-theory --ss ids-uninformed-extended --prove "i(i(x0)) = x0"</code></p>
 <p>Note that, in the above example, you may need to change <code>atp</code> to <code>atp_Releasex64</code> or something similar (as in the example), depending on your build settings. Check the <code>Output</code> folder to see which versions of the application you have built.</p>
-<p>See <code>Docs</code> for documentation about context files and search settings files.</p>
+<p>See <code>Docs</code> for documentation about context files and search settings files. Also, try typing <code>atp --help</code> for a full list of commands.</p>
 <h1><a class="anchor" id="autotoc_md6"></a>
 Appendix: Prettier Printing with SQLite</h1>
 <p>From <a href="https://dba.stackexchange.com/questions/40656/how-to-properly-format-sqlite-shell-output/40672">https://dba.stackexchange.com/questions/40656/how-to-properly-format-sqlite-shell-output/40672</a> I gather that, if you want prettier SQLite outputs from <code>SELECT</code> statements in the shell application, type:</p>
 <div class="fragment"><div class="line">sqlite&gt; .mode column</div>
+<div class="line">sqlite&gt; .width 50</div>
 <div class="line">sqlite&gt; .headers on</div>
 </div><!-- fragment --> </div></div><!-- PageDoc -->
 </div><!-- contents -->

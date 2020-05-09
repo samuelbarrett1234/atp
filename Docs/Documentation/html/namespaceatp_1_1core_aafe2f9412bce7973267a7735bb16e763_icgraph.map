@@ -1,0 +1,5 @@
+<map id="atp::core::create_proof_init_process" name="atp::core::create_proof_init_process">
+<area shape="rect" id="node1" title="This function creates a &quot;proof initialisation&quot; process, which creates the knowledge kernel,..." alt="" coords="436,5,588,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1core.html#a14a998365332d52ca949b7da1ae6870b" title="Create a proof process to try and prove p_target_stmts" alt="" coords="236,5,388,47"/>
+<area shape="rect" id="node3" href="$class_application.html#a9a3f2a8a310783b1da84232b698fcc49" title="Add a process which will try to prove the given statements when run is called." alt="" coords="5,13,188,39"/>
+</map>

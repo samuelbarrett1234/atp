@@ -1,0 +1,7 @@
+<map id="atp::core::create_proof_process" name="atp::core::create_proof_process">
+<area shape="rect" id="node1" title="Create a proof process to try and prove p_target_stmts" alt="" coords="5,104,157,145"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1core.html#aafe2f9412bce7973267a7735bb16e763" title="This function creates a &quot;proof initialisation&quot; process, which creates the knowledge kernel,..." alt="" coords="217,5,369,47"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1core.html#a347bdbab224f5b7453926bd292125a2d" title="This function creates a process which just runs the solver to completion." alt="" coords="222,71,365,112"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1core.html#a1d7a30c723dce02909ce79d2a856c9fa" title="This function creates a process which saves proven theorems to the database." alt="" coords="218,136,369,177"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="205,202,381,229"/>
+</map>

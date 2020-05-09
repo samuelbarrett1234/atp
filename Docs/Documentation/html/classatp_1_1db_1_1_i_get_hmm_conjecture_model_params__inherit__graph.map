@@ -1,0 +1,6 @@
+<map id="atp::db::IGetHmmConjectureModelParams" name="atp::db::IGetHmmConjectureModelParams">
+<area shape="rect" id="node1" title="Interface for getting the parameters of a HMM conjecture model (both state transition parameters,..." alt="" coords="111,80,298,121"/>
+<area shape="rect" id="node3" href="$classatp_1_1db_1_1_s_q_lite_get_hmm_conj_obs_params.html" title=" " alt="" coords="5,169,193,211"/>
+<area shape="rect" id="node4" href="$classatp_1_1db_1_1_s_q_lite_get_hmm_conj_st_trans_params.html" title=" " alt="" coords="217,169,405,211"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_i_query_builder.html" title="An object for producing queries." alt="" coords="131,5,279,32"/>
+</map>

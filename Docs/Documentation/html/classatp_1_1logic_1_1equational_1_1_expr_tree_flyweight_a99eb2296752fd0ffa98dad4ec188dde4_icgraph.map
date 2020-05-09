@@ -1,7 +1,8 @@
 <map id="atp::logic::equational::ExprTreeFlyweight::set_root" name="atp::logic::equational::ExprTreeFlyweight::set_root">
-<area shape="rect" id="node1" title=" " alt="" coords="447,79,639,120"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a2b9c69e0d904b4ac74006b05596df6df" title="Construction of very simple (free or constant) expressions." alt="" coords="217,5,385,47"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a40c13f6a0a0147518fe9f4d75c54a1d9" title="Add a particular value to the ID of every free variable in this expression." alt="" coords="221,71,381,127"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ad41bc0076fd552b0de7cc370fd1166bb" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="204,152,399,193"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="5,152,156,193"/>
+<area shape="rect" id="node1" title=" " alt="" coords="455,79,647,120"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a2b9c69e0d904b4ac74006b05596df6df" title="Construction of very simple (free or constant) expressions." alt="" coords="225,5,393,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a40c13f6a0a0147518fe9f4d75c54a1d9" title="Add a particular value to the ID of every free variable in this expression." alt="" coords="229,71,389,127"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ad41bc0076fd552b0de7cc370fd1166bb" title="Given an (id, type) pair, return a new expression which represents the sub&#45;expression of this parent ..." alt="" coords="212,152,407,193"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a3a1b7919f1f10f309bffa49d3de933f7" title="Get the number of times each statement is used in this proof state." alt="" coords="5,79,164,120"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a075d1e5fd6364b163049bd4f7dc37406" title="Perform a fold over pairs of expressions." alt="" coords="9,152,160,193"/>
 </map>

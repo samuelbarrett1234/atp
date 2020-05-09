@@ -1,0 +1,4 @@
+<map id="atp::core::BuildHMMModelProcess" name="atp::core::BuildHMMModelProcess">
+<area shape="rect" id="node1" title="This process is responsible for constructing the final model object from the model builder,..." alt="" coords="5,80,181,121"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_i_process.html" title="Represents a computation to be performed over time." alt="" coords="27,5,159,32"/>
+</map>

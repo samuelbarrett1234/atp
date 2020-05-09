@@ -1,24 +1,4 @@
 var searchData=
 [
-  ['_7eidatabase_898',['~IDatabase',['../classatp_1_1db_1_1_i_database.html#a7670bf857f7e9a1be3917772dabc6b52',1,'atp::db::IDatabase']]],
-  ['_7eiheuristic_899',['~IHeuristic',['../classatp_1_1search_1_1_i_heuristic.html#afe86795f6fd248c53c9e9c0457eefe91',1,'atp::search::IHeuristic']]],
-  ['_7eiknowledgekernel_900',['~IKnowledgeKernel',['../classatp_1_1logic_1_1_i_knowledge_kernel.html#a9f3e4e715333bba2b48ff18b232c97ba',1,'atp::logic::IKnowledgeKernel']]],
-  ['_7eilanguage_901',['~ILanguage',['../classatp_1_1logic_1_1_i_language.html#adde55c22349d717241f06a65fc4bd275',1,'atp::logic::ILanguage']]],
-  ['_7eimodelcontext_902',['~IModelContext',['../classatp_1_1logic_1_1_i_model_context.html#a364bc9f78a1afadb4eb8b36f5f6a3b8d',1,'atp::logic::IModelContext']]],
-  ['_7eiparsenode_903',['~IParseNode',['../classatp_1_1logic_1_1equational_1_1_i_parse_node.html#a636b5b50cb6598f7a4e99682d155ed1e',1,'atp::logic::equational::IParseNode']]],
-  ['_7eipfstatesucciter_904',['~IPfStateSuccIter',['../classatp_1_1logic_1_1_i_pf_state_succ_iter.html#a020ae30032051a36f1e0c182a64b9601',1,'atp::logic::IPfStateSuccIter']]],
-  ['_7eiprocess_905',['~IProcess',['../class_i_process.html#af08d357986ce3351f878b427b1893ab0',1,'IProcess']]],
-  ['_7eiproofstate_906',['~IProofState',['../classatp_1_1logic_1_1_i_proof_state.html#abbe9d191d5cfc950a01a0854c7fcc08c',1,'atp::logic::IProofState']]],
-  ['_7eipropositionalknowledgekernel_907',['~IPropositionalKnowledgeKernel',['../classatp_1_1logic_1_1_i_propositional_knowledge_kernel.html#a67930525799980bad48f6b590143af2f',1,'atp::logic::IPropositionalKnowledgeKernel']]],
-  ['_7eiquerybuilder_908',['~IQueryBuilder',['../classatp_1_1db_1_1_i_query_builder.html#abf8bfb0eb19be4f6830210425fbb5eff',1,'atp::db::IQueryBuilder']]],
-  ['_7eirndproventhmselectqrybder_909',['~IRndProvenThmSelectQryBder',['../classatp_1_1db_1_1_i_rnd_proven_thm_select_qry_bder.html#a135a89f62780bc7c82124b668bf9a692',1,'atp::db::IRndProvenThmSelectQryBder']]],
-  ['_7eisaveproofresultsqrybder_910',['~ISaveProofResultsQryBder',['../classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#afbd3951f74eaa80af581c1ab1da7e6af',1,'atp::db::ISaveProofResultsQryBder']]],
-  ['_7eisolver_911',['~ISolver',['../classatp_1_1search_1_1_i_solver.html#a37e3870bd6bb754c838fba5439748f7d',1,'atp::search::ISolver']]],
-  ['_7eistatement_912',['~IStatement',['../classatp_1_1logic_1_1_i_statement.html#a2d538a88c057dbb56307c4e3c22f808f',1,'atp::logic::IStatement']]],
-  ['_7eistatementarray_913',['~IStatementArray',['../classatp_1_1logic_1_1_i_statement_array.html#a351e3fcbaf129e1b896a8535d47e4d78',1,'atp::logic::IStatementArray']]],
-  ['_7eistoppingstrategy_914',['~IStoppingStrategy',['../classatp_1_1search_1_1_i_stopping_strategy.html#a9cbf0b8c07673fe43306ac9b7ebb3664',1,'atp::search::IStoppingStrategy']]],
-  ['_7eisyntaxnode_915',['~ISyntaxNode',['../classatp_1_1logic_1_1equational_1_1_i_syntax_node.html#a24d28b083ec5b9d9cce5e0b8e2b28d3a',1,'atp::logic::equational::ISyntaxNode']]],
-  ['_7eitransaction_916',['~ITransaction',['../classatp_1_1db_1_1_i_transaction.html#a28a35d2c853074deb4806da0e070cccc',1,'atp::db::ITransaction']]],
-  ['_7esqlitedatabase_917',['~SQLiteDatabase',['../classatp_1_1db_1_1_s_q_lite_database.html#a1d7fb49b68d7b2dddb450f4f93959570',1,'atp::db::SQLiteDatabase']]],
-  ['_7esqlitequerytransaction_918',['~SQLiteQueryTransaction',['../classatp_1_1db_1_1_s_q_lite_query_transaction.html#a0525ff105aa1bad3bd5c34bce3169c4b',1,'atp::db::SQLiteQueryTransaction']]]
+  ['waiting_1283',['waiting',['../classatp_1_1db_1_1_i_transaction.html#a0c53c096166c32ffd2cd49d2cbce374d',1,'atp::db::ITransaction::waiting()'],['../classatp_1_1db_1_1_s_q_lite_query_transaction.html#a8a6fe3bbcc06f825c68059d53c67e73d',1,'atp::db::SQLiteQueryTransaction::waiting()'],['../classatp_1_1db_1_1_transaction_list_wrapper.html#a7a9a8ffbc5f3592f4ce9308920c8d042',1,'atp::db::TransactionListWrapper::waiting()'],['../classatp_1_1core_1_1_h_m_m_conj_model_train_proc.html#af307b0d7bf678c218ca836962633824c',1,'atp::core::HMMConjModelTrainProc::waiting()'],['../classatp_1_1core_1_1_h_m_m_conj_gen_process.html#af2633b66f7a7d9b2ac687cd72c0e0ad3',1,'atp::core::HMMConjGenProcess::waiting()'],['../classatp_1_1core_1_1_build_h_m_m_model_process.html#a53398f522ae65c7956c80cd82fdcb551',1,'atp::core::BuildHMMModelProcess::waiting()'],['../classatp_1_1core_1_1_i_process.html#a829a12baa199d775943a45a1425503ae',1,'atp::core::IProcess::waiting()'],['../classatp_1_1core_1_1_process_sequence.html#a2c22caa62db323e8fea907d12913a14a',1,'atp::core::ProcessSequence::waiting()'],['../classatp_1_1core_1_1_query_process.html#a98fb6d76bfad156f4b2386f19fee687d',1,'atp::core::QueryProcess::waiting()'],['../classatp_1_1core_1_1_run_solver_process.html#a0af49d4171a81008f0a656dfb693315b',1,'atp::core::RunSolverProcess::waiting()']]]
 ];

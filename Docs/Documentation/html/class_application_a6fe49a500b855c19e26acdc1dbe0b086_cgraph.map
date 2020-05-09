@@ -1,0 +1,4 @@
+<map id="Application::set_context_name" name="Application::set_context_name">
+<area shape="rect" id="node1" title="Loads the language and knowledge kernel from a given context (filename obtained from database)." alt="" coords="5,13,207,39"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="255,5,373,47"/>
+</map>

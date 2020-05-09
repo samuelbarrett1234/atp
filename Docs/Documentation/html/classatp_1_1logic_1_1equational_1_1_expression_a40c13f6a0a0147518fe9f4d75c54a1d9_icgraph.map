@@ -1,0 +1,4 @@
+<map id="atp::logic::equational::Expression::increment_free_var_ids" name="atp::logic::equational::Expression::increment_free_var_ids">
+<area shape="rect" id="node1" title="Add a particular value to the ID of every free variable in this expression." alt="" coords="212,5,372,61"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a3a1b7919f1f10f309bffa49d3de933f7" title="Get the number of times each statement is used in this proof state." alt="" coords="5,13,164,54"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="atp::core::proc_data::DatabaseEssentials" name="atp::core::proc_data::DatabaseEssentials">
+<area shape="rect" id="node1" title=" " alt="" coords="5,104,152,145"/>
+<area shape="rect" id="node2" href="$structatp_1_1core_1_1proc__data_1_1_logic_essentials.html" title=" " alt="" coords="200,104,339,145"/>
+<area shape="rect" id="node3" href="$structatp_1_1core_1_1proc__data_1_1_h_m_m_conj_building_essentials.html" title=" " alt="" coords="387,5,581,47"/>
+<area shape="rect" id="node5" href="$structatp_1_1core_1_1proc__data_1_1_h_m_m_conj_model_essentials.html" title=" " alt="" coords="393,71,575,112"/>
+<area shape="rect" id="node8" href="$structatp_1_1core_1_1proc__data_1_1_proof_essentials.html" title=" " alt="" coords="415,136,553,177"/>
+<area shape="rect" id="node9" href="$structatp_1_1core_1_1proc__data_1_1_proof_setup_essentials.html" title=" " alt="" coords="407,201,561,243"/>
+<area shape="rect" id="node4" href="$structatp_1_1core_1_1_my_h_m_m_building_data.html" title=" " alt="" coords="645,13,847,39"/>
+<area shape="rect" id="node6" href="$structatp_1_1core_1_1proc__data_1_1_h_m_m_conjecturer_training_essentials.html" title=" " alt="" coords="629,68,863,109"/>
+<area shape="rect" id="node7" href="$structatp_1_1core_1_1proc__data_1_1_h_m_m_conj_generation_essentials.html" title=" " alt="" coords="641,133,851,175"/>
+</map>

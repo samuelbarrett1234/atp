@@ -1,0 +1,5 @@
+<map id="ATPCore/Processes/HMMGenerateConjProcess.h" name="ATPCore/Processes/HMMGenerateConjProcess.h">
+<area shape="rect" id="node1" title="This process generates conjectures using a given HMM model." alt="" coords="138,5,366,47"/>
+<area shape="rect" id="node2" href="$_h_m_m_conjecture_process_8cpp.html" title=" " alt="" coords="5,95,243,136"/>
+<area shape="rect" id="node3" href="$_h_m_m_generate_conj_process_8cpp.html" title=" " alt="" coords="267,95,495,136"/>
+</map>

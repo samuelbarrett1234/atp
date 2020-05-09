@@ -1,0 +1,6 @@
+<map id="atp::core::proc_data::ProofSetupEssentials" name="atp::core::proc_data::ProofSetupEssentials">
+<area shape="rect" id="node1" title=" " alt="" coords="140,200,295,241"/>
+<area shape="rect" id="node2" href="$structatp_1_1core_1_1proc__data_1_1_logic_essentials.html" title=" " alt="" coords="9,96,148,137"/>
+<area shape="rect" id="node3" href="$structatp_1_1core_1_1proc__data_1_1_database_essentials.html" title=" " alt="" coords="5,5,152,47"/>
+<area shape="rect" id="node4" href="$structatp_1_1search_1_1_search_settings.html" title="Bundles together user settings for performing searches, including the constructed solver object,..." alt="" coords="172,103,356,130"/>
+</map>

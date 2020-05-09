@@ -1,0 +1,8 @@
+<map id="atp::core::create_proof_process" name="atp::core::create_proof_process">
+<area shape="rect" id="node1" title="Create a proof process to try and prove num_targets arbitrary unproven theorems." alt="" coords="5,136,157,177"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1core.html#aafe2f9412bce7973267a7735bb16e763" title="This function creates a &quot;proof initialisation&quot; process, which creates the knowledge kernel,..." alt="" coords="217,5,369,47"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1core.html#a347bdbab224f5b7453926bd292125a2d" title="This function creates a process which just runs the solver to completion." alt="" coords="222,71,365,112"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1core.html#a1d7a30c723dce02909ce79d2a856c9fa" title="This function creates a process which saves proven theorems to the database." alt="" coords="218,136,369,177"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1core.html#af2f2db5275692237d1dbb86b1c2b18d7" title="Create a process which loads a number of theorems into target_thms." alt="" coords="206,201,381,243"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="205,267,381,294"/>
+</map>

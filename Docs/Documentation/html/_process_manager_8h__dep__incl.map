@@ -1,4 +1,9 @@
-<map id="atp/ProcessManager.h" name="atp/ProcessManager.h">
-<area shape="rect" id="node1" title=" " alt="" coords="12,5,165,32"/>
-<area shape="rect" id="node2" href="$_process_manager_8cpp.html" title=" " alt="" coords="5,80,172,107"/>
+<map id="ATPCore/Processes/ProcessManager.h" name="ATPCore/Processes/ProcessManager.h">
+<area shape="rect" id="node1" title=" " alt="" coords="220,5,412,47"/>
+<area shape="rect" id="node2" href="$_a_t_p_core_8h.html" title=" " alt="" coords="151,102,292,129"/>
+<area shape="rect" id="node7" href="$_process_manager_8cpp.html" title=" " alt="" coords="316,95,508,136"/>
+<area shape="rect" id="node3" href="$_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="82,184,201,211"/>
+<area shape="rect" id="node6" href="$_a_t_p_core_8cpp.html" title=" " alt="" coords="225,184,380,211"/>
+<area shape="rect" id="node4" href="$_application_8cpp.html" title=" " alt="" coords="5,259,139,285"/>
+<area shape="rect" id="node5" href="$_main_8cpp.html" title="Entrypoint for atp command line application." alt="" coords="163,259,261,285"/>
 </map>

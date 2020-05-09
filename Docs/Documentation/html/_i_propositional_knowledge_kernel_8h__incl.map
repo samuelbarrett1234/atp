@@ -1,12 +1,12 @@
 <map id="ATPLogic/Interfaces/IPropositionalKnowledgeKernel.h" name="ATPLogic/Interfaces/IPropositionalKnowledgeKernel.h">
-<area shape="rect" id="node1" title="Contains a common specialisation of the IKnowledgeKernel interface." alt="" coords="205,5,419,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="21,244,91,271"/>
-<area shape="rect" id="node3" title=" " alt="" coords="489,244,545,271"/>
-<area shape="rect" id="node4" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="152,319,275,345"/>
-<area shape="rect" id="node6" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a structure for performing logical deductio..." alt="" coords="192,95,328,121"/>
-<area shape="rect" id="node7" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="301,244,397,271"/>
-<area shape="rect" id="node9" href="$_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="302,169,429,196"/>
-<area shape="rect" id="node5" title=" " alt="" coords="181,393,246,420"/>
-<area shape="rect" id="node10" href="$_i_proof_state_8h.html" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="78,169,175,196"/>
-<area shape="rect" id="node8" title=" " alt="" coords="322,319,377,345"/>
+<area shape="rect" id="node1" title="Contains a common specialisation of the IKnowledgeKernel interface." alt="" coords="349,5,563,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="137,319,207,345"/>
+<area shape="rect" id="node3" title=" " alt="" coords="611,319,667,345"/>
+<area shape="rect" id="node4" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="197,393,320,420"/>
+<area shape="rect" id="node6" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a structure for performing logical deductio..." alt="" coords="336,95,472,121"/>
+<area shape="rect" id="node7" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="363,319,459,345"/>
+<area shape="rect" id="node9" href="$_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="347,244,474,271"/>
+<area shape="rect" id="node5" title=" " alt="" coords="226,468,291,495"/>
+<area shape="rect" id="node10" href="$_i_proof_state_8h.html" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="265,169,362,196"/>
+<area shape="rect" id="node8" title=" " alt="" coords="383,393,438,420"/>
 </map>

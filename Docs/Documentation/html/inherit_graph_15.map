@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classatp_1_1logic_1_1equational_1_1_statement_1_1iterator.html" title="For iterating over all subtrees (subexpressions) of a given statement in pre&#45;order traversal,..." alt="" coords="5,5,148,47"/>
+<area shape="rect" id="node1" href="$classatp_1_1logic_1_1equational_1_1_i_parse_node.html" title="Base parse node interface." alt="" coords="5,39,148,80"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_eq_parse_node.html" title="Represents the &#39;=&#39; sign at the top of a statement, which has a LHS and a RHS." alt="" coords="196,5,339,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_identifier_parse_node.html" title=" " alt="" coords="196,71,339,112"/>
 </map>

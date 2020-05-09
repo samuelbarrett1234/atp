@@ -1,17 +1,17 @@
 <map id="ATPLogic/ATPLogic.h" name="ATPLogic/ATPLogic.h">
-<area shape="rect" id="node1" title="Main include file for the ATPLogic library." alt="" coords="443,5,592,32"/>
-<area shape="rect" id="node2" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="494,393,605,420"/>
-<area shape="rect" id="node4" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="714,319,870,345"/>
-<area shape="rect" id="node6" href="$_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="47,244,233,271"/>
-<area shape="rect" id="node9" href="$_i_language_8h.html" title="Contains the ILanguage interface which acts as a factory class for each type of logic in the library." alt="" coords="520,87,672,114"/>
-<area shape="rect" id="node12" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a structure for performing logical deductio..." alt="" coords="265,169,401,196"/>
-<area shape="rect" id="node13" href="$_i_proof_state_8h.html" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="702,244,799,271"/>
-<area shape="rect" id="node14" href="$_i_model_context_8h.html" title="Contains the IModelContext interface for managing definitions and axioms." alt="" coords="562,244,678,271"/>
-<area shape="rect" id="node15" href="$_i_propositional_knowledge_kernel_8h.html" title="Contains a common specialisation of the IKnowledgeKernel interface." alt="" coords="148,80,308,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="517,468,582,495"/>
-<area shape="rect" id="node5" title=" " alt="" coords="709,393,763,420"/>
-<area shape="rect" id="node7" title=" " alt="" coords="253,319,309,345"/>
-<area shape="rect" id="node8" title=" " alt="" coords="413,319,483,345"/>
-<area shape="rect" id="node10" title=" " alt="" coords="773,169,838,196"/>
-<area shape="rect" id="node11" title=" " alt="" coords="679,169,748,196"/>
+<area shape="rect" id="node1" title="Main include file for the ATPLogic library." alt="" coords="437,5,587,32"/>
+<area shape="rect" id="node2" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="559,468,670,495"/>
+<area shape="rect" id="node4" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="161,393,317,420"/>
+<area shape="rect" id="node6" href="$_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="691,319,877,345"/>
+<area shape="rect" id="node9" href="$_i_language_8h.html" title="Contains the ILanguage interface which acts as a factory class for each type of logic in the library." alt="" coords="824,87,976,114"/>
+<area shape="rect" id="node12" href="$_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a structure for performing logical deductio..." alt="" coords="608,169,744,196"/>
+<area shape="rect" id="node13" href="$_i_proof_state_8h.html" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="467,244,565,271"/>
+<area shape="rect" id="node14" href="$_i_model_context_8h.html" title="Contains the IModelContext interface for managing definitions and axioms." alt="" coords="297,319,413,345"/>
+<area shape="rect" id="node15" href="$_i_propositional_knowledge_kernel_8h.html" title="Contains a common specialisation of the IKnowledgeKernel interface." alt="" coords="255,80,415,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="582,543,647,569"/>
+<area shape="rect" id="node5" title=" " alt="" coords="270,468,325,495"/>
+<area shape="rect" id="node7" title=" " alt="" coords="539,393,595,420"/>
+<area shape="rect" id="node8" title=" " alt="" coords="805,393,875,420"/>
+<area shape="rect" id="node10" title=" " alt="" coords="963,169,1029,196"/>
+<area shape="rect" id="node11" title=" " alt="" coords="869,169,939,196"/>
 </map>

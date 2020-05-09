@@ -1,0 +1,4 @@
+<map id="atp::core::HMMConjectureModelBuilder::set_free_geometric_q" name="atp::core::HMMConjectureModelBuilder::set_free_geometric_q">
+<area shape="rect" id="node1" title="Set the parameter q=1&#45;p for generating the free variable IDs, where p (not q) is the parameter for th..." alt="" coords="240,5,415,61"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_h_m_m_model_loader_process.html#aa361a1af1866a6280ded08a5a7e649c3" title=" " alt="" coords="5,13,192,54"/>
+</map>

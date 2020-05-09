@@ -1,26 +1,11 @@
 <map id="main" name="main">
-<area shape="rect" id="node1" title=" " alt="" coords="5,130,56,157"/>
-<area shape="rect" id="node2" href="$_main_8cpp.html#a466b204876228878636c8843ab0155f1" title=" " alt="" coords="104,130,248,157"/>
-<area shape="rect" id="node3" href="$class_proof_application.html#a6ef09aab15e935fc8cbd9e8126a707c5" title="Add a new one/many target statements, to attempt to prove when run is called." alt="" coords="305,5,450,47"/>
-<area shape="rect" id="node4" href="$class_proof_application.html#a639f78f2c935cb9208dfd675207a7388" title="Run all proofs that have been set." alt="" coords="306,71,449,98"/>
-<area shape="rect" id="node7" href="$class_proof_application.html#a5ce031b1839dbdf928b1b06d603ce402" title="Loads the language and knowledge kernel from a given context (filename obtained from database)." alt="" coords="306,123,449,164"/>
-<area shape="rect" id="node9" href="$class_proof_application.html#a55952f329e33812b215766f75dfd3bbf" title="Loads the database file (this has to be done first)" alt="" coords="296,189,459,215"/>
-<area shape="rect" id="node12" href="$class_proof_application.html#a8fb4d1c25fda62897397ec4afd28ac79" title="Loads the solver." alt="" coords="306,240,449,281"/>
-<area shape="rect" id="node5" href="$namespaceatp_1_1logic.html#aa0bf7e3fc379b924cf7031f1110c685d" title="Concatenate two statement arrays of the same type." alt="" coords="528,71,651,98"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a8b3c78a186b26edcc519caad57901111" title=" " alt="" coords="731,57,875,113"/>
-<area shape="rect" id="node8" href="$namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="530,123,649,164"/>
-<area shape="rect" id="node10" href="$namespaceatp_1_1db.html#a0d04b0bd46a32a2aa0f5499b0977adf5" title="Create a new database object from the given SQLite database filename." alt="" coords="515,189,664,215"/>
-<area shape="rect" id="node11" href="$classatp_1_1db_1_1_s_q_lite_database.html#a0e9b5d9f5570686f02f75ee14073b0c5" title="Create a new database object from the given SQLite database filename." alt="" coords="720,181,885,223"/>
-<area shape="rect" id="node13" href="$namespaceatp_1_1search.html#aa8dd2f9c72b427c8a08e2c78534f57de" title="Create this library&#39;s designated &quot;default solver&quot;." alt="" coords="524,240,655,281"/>
-<area shape="rect" id="node14" href="$namespaceatp_1_1search.html#abfcaf2b18b0f857caa3deeb23836adaa" title="Try to load a solver from a configuration file." alt="" coords="507,305,672,347"/>
-<area shape="rect" id="node15" href="$namespaceatp_1_1search.html#af1274bf19e83a50812b02f37c53ec691" title=" " alt="" coords="737,276,868,317"/>
-<area shape="rect" id="node24" href="$namespaceatp_1_1search.html#a73efa9f6df8c0de0aa8b42a7e185c47b" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="726,341,879,383"/>
-<area shape="rect" id="node16" href="$namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="933,244,1087,285"/>
-<area shape="rect" id="node19" href="$namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="939,309,1081,351"/>
-<area shape="rect" id="node17" href="$namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="1135,193,1316,219"/>
-<area shape="rect" id="node18" href="$namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="1158,244,1293,285"/>
-<area shape="rect" id="node20" href="$namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="1140,309,1311,351"/>
-<area shape="rect" id="node22" href="$namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342" title="Try to load info for a FixedStoppingStrategy." alt="" coords="1142,375,1309,416"/>
-<area shape="rect" id="node21" href="$classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="1364,309,1560,351"/>
-<area shape="rect" id="node23" href="$classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="1366,375,1558,416"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,183,56,209"/>
+<area shape="rect" id="node2" href="$_main_8cpp.html#abbc64647371a87f3d385e03d9bb604c4" title=" " alt="" coords="111,5,222,32"/>
+<area shape="rect" id="node3" href="$_main_8cpp.html#a13c3f13b7e33cd8909cbbc5c98a4b001" title=" " alt="" coords="111,56,222,83"/>
+<area shape="rect" id="node4" href="$_main_8cpp.html#ac0010aa3703c81e544b5a5837878e480" title=" " alt="" coords="127,107,206,133"/>
+<area shape="rect" id="node5" href="$_main_8cpp.html#a6cf0a7e49009920d40305b3eaffbf6cb" title=" " alt="" coords="104,157,229,184"/>
+<area shape="rect" id="node6" href="$_main_8cpp.html#a200db3e9d27b4b58ff76717247a18fb4" title=" " alt="" coords="131,208,202,235"/>
+<area shape="rect" id="node7" href="$_main_8cpp.html#a93438b07406495c3ea1655c4c4befc2b" title=" " alt="" coords="133,259,200,285"/>
+<area shape="rect" id="node8" href="$_main_8cpp.html#a71c6a8b5cd4d58feea903c025ed694db" title=" " alt="" coords="133,309,200,336"/>
+<area shape="rect" id="node9" href="$_main_8cpp.html#a8c23bc02a834b2aeb7f162ef77361301" title=" " alt="" coords="124,360,209,387"/>
 </map>

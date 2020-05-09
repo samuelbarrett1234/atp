@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['save_5fthms_5fand_5fproofs_1002',['SAVE_THMS_AND_PROOFS',['../namespaceatp_1_1db.html#ae3a5586339a988cc1d92d36349b8866da2610e342dd40775ba1374febb12211a3',1,'atp::db']]],
-  ['str_1003',['STR',['../namespaceatp_1_1db.html#afb2f75874310d011b7db4fc0846d9c88a3fe0dfff438296bb525e0e8642586c2d',1,'atp::db']]]
+  ['random_5fthm_5fselection_1416',['RANDOM_THM_SELECTION',['../namespaceatp_1_1db.html#ae3a5586339a988cc1d92d36349b8866da5a1a9ef4ed29d90cbf97e7b3e3068309',1,'atp::db']]],
+  ['running_1417',['RUNNING',['../namespaceatp_1_1db.html#a39bf5a0a6fc1b35747982b6caf44fbc1a43491564ebcfd38568918efbd6e840fd',1,'atp::db']]]
 ];

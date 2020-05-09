@@ -1,0 +1,4 @@
+<map id="atp::core::HMMConjectureModelBuilder::build" name="atp::core::HMMConjectureModelBuilder::build">
+<area shape="rect" id="node1" title="Create a new HMMConjectureModel given the parameters." alt="" coords="5,5,180,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_h_m_m_conjecture_model_builder.html#af20f5e6c8c40f41a3a9db18964083ae3" title="Determine if the parameters that have been set so far are valid." alt="" coords="228,5,403,47"/>
+</map>

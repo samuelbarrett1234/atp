@@ -67,14 +67,24 @@ $(function() {
 
 <h3><a id="index_a"></a>- a -</h3><ul>
 <li>add()
-: <a class="el" href="structatp_1_1db_1_1_transaction_list_wrapper_1_1_builder.html#a3bccff8c221d8befddaa79649c47e03b">atp::db::TransactionListWrapper::Builder</a>
+: <a class="el" href="classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57">atp::core::ProcessManager</a>
+, <a class="el" href="structatp_1_1db_1_1_transaction_list_wrapper_1_1_builder.html#a3bccff8c221d8befddaa79649c47e03b">atp::db::TransactionListWrapper::Builder</a>
 , <a class="el" href="classatp_1_1search_1_1_basic_stopping_strategy.html#a8b605a5400a34591a3d2546c31c83f54">atp::search::BasicStoppingStrategy</a>
 , <a class="el" href="classatp_1_1search_1_1_fixed_stopping_strategy.html#ad225dcf7048253c79de9c32565bfa8be">atp::search::FixedStoppingStrategy</a>
 , <a class="el" href="classatp_1_1search_1_1_i_stopping_strategy.html#aa158a61116e75d1b3af40baa30197ed4">atp::search::IStoppingStrategy</a>
-, <a class="el" href="class_process_manager.html#ae53d8a08edacd33851f0d00fa106dff6">ProcessManager</a>
 </li>
 <li>add_func()
 : <a class="el" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a9e461ced3940397369ccc903aca0cd44">atp::logic::equational::ExprTreeFlyweight</a>
+</li>
+<li>add_helper_thms()
+: <a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#a806f8426de6af6a259fbb40fed1e2ff8">atp::db::ISaveProofResultsQryBder</a>
+, <a class="el" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#aca2ddb53ba5ff677b4a5f6f4d78e0997">atp::db::SQLiteSaveProofResultsQryBder</a>
+</li>
+<li>add_hmm_conj_train_task()
+: <a class="el" href="class_application.html#a3e5ca8fa3dbe56d77f87f57dba5525b6">Application</a>
+</li>
+<li>add_hmm_conjecture_task()
+: <a class="el" href="class_application.html#aff6b99955b7a8e12e53907c2cab552b9">Application</a>
 </li>
 <li>add_max_mem_usages()
 : <a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#a1a0612d9d6d2422372c89e43c5137598">atp::db::ISaveProofResultsQryBder</a>
@@ -84,16 +94,30 @@ $(function() {
 : <a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#aa453d3dbb66a47314df0bad58785f711">atp::db::ISaveProofResultsQryBder</a>
 , <a class="el" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#a01e68213cfbb556aa6d0a34503ff1721">atp::db::SQLiteSaveProofResultsQryBder</a>
 </li>
+<li>add_observation()
+: <a class="el" href="classatp_1_1db_1_1_i_save_hmm_conj_model_params.html#ae39add855bcf3d0d61ff0b24a153d4df">atp::db::ISaveHmmConjModelParams</a>
+, <a class="el" href="classatp_1_1db_1_1_s_q_lite_save_hmm_conj_model_params.html#a22ce317b9057529e203ec19c30970b6d">atp::db::SQLiteSaveHmmConjModelParams</a>
+</li>
 <li>add_proof_states()
 : <a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#aa28ca95fb11b75d4a44f661307cc074b">atp::db::ISaveProofResultsQryBder</a>
 , <a class="el" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#a39db65993ee96ee9b791977a3982351d">atp::db::SQLiteSaveProofResultsQryBder</a>
 </li>
 <li>add_proof_task()
-: <a class="el" href="class_proof_application.html#a6ef09aab15e935fc8cbd9e8126a707c5">ProofApplication</a>
+: <a class="el" href="class_application.html#a9a3f2a8a310783b1da84232b698fcc49">Application</a>
 </li>
 <li>add_proof_times()
 : <a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#a63728d9781a132a1f51af60d3a07951b">atp::db::ISaveProofResultsQryBder</a>
 , <a class="el" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#a87c4272bf44480dacc0f2cce822e193f">atp::db::SQLiteSaveProofResultsQryBder</a>
+</li>
+<li>add_state_trans()
+: <a class="el" href="classatp_1_1db_1_1_i_save_hmm_conj_model_params.html#ad872d0a98a4dc490c0602fa701bce6dc">atp::db::ISaveHmmConjModelParams</a>
+, <a class="el" href="classatp_1_1db_1_1_s_q_lite_save_hmm_conj_model_params.html#af3e9d0c8855c2e804cf38b9d43b2b85c">atp::db::SQLiteSaveHmmConjModelParams</a>
+</li>
+<li>add_state_transition()
+: <a class="el" href="classatp_1_1core_1_1_h_m_m_conjecture_model_builder.html#abba04e9caccc2316c4aad6f590045d1b">atp::core::HMMConjectureModelBuilder</a>
+</li>
+<li>add_symbol_observation()
+: <a class="el" href="classatp_1_1core_1_1_h_m_m_conjecture_model_builder.html#a9ea8bc1c8cbeb573aabca76d227581b2">atp::core::HMMConjectureModelBuilder</a>
 </li>
 <li>add_target_thms()
 : <a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#ad0b43ea82e5bed0d9745791421a53158">atp::db::ISaveProofResultsQryBder</a>
@@ -104,7 +128,8 @@ $(function() {
 , <a class="el" href="classatp_1_1logic_1_1_i_knowledge_kernel.html#ae22a3cda3d599b8a73f453b63329ffcd">atp::logic::IKnowledgeKernel</a>
 </li>
 <li>advance()
-: <a class="el" href="classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#afcc64f370830f794535a7c14ef241450">atp::logic::equational::FreeVarAssignmentIterator</a>
+: <a class="el" href="classatp_1_1core_1_1_h_m_m_conjecture_model.html#ac0058e7e7e9fe628096059ecb16950b9">atp::core::HMMConjectureModel</a>
+, <a class="el" href="classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#afcc64f370830f794535a7c14ef241450">atp::logic::equational::FreeVarAssignmentIterator</a>
 , <a class="el" href="classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#abf1828dc5e74ce90fac97c7ff3e651fb">atp::logic::equational::MatchResultsIterator</a>
 , <a class="el" href="classatp_1_1logic_1_1equational_1_1_maybe_random_index.html#addd873c12fb96269d49bf8d28d902b12">atp::logic::equational::MaybeRandomIndex</a>
 , <a class="el" href="classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#a9fb97687cab3bf7ff7148924673bf705">atp::logic::equational::NoRepeatIterator</a>
@@ -127,6 +152,9 @@ $(function() {
 <li>any_proof_not_done()
 : <a class="el" href="classatp_1_1search_1_1_i_solver.html#a8783f184c5d37c97b1f13ff0e512f66c">atp::search::ISolver</a>
 , <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a6b834361f285583a72d8e95a2f81ffca">atp::search::IterativeDeepeningSolver</a>
+</li>
+<li>Application()
+: <a class="el" href="class_application.html#a0504c3bfabeac6374ea7ee5dd7120353">Application</a>
 </li>
 <li>arity()
 : <a class="el" href="classatp_1_1db_1_1_i_query_transaction.html#aa7b5f45e0642de55c5b49728b4b7f065">atp::db::IQueryTransaction</a>

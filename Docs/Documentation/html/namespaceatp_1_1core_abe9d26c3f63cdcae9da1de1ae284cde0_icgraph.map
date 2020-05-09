@@ -1,0 +1,5 @@
+<map id="atp::core::create_hmm_conj_gen_process" name="atp::core::create_hmm_conj_gen_process">
+<area shape="rect" id="node1" title="This function creates a process which generates conjectures given a HMM conjecture model." alt="" coords="405,5,559,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1core.html#acd27f75a9d6ea2ca3c18c65ed440ed1c" title="Create a process which generates a number of conjectures using the HMM conjecture model." alt="" coords="204,5,357,47"/>
+<area shape="rect" id="node3" href="$class_application.html#aff6b99955b7a8e12e53907c2cab552b9" title="Create a new process which will generate conjectures using a Hidden Markov Model." alt="" coords="5,5,156,47"/>
+</map>

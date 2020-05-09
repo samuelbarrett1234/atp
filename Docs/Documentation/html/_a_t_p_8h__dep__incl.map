@@ -1,7 +1,6 @@
 <map id="atp/ATP.h" name="atp/ATP.h">
-<area shape="rect" id="node1" title="Contains assertion macros for atp project." alt="" coords="265,5,345,32"/>
-<area shape="rect" id="node2" href="$_main_8cpp.html" title="Entrypoint for atp command line application." alt="" coords="5,80,103,107"/>
-<area shape="rect" id="node3" href="$_process_manager_8cpp.html" title=" " alt="" coords="127,80,293,107"/>
-<area shape="rect" id="node4" href="$_proof_application_8cpp.html" title=" " alt="" coords="318,80,481,107"/>
-<area shape="rect" id="node5" href="$_proof_process_8cpp.html" title=" " alt="" coords="505,80,651,107"/>
+<area shape="rect" id="node1" title="Contains assertion macros for atp project." alt="" coords="116,5,196,32"/>
+<area shape="rect" id="node2" href="$_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="97,80,215,107"/>
+<area shape="rect" id="node3" href="$_application_8cpp.html" title=" " alt="" coords="5,155,139,181"/>
+<area shape="rect" id="node4" href="$_main_8cpp.html" title="Entrypoint for atp command line application." alt="" coords="190,155,287,181"/>
 </map>

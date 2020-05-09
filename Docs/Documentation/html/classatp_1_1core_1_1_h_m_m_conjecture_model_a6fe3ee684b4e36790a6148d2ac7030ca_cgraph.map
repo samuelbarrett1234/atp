@@ -1,0 +1,5 @@
+<map id="atp::core::HMMConjectureModel::HMMConjectureModel" name="atp::core::HMMConjectureModel::HMMConjectureModel">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,199,80"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_h_m_m_conjecture_model.html#a5c911c039d3cdaea54e6102768201d31" title=" " alt="" coords="247,5,421,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_h_m_m_conjecture_model.html#aa8d060f5ba21c91afff0ebc1822c5da6" title="Reset state distribution to the default (typically just a uniform distribution)." alt="" coords="247,71,421,112"/>
+</map>

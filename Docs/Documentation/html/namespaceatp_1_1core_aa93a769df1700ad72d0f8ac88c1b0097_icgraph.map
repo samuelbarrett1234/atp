@@ -1,0 +1,7 @@
+<map id="atp::core::create_hmm_model_loader_process" name="atp::core::create_hmm_model_loader_process">
+<area shape="rect" id="node1" title="This function creates a process which loads a HMM conjecturer model from the database." alt="" coords="427,39,585,80"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1core.html#acd27f75a9d6ea2ca3c18c65ed440ed1c" title="Create a process which generates a number of conjectures using the HMM conjecture model." alt="" coords="215,5,368,47"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1core.html#a0e758a1f3721e76b154d37c0650cdb2d" title="Create a process to train a particular HMM model." alt="" coords="204,71,379,112"/>
+<area shape="rect" id="node3" href="$class_application.html#aff6b99955b7a8e12e53907c2cab552b9" title="Create a new process which will generate conjectures using a Hidden Markov Model." alt="" coords="5,5,156,47"/>
+<area shape="rect" id="node5" href="$class_application.html#a3e5ca8fa3dbe56d77f87f57dba5525b6" title="Create a new process which will train the HMM conjecturer model on existing proven theorems." alt="" coords="5,71,156,112"/>
+</map>

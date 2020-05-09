@@ -1,0 +1,4 @@
+<map id="atp::logic::equational::Expression::map_free_vars" name="atp::logic::equational::Expression::map_free_vars">
+<area shape="rect" id="node1" title="Substitute the free variables according to the given map." alt="" coords="212,5,399,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a3a1b7919f1f10f309bffa49d3de933f7" title="Get the number of times each statement is used in this proof state." alt="" coords="5,5,164,47"/>
+</map>

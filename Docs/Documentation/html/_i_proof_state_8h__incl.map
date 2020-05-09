@@ -1,8 +1,10 @@
 <map id="ATPLogic/Interfaces/IProofState.h" name="ATPLogic/Interfaces/IProofState.h">
-<area shape="rect" id="node1" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="43,5,181,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,75,121"/>
-<area shape="rect" id="node3" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="51,169,173,196"/>
-<area shape="rect" id="node5" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="149,95,245,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="79,244,145,271"/>
-<area shape="rect" id="node6" title=" " alt="" coords="198,169,253,196"/>
+<area shape="rect" id="node1" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="111,5,249,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,169,61,196"/>
+<area shape="rect" id="node3" title=" " alt="" coords="96,169,165,196"/>
+<area shape="rect" id="node4" href="$_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="205,244,328,271"/>
+<area shape="rect" id="node6" href="$_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="319,169,415,196"/>
+<area shape="rect" id="node8" href="$_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="117,95,243,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="234,319,299,345"/>
+<area shape="rect" id="node7" title=" " alt="" coords="353,244,407,271"/>
 </map>

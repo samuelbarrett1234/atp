@@ -129,6 +129,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa5ece7acb3a7908489d12db32a1143f7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#aa5ece7acb3a7908489d12db32a1143f7">to_str</a> () const override</td></tr>
 <tr class="memdesc:aa5ece7acb3a7908489d12db32a1143f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a human-readable string representation of this proof.  <a href="classatp_1_1logic_1_1equational_1_1_proof_state.html#aa5ece7acb3a7908489d12db32a1143f7">More...</a><br /></td></tr>
 <tr class="separator:aa5ece7acb3a7908489d12db32a1143f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a1b7919f1f10f309bffa49d3de933f7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a3a1b7919f1f10f309bffa49d3de933f7">get_usage</a> (const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> &amp;p_stmts) const override</td></tr>
+<tr class="memdesc:a3a1b7919f1f10f309bffa49d3de933f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of times each statement is used in this proof state.  <a href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a3a1b7919f1f10f309bffa49d3de933f7">More...</a><br /></td></tr>
+<tr class="separator:a3a1b7919f1f10f309bffa49d3de933f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classatp_1_1logic_1_1_i_proof_state"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classatp_1_1logic_1_1_i_proof_state')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classatp_1_1logic_1_1_i_proof_state.html">atp::logic::IProofState</a></td></tr>
 <tr class="memitem:abbe9d191d5cfc950a01a0854c7fcc08c inherit pub_methods_classatp_1_1logic_1_1_i_proof_state"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_proof_state.html#abbe9d191d5cfc950a01a0854c7fcc08c">~IProofState</a> ()=default</td></tr>
 <tr class="separator:abbe9d191d5cfc950a01a0854c7fcc08c inherit pub_methods_classatp_1_1logic_1_1_i_proof_state"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -367,6 +370,67 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a1b7919f1f10f309bffa49d3de933f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a1b7919f1f10f309bffa49d3de933f7">&#9670;&nbsp;</a></span>get_usage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; size_t &gt; atp::logic::equational::ProofState::get_usage </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>p_stmts</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the number of times each statement is used in this proof state. </p>
+<p>This is a bit of a "soft" function, intended to help compute usefulness-heuristics. What entails a single "use" of a theorem is implementation-dependent. For example, it could be taken to mean either: (i) an equivalent statement was used, or (ii) this exact statement was used, etc.</p>
+<dl class="section return"><dt>Returns</dt><dd>An array of the same size as p_stmts of integers, where each integer is the number of times that statement COULD be used in this proof. </dd></dl>
+
+<p>Implements <a class="el" href="classatp_1_1logic_1_1_i_proof_state.html#afcb980e66bfcd2669bca1ffb9d952ea3">atp::logic::IProofState</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1logic_1_1equational_1_1_proof_state_a3a1b7919f1f10f309bffa49d3de933f7_cgraph.png" border="0" usemap="#classatp_1_1logic_1_1equational_1_1_proof_state_a3a1b7919f1f10f309bffa49d3de933f7_cgraph" alt=""/></div>
+<map name="classatp_1_1logic_1_1equational_1_1_proof_state_a3a1b7919f1f10f309bffa49d3de933f7_cgraph" id="classatp_1_1logic_1_1equational_1_1_proof_state_a3a1b7919f1f10f309bffa49d3de933f7_cgraph">
+<area shape="rect" title="Get the number of times each statement is used in this proof state." alt="" coords="5,534,164,575"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#a63f5bc1a22b97cf4822d117855bc9936" title=" " alt="" coords="228,256,383,298"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a40c13f6a0a0147518fe9f4d75c54a1d9" title="Add a particular value to the ID of every free variable in this expression." alt="" coords="225,322,385,378"/>
+<area shape="rect" href="classatp_1_1logic_1_1_free_var_map.html#acfd10a676b13c4127cfabb6f56b1186e" title=" " alt="" coords="228,935,383,976"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a2729f273d373a4e5a112b80483c7e30f" title="Substitute the free variables according to the given map." alt="" coords="212,534,399,575"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#aeee9e7dcfe3da4ed1f7f2b40de534488" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="233,870,378,911"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a26152e870d16a369300c9a67d29e2d8e" title=" " alt="" coords="453,468,654,510"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a91a38655bdbfa79208d13555292f5a19" title=" " alt="" coords="469,177,638,233"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a89ea50f3905ef95350d173b004f24835" title=" " alt="" coords="469,257,638,313"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a2fb23b8617152117e64b5cc2a2b772ac" title=" " alt="" coords="708,811,892,852"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a3c245f438adee795fdc69781e444f61c" title=" " alt="" coords="454,782,653,823"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4" title=" " alt="" coords="457,60,649,102"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2" title=" " alt="" coords="715,330,885,371"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a7f1cc7fea6ed25977647a4f9f81e2aa4" title="Update a function&#39;s argument value and type." alt="" coords="461,388,645,444"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a57f84040d01680e30a3cc6196a77dada" title=" " alt="" coords="482,534,625,575"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#a9bd6385e4bd0fae94090c87ad70dbd51" title=" " alt="" coords="482,599,625,640"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression.html#af6dd25478f5d49d5582736f2554ef0c0" title=" " alt="" coords="468,664,639,706"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a635d2d8e2a4765bb3b1c107b8aafcad0" title="Append, to each array in this object, the arrays in the other object. Also, update their function ind..." alt="" coords="447,899,660,940"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression_1_1iterator.html#ab262eff3f20c8d7d5914c9a30a4aa103" title=" " alt="" coords="482,1256,625,1312"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression_1_1iterator.html#a4edcffc0d540efd099b3e596e0595b08" title=" " alt="" coords="482,1016,625,1072"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression_1_1iterator.html#a11031cf1963b95d5a68d8d69b9d72277" title="Get which argument of the parent function this iterator is pointing to." alt="" coords="482,1096,625,1152"/>
+<area shape="rect" href="classatp_1_1logic_1_1equational_1_1_expression_1_1iterator.html#ab666d9f50a66d969caa9289e1ca1a2a0" title="Get the function index containing the sub&#45;expression pointed to currently by this iterator." alt="" coords="482,1176,625,1232"/>
+</map>
+</div>
 
 </div>
 </div>

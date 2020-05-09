@@ -1,0 +1,7 @@
+<map id="atp::core::ProcessManager::add" name="atp::core::ProcessManager::add">
+<area shape="rect" id="node1" title="Add the given process to the mix." alt="" coords="236,107,444,134"/>
+<area shape="rect" id="node2" href="$class_application.html#a3e5ca8fa3dbe56d77f87f57dba5525b6" title="Create a new process which will train the HMM conjecturer model on existing proven theorems." alt="" coords="21,5,172,47"/>
+<area shape="rect" id="node3" href="$class_application.html#aff6b99955b7a8e12e53907c2cab552b9" title="Create a new process which will generate conjectures using a Hidden Markov Model." alt="" coords="21,71,172,112"/>
+<area shape="rect" id="node4" href="$class_application.html#a9a3f2a8a310783b1da84232b698fcc49" title="Add a process which will try to prove the given statements when run is called." alt="" coords="5,137,188,163"/>
+<area shape="rect" id="node5" href="$class_application.html#aec69d29e264c9cbbbce97dc47f212a2e" title="Create a new process which will create a new HMM conjecturer model." alt="" coords="31,188,162,229"/>
+</map>

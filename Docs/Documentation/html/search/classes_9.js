@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['norepeatiterator_535',['NoRepeatIterator',['../classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html',1,'atp::logic::equational']]]
+  ['knowledgekernel_757',['KnowledgeKernel',['../classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html',1,'atp::logic::equational']]]
 ];

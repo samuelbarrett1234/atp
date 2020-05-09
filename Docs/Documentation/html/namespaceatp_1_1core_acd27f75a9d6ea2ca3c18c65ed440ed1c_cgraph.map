@@ -1,0 +1,7 @@
+<map id="atp::core::create_hmm_conjecture_process" name="atp::core::create_hmm_conjecture_process">
+<area shape="rect" id="node1" title="Create a process which generates a number of conjectures using the HMM conjecture model." alt="" coords="5,100,159,141"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1core.html#abe9d26c3f63cdcae9da1de1ae284cde0" title="This function creates a process which generates conjectures given a HMM conjecture model." alt="" coords="209,5,363,47"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1core.html#aa93a769df1700ad72d0f8ac88c1b0097" title="This function creates a process which loads a HMM conjecturer model from the database." alt="" coords="207,71,365,112"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="413,107,589,134"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1core.html#adc97d6929bc30b9ea243e7f827071421" title="This function creates a process which saves proven theorems to the database." alt="" coords="210,188,362,229"/>
+</map>

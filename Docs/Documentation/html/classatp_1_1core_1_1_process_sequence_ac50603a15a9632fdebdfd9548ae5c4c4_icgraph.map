@@ -1,0 +1,4 @@
+<map id="atp::core::ProcessSequence::done" name="atp::core::ProcessSequence::done">
+<area shape="rect" id="node1" title="Returns true iff the process has finished." alt="" coords="240,5,427,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_process_sequence.html#a2c22caa62db323e8fea907d12913a14a" title="Returns true iff the process is waiting on some resources." alt="" coords="5,5,192,47"/>
+</map>

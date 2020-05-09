@@ -1,0 +1,4 @@
+<map id="atp::db::ISaveHmmConjModelParams" name="atp::db::ISaveHmmConjModelParams">
+<area shape="rect" id="node1" title="This query builder is for putting together a query to save model parameters for the HMM conjecturer m..." alt="" coords="5,80,199,121"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_i_query_builder.html" title="An object for producing queries." alt="" coords="28,5,176,32"/>
+</map>

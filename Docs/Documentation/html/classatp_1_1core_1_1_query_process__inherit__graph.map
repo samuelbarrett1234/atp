@@ -1,0 +1,14 @@
+<map id="atp::core::QueryProcess" name="atp::core::QueryProcess">
+<area shape="rect" id="node1" title="This process implements the IProcess virtual functions in terms of other virtual functions which are ..." alt="" coords="185,276,349,303"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_create_h_m_m_process.html" title=" " alt="" coords="421,5,620,32"/>
+<area shape="rect" id="node4" href="$classatp_1_1core_1_1_h_m_m_load_training_data_proc.html" title=" " alt="" coords="428,57,613,98"/>
+<area shape="rect" id="node5" href="$classatp_1_1core_1_1_h_m_m_model_loader_process.html" title="This process is for loading the main model parameters (like the ID, the number of hidden states,..." alt="" coords="427,122,614,163"/>
+<area shape="rect" id="node6" href="$classatp_1_1core_1_1_h_m_m_obs_loader_process.html" title="This process is for loading the observation parameters of the HMM model." alt="" coords="409,188,632,215"/>
+<area shape="rect" id="node7" href="$classatp_1_1core_1_1_h_m_m_save_conj_results_process.html" title=" " alt="" coords="415,239,626,281"/>
+<area shape="rect" id="node8" href="$classatp_1_1core_1_1_h_m_m_save_model_params_proc.html" title=" " alt="" coords="397,305,644,332"/>
+<area shape="rect" id="node9" href="$classatp_1_1core_1_1_h_m_m_state_trans_loader_process.html" title="This process is for loading the state transition parameters of the HMM model." alt="" coords="433,357,608,398"/>
+<area shape="rect" id="node10" href="$classatp_1_1core_1_1_proof_init_process.html" title="This process transfers data from ProofSetupEssentials to ProofEssentials, and loads &quot;helper theorems&quot;..." alt="" coords="433,423,609,449"/>
+<area shape="rect" id="node11" href="$classatp_1_1core_1_1_save_proof_results_process.html" title=" " alt="" coords="429,474,612,515"/>
+<area shape="rect" id="node12" href="$classatp_1_1core_1_1_unproven_thm_select_proc.html" title=" " alt="" coords="409,540,632,567"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_i_process.html" title="Represents a computation to be performed over time." alt="" coords="5,276,137,303"/>
+</map>

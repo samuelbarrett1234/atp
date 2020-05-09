@@ -1,4 +1,10 @@
 <map id="atp::logic::equational::StatementArray::my_at" name="atp::logic::equational::StatementArray::my_at">
-<area shape="rect" id="node1" title=" " alt="" coords="208,5,373,47"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a521d73a64cc7547590afec8b8571ba51" title="Save this object to the given (binary) output." alt="" coords="5,5,160,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="681,71,847,112"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1core.html#ac76c9d049a87433448256677022c8da2" title=" " alt="" coords="483,5,605,47"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1core.html#adbe3ebc8b9cdfc030c90d0ecefd8b911" title=" " alt="" coords="455,71,633,112"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a521d73a64cc7547590afec8b8571ba51" title="Save this object to the given (binary) output." alt="" coords="467,136,621,177"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_h_m_m_stmt_to_obs.html#a52ed830a78a757ccc27b996d64e7ab74" title=" " alt="" coords="228,5,407,47"/>
+<area shape="rect" id="node4" href="$classatp_1_1core_1_1_h_m_m_conjecture_model.html#a168446e25fc7832104c92ac52145fc4a" title="Train on each statement N times." alt="" coords="5,5,180,47"/>
+<area shape="rect" id="node6" href="$classatp_1_1core_1_1_h_m_m_stmt_to_obs.html#a873473995d696d6d7d8fafbe5843f51f" title=" " alt="" coords="228,71,407,112"/>
+<area shape="rect" id="node7" href="$classatp_1_1core_1_1_h_m_m_conjecture_model.html#aa390d0669b147b5aaae80d31e59622ad" title=" " alt="" coords="5,71,180,112"/>
 </map>

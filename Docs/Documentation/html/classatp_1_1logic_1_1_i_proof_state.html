@@ -105,6 +105,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3939cceffecaea6fc592299cb21df305"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_proof_state.html#a3939cceffecaea6fc592299cb21df305">to_str</a> () const =0</td></tr>
 <tr class="memdesc:a3939cceffecaea6fc592299cb21df305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a human-readable string representation of this proof.  <a href="classatp_1_1logic_1_1_i_proof_state.html#a3939cceffecaea6fc592299cb21df305">More...</a><br /></td></tr>
 <tr class="separator:a3939cceffecaea6fc592299cb21df305"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcb980e66bfcd2669bca1ffb9d952ea3"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_proof_state.html#afcb980e66bfcd2669bca1ffb9d952ea3">get_usage</a> (const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> &amp;p_stmts) const =0</td></tr>
+<tr class="memdesc:afcb980e66bfcd2669bca1ffb9d952ea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of times each statement is used in this proof state.  <a href="classatp_1_1logic_1_1_i_proof_state.html#afcb980e66bfcd2669bca1ffb9d952ea3">More...</a><br /></td></tr>
+<tr class="separator:afcb980e66bfcd2669bca1ffb9d952ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A proof state encapsulates the idea of a proof (which may be a WIP) and contains many different statements. </p>
@@ -164,6 +167,38 @@ Public Member Functions</h2></td></tr>
 <p>Determine whether or not this proof is done. </p>
 
 <p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a69ece8e4d012117e36d3ffc7878a7d77">atp::logic::equational::ProofState</a>.</p>
+
+</div>
+</div>
+<a id="afcb980e66bfcd2669bca1ffb9d952ea3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcb980e66bfcd2669bca1ffb9d952ea3">&#9670;&nbsp;</a></span>get_usage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::vector&lt;size_t&gt; atp::logic::IProofState::get_usage </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>p_stmts</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the number of times each statement is used in this proof state. </p>
+<p>This is a bit of a "soft" function, intended to help compute usefulness-heuristics. What entails a single "use" of a theorem is implementation-dependent. For example, it could be taken to mean either: (i) an equivalent statement was used, or (ii) this exact statement was used, etc.</p>
+<dl class="section return"><dt>Returns</dt><dd>An array of the same size as p_stmts of integers, where each integer is the number of times that statement COULD be used in this proof. </dd></dl>
+
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#a3a1b7919f1f10f309bffa49d3de933f7">atp::logic::equational::ProofState</a>.</p>
 
 </div>
 </div>

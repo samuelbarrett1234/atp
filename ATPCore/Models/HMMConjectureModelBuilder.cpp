@@ -184,7 +184,7 @@ bool HMMConjectureModelBuilder::check_state_trans() const
 
 		// if the state transition probabilities from state `i` don't
 		// sum to 1 (or, close enough) then we cannot build the model
-		if (std::abs(sum - 1.0f) > 1.0e-6f)
+		if (std::abs(sum - 1.0f) > 1.0e-4f)
 			return false;
 	}
 
@@ -231,7 +231,7 @@ bool HMMConjectureModelBuilder::check_obs() const
 		if (sum > 1.0f + 1.0e-4)
 			return false;  // bad probabilities
 
-		if (std::abs(sum - 1.0f) < 1.0e-6f)
+		if (std::abs(sum - 1.0f) < 1.0e-4f)
 			ATP_CORE_LOG(warning) << "Encountered a HMM model which "
 				"had zero probability of generating a free variable";
 	}

@@ -67,37 +67,6 @@ HMMConjectureModel::HMMConjectureModel(logic::ModelContextPtr p_ctx,
 	// the symbol IDs contained in the model context, but this is
 	// certainly a precondition
 
-	// check the matrices are stochastic
-#ifdef ATP_CORE_DEFENSIVE
-	for (size_t i = 0; i < m_num_hidden_states; ++i)
-	{
-		float sum = 0.0f;
-		for (size_t j = 0; j < m_num_hidden_states; ++j)
-		{
-			sum += m_st_trans(i, j);
-		}
-		if (std::abs(sum - 1.0f) > 1.0e-6f)
-		{
-			ATP_CORE_LOG(warning) << "State transitions for HMM out "
-				"of state " << i << " summed to " << sum << " which "
-				"significantly differs from 1.";
-		}
-		sum = 0.0f;
-		for (size_t j = 0; j < m_symbs.size(); ++j)
-		{
-			sum += m_st_obs(i, j);
-		}
-		if (sum > 1.0f)
-		{
-			ATP_CORE_LOG(warning) << "Obesrvations for HMM out "
-				"of state " << i << " summed to " << sum << " which "
-				"is significantly greater than 1 (it doesn't matter "
-				"if the value is less than one, because any excess "
-				"is counted as free variable probability.)";
-		}
-	}
-#endif
-
 	reset_state();  // generates observation
 }
 

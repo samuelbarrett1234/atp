@@ -78,6 +78,9 @@ public:
 		}
 		else
 		{
+			ATP_CORE_LOG(info) << "Generated " << m_num_to_generate
+				<< " conjectures!";
+
 			// convert textual statements into an object version
 			m_gen_data.generated_stmts =
 				m_gen_data.lang->deserialise_stmts(m_completed,

@@ -9,6 +9,7 @@
 #include <vector>
 #include <sstream>
 #include <boost/optional.hpp>
+#include <boost/optional/optional_io.hpp>
 #include "HMMGenerateConjProcess.h"
 #include "../Models/HMMConjectureModelBuilder.h"
 #include "../Models/HMMConjectureModel.h"

@@ -9,6 +9,7 @@
 #include <sstream>
 #include "HMMLoadTrainingDataProcess.h"
 #include "QueryProcess.h"
+#include "../Models/HMMConjectureModel.h"
 
 
 namespace atp

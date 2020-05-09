@@ -23,7 +23,7 @@ ProcessPtr create_hmm_conjecture_process(
 	db::DatabasePtr p_db,
 	logic::LanguagePtr p_lang, size_t ctx_id,
 	logic::ModelContextPtr p_ctx, size_t num_to_generate,
-	boost::optional<size_t> model_id = boost::none)
+	boost::optional<size_t> model_id)
 {
 	auto p_proc = make_sequence<
 		proc_data::HMMConjBuildingEssentials,

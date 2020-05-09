@@ -8,6 +8,7 @@
 
 #include "SaveConjResultsProcess.h"
 #include "QueryProcess.h"
+#include "../Models/HMMConjectureModel.h"
 
 
 namespace atp

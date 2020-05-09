@@ -163,7 +163,7 @@ public:
 			symb_id);
 		ATP_CORE_PRECOND(iter != m_symbs.end());
 
-		const auto idx = std::distance(m_symbs.begin(), iter);
+		const size_t idx = std::distance(m_symbs.begin(), iter);
 		ATP_CORE_ASSERT(idx < m_st_obs.size2());
 
 		ATP_CORE_ASSERT(m_st_obs.size1() == m_num_hidden_states);

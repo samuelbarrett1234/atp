@@ -8,7 +8,10 @@
 
 #include <chrono>
 #include <sstream>
+#include <boost/optional.hpp>
+#include <boost/optional/optional_io.hpp>
 #include "../Models/HMMConjectureModelBuilder.h"
+#include "../Models/HMMConjectureModel.h"
 #include "HMMModelLoaderProcess.h"
 #include "QueryProcess.h"
 #include "ProcessSequence.h"
@@ -23,7 +26,7 @@ namespace core
 struct MyHMMBuildingData :
 	public proc_data::HMMConjBuildingEssentials
 {
-	HMMConjectureModelBuilder model_builder;
+	std::unique_ptr<HMMConjectureModelBuilder> model_builder;
 };
 
 
@@ -40,7 +43,7 @@ public:
 		MyHMMBuildingData& data) :
 		QueryProcess(building_data.db),
 		m_building_data(building_data),
-		m_model_builder(data.model_builder)
+		m_model_builder(*data.model_builder)
 	{
 		ATP_CORE_LOG(trace) << "Creating HMM model loader "
 			"process...";
@@ -139,7 +142,7 @@ public:
 		MyHMMBuildingData& data) :
 		QueryProcess(building_data.db),
 		m_building_data(data),
-		m_model_builder(data.model_builder)
+		m_model_builder(*building_data.model_builder)
 	{
 		// this is important!
 		ATP_CORE_PRECOND(m_building_data.model_id.has_value());
@@ -147,8 +150,8 @@ public:
 		ATP_CORE_LOG(trace) << "Creating HMM state transition"
 			" parameter loader process...";
 
-		// copy most of the data over
-		data = building_data;
+		// move the data over
+		data = std::move(building_data);
 	}
 
 protected:
@@ -233,7 +236,7 @@ public:
 		MyHMMBuildingData& data) :
 		QueryProcess(building_data.db),
 		m_building_data(data),
-		m_model_builder(data.model_builder)
+		m_model_builder(*building_data.model_builder)
 	{
 		// this is important!
 		ATP_CORE_PRECOND(m_building_data.model_id.has_value());
@@ -241,8 +244,8 @@ public:
 		ATP_CORE_LOG(trace) << "Creating HMM observation"
 			" parameter loader process...";
 
-		// copy most of the data over
-		data = building_data;
+		// move the data over
+		data = std::move(building_data);
 	}
 
 protected:
@@ -328,10 +331,11 @@ public:
 		m_failed(false)
 	{
 		ATP_CORE_PRECOND(model_data.model == nullptr);
+		ATP_CORE_PRECOND(building_data.model_builder != nullptr);
 
 		ATP_CORE_LOG(trace) << "Building HMM model...";
 
-		if (building_data.model_builder.can_build())
+		if (building_data.model_builder->can_build())
 		{
 			// copy over most of the stuff
 			static_cast<proc_data::LogicEssentials&>(model_data)
@@ -343,7 +347,7 @@ public:
 			model_data.model_id = *building_data.model_id;
 
 			// finally!!
-			model_data.model = building_data.model_builder.build();
+			model_data.model = building_data.model_builder->build();
 		}
 		else  // oops!
 		{
@@ -420,12 +424,16 @@ ProcessPtr create_hmm_model_loader_process(
 	auto p_proc = make_sequence<
 		proc_data::HMMConjBuildingEssentials,
 		MyHMMBuildingData, MyHMMBuildingData,
-		MyHMMBuildingData, proc_data::HMMConjModelEssentials>(
+		MyHMMBuildingData>(
 			boost::make_tuple(make_proc_1, make_proc_2,
 				make_proc_3, make_proc_4));
 
 	// copy over initial data
 	p_proc->get_data<0>() = building_data;
+
+	// init this
+	p_proc->get_data<1>().model_builder = std::make_unique<
+		HMMConjectureModelBuilder>(building_data.ctx);
 	
 	return p_proc;
 }

@@ -12,6 +12,7 @@
 #include "HMMConjModelTrainProcess.h"
 #include "HMMSaveModelParamsProcess.h"
 #include "ProcessSequence.h"
+#include "../Models/HMMConjectureModel.h"
 
 
 

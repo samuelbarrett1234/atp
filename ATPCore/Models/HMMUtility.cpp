@@ -126,15 +126,24 @@ void baum_welch(
 	// for each training epoch...
 	for (size_t epoch = 0; epoch < num_epochs; ++epoch)
 	{
-		// for each training data point...
+		std::vector<Matrix> Cs;
+		Cs.reserve(obs_seqs.size());
+
+		std::vector<std::vector<Matrix>> Dss;
+		Dss.reserve(obs_seqs.size());
+
+		// compute C and Ds for each data point
 		for (size_t d = 0; d < obs_seqs.size(); ++d)
 		{
 			const auto& obs_seq = obs_seqs[d];
 
-			if (obs_seq.empty())
+			// sequences of 0 or 1 observations give us no
+			// information, so skip them
+			if (obs_seq.size() <= 1)
 			{
-				ATP_CORE_LOG(warning) << "Baum-Welch: ignoring empty"
-					" observation sequence.";
+				ATP_CORE_LOG(warning) << "Baum-Welch: ignoring "
+					" observation sequence of size "
+					<< obs_seq.size();
 				continue;
 			}
 
@@ -148,12 +157,13 @@ void baum_welch(
 			// the matrix C corresponds to the forward-backward
 			// algorithm, and C(t, i) represents the probability
 			// of being in state i at time t given ALL of the data.
-			Matrix C(obs_seq.size(), num_states);
+			Cs.emplace_back(obs_seq.size() + 1, num_states);
+			Matrix& C = Cs.back();
 
-			for (size_t t = 0; t < obs_seq.size(); ++t)
+			for (size_t t = 0; t <= obs_seq.size(); ++t)
 			{
 				MatrixRow C_t(C, t),
-					AB_t(AB, t + 1);
+					AB_t(AB, t);
 
 				C_t = AB_t;
 
@@ -167,12 +177,13 @@ void baum_welch(
 			// This is a substitute for a rank-3 tensor
 			// Ds[t](i, j) represents the probability that the system
 			// jumped from state i to state j at time t.
-			std::vector<Matrix> Ds(obs_seq.size(),
+			Dss.emplace_back(obs_seq.size(),
 				Matrix(num_states, num_states));
+			auto& Ds = Dss.back();
 
 			for (size_t t = 0; t < obs_seq.size(); ++t)
 			{
-				MatrixRow A_t(A, t + 1), B_t(B, t + 1);
+				MatrixRow A_t(A, t), B_t(B, t + 1);
 				MatrixCol obs_probs(
 					st_obs, obs_seq[t]);
 
@@ -189,27 +200,58 @@ void baum_welch(
 				Ds[t] /= ublas::sum(
 					ublas::prod(Ds[t], ones));
 			}
+		}
 
-			// given C and D, estimate the state transition and
-			// observation matrices!
-			for (size_t i = 0; i < num_states; ++i)
+		// given Cs and Dss, estimate the state transition and
+		// observation matrices!
+		for (size_t i = 0; i < num_states; ++i)
+		{
+			// estimate state transitions
+			for (size_t j = 0; j < num_states; ++j)
 			{
-				const float csum = ublas::sum(MatrixCol(C, i));
+				st_trans(i, j) = 0.0f;  // reset this
 
-				ATP_CORE_ASSERT(csum != 0.0f);
-
-				for (size_t j = 0; j < num_states; ++j)
+				for (size_t d = 0; d < obs_seqs.size(); ++d)
 				{
+					auto& C = Cs[d];
+					auto& Ds = Dss[d];
+					const auto& obs_seq = obs_seqs[d];
+
+					const float csum_0_to_Tminus1 = ublas::sum(
+						MatrixCol(C, i)) - C(obs_seq.size(), i);
+
+					ATP_CORE_ASSERT(csum_0_to_Tminus1 != 0.0f);
+
 					float dsum = 0.0f;
 					for (size_t t = 0; t < obs_seq.size(); ++t)
 					{
 						dsum += Ds[t](i, j);
 					}
-					st_trans(i, j) = dsum / csum;
+					st_trans(i, j) += dsum / csum_0_to_Tminus1;
 				}
 
-				for (size_t j = 0; j < num_obs; ++j)
+				// average over all data points:
+				st_trans(i, j) /= (float)obs_seqs.size();
+			}
+
+			// normalise, just in case
+			MatrixRow(st_trans, i) /= ublas::sum(MatrixRow(st_trans, i));
+
+			// estimate observations
+			for (size_t j = 0; j < num_obs; ++j)
+			{
+				st_obs(i, j) = 0.0f;  // reset this
+
+				for (size_t d = 0; d < obs_seqs.size(); ++d)
 				{
+					auto& C = Cs[d];
+					auto& Ds = Dss[d];
+					const auto& obs_seq = obs_seqs[d];
+
+					const float csum_1_to_T = ublas::sum(
+						MatrixCol(C, i)) - C(0, i);
+					ATP_CORE_ASSERT(csum_1_to_T != 0.0f);
+
 					float csum_jth_obs = 0.0f;
 					for (size_t t = 0; t < obs_seq.size(); ++t)
 					{
@@ -219,9 +261,16 @@ void baum_welch(
 							// always make sure to do smoothing
 							csum_jth_obs += smoothing;
 					}
-					st_obs(i, j) = csum_jth_obs / csum;
+
+					st_obs(i, j) += csum_jth_obs / csum_1_to_T;
 				}
+
+				// average over all data points:
+				st_obs(i, j) /= (float)obs_seqs.size();
 			}
+
+			// normalise, just in case
+			MatrixRow(st_obs, i) /= ublas::sum(MatrixRow(st_obs, i));
 		}
 	}
 }

@@ -26,9 +26,45 @@ HMMConjectureModelBuilder::HMMConjectureModelBuilder(logic::ModelContextPtr p_ct
 
 bool HMMConjectureModelBuilder::can_build() const
 {
-	return m_valid && m_q.has_value() && m_num_states.has_value()
-		&& m_rand_seed.has_value() && check_state_trans()
-		&& check_obs();
+	// this could be more concise, but getting explanations for why
+	// it didn't build is important
+	if (!m_valid)
+	{
+		ATP_CORE_LOG(debug) << "Cannot build HMM model because "
+			"invalid parameter values were loaded.";
+		return false;
+	}
+	if (!m_q.has_value())
+	{
+		ATP_CORE_LOG(debug) << "Cannot build HMM model because "
+			"no 'free q' parameter.";
+		return false;
+	}
+	if (!m_rand_seed.has_value())
+	{
+		ATP_CORE_LOG(debug) << "Cannot build HMM model because "
+			"no random seed set.";
+		return false;
+	}
+	if (!m_num_states.has_value())
+	{
+		ATP_CORE_LOG(debug) << "Cannot build HMM model because "
+			"no number of hidden states recorded.";
+		return false;
+	}
+	if (!check_state_trans())
+	{
+		ATP_CORE_LOG(debug) << "Cannot build HMM model because "
+			"state transitions were bad.";
+		return false;
+	}
+	if (!check_obs())
+	{
+		ATP_CORE_LOG(debug) << "Cannot build HMM model because "
+			"observations were bad.";
+		return false;
+	}
+	return true;
 }
 
 
@@ -192,7 +228,7 @@ bool HMMConjectureModelBuilder::check_obs() const
 			sum += trans_iter->second;
 		}
 
-		if (sum > 1.0f)
+		if (sum > 1.0f + 1.0e-4)
 			return false;  // bad probabilities
 
 		if (std::abs(sum - 1.0f) < 1.0e-6f)

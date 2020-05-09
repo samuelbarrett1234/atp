@@ -144,7 +144,7 @@ private:
 	// herein are between 0 and 1, and all symbol IDs are valid,
 	// and that we have a nonzero number of hidden states.
 
-	float m_smoothing = 1.0e-6f;
+	float m_smoothing = 1.0e-9f;
 
 	boost::optional<float> m_q;
 	boost::optional<size_t> m_num_states, m_rand_seed;

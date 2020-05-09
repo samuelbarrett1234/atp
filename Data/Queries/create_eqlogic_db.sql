@@ -30,6 +30,9 @@ INSERT OR IGNORE INTO search_settings (name, filename) VALUES (
 	"ids-uninformed-extended",
 	"../Data/Search/ids_uninformed_extended.json");
 INSERT OR IGNORE INTO search_settings (name, filename) VALUES (
+	"ids-uninformed-large",
+	"../Data/Search/ids_uninformed_large.json");
+INSERT OR IGNORE INTO search_settings (name, filename) VALUES (
 	"ids-informed-limited",
 	"../Data/Search/ids_informed_limited.json");
 INSERT OR IGNORE INTO search_settings (name, filename) VALUES (

@@ -1,0 +1,14 @@
+{
+	"name" : "Uninformed Large Iterative-Deepening Solver",
+	"desc" : "An uninformed iterative deepening solver with very high settings to allow it to tackle harder proofs",
+	"solver" : {
+		"type" : "IterativeDeepeningSolver",
+		"max-depth" : 100,
+		"starting-depth" : 7,
+		"no-repeats" : true,
+		"randomised" : true
+	},
+	"step-size" : 10000,
+	"max-steps" : 200,
+	"seed" : "time"
+}

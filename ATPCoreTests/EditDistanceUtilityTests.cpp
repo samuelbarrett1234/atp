@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(minimum_assignment_square_test)
 	dists(1, 0) = 1.0f; dists(1, 1) = 2.0f; dists(1, 2) = 5.0f;
 	dists(2, 0) = 10.0f; dists(2, 1) = 5.0f; dists(2, 2) = 6.0f;
 
-	BOOST_TEST(minimum_assignment(dists) == 16.0f);
+	BOOST_TEST(minimum_assignment(dists) == 8.0f);
 }
 
 
@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(minimum_assignment_not_square_test)
 	dists(1, 0) = 1.0f; dists(1, 1) = 2.0f;
 	dists(2, 0) = 10.0f; dists(2, 1) = 5.0f;
 
-	BOOST_TEST(minimum_assignment(dists) == 7.0f);
+	BOOST_TEST(minimum_assignment(dists) == 2.0f);
 }
 
 
@@ -93,7 +93,8 @@ BOOST_DATA_TEST_CASE(test_edit_dist,
 		"e = e",
 		"i(x0) = e",
 		"e = e",
-		"*(x0, x1) = i(e)"
+		"*(x0, x1) = i(e)",
+		"*(x0, i(i(e))) = i(e)"
 		}) ^
 	boost::unit_test::data::make({
 		"x0 = x0",
@@ -102,7 +103,8 @@ BOOST_DATA_TEST_CASE(test_edit_dist,
 		"e = x0",
 		"e = e",
 		"i(x0) = e",
-		"*(x0, i(e)) = x0"
+		"*(x0, i(e)) = x0",
+		"*(i(e), i(e)) = x0"
 		}) ^
 	boost::unit_test::data::make({
 		0.0f,
@@ -111,7 +113,8 @@ BOOST_DATA_TEST_CASE(test_edit_dist,
 		1.0f,
 		10.0f,
 		10.0f,
-		10.0f + 10.0f
+		2.0f,
+		1.0f + 1.0f + 10.0f
 		}), stmt1_str, stmt2_str, target_dist)
 {
 	s << stmt1_str << "\n" << stmt2_str;
@@ -119,9 +122,10 @@ BOOST_DATA_TEST_CASE(test_edit_dist,
 	auto p_stmts = p_lang->deserialise_stmts(s, StmtFormat::TEXT,
 		*p_ctx);
 
-	float dist = edit_distance(p_stmts->at(0), p_stmts->at(1));
+	float dist = edit_distance(p_stmts->at(0), p_stmts->at(1),
+		sub_costs);
 
-	BOOST_TEST(dist = target_dist);
+	BOOST_TEST(dist == target_dist);
 }
 
 

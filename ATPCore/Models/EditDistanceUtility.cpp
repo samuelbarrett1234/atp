@@ -118,7 +118,7 @@ float minimum_assignment(ublas::matrix<float>& distances)
 	ATP_CORE_PRECOND(N >= M);
 	ATP_CORE_PRECOND(M >= 1);
 
-	float best_cost = 0.0f;
+	float best_cost = std::numeric_limits<float>::max();
 	std::vector<bool> in_use;
 	in_use.resize(N, false);
 
@@ -162,26 +162,34 @@ void edit_distance_eq_helper(
 	else if (expr1.root_type() == SyntaxNodeType::CONSTANT)
 	{
 		// check the substitution exists
-		ATP_CORE_ASSERT(sub_costs.find(std::make_pair(expr1.root_id(),
-			expr2.root_id())) != sub_costs.end());
-
-		// add the cost:
-		cost_memoisation[
-			std::make_pair(expr1, expr2)] =
-			sub_costs.at(std::make_pair(expr1.root_id(),
-				expr2.root_id()));
-	}
-	else if (expr2.root_type() == SyntaxNodeType::CONSTANT)
-	{
-		// check the substitution exists
 		ATP_CORE_ASSERT(sub_costs.find(std::make_pair(expr2.root_id(),
 			expr1.root_id())) != sub_costs.end());
+
+		// note: expr1 must appear on the RHS of any `sub_costs` calls
+		// because we know it is a constant thus has arity 0, but
+		// expr2 could have any arity.
 
 		// add the cost:
 		cost_memoisation[
 			std::make_pair(expr1, expr2)] =
 			sub_costs.at(std::make_pair(expr2.root_id(),
 				expr1.root_id()));
+	}
+	else if (expr2.root_type() == SyntaxNodeType::CONSTANT)
+	{
+		// check the substitution exists
+		ATP_CORE_ASSERT(sub_costs.find(std::make_pair(expr1.root_id(),
+			expr2.root_id())) != sub_costs.end());
+
+		// note: expr2 must appear on the RHS of any `sub_costs` calls
+		// because we know it is a constant thus has arity 0, but
+		// expr1 could have any arity.
+
+		// add the cost:
+		cost_memoisation[
+			std::make_pair(expr1, expr2)] =
+			sub_costs.at(std::make_pair(expr1.root_id(),
+				expr2.root_id()));
 	}
 	else
 	{
@@ -207,17 +215,18 @@ void edit_distance_eq_helper(
 
 			for (size_t j = 0; j < expr2_arity; ++j)
 			{
-				Expression sub_expr2 = expr1.sub_expression(
-					expr1.tree().func_children(
-						expr1.tree().root_id()).at(i),
-					expr1.tree().func_child_types(
-						expr1.tree().root_id()).at(i));
+				Expression sub_expr2 = expr2.sub_expression(
+					expr2.tree().func_children(
+						expr2.tree().root_id()).at(j),
+					expr2.tree().func_child_types(
+						expr2.tree().root_id()).at(j));
 
 				edit_distance_eq_helper(sub_expr1,
 					sub_expr2, sub_costs, cost_memoisation);
 
 				auto iter = cost_memoisation.find(
-					std::make_pair(sub_expr1, sub_expr2));
+					std::make_pair(sub_expr1,
+						std::move(sub_expr2)));
 
 				ATP_CORE_ASSERT(iter != cost_memoisation.end());
 

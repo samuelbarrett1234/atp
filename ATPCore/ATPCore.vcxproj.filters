@@ -43,6 +43,18 @@
     <Filter Include="Source Files\Processes\Proof">
       <UniqueIdentifier>{0532e73e-4ae8-4565-b7cf-a64950213dfe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Models\HMM">
+      <UniqueIdentifier>{ff8e41c0-493d-400b-a3e6-835d9b69f339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Models\HMM">
+      <UniqueIdentifier>{8ef9025d-bc3e-4faa-8006-7eb9bc05a616}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Models\Edit Distance">
+      <UniqueIdentifier>{43c6d901-f1cb-483d-8659-b27c5f0b022d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Models\Edit Distance">
+      <UniqueIdentifier>{6a274417-a0cf-4e16-84be-eff46b8c9114}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ATPCoreAPI.h">
@@ -50,18 +62,6 @@
     </ClInclude>
     <ClInclude Include="ATPCore.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\HMMConjectureModel.h">
-      <Filter>Header Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\HMMConjectureModelBuilder.h">
-      <Filter>Header Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\HMMStmtToObs.h">
-      <Filter>Header Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\HMMUtility.h">
-      <Filter>Header Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="Processes\CommonProcessData.h">
       <Filter>Header Files\Processes\Base</Filter>
@@ -123,22 +123,25 @@
     <ClInclude Include="Processes\CreateHMMProcess.h">
       <Filter>Header Files\Processes\HMM</Filter>
     </ClInclude>
+    <ClInclude Include="Models\HMMUtility.h">
+      <Filter>Header Files\Models\HMM</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\HMMConjectureModel.h">
+      <Filter>Header Files\Models\HMM</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\HMMConjectureModelBuilder.h">
+      <Filter>Header Files\Models\HMM</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\HMMStmtToObs.h">
+      <Filter>Header Files\Models\HMM</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\EditDistanceUtility.h">
+      <Filter>Header Files\Models\Edit Distance</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Models\HMMConjectureModel.cpp">
-      <Filter>Source Files\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="Models\HMMConjectureModelBuilder.cpp">
-      <Filter>Source Files\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="Models\HMMStmtToObs.cpp">
-      <Filter>Source Files\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="Models\HMMUtility.cpp">
-      <Filter>Source Files\Models</Filter>
     </ClCompile>
     <ClCompile Include="Processes\HMMConjectureTrainProcess.cpp">
       <Filter>Source Files\Processes\HMM</Filter>
@@ -187,6 +190,21 @@
     </ClCompile>
     <ClCompile Include="Processes\CreateHMMProcess.cpp">
       <Filter>Source Files\Processes\HMM</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\HMMUtility.cpp">
+      <Filter>Source Files\Models\HMM</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\HMMConjectureModel.cpp">
+      <Filter>Source Files\Models\HMM</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\HMMConjectureModelBuilder.cpp">
+      <Filter>Source Files\Models\HMM</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\HMMStmtToObs.cpp">
+      <Filter>Source Files\Models\HMM</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\EditDistanceUtility.cpp">
+      <Filter>Source Files\Models\Edit Distance</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -172,6 +172,7 @@
   <ItemGroup>
     <ClInclude Include="ATPCore.h" />
     <ClInclude Include="ATPCoreAPI.h" />
+    <ClInclude Include="Models\EditDistanceUtility.h" />
     <ClInclude Include="Models\HMMUtility.h" />
     <ClInclude Include="Models\HMMConjectureModel.h" />
     <ClInclude Include="Models\HMMConjectureModelBuilder.h" />
@@ -199,6 +200,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp" />
+    <ClCompile Include="Models\EditDistanceUtility.cpp" />
     <ClCompile Include="Models\HMMConjectureModel.cpp" />
     <ClCompile Include="Models\HMMConjectureModelBuilder.cpp" />
     <ClCompile Include="Models\HMMStmtToObs.cpp" />

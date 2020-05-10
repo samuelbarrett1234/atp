@@ -19,20 +19,47 @@
     <Filter Include="Source Files\Processes">
       <UniqueIdentifier>{60daabdd-2817-4c59-9c1a-a2adae2c62c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Models\HMM">
+      <UniqueIdentifier>{02645876-b997-4c37-a324-8d00326d725b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Models\Edit Distance">
+      <UniqueIdentifier>{6e985233-8cfe-4002-b5b7-17f89c3f92b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Processes\Base">
+      <UniqueIdentifier>{ff180be1-6240-4cd4-90a6-f708ad4fada4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Processes\Proof">
+      <UniqueIdentifier>{fb28e8e2-7ffe-4521-9034-29c37b53a4a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Processes\HMM">
+      <UniqueIdentifier>{58bc9dea-c0f8-47d5-8cf4-f07b119c70d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HMMUtilityTests.cpp">
-      <Filter>Source Files\Models</Filter>
+      <Filter>Source Files\Models\HMM</Filter>
     </ClCompile>
     <ClCompile Include="ProcessSequenceTest.cpp">
-      <Filter>Source Files\Processes</Filter>
+      <Filter>Source Files\Processes\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="EditDistanceUtilityTests.cpp">
+      <Filter>Source Files\Models\Edit Distance</Filter>
+    </ClCompile>
+    <ClCompile Include="DefinitionStrs.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicSetupFixture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DefinitionStrs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

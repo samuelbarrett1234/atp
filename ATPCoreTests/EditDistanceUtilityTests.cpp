@@ -129,6 +129,56 @@ BOOST_DATA_TEST_CASE(test_edit_dist,
 }
 
 
+BOOST_DATA_TEST_CASE(test_pairwise_edit_dist,
+	boost::unit_test::data::make({
+		"x0 = x0",
+		"e = e",
+		"e = x0",
+		"e = e",
+		"i(x0) = e",
+		"e = e",
+		"*(x0, x1) = i(e)",
+		"*(x0, i(i(e))) = i(e)"
+		}) ^
+	boost::unit_test::data::make({
+		"x0 = x0",
+		"e = e",
+		"e = e",
+		"e = x0",
+		"e = e",
+		"i(x0) = e",
+		"*(x0, i(e)) = x0",
+		"*(i(e), i(e)) = x0"
+		}) ^
+	boost::unit_test::data::make({
+		0.0f,
+		0.0f,
+		1.0f,
+		1.0f,
+		10.0f,
+		10.0f,
+		2.0f,
+		1.0f + 1.0f + 10.0f
+		}), stmt1_str, stmt2_str, target_dist)
+{
+	s << stmt1_str << "\n" << stmt2_str;
+
+	auto p_stmts = p_lang->deserialise_stmts(s, StmtFormat::TEXT,
+		*p_ctx);
+
+	const auto dists = pairwise_edit_distance(*p_stmts, *p_stmts,
+		sub_costs);
+
+	BOOST_REQUIRE(dists.size() == 2);
+	BOOST_REQUIRE(dists.front().size() == 2);
+	BOOST_REQUIRE(dists.back().size() == 2);
+	BOOST_TEST(dists[0][0] == 0.0f);
+	BOOST_TEST(dists[1][1] == 0.0f);
+	BOOST_TEST(dists[0][1] == target_dist);
+	BOOST_TEST(dists[1][0] == target_dist);
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();
 
 

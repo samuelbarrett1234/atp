@@ -38,8 +38,21 @@ public:
 		const IModelContext& ctx) const override;
 
 	void serialise_stmts(std::ostream& out,
-		StatementArrayPtr p_stmts,
+		const StatementArrayPtr& p_stmts,
 		StmtFormat output_format) const override;
+
+	/**
+	\brief Reduce an array of statements to some "normal form".
+	
+	\details This, more specifically, means: reducing free variables,
+		forcing an ordering about the equals sign, and reducing to
+		equivalence classes under the statement equivalence relation.
+
+	\returns A new array of statements with the above effects applied
+		(n.b. the returned array might not be the same length!)
+	*/
+	StatementArrayPtr normalise(
+		const StatementArrayPtr& p_stmts) override;
 };
 
 

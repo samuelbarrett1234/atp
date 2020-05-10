@@ -99,8 +99,24 @@ public:
 	\pre p_stmts != nullptr
 	*/
 	virtual void serialise_stmts(std::ostream& out,
-		StatementArrayPtr p_stmts,
+		const StatementArrayPtr& p_stmts,
 		StmtFormat output_format) const = 0;
+
+	/**
+	\brief Reduce an array of statements to some "normal form".
+
+	\details This, more specifically, means: reducing free variables,
+		forcing an ordering about the equals sign, and reducing to
+		equivalence classes under the statement equivalence relation.
+		To summarise: normalising an array of statements doesn't
+		reduce the amount of "information" you have, but makes it
+		more efficient.
+
+	\returns A new array of statements with the above effects applied
+		(n.b. the returned array might not be the same length!)
+	*/
+	virtual StatementArrayPtr normalise(
+		const StatementArrayPtr& p_stmts) = 0;
 };
 
 

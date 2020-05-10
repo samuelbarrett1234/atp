@@ -43,8 +43,19 @@ protected:
 
 		ATP_CORE_ASSERT(p_bder != nullptr);
 
+		// normalise the statements so that we make them more
+		// efficient before adding them to the database
+		ATP_CORE_LOG(debug) <<
+			"Normalising generated conjectures...";
+		auto normalised_stmts = m_gen_data.lang->normalise(
+			m_gen_data.generated_stmts);
+		ATP_CORE_LOG(debug) << "Normalised. There were "
+			<< normalised_stmts->size() << " conjectures after "
+			"normalisation (versus an initial " <<
+			m_gen_data.generated_stmts->size() << " beforehand.)";
+
 		p_bder->set_context(m_gen_data.ctx_id, m_gen_data.ctx)
-			->add_target_thms(m_gen_data.generated_stmts);
+			->add_target_thms(normalised_stmts);
 
 		return _p_bder;
 	}

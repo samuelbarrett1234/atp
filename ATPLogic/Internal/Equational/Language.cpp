@@ -6,6 +6,7 @@
 
 */
 
+
 #include "Language.h"
 #include "Parser.h"
 #include "SyntaxNodes.h"
@@ -108,7 +109,7 @@ StatementArrayPtr Language::deserialise_stmts(std::istream& in,
 
 
 void Language::serialise_stmts(std::ostream& out,
-	StatementArrayPtr _p_stmts,
+	const StatementArrayPtr& _p_stmts,
 	StmtFormat output_format) const
 {
 	// convert to derived type:
@@ -141,6 +142,66 @@ void Language::serialise_stmts(std::ostream& out,
 		ATP_LOGIC_PRECOND(false && "invalid statement type!");
 		break;
 	}
+}
+
+
+StatementArrayPtr Language::normalise(
+	const StatementArrayPtr& _p_stmts)
+{
+	// convert to derived type:
+	auto p_stmts = dynamic_cast<const StatementArray*>(
+		_p_stmts.get()
+		);
+
+	ATP_LOGIC_PRECOND(p_stmts != nullptr);
+
+	std::vector<Statement> new_arr;
+	new_arr.reserve(p_stmts->size());
+
+	for (auto stmt : *p_stmts)
+	{
+		// if not equivalent to any of the statements we have already
+		// added
+		if (std::none_of(new_arr.begin(),
+			new_arr.end(), boost::bind(&Statement::equivalent, _1,
+				boost::ref(stmt))))
+		{
+			// now we need to force an order about the equals sign:
+			if (stmt.transpose().to_str() > stmt.to_str())
+			{
+				stmt = stmt.transpose();
+			}
+
+			// now we need to reduce the free variable IDs:
+			auto ids = stmt.free_var_ids();
+			FreeVarMap<Expression> map;
+			
+			// build a map which reduces the IDs to be a contiguous
+			// block starting at 0
+			{
+				size_t i = 0;
+				auto iter = ids.begin();
+				while (iter != ids.end())
+				{
+					map.insert(*iter,
+						Expression(stmt.context(), i,
+							SyntaxNodeType::FREE));
+
+					++i;
+					++iter;
+				}
+			}
+
+			stmt = stmt.map_free_vars(map);
+
+			// now we're ready to add it:
+			new_arr.emplace_back(std::move(stmt));
+		}
+	}
+
+	return std::make_shared<StatementArray>(
+		std::make_shared<StatementArray::ArrType>(
+			std::move(new_arr)));
 }
 
 

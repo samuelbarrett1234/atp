@@ -123,7 +123,7 @@ BOOST_AUTO_TEST_CASE(test_put_together_process_sequence)
 
 	// count the number of iterations until the process terminates,
 	// which should be exactly N by the way we set it up.
-	static const size_t N = 6;
+	static const size_t N = 7;
 	size_t i = 0;
 	for (; i < N &&
 		!p_proc->done(); ++i)

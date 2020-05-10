@@ -94,7 +94,7 @@ protected:
 		ATP_CORE_ASSERT(p_bder != nullptr);
 
 		p_bder->set_limit(m_setup_data.settings.num_helper_thms
-			* EXTRA_DOWNLOAD_FACTOR)
+			* m_setup_data.settings.helper_thms_factor  /* get extra */)
 			->set_context(m_setup_data.ctx_id, m_setup_data.ctx)
 			->set_proven(true);  // DEFINITELY load proven statements!
 
@@ -145,7 +145,7 @@ protected:
 				m_helper_thms_stream, logic::StmtFormat::TEXT,
 				*m_setup_data.ctx);
 
-		ATP_CORE_LOG(trace) << "Proof initialisation process "
+		ATP_CORE_LOG(info) << "Proof initialisation process "
 			"constructed " << ((loaded_thms != nullptr) ?
 				loaded_thms->size() : 0) << " theorems from the "
 			"database. Now we will trim this array by picking "
@@ -163,9 +163,10 @@ protected:
 		}
 		else if (m_proof_data.helper_thms->size() > 0)
 		{
-			ATP_CORE_LOG(info) << "Proof Process: "
-				"Loaded " << m_proof_data.helper_thms->size()
-				<< " theorems from the theorem database!";
+			ATP_CORE_LOG(info) << "Proof Process "
+				"loaded and selected " <<
+				m_proof_data.helper_thms->size() <<
+				" theorems from the database to aid in the proof.";
 
 			m_proof_data.ker->add_theorems(m_proof_data.helper_thms);
 		}
@@ -213,7 +214,7 @@ private:
 				{
 					sub_costs[std::make_pair(f_id, f_id2)]
 						= ((f_id == f_id2) ? 0.0f :
-							SYMBOL_MISMATCH_COST);
+							m_setup_data.settings.ed_symb_mismatch_cost);
 				}
 			}
 
@@ -221,7 +222,7 @@ private:
 			for (auto c_id : const_symbols)
 			{
 				sub_costs[std::make_pair(f_id, c_id)] =
-					SYMBOL_MISMATCH_COST;
+					m_setup_data.settings.ed_symb_mismatch_cost;
 			}
 		}
 
@@ -232,7 +233,7 @@ private:
 			{
 				sub_costs[std::make_pair(c_id, c_id2)]
 					= ((c_id == c_id2) ? 0.0f :
-						SYMBOL_MISMATCH_COST);
+						m_setup_data.settings.ed_symb_mismatch_cost);
 			}
 		}
 
@@ -288,15 +289,6 @@ private:
 
 	proc_data::ProofSetupEssentials& m_setup_data;
 	proc_data::ProofEssentials& m_proof_data;
-
-	// get this many times more theorems from the database than is
-	// specified in the search settings
-	static const size_t EXTRA_DOWNLOAD_FACTOR = 5;
-
-	// the cost of mismatching symbols (relative to the cost of a
-	// substitution, which is just 1)
-	// for some reason I can't make this static
-	const float SYMBOL_MISMATCH_COST = 5.0f;
 };
 
 

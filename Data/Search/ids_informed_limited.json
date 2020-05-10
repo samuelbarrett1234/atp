@@ -14,8 +14,9 @@
 		"lambda" : 10.0,
 		"alpha" : 0.05
 	},
-	"step-size" : 1000,
-	"max-steps" : 10,
+	"step-size" : 2000,
+	"max-steps" : 15,
 	"num-helper-theorems" : 25,
+	"helper-theorems-factor" : 5,
 	"seed" : "time"
 }

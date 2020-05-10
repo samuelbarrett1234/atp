@@ -113,6 +113,16 @@ bool load_search_settings(std::istream& in,
 			"step-size", 100);
 		p_out_settings->num_helper_thms = ptree.get<size_t>(
 			"num-helper-theorems", 25);
+		p_out_settings->helper_thms_factor = ptree.get<size_t>(
+			"helper-theorems-factor", 5);
+		p_out_settings->ed_symb_mismatch_cost = ptree.get<float>(
+			"ed-symbol-mismatch-cost", 5.0f);
+
+		// check for bad values:
+		if (p_out_settings->max_steps == 0 ||
+			p_out_settings->step_size == 0 ||
+			p_out_settings->ed_symb_mismatch_cost <= 0.0f)
+			return false;
 
 		// the default seed is based on the current time
 		if (ptree.get<std::string>("seed", "time") == "time")

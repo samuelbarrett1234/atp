@@ -26,8 +26,7 @@ public:
 		m_train_data(train_data),
 		QueryProcess(train_data.db)
 	{
-		ATP_CORE_LOG(trace) << "Creating HMM model-parameter-saving "
-			"process...";
+		ATP_CORE_LOG(info) << "Saving HMM model parameters...";
 	}
 
 protected:

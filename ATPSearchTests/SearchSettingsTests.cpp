@@ -77,7 +77,9 @@ BOOST_AUTO_TEST_CASE(test_get_step_settings)
 	s << "\"desc\" : \"test-desc\",";
 	s << "\"max-steps\" : 1,";
 	s << "\"step-size\" : 2,";
-	s << "\"num-helper-theorems\" : 3";
+	s << "\"num-helper-theorems\" : 3,";
+	s << "\"helper-theorems-factor\" : 4,";
+	s << "\"ed-symbol-mismatch-cost\" : 6.0";
 	s << "}";
 
 	SearchSettings settings;
@@ -88,6 +90,8 @@ BOOST_AUTO_TEST_CASE(test_get_step_settings)
 	BOOST_TEST(settings.max_steps == 1);
 	BOOST_TEST(settings.step_size == 2);
 	BOOST_TEST(settings.num_helper_thms == 3);
+	BOOST_TEST(settings.helper_thms_factor == 4);
+	BOOST_TEST(settings.ed_symb_mismatch_cost == 6.0f);
 }
 
 

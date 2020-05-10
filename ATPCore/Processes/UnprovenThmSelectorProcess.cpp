@@ -92,10 +92,10 @@ private:
 		}
 		else if (m_data.target_thms->size() > 0)
 		{
-			ATP_CORE_LOG(info) << "Proof Process: "
-				"Loaded " << m_data.target_thms->size()
+			ATP_CORE_LOG(info) << "Proof Process "
+				"selected " << m_data.target_thms->size()
 				<< " theorems from the theorem database to try and "
-				"prove";
+				"prove.";
 		}
 		else
 		{

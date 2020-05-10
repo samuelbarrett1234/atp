@@ -62,7 +62,7 @@ protected:
 
 	void on_finished() override
 	{
-		ATP_CORE_LOG(trace) << "Finishing saving proof results "
+		ATP_CORE_LOG(info) << "Finishing saving conjecture results "
 			"data for HMM conjectures.";
 	}
 

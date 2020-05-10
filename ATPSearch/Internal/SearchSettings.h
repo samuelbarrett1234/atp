@@ -42,9 +42,23 @@ struct ATP_SEARCH_API SearchSettings
 	// the maximum number of calls to step() before giving up
 	size_t max_steps;
 
-	// the number of theorems to load from the database to help prove
-	// the statements
+	// the number of theorems, loaded from the database, to help
+	// prove the statements (these are carried forward to the solver
+	// and increase the branching factor).
 	size_t num_helper_thms;
+
+	// we will load num_helper_thms * helper_thms_factor proven
+	// theorems from the database, and pick the best from them.
+	// increasing this will increase load times, but will increase
+	// the likelihood of finding a good set of helper theorems.
+	size_t helper_thms_factor;
+
+	// this is the cost of a symbol mismatch for edit distance
+	// calculations - it is relative to the cost of a free variable
+	// substitution, which is fixed at 1.0
+	// you will want to experiment with this to see which picks the
+	// best helper theorems.
+	float ed_symb_mismatch_cost;
 
 	// random number generator seed
 	size_t seed;

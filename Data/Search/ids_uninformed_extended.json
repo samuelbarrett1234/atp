@@ -10,5 +10,6 @@
 	},
 	"step-size" : 10000,
 	"max-steps" : 25,
+	"num-helper-theorems" : 25,
 	"seed" : "time"
 }

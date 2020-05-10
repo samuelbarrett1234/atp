@@ -45,7 +45,7 @@ struct ATP_CORE_API ProofSetupEssentials :
 	public LogicEssentials
 {
 	search::SearchSettings settings;
-	size_t ss_id, num_helper_thms;
+	size_t ss_id;
 	logic::StatementArrayPtr target_thms;
 };
 

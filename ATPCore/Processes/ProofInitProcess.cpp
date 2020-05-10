@@ -90,7 +90,7 @@ protected:
 
 		ATP_CORE_ASSERT(p_bder != nullptr);
 
-		p_bder->set_limit(m_setup_data.num_helper_thms)
+		p_bder->set_limit(m_setup_data.settings.num_helper_thms)
 			->set_context(m_setup_data.ctx_id, m_setup_data.ctx)
 			->set_proven(true);  // DEFINITELY load proven statements!
 

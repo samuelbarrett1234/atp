@@ -59,7 +59,8 @@ BOOST_AUTO_TEST_CASE(test_no_solver)
 	s << "\"name\" : \"test-name\",";
 	s << "\"desc\" : \"test-desc\",";
 	s << "\"max-steps\" : 1,";
-	s << "\"step-size\" : 2";
+	s << "\"step-size\" : 2,";
+	s << "\"num-helper-theorems\" : 3";
 	s << "}";
 
 	SearchSettings settings;
@@ -75,7 +76,8 @@ BOOST_AUTO_TEST_CASE(test_get_step_settings)
 	s << "\"name\" : \"test-name\",";
 	s << "\"desc\" : \"test-desc\",";
 	s << "\"max-steps\" : 1,";
-	s << "\"step-size\" : 2";
+	s << "\"step-size\" : 2,";
+	s << "\"num-helper-theorems\" : 3";
 	s << "}";
 
 	SearchSettings settings;
@@ -85,6 +87,7 @@ BOOST_AUTO_TEST_CASE(test_get_step_settings)
 	BOOST_TEST(settings.desc == "test-desc");
 	BOOST_TEST(settings.max_steps == 1);
 	BOOST_TEST(settings.step_size == 2);
+	BOOST_TEST(settings.num_helper_thms == 3);
 }
 
 

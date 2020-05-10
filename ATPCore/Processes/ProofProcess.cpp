@@ -47,13 +47,6 @@ ProcessPtr create_proof_process(
 	p_proc->get_data<0>().settings = search_settings;
 	p_proc->get_data<0>().target_thms = std::move(p_target_stmts);
 
-	/**
-	\todo Let the user decide how many helper theorems we can load
-		from the database. This would be easy enough to incorporate
-		into the search settings files.
-	*/
-	p_proc->get_data<0>().num_helper_thms = 25;
-
 	return p_proc;
 }
 
@@ -87,9 +80,6 @@ ProcessPtr create_proof_process(
 	p_proc->get_data<0>().ss_id = ss_id;
 	p_proc->get_data<0>().settings = search_settings;
 	// don't set target_thms
-
-	// see the comment in the above version of the function
-	p_proc->get_data<0>().num_helper_thms = 25;
 
 	return p_proc;
 }

@@ -111,6 +111,8 @@ bool load_search_settings(std::istream& in,
 			"max-steps", 10);
 		p_out_settings->step_size = ptree.get<size_t>(
 			"step-size", 100);
+		p_out_settings->num_helper_thms = ptree.get<size_t>(
+			"num-helper-theorems", 25);
 
 		// the default seed is based on the current time
 		if (ptree.get<std::string>("seed", "time") == "time")

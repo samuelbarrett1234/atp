@@ -42,6 +42,10 @@ struct ATP_SEARCH_API SearchSettings
 	// the maximum number of calls to step() before giving up
 	size_t max_steps;
 
+	// the number of theorems to load from the database to help prove
+	// the statements
+	size_t num_helper_thms;
+
 	// random number generator seed
 	size_t seed;
 	

@@ -11,11 +11,12 @@ The following settings are universal (independent of solver type):
 	"desc" : "An uninformed iterative deepening solver with low depth settings",
 	"step-size" : 1000,
 	"max-steps" : 10,
+	"num-helper-theorems" : 25,
 	"seed" : "time"
 }
 ```
 
-`step-size` is the number of expansions to perform (on each target proof) at each iteration. `max-steps` is the maximum number of updates to perform, although the target statements may be proven earlier than this. Note that all of the above fields are optional (i.e. have default values).
+`step-size` is the number of expansions to perform (on each target proof) at each iteration. `max-steps` is the maximum number of updates to perform, although the target statements may be proven earlier than this. Note that all of the above fields are optional (i.e. have default values). `num-helper-theorems` is the number of theorems to load from the database to aid in the proof ("lemmas", if you will). The higher this number is, the higher the branching factor, but the more it leverages existing knowledge.
 
 `no-repeats` is a flag indicating whether the search algorithm should avoid repeated states while searching. The benefit of this flag depends on the tradeoff between state space size, and time required to check for repeats. `randomised` is a flag telling the search to try to evaluate successors in a random order.
 

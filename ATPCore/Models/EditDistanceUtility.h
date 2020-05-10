@@ -77,19 +77,18 @@ ATP_CORE_API float edit_distance(
 
 
 /**
-\brief Compute the edit distance between two pairs of arrays.
+\brief Compute the edit distance for each pair in the cross product
+	of the two arrays.
 
 \details This is strictly more efficient than calling edit_distance
 	on each pair.
 
 \pre See requirements about the EditDistSubCosts mapping.
 
-\pre stmtarr1.size() == stmtarr2.size()
-
-\returns An array A such that A[i] = edit_distance(stmtarr1.at(i),
-	stmtarr2.at(i))
+\returns An array A such that A[i][j] = edit_distance(stmtarr1.at(i),
+	stmtarr2.at(j))
 */
-ATP_CORE_API std::vector<float> pairwise_edit_distance(
+ATP_CORE_API std::vector<std::vector<float>> pairwise_edit_distance(
 	const logic::IStatementArray& stmtarr1,
 	const logic::IStatementArray& stmtarr2,
 	const EditDistSubCosts& sub_costs);

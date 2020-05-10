@@ -328,12 +328,14 @@ float edit_distance(
 }
 
 
-std::vector<float> pairwise_edit_distance(
+std::vector<std::vector<float>> pairwise_edit_distance(
 	const logic::IStatementArray& stmtarr1,
 	const logic::IStatementArray& stmtarr2,
 	const EditDistSubCosts& sub_costs)
 {
-	ATP_CORE_PRECOND(stmtarr1.size() == stmtarr2.size());
+	std::vector<std::vector<float>> result_matrix;
+	result_matrix.resize(stmtarr1.size(),
+		std::vector<float>(stmtarr2.size()));
 
 	auto p_stmtarr1 = dynamic_cast<
 		const logic::equational::StatementArray*>(&stmtarr1);
@@ -345,32 +347,32 @@ std::vector<float> pairwise_edit_distance(
 		// keep the cost memoisation between calls, to reuse it
 		EditDistMemoisation cost_memoisation;
 
-		std::vector<float> results;
-		results.resize(stmtarr1.size(), 0.0f);
-
-		for (size_t i = 0; i < results.size(); ++i)
+		for (size_t i = 0; i < p_stmtarr1->size(); ++i)
 		{
 			const auto& stmt1 = p_stmtarr1->my_at(i);
-			const auto& stmt2 = p_stmtarr2->my_at(i);
+			for (size_t j = 0; j < p_stmtarr2->size(); ++j)
+			{
+				const auto& stmt2 = p_stmtarr2->my_at(j);
 
-			// try both the cost and its transpose
-			const float cost =
-				edit_distance_eq(stmt1.lhs(), stmt2.lhs(),
-					sub_costs, cost_memoisation)
-				+ edit_distance_eq(stmt1.rhs(), stmt2.rhs(),
-					sub_costs, cost_memoisation);
+				// try both the cost and its transpose
+				const float cost =
+					edit_distance_eq(stmt1.lhs(), stmt2.lhs(),
+						sub_costs, cost_memoisation)
+					+ edit_distance_eq(stmt1.rhs(), stmt2.rhs(),
+						sub_costs, cost_memoisation);
 
-			const float transpose_cost =
-				edit_distance_eq(stmt1.lhs(), stmt2.rhs(),
-					sub_costs, cost_memoisation)
-				+ edit_distance_eq(stmt1.rhs(), stmt2.lhs(),
-					sub_costs, cost_memoisation);
+				const float transpose_cost =
+					edit_distance_eq(stmt1.lhs(), stmt2.rhs(),
+						sub_costs, cost_memoisation)
+					+ edit_distance_eq(stmt1.rhs(), stmt2.lhs(),
+						sub_costs, cost_memoisation);
 
-			// return the best of the two:
-			results[i] = std::min(cost, transpose_cost);
+				// return the best of the two:
+				result_matrix[i][j] = std::min(cost, transpose_cost);
+			}
 		}
 
-		return results;
+		return result_matrix;
 	}
 	else
 	{

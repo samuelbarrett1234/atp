@@ -6,9 +6,12 @@
 */
 
 
+#include <queue>
+#include <numeric>
 #include <sstream>
 #include "ProofInitProcess.h"
 #include "QueryProcess.h"
+#include "../Models/EditDistanceUtility.h"
 
 
 namespace atp
@@ -90,7 +93,8 @@ protected:
 
 		ATP_CORE_ASSERT(p_bder != nullptr);
 
-		p_bder->set_limit(m_setup_data.settings.num_helper_thms)
+		p_bder->set_limit(m_setup_data.settings.num_helper_thms
+			* EXTRA_DOWNLOAD_FACTOR)
 			->set_context(m_setup_data.ctx_id, m_setup_data.ctx)
 			->set_proven(true);  // DEFINITELY load proven statements!
 
@@ -135,11 +139,22 @@ protected:
 	{
 		ATP_CORE_LOG(trace) << "Finishing loading of proof data...";
 
-		// construct theorems...
-		m_proof_data.helper_thms =
+		// construct theorems (more than we will use)...
+		auto loaded_thms =
 			m_setup_data.lang->deserialise_stmts(
 				m_helper_thms_stream, logic::StmtFormat::TEXT,
 				*m_setup_data.ctx);
+
+		ATP_CORE_LOG(trace) << "Proof initialisation process "
+			"constructed " << ((loaded_thms != nullptr) ?
+				loaded_thms->size() : 0) << " theorems from the "
+			"database. Now we will trim this array by picking "
+			"the best of them according to the edit distance "
+			"heuristic...";
+
+		// get the best of them according to edit distance heuristic
+		m_proof_data.helper_thms =
+			get_best_stmts(std::move(loaded_thms));
 
 		if (m_proof_data.helper_thms == nullptr)
 		{
@@ -170,10 +185,118 @@ protected:
 	}
 
 private:
+	/**
+	\brief Get the best theorems (according to the edit distance
+		heuristic) from the given array
+	*/
+	logic::StatementArrayPtr get_best_stmts(
+		logic::StatementArrayPtr stmts) const
+	{
+		// in these cases we don't want to do any trimming
+		if (stmts == nullptr || stmts->size() <=
+			m_setup_data.settings.num_helper_thms)
+			return stmts;
+
+		EditDistSubCosts sub_costs;
+		const auto func_symbols =
+			m_setup_data.ctx->all_function_symbol_ids();
+		const auto const_symbols =
+			m_setup_data.ctx->all_constant_symbol_ids();
+
+		// add function-to-function costs
+		for (auto f_id : func_symbols)
+		{
+			for (auto f_id2 : func_symbols)
+			{
+				if (m_setup_data.ctx->symbol_arity(f_id)
+					>= m_setup_data.ctx->symbol_arity(f_id2))
+				{
+					sub_costs[std::make_pair(f_id, f_id2)]
+						= ((f_id == f_id2) ? 0.0f :
+							SYMBOL_MISMATCH_COST);
+				}
+			}
+
+			// add function-to-constant costs
+			for (auto c_id : const_symbols)
+			{
+				sub_costs[std::make_pair(f_id, c_id)] =
+					SYMBOL_MISMATCH_COST;
+			}
+		}
+
+		// add constant-to-constant costs
+		for (auto c_id : const_symbols)
+		{
+			for (auto c_id2 : const_symbols)
+			{
+				sub_costs[std::make_pair(c_id, c_id2)]
+					= ((c_id == c_id2) ? 0.0f :
+						SYMBOL_MISMATCH_COST);
+			}
+		}
+
+		// compute edit distance between all the pairs
+		const auto distance_matrix =
+			pairwise_edit_distance(*stmts,
+				*m_setup_data.target_thms,
+				sub_costs);
+
+		// pick best members:
+		std::vector<float> utilities;
+		utilities.resize(stmts->size(), 0.0f);
+		for (size_t i = 0; i < utilities.size(); ++i)
+		{
+			// sum up inverses of utilities (use inverse so that
+			// bigger distance means smaller utility)
+			for (float x : distance_matrix[i])
+			{
+				// x may be zero, don't forget
+				utilities[i] += 1.0f / (x + 1.0f);
+			}
+		}
+
+		// obtain top m_setup_data.settings.num_helper_thms elements
+		// using a priority queue
+		std::priority_queue<std::pair<float, size_t>> q;
+		for (size_t i = 0; i < utilities.size(); ++i)
+		{
+			q.emplace(utilities[i], i);
+		}
+
+		// extract out the best elements
+		std::vector<logic::StatementArrayPtr> singletons;
+		singletons.reserve(m_setup_data.settings.num_helper_thms);
+		for (size_t i = 0; i < m_setup_data.settings.num_helper_thms;
+			++i)
+		{
+			auto [util, k] = q.top();
+			q.pop();
+
+			ATP_CORE_LOG(trace) << "Selected \"" <<
+				stmts->at(k).to_str() << "\" as a good statement to "
+				"help prove the target theorems (utility was "
+				<< util << ").";
+
+			singletons.emplace_back(stmts->slice(k, k + 1));
+		}
+		return logic::concat(singletons);
+	}
+
+private:
 	std::stringstream m_helper_thms_stream;
 
 	proc_data::ProofSetupEssentials& m_setup_data;
 	proc_data::ProofEssentials& m_proof_data;
+
+	// get this many times more theorems from the database than is
+	// specified in the search settings
+	static const size_t EXTRA_DOWNLOAD_FACTOR = 5;
+
+	// the cost of mismatching symbols (relative to the cost of a
+	// substitution, which is just 1)
+	// for some reason I can't make this static
+	const float SYMBOL_MISMATCH_COST = 5.0f;
 };
 
 

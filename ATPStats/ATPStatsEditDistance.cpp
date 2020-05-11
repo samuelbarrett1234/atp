@@ -374,9 +374,6 @@ std::vector<std::vector<float>> pairwise_edit_distance(
 	else
 	{
 		ATP_STATS_ASSERT(false && "bad statement type!");
-		ATP_STATS_LOG(fatal) << "Bad logical statement types - "
-			"perhaps you forgot to update the rest of the library "
-			"with the new logic types?";
 		throw std::exception();
 	}
 }

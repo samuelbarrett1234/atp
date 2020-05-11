@@ -146,11 +146,9 @@ protected:
 				*m_setup_data.ctx);
 
 		ATP_CORE_LOG(info) << "Proof initialisation process "
-			"constructed " << ((loaded_thms != nullptr) ?
+			"loaded " << ((loaded_thms != nullptr) ?
 				loaded_thms->size() : 0) << " theorems from the "
-			"database. Now we will trim this array by picking "
-			"the best of them according to the edit distance "
-			"heuristic...";
+			"database. Now picking the best of them...";
 
 		// get the best of them according to edit distance heuristic
 		m_proof_data.helper_thms =

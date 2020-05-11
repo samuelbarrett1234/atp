@@ -99,6 +99,9 @@
     <ClInclude Include="Internal\SearchSettingsSuccIters.h">
       <Filter>Header Files\Search Settings</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\EditDistanceHeuristic.h">
+      <Filter>Header Files\Internal\Heuristics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp">
@@ -130,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="Internal\SearchSettingsSuccIters.cpp">
       <Filter>Source Files\Search Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\EditDistanceHeuristic.cpp">
+      <Filter>Source Files\Internal\Heuristics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

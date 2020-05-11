@@ -11,7 +11,7 @@
 	"stopping-strategy" : {
 		"type" : "BasicStoppingStrategy",
 		"initial-size" : 10,
-		"lambda" : 10.0,
+		"lambda" : 100.0,
 		"alpha" : 0.05
 	},
 	"heuristic" : {
@@ -19,8 +19,8 @@
 		"p" : 3.0,
 		"symbol-mismatch-cost" : 5.0
 	},
-	"step-size" : 7500,
-	"max-steps" : 25,
+	"step-size" : 1000,
+	"max-steps" : 50,
 	"num-helper-theorems" : 10,
 	"helper-theorems-factor" : 10,
 	"seed" : "time"

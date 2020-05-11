@@ -35,7 +35,7 @@ The iterative deepening solver is specified using the `IterativeDeepeningSolver`
 ```
 {
 	"name" : "Iterative-Deepening Solver",
-	"desc" : "Your description here.",
+	...
 	"solver" : {
 		"type" : "IterativeDeepeningSolver",
 		"max-depth" : 5,
@@ -55,7 +55,27 @@ Iterative deepening search will make use of any successor modifiers (e.g. stoppi
 
 ## Heuristics
 
-As of yet there are no heuristics implemented.
+### Edit Distance Heuristic
+
+This heuristic computes (a variant of) the edit distance between the target and the current position, to hopefully guide the search to arrive at the right path more quickly. In equational logic, this is done by computing the edit distance between the "forefront" statement, and each of the axioms (and loaded helper theorems), and then returning the utility as a function of these distances.
+
+The utility is computed as follows: for distances `d_i`, the utility is just `sum_i 1.0/d_i^p` for some parameter `p`. The higher `p` is, the more this function looks like `1.0 / (min_i d_i)`, and the lower `p` is, the more this looks like an average of the `1.0/d_i`.
+
+This parameter `p` is one of two parameters supplied to this heuristic. The other is `symbol-mismatch-cost`, which has the same definition as `ed-symbol-mismatch-cost` above (so see the documentation for that parameter).
+
+Here is an example:
+```
+{
+	"name" : "Solver with an edit distance heuristic",
+	...
+	"heuristic" : {
+		"type" : "EditDistanceHeuristic",
+		"p" : 3.0,
+		"symbol-mismatch-cost" : 5.0
+	},
+	...
+}
+```
 
 ## Stopping Strategies
 
@@ -72,7 +92,7 @@ Here is an example of how to specify it in a search settings file:
 ```
 {
 	"name" : "Solver with a Fixed Stopping Strategy",
-	"desc" : "Your description here.",
+	...
 	"stopping-strategy" : {
 		"type" : "FixedStoppingStrategy",
 		"size" : 5
@@ -100,7 +120,7 @@ Here is an example of how to specify it in a search settings file:
 ```
 {
 	"name" : "Solver with a Fixed Stopping Strategy",
-	"desc" : "Your description here.",
+	...
 	"stopping-strategy" : {
 		"type" : "BasicStoppingStrategy",
 		"initial-size" : 10,

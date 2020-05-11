@@ -106,7 +106,7 @@ float eqlogic_edit_distance(
 			utility += 1.0f / (std::powf(x, p) + 1.0f);
 	}
 
-	return utility;
+	return utility / (float)dists.front().size();
 }
 
 

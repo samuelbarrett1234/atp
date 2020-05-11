@@ -72,7 +72,10 @@ void StoppingIterator::advance()
 size_t StoppingIterator::size() const
 {
 	// this is quite a rough heuristic, but it'll do
-	return m_states.size() * m_child->size();
+	if (m_child->valid())
+		return m_states.size() * m_child->size();
+	else
+		return m_states.size();
 }
 
 

@@ -11,13 +11,19 @@ Documentation pages can be found at https://samuelbarrett1234.github.io/atp/
 Directory list:
 - `atp` : the command line application for running the theorem prover,
 - `ATPCore` : the project containing processes and operations which are used in the frontend applications,
+- `ATPCoreTests` : unit tests for the core library,
 - `ATPLogic` : the library which contains the logical inference code, and also the parsers,
 - `ATPLogicTests` : the unit tests for the logic library,
 - `ATPSearch` : the library of search algorithms for finding proofs,
 - `ATPSearchTests` : the unit tests for the search library,
 - `ATPDatabase` : the library for the management of proven theorems,
+- `ATPStats` : contains statistics and heuristics for usage in the search and core libraries,
+- `ATPStatsTests` : unit tests for the statistics library,
 - `Docs` : specifications, documentation, and example code,
-- `Data` : definition files, theorem databases, queries, search settings.
+- `Data/Definitions` : axiom and definition files, e.g. group theory,
+- `Data/Search` : search settings files,
+- `Data/Queries` : SQL queries, including a query to set up the database,
+- `Data/Tasks` : lists of statements to try and prove.
 
 Note that when you build the application, the binaries can be found in the `Output` folder, and `Temp` will contain Visual Studio intermediate files.
 

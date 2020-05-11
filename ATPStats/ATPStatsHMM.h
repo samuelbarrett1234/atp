@@ -14,14 +14,12 @@
 #include <vector>
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
-#include "../ATPCoreAPI.h"
+#include "ATPStatsAPI.h"
 
 
 namespace atp
 {
-namespace core
-{
-namespace hmm
+namespace stats
 {
 
 
@@ -48,7 +46,7 @@ namespace hmm
 \pre st_obs.size2() == st_trans.size1()
 
 */
-ATP_CORE_API boost::numeric::ublas::matrix<float> forward(
+ATP_STATS_API boost::numeric::ublas::matrix<float> forward(
 	boost::numeric::ublas::vector<float>& initial_state,
 	boost::numeric::ublas::matrix<float>& st_trans,
 	boost::numeric::ublas::matrix<float>& st_obs,
@@ -72,7 +70,7 @@ ATP_CORE_API boost::numeric::ublas::matrix<float> forward(
 \pre st_obs.size2() == st_trans.size1()
 
 */
-ATP_CORE_API boost::numeric::ublas::matrix<float> backward(
+ATP_STATS_API boost::numeric::ublas::matrix<float> backward(
 	boost::numeric::ublas::matrix<float>& st_trans,
 	boost::numeric::ublas::matrix<float>& st_obs,
 	const std::vector<size_t>& obs_seq);
@@ -106,7 +104,7 @@ ATP_CORE_API boost::numeric::ublas::matrix<float> backward(
 
 \pre smoothing >= 0.0f
 */
-ATP_CORE_API void baum_welch(
+ATP_STATS_API void baum_welch(
 	boost::numeric::ublas::vector<float>& initial_state,
 	boost::numeric::ublas::matrix<float>& st_trans,
 	boost::numeric::ublas::matrix<float>& st_obs,
@@ -114,8 +112,7 @@ ATP_CORE_API void baum_welch(
 	size_t num_epochs, float smoothing, float decay);
 
 
-}  // namespace hmm
-}  // namespace core
+}  // namespace stats
 }  // namespace atp
 
 

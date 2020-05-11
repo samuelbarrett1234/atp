@@ -9,7 +9,7 @@
 #include <boost/numeric/ublas/triangular.hpp>
 #include <boost/numeric/ublas/matrix_proxy.hpp>
 #include "HMMConjectureModel.h"
-#include "HMMUtility.h"
+#include "ATPStatsHMM.h"
 
 
 namespace ublas = boost::numeric::ublas;
@@ -119,7 +119,7 @@ void HMMConjectureModel::train(
 		obs_with_free(i, m_symbs.size()) = 1.0f - sum;
 	}
 
-	hmm::baum_welch(initial_state, m_st_trans, obs_with_free,
+	stats::baum_welch(initial_state, m_st_trans, obs_with_free,
 		observations, N, m_smoothing, m_decay);
 
 	// extract back the portion of the matrix we care about

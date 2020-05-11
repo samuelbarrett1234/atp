@@ -7,7 +7,7 @@
 
 
 #include <boost/numeric/ublas/matrix_proxy.hpp>
-#include "HMMUtility.h"
+#include "ATPStatsHMM.h"
 
 
 namespace ublas = boost::numeric::ublas;
@@ -19,9 +19,7 @@ typedef ublas::matrix_row<Matrix> MatrixRow;
 
 namespace atp
 {
-namespace core
-{
-namespace hmm
+namespace stats
 {
 
 
@@ -33,9 +31,9 @@ Matrix forward(
 {
 	const size_t num_states = st_trans.size1();
 	const size_t num_obs = st_obs.size2();
-	ATP_CORE_PRECOND(initial_state.size() == num_states);
-	ATP_CORE_PRECOND(st_trans.size2() == num_states);
-	ATP_CORE_PRECOND(st_obs.size1() == num_states);
+	ATP_STATS_PRECOND(initial_state.size() == num_states);
+	ATP_STATS_PRECOND(st_trans.size2() == num_states);
+	ATP_STATS_PRECOND(st_obs.size1() == num_states);
 
 	Matrix A(obs_seq.size() + 1,
 		num_states);
@@ -46,7 +44,7 @@ Matrix forward(
 	// now go forwards
 	for (size_t t = 1; t <= obs_seq.size(); ++t)
 	{
-		ATP_CORE_ASSERT(obs_seq[t - 1] < num_obs);
+		ATP_STATS_ASSERT(obs_seq[t - 1] < num_obs);
 
 		MatrixRow last_t(A, t - 1);
 		MatrixRow cur_t(A, t);
@@ -71,8 +69,8 @@ Matrix backward(
 {
 	const size_t num_states = st_trans.size1();
 	const size_t num_obs = st_obs.size2();
-	ATP_CORE_PRECOND(st_trans.size2() == num_states);
-	ATP_CORE_PRECOND(st_obs.size1() == num_states);
+	ATP_STATS_PRECOND(st_trans.size2() == num_states);
+	ATP_STATS_PRECOND(st_obs.size1() == num_states);
 
 	Matrix B(obs_seq.size() + 1,
 		num_states);
@@ -88,7 +86,7 @@ Matrix backward(
 	{
 		const size_t t = _t - 1;
 
-		ATP_CORE_ASSERT(obs_seq[t] < num_obs);
+		ATP_STATS_ASSERT(obs_seq[t] < num_obs);
 
 		MatrixRow last_t(B, t + 1);
 		MatrixRow cur_t(B, t);
@@ -116,9 +114,9 @@ void baum_welch(
 {
 	const size_t num_states = st_trans.size1();
 	const size_t num_obs = st_obs.size2();
-	ATP_CORE_PRECOND(initial_state.size() == num_states);
-	ATP_CORE_PRECOND(st_trans.size2() == num_states);
-	ATP_CORE_PRECOND(st_obs.size1() == num_states);
+	ATP_STATS_PRECOND(initial_state.size() == num_states);
+	ATP_STATS_PRECOND(st_trans.size2() == num_states);
+	ATP_STATS_PRECOND(st_obs.size1() == num_states);
 
 	ublas::vector<float> ones =
 		ublas::scalar_vector(num_states, 1.0f);
@@ -141,9 +139,6 @@ void baum_welch(
 			// information, so skip them
 			if (obs_seq.size() <= 1)
 			{
-				ATP_CORE_LOG(warning) << "Baum-Welch: ignoring "
-					" observation sequence of size "
-					<< obs_seq.size();
 				continue;
 			}
 
@@ -220,7 +215,7 @@ void baum_welch(
 					const float csum_0_to_Tminus1 = ublas::sum(
 						MatrixCol(C, i)) - C(obs_seq.size(), i);
 
-					ATP_CORE_ASSERT(csum_0_to_Tminus1 != 0.0f);
+					ATP_STATS_ASSERT(csum_0_to_Tminus1 != 0.0f);
 
 					float dsum = 0.0f;
 					for (size_t t = 0; t < obs_seq.size(); ++t)
@@ -251,7 +246,7 @@ void baum_welch(
 
 					const float csum_1_to_T = ublas::sum(
 						MatrixCol(C, i)) - C(0, i);
-					ATP_CORE_ASSERT(csum_1_to_T != 0.0f);
+					ATP_STATS_ASSERT(csum_1_to_T != 0.0f);
 
 					float csum_jth_obs = 0.0f;
 					for (size_t t = 0; t < obs_seq.size(); ++t)
@@ -278,8 +273,7 @@ void baum_welch(
 }
 
 
-}  // namespace hmm
-}  // namespace core
+}  // namespace stats
 }  // namespace atp
 
 

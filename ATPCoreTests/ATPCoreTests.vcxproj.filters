@@ -39,27 +39,12 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HMMUtilityTests.cpp">
-      <Filter>Source Files\Models\HMM</Filter>
-    </ClCompile>
     <ClCompile Include="ProcessSequenceTest.cpp">
       <Filter>Source Files\Processes\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="EditDistanceUtilityTests.cpp">
-      <Filter>Source Files\Models\Edit Distance</Filter>
-    </ClCompile>
-    <ClCompile Include="DefinitionStrs.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LogicSetupFixture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DefinitionStrs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -12,12 +12,12 @@
 #include <map>
 #include <boost/numeric/ublas/matrix.hpp>
 #include <ATPLogic.h>
-#include "../ATPCoreAPI.h"
+#include "ATPStatsAPI.h"
 
 
 namespace atp
 {
-namespace core
+namespace stats
 {
 
 
@@ -59,7 +59,7 @@ typedef std::map<std::pair<size_t, size_t>, float> EditDistSubCosts;
 
 \returns The minimum cost, as described above.
 */
-ATP_CORE_API float minimum_assignment(
+ATP_STATS_API float minimum_assignment(
 	boost::numeric::ublas::matrix<float>& distances);
 
 
@@ -70,7 +70,7 @@ ATP_CORE_API float minimum_assignment(
 
 \pre See requirements about the EditDistSubCosts mapping.
 */
-ATP_CORE_API float edit_distance(
+ATP_STATS_API float edit_distance(
 	const logic::IStatement& stmt1,
 	const logic::IStatement& stmt2,
 	const EditDistSubCosts& sub_costs);
@@ -88,13 +88,13 @@ ATP_CORE_API float edit_distance(
 \returns An array A such that A[i][j] = edit_distance(stmtarr1.at(i),
 	stmtarr2.at(j))
 */
-ATP_CORE_API std::vector<std::vector<float>> pairwise_edit_distance(
+ATP_STATS_API std::vector<std::vector<float>> pairwise_edit_distance(
 	const logic::IStatementArray& stmtarr1,
 	const logic::IStatementArray& stmtarr2,
 	const EditDistSubCosts& sub_costs);
 
 
-}  // namespace core
+}  // namespace stats
 }  // namespace atp
 
 

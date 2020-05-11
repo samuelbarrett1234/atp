@@ -8,15 +8,15 @@
 */
 
 
-#include <Models/EditDistanceUtility.h>
+#include <ATPStatsEditDistance.h>
 #include "Test.h"
 #include "LogicSetupFixture.h"
 
 
-using atp::core::minimum_assignment;
-using atp::core::edit_distance;
-using atp::core::pairwise_edit_distance;
-using atp::core::EditDistSubCosts;
+using atp::stats::minimum_assignment;
+using atp::stats::edit_distance;
+using atp::stats::pairwise_edit_distance;
+using atp::stats::EditDistSubCosts;
 namespace ublas = boost::numeric::ublas;
 using atp::logic::StmtFormat;
 

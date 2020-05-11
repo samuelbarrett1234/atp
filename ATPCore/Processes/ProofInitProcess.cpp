@@ -11,7 +11,7 @@
 #include <sstream>
 #include "ProofInitProcess.h"
 #include "QueryProcess.h"
-#include "../Models/EditDistanceUtility.h"
+#include "ATPStatsEditDistance.h"
 
 
 namespace atp
@@ -196,7 +196,7 @@ private:
 			m_setup_data.settings.num_helper_thms)
 			return stmts;
 
-		EditDistSubCosts sub_costs;
+		stats::EditDistSubCosts sub_costs;
 		const auto func_symbols =
 			m_setup_data.ctx->all_function_symbol_ids();
 		const auto const_symbols =
@@ -237,7 +237,7 @@ private:
 
 		// compute edit distance between all the pairs
 		const auto distance_matrix =
-			pairwise_edit_distance(*stmts,
+			stats::pairwise_edit_distance(*stmts,
 				*m_setup_data.target_thms,
 				sub_costs);
 

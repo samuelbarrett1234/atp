@@ -13,7 +13,7 @@
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/StatementArray.h>
 #include <Internal/Equational/Expression.h>
-#include "EditDistanceUtility.h"
+#include "ATPStatsEditDistance.h"
 
 
 namespace ublas = boost::numeric::ublas;
@@ -24,7 +24,7 @@ using atp::logic::equational::SyntaxNodeType;
 
 namespace atp
 {
-namespace core
+namespace stats
 {
 
 
@@ -102,7 +102,7 @@ void minimum_assignment_recursive(ublas::matrix<float>& distances,
 
 			minimum_assignment_recursive(distances,
 				in_use, j + 1, cur_cost + edge_dist,
-					best_cost_ever);
+				best_cost_ever);
 
 			in_use[i] = false;
 		}
@@ -115,8 +115,8 @@ float minimum_assignment(ublas::matrix<float>& distances)
 	const size_t N = distances.size1();
 	const size_t M = distances.size2();
 
-	ATP_CORE_PRECOND(N >= M);
-	ATP_CORE_PRECOND(M >= 1);
+	ATP_STATS_PRECOND(N >= M);
+	ATP_STATS_PRECOND(M >= 1);
 
 	float best_cost = std::numeric_limits<float>::max();
 	std::vector<bool> in_use;
@@ -162,7 +162,7 @@ void edit_distance_eq_helper(
 	else if (expr1.root_type() == SyntaxNodeType::CONSTANT)
 	{
 		// check the substitution exists
-		ATP_CORE_ASSERT(sub_costs.find(std::make_pair(expr2.root_id(),
+		ATP_STATS_ASSERT(sub_costs.find(std::make_pair(expr2.root_id(),
 			expr1.root_id())) != sub_costs.end());
 
 		// note: expr1 must appear on the RHS of any `sub_costs` calls
@@ -178,7 +178,7 @@ void edit_distance_eq_helper(
 	else if (expr2.root_type() == SyntaxNodeType::CONSTANT)
 	{
 		// check the substitution exists
-		ATP_CORE_ASSERT(sub_costs.find(std::make_pair(expr1.root_id(),
+		ATP_STATS_ASSERT(sub_costs.find(std::make_pair(expr1.root_id(),
 			expr2.root_id())) != sub_costs.end());
 
 		// note: expr2 must appear on the RHS of any `sub_costs` calls
@@ -194,7 +194,7 @@ void edit_distance_eq_helper(
 	else
 	{
 		// else handle the case with two functions
-		ATP_CORE_ASSERT(expr1.root_type() == SyntaxNodeType::FUNC
+		ATP_STATS_ASSERT(expr1.root_type() == SyntaxNodeType::FUNC
 			&& expr2.root_type() == SyntaxNodeType::FUNC);
 
 		// get arity of both sides:
@@ -228,7 +228,7 @@ void edit_distance_eq_helper(
 					std::make_pair(sub_expr1,
 						std::move(sub_expr2)));
 
-				ATP_CORE_ASSERT(iter != cost_memoisation.end());
+				ATP_STATS_ASSERT(iter != cost_memoisation.end());
 
 				dist_mat(i, j) = iter->second;
 			}
@@ -246,7 +246,7 @@ void edit_distance_eq_helper(
 				std::make_pair(expr2.root_id(),
 					expr1.root_id()));
 
-			ATP_CORE_ASSERT(iter != sub_costs.end());
+			ATP_STATS_ASSERT(iter != sub_costs.end());
 
 			sub_cost = iter->second;
 		}
@@ -256,7 +256,7 @@ void edit_distance_eq_helper(
 				std::make_pair(expr1.root_id(),
 					expr2.root_id()));
 
-			ATP_CORE_ASSERT(iter != sub_costs.end());
+			ATP_STATS_ASSERT(iter != sub_costs.end());
 
 			sub_cost = iter->second;
 		}
@@ -282,7 +282,7 @@ float edit_distance_eq(
 
 	auto iter = cost_memoisation.find(std::make_pair(expr1, expr2));
 
-	ATP_CORE_ASSERT(iter != cost_memoisation.end());
+	ATP_STATS_ASSERT(iter != cost_memoisation.end());
 
 	return iter->second;
 }
@@ -319,10 +319,7 @@ float edit_distance(
 	}
 	else
 	{
-		ATP_CORE_ASSERT(false && "bad statement type!");
-		ATP_CORE_LOG(fatal) << "Bad logical statement types - "
-			"perhaps you forgot to update the rest of the library "
-			"with the new logic types?";
+		ATP_STATS_ASSERT(false && "bad statement type!");
 		throw std::exception();
 	}
 }
@@ -376,8 +373,8 @@ std::vector<std::vector<float>> pairwise_edit_distance(
 	}
 	else
 	{
-		ATP_CORE_ASSERT(false && "bad statement type!");
-		ATP_CORE_LOG(fatal) << "Bad logical statement types - "
+		ATP_STATS_ASSERT(false && "bad statement type!");
+		ATP_STATS_LOG(fatal) << "Bad logical statement types - "
 			"perhaps you forgot to update the rest of the library "
 			"with the new logic types?";
 		throw std::exception();
@@ -385,7 +382,7 @@ std::vector<std::vector<float>> pairwise_edit_distance(
 }
 
 
-}  // namespace core
+}  // namespace stats
 }  // namespace atp
 
 

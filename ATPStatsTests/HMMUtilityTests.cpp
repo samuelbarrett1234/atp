@@ -11,11 +11,13 @@
 
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
-#include <Models/HMMUtility.h>
+#include <ATPStatsHMM.h>
 #include "Test.h"
 
 
-namespace hmm = atp::core::hmm;
+using atp::stats::forward;
+using atp::stats::backward;
+using atp::stats::baum_welch;
 namespace ublas = boost::numeric::ublas;
 
 
@@ -57,7 +59,7 @@ BOOST_AUTO_TEST_CASE(test_forward_algorithm,
 	obs_seq.push_back(0);
 	obs_seq.push_back(1);
 
-	auto result = hmm::forward(initial_state,
+	auto result = forward(initial_state,
 		st_trans, st_obs, obs_seq);
 
 	BOOST_REQUIRE(result.size1() == 4);
@@ -90,7 +92,7 @@ BOOST_AUTO_TEST_CASE(test_backward_algorithm,
 	obs_seq.push_back(0);
 	obs_seq.push_back(1);
 
-	auto result = hmm::backward(st_trans, st_obs, obs_seq);
+	auto result = backward(st_trans, st_obs, obs_seq);
 
 	BOOST_REQUIRE(result.size1() == 4);
 	BOOST_REQUIRE(result.size2() == 2);

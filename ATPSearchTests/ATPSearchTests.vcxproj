@@ -180,6 +180,7 @@
     <ClCompile Include="IterativeDeepeningTests.cpp" />
     <ClCompile Include="IteratorManagerTests.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SearchSettingsHeuristicsTests.cpp" />
     <ClCompile Include="SearchSettingsSolversTests.cpp" />
     <ClCompile Include="SearchSettingsSuccItersTests.cpp" />
     <ClCompile Include="SearchSettingsTests.cpp" />

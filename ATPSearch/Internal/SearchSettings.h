@@ -75,6 +75,8 @@ struct ATP_SEARCH_API SearchSettings
 
 \returns Nullptr if failed, otherwise returns the constructed solver.
 
+\param p_ctx The model context
+
 \param in The input stream from which to read the JSON solver
 	configuration format.
 
@@ -92,6 +94,7 @@ struct ATP_SEARCH_API SearchSettings
 
 */
 ATP_SEARCH_API bool load_search_settings(
+	const logic::ModelContextPtr& p_ctx,
 	std::istream& in, SearchSettings* p_out_settings);
 
 

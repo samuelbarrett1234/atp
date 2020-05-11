@@ -154,7 +154,7 @@ bool Application::set_search_name(const std::string& name)
 	}
 
 	if (!atp::search::load_search_settings(
-		in, &m_search_settings))
+		m_ctx, in, &m_search_settings))
 	{
 		ATP_LOG(error) << "There was a problem parsing the file \""
 			<< path << "\".";

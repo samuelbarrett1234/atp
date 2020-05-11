@@ -60,6 +60,9 @@
     <ClCompile Include="SearchSettingsSuccItersTests.cpp">
       <Filter>Source Files\Search Settings Tests</Filter>
     </ClCompile>
+    <ClCompile Include="SearchSettingsHeuristicsTests.cpp">
+      <Filter>Source Files\Search Settings Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">

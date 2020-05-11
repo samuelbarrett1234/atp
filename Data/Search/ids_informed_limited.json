@@ -1,6 +1,6 @@
 {
 	"name" : "Informed Limited Iterative-Deepening Solver",
-	"desc" : "WARNING - unfinished!! This won't load because there is no heuristic for it.",
+	"desc" : "An informed iterative deepening solver with low depth settings",
 	"solver" : {
 		"type" : "IterativeDeepeningSolver",
 		"max-depth" : 5,
@@ -14,7 +14,12 @@
 		"lambda" : 10.0,
 		"alpha" : 0.05
 	},
-	"step-size" : 2000,
+	"heuristic" : {
+		"type" : "EditDistanceHeuristic",
+		"p" : 3.0,
+		"symbol-mismatch-cost" : 5.0
+	},
+	"step-size" : 1000,
 	"max-steps" : 15,
 	"num-helper-theorems" : 25,
 	"helper-theorems-factor" : 5,

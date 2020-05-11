@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_CASE(test_no_solver)
 	s << "}";
 
 	SearchSettings settings;
-	BOOST_TEST(load_search_settings(s,
+	BOOST_TEST(load_search_settings(p_ctx, s,
 		&settings));
 	BOOST_TEST(!((bool)settings.create_solver));
 }
@@ -83,7 +83,7 @@ BOOST_AUTO_TEST_CASE(test_get_step_settings)
 	s << "}";
 
 	SearchSettings settings;
-	BOOST_TEST(load_search_settings(s,
+	BOOST_TEST(load_search_settings(p_ctx, s,
 		&settings));
 	BOOST_TEST(settings.name == "test-name");
 	BOOST_TEST(settings.desc == "test-desc");
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(test_bad_solver_name)
 	s << "} }";
 
 	SearchSettings settings;
-	BOOST_TEST(!load_search_settings(s,
+	BOOST_TEST(!load_search_settings(p_ctx, s,
 		&settings));
 }
 
@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_CASE(test_error_when_stop_strat_but_no_heuristic)
 	s << " }";
 
 	SearchSettings settings;
-	BOOST_TEST(!load_search_settings(s,
+	BOOST_TEST(!load_search_settings(p_ctx, s,
 		&settings));
 }
 
@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_CASE(test_bad_json_syntax)
 	s << "{ bad : 7 }";
 
 	SearchSettings settings;
-	BOOST_TEST(!load_search_settings(s,
+	BOOST_TEST(!load_search_settings(p_ctx, s,
 		&settings));
 }
 

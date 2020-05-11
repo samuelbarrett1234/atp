@@ -30,7 +30,7 @@ namespace search
 bool create_solver_creator(
 	std::function<SolverPtr(
 		logic::KnowledgeKernelPtr)>& creator,
-	HeuristicPtr p_heuristic,
+	HeuristicCreator heuristic_creator,
 	pt::ptree ptree)
 {
 	SuccIterCreator succ_iter_creator;
@@ -40,7 +40,7 @@ bool create_solver_creator(
 		ptree.get_child_optional("stopping-strategy"))
 	{
 		// cannot have a stopping strategy without a heuristic
-		if (p_heuristic == nullptr)
+		if (!(bool)heuristic_creator)
 			return false;
 
 		if (!try_load_succ_iter_settings(succ_iter_creator,
@@ -65,7 +65,7 @@ bool create_solver_creator(
 	// use move capture:
 	creator = [succ_iter_creator{ std::move(succ_iter_creator) },
 		solver_creator{ std::move(solver_creator) },
-		p_heuristic{ std::move(p_heuristic) }](
+		heuristic_creator{ std::move(heuristic_creator) }](
 			logic::KnowledgeKernelPtr p_ker)
 	{
 		ATP_SEARCH_PRECOND(p_ker != nullptr);
@@ -76,8 +76,8 @@ bool create_solver_creator(
 		auto p_iter_mgr = std::make_unique<IteratorManager>(p_ker);
 
 		// this is optional
-		if (p_heuristic != nullptr)
-			p_iter_mgr->set_heuristic(p_heuristic);
+		if ((bool)heuristic_creator)
+			p_iter_mgr->set_heuristic(heuristic_creator(p_ker));
 
 		// this is optional
 		if ((bool)succ_iter_creator)
@@ -91,7 +91,9 @@ bool create_solver_creator(
 }
 
 
-bool load_search_settings(std::istream& in,
+bool load_search_settings(
+	const logic::ModelContextPtr& p_ctx,
+	std::istream& in,
 	SearchSettings* p_out_settings)
 {
 	ATP_SEARCH_PRECOND(p_out_settings != nullptr);
@@ -137,18 +139,22 @@ bool load_search_settings(std::istream& in,
 				"seed");
 		}
 
-		HeuristicPtr p_heuristic;
+		HeuristicCreator heuristic_creator;
 		if (auto heuristic_ptree =
 			ptree.get_child_optional("heuristic"))
 		{
-			p_heuristic = try_create_heuristic(*heuristic_ptree);
+			if (!try_create_heuristic(
+				p_ctx, heuristic_creator, *heuristic_ptree))
+				return false;
+
+			ATP_SEARCH_ASSERT((bool)heuristic_creator);
 		}
 
 		if (!ptree.get_child_optional("solver"))
 			return true;  // no solver is not an error
 
 		if (!create_solver_creator(p_out_settings->create_solver,
-			p_heuristic, ptree))
+			heuristic_creator, ptree))
 			return false;
 
 		// else we are done

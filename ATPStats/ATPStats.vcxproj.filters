@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Internal">
+      <UniqueIdentifier>{d943c8e5-2954-4d93-bb6f-eeb0fb5050f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Internal">
+      <UniqueIdentifier>{f1b8a552-2b20-4e36-bec9-529a20271048}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ATPStatsAPI.h">
@@ -24,12 +30,27 @@
     <ClInclude Include="ATPStatsEditDistance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\EquationalEditDistance.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\EditDistanceUtility.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="ATPStatsMinAssignment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPStatsHMM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ATPStatsEditDistance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\EquationalEditDistance.cpp">
+      <Filter>Source Files\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="ATPStatsMinAssignment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

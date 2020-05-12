@@ -173,10 +173,15 @@
     <ClInclude Include="ATPStatsAPI.h" />
     <ClInclude Include="ATPStatsEditDistance.h" />
     <ClInclude Include="ATPStatsHMM.h" />
+    <ClInclude Include="ATPStatsMinAssignment.h" />
+    <ClInclude Include="Internal\EditDistanceUtility.h" />
+    <ClInclude Include="Internal\EquationalEditDistance.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPStatsEditDistance.cpp" />
     <ClCompile Include="ATPStatsHMM.cpp" />
+    <ClCompile Include="ATPStatsMinAssignment.cpp" />
+    <ClCompile Include="Internal\EquationalEditDistance.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

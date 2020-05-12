@@ -183,6 +183,7 @@
     <ClCompile Include="EditDistanceUtilityTests.cpp" />
     <ClCompile Include="HMMUtilityTests.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MinAssignmentTests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

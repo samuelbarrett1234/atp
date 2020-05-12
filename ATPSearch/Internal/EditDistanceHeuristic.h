@@ -12,9 +12,9 @@
 */
 
 
+#include <ATPStatsEditDistance.h>
 #include "../ATPSearchAPI.h"
 #include "../Interfaces/IHeuristic.h"
-#include "ATPStatsEditDistance.h"
 
 
 namespace atp
@@ -65,7 +65,7 @@ public:
 private:
 	logic::KnowledgeKernelPtr m_ker;
 	std::vector<size_t> m_all_symbols;
-	stats::EditDistSubCosts m_sub_costs;
+	stats::EditDistancePtr m_ed;
 	const float m_p;
 };
 

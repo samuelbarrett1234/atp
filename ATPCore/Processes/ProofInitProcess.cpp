@@ -196,50 +196,12 @@ private:
 			m_setup_data.settings.num_helper_thms)
 			return stmts;
 
-		stats::EditDistSubCosts sub_costs;
-		const auto func_symbols =
-			m_setup_data.ctx->all_function_symbol_ids();
-		const auto const_symbols =
-			m_setup_data.ctx->all_constant_symbol_ids();
-
-		// add function-to-function costs
-		for (auto f_id : func_symbols)
-		{
-			for (auto f_id2 : func_symbols)
-			{
-				if (m_setup_data.ctx->symbol_arity(f_id)
-					>= m_setup_data.ctx->symbol_arity(f_id2))
-				{
-					sub_costs[std::make_pair(f_id, f_id2)]
-						= ((f_id == f_id2) ? 0.0f :
-							m_setup_data.settings.ed_symb_mismatch_cost);
-				}
-			}
-
-			// add function-to-constant costs
-			for (auto c_id : const_symbols)
-			{
-				sub_costs[std::make_pair(f_id, c_id)] =
-					m_setup_data.settings.ed_symb_mismatch_cost;
-			}
-		}
-
-		// add constant-to-constant costs
-		for (auto c_id : const_symbols)
-		{
-			for (auto c_id2 : const_symbols)
-			{
-				sub_costs[std::make_pair(c_id, c_id2)]
-					= ((c_id == c_id2) ? 0.0f :
-						m_setup_data.settings.ed_symb_mismatch_cost);
-			}
-		}
+		auto p_ed = create_edit_distance_obj();
 
 		// compute edit distance between all the pairs
 		const auto distance_matrix =
-			stats::pairwise_edit_distance(*stmts,
-				*m_setup_data.target_thms,
-				sub_costs);
+			p_ed->edit_distance(*stmts,
+				*m_setup_data.target_thms);
 
 		// pick best members:
 		std::vector<float> utilities;
@@ -280,6 +242,37 @@ private:
 			singletons.emplace_back(stmts->slice(k, k + 1));
 		}
 		return logic::concat(singletons);
+	}
+
+	stats::EditDistancePtr create_edit_distance_obj() const
+	{
+		stats::EditDistSubCosts sub_costs;
+		auto all_symbols =
+			m_setup_data.ctx->all_function_symbol_ids();
+		auto temp_arr =
+			m_setup_data.ctx->all_constant_symbol_ids();
+		all_symbols.insert(all_symbols.end(), temp_arr.begin(),
+			temp_arr.end());
+
+		// construct substitution cost mapping
+		for (size_t id1 : all_symbols)
+		{
+			for (size_t id2 : all_symbols)
+			{
+				if (m_setup_data.ctx->symbol_arity(id1)
+					>= m_setup_data.ctx->symbol_arity(id2))
+				{
+					sub_costs[std::make_pair(id1, id2)]
+						= ((id1 == id2) ? 0.0f :
+							m_setup_data.settings.ed_symb_mismatch_cost);
+				}
+			}
+		}
+
+		// TEMP
+		return stats::create_edit_dist(
+			logic::LangType::EQUATIONAL_LOGIC,
+			std::move(sub_costs));
 	}
 
 private:

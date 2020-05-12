@@ -23,7 +23,7 @@ namespace search
 float eqlogic_edit_distance(
 	const logic::equational::ProofState& pf_state,
 	const logic::equational::KnowledgeKernel& ker,
-	const stats::EditDistSubCosts& sub_costs,
+	const stats::EditDistancePtr& p_ed,
 	float p);
 
 
@@ -43,6 +43,8 @@ EditDistanceHeuristic::EditDistanceHeuristic(
 	m_all_symbols.insert(m_all_symbols.end(),
 		temp_arr.begin(), temp_arr.end());
 
+	stats::EditDistSubCosts sub_costs;
+
 	// construct substitution cost mapping
 	for (size_t id1 : m_all_symbols)
 	{
@@ -51,11 +53,16 @@ EditDistanceHeuristic::EditDistanceHeuristic(
 			if (p_ctx->symbol_arity(id1)
 				>= p_ctx->symbol_arity(id2))
 			{
-				m_sub_costs[std::make_pair(id1, id2)]
+				sub_costs[std::make_pair(id1, id2)]
 					= ((id1 == id2) ? 0.0f : symbol_mismatch_cost);
 			}
 		}
 	}
+
+	// TEMP
+	m_ed = stats::create_edit_dist(
+		logic::LangType::EQUATIONAL_LOGIC,
+		std::move(sub_costs));
 }
 
 
@@ -69,7 +76,7 @@ float EditDistanceHeuristic::predict(
 	{
 		return eqlogic_edit_distance(*p_state,
 			dynamic_cast<const logic::equational::KnowledgeKernel&>(*m_ker),
-			m_sub_costs, m_p);
+			m_ed, m_p);
 	}
 	else
 	{
@@ -82,7 +89,7 @@ float EditDistanceHeuristic::predict(
 float eqlogic_edit_distance(
 	const logic::equational::ProofState& pf_state,
 	const logic::equational::KnowledgeKernel& ker,
-	const stats::EditDistSubCosts& sub_costs,
+	const stats::EditDistancePtr& p_ed,
 	float p)
 {
 	// this includes axioms, but also loaded helper theorems
@@ -90,8 +97,7 @@ float eqlogic_edit_distance(
 
 	auto forefront = logic::from_statement(pf_state.forefront());
 
-	const auto dists = stats::pairwise_edit_distance(*forefront, axioms,
-		sub_costs);
+	const auto dists = p_ed->edit_distance(*forefront, axioms);
 
 	ATP_SEARCH_ASSERT(dists.size() == 1);
 

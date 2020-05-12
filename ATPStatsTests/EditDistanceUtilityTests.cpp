@@ -13,11 +13,9 @@
 #include "LogicSetupFixture.h"
 
 
-using atp::stats::minimum_assignment;
-using atp::stats::edit_distance;
-using atp::stats::pairwise_edit_distance;
+using atp::stats::EditDistancePtr;
+using atp::stats::create_edit_dist;
 using atp::stats::EditDistSubCosts;
-namespace ublas = boost::numeric::ublas;
 using atp::logic::StmtFormat;
 
 
@@ -51,38 +49,21 @@ struct EditDistanceTestsFixture :
 		sub_costs[std::make_pair(
 			p_ctx->symbol_id("*"), p_ctx->symbol_id("*")
 		)] = 0.0f;
+
+		p_ed = create_edit_dist(
+			atp::logic::LangType::EQUATIONAL_LOGIC,
+			sub_costs);
 	}
 
 	EditDistSubCosts sub_costs;
+	EditDistancePtr p_ed;
 };
 
 
 BOOST_FIXTURE_TEST_SUITE(EditDistanceTests,
-	EditDistanceTestsFixture);
-
-
-BOOST_AUTO_TEST_CASE(minimum_assignment_square_test)
-{
-	ublas::matrix<float> dists(3, 3);
-
-	dists(0, 0) = 33.0f; dists(0, 1) = 1.0f; dists(0, 2) = 10.0f;
-	dists(1, 0) = 1.0f; dists(1, 1) = 2.0f; dists(1, 2) = 5.0f;
-	dists(2, 0) = 10.0f; dists(2, 1) = 5.0f; dists(2, 2) = 6.0f;
-
-	BOOST_TEST(minimum_assignment(dists) == 8.0f);
-}
-
-
-BOOST_AUTO_TEST_CASE(minimum_assignment_not_square_test)
-{
-	ublas::matrix<float> dists(3, 2);
-
-	dists(0, 0) = 33.0f; dists(0, 1) = 1.0f;
-	dists(1, 0) = 1.0f; dists(1, 1) = 2.0f;
-	dists(2, 0) = 10.0f; dists(2, 1) = 5.0f;
-
-	BOOST_TEST(minimum_assignment(dists) == 2.0f);
-}
+	EditDistanceTestsFixture,
+	* boost::unit_test_framework::depends_on(
+	"MinAssignmentTests"));
 
 
 BOOST_DATA_TEST_CASE(test_edit_dist,
@@ -122,60 +103,10 @@ BOOST_DATA_TEST_CASE(test_edit_dist,
 	auto p_stmts = p_lang->deserialise_stmts(s, StmtFormat::TEXT,
 		*p_ctx);
 
-	float dist = edit_distance(p_stmts->at(0), p_stmts->at(1),
-		sub_costs);
+	float dist = p_ed->edit_distance(
+		p_stmts->at(0), p_stmts->at(1));
 
 	BOOST_TEST(dist == target_dist);
-}
-
-
-BOOST_DATA_TEST_CASE(test_pairwise_edit_dist,
-	boost::unit_test::data::make({
-		"x0 = x0",
-		"e = e",
-		"e = x0",
-		"e = e",
-		"i(x0) = e",
-		"e = e",
-		"*(x0, x1) = i(e)",
-		"*(x0, i(i(e))) = i(e)"
-		}) ^
-	boost::unit_test::data::make({
-		"x0 = x0",
-		"e = e",
-		"e = e",
-		"e = x0",
-		"e = e",
-		"i(x0) = e",
-		"*(x0, i(e)) = x0",
-		"*(i(e), i(e)) = x0"
-		}) ^
-	boost::unit_test::data::make({
-		0.0f,
-		0.0f,
-		1.0f,
-		1.0f,
-		10.0f,
-		10.0f,
-		2.0f,
-		1.0f + 1.0f + 10.0f
-		}), stmt1_str, stmt2_str, target_dist)
-{
-	s << stmt1_str << "\n" << stmt2_str;
-
-	auto p_stmts = p_lang->deserialise_stmts(s, StmtFormat::TEXT,
-		*p_ctx);
-
-	const auto dists = pairwise_edit_distance(*p_stmts, *p_stmts,
-		sub_costs);
-
-	BOOST_REQUIRE(dists.size() == 2);
-	BOOST_REQUIRE(dists.front().size() == 2);
-	BOOST_REQUIRE(dists.back().size() == 2);
-	BOOST_TEST(dists[0][0] == 0.0f);
-	BOOST_TEST(dists[1][1] == 0.0f);
-	BOOST_TEST(dists[0][1] == target_dist);
-	BOOST_TEST(dists[1][0] == target_dist);
 }
 
 

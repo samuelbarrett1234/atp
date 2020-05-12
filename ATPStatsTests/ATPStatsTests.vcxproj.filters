@@ -41,5 +41,8 @@
     <ClCompile Include="HMMUtilityTests.cpp">
       <Filter>Source Files\Tests</Filter>
     </ClCompile>
+    <ClCompile Include="MinAssignmentTests.cpp">
+      <Filter>Source Files\Tests</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

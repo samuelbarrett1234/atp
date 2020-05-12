@@ -151,59 +151,40 @@ std::vector<std::vector<float>> EquationalEditDistanceTracker::edit_distance(
 float EquationalEditDistanceTracker::edit_distance(
 	const Expression& expr1, const Expression& expr2)
 {
-	// get read-only lock
-	boost::shared_lock<boost::shared_mutex> lock(m_mutex);
-
-	ATP_STATS_ASSERT(lock.owns_lock());
-
-	ensure_is_computed(expr1, expr2, lock);
-
-	ATP_STATS_ASSERT(lock.owns_lock());
-
-	auto iter = m_dists.find(std::make_pair(expr1, expr2));
-
-	ATP_STATS_ASSERT(iter != m_dists.end());
-
-	return iter->second;
+	return ensure_is_computed(std::make_pair(expr1, expr2));
 }
 
 
-void EquationalEditDistanceTracker::ensure_is_computed(
-	const Expression& expr1, const Expression& expr2,
-	boost::shared_lock<boost::shared_mutex>& lock)
+float EquationalEditDistanceTracker::ensure_is_computed(
+	const std::pair<Expression, Expression>& expr_pair)
 {
-	ATP_STATS_ASSERT(lock.owns_lock());
+	const auto& expr1 = expr_pair.first;
+	const auto& expr2 = expr_pair.second;
 
 	// preprocessing step - try a lookup right at the start
 	{
 		auto pre_iter = m_dists.find(
-			std::make_pair(expr1, expr2));
+			expr_pair);
 
 		if (pre_iter != m_dists.end())
-			return;  // don't re-do work
+		{
+			return pre_iter->second;  // don't re-do work
+		}
 	}
 
 	// else need to construct it from its children:
 	if (expr1.root_type() == SyntaxNodeType::FREE
 		|| expr2.root_type() == SyntaxNodeType::FREE)
 	{
-		// upgrade to writable lock for this scope only:
-		lock.unlock();
-		boost::unique_lock<boost::shared_mutex> write_lock(m_mutex);
-
 		// frees can match with anything - it costs 0 to match with
 		// another free, and 1 to match with anything else
-		m_dists[
-			std::make_pair(expr1, expr2)] =
-			(expr1.root_type() == expr2.root_type()) ?
-				0.0f : 1.0f;
+		const float cost = (expr1.root_type() == expr2.root_type()) ?
+			0.0f : 1.0f;
+		m_dists[expr_pair] = cost;
+		return cost;
 	}
 	else if (expr1.root_type() == SyntaxNodeType::CONSTANT)
 	{
-		// upgrade to writable lock for this scope only:
-		lock.unlock();
-		boost::unique_lock<boost::shared_mutex> write_lock(m_mutex);
-
 		// check the substitution exists
 		ATP_STATS_ASSERT(m_sub_costs.find(std::make_pair(expr2.root_id(),
 			expr1.root_id())) != m_sub_costs.end());
@@ -213,17 +194,14 @@ void EquationalEditDistanceTracker::ensure_is_computed(
 		// expr2 could have any arity.
 
 		// add the cost:
-		m_dists[
-			std::make_pair(expr1, expr2)] =
+		const float cost =
 			m_sub_costs.at(std::make_pair(expr2.root_id(),
-				expr1.root_id()));
+			expr1.root_id()));
+		m_dists[expr_pair] = cost;
+		return cost;
 	}
 	else if (expr2.root_type() == SyntaxNodeType::CONSTANT)
 	{
-		// upgrade to writable lock for this scope only:
-		lock.unlock();
-		boost::unique_lock<boost::shared_mutex> write_lock(m_mutex);
-
 		// check the substitution exists
 		ATP_STATS_ASSERT(m_sub_costs.find(std::make_pair(expr1.root_id(),
 			expr2.root_id())) != m_sub_costs.end());
@@ -233,10 +211,11 @@ void EquationalEditDistanceTracker::ensure_is_computed(
 		// expr1 could have any arity.
 
 		// add the cost:
-		m_dists[
-			std::make_pair(expr1, expr2)] =
+		const float cost =
 			m_sub_costs.at(std::make_pair(expr1.root_id(),
 				expr2.root_id()));
+		m_dists[expr_pair] = cost;
+		return cost;
 	}
 	else
 	{
@@ -249,6 +228,8 @@ void EquationalEditDistanceTracker::ensure_is_computed(
 			expr1.tree().root_id());
 		const size_t expr2_arity = expr2.tree().func_arity(
 			expr2.tree().root_id());
+
+		ATP_STATS_ASSERT(expr1_arity > 0 && expr2_arity > 0);
 
 		// construct distance matrix
 		ublas::matrix<float> dist_mat(expr1_arity, expr2_arity);
@@ -268,21 +249,13 @@ void EquationalEditDistanceTracker::ensure_is_computed(
 					expr2.tree().func_child_types(
 						expr2.tree().root_id()).at(j));
 
+				auto sub_expr_pair = std::make_pair(sub_expr1,
+					std::move(sub_expr2));
+
 				// RECURSE
-				ensure_is_computed(sub_expr1, sub_expr2,
-					lock);
-				ATP_STATS_ASSERT(lock.owns_lock());
-
-				auto iter = m_dists.find(
-					std::make_pair(sub_expr1,
-						std::move(sub_expr2)));
-
-				ATP_STATS_ASSERT(iter != m_dists.end());
-
-				dist_mat(i, j) = iter->second;
+				dist_mat(i, j) = ensure_is_computed(sub_expr_pair);
 			}
 		}
-
 		// compute substitution cost (but need to get it the right
 		// way around)
 		float sub_cost = 0.0f;
@@ -310,19 +283,12 @@ void EquationalEditDistanceTracker::ensure_is_computed(
 			sub_cost = iter->second;
 		}
 		
-		// upgrade to writable lock for this scope only:
-		lock.unlock();
-		boost::unique_lock<boost::shared_mutex> write_lock(m_mutex);
-
 		// now our value is just the best assignment of the children
 		// plus the substitution cost:
-		m_dists[
-			std::make_pair(expr1, expr2)] =
-			sub_cost + minimum_assignment(dist_mat);
+		const float cost = sub_cost + minimum_assignment(dist_mat);
+		m_dists[expr_pair] = cost;
+		return cost;
 	}
-
-	// re-acquire this!
-	lock.lock();
 }
 
 

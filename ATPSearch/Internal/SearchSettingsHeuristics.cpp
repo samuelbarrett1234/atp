@@ -2,6 +2,17 @@
 \file
 
 \author Samuel Barrett
+
+\details IMPORTANT NOTE: for some heuristics, it makes sense to use
+	one shared heuristic for all solvers. For some heuristics this
+	does not make sense, and the requirement to be thread safe might
+	sacrifice efficiency. Hence, in this file you must decide whether
+	the heuristic should be shared or not: if it is to be shared, you
+	should create the heuristic in the function below and make the
+	HeuristicCreator be a lambda which just returns the already
+	created heuristic (this is okay since it's a shared pointer), and
+	otherwise you should construct a new heuristic each time in the
+	functor.
 */
 
 
@@ -47,6 +58,11 @@ bool try_create_edit_distance_heuristic(
 
 	if (p <= 0.0f || symb_mismatch_cost <= 0.0f)
 		return false;  // bad parameters
+
+	/*
+	Do NOT share this heuristic between solvers, it is not thread-
+	safe, so instead create a new one for each solver.
+	*/
 
 	creator = [p_ctx, p, symb_mismatch_cost](
 		const logic::KnowledgeKernelPtr& p_ker)

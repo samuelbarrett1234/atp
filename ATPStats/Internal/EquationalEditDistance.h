@@ -12,8 +12,6 @@
 
 
 #include <unordered_map>
-#include <boost/thread/shared_mutex.hpp>
-#include <boost/thread/locks.hpp>
 #include <ATPLogic.h>
 #include <Internal/Equational/Expression.h>
 #include "../ATPStatsAPI.h"
@@ -34,6 +32,9 @@ namespace stats
 \details This class is optimised in two ways: (i) it is specialised
 	to the logic type so is more efficient, and (ii) caches
 	information between calls.
+
+\warning This class is **NOT** thread safe, please use a different
+	version of this heuristic for each solver object.
 */
 class ATP_STATS_API EquationalEditDistanceTracker :
 	public IEditDistance
@@ -103,16 +104,17 @@ private:
 	\param lock This is a lock which should be initialised
 		with read-only access, and this function may attempt to
 		upgrade it. It is assumed to be locked.
+
+	\returns The cost that was calculated / cached
+
+	\pre lock.owns_lock()
+
+	\post !lock.owns_lock()
 	*/
-	void ensure_is_computed(const Expression& expr1,
-		const Expression& expr2,
-		boost::shared_lock<boost::shared_mutex>& lock);
+	float ensure_is_computed(
+		const std::pair<Expression, Expression>& expr_pair);
 
 private:
-	// shared_mutex : multiple readers, at most one writer
-	// manages access to the two objects below
-	boost::shared_mutex m_mutex;
-
 	EditDistSubCosts m_sub_costs;
 	EditDistMemoisation m_dists;
 };

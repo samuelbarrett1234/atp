@@ -156,7 +156,7 @@ float EquationalEditDistanceTracker::edit_distance(
 
 
 float EquationalEditDistanceTracker::ensure_is_computed(
-	const std::pair<Expression, Expression>& expr_pair)
+	const std::pair<const Expression&, const Expression&>& expr_pair)
 {
 	const auto& expr1 = expr_pair.first;
 	const auto& expr2 = expr_pair.second;
@@ -231,29 +231,32 @@ float EquationalEditDistanceTracker::ensure_is_computed(
 
 		ATP_STATS_ASSERT(expr1_arity > 0 && expr2_arity > 0);
 
+		// construct sub expressions:
+		std::vector<Expression> subexprs1, subexprs2;
+		subexprs1.reserve(expr1_arity);
+		subexprs2.reserve(expr2_arity);
+		for (size_t i = 0; i < expr1_arity; ++i)
+			subexprs1.emplace_back(expr1.sub_expression(
+				expr1.tree().func_children(
+					expr1.tree().root_id()).at(i),
+				expr1.tree().func_child_types(
+					expr1.tree().root_id()).at(i)));
+		for (size_t i = 0; i < expr2_arity; ++i)
+			subexprs2.emplace_back(expr2.sub_expression(
+				expr2.tree().func_children(
+					expr2.tree().root_id()).at(i),
+				expr2.tree().func_child_types(
+					expr2.tree().root_id()).at(i)));
+
 		// construct distance matrix
 		ublas::matrix<float> dist_mat(expr1_arity, expr2_arity);
 		for (size_t i = 0; i < expr1_arity; ++i)
 		{
-			Expression sub_expr1 = expr1.sub_expression(
-				expr1.tree().func_children(
-					expr1.tree().root_id()).at(i),
-				expr1.tree().func_child_types(
-					expr1.tree().root_id()).at(i));
-
 			for (size_t j = 0; j < expr2_arity; ++j)
 			{
-				Expression sub_expr2 = expr2.sub_expression(
-					expr2.tree().func_children(
-						expr2.tree().root_id()).at(j),
-					expr2.tree().func_child_types(
-						expr2.tree().root_id()).at(j));
-
-				auto sub_expr_pair = std::make_pair(sub_expr1,
-					std::move(sub_expr2));
-
 				// RECURSE
-				dist_mat(i, j) = ensure_is_computed(sub_expr_pair);
+				dist_mat(i, j) = edit_distance(
+					subexprs1[i], subexprs2[j]);
 			}
 		}
 		// compute substitution cost (but need to get it the right

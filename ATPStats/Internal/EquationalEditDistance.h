@@ -112,7 +112,7 @@ private:
 	\post !lock.owns_lock()
 	*/
 	float ensure_is_computed(
-		const std::pair<Expression, Expression>& expr_pair);
+		const std::pair<const Expression&, const Expression&>& expr_pair);
 
 private:
 	EditDistSubCosts m_sub_costs;

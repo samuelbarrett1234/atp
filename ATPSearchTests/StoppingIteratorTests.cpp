@@ -80,7 +80,6 @@ BOOST_AUTO_TEST_CASE(size_test)
 {
 	// indicates that the implementation is following the
 	// instructions of the stopping strategy
-	BOOST_TEST(p_stop_iter->size() >= N);
 	BOOST_TEST(p_heuristic->m_num_calls >= N);
 }
 

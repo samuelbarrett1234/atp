@@ -71,9 +71,8 @@ void StoppingIterator::advance()
 
 size_t StoppingIterator::size() const
 {
-	// this is quite a rough heuristic, but it'll do
 	if (m_child->valid())
-		return m_states.size() * m_child->size();
+		return m_child->size();
 	else
 		return m_states.size();
 }

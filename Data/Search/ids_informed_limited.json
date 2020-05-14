@@ -15,11 +15,11 @@
 	"heuristic" : {
 		"type" : "EditDistanceHeuristic",
 		"p" : 3.0,
-		"symbol-mismatch-cost" : 5.0
+		"symbol-mismatch-cost" : 10.0
 	},
-	"step-size" : 100,
+	"step-size" : 500,
 	"max-steps" : 10,
-	"num-helper-theorems" : 25,
+	"num-helper-theorems" : 10,
 	"helper-theorems-factor" : 5,
 	"seed" : "time"
 }

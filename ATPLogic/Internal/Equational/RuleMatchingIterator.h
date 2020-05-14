@@ -98,13 +98,19 @@ public:
 
 private:
 	/**
-	\brief Used to restore the invariant around the variable
-		`m_cur_matching` by constructing it and giving
-		it a value.
+	\brief Create a child iterator for the current position
 
-	\pre m_cur_matching == nullptr && valid()
+	\note The created child may not be valid, so you'll need to check
+		this.
+
+	\pre m_matchings[m_match_index] == nullptr &&
+		m_match_index < m_matchings.size() &&
+		!m_is_no_matching[m_match_index]
+
+	\post m_matchings[m_match_index] != nullptr ||
+		m_is_no_matching[m_match_index]
 	*/
-	void restore_invariant();
+	void rebuild_current();
 
 private:
 	// whether we should iterate over the rules in a random order
@@ -124,12 +130,20 @@ private:
 	const std::vector<std::pair<size_t,
 		SyntaxNodeType>>& m_free_const_enum;
 
-	// invariants:
-	// m_cur_matching is null or it is valid
-	// we are valid() iff m_cur_matching is non-null
+	// invariant:
+	// m_matchings[i] can be null/not null, valid/invalid
+	// we are valid iff m_match_index == m_matchings.size()
+	// invariant: m_matchings.size() == m_is_no_matching.size()
+	// if m_is_no_matching[i] then m_matchings[i] is null,
+	// we are invalid iff for all i, m_matchings[i] is non-null
+	// and invalid or m_is_no_matching[i] is true.
+	// finally, if m_match_index < m_matchings.size(), then
+	// m_matchings[m_match_index] is non-null and valid, and in
+	// particular m_is_no_matching[m_match_index] is false.
 
-	MaybeRandomIndex m_match_index;
-	std::shared_ptr<MatchResultsIterator> m_cur_matching;
+	size_t m_match_index;
+	std::vector<std::shared_ptr<MatchResultsIterator>> m_matchings;
+	std::vector<bool> m_is_no_matching;
 };
 
 

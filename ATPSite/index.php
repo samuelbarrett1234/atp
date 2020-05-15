@@ -21,9 +21,9 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
 		href="javascript:void(0);" onclick="toggle_menu()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
 	
-    <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-white">ATP</a>
-    <a href="submit.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Submit Tasks</a>
-    <a href="search.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Search</a>
+    <a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-white">ATP</a>
+    <a href="submit.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Submit Tasks</a>
+    <a href="search.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Search</a>
   </div>
 </div>
 
@@ -55,11 +55,24 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
       <h1>Prover Statistics</h1>
       <h5 class="w3-padding-32">Here is what the prover has done so far:</h5>
 	  <ul class="w3-text-grey">
-		<li>Number of proven theorems:</li>
-		<li>Number of unproven theorems:</li>
-		<li>Total number of proof attempts:</li>
-		<li>Total computation time:</li>
-		<li>Total number of search tree node expansions:</li>
+	  <?php
+		$db = new SQLite3('../Data/DB/eqlogic.db');
+		
+		$query = $db->query("SELECT count(stmt) as n FROM theorems WHERE EXISTS (SELECT 1 FROM proofs WHERE thm_id = id)");
+		$row = $query->fetchArray();
+		echo "<li>Number of proven theorems: {$row['n']}</li>";
+		
+		$query = $db->query("SELECT count(stmt) as n FROM theorems WHERE NOT EXISTS (SELECT 1 FROM proofs WHERE thm_id = id)");
+		$row = $query->fetchArray();
+		echo "<li>Number of unproven theorems: {$row['n']}</li>";
+		
+		$query = $db->query("SELECT count(*) as n, sum(time_cost) as t, sum(num_expansions) as e FROM proof_attempts");
+		$row = $query->fetchArray();
+		
+		echo "<li>Total number of proof attempts: {$row['n']}</li>";
+		echo "<li>Total computation time: {$row['t']}</li>";
+		echo "<li>Total number of search tree node expansions: {$row['e']}</li>";
+	  ?>
 	  </ul>
     </div>
   </div>

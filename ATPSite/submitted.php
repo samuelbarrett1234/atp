@@ -21,9 +21,9 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
 		href="javascript:void(0);" onclick="toggle_menu()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
 	
-    <a href="index.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">ATP</a>
-    <a href="submit.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Submit Tasks</a>
-    <a href="search.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Search</a>
+    <a href="index.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">ATP</a>
+    <a href="submit.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Submit Tasks</a>
+    <a href="search.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Search</a>
   </div>
 </div>
 
@@ -38,16 +38,8 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-twothird">
-      <h1>Search for a statement</h1>
-	  <form action="examine_thm.html" method=post>
-		<br>
-		What statement are you looking for?
-		<br>
-		<input type=string name="stmt" />
-		<br>
-		<br>
-		<input type=submit value="Go">
-		</form>
+      <h1>Submission successful!</h1>
+      <h5 class="w3-padding-32">Insert reassurance here.</h5>
     </div>
   </div>
 </div>

@@ -27,6 +27,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			
 			$query = $db->query("SELECT name FROM model_contexts");
 			
+			// enumerate the model contexts
 			while ($row = $query->fetchArray())
 			{
 				echo "<option value=\"{$row['name']}\" class=\"w3-input w3-option\">{$row['name']}</option>";

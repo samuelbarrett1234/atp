@@ -14,7 +14,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 <div class="w3-row-padding w3-padding-64 w3-container">
 	<div class="w3-content">
 		<div class="w3-twothird">
-			<h1>Statement Info</h1>
+		<h1>Statement Info</h1>
 		<?php
 		echo "<h5 class='w3-padding-32'>{$_GET['stmt']}</h5>\n";
 
@@ -47,6 +47,8 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 				}
 				else
 				{
+					// format the proof nicely, in particular we need
+					// to replace newlines with <br>s
 					$pf = str_replace("\n", "<br>Is implied by ", $row['proof']);
 					echo "Proof:</p>\n<p class=\"w3-text-grey\">Our target {$pf}<br>And the last line is trivial (follows from reflexivity, an axiom, or an existing theorem).";
 				}
@@ -94,7 +96,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 				if (!$attempted)
 				{
 					echo "<br><p class=\"w3-text-grey\">Here is a table of all the attempts at proving {$_GET['stmt']}</p>\n";
-					echo "<br><table class=\"w3-text-grey w3-table-all\"><tr><th>Search Settings</th><th>Time cost (s)</th><th>Maximum number of nodes in memory</th><th>Number of expansions</th><th>Date attempted</th></tr>\n";	
+					echo "<br><table class=\"w3-text-grey w3-table-all\"><tr><th>Search Settings</th><th>Time cost (s)</th><th>Maximum number of nodes in memory</th><th>Number of expansions</th><th>Date attempted</th></tr>\n";
 				}
 				$attempted = true;
 				

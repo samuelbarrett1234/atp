@@ -39,6 +39,9 @@
     <ClInclude Include="ATPStatsMinAssignment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ATPStatsPfTargetSelector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPStatsHMM.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
     <ClCompile Include="ATPStatsMinAssignment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ATPStatsPfTargetSelector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

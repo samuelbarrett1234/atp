@@ -50,7 +50,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		$row = $query->fetchArray();
 		
 		echo "<li>Total number of proof attempts: {$row['n']}</li>";
-		echo "<li>Total computation time: {$row['t']}</li>";
+		echo "<li>Total computation time: {$row['t']}s</li>";
 		echo "<li>Total number of search tree node expansions: {$row['e']}</li>";
 		?>
 		</ul>

@@ -21,7 +21,18 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		<input type=string name="stmt" class="w3-input" />
 		<br>
 		Context name:
-		<input type=string name="ctx" class="w3-input" />
+		<select name="ctx" class="w3-select">
+			<?php
+			$db = new SQLite3('../Data/DB/eqlogic.db');
+			
+			$query = $db->query("SELECT name FROM model_contexts");
+			
+			while ($row = $query->fetchArray())
+			{
+				echo "<option value=\"{$row['name']}\" class=\"w3-input w3-option\">{$row['name']}</option>";
+			}
+			?>
+		</select>
 		<br>
 		Deadline (DD/MM/YYYY):
 		<input type=string name="deadline" class="w3-input" />

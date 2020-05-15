@@ -68,6 +68,14 @@ CREATE TABLE IF NOT EXISTS proof_attempts (
 	time_cost REAL NOT NULL,
 	max_mem UNSIGNED INTEGER NOT NULL,
 	num_expansions UNSIGNED INTEGER NOT NULL,
+	
+	/*
+	Number of days from noon in Greenwich on
+	November 24, 4714 B.C up to the time where this
+	proof attempt was made.
+	*/
+	attempt_date REAL DEFAULT (julianday('now')),
+	
 	FOREIGN KEY(thm_id) REFERENCES theorems(id)
 	ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY(ss_id) REFERENCES search_settings(ss_id));

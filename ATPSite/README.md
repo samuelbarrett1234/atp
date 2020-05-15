@@ -9,12 +9,12 @@ I used `xampp` and Apache web server to run the PHP files. I had to add the foll
 ```
 
 <Directory "C:/Users/Samue/source/repos/atp/ATPSite">
-    Options Indexes FollowSymLinks MultiViews
-    Options +Includes
-    AddType text/html .php
-    AddOutputFilter INCLUDES .php
-    AllowOverride All
-    Require all granted
+		Options Indexes FollowSymLinks MultiViews
+		Options +Includes
+		AddType text/html .php
+		AddOutputFilter INCLUDES .php
+		AllowOverride All
+		Require all granted
 </Directory>
 
 Alias /atp "C:/Users/Samue/source/repos/atp/ATPSite"

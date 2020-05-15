@@ -42,8 +42,8 @@ INSERT OR IGNORE INTO search_settings (name, filename) VALUES (
 
 CREATE TABLE IF NOT EXISTS theorems (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	stmt TEXT NOT NULL,  /* target statement as text */
-	ctx INTEGER NOT NULL,  /* the model context */
+	stmt TEXT NOT NULL,	/* target statement as text */
+	ctx INTEGER NOT NULL,	/* the model context */
 	
 	/*
 	Number of days from noon in Greenwich on
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS theorems (
 	thm_date REAL DEFAULT (julianday('now')),
 	
 	FOREIGN KEY (ctx) REFERENCES model_contexts(ctx_id),
-	UNIQUE(stmt, ctx)  /* can have duplicate stmts across different contexts */);
+	UNIQUE(stmt, ctx)	/* can have duplicate stmts across different contexts */);
 
 
 /*
@@ -64,7 +64,7 @@ with, if necessary.
 */
 CREATE TABLE IF NOT EXISTS proof_attempts (
 	thm_id INTEGER NOT NULL,
-	ss_id INTEGER,  /* may be null, if using alternative settings */
+	ss_id INTEGER,	/* may be null, if using alternative settings */
 	time_cost REAL NOT NULL,
 	max_mem UNSIGNED INTEGER NOT NULL,
 	num_expansions UNSIGNED INTEGER NOT NULL,
@@ -131,10 +131,10 @@ way to deserialise the proof text.
 CREATE TABLE IF NOT EXISTS theorem_usage (
 	target_thm_id INTEGER NOT NULL,
 	used_thm_id INTEGER NOT NULL,
-	cnt UNSIGNED INTEGER NOT NULL,  -- the count (number of usages)
+	cnt UNSIGNED INTEGER NOT NULL,	-- the count (number of usages)
 	
 	CHECK(cnt > 0),
-	CHECK(target_thm_id != used_thm_id),  -- avoid circularity!
+	CHECK(target_thm_id != used_thm_id),	-- avoid circularity!
 	
 	FOREIGN KEY (target_thm_id) REFERENCES proofs(thm_id)
 	ON DELETE CASCADE ON UPDATE CASCADE,
@@ -152,8 +152,8 @@ but may be important to proving one of the tasks in this table.
 */
 CREATE TABLE IF NOT EXISTS tasks (
 	thm_id INTEGER UNIQUE NOT NULL,
-	deadline REAL,  /* number of days from noon in Greenwich on
-	                   November 24, 4714 B.C up to deadline */
+	deadline REAL,	/* number of days from noon in Greenwich on
+										 November 24, 4714 B.C up to deadline */
 	priority REAL,
 	FOREIGN KEY (thm_id) REFERENCES theorems(id)
 	ON DELETE CASCADE ON UPDATE CASCADE
@@ -165,5 +165,5 @@ CREATE INDEX IF NOT EXISTS thm_stmt ON theorems(stmt);
 CREATE INDEX IF NOT EXISTS attempt_thm_ids ON proof_attempts(thm_id);
 CREATE INDEX IF NOT EXISTS proof_thm_ids ON proofs(thm_id);
 CREATE INDEX IF NOT EXISTS task_thm_ids ON tasks(thm_id);
-CREATE INDEX IF NOT EXISTS thm_usage ON theorem_usage(used_thm_id);  -- not target_thm_id
+CREATE INDEX IF NOT EXISTS thm_usage ON theorem_usage(used_thm_id);	-- not target_thm_id
 

@@ -12,10 +12,10 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 
 <!-- First Grid -->
 <div class="w3-row-padding w3-padding-64 w3-container">
-  <div class="w3-content">
-    <div class="w3-twothird">
-      <h1>Statement Info</h1>
-	  <?php
+	<div class="w3-content">
+		<div class="w3-twothird">
+			<h1>Statement Info</h1>
+		<?php
 		echo "<h5 class='w3-padding-32'>{$_GET['stmt']}</h5>\n";
 
 		// connect to database
@@ -38,38 +38,42 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			$had_proof = false;
 			if ($row = $query->fetchArray())
 			{
-			  $had_proof = true;
-			  
-			  // is it an axiom?
-			  if ($row['is_axiom'] == 1)
-			  {
-				echo "This statement is an axiom.";
-			  }
-			  else
-			  {
-				  $pf = str_replace("\n", "<br>Is implied by ", $row['proof']);
-				echo "Proof:</p>\n<p class=\"w3-text-grey\">Our target {$pf}<br>And the last line is trivial (follows from reflexivity, an axiom, or an existing theorem).";
-			  }
+				$had_proof = true;
+				
+				// is it an axiom?
+				if ($row['is_axiom'] == 1)
+				{
+					echo "This statement is an axiom.";
+				}
+				else
+				{
+					$pf = str_replace("\n", "<br>Is implied by ", $row['proof']);
+					echo "Proof:</p>\n<p class=\"w3-text-grey\">Our target {$pf}<br>And the last line is trivial (follows from reflexivity, an axiom, or an existing theorem).";
+				}
 			}
 			else
 			{
-			  echo "";
+				echo "";
 			}
 			echo "</p>\n";
 			
 			// if it had a proof, what theorems were used in that proof?
 			if ($had_proof)
 			{
-				echo "<p class=\"w3-text-grey\">Theorems at hand for the above proof:</p>\n<ul class=\"w3-ul\">\n";
-
 				$query = $db->query("SELECT stmt FROM theorems JOIN theorem_usage ON used_thm_id = id WHERE target_thm_id = {$thm_id}");
 				
 				// list theorems used in proof
 				$any_available = false;
 				while ($row = $query->fetchArray())
 				{
-				  $any_available = true;
-				  echo "<li class=\"w3-text-grey\"><a href=\"examine_thm.php?stmt={$row['stmt']}\">{$row['stmt']}</a></li>\n";
+					// output an explanation paragraph on the first
+					// iteration
+					if (!$any_available)
+					{
+						echo "<p class=\"w3-text-grey\">Theorems at hand for the above proof:</p>\n<ul class=\"w3-ul\">\n";
+					}
+					$any_available = true;
+					echo "<li class=\"w3-text-grey\"><a href=\"examine_thm.php?stmt={$row['stmt']}\">{$row['stmt']}</a></li>\n";
 				}
 				echo "</ul>\n";	
 				
@@ -139,9 +143,9 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			// theorem didn't exist
 			echo "<p class=\"w3-text-grey\">The statement \"{$_GET['stmt']}\" was not found in the database.</p>";
 		}
-	  ?>
-    </div>
-  </div>
+		?>
+		</div>
+	</div>
 </div>
 
 <!--#include file="footer.php" -->

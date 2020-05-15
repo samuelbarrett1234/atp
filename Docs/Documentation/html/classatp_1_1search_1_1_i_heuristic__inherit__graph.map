@@ -1,0 +1,4 @@
+<map id="atp::search::IHeuristic" name="atp::search::IHeuristic">
+<area shape="rect" id="node1" title="Basically represents a function from proof states to floats." alt="" coords="15,5,165,32"/>
+<area shape="rect" id="node2" href="$classatp_1_1search_1_1_edit_distance_heuristic.html" title="This heuristic uses a version of edit distance to estimate how far a proof state is away from its tar..." alt="" coords="5,80,175,121"/>
+</map>

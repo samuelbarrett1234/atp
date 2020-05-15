@@ -1,6 +1,7 @@
 <map id="atp::logic::FreeVarMap::insert" name="atp::logic::FreeVarMap::insert">
-<area shape="rect" id="node1" title=" " alt="" coords="228,79,383,120"/>
+<area shape="rect" id="node1" title=" " alt="" coords="228,116,383,157"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_proof_state.html#a3a1b7919f1f10f309bffa49d3de933f7" title="Get the number of times each statement is used in this proof state." alt="" coords="13,5,172,47"/>
 <area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a6384bf7a77765b99ced49a91d5cb59a2" title="Get the possible effects of a given matching and matching substitution. (Returns the results with the..." alt="" coords="5,71,180,127"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expression.html#af93dc45b37aefe9d2f66ce8a4318fa6f" title="Try to match this expression to the given expression." alt="" coords="12,152,173,193"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_language.html#a4f2b8119dfd4645f9704cc89a653c9ba" title="Reduce an array of statements to some &quot;normal form&quot;." alt="" coords="17,152,168,193"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#af93dc45b37aefe9d2f66ce8a4318fa6f" title="Try to match this expression to the given expression." alt="" coords="12,217,173,259"/>
 </map>

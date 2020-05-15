@@ -1,0 +1,5 @@
+<map id="ATPSearch/Internal/EditDistanceHeuristic.h" name="ATPSearch/Internal/EditDistanceHeuristic.h">
+<area shape="rect" id="node1" title="Contains a heuristic which uses the edit distance between the forefront(s) of a proof state and its t..." alt="" coords="117,5,280,47"/>
+<area shape="rect" id="node2" href="$_edit_distance_heuristic_8cpp.html" title=" " alt="" coords="5,95,181,136"/>
+<area shape="rect" id="node3" href="$_search_settings_heuristics_8cpp.html" title=" " alt="" coords="206,95,405,136"/>
+</map>

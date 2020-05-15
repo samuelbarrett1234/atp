@@ -1,0 +1,4 @@
+<map id="atp::search::eqlogic_edit_distance" name="atp::search::eqlogic_edit_distance">
+<area shape="rect" id="node1" title="A specialisation of edit distance computation to equational logic." alt="" coords="223,5,359,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1search_1_1_edit_distance_heuristic.html#ac11cc65d70d8b95ddfa4dca91e2918a0" title="Evaluate the function on this proof state." alt="" coords="5,5,175,47"/>
+</map>

@@ -79,6 +79,15 @@ $(function() {
  <a href="classatp_1_1search_1_1_i_heuristic.html#details">More...</a></p>
 
 <p><code>#include &lt;IHeuristic.h&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for atp::search::IHeuristic:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1search_1_1_i_heuristic__inherit__graph.png" border="0" usemap="#atp_1_1search_1_1_i_heuristic_inherit__map" alt="Inheritance graph"/></div>
+<map name="atp_1_1search_1_1_i_heuristic_inherit__map" id="atp_1_1search_1_1_i_heuristic_inherit__map">
+<area shape="rect" title="Basically represents a function from proof states to floats." alt="" coords="15,5,165,32"/>
+<area shape="rect" href="classatp_1_1search_1_1_edit_distance_heuristic.html" title="This heuristic uses a version of edit distance to estimate how far a proof state is away from its tar..." alt="" coords="5,80,175,121"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -146,6 +155,8 @@ This is an object, not just a function, because the model might need to store st
 
 <p>Evaluate the function on this proof state. </p>
 <dl class="section pre"><dt>Precondition</dt><dd>Some heuristic implementations may be tied to a particular model contexts, in which case <code>p_state</code> needs to be valid in that context. </dd></dl>
+
+<p>Implemented in <a class="el" href="classatp_1_1search_1_1_edit_distance_heuristic.html#ac11cc65d70d8b95ddfa4dca91e2918a0">atp::search::EditDistanceHeuristic</a>.</p>
 
 </div>
 </div>

@@ -1,0 +1,5 @@
+<map id="atp::logic::from_statement" name="atp::logic::from_statement">
+<area shape="rect" id="node1" title="Create a singleton statment array from a given statement." alt="" coords="407,13,580,39"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#a91f046e75c3c4a481001387c5bd0e5d0" title="A specialisation of edit distance computation to equational logic." alt="" coords="223,5,359,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1search_1_1_edit_distance_heuristic.html#ac11cc65d70d8b95ddfa4dca91e2918a0" title="Evaluate the function on this proof state." alt="" coords="5,5,175,47"/>
+</map>

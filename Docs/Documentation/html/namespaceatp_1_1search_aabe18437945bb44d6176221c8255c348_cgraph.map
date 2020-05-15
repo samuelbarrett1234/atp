@@ -1,0 +1,11 @@
+<map id="atp::search::create_solver_creator" name="atp::search::create_solver_creator">
+<area shape="rect" id="node1" title=" " alt="" coords="5,90,136,131"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="184,57,337,98"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="190,122,331,163"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="385,5,567,32"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="409,57,543,98"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="391,122,561,163"/>
+<area shape="rect" id="node8" href="$namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342" title="Try to load info for a FixedStoppingStrategy." alt="" coords="393,187,559,229"/>
+<area shape="rect" id="node7" href="$classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="615,122,811,163"/>
+<area shape="rect" id="node9" href="$classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="617,187,809,229"/>
+</map>

@@ -102,9 +102,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a23e6e5d81320289ebd3e0d49c0d13d1d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#a23e6e5d81320289ebd3e0d49c0d13d1d">deserialise_stmts</a> (std::istream &amp;in, <a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7">StmtFormat</a> input_format, const <a class="el" href="classatp_1_1logic_1_1_i_model_context.html">IModelContext</a> &amp;ctx) const =0</td></tr>
 <tr class="memdesc:a23e6e5d81320289ebd3e0d49c0d13d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load an array of statements from an input stream, in the given context.  <a href="classatp_1_1logic_1_1_i_language.html#a23e6e5d81320289ebd3e0d49c0d13d1d">More...</a><br /></td></tr>
 <tr class="separator:a23e6e5d81320289ebd3e0d49c0d13d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a432c41810c239fc23d3ffce7875bac21"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#a432c41810c239fc23d3ffce7875bac21">serialise_stmts</a> (std::ostream &amp;out, <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> p_stmts, <a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7">StmtFormat</a> output_format) const =0</td></tr>
-<tr class="memdesc:a432c41810c239fc23d3ffce7875bac21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save an array of statements.  <a href="classatp_1_1logic_1_1_i_language.html#a432c41810c239fc23d3ffce7875bac21">More...</a><br /></td></tr>
-<tr class="separator:a432c41810c239fc23d3ffce7875bac21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af97edbdda922a39e6f78b9902acec00c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#af97edbdda922a39e6f78b9902acec00c">serialise_stmts</a> (std::ostream &amp;out, const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> &amp;p_stmts, <a class="el" href="namespaceatp_1_1logic.html#a205e6fc78dac09fab6c7207aa37cdee7">StmtFormat</a> output_format) const =0</td></tr>
+<tr class="memdesc:af97edbdda922a39e6f78b9902acec00c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save an array of statements.  <a href="classatp_1_1logic_1_1_i_language.html#af97edbdda922a39e6f78b9902acec00c">More...</a><br /></td></tr>
+<tr class="separator:af97edbdda922a39e6f78b9902acec00c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b0e71cf364182430b20a013fd07ec72"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1logic_1_1_i_language.html#a7b0e71cf364182430b20a013fd07ec72">normalise</a> (const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> &amp;p_stmts)=0</td></tr>
+<tr class="memdesc:a7b0e71cf364182430b20a013fd07ec72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reduce an array of statements to some "normal form".  <a href="classatp_1_1logic_1_1_i_language.html#a7b0e71cf364182430b20a013fd07ec72">More...</a><br /></td></tr>
+<tr class="separator:a7b0e71cf364182430b20a013fd07ec72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages model contexts and knowledge kernels within a logical language framework. </p>
@@ -183,8 +186,40 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a432c41810c239fc23d3ffce7875bac21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a432c41810c239fc23d3ffce7875bac21">&#9670;&nbsp;</a></span>serialise_stmts()</h2>
+<a id="a7b0e71cf364182430b20a013fd07ec72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b0e71cf364182430b20a013fd07ec72">&#9670;&nbsp;</a></span>normalise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> atp::logic::ILanguage::normalise </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>p_stmts</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reduce an array of statements to some "normal form". </p>
+<p>This, more specifically, means: reducing free variables, forcing an ordering about the equals sign, and reducing to equivalence classes under the statement equivalence relation. To summarise: normalising an array of statements doesn't reduce the amount of "information" you have, but makes it more efficient.</p>
+<dl class="section return"><dt>Returns</dt><dd>A new array of statements with the above effects applied (n.b. the returned array might not be the same length!) </dd></dl>
+
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#a4f2b8119dfd4645f9704cc89a653c9ba">atp::logic::equational::Language</a>.</p>
+
+</div>
+</div>
+<a id="af97edbdda922a39e6f78b9902acec00c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af97edbdda922a39e6f78b9902acec00c">&#9670;&nbsp;</a></span>serialise_stmts()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +236,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">StatementArrayPtr</a> &amp;&#160;</td>
           <td class="paramname"><em>p_stmts</em>, </td>
         </tr>
         <tr>
@@ -226,7 +261,7 @@ Public Member Functions</h2></td></tr>
 <p>Save an array of statements. </p>
 <dl class="section pre"><dt>Precondition</dt><dd>p_stmts != nullptr </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#a7836b8070b045f8d65f5f1b8e61b1e35">atp::logic::equational::Language</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#adec40a682dfbcd158c654882b579fe8c">atp::logic::equational::Language</a>.</p>
 
 </div>
 </div>

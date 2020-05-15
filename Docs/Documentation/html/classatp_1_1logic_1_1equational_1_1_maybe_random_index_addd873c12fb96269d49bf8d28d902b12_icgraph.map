@@ -1,6 +1,5 @@
 <map id="atp::logic::equational::MaybeRandomIndex::advance" name="atp::logic::equational::MaybeRandomIndex::advance">
-<area shape="rect" id="node1" title="Advance the index to the next one." alt="" coords="239,93,441,134"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a6ee653eb9abf01c71516f932222f4106" title=" " alt="" coords="23,5,173,61"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#abf1828dc5e74ce90fac97c7ff3e651fb" title=" " alt="" coords="23,85,173,141"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#afcc64f370830f794535a7c14ef241450" title=" " alt="" coords="5,165,191,221"/>
+<area shape="rect" id="node1" title="Advance the index to the next one." alt="" coords="239,53,441,94"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#abf1828dc5e74ce90fac97c7ff3e651fb" title=" " alt="" coords="23,5,173,61"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#afcc64f370830f794535a7c14ef241450" title=" " alt="" coords="5,85,191,141"/>
 </map>

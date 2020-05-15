@@ -76,13 +76,19 @@ Navigation</h1>
 <p>Directory list:</p><ul>
 <li><code>atp</code> : the command line application for running the theorem prover,</li>
 <li><code>ATPCore</code> : the project containing processes and operations which are used in the frontend applications,</li>
+<li><code>ATPCoreTests</code> : unit tests for the core library,</li>
 <li><code>ATPLogic</code> : the library which contains the logical inference code, and also the parsers,</li>
 <li><code>ATPLogicTests</code> : the unit tests for the logic library,</li>
 <li><code>ATPSearch</code> : the library of search algorithms for finding proofs,</li>
 <li><code>ATPSearchTests</code> : the unit tests for the search library,</li>
 <li><code>ATPDatabase</code> : the library for the management of proven theorems,</li>
+<li><code>ATPStats</code> : contains statistics and heuristics for usage in the search and core libraries,</li>
+<li><code>ATPStatsTests</code> : unit tests for the statistics library,</li>
 <li><code>Docs</code> : specifications, documentation, and example code,</li>
-<li><code>Data</code> : definition files, theorem databases, queries, search settings.</li>
+<li><code>Data/Definitions</code> : axiom and definition files, e.g. group theory,</li>
+<li><code>Data/Search</code> : search settings files,</li>
+<li><code>Data/Queries</code> : SQL queries, including a query to set up the database,</li>
+<li><code>Data/Tasks</code> : lists of statements to try and prove.</li>
 </ul>
 <p>Note that when you build the application, the binaries can be found in the <code>Output</code> folder, and <code>Temp</code> will contain Visual Studio intermediate files.</p>
 <h1><a class="anchor" id="autotoc_md3"></a>

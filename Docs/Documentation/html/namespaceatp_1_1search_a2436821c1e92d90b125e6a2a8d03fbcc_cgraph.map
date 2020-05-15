@@ -1,0 +1,4 @@
+<map id="atp::search::try_create_heuristic" name="atp::search::try_create_heuristic">
+<area shape="rect" id="node1" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="5,5,159,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#af961e805f1c0565c0d5415d7edffa780" title="Try to create an edit distance heuristic object from the tree rooted at the given node." alt="" coords="207,5,369,47"/>
+</map>

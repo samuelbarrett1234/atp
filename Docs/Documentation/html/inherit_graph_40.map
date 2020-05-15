@@ -1,0 +1,4 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classatp_1_1stats_1_1_i_edit_distance.html" title="An object for computing edit distance for statements in a particular logic type, which is optimised." alt="" coords="5,13,168,39"/>
+<area shape="rect" id="node2" href="$classatp_1_1stats_1_1_equational_edit_distance_tracker.html" title="This class computes the edit distance of equational logic statements." alt="" coords="216,5,385,47"/>
+</map>

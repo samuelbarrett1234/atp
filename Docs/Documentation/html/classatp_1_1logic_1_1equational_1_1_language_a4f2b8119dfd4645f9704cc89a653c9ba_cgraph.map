@@ -1,0 +1,10 @@
+<map id="atp::logic::equational::Language::normalise" name="atp::logic::equational::Language::normalise">
+<area shape="rect" id="node1" title="Reduce an array of statements to some &quot;normal form&quot;." alt="" coords="5,104,156,145"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1_free_var_map.html#affadeaa48774a3e1c638117dbf7fdca8" title=" " alt="" coords="204,39,359,80"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ac52b476755e8aef80fdd192fe73568f5" title="Returns true iff the statements are equal up to swapping of free variable names and reflection about ..." alt="" coords="204,104,359,145"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1_free_var_map.html#acfd10a676b13c4127cfabb6f56b1186e" title=" " alt="" coords="204,169,359,211"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a2fb23b8617152117e64b5cc2a2b772ac" title=" " alt="" coords="414,5,598,47"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_expression.html#a968366542d6495a1346b747ac5983670" title="Get the symbol or free ID of the root of this expression." alt="" coords="435,71,577,112"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a3c245f438adee795fdc69781e444f61c" title=" " alt="" coords="407,136,605,177"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_expression.html#ac502a9dd903c9bb40a011325078bc49a" title=" " alt="" coords="435,201,577,243"/>
+</map>

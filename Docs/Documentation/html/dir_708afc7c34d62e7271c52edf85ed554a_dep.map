@@ -1,9 +1,12 @@
 <map id="ATPSearch/Internal" name="ATPSearch/Internal">
 <area shape="rect" id="node1" href="dir_708afc7c34d62e7271c52edf85ed554a.html" title="Internal" alt="" coords="27,52,99,100"/>
 <area shape="rect" id="node2" href="dir_baafef445076875121efb9877cc560c8.html" title="ATPLogic" alt="" coords="23,244,102,292"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000013_000007.html" title="6" alt="" coords="58,217,66,232"/>
-<area shape="rect" id="node3" href="dir_a42d6b7ac87a4042dbbaa118627d2a8d.html" title="Interfaces" alt="" coords="62,148,141,196"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000013_000012.html" title="14" alt="" coords="85,121,100,135"/>
-<area shape="rect" id="edge3-headlabel" href="dir_000012_000007.html" title="2" alt="" coords="83,223,91,238"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000013_000007.html" title="7" alt="" coords="31,217,39,232"/>
+<area shape="rect" id="node3" href="dir_eaa8ff1b90141d0de99c10576aa38771.html" title="ATPStats" alt="" coords="23,148,102,196"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000013_000014.html" title="1" alt="" coords="67,122,75,137"/>
+<area shape="rect" id="node4" href="dir_a42d6b7ac87a4042dbbaa118627d2a8d.html" title="Interfaces" alt="" coords="126,148,205,196"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000013_000012.html" title="15" alt="" coords="125,122,140,137"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000014_000007.html" title="7" alt="" coords="67,218,75,233"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000012_000007.html" title="2" alt="" coords="103,231,111,245"/>
 <area shape="rect" id="clust1" href="dir_a362363da98bf8c5d70e0893fdc67ed1.html" title="ATPSearch" alt="" coords="16,16,109,111"/>
 </map>

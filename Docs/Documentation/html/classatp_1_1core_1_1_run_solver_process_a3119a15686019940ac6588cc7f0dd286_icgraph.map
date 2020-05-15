@@ -1,4 +1,5 @@
 <map id="atp::core::RunSolverProcess::done" name="atp::core::RunSolverProcess::done">
-<area shape="rect" id="node1" title="Returns true iff the process has finished." alt="" coords="240,5,427,47"/>
+<area shape="rect" id="node1" title="Returns true iff the process has finished." alt="" coords="240,39,427,80"/>
 <area shape="rect" id="node2" href="$classatp_1_1core_1_1_run_solver_process.html#afc14e806dd53d0f7e19b5f9697e8a1e7" title="Perform a step of the computation." alt="" coords="5,5,192,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_run_solver_process.html#a2e3ca876d31f19a38ec00d3e74b14807" title=" " alt="" coords="5,71,192,112"/>
 </map>

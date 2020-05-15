@@ -1,0 +1,11 @@
+<map id="ATPStats/Internal/EditDistanceUtility.h" name="ATPStats/Internal/EditDistanceUtility.h">
+<area shape="rect" id="node1" title="Contains definitions used for all edit distance files." alt="" coords="549,5,752,47"/>
+<area shape="rect" id="node2" href="$_a_t_p_stats_edit_distance_8h.html" title=" " alt="" coords="465,95,687,121"/>
+<area shape="rect" id="node8" href="$_equational_edit_distance_8h.html" title="This file contains edit distance computations specialised to equational logic." alt="" coords="631,169,820,211"/>
+<area shape="rect" id="node3" href="$_edit_distance_heuristic_8h.html" title="Contains a heuristic which uses the edit distance between the forefront(s) of a proof state and its t..." alt="" coords="177,169,340,211"/>
+<area shape="rect" id="node6" href="$_proof_init_process_8cpp.html" title=" " alt="" coords="365,169,555,211"/>
+<area shape="rect" id="node7" href="$_a_t_p_stats_edit_distance_8cpp.html" title=" " alt="" coords="475,266,712,293"/>
+<area shape="rect" id="node4" href="$_edit_distance_heuristic_8cpp.html" title=" " alt="" coords="5,259,181,300"/>
+<area shape="rect" id="node5" href="$_search_settings_heuristics_8cpp.html" title=" " alt="" coords="206,259,405,300"/>
+<area shape="rect" id="node9" href="$_equational_edit_distance_8cpp.html" title=" " alt="" coords="736,259,925,300"/>
+</map>

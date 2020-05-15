@@ -1,0 +1,4 @@
+<map id="atp::stats::IEditDistance" name="atp::stats::IEditDistance">
+<area shape="rect" id="node1" title="An object for computing edit distance for statements in a particular logic type, which is optimised." alt="" coords="9,5,171,32"/>
+<area shape="rect" id="node2" href="$classatp_1_1stats_1_1_equational_edit_distance_tracker.html" title="This class computes the edit distance of equational logic statements." alt="" coords="5,80,175,121"/>
+</map>

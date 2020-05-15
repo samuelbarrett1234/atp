@@ -1,0 +1,4 @@
+<map id="atp::stats::create_edit_dist" name="atp::stats::create_edit_dist">
+<area shape="rect" id="node1" title="Create a new edit distance calculator object for the given logic type and substitution costs." alt="" coords="260,5,381,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1search_1_1_edit_distance_heuristic.html#abf280895866a64d66cd22bfa15366ff0" title=" " alt="" coords="5,5,212,47"/>
+</map>

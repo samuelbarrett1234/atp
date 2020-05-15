@@ -1,11 +1,11 @@
 <map id="atp::core::HMMConjectureModel::train" name="atp::core::HMMConjectureModel::train">
 <area shape="rect" id="node1" title="Train on each statement N times." alt="" coords="5,78,180,119"/>
-<area shape="rect" id="node2" href="$namespaceatp_1_1core_1_1hmm.html#a72d510ec9cc6f8cbc594652962748079" title=" " alt="" coords="242,45,393,86"/>
-<area shape="rect" id="node5" href="$classatp_1_1core_1_1_h_m_m_stmt_to_obs.html#a52ed830a78a757ccc27b996d64e7ab74" title=" " alt="" coords="228,110,407,151"/>
-<area shape="rect" id="node3" href="$namespaceatp_1_1core_1_1hmm.html#a28138c28fc9976bf5527699033b5560c" title=" " alt="" coords="455,5,628,32"/>
-<area shape="rect" id="node4" href="$namespaceatp_1_1core_1_1hmm.html#a6be03d312d1b3e1459f9206cdee2ff4b" title=" " alt="" coords="462,56,621,83"/>
-<area shape="rect" id="node6" href="$namespaceatp_1_1core.html#ac76c9d049a87433448256677022c8da2" title=" " alt="" coords="480,110,603,151"/>
-<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a7e085c1a690875b8d3077bf2f322ac59" title=" " alt="" coords="676,77,841,118"/>
-<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612" title=" " alt="" coords="682,142,835,183"/>
-<area shape="rect" id="node9" href="$namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d" title="Helper function for computing the number of elements in slices." alt="" coords="889,142,1035,183"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1stats.html#a95b98d863cbd126b8d76a185bb034433" title=" " alt="" coords="239,56,396,83"/>
+<area shape="rect" id="node5" href="$classatp_1_1core_1_1_h_m_m_stmt_to_obs.html#a52ed830a78a757ccc27b996d64e7ab74" title=" " alt="" coords="228,107,407,149"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1stats.html#ad6d537ee51638d11e4a47ae832527b96" title=" " alt="" coords="455,5,595,32"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1stats.html#aa74fc5e9f889655b9287020ddbb4f828" title=" " alt="" coords="461,56,588,83"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1core.html#ac76c9d049a87433448256677022c8da2" title=" " alt="" coords="463,107,586,149"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#a7e085c1a690875b8d3077bf2f322ac59" title=" " alt="" coords="643,74,808,115"/>
+<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_statement_array.html#ada8f04815314efc4e444cce3d22db612" title=" " alt="" coords="649,139,802,181"/>
+<area shape="rect" id="node9" href="$namespaceatp_1_1logic_1_1equational.html#a600e551abcaab4c45b8e88e7ea3c219d" title="Helper function for computing the number of elements in slices." alt="" coords="856,139,1001,181"/>
 </map>

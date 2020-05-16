@@ -95,11 +95,19 @@ public:
 
 private:
 	/**
-	\brief Used to create `m_rule_iter`
+	\brief Used to create `m_rule_iters[m_cur_idx]`
 
-	\pre m_rule_iter == nullptr && m_sub_expr_iter != end iter
+	\pre m_rule_iters[m_cur_idx] == nullptr
 	*/
 	void construct_child();
+
+	/**
+	\brief Randomly generate a new m_cur_idx
+
+	\post Could potentially cause !valid() but this is desirable as
+		it fixes the invariant
+	*/
+	void reset_current();
 
 private:
 	// a flag; not used in this class but is passed on to children
@@ -116,11 +124,16 @@ private:
 	std::vector<std::pair<size_t, SyntaxNodeType>> m_free_const_enum;
 
 	// invariants:
-	// m_rule_iter is null or it is valid
-	// we are valid() iff m_rule_iter is non-null
+	// each m_rule_iters[i] is null or it is valid
+	// we are valid() iff there exists a null m_rule_iters[i] or a
+	// valid one (i.e we are invalid if all are non-null and invalid)
+	// m_rule_iters[m_cur_idx] is non-null and valid, or we are invalid
+	// we are invalid iff m_cur_idx == m_sub_expr_iters.size()
+	// and finally, m_sub_expr_iters.size() == m_rule_iters.size()
 
-	Statement::iterator m_sub_expr_iter;
-	std::shared_ptr<RuleMatchingIterator> m_rule_iter;
+	std::vector<Statement::iterator> m_sub_expr_iters;
+	std::vector<std::shared_ptr<RuleMatchingIterator>> m_rule_iters;
+	size_t m_cur_idx;
 };
 
 

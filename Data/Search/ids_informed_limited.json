@@ -4,13 +4,15 @@
 	"solver" : {
 		"type" : "IterativeDeepeningSolver",
 		"max-depth" : 5,
-		"starting-depth" : 3,
-		"no-repeats" : true,
+		"starting-depth" : 2,
+		"width-limit" : 10,
+		"width-limit-start-depth" : 0,
+		"no-repeats" : false,
 		"randomised" : true
 	},
 	"stopping-strategy" : {
 		"type" : "FixedStoppingStrategy",
-		"size" : 10
+		"size" : 5
 	},
 	"heuristic" : {
 		"type" : "EditDistanceHeuristic",

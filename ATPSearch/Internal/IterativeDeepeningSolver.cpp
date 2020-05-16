@@ -247,7 +247,6 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 				// with more depth:
 
 				++m_cur_depth_limits[i];
-				std::cout << "New depth limit " << m_cur_depth_limits[i] << std::endl;
 
 				// setup the stack again (because it has been
 				// emptied)

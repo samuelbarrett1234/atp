@@ -4,7 +4,9 @@
 	"solver" : {
 		"type" : "IterativeDeepeningSolver",
 		"max-depth" : 10,
-		"starting-depth" : 3,
+		"starting-depth" : 4,
+		"width-limit" : 10,
+		"width-limit-start-depth" : 2,
 		"no-repeats" : true,
 		"randomised" : true
 	},

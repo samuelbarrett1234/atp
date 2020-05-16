@@ -99,7 +99,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 						echo "<p class=\"w3-text-grey\">Theorems at hand for the above proof:</p>\n<ul class=\"w3-ul\">\n";
 					}
 					$any_available = true;
-					echo "<li class=\"w3-text-grey\"><a href=\"examine_thm.php?stmt={$row['stmt']}&ctx={$ctx}\">{$row['stmt']}</a></li>\n";
+					echo "<li class=\"w3-text-grey\"><a href=\"examine_thm.php?stmt={$row['stmt']}&ctx={$_GET['ctx']}\">{$row['stmt']}</a></li>\n";
 				}
 				echo "</ul>\n";	
 				
@@ -153,7 +153,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 						echo "<ul class=\"w3-ul\">\n";
 					}
 					$used = true;
-					echo "<li class=\"w3-text-grey\"><a href=\"examine_thm.php?stmt={$row['stmt']}&ctx={$ctx}\">{$row['stmt']}</a></li>";
+					echo "<li class=\"w3-text-grey\"><a href=\"examine_thm.php?stmt={$row['stmt']}&ctx={$_GET['ctx']}\">{$row['stmt']}</a></li>";
 				}
 				echo "</ul>\n";
 				

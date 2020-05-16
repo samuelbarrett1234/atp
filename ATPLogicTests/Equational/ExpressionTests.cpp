@@ -131,6 +131,27 @@ BOOST_DATA_TEST_CASE(parent_position_iterator_test,
 }
 
 
+BOOST_AUTO_TEST_CASE(test_iterator_lazy_computation)
+{
+	s << "i(x0) = x0\n";  // arbitrary RHS
+
+	auto p_stmts = lang.deserialise_stmts(s, StmtFormat::TEXT,
+		ctx);
+	auto expr = dynamic_cast<const Statement&>(p_stmts->at(0)).lhs();
+
+	auto iter = expr.begin();
+
+	// force lazy value to be computed:
+	auto expr2 = *iter;
+
+	// advance, which should destruct the internally held lazy value
+	++iter;
+
+	// now the current value should not be equivalent:
+	BOOST_TEST(!iter->equivalent(expr2));
+}
+
+
 BOOST_AUTO_TEST_CASE(test_try_build_map_positive)
 {
 	// here we will extract the two sides of this equation separately

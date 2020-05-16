@@ -241,6 +241,10 @@ void SubExprMatchingIterator::reset_current()
 
 		do
 		{
+			// check why we want to reset the old one
+			ATP_LOGIC_ASSERT(m_rule_iters[m_cur_idx] == nullptr ||
+				!m_rule_iters[m_cur_idx]->valid());
+
 			// reset the old one
 			m_rule_iters[m_cur_idx].reset();
 

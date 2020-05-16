@@ -186,6 +186,10 @@ public:
 		inline iterator& operator++()
 		{
 			ATP_LOGIC_PRECOND(!is_end_iterator());
+
+			// always destroy any cached information just before we
+			// advance, as it will get invalidated
+			m_my_value.reset();
 			
 			if (m_stack.back().type ==
 				SyntaxNodeType::FUNC)

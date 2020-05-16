@@ -10,7 +10,7 @@
 	},
 	"step-size" : 10000,
 	"max-steps" : 200,
-	"num-helper-theorems" : 10,
+	"num-helper-theorems" : 15,
 	"helper-theorems-factor" : 10,
 	"seed" : "time"
 }

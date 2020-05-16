@@ -214,8 +214,8 @@ int setup_logs(const po::variables_map& vm)
 	{
 		boost::log::add_file_log(
 			keywords::file_name = "atp_log_%N.txt",
-			// rotate every 10Mb
-			keywords::rotation_size = 10 * 1024 * 1024,
+			// rotate every 1Mb
+			keywords::rotation_size = 1024 * 1024,
 			keywords::format =
 			"%TimeStamp% [Thread %ThreadID%] %Severity% : %Message%",
 			keywords::open_mode = std::ios_base::app

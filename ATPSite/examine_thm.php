@@ -110,7 +110,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			}
 
 			// get information about the proof attempts:
-			$query = $db->query("SELECT name, time_cost, max_mem, num_expansions, attempt_date FROM proof_attempts NATURAL JOIN search_settings WHERE thm_id = {$thm_id}");
+			$query = $db->query("SELECT name, time_cost, max_mem, num_expansions, DATE(attempt_date) as attempt_date FROM proof_attempts NATURAL JOIN search_settings WHERE thm_id = {$thm_id}");
 
 			// for each proof attempt
 			$attempted = false;

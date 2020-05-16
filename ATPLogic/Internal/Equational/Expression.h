@@ -120,8 +120,7 @@ public:
 
 		inline iterator() : m_parent(nullptr) {}
 		inline iterator(const Expression* parent) :
-			m_parent(parent),
-			m_my_value(std::make_unique<Expression>(*parent))
+			m_parent(parent)
 		{
 			ATP_LOGIC_PRECOND(m_parent != nullptr);
 #ifdef ATP_LOGIC_EXPR_USE_HEIGHT
@@ -136,8 +135,8 @@ public:
 		inline iterator(const iterator& other) :
 			m_stack(other.m_stack),
 			m_parent(other.m_parent),
-			m_my_value(std::make_unique<Expression>(
-				*other.m_my_value))
+			// see "hack" comment in copy assignment operator
+			m_my_value(std::move(other.m_my_value))
 		{ }
 		inline iterator(iterator&& other) noexcept :
 			m_stack(std::move(other.m_stack)),
@@ -150,8 +149,18 @@ public:
 		{
 			m_stack = other.m_stack;
 			m_parent = other.m_parent;
-			m_my_value = std::make_unique<Expression>(
-				*other.m_my_value);
+			
+			// hack: if it is more probable that we will use the
+			// value than them, then because the value is lazily
+			// computed, we are permitted to move it across here!
+			// this is only bad if "copies don't generally mean we
+			// use the value"
+			m_my_value = std::move(other.m_my_value);
+			// of course, the above value might not even be present
+
+			//m_my_value = std::make_unique<Expression>(
+			//	*other.m_my_value);  // warning: won't work if null
+
 			return *this;
 		}
 		inline iterator& operator =(iterator&& other) noexcept
@@ -166,13 +175,13 @@ public:
 		{
 			ATP_LOGIC_PRECOND(m_parent != nullptr);
 			ATP_LOGIC_PRECOND(!m_stack.empty());
-			return *m_my_value;
+			return my_value();
 		}
 		inline pointer operator->() const
 		{
 			ATP_LOGIC_PRECOND(m_parent != nullptr);
 			ATP_LOGIC_PRECOND(!m_stack.empty());
-			return m_my_value.get();
+			return &my_value();
 		}
 		inline iterator& operator++()
 		{
@@ -208,15 +217,6 @@ public:
 			// else we have no children so just remove ourselves from
 			// the stack
 			else m_stack.pop_back();
-
-			// reconstruct our value if we are not an end iterator
-			if (!is_end_iterator())
-			{
-				// create sub expression from the parent
-				m_my_value = std::make_unique<Expression>(
-					m_parent->sub_expression(m_stack.back().id,
-						m_stack.back().type));
-			}
 
 			return *this;
 		}
@@ -289,6 +289,26 @@ public:
 		}
 
 	private:
+		/**
+		\brief Returns the expression value of this iterator,
+			constructing it if necessary
+		*/
+		inline Expression& my_value() const
+		{
+			ATP_LOGIC_ASSERT(!is_end_iterator());
+
+			if (m_my_value == nullptr)
+			{
+				// create sub expression from the parent
+				m_my_value = std::make_unique<Expression>(
+					m_parent->sub_expression(m_stack.back().id,
+						m_stack.back().type));
+			}
+
+			return *m_my_value;
+		}
+
+	private:
 		// if it is empty then we are done
 		// the stack represents the nodes left to explore, and the
 		// back element is the one we're currently looking at.
@@ -297,7 +317,8 @@ public:
 
 		// it is easier to create a copy of the expression here, and
 		// just return references and pointers to it
-		std::unique_ptr<Expression> m_my_value;
+		// mutable because lazily constructed
+		mutable std::unique_ptr<Expression> m_my_value;
 	};
 
 public:

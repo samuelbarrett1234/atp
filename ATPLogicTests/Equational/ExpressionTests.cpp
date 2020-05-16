@@ -60,11 +60,21 @@ BOOST_DATA_TEST_CASE(iterator_walking_test,
 	auto original = dynamic_cast<const Statement&>(p_stmts->at(0)).lhs();
 	auto sub = dynamic_cast<const Statement&>(p_stmts->at(1)).lhs();
 
-	auto iter = original.begin();
-	std::advance(iter, advance_num);
+	{
+		auto iter = original.begin();
+		std::advance(iter, advance_num);
 
-	BOOST_TEST(sub.equivalent(*iter));
-	BOOST_TEST(iter->equivalent(sub));
+		BOOST_TEST(sub.equivalent(*iter));
+	}
+
+	// use different iterators for each one
+
+	{
+		auto iter = original.begin();
+		std::advance(iter, advance_num);
+
+		BOOST_TEST(iter->equivalent(sub));
+	}
 }
 
 

@@ -66,8 +66,12 @@ BOOST_DATA_TEST_CASE(test_subs,
 		"e = x",
 		"e = x",
 		"*(*(x, y), z) = x",
-		"*(*(x, x), x) = x"
-	}) ^
+		"*(*(x, x), x) = x",
+		"x = *(x, i(x))"
+	}) ^ boost::unit_test::data::make({
+		// the iterator position beyond begin() to look for the
+		// rule matching
+		0, 0, 0, 0, 0, 3 }) ^
 	boost::unit_test::data::make({
 		// we will only look at the LHS of these statements
 		// (these are results obtainable in one step from the top
@@ -76,9 +80,10 @@ BOOST_DATA_TEST_CASE(test_subs,
 		"*(x, i(x)) = x",
 		"*(e, i(e)) = x",
 		"*(x, *(y, z)) = x",
-		"*(x, *(x, x)) = x" }))
+		"*(x, *(x, x)) = x",
+		"x = *(x, *(i(x), e))" }))
 	* boost::unit_test::data::make(randomised_settings),
-	stmt, stmt_immediate_application, randomised)
+	stmt, iter_pos, stmt_immediate_application, randomised)
 {
 	s << stmt << "\n" << stmt_immediate_application;
 
@@ -95,6 +100,7 @@ BOOST_DATA_TEST_CASE(test_subs,
 
 	// this indicates we match top of LHS
 	auto sub_iter = forefront.begin();
+	std::advance(sub_iter, iter_pos);
 
 	ProofState pstate(ctx, ker, forefront, false, randomised);
 

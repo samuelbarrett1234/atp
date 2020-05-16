@@ -31,22 +31,19 @@ ExprTreeFlyweight::ExprTreeFlyweight() :
 	// before using the object!
 	m_root_type(SyntaxNodeType::EQ),
 	// create empty arrays
-	m_func_symb_ids(std::make_shared<std::vector<size_t>>()),
-	m_func_arity(std::make_shared<std::vector<size_t>>()),
-	m_func_children(std::make_shared<std::vector<std::array<
-		size_t, MAX_ARITY>>>()),
-	m_func_child_types(std::make_shared<std::vector<std::array<
-		SyntaxNodeType, MAX_ARITY>>>())
+	m_func_info(std::make_shared<std::pair<std::vector<size_t>,
+		std::vector<size_t>>>()),
+	m_func_children(std::make_shared<std::pair<std::vector<std::array<
+		size_t, MAX_ARITY>>, std::vector<std::array<
+		SyntaxNodeType, MAX_ARITY>>>>())
 { }
 
 
 ExprTreeFlyweight::ExprTreeFlyweight(
 	const ExprTreeFlyweight& other) :
 	m_root(other.m_root), m_root_type(other.m_root_type),
-	m_func_symb_ids(other.m_func_symb_ids),
-	m_func_arity(other.m_func_arity),
-	m_func_children(other.m_func_children),
-	m_func_child_types(other.m_func_child_types)
+	m_func_info(other.m_func_info),
+	m_func_children(other.m_func_children)
 {
 #ifdef ATP_LOGIC_DEFENSIVE
 	_check_invariant();
@@ -57,10 +54,8 @@ ExprTreeFlyweight::ExprTreeFlyweight(
 ExprTreeFlyweight::ExprTreeFlyweight(
 	ExprTreeFlyweight&& other) noexcept :
 	m_root(other.m_root), m_root_type(other.m_root_type),
-	m_func_symb_ids(std::move(other.m_func_symb_ids)),
-	m_func_arity(std::move(other.m_func_arity)),
-	m_func_children(std::move(other.m_func_children)),
-	m_func_child_types(std::move(other.m_func_child_types))
+	m_func_info(std::move(other.m_func_info)),
+	m_func_children(std::move(other.m_func_children))
 {
 	// give it a BAD TYPE! To indicate that the object is in an
 	// invalid state
@@ -79,10 +74,8 @@ ExprTreeFlyweight& ExprTreeFlyweight::operator=(
 	{
 		m_root = other.m_root;
 		m_root_type = other.m_root_type;
-		m_func_symb_ids = other.m_func_symb_ids;
-		m_func_arity = other.m_func_arity;
+		m_func_info = other.m_func_info;
 		m_func_children = other.m_func_children;
-		m_func_child_types = other.m_func_child_types;
 
 #ifdef ATP_LOGIC_DEFENSIVE
 		_check_invariant();
@@ -99,10 +92,8 @@ ExprTreeFlyweight& ExprTreeFlyweight::operator=(
 	{
 		m_root = other.m_root;
 		m_root_type = other.m_root_type;
-		m_func_symb_ids = std::move(other.m_func_symb_ids);
-		m_func_arity = std::move(other.m_func_arity);
+		m_func_info = std::move(other.m_func_info);
 		m_func_children = std::move(other.m_func_children);
-		m_func_child_types = std::move(other.m_func_child_types);
 
 		// give it a BAD TYPE! To indicate that the object is in an
 		// invalid state
@@ -122,7 +113,7 @@ void ExprTreeFlyweight::set_root(size_t id, SyntaxNodeType type)
 	// in an invalid state when default-constructed
 
 	ATP_LOGIC_PRECOND(type != SyntaxNodeType::FUNC ||
-		id < m_func_symb_ids->size());
+		id < m_func_info->first.size());
 
 	m_root = id;
 	m_root_type = type;
@@ -130,10 +121,10 @@ void ExprTreeFlyweight::set_root(size_t id, SyntaxNodeType type)
 	if (type != SyntaxNodeType::FUNC)
 	{
 		// don't need any of this if we are not a function node type
-		m_func_symb_ids->clear();
-		m_func_arity->clear();
-		m_func_children->clear();
-		m_func_child_types->clear();
+		m_func_info->first.clear();
+		m_func_info->second.clear();
+		m_func_children->first.clear();
+		m_func_children->second.clear();
 	}
 
 #ifdef ATP_LOGIC_DEFENSIVE
@@ -158,40 +149,38 @@ size_t ExprTreeFlyweight::merge_from(const ExprTreeFlyweight& other)
 	{
 		const size_t size_before = size();
 
-		copy_on_write_branch(m_func_symb_ids);
-		copy_on_write_branch(m_func_arity);
+		copy_on_write_branch(m_func_info);
 		copy_on_write_branch(m_func_children);
-		copy_on_write_branch(m_func_child_types);
 
-		m_func_symb_ids->insert(m_func_symb_ids->end(),
-			other.m_func_symb_ids->begin(),
-			other.m_func_symb_ids->end());
+		m_func_info->first.insert(m_func_info->first.end(),
+			other.m_func_info->first.begin(),
+			other.m_func_info->first.end());
 
-		m_func_arity->insert(m_func_arity->end(),
-			other.m_func_arity->begin(),
-			other.m_func_arity->end());
+		m_func_info->second.insert(m_func_info->second.end(),
+			other.m_func_info->second.begin(),
+			other.m_func_info->second.end());
 
-		m_func_children->insert(m_func_children->end(),
-			other.m_func_children->begin(),
-			other.m_func_children->end());
+		m_func_children->first.insert(m_func_children->first.end(),
+			other.m_func_children->first.begin(),
+			other.m_func_children->first.end());
 
-		m_func_child_types->insert(m_func_child_types->end(),
-			other.m_func_child_types->begin(),
-			other.m_func_child_types->end());
+		m_func_children->second.insert(m_func_children->second.end(),
+			other.m_func_children->second.begin(),
+			other.m_func_children->second.end());
 
 		// now we need to alter all function indices we just added
 		// by offsetting them by `size_before`, and finally we do
 		// the same thing to the root (that we return)
 		
-		for (size_t i = size_before; i < m_func_children->size();
+		for (size_t i = size_before; i < m_func_children->first.size();
 			++i)
 		{
-			for (size_t j = 0; j < m_func_arity->at(i); ++j)
+			for (size_t j = 0; j < m_func_info->second.at(i); ++j)
 			{
-				if (m_func_child_types->at(i).at(j) ==
+				if (m_func_children->second.at(i).at(j) ==
 					SyntaxNodeType::FUNC)
 				{
-					m_func_children->at(i).at(j) += size_before;
+					m_func_children->first.at(i).at(j) += size_before;
 				}
 			}
 		}
@@ -211,19 +200,17 @@ void ExprTreeFlyweight::_check_invariant() const
 {
 	if (m_root_type == SyntaxNodeType::FUNC)
 	{
-		ATP_LOGIC_ASSERT(m_func_symb_ids != nullptr);
-		ATP_LOGIC_ASSERT(m_func_arity != nullptr);
+		ATP_LOGIC_ASSERT(m_func_info != nullptr);
 		ATP_LOGIC_ASSERT(m_func_children != nullptr);
-		ATP_LOGIC_ASSERT(m_func_child_types != nullptr);
 
-		ATP_LOGIC_ASSERT(!m_func_symb_ids->empty());
-		ATP_LOGIC_ASSERT(m_func_symb_ids->size() ==
-			m_func_arity->size());
-		ATP_LOGIC_ASSERT(m_func_symb_ids->size() ==
-			m_func_children->size());
-		ATP_LOGIC_ASSERT(m_func_symb_ids->size() ==
-			m_func_child_types->size());
-		ATP_LOGIC_ASSERT(m_root < m_func_symb_ids->size());
+		ATP_LOGIC_ASSERT(!m_func_info->first.empty());
+		ATP_LOGIC_ASSERT(m_func_info->first.size() ==
+			m_func_info->second.size());
+		ATP_LOGIC_ASSERT(m_func_info->first.size() ==
+			m_func_children->first.size());
+		ATP_LOGIC_ASSERT(m_func_info->first.size() ==
+			m_func_children->second.size());
+		ATP_LOGIC_ASSERT(m_root < m_func_info->first.size());
 	}
 }
 #endif
@@ -238,8 +225,8 @@ ExprTreeFlyweight ExprTreeFlyweight::load_from_bin(std::istream& in)
 	// this must appear in the same order as it does in `save`
 
 	i >> result.m_root >> result.m_root_type;
-	i >> result.m_func_symb_ids >> result.m_func_arity;
-	i >> result.m_func_children >> result.m_func_child_types;
+	i >> result.m_func_info->first >> result.m_func_info->second;
+	i >> result.m_func_children->first >> result.m_func_children->second;
 
 #ifdef ATP_LOGIC_DEFENSIVE
 	// check for corruption
@@ -262,9 +249,9 @@ void ExprTreeFlyweight::save(std::ostream& out) const
 	// this must appear in the same order as it does in
 	// `load_from_bin`
 
-	o << m_root << m_root_type << m_func_symb_ids;
-	o << m_func_arity << m_func_children;
-	o << m_func_child_types;
+	o << m_root << m_root_type << m_func_info->first;
+	o << m_func_info->second << m_func_children->first;
+	o << m_func_children->second;
 }
 
 

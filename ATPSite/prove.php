@@ -19,7 +19,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		<br>
 		What statement do you want to try to prove?
 		<br>
-		<input type=string name="stmt" class="w3-input" placeholder="Enter the statement text" />
+		<input type=string name="stmt" class="w3-input" placeholder="Enter the statement text" required />
 		<br>
 		Context name:
 		<select name="ctx" class="w3-select">

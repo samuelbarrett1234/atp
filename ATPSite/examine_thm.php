@@ -16,14 +16,38 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		<div class="w3-twothird">
 		<h1>Statement Info</h1>
 		<?php
-		echo "<h5 class='w3-padding-32'>{$_GET['stmt']}</h5>\n";
+		echo "<h5 class='w3-padding-32'>{$_GET['stmt']} in {$_GET['ctx']}</h5>\n";
+		
+		// firstly, invoke the ATPSiteTools to check that the
+		// input statement is sound
+		$stmt = escapeshellarg($_GET['stmt']);
+		$ctx = escapeshellarg($_GET['ctx']);
+		exec("\"..\Output\ATPSiteTools_Releasex64.exe\" --db ../Data/DB/eqlogic.db --ctx {$ctx} --norm {$stmt} 2>&1", $output, $ret_val);
+		
+		if ($ret_val == -1)
+		{
+			// this is bad and shouldn't really happen
+			echo "Unexpected error in ATPSiteTools.";
+			exit();
+		}
+		else if ($ret_val == 1)
+		{
+			// this means it's the user's fault
+			echo "<p class=\"w3-text-grey\">Oops, search failed: the statement '{$_GET['stmt']}' was invalid.</h5>";
+			exit();
+		}
+		// else the statement is valid, and normalised:
+		$stmt = $output[0];
 
+		echo "<p class='w3-text-grey'>This statement is normalised to {$stmt}.</p>";
+		
 		// connect to database
 		$db = new SQLite3('../Data/DB/eqlogic.db');
 		
 		// find theorem
-		$prep = $db->prepare("SELECT id FROM theorems WHERE stmt = :stmt");
-		$prep->bindValue(':stmt', $_GET['stmt'], SQLITE3_TEXT);
+		$prep = $db->prepare("SELECT id FROM theorems JOIN model_contexts ON ctx = ctx_id WHERE stmt = :stmt AND name = :ctx_name");
+		$prep->bindValue(':stmt', $stmt, SQLITE3_TEXT);
+		$prep->bindValue(':ctx_name', $_GET['ctx'], SQLITE3_TEXT);
 		$query = $prep->execute();
 
 		// if theorem exists
@@ -75,7 +99,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 						echo "<p class=\"w3-text-grey\">Theorems at hand for the above proof:</p>\n<ul class=\"w3-ul\">\n";
 					}
 					$any_available = true;
-					echo "<li class=\"w3-text-grey\"><a href=\"examine_thm.php?stmt={$row['stmt']}\">{$row['stmt']}</a></li>\n";
+					echo "<li class=\"w3-text-grey\"><a href=\"examine_thm.php?stmt={$row['stmt']}&ctx={$ctx}\">{$row['stmt']}</a></li>\n";
 				}
 				echo "</ul>\n";	
 				
@@ -95,7 +119,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 				// output start of the table tag on first iteration
 				if (!$attempted)
 				{
-					echo "<br><p class=\"w3-text-grey\">Here is a table of all the attempts at proving {$_GET['stmt']}</p>\n";
+					echo "<br><p class=\"w3-text-grey\">Here is a table of all the attempts at proving {$stmt}</p>\n";
 					echo "<br><table class=\"w3-text-grey w3-table-all\"><tr><th>Search Settings</th><th>Time cost (s)</th><th>Maximum number of nodes in memory</th><th>Number of expansions</th><th>Date attempted</th></tr>\n";
 				}
 				$attempted = true;
@@ -112,7 +136,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			else
 			{
 				// indicate that there have been no attempts
-				echo "<br><p class=\"w3-text-grey\">No attempts have been made to try to prove {$_GET['stmt']} yet.</p>\n";
+				echo "<br><p class=\"w3-text-grey\">No attempts have been made to try to prove {$stmt} yet.</p>\n";
 			}
 
 			// if this theorem is true, where has it been used?
@@ -125,17 +149,17 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 				{
 					if (!$used)
 					{				
-						echo "<br><p class=\"w3-text-grey\">{$_GET['stmt']} has been used in proofs of the following statements:</p>\n";
+						echo "<br><p class=\"w3-text-grey\">{$stmt} has been used in proofs of the following statements:</p>\n";
 						echo "<ul class=\"w3-ul\">\n";
 					}
 					$used = true;
-					echo "<li class=\"w3-text-grey\"><a href=\"examine_thm.php?stmt={$row['stmt']}\">{$row['stmt']}</a></li>";
+					echo "<li class=\"w3-text-grey\"><a href=\"examine_thm.php?stmt={$row['stmt']}&ctx={$ctx}\">{$row['stmt']}</a></li>";
 				}
 				echo "</ul>\n";
 				
 				if (!$used)
 				{
-					echo "<br><p class=\"w3-text-grey\">{$_GET['stmt']} has not been used to help prove anything else yet.</p>\n";
+					echo "<br><p class=\"w3-text-grey\">{$stmt} has not been used to help prove anything else yet.</p>\n";
 				}
 			}
 
@@ -143,7 +167,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		else
 		{
 			// theorem didn't exist
-			echo "<p class=\"w3-text-grey\">The statement \"{$_GET['stmt']}\" was not found in the database.</p>";
+			echo "<p class=\"w3-text-grey\">The statement \"{$stmt}\" was not found in the database (perhaps you're looking in the wrong context?).</p>";
 		}
 		?>
 		</div>

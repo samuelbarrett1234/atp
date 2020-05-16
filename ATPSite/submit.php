@@ -18,7 +18,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		<form action="submitted.php" method=post>
 		<br>
 		Statement:
-		<input type=string name="stmt" class="w3-input" placeholder="Enter your statement" />
+		<input type=string name="stmt" class="w3-input" placeholder="Enter your statement" required />
 		<br>
 		Context name:
 		<select name="ctx" class="w3-select">
@@ -36,10 +36,10 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		</select>
 		<br><br>
 		Deadline (DD/MM/YYYY):
-		<input type=string name="deadline" class="w3-input" placeholder="Enter the deadline in the form DD/MM/YYYY" />
+		<input type=string name="deadline" class="w3-input" placeholder="Enter the deadline in the form DD/MM/YYYY" required />
 		<br>
 		Priority:
-		<input type=float name="priority" class="w3-input" placeholder="Enter the priority of this task as a nonnegative real number" />
+		<input type=float name="priority" class="w3-input" placeholder="Enter the priority of this task as a nonnegative real number" required />
 		<br>
 		<br>
 		<input type=submit value="Go" class="w3-input w3-button">

@@ -6,6 +6,7 @@
 	
 		<a href="index.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">ATP</a>
 		<a href="prove.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Prove Something</a>
+		<a href="view_tasks.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">View Tasks</a>
 		<a href="submit.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Submit Tasks</a>
 		<a href="search.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Search</a>
 		<a href="view_pf_data.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">View Proofs</a>

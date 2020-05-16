@@ -43,6 +43,9 @@ Temp/*
 # Output directory:
 Output/*
 
+# Ignore logs produced in ATPSite:
+ATPSite/*.txt
+
 # Database files:
 Data/DB/*
 

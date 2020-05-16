@@ -19,6 +19,7 @@ Directory list:
 - `ATPDatabase` : the library for the management of proven theorems,
 - `ATPStats` : contains statistics and heuristics for usage in the search and core libraries,
 - `ATPStatsTests` : unit tests for the statistics library,
+- `ATPSite` : contains the website frontend (in PHP),
 - `Docs` : specifications, documentation, and example code,
 - `Data/Definitions` : axiom and definition files, e.g. group theory,
 - `Data/Search` : search settings files,
@@ -41,12 +42,13 @@ Note that when you build the application, the binaries can be found in the `Outp
 10. Run all the unit tests to make sure everything passes.
 11. Follow the steps in the next section to create the database.
 12. *Optional.* If you want to automatically build documentation, [install Doxygen](http://www.doxygen.nl/).
+13. *Optional.* [Install XAMPP](https://www.apachefriends.org/index.html) if you want to see the website frontend and don't already have a way to run a local web server. If you are going to do this, check the `ATPSite` README for additional notes on how the config files need to be tweaked.
 
 ## Setting up the database
 
 Open the command prompt and navigate to the `Data\DB` directory (create it if it doesn't exist already). Type the command `sqlite3 eqlogic.db` to create a new database called `eqlogic` for equational logic.
 
-There is already a script for setting up the database. To run it, type (into the SQLite application, which should now be running): `.read ../Queries/create_eqlogic_db.sql`. This will initialise all the tables etc.
+There is already a script for setting up the database. To run it, type (into the SQLite application, which should now be running): `.read ../Queries/create_eqlogic_db.sql`. This will initialise all the tables etc. In the same folder, you will find scripts for initialising some other statistical models (e.g. the hidden Markov model conjecturer), and some other scripts for selecting useful combinations of data.
 
 ## Running the client
 
@@ -60,7 +62,7 @@ At the moment, the application only supports a single `prove` mode. Usage:
 
 Note that, in the above example, you may need to change `atp` to `atp_Releasex64` or something similar (as in the example), depending on your build settings. Check the `Output` folder to see which versions of the application you have built.
 
-See `Docs` for documentation about context files and search settings files. Also, try typing `atp --help` for a full list of commands.
+See `Docs` for documentation about context files and search settings files. Also, try typing `atp --help` for a full list of commands (for example, if you wanted to do automated conjecturing).
 
 ## Appendix: Prettier Printing with SQLite
 

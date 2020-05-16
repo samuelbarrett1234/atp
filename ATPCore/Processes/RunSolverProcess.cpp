@@ -103,7 +103,8 @@ private:
 			<< std::endl
 			<< '\t' << num_true << " theorem(s) were proven true,"
 			<< std::endl
-			<< '\t' << num_failed << " theorem(s) have no proof,"
+			<< '\t' << num_failed << " theorem(s) had no proof under"
+			" the restrictions in the search settings,"
 			<< std::endl
 			<< '\t' << num_unfinished <<
 			" theorem(s) did not finish in the allotted time.";

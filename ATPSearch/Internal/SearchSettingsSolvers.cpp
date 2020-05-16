@@ -71,18 +71,27 @@ bool try_create_IDS(
 	SolverCreator& creator,
 	logic::IterSettings iter_settings)
 {
-	const size_t max_depth = ptree.get<size_t>("max-depth", 10);
-	const size_t starting_depth = ptree.get<size_t>("starting-depth", 3);
+	const size_t max_depth = ptree.get<size_t>(
+		"max-depth", 10);
+	const size_t starting_depth = ptree.get<size_t>(
+		"starting-depth", 3);
+	const size_t width_limit = ptree.get<size_t>(
+		"width-limit", 50);
+	const size_t width_limit_start_depth = ptree.get<size_t>(
+		"width-limit-start-depth", 2);
 
-	if (starting_depth <= 1 || starting_depth >= max_depth)
+	if (starting_depth <= 1 || starting_depth >= max_depth ||
+		width_limit == 0)
 		return false;  // invalid params
 
-	creator = [max_depth, starting_depth, iter_settings](
+	creator = [max_depth, starting_depth, width_limit,
+		width_limit_start_depth, iter_settings](
 		logic::KnowledgeKernelPtr p_ker,
 		std::unique_ptr<IteratorManager> p_iter_mgr)
 	{
 		return std::make_shared<IterativeDeepeningSolver>(
-			p_ker, max_depth, starting_depth, iter_settings,
+			p_ker, max_depth, starting_depth, width_limit,
+			width_limit_start_depth, iter_settings,
 			std::move(p_iter_mgr));
 	};
 

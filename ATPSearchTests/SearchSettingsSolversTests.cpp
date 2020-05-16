@@ -104,16 +104,20 @@ BOOST_AUTO_TEST_CASE(test_default_iter_settings)
 // gracefully
 BOOST_DATA_TEST_CASE(test_create_ids,
 	(boost::unit_test::data::make({
-		0, 1, 5, 5, 5, 5 }) ^ boost::unit_test::data::make({
-		0, 1, 5, 0, 1, 4 }) ^ boost::unit_test::data::make({
-		false, false, false, false, false, true }))
+		0, 1, 5, 5, 5, 5, 5 }) ^ boost::unit_test::data::make({
+		0, 1, 5, 0, 1, 4, 4 }) ^ boost::unit_test::data::make({
+		9, 9, 9, 9, 9, 9, 0 }) ^ boost::unit_test::data::make({
+		2, 2, 2, 2, 2, 2, 2 }) ^ boost::unit_test::data::make({
+		false, false, false, false, false, true, false }))
 	* boost::unit_test::data::make({ false, true })
 	* boost::unit_test::data::make({ false, true }),
-	max_depth, starting_depth, is_valid, no_repeats, randomised)
+	max_depth, starting_depth, width_limit, width_limit_start, is_valid, no_repeats, randomised)
 {
 	s << "{ \"type\" : \"IterativeDeepeningSolver\",";
 	s << "\"max-depth\" : " << max_depth << ", ";
 	s << "\"starting-depth\" : " << starting_depth << ", ";
+	s << "\"width-limit\" : " << width_limit << ", ";
+	s << "\"width-limit-start-depth\" : " << width_limit_start << ", ";
 	s << "\"no-repeats\" : " << (no_repeats ? "true" : "false") << ", ";
 	s << "\"randomised\" : " << (randomised ? "true" : "false");
 	s << "}";
@@ -142,12 +146,8 @@ BOOST_AUTO_TEST_CASE(test_create_solver_can_make_ids,
 	* boost::unit_test_framework::depends_on(
 		"SearchSettingsTests/SearchSettingsSolversTests/test_create_ids"))
 {
-	s << "{ \"type\" : \"IterativeDeepeningSolver\",";
-	s << "\"max-depth\" : " << 5 << ", ";
-	s << "\"start-depth\" : " << 3 << ", ";
-	s << "\"no-repeats\" : " << true << ", ";
-	s << "\"randomised\" : " << true;
-	s << "}";
+	// use defaults for all other parameters
+	s << "{ \"type\" : \"IterativeDeepeningSolver\" }";
 
 	ptree pt;
 	read_json(s, pt);

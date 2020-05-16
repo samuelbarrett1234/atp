@@ -7,8 +7,8 @@ Search settings allow the user to choose a solver, and parameters for that solve
 The following settings are universal (independent of solver type):
 ```
 {
-	"name" : "Limited Iterative-Deepening Solver",
-	"desc" : "An uninformed iterative deepening solver with low depth settings",
+	"name" : "Your settings type name here",
+	"desc" : "Your settings type description here",
 	"step-size" : 1000,
 	"max-steps" : 10,
 	"num-helper-theorems" : 25,
@@ -30,16 +30,18 @@ Solvers support a set of flags which governs how the proof states iterate over t
 
 ### Iterative Deepening Solver
 
-The iterative deepening solver is specified using the `IterativeDeepeningSolver` type, and has two parameters `max-depth` and `starting-depth` which govern the depth to which it searches to. Here is a partial example of an iterative deepening solver settings file:
+The iterative deepening solver is specified using the `IterativeDeepeningSolver` type, and has several parameters which govern the depth to which it searches to, amongst other things. Here is a (partial) example of an iterative deepening solver settings file:
 
 ```
 {
-	"name" : "Iterative-Deepening Solver",
+	"name" : "Iterative-Deepening Solver (you can change this)",
 	...
 	"solver" : {
 		"type" : "IterativeDeepeningSolver",
 		"max-depth" : 5,
 		"starting-depth" : 3,
+		"width-limit" : 50,
+		"width-limit-start-depth" : 2,
 		"no-repeats" : true,
 		"randomised" : true
 	},
@@ -47,9 +49,9 @@ The iterative deepening solver is specified using the `IterativeDeepeningSolver`
 }
 ```
 
-In order to create an iterative deepening solver, you must use the type `IterativeDeepeningSolver`. The new parameters are `max-depth` and `start-depth`. The former is the ultimate depth limit imposed on the iterative deepening search, and `start-depth` is the first depth limit. 
+In order to create an iterative deepening solver, you must use the type `IterativeDeepeningSolver`. The new parameters are `max-depth`, `start-depth`, `width-limit`, and `width-limit-start-depth`. `max-depth` is the ultimate depth limit imposed on the iterative deepening search, and `start-depth` is the first depth limit. `width-limit` keeps a limit on the branching factor, to reduce exponential blowup a bit. However, this width limit only applies at a particular depth and beyond - `width-limit-start-depth` is a nonnegative integer representing the lowest depth level where the width limit is put in place. If this were zero, it means it always applies. Note that if the width is not limited, it is likely that the solver will only explore one branch at the root, unless it is left running for ages.
 
-Setting the start depth higher means less wasted work for long proofs, but it makes finding short proofs much less efficient than they otherwise would be.
+Setting the start depth higher means less wasted work for long proofs, but it makes finding short proofs much less efficient than they otherwise would be. Tighter width limits means you will be able to explore proofs of greater depth, but any limit on the width is cutting into the search space (by just outright not exploring possibilities), so only use a tight width limit when the solver also has heuristics available to pick the best branches.
 
 Iterative deepening search will make use of any successor modifiers (e.g. stopping strategies) that are specified in the settings file (see below).
 

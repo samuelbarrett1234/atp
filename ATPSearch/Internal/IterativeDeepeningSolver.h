@@ -39,12 +39,19 @@ class IteratorManager;  // forward declaration
 class ATP_SEARCH_API IterativeDeepeningSolver : public ISolver
 {
 private:
+	/**
+	\brief A single element in the DFS stack
+	*/
 	struct StackFrame
 	{
 		// `iter` starts off as node->succ_begin()
 
 		logic::ProofStatePtr node;
 		logic::PfStateSuccIterPtr iter;
+
+		// equal to the number of times the iterator has been
+		// advanced
+		size_t iter_off;
 	};
 
 public:
@@ -62,6 +69,8 @@ public:
 	IterativeDeepeningSolver(logic::KnowledgeKernelPtr p_kernel,
 		size_t max_depth,
 		size_t starting_depth = 3,
+		size_t width_limit = 50,
+		size_t width_limit_start = 2,
 		logic::IterSettings iter_settings =
 		logic::iter_settings::DEFAULT,
 		std::unique_ptr<IteratorManager> p_iter_mgr = 
@@ -156,6 +165,8 @@ private:
 	const logic::IterSettings m_iter_settings;
 	const size_t m_max_depth;  // ultimate depth limit
 	const size_t m_starting_depth;
+	const size_t m_width_limit;
+	const size_t m_width_limit_start_depth;
 
 	logic::KnowledgeKernelPtr m_kernel;
 	std::unique_ptr<IteratorManager> m_iter_mgr;

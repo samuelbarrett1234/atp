@@ -25,17 +25,17 @@ namespace search
 
 IterativeDeepeningSolver::IterativeDeepeningSolver(
 	logic::KnowledgeKernelPtr p_kernel,
-	size_t max_depth,
-	size_t starting_depth,
+	size_t max_depth, size_t starting_depth,
+	size_t width_limit, size_t width_limit_start,
 	logic::IterSettings iter_settings,
 	std::unique_ptr<IteratorManager> p_iter_mgr) :
-	m_kernel(p_kernel),
-	m_max_depth(max_depth),
-	m_starting_depth(starting_depth),
-	m_iter_settings(iter_settings),
-	m_iter_mgr(std::move(p_iter_mgr))
+	m_kernel(p_kernel), m_max_depth(max_depth),
+	m_starting_depth(starting_depth), m_width_limit(width_limit),
+	m_width_limit_start_depth(width_limit_start),
+	m_iter_settings(iter_settings), m_iter_mgr(std::move(p_iter_mgr))
 {
 	ATP_SEARCH_PRECOND(starting_depth > 1);
+	ATP_SEARCH_PRECOND(width_limit > 0);
 	ATP_SEARCH_PRECOND(max_depth > starting_depth);
 	ATP_SEARCH_PRECOND(m_kernel != nullptr);
 	ATP_SEARCH_PRECOND(m_iter_mgr != nullptr);
@@ -156,6 +156,8 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 
 	ATP_SEARCH_ASSERT(st.back().iter != nullptr);
 	ATP_SEARCH_PRECOND(st.back().iter->valid());
+	ATP_SEARCH_ASSERT(st.size() < m_width_limit_start_depth ||
+		st.back().iter_off < m_width_limit);
 
 	auto expand_candidate = st.back().iter->get();
 
@@ -171,6 +173,7 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 	case logic::ProofCompletionState::NO_PROOF:
 		// try next candidate, this one won't do
 		st.back().iter->advance();
+		++st.back().iter_off;
 		break;
 
 	case logic::ProofCompletionState::UNFINISHED:
@@ -186,17 +189,33 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 			// explore this candidate if depth limits permit
 			st.push_back({
 				expand_candidate,
-				iter
+				iter,
+				0  // iter_off
 				});
 		}
 		// else do nothing because we aren't allowed to go any deeper
-		else st.back().iter->advance();
+		else
+		{
+			st.back().iter->advance();
+			++st.back().iter_off;
+		}
 
 		break;
 	}
 
-	// if we have exhausted the back frame
-	if (!st.back().iter->valid())
+	// returns true if the back of the stack is either invalid, or
+	// has reached its width limit (if it's deep enough to qualify
+	// for width limit)
+	auto stack_invalid = [&st, this]() -> bool
+	{
+		return (!st.back().iter->valid() ||
+			(st.size() >= m_width_limit_start_depth &&
+				st.back().iter_off >= m_width_limit));
+	};
+
+	// if we have exhausted the back frame, or the back frame has
+	// reached its width limit
+	if (stack_invalid())
 	{
 		// restore the stack back to a state where it is either empty
 		// or its back iterator is valid
@@ -210,12 +229,14 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 				ATP_SEARCH_ASSERT(st.back().iter != nullptr &&
 					st.back().iter->valid());
 				st.back().iter->advance();
+				++st.back().iter_off;
 			}
 
-		} while (!st.empty() && !st.back().iter->valid());
+		} while (!st.empty() && stack_invalid());
 
 		// now either the stack is empty or the iterator is valid
-		// and pointing to the next node we should expand
+		// and pointing to the next node we should expand (and is
+		// within its depth limits)
 		if (st.empty())
 		{
 			if (m_cur_depth_limits[i] < m_max_depth)
@@ -226,6 +247,7 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 				// with more depth:
 
 				++m_cur_depth_limits[i];
+				std::cout << "New depth limit " << m_cur_depth_limits[i] << std::endl;
 
 				// setup the stack again (because it has been
 				// emptied)
@@ -275,13 +297,12 @@ void IterativeDeepeningSolver::init_stack(size_t i)
 	ATP_SEARCH_PRECOND(i < m_stacks.size());
 	ATP_SEARCH_PRECOND(m_stacks[i].empty());
 
-	m_stacks[i].push_back(
-		StackFrame{
+	m_stacks[i].push_back({
 			m_kernel->begin_proof_of(m_targets->at(i),
 			m_iter_settings),
-			logic::PfStateSuccIterPtr()
-		}
-	);
+			logic::PfStateSuccIterPtr(),
+			0  // iter_off
+		});
 
 	if (m_stacks[i].back().node->completion_state()
 		!= logic::ProofCompletionState::UNFINISHED)

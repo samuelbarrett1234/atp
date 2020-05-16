@@ -36,6 +36,8 @@ bool StoppingIterator::valid() const
 {
 	const bool valid = !m_states.empty();
 	
+	// all successors must go through m_states before coming out of
+	// m_child
 	ATP_SEARCH_ASSERT(!valid || (m_child != nullptr
 		&& m_child->valid()));
 
@@ -58,9 +60,13 @@ void StoppingIterator::advance()
 	ATP_SEARCH_ASSERT(!m_child->valid() ||
 		m_stopping_strategy->is_stopped());
 
+	// the top element of m_states represents our current state, so
+	// when we advance we chuck out or (last) current state and
+	// obtain a new one
 	m_states.pop();
 
 	// if the child is invalid, we totally ignore m_stopping_strategy
+	// so don't bother notifying it of the new child
 	if (m_child->valid())
 		m_stopping_strategy->max_removed();
 
@@ -87,11 +93,17 @@ void StoppingIterator::forward()
 	boost::timer::cpu_timer timer;
 	timer.stop();  // timer starts by default when constructed
 
-	while (!m_stopping_strategy->is_stopped() && m_child->valid())
+	// we can only generate new successors if m_child is valid
+	// furthermore, if this is the case, we absolutely need new
+	// successors if m_states is empty, otherwise we follow the
+	// orders of the stopping strategy.
+	while ((m_states.empty() || !m_stopping_strategy->is_stopped())
+		&& m_child->valid())
 	{
 		timer.start();
 
-		// generate next successor
+		// generate next successor (make sure to call get/advance in
+		// this order)
 		auto p_new_state = m_child->get();
 		m_child->advance();
 

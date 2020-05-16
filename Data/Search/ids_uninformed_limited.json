@@ -7,7 +7,7 @@
 		"starting-depth" : 2,
 		"width-limit" : 15,
 		"width-limit-start-depth" : 1,
-		"no-repeats" : false,
+		"no-repeats" : true,
 		"randomised" : true
 	},
 	"step-size" : 2000,

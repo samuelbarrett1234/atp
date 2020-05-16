@@ -7,7 +7,7 @@
 		"starting-depth" : 2,
 		"width-limit" : 5,
 		"width-limit-start-depth" : 1,
-		"no-repeats" : false,
+		"no-repeats" : true,
 		"randomised" : true
 	},
 	"stopping-strategy" : {

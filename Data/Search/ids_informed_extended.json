@@ -5,16 +5,14 @@
 		"type" : "IterativeDeepeningSolver",
 		"max-depth" : 10,
 		"starting-depth" : 4,
-		"width-limit" : 10,
+		"width-limit" : 5,
 		"width-limit-start-depth" : 2,
 		"no-repeats" : true,
 		"randomised" : true
 	},
 	"stopping-strategy" : {
-		"type" : "BasicStoppingStrategy",
-		"initial-size" : 10,
-		"lambda" : 100.0,
-		"alpha" : 0.05
+		"type" : "FixedStoppingStrategy",
+		"size" : 10
 	},
 	"heuristic" : {
 		"type" : "EditDistanceHeuristic",

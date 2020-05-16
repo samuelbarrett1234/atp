@@ -14,11 +14,12 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 <div class="w3-row-padding w3-padding-64 w3-container">
 	<div class="w3-content">
 		<div class="w3-twothird">
-			<h1>Submit a task</h1>
-		<form action="submitted.php" method=post>
+		<h1>Try to prove a statement</h1>
+		<form action="proving.php" method=post>
 		<br>
-		Statement:
-		<input type=string name="stmt" class="w3-input" placeholder="Enter your statement" />
+		What statement do you want to try to prove?
+		<br>
+		<input type=string name="stmt" class="w3-input" placeholder="Enter the statement text" />
 		<br>
 		Context name:
 		<select name="ctx" class="w3-select">
@@ -34,15 +35,9 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			}
 			?>
 		</select>
-		<br><br>
-		Deadline (DD/MM/YYYY):
-		<input type=string name="deadline" class="w3-input" placeholder="Enter the deadline in the form DD/MM/YYYY" />
-		<br>
-		Priority:
-		<input type=float name="priority" class="w3-input" placeholder="Enter the priority of this task as a nonnegative real number" />
 		<br>
 		<br>
-		<input type=submit value="Go" class="w3-input w3-button">
+		<input type=submit value="Prove" class="w3-input w3-button">
 		</form>
 		</div>
 	</div>

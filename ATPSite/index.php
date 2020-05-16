@@ -28,9 +28,9 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
 	<div class="w3-content">
 		<div class="w3-twothird">
-			<h1>Prover Statistics</h1>
-			<h5 class="w3-padding-32">Here is what the prover has done so far:</h5>
-		<ul class="w3-text-grey">
+		<h1>Prover Statistics</h1>
+		<h5 class="w3-padding-32">Here is what the prover has done so far:</h5>
+		<ul class="w3-ul w3-text-grey">
 		<?php
 		$db = new SQLite3('../Data/DB/eqlogic.db');
 		

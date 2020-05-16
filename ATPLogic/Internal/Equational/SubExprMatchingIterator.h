@@ -123,13 +123,25 @@ private:
 	// each pair represents (free or const ID, type).
 	std::vector<std::pair<size_t, SyntaxNodeType>> m_free_const_enum;
 
-	// invariants:
-	// each m_rule_iters[i] is null or it is valid
-	// we are valid() iff there exists a null m_rule_iters[i] or a
-	// valid one (i.e we are invalid if all are non-null and invalid)
-	// m_rule_iters[m_cur_idx] is non-null and valid, or we are invalid
-	// we are invalid iff m_cur_idx == m_sub_expr_iters.size()
-	// and finally, m_sub_expr_iters.size() == m_rule_iters.size()
+	/*
+	INVARIANTS: we have two different sets of invariants for random
+	mode vs non-random mode
+
+	COMMON INVARIANTS:
+	we are valid iff m_cur_idx < m_rule_iters.size()
+
+	NON-RANDOM MODE
+	m_sub_expr_iters.size() == 1 holds the iterator over the subexprs
+	m_rule_iters[m_cur_idx] is the only non-null element (and it is
+	valid) whenever we are valid
+
+	RANDOM MODE
+	m_sub_expr_iters.size() == m_rule_iters.size()
+	each m_rule_iters[i] is null or it is valid
+	we are valid() iff there exists a null m_rule_iters[i] or a
+	valid one (i.e we are invalid if all are non-null and invalid)
+	m_rule_iters[m_cur_idx] is non-null and valid, or we are invalid
+	*/
 
 	std::vector<Statement::iterator> m_sub_expr_iters;
 	std::vector<std::shared_ptr<RuleMatchingIterator>> m_rule_iters;

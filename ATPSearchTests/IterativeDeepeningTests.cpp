@@ -101,9 +101,9 @@ BOOST_DATA_TEST_CASE(simple_proof_test,
 	// expansions (I think)
 	p_ids->step(
 #ifndef _DEBUG
-		20000  // this is waaaaay too slow for debug mode
+		200000  // this is waaaaay too slow for debug mode
 #else
-		100
+		1000
 #endif
 	);
 
@@ -144,11 +144,7 @@ BOOST_DATA_TEST_CASE(false_statement_tests,
 
 	// no proof should be found in any of these steps
 	p_ids->step(
-#ifndef _DEBUG
-		1000  // this is waaaaay too slow for debug mode
-#else
-		100
-#endif
+		1000
 	);
 
 	auto proofs = p_ids->get_proofs();

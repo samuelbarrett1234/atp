@@ -45,7 +45,13 @@ ProcessPtr create_proof_process(
 	p_proc->get_data<0>().ctx_id = ctx_id;
 	p_proc->get_data<0>().ss_id = ss_id;
 	p_proc->get_data<0>().settings = search_settings;
-	p_proc->get_data<0>().target_thms = std::move(p_target_stmts);
+	p_proc->get_data<0>().target_thms =  // normalise the statements!
+		p_proc->get_data<0>().lang->normalise(p_target_stmts);
+
+	ATP_CORE_LOG(debug) << "Created proof process to handle " <<
+		p_target_stmts->size() << " target statements, but there "
+		"were " << p_proc->get_data<0>().target_thms->size() <<
+		" after normalisation.";
 
 	return p_proc;
 }

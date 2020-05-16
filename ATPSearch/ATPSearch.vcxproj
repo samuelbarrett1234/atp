@@ -171,6 +171,7 @@
   <ItemGroup>
     <ClInclude Include="ATPSearch.h" />
     <ClInclude Include="ATPSearchAPI.h" />
+    <ClInclude Include="ATPSearchLog.h" />
     <ClInclude Include="Interfaces\IStoppingStrategy.h" />
     <ClInclude Include="Interfaces\ISolver.h" />
     <ClInclude Include="Interfaces\IHeuristic.h" />

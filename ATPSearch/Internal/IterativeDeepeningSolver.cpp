@@ -11,6 +11,7 @@
 #include <boost/timer/timer.hpp>
 #include <boost/bind.hpp>
 #include <boost/phoenix.hpp>
+#include "../ATPSearchLog.h"
 #include "IteratorManager.h"
 
 
@@ -248,6 +249,10 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 
 				++m_cur_depth_limits[i];
 
+				ATP_SEARCH_LOG(debug) << "Depth limit for proof of "
+					<< m_targets->at(i).to_str() << " increased to "
+					<< m_cur_depth_limits[i];
+
 				// setup the stack again (because it has been
 				// emptied)
 				init_stack(i);
@@ -257,6 +262,12 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 				// we have reached the ultimate depth limit with no
 				// proof, so just bail:
 				m_pf_states[i] = logic::ProofCompletionState::NO_PROOF;
+
+				ATP_SEARCH_LOG(debug) << "Ultimate depth limit "
+					"reached during search for proof of "
+					<< m_targets->at(i).to_str() << ". Ultimate "
+					"depth limit was "
+					<< m_max_depth;
 			}
 		}
 		// else we are all good and can handle it on the next step

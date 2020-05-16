@@ -102,6 +102,9 @@
     <ClInclude Include="Internal\EditDistanceHeuristic.h">
       <Filter>Header Files\Internal\Heuristics</Filter>
     </ClInclude>
+    <ClInclude Include="ATPSearchLog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp">

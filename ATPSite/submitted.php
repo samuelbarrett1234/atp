@@ -19,15 +19,15 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			$db = new SQLite3('../Data/DB/eqlogic.db');
 			
 			// convert deadline
-			$stt = strtotime($_POST['deadline']);
-			if ($stt === false)
+			$deadline_formatted = DateTime::createFromFormat('d/m/Y', $_POST['deadline']);
+			if ($deadline_formatted === false)
 			{
 				// failed - bad date!				
 				echo "<h1>Submission failed</h1>";
 				echo "<h5 class=\"w3-padding-32\">The deadline '{$_POST['deadline']}' was invalid.</h5>";
 				exit();
 			}
-			$deadline = unixtojd($stt);
+			$deadline = unixtojd($deadline_formatted->getTimestamp());
 			
 			// create theorem
 			$prep = $db->prepare("INSERT OR IGNORE INTO theorems(stmt, ctx) VALUES (:stmt, (SELECT ctx_id FROM model_contexts WHERE name = :ctx_name))");

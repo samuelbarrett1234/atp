@@ -34,7 +34,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			}
 			?>
 		</select>
-		<br>
+		<br><br>
 		Deadline (DD/MM/YYYY):
 		<input type=string name="deadline" class="w3-input" />
 		<br>

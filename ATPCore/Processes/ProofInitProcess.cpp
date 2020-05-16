@@ -76,8 +76,6 @@ public:
 			force_fail();
 			return;
 		}
-
-		m_proof_data.solver->set_targets(m_setup_data.target_thms);
 	}
 
 protected:
@@ -171,6 +169,11 @@ protected:
 		else ATP_CORE_LOG(warning) <<
 			"Proof process could not find any "
 			"theorems to load from the database.";
+
+		// make sure to do this AFTER the theorems have been set up
+		// in the knowledge kernel, because this constructs iterators
+		// which rely on knowing what's in the kernel beforehand
+		m_proof_data.solver->set_targets(m_setup_data.target_thms);
 
 		// transfer everything over:
 		static_cast<proc_data::LogicEssentials&>(m_proof_data)

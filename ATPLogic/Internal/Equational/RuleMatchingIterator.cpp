@@ -78,8 +78,11 @@ RuleMatchingIterator::RuleMatchingIterator(
 
 bool RuleMatchingIterator::valid() const
 {
-	const bool valid = !(m_match_index ==
+	ATP_LOGIC_ASSERT(m_matchings.size() ==
 		m_ker.num_matching_rules());
+
+	const bool valid = !(m_match_index ==
+		m_matchings.size());
 
 #ifdef ATP_LOGIC_DEFENSIVE
 	// check that we are valid iff there exists i such that the ith
@@ -105,6 +108,8 @@ ProofStatePtr RuleMatchingIterator::get() const
 	ATP_LOGIC_ASSERT(!m_is_no_matching[m_match_index]);
 	ATP_LOGIC_ASSERT(m_matchings[m_match_index] != nullptr);
 	ATP_LOGIC_ASSERT(m_matchings[m_match_index]->valid());
+	ATP_LOGIC_ASSERT(m_matchings.size() ==
+		m_ker.num_matching_rules());
 
 	return m_matchings[m_match_index]->get();
 }
@@ -114,6 +119,8 @@ void RuleMatchingIterator::advance()
 {
 	ATP_LOGIC_PRECOND(valid());
 	ATP_LOGIC_ASSERT(m_match_index < m_matchings.size());
+	ATP_LOGIC_ASSERT(m_matchings.size() ==
+		m_ker.num_matching_rules());
 
 	std::vector<bool> is_good;
 	is_good.resize(m_matchings.size(), false);
@@ -138,7 +145,7 @@ void RuleMatchingIterator::advance()
 				{
 					// generate a new random index
 					m_match_index = m_ker.generate_rand() %
-						m_ker.num_matching_rules();
+						m_matchings.size();
 				}
 				// in non-randomised mode we don't advance until the
 				// current one becomes invalid
@@ -198,6 +205,8 @@ size_t RuleMatchingIterator::size() const
 	ATP_LOGIC_PRECOND(valid());
 	ATP_LOGIC_ASSERT(m_matchings[m_match_index] != nullptr);
 	ATP_LOGIC_ASSERT(m_matchings[m_match_index]->valid());
+	ATP_LOGIC_ASSERT(m_matchings.size() ==
+		m_ker.num_matching_rules());
 
 	// count up ALL the memory we're using
 	size_t mem = 1;
@@ -214,6 +223,8 @@ void RuleMatchingIterator::rebuild_current()
 	ATP_LOGIC_PRECOND(valid());
 	ATP_LOGIC_PRECOND(m_matchings[m_match_index] == nullptr);
 	ATP_LOGIC_PRECOND(!m_is_no_matching[m_match_index]);
+	ATP_LOGIC_ASSERT(m_matchings.size() ==
+		m_ker.num_matching_rules());
 
 	FreeVarMap<Expression> match_subs;
 

@@ -37,9 +37,9 @@ bool StoppingIterator::valid() const
 	const bool valid = !m_states.empty();
 	
 	// all successors must go through m_states before coming out of
-	// m_child
-	ATP_SEARCH_ASSERT(!valid || (m_child != nullptr
-		&& m_child->valid()));
+	// m_child, thus it cannot be the case that m_states is empty
+	// but m_child is valid
+	ATP_SEARCH_ASSERT(valid || !m_child->valid());
 
 	return valid;
 }

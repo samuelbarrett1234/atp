@@ -73,28 +73,28 @@
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPStats\;$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPStats\;$(SolutionDir)ATPDatabase\;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPStats\;$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPStats\;$(SolutionDir)ATPDatabase\;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPStats\;$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPStats\;$(SolutionDir)ATPDatabase\;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Output\</OutDir>
     <IntDir>$(SolutionDir)Temp\$(ProjectName)_$(Configuration)$(Platform)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)$(Platform)</TargetName>
-    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPStats\;$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_DIR);$(SolutionDir)ATPLogic\;$(SolutionDir)ATPStats\;$(SolutionDir)ATPDatabase\;$(IncludePath)</IncludePath>
     <LibraryPath>$(OutDir);$(BOOST_DIR)stage\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -109,7 +109,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;ATPStats_$(Configuration)$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;ATPStats_$(Configuration)$(Platform).lib;ATPDatabase_$(Configuration)$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -124,7 +124,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;ATPStats_$(Configuration)$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;ATPStats_$(Configuration)$(Platform).lib;ATPDatabase_$(Configuration)$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -143,7 +143,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;ATPStats_$(Configuration)$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;ATPStats_$(Configuration)$(Platform).lib;ATPDatabase_$(Configuration)$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -162,7 +162,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;ATPStats_$(Configuration)$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ATPLogic_$(Configuration)$(Platform).lib;ATPStats_$(Configuration)$(Platform).lib;ATPDatabase_$(Configuration)$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -172,11 +172,14 @@
     <ClInclude Include="ATPSearch.h" />
     <ClInclude Include="ATPSearchAPI.h" />
     <ClInclude Include="ATPSearchLog.h" />
+    <ClInclude Include="Interfaces\ISelectionStrategy.h" />
     <ClInclude Include="Interfaces\IStoppingStrategy.h" />
     <ClInclude Include="Interfaces\ISolver.h" />
     <ClInclude Include="Interfaces\IHeuristic.h" />
     <ClInclude Include="Internal\BasicStoppingStrategy.h" />
     <ClInclude Include="Internal\EditDistanceHeuristic.h" />
+    <ClInclude Include="Internal\EditDistanceSelectionStrategy.h" />
+    <ClInclude Include="Internal\FixedSelectionStrategy.h" />
     <ClInclude Include="Internal\FixedStoppingStrategy.h" />
     <ClInclude Include="Internal\IterativeDeepeningSolver.h" />
     <ClInclude Include="Internal\IteratorManager.h" />
@@ -190,6 +193,8 @@
     <ClCompile Include="ATPSearch.cpp" />
     <ClCompile Include="Internal\BasicStoppingStrategy.cpp" />
     <ClCompile Include="Internal\EditDistanceHeuristic.cpp" />
+    <ClCompile Include="Internal\EditDistanceSelectionStrategy.cpp" />
+    <ClCompile Include="Internal\FixedSelectionStrategy.cpp" />
     <ClCompile Include="Internal\FixedStoppingStrategy.cpp" />
     <ClCompile Include="Internal\IterativeDeepeningSolver.cpp" />
     <ClCompile Include="Internal\IteratorManager.cpp" />

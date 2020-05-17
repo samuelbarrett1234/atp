@@ -52,6 +52,12 @@
     <Filter Include="Header Files\Search Settings">
       <UniqueIdentifier>{bb7ac8ac-f0fc-4c97-849f-0d9731ce0f0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Internal\Selection Strategies">
+      <UniqueIdentifier>{d0716a0c-e823-4358-a9ae-0ddb1e449159}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Internal\Selection Strategies">
+      <UniqueIdentifier>{decc3b10-e2b7-47a0-8532-3ec249ee463a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -105,6 +111,15 @@
     <ClInclude Include="ATPSearchLog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Interfaces\ISelectionStrategy.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\FixedSelectionStrategy.h">
+      <Filter>Header Files\Internal\Selection Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\EditDistanceSelectionStrategy.h">
+      <Filter>Header Files\Internal\Selection Strategies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp">
@@ -139,6 +154,12 @@
     </ClCompile>
     <ClCompile Include="Internal\EditDistanceHeuristic.cpp">
       <Filter>Source Files\Internal\Heuristics</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\FixedSelectionStrategy.cpp">
+      <Filter>Source Files\Internal\Selection Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\EditDistanceSelectionStrategy.cpp">
+      <Filter>Source Files\Internal\Selection Strategies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

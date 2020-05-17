@@ -157,7 +157,7 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 
 	ATP_SEARCH_ASSERT(st.back().iter != nullptr);
 	ATP_SEARCH_PRECOND(st.back().iter->valid());
-	ATP_SEARCH_ASSERT(st.size() < m_width_limit_start_depth ||
+	ATP_SEARCH_ASSERT(st.size() <= m_width_limit_start_depth ||
 		st.back().iter_off < m_width_limit);
 
 	auto expand_candidate = st.back().iter->get();
@@ -210,7 +210,7 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 	auto stack_invalid = [&st, this]() -> bool
 	{
 		return (!st.back().iter->valid() ||
-			(st.size() >= m_width_limit_start_depth &&
+			(st.size() > m_width_limit_start_depth &&
 				st.back().iter_off >= m_width_limit));
 	};
 

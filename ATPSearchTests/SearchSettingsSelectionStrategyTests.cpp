@@ -9,7 +9,10 @@
 */
 
 
+// disable BOOST_LOG_DYN_LINK redefinition
+#pragma warning (disable:4005)
 #include <Internal/SearchSettingsSelectionStrategies.h>
+#pragma warning (default:4005)
 #include <sstream>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>

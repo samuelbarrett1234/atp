@@ -12,6 +12,7 @@
 #include <boost/bind.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
+#include "../ATPSearchLog.h"
 #include "SearchSettingsHeuristics.h"
 #include "SearchSettingsSuccIters.h"
 #include "SearchSettingsSolvers.h"
@@ -41,7 +42,11 @@ bool create_solver_creator(
 	{
 		// cannot have a stopping strategy without a heuristic
 		if (!(bool)heuristic_creator)
+		{
+			ATP_SEARCH_LOG(error) << "Search settings error: cannot "
+				"have a stopping strategy without a heuristic.";
 			return false;
+		}
 
 		if (!try_load_succ_iter_settings(succ_iter_creator,
 			*stop_strat_ptree))
@@ -117,7 +122,11 @@ bool load_search_settings(
 		// check for bad values:
 		if (p_out_settings->max_steps == 0 ||
 			p_out_settings->step_size == 0)
+		{
+			ATP_SEARCH_LOG(error) << "Search settings error: bad"
+				"\"max-steps\" or \"step-size\".";
 			return false;
+		}
 
 		// the default seed is based on the current time
 		if (ptree.get<std::string>("seed", "time") == "time")
@@ -163,8 +172,11 @@ bool load_search_settings(
 		// else we are done
 		return true;
 	}
-	catch(pt::ptree_error&)
+	catch(pt::ptree_error& ex)
 	{
+		ATP_SEARCH_LOG(error) << "Search settings error: exception "
+			"was thrown. Message: " << ex.what();
+		
 		// in case we had already loaded these
 		p_out_settings->create_solver = decltype(
 			p_out_settings->create_solver)();

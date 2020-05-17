@@ -7,6 +7,7 @@
 
 #include "SearchSettingsSuccIters.h"
 #include "IteratorManager.h"
+#include "../ATPSearchLog.h"
 
 
 namespace atp
@@ -30,6 +31,9 @@ bool try_load_succ_iter_settings(SuccIterCreator& creator,
 	}
 	else
 	{
+		ATP_SEARCH_LOG(error) << "Search settings error: bad "
+			"stopping strategy type \"" << type << '"';
+
 		return false;  // invalid type
 	}
 }
@@ -41,7 +45,12 @@ bool try_load_fixed_stopping_strategy(SuccIterCreator& creator,
 	const size_t size = ptree.get<size_t>("size");
 
 	if (size == 0)
+	{
+		ATP_SEARCH_LOG(error) << "Search settings error: cannot have"
+			" size 0 for fixed stopping strategy size.";
+
 		return false;
+	}
 
 	creator = boost::bind(
 		&IteratorManager::set_fixed_stopping_strategy,
@@ -60,7 +69,12 @@ bool try_load_basic_stopping_strategy(SuccIterCreator& creator,
 
 	if (initial_size <= 1 || lambda <= 0.0f || alpha <= 0.0f
 		|| alpha >= 1.0f)
+	{
+		ATP_SEARCH_LOG(error) << "Search settings error: bad "
+			"parameter values for basic stopping strategy.";
+
 		return false;
+	}
 
 	creator = boost::bind(
 		&IteratorManager::set_basic_stopping_strategy,

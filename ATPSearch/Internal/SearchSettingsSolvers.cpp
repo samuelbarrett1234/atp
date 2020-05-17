@@ -6,9 +6,10 @@
 
 
 #include "SearchSettingsSolvers.h"
+#include <ATPLogic.h>
+#include "../ATPSearchLog.h"
 #include "IterativeDeepeningSolver.h"
 #include "IteratorManager.h"
-#include <ATPLogic.h>
 
 
 namespace atp
@@ -33,6 +34,9 @@ bool try_create_solver(
 	}
 	else
 	{
+		ATP_SEARCH_LOG(error) << "Search settings error: bad solver "
+			"type \"" << solver_type << '"';
+
 		return false;  // bad solver type
 	}
 }
@@ -82,7 +86,11 @@ bool try_create_IDS(
 
 	if (starting_depth <= 1 || starting_depth >= max_depth ||
 		width_limit == 0)
-		return false;  // invalid params
+	{
+		ATP_SEARCH_LOG(error) << "Search settings error: bad IDS "
+			"parameter values.";
+		return false;
+	}
 
 	creator = [max_depth, starting_depth, width_limit,
 		width_limit_start_depth, iter_settings](

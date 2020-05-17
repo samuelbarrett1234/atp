@@ -18,6 +18,7 @@
 
 #include "SearchSettingsHeuristics.h"
 #include "EditDistanceHeuristic.h"
+#include "../ATPSearchLog.h"
 
 
 namespace atp
@@ -42,6 +43,9 @@ bool try_create_heuristic(
 	}
 	else
 	{
+		ATP_SEARCH_LOG(error) << "Search settings error: bad "
+			"heuristic type \"" << heuristic_type << '"';
+
 		return false;  // bad heuristic type
 	}
 }
@@ -58,7 +62,12 @@ bool try_create_edit_distance_heuristic(
 		ptree.get<float>("symbol-match-benefit");
 
 	if (symb_match_benefit <= 0.0f || symb_mismatch_cost <= 0.0f)
-		return false;  // bad parameters
+	{
+		ATP_SEARCH_LOG(error) << "Search settings error: bad edit "
+			"distance parameters.";
+
+		return false;
+	}
 
 	/*
 	Do NOT share this heuristic between solvers, it is not thread-

@@ -7,6 +7,7 @@
 
 
 #include "SearchSettingsSelectionStrategies.h"
+#include "../ATPSearchLog.h"
 #include "FixedSelectionStrategy.h"
 #include "EditDistanceSelectionStrategy.h"
 #include "SearchSettingsSelectionStrategies.h"
@@ -34,8 +35,11 @@ bool try_create_selection_strategy(
 		return try_create_edit_dist_selection_strategy(ptree,
 			creator);
 	}
-	else  // not default, but bad type
+	else
 	{
+		ATP_SEARCH_LOG(error) << "Search settings error: bad "
+			"selection strategy type \"" << type << '"';
+
 		return false;
 	}
 }
@@ -81,6 +85,9 @@ bool try_create_edit_dist_selection_strategy(
 	// check for bad inputs:
 	if (num_load < num_help)
 	{
+		ATP_SEARCH_LOG(error) << "Search settings error: for the "
+			"edit distance selection strategy, you cannot have "
+			"\"num-thms-load\" < \"num-thms-help\".";
 		return false;
 	}
 

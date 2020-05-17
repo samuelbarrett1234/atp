@@ -11,7 +11,9 @@
 
 #include <sstream>
 #include <ATPLogic.h>
+#pragma warning (disable:4005)
 #include <ATPSearch.h>
+#pragma warning (default:4005)
 #include "Test.h"
 
 

@@ -231,6 +231,15 @@ void IterativeDeepeningSolver::expand_next(size_t i)
 					st.back().iter->valid());
 				st.back().iter->advance();
 				++st.back().iter_off;
+
+				// log details about the root node
+				if (st.size() == 1)
+				{
+					ATP_SEARCH_LOG(debug) << "Advanced root of search tree "
+						<< "to offset " << st.back().iter_off << " with "
+						"depth limit " << m_cur_depth_limits[i] << " in "
+						"proof of " << m_targets->at(i).to_str();
+				}
 			}
 
 		} while (!st.empty() && stack_invalid());

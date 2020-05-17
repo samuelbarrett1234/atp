@@ -15,7 +15,6 @@
 #include <ATPLogic.h>
 #include <Internal/Equational/Expression.h>
 #include "../ATPStatsAPI.h"
-#include "EditDistanceUtility.h"
 #include "../ATPStatsEditDistance.h"
 
 
@@ -33,6 +32,10 @@ namespace stats
 	to the logic type so is more efficient, and (ii) caches
 	information between calls.
 
+\note The returned value is not a distance per se, as it is signed.
+	It is more of a heuristic inspired by edit distance than any true
+	distance metric.
+
 \warning This class is **NOT** thread safe, please use a different
 	version of this heuristic for each solver object.
 */
@@ -42,44 +45,19 @@ class ATP_STATS_API EquationalEditDistanceTracker :
 private:
 	typedef logic::equational::Expression Expression;
 
-	/**
-	\brief A hash function for equational expressions
-	*/
-	struct ExprHashFunc
-	{
-		size_t operator()(const Expression& expr) const;
-	};
-
-	/**
-	\brief A hash function for pairs of equational expressions
-	*/
-	struct ExprPairHashFunc
-	{
-		ExprHashFunc ehf;
-
-		size_t operator()(const std::pair<Expression,
-			Expression>& p) const;
-	};
-
-	/**
-	\brief An equality function for pairs of equational expressions,
-		needed for the unordered map which stores them.
-
-	\note Edit distance doesn't involve free variable IDs, so here we
-		only need to check equivalence! Also, distance is symmetric,
-		so check equivalence for the pairs in both directions.
-	*/
-	struct ExprPairEqFunc
-	{
-		bool operator()(const std::pair<Expression, Expression>& a,
-			const std::pair<Expression, Expression>& b) const;
-	};
-
-	typedef std::unordered_map<std::pair<Expression, Expression>,
-		float, ExprPairHashFunc, ExprPairEqFunc> EditDistMemoisation;
+	// mapping of hash codes to edit distances
+	typedef std::map<size_t, float> EditDistMemoisation;
 
 public:
-	EquationalEditDistanceTracker(EditDistSubCosts sub_costs);
+	/**
+	\param match_benefit A nonnegative number representing the
+		DECREASE in edit distance PER DEPTH OF MATCHING
+
+	\param unmatch_cost A nonnegative number representing the
+		increase in edit distance when a pair of symbols are not
+		matched.
+	*/
+	EquationalEditDistanceTracker(float match_benefit, float unmatch_cost);
 
 	float edit_distance(const logic::IStatement& stmt1,
 		const logic::IStatement& stmt2) override;
@@ -92,30 +70,30 @@ private:
 	/**
 	\brief Helper function for computing edit distance between exprs
 
-	\details This function is still thread safe.
-	*/
-	float edit_distance(const Expression& expr1,
-		const Expression& expr2);
-
-	/**
-	\brief This function ensures the edit distance of the two given
-		expressions is present in the m_dists cache
-
-	\param lock This is a lock which should be initialised
-		with read-only access, and this function may attempt to
-		upgrade it. It is assumed to be locked.
+	\param depth The depth of these two expressions, where 0 is the
+		depth of the root.
 
 	\returns The cost that was calculated / cached
-
-	\pre lock.owns_lock()
-
-	\post !lock.owns_lock()
 	*/
-	float ensure_is_computed(
-		const std::pair<const Expression&, const Expression&>& expr_pair);
+	float edit_distance(const Expression& expr1,
+		const Expression& expr2, size_t depth);
+
+	/**
+	\brief Compute hash function of expression which is invariant to
+		free variable renaming.
+	*/
+	size_t hash_expr(const Expression& expr) const;
+
+	/**
+	\brief Compute hash function of two expressions which is
+		invariant to free variable renaming, and is also invairnat
+		to switching the order of the two
+	*/
+	size_t hash_exprs(const Expression& expr1,
+		const Expression& expr2) const;
 
 private:
-	EditDistSubCosts m_sub_costs;
+	const float m_match_benefit, m_unmatch_cost;
 	EditDistMemoisation m_dists;
 };
 

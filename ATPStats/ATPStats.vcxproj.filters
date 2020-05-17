@@ -33,9 +33,6 @@
     <ClInclude Include="Internal\EquationalEditDistance.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\EditDistanceUtility.h">
-      <Filter>Header Files\Internal</Filter>
-    </ClInclude>
     <ClInclude Include="ATPStatsMinAssignment.h">
       <Filter>Header Files</Filter>
     </ClInclude>

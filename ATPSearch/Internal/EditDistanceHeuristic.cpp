@@ -36,33 +36,10 @@ EditDistanceHeuristic::EditDistanceHeuristic(
 	ATP_SEARCH_PRECOND(m_p > 0.0f);
 	ATP_SEARCH_PRECOND(symbol_mismatch_cost > 0.0f);
 
-	// get all the symbols in the model context
-
-	m_all_symbols = p_ctx->all_function_symbol_ids();
-	auto temp_arr = p_ctx->all_constant_symbol_ids();
-	m_all_symbols.insert(m_all_symbols.end(),
-		temp_arr.begin(), temp_arr.end());
-
-	stats::EditDistSubCosts sub_costs;
-
-	// construct substitution cost mapping
-	for (size_t id1 : m_all_symbols)
-	{
-		for (size_t id2 : m_all_symbols)
-		{
-			if (p_ctx->symbol_arity(id1)
-				>= p_ctx->symbol_arity(id2))
-			{
-				sub_costs[std::make_pair(id1, id2)]
-					= ((id1 == id2) ? 0.0f : symbol_mismatch_cost);
-			}
-		}
-	}
-
-	// TEMP
+	// TEMP (todo: don't specialise to equational logic)
 	m_ed = stats::create_edit_dist(
 		logic::LangType::EQUATIONAL_LOGIC,
-		std::move(sub_costs));
+		0.1f * symbol_mismatch_cost, symbol_mismatch_cost);
 }
 
 
@@ -104,14 +81,14 @@ float eqlogic_edit_distance(
 	float utility = 0.0f;
 	for (float x : dists.front())
 	{
-		ATP_SEARCH_ASSERT(x >= 0.0f);
-
-		if (x == 0.0f)
-			utility += 1.0f;
-		else
-			utility += 1.0f / (std::powf(x, p) + 1.0f);
+		// higher distance means worse, so use negative
+		// (note that x may be negative, as edit distance isn't
+		// a distance metric, rather just a distance-inspired
+		// heuristic)
+		utility += -x;
 	}
 
+	// divide by size just to normalise things a bit
 	return utility / (float)dists.front().size();
 }
 

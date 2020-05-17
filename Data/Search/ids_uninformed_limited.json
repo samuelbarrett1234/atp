@@ -13,6 +13,6 @@
 	"step-size" : 2000,
 	"max-steps" : 15,
 	"num-helper-theorems" : 10,
-	"helper-theorems-factor" : 5,
+	"helper-theorems-factor" : 20,
 	"seed" : "time"
 }

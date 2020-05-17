@@ -15,47 +15,23 @@
 
 using atp::stats::EditDistancePtr;
 using atp::stats::create_edit_dist;
-using atp::stats::EditDistSubCosts;
 using atp::logic::StmtFormat;
 
 
 struct EditDistanceTestsFixture :
 	public LogicSetupFixture
 {
-	EditDistanceTestsFixture()
+	EditDistanceTestsFixture() :
+		match_benefit(0.0f), unmatch_cost(10.0f)
 	{
 		// setup costs
 
-		sub_costs[std::make_pair(
-			p_ctx->symbol_id("e"), p_ctx->symbol_id("e")
-		)] = 0.0f;
-
-		sub_costs[std::make_pair(
-			p_ctx->symbol_id("i"), p_ctx->symbol_id("e")
-		)] = 10.0f;
-
-		sub_costs[std::make_pair(
-			p_ctx->symbol_id("i"), p_ctx->symbol_id("i")
-		)] = 0.0f;
-
-		sub_costs[std::make_pair(
-			p_ctx->symbol_id("*"), p_ctx->symbol_id("e")
-		)] = 10.0f;
-
-		sub_costs[std::make_pair(
-			p_ctx->symbol_id("*"), p_ctx->symbol_id("i")
-		)] = 10.0f;
-
-		sub_costs[std::make_pair(
-			p_ctx->symbol_id("*"), p_ctx->symbol_id("*")
-		)] = 0.0f;
-
 		p_ed = create_edit_dist(
 			atp::logic::LangType::EQUATIONAL_LOGIC,
-			sub_costs);
+			match_benefit, unmatch_cost);
 	}
 
-	EditDistSubCosts sub_costs;
+	float match_benefit, unmatch_cost;
 	EditDistancePtr p_ed;
 };
 

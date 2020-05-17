@@ -215,8 +215,11 @@ private:
 			// bigger distance means smaller utility)
 			for (float x : distance_matrix[i])
 			{
-				// x may be zero, don't forget
-				utilities[i] += 1.0f / (x + 1.0f);
+				// higher distance means worse, so use negative
+				// (note that x may be negative, as edit distance
+				// isn't a distance metric, rather just a distance-
+				// inspired heuristic)
+				utilities[i] += -x;
 			}
 		}
 
@@ -249,33 +252,11 @@ private:
 
 	stats::EditDistancePtr create_edit_distance_obj() const
 	{
-		stats::EditDistSubCosts sub_costs;
-		auto all_symbols =
-			m_setup_data.ctx->all_function_symbol_ids();
-		auto temp_arr =
-			m_setup_data.ctx->all_constant_symbol_ids();
-		all_symbols.insert(all_symbols.end(), temp_arr.begin(),
-			temp_arr.end());
-
-		// construct substitution cost mapping
-		for (size_t id1 : all_symbols)
-		{
-			for (size_t id2 : all_symbols)
-			{
-				if (m_setup_data.ctx->symbol_arity(id1)
-					>= m_setup_data.ctx->symbol_arity(id2))
-				{
-					sub_costs[std::make_pair(id1, id2)]
-						= ((id1 == id2) ? 0.0f :
-							m_setup_data.settings.ed_symb_mismatch_cost);
-				}
-			}
-		}
-
-		// TEMP
+		// TEMP (todo: don't specialise to equational logic)
 		return stats::create_edit_dist(
 			logic::LangType::EQUATIONAL_LOGIC,
-			std::move(sub_costs));
+			0.1f * m_setup_data.settings.ed_symb_mismatch_cost,
+			m_setup_data.settings.ed_symb_mismatch_cost);
 	}
 
 private:

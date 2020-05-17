@@ -13,7 +13,6 @@
 #include <vector>
 #include <ATPLogic.h>
 #include "ATPStatsAPI.h"
-#include "Internal/EditDistanceUtility.h"
 
 
 namespace atp
@@ -48,11 +47,16 @@ typedef std::shared_ptr<IEditDistance> EditDistancePtr;
 \brief Create a new edit distance calculator object for the given
 	logic type and substitution costs.
 
-\see EditDistSubCosts
+\param match_benefit A nonnegative number representing the
+	DECREASE in edit distance PER DEPTH OF MATCHING
+
+\param unmatch_cost A nonnegative number representing the
+	increase in edit distance when a pair of symbols are not
+	matched.
 */
 ATP_STATS_API EditDistancePtr create_edit_dist(
 	logic::LangType lang_type,
-	EditDistSubCosts sub_costs);
+	float match_benefit, float unmatch_cost);
 
 
 }  // namespace stats

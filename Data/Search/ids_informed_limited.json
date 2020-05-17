@@ -19,9 +19,9 @@
 		"p" : 3.0,
 		"symbol-mismatch-cost" : 10.0
 	},
-	"step-size" : 500,
+	"step-size" : 750,
 	"max-steps" : 10,
 	"num-helper-theorems" : 10,
-	"helper-theorems-factor" : 5,
+	"helper-theorems-factor" : 20,
 	"seed" : "time"
 }

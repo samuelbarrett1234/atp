@@ -175,7 +175,6 @@
     <ClInclude Include="ATPStatsHMM.h" />
     <ClInclude Include="ATPStatsMinAssignment.h" />
     <ClInclude Include="ATPStatsPfTargetSelector.h" />
-    <ClInclude Include="Internal\EditDistanceUtility.h" />
     <ClInclude Include="Internal\EquationalEditDistance.h" />
   </ItemGroup>
   <ItemGroup>

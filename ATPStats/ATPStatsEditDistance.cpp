@@ -18,13 +18,13 @@ namespace stats
 
 EditDistancePtr create_edit_dist(
 	logic::LangType lang_type,
-	EditDistSubCosts sub_costs)
+	float match_benefit, float unmatch_cost)
 {
 	switch (lang_type)
 	{
 	case logic::LangType::EQUATIONAL_LOGIC:
 		return std::make_shared<EquationalEditDistanceTracker>(
-			std::move(sub_costs));
+			match_benefit, unmatch_cost);
 
 	default:
 		ATP_STATS_PRECOND(false && "Bad logic type!");

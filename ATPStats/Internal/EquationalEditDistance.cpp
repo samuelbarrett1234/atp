@@ -25,57 +25,13 @@ namespace stats
 {
 
 
-size_t EquationalEditDistanceTracker::ExprHashFunc::operator()(
-	const Expression& expr) const
-{
-	// prime numbers in this function are arbitrary
-
-	// must NOT depend on actual ID
-	auto free_func = boost::phoenix::val(1013);
-	auto const_func = phxargs::arg1 * 1523;
-	auto f_func = [](size_t id,
-		auto child_begin, auto child_end)
-	{
-		size_t hash = id * 2029;
-		for (auto iter = child_begin; iter != child_end; ++iter)
-		{
-			hash = 3037 * hash + 4013 * (*iter);
-		}
-		return hash;
-	};
-	return expr.fold<size_t>(free_func, const_func, f_func);
-}
-
-
-size_t EquationalEditDistanceTracker::ExprPairHashFunc::operator()(
-	const std::pair<Expression, Expression>& p) const
-{
-	const size_t a = ehf(p.first),
-		b = ehf(p.second);
-
-	// it is important that this function is symmetric in a and b
-	return std::max(a ^ b, b ^ a);
-}
-
-
-bool EquationalEditDistanceTracker::ExprPairEqFunc::operator()(
-	const std::pair<Expression, Expression>& a,
-	const std::pair<Expression, Expression>& b) const
-{
-	// edit distance is invariant to free variable renaming and
-	// flipping about the equals sign - so we should reflect those
-	// symmetries in the unordered_map storage for maximum efficiency
-	return (a.first.equivalent(b.first) &&
-		a.second.equivalent(b.second))
-		||
-		(a.first.equivalent(b.second) &&
-			a.second.equivalent(b.first));
-}
-
-
 EquationalEditDistanceTracker::EquationalEditDistanceTracker(
-	EditDistSubCosts sub_costs) : m_sub_costs(std::move(sub_costs))
-{ }
+	float match_benefit, float unmatch_cost) :
+	m_match_benefit(match_benefit), m_unmatch_cost(unmatch_cost)
+{
+	ATP_STATS_PRECOND(m_match_benefit >= 0.0f);
+	ATP_STATS_PRECOND(m_unmatch_cost >= 0.0f);
+}
 
 
 float EquationalEditDistanceTracker::edit_distance(
@@ -89,12 +45,12 @@ float EquationalEditDistanceTracker::edit_distance(
 
 	// try both the cost and its transpose
 	const float cost =
-		edit_distance(p_stmt1->lhs(), p_stmt2->lhs())
-		+ edit_distance(p_stmt1->rhs(), p_stmt2->rhs());
+		edit_distance(p_stmt1->lhs(), p_stmt2->lhs(), 0)
+		+ edit_distance(p_stmt1->rhs(), p_stmt2->rhs(), 0);
 
 	const float transpose_cost =
-		edit_distance(p_stmt1->lhs(), p_stmt2->rhs())
-		+ edit_distance(p_stmt1->rhs(), p_stmt2->lhs());
+		edit_distance(p_stmt1->lhs(), p_stmt2->rhs(), 0)
+		+ edit_distance(p_stmt1->rhs(), p_stmt2->lhs(), 0);
 
 	// return the best of the two:
 	return std::min(cost, transpose_cost);
@@ -120,27 +76,28 @@ std::vector<std::vector<float>> EquationalEditDistanceTracker::edit_distance(
 
 	for (size_t i = 0; i < stmtarr1.size(); ++i)
 	{
+		const auto& stmt1 = p_stmtarr1->my_at(i);
+		const Expression stmt1expr[2] = {
+			stmt1.lhs(), stmt1.rhs() };
+
 		for (size_t j = 0; j < stmtarr2.size(); ++j)
 		{
-			const auto& stmt1 = p_stmtarr1->my_at(i);
 			const auto& stmt2 = p_stmtarr2->my_at(j);
 
-			const Expression stmt1expr[2] = {
-				stmt1.lhs(), stmt1.rhs() };
 			const Expression stmt2expr[2] = {
 				stmt2.lhs(), stmt2.rhs() };
 
 			// try both the cost and its transpose
 			const float cost =
-				edit_distance(stmt1expr[0], stmt2expr[0])
-				+ edit_distance(stmt1expr[1], stmt2expr[1]);
+				edit_distance(stmt1expr[0], stmt2expr[0], 0)
+				+ edit_distance(stmt1expr[1], stmt2expr[1], 0);
 
 			const float transpose_cost =
-				edit_distance(stmt1expr[0], stmt2expr[1])
-				+ edit_distance(stmt1expr[1], stmt2expr[0]);
+				edit_distance(stmt1expr[0], stmt2expr[1], 0)
+				+ edit_distance(stmt1expr[1], stmt2expr[0], 0);
 
 			// pick the best of the two:
-			result[i][j] = std::min(cost, transpose_cost);;
+			result[i][j] = std::min(cost, transpose_cost);
 		}
 	}
 
@@ -149,22 +106,13 @@ std::vector<std::vector<float>> EquationalEditDistanceTracker::edit_distance(
 
 
 float EquationalEditDistanceTracker::edit_distance(
-	const Expression& expr1, const Expression& expr2)
+	const Expression& expr1, const Expression& expr2, size_t depth)
 {
-	return ensure_is_computed(std::make_pair(expr1, expr2));
-}
-
-
-float EquationalEditDistanceTracker::ensure_is_computed(
-	const std::pair<const Expression&, const Expression&>& expr_pair)
-{
-	const auto& expr1 = expr_pair.first;
-	const auto& expr2 = expr_pair.second;
+	const size_t pair_hash = hash_exprs(expr1, expr2);
 
 	// preprocessing step - try a lookup right at the start
 	{
-		auto pre_iter = m_dists.find(
-			expr_pair);
+		auto pre_iter = m_dists.find(pair_hash);
 
 		if (pre_iter != m_dists.end())
 		{
@@ -180,41 +128,31 @@ float EquationalEditDistanceTracker::ensure_is_computed(
 		// another free, and 1 to match with anything else
 		const float cost = (expr1.root_type() == expr2.root_type()) ?
 			0.0f : 1.0f;
-		m_dists[expr_pair] = cost;
+		m_dists[pair_hash] = cost;
 		return cost;
 	}
 	else if (expr1.root_type() == SyntaxNodeType::CONSTANT)
 	{
-		// check the substitution exists
-		ATP_STATS_ASSERT(m_sub_costs.find(std::make_pair(expr2.root_id(),
-			expr1.root_id())) != m_sub_costs.end());
-
 		// note: expr1 must appear on the RHS of any `m_sub_costs` calls
 		// because we know it is a constant thus has arity 0, but
 		// expr2 could have any arity.
 
 		// add the cost:
-		const float cost =
-			m_sub_costs.at(std::make_pair(expr2.root_id(),
-			expr1.root_id()));
-		m_dists[expr_pair] = cost;
+		const float cost = (expr1.root_id() == expr2.root_id()) ?
+			(-m_match_benefit * (float)depth) : m_unmatch_cost;
+		m_dists[pair_hash] = cost;
 		return cost;
 	}
 	else if (expr2.root_type() == SyntaxNodeType::CONSTANT)
 	{
-		// check the substitution exists
-		ATP_STATS_ASSERT(m_sub_costs.find(std::make_pair(expr1.root_id(),
-			expr2.root_id())) != m_sub_costs.end());
-
 		// note: expr2 must appear on the RHS of any `m_sub_costs` calls
 		// because we know it is a constant thus has arity 0, but
 		// expr1 could have any arity.
 
 		// add the cost:
-		const float cost =
-			m_sub_costs.at(std::make_pair(expr1.root_id(),
-				expr2.root_id()));
-		m_dists[expr_pair] = cost;
+		const float cost = (expr1.root_id() == expr2.root_id()) ?
+			(-m_match_benefit * (float)depth) : m_unmatch_cost;
+		m_dists[pair_hash] = cost;
 		return cost;
 	}
 	else
@@ -231,16 +169,9 @@ float EquationalEditDistanceTracker::ensure_is_computed(
 
 		ATP_STATS_ASSERT(expr1_arity > 0 && expr2_arity > 0);
 
-		// construct sub expressions:
-		std::vector<Expression> subexprs1, subexprs2;
-		subexprs1.reserve(expr1_arity);
+		// construct sub expressions for inner loop out here:
+		std::vector<Expression> subexprs2;
 		subexprs2.reserve(expr2_arity);
-		for (size_t i = 0; i < expr1_arity; ++i)
-			subexprs1.emplace_back(expr1.sub_expression(
-				expr1.tree().func_children(
-					expr1.tree().root_id()).at(i),
-				expr1.tree().func_child_types(
-					expr1.tree().root_id()).at(i)));
 		for (size_t i = 0; i < expr2_arity; ++i)
 			subexprs2.emplace_back(expr2.sub_expression(
 				expr2.tree().func_children(
@@ -252,46 +183,70 @@ float EquationalEditDistanceTracker::ensure_is_computed(
 		ublas::matrix<float> dist_mat(expr1_arity, expr2_arity);
 		for (size_t i = 0; i < expr1_arity; ++i)
 		{
+			const auto subexpr1 = expr1.sub_expression(
+				expr1.tree().func_children(
+					expr1.tree().root_id()).at(i),
+				expr1.tree().func_child_types(
+					expr1.tree().root_id()).at(i));
+
 			for (size_t j = 0; j < expr2_arity; ++j)
 			{
 				// RECURSE
 				dist_mat(i, j) = edit_distance(
-					subexprs1[i], subexprs2[j]);
+					subexpr1, subexprs2[j], depth + 1);
 			}
 		}
 		// compute substitution cost (but need to get it the right
 		// way around)
-		float sub_cost = 0.0f;
+		float sub_cost = (expr1.root_id() == expr2.root_id()) ?
+			(-m_match_benefit * (float)depth) : m_unmatch_cost;
 		if (expr1_arity < expr2_arity)
 		{
 			// need to transpose this:
 			dist_mat = ublas::trans(dist_mat);
-
-			auto iter = m_sub_costs.find(
-				std::make_pair(expr2.root_id(),
-					expr1.root_id()));
-
-			ATP_STATS_ASSERT(iter != m_sub_costs.end());
-
-			sub_cost = iter->second;
-		}
-		else
-		{
-			auto iter = m_sub_costs.find(
-				std::make_pair(expr1.root_id(),
-					expr2.root_id()));
-
-			ATP_STATS_ASSERT(iter != m_sub_costs.end());
-
-			sub_cost = iter->second;
 		}
 		
 		// now our value is just the best assignment of the children
 		// plus the substitution cost:
 		const float cost = sub_cost + minimum_assignment(dist_mat);
-		m_dists[expr_pair] = cost;
+		m_dists[pair_hash] = cost;
 		return cost;
 	}
+}
+
+
+
+size_t EquationalEditDistanceTracker::hash_expr(const Expression& expr) const
+{
+	// prime numbers in this function are arbitrary
+
+	// must NOT depend on actual ID (we want it to be invariant to
+	// free variable renaming)
+	auto free_func = boost::phoenix::val(2097593);
+	auto const_func = phxargs::arg1 * 23209;
+	auto f_func = [](size_t id,
+		const auto& child_begin, const auto& child_end)
+	{
+		size_t hash = id * 524287;
+		for (auto iter = child_begin; iter != child_end; ++iter)
+		{
+			hash = 486187739 * hash + 263167 * (*iter);
+		}
+		return hash;
+	};
+
+	return expr.fold<size_t>(free_func, const_func, f_func);
+}
+
+
+size_t EquationalEditDistanceTracker::hash_exprs(const Expression& expr1,
+	const Expression& expr2) const
+{
+	const size_t a = hash_expr(expr1),
+		b = hash_expr(expr2);
+
+	// it is important that this function is symmetric in a and b
+	return (a ^ b) + (b ^ a);
 }
 
 

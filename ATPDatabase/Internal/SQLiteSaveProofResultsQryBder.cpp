@@ -42,11 +42,9 @@ std::string SQLiteSaveProofResultsQryBder::build()
 	{
 		// add the theorem to the database if it's not in there
 		// already
-		query_builder << "INSERT INTO theorems (stmt, "
-			<< "ctx) SELECT '" << (*m_targets)->at(i).to_str()
-			<< "', " << *m_ctx_id << " WHERE NOT EXISTS("
-			<< "SELECT 1 FROM theorems WHERE stmt == '"
-			<< (*m_targets)->at(i).to_str() << "');\n\n";
+		query_builder << "INSERT OR IGNORE INTO theorems (stmt, "
+			<< "ctx) VALUES ('" << (*m_targets)->at(i).to_str()
+			<< "', " << *m_ctx_id << ");\n\n";
 
 		// skip the rest if we are only loading theorems, not proof
 		// attempts
@@ -83,7 +81,7 @@ std::string SQLiteSaveProofResultsQryBder::build()
 			// WARNING: this theorem might already have a proof in
 			// the database - don't add it again!
 			query_builder << thm_id_with_expr;
-			query_builder << "INSERT OR IGNORE INTO proofs "
+			query_builder << "INSERT INTO proofs "
 				"(thm_id, proof) SELECT (SELECT my_id FROM my_thm), "
 				"'" << (*m_proof_states)[i]->to_str()
 				<< "' WHERE NOT EXISTS (SELECT 1 FROM proofs WHERE"

@@ -7,6 +7,7 @@
 
 
 #include <sstream>
+#include <boost/lexical_cast.hpp>
 #include "SQLiteSaveProofResultsQryBder.h"
 
 
@@ -35,8 +36,6 @@ std::string SQLiteSaveProofResultsQryBder::build()
 	ATP_DATABASE_PRECOND(!m_helpers.has_value() ||
 		m_proof_states.has_value());
 
-
-
 	std::stringstream query_builder;
 
 	for (size_t i = 0; i < *m_size; i++)
@@ -56,14 +55,19 @@ std::string SQLiteSaveProofResultsQryBder::build()
 
 		// a common table expression for finding the theorem ID of the
 		// target statement
+		// WARNING: theorem statements by themselves are not unique!
+		// It is only unique when paired with a context!
 		const std::string thm_id_with_expr =
-			"WITH my_thm(my_id) AS (SELECT id FROM theorems WHERE stmt = '" +
-			(*m_targets)->at(i).to_str() + "')\n";
+			"WITH my_thm(my_id) AS (SELECT id FROM theorems WHERE "
+			"stmt = '" + (*m_targets)->at(i).to_str() +
+			"' AND ctx = " + boost::lexical_cast<std::string>(
+				*m_ctx_id) + ")\n";
 
 		// add proof attempt to database
 		query_builder << thm_id_with_expr;
 		query_builder << "INSERT INTO proof_attempts(thm_id, ss_id, "
-			<< "time_cost, max_mem, num_expansions) VALUES ((SELECT my_id FROM my_thm), "
+			"time_cost, max_mem, num_expansions) VALUES ((SELECT "
+			"my_id FROM my_thm), "
 			<< *m_ss_id << ", " << (*m_times)[i] << ", "
 			<< (*m_max_mems)[i] << ", " << (*m_num_exps)[i]
 			<< ");\n\n";
@@ -80,10 +84,10 @@ std::string SQLiteSaveProofResultsQryBder::build()
 			// the database - don't add it again!
 			query_builder << thm_id_with_expr;
 			query_builder << "INSERT OR IGNORE INTO proofs "
-				<< "(thm_id, proof) SELECT (SELECT my_id FROM my_thm), '"
-				<< (*m_proof_states)[i]->to_str()
-				<< "' WHERE NOT EXISTS"
-				<< " (SELECT 1 FROM proofs WHERE thm_id=(SELECT my_id FROM my_thm));\n\n";
+				"(thm_id, proof) SELECT (SELECT my_id FROM my_thm), "
+				"'" << (*m_proof_states)[i]->to_str()
+				<< "' WHERE NOT EXISTS (SELECT 1 FROM proofs WHERE"
+				" thm_id=(SELECT my_id FROM my_thm));\n\n";
 
 			// add theorem usages:
 			if (m_helpers.has_value())
@@ -99,19 +103,25 @@ std::string SQLiteSaveProofResultsQryBder::build()
 						// a common table expression for finding the
 						// theorem ID of the helper statement (this
 						// appears after the first WITH cte)
+						// WARNING: theorem statements by themselves
+						// are not unique! It is only unique when
+						// paired with a context!
 						const std::string helper_thm_id_with_expr =
-							", helper_thm(helper_id) AS (SELECT id FROM theorems "
-							"WHERE stmt = '" +
-							(*m_helpers)->at(j).to_str() + "')\n";
+							", helper_thm(helper_id) AS (SELECT id "
+							"FROM theorems WHERE stmt = '" +
+							(*m_helpers)->at(j).to_str() +
+							"' AND ctx = " +
+							boost::lexical_cast<std::string>(
+								*m_ctx_id) + ")\n";
 
 						// add it:
 						query_builder << thm_id_with_expr
 							<< helper_thm_id_with_expr;
 						query_builder << "INSERT OR IGNORE INTO "
-							<< "theorem_usage (target_thm_id, "
-							<< "used_thm_id, cnt) VALUES((SELECT my_id FROM my_thm), "
-							<< "(SELECT helper_id FROM helper_thm), " << usages[j]
-							<< ");\n\n";
+							"theorem_usage (target_thm_id, "
+							"used_thm_id, cnt) VALUES((SELECT my_id "
+							"FROM my_thm), (SELECT helper_id FROM "
+							"helper_thm), " << usages[j] << ");\n\n";
 					}
 				}
 			}

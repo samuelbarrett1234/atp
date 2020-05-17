@@ -31,9 +31,16 @@ std::string SQLiteRndThmSelectQryBder::build()
 	if (!m_find_proven)
 		query_builder << "NOT ";
 
-	query_builder << " EXISTS (SELECT 1 FROM proofs WHERE thm_id=id"
-		" AND is_axiom = 0)" <<  // don't load axioms!
-		" ORDER BY RANDOM() LIMIT " << *m_limit << ";";
+	query_builder << " EXISTS (SELECT 1 FROM proofs WHERE thm_id=id";
+
+	// only do this when looking for proven theorems, because of
+	// course this does not have the intended effect when trying to
+	// load unproven theorems
+	// (axioms will always have a proof, anyway)
+	if (m_find_proven)
+		query_builder << " AND is_axiom = 0";  // don't load axioms!
+
+	query_builder << " ) ORDER BY RANDOM() LIMIT " << *m_limit << ";";
 
 	return query_builder.str();
 }

@@ -22,7 +22,8 @@ public:
 	RunSolverProcess(proc_data::ProofEssentials& pf_data) :
 		m_pf_data(pf_data), m_cur_step(0)
 	{
-		ATP_CORE_LOG(info) << "Beginning proof sequence...";
+		ATP_CORE_LOG(info) << "Running search algorithm on " <<
+			m_pf_data.target_thms->size() << " target theorems...";
 
 		// handle this as a special case, so the user gets at least
 		// some output

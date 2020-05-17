@@ -14,8 +14,9 @@
 		"type" : "EditDistanceSelectionStrategy",
 		"num-thms-load" : 200,
 		"num-thms-help" : 8,
-		"symbol-mismatch-cost" : 2.0,
-		"symbol-match-benefit" : 5.0
+		"symbol-mismatch-cost" : 5.0,
+		"symbol-match-benefit" : 1.0,
+		"weighting" : 0.05
 	},
 	"step-size" : 10000,
 	"max-steps" : 200,

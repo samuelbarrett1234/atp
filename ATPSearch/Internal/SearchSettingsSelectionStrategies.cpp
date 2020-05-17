@@ -72,9 +72,11 @@ bool try_create_edit_dist_selection_strategy(
 	const size_t num_help = ptree.get<size_t>("num-thms-help",
 		10);
 	const float symb_match_benefit = ptree.get<float>(
-		"symbol-match-benefit", 5.0f);
+		"symbol-match-benefit", 0.0f);
 	const float symb_mismatch_cost = ptree.get<float>(
 		"symbol-mismatch-cost", 5.0f);
+	const float weighting = ptree.get<float>(
+		"weighting", 0.1f);
 
 	// check for bad inputs:
 	if (num_load < num_help)
@@ -83,7 +85,7 @@ bool try_create_edit_dist_selection_strategy(
 	}
 
 	creator = [num_load, num_help, symb_match_benefit,
-		symb_mismatch_cost](const logic::ModelContextPtr& p_ctx,
+		symb_mismatch_cost, weighting](const logic::ModelContextPtr& p_ctx,
 			size_t ctx_id)
 		-> SelectionStrategyPtr
 	{
@@ -93,7 +95,7 @@ bool try_create_edit_dist_selection_strategy(
 
 		return std::make_unique<EditDistanceSelectionStrategy>(p_lang, p_ctx,
 			ctx_id, num_load, num_help, symb_match_benefit,
-			symb_mismatch_cost);
+			symb_mismatch_cost, weighting);
 	};
 
 	return true;

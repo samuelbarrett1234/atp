@@ -21,12 +21,14 @@ EditDistanceSelectionStrategy::EditDistanceSelectionStrategy(
 	const logic::LanguagePtr& p_lang,
 	const logic::ModelContextPtr& p_ctx, size_t ctx_id,
 	size_t num_load, size_t num_return, float symb_match_benefit,
-	float symb_mismatch_cost) :
+	float symb_mismatch_cost, float weighting) :
 	FixedSelectionStrategy(p_lang, p_ctx, ctx_id, num_load),
-	m_num_thms_to_return(num_return),
+	m_num_thms_to_return(num_return), m_weighting(weighting),
 	m_ed_dist(stats::create_edit_dist(logic::LangType::EQUATIONAL_LOGIC,  // TEMP!!
 		symb_match_benefit, symb_mismatch_cost))
-{ }
+{
+	ATP_SEARCH_PRECOND(m_weighting > 0.0f);
+}
 
 
 void EditDistanceSelectionStrategy::set_targets(const logic::StatementArrayPtr& p_targets)
@@ -82,7 +84,8 @@ logic::StatementArrayPtr EditDistanceSelectionStrategy::done()
 			float s = 0.0f;
 			for (size_t k = 0; k < distance_matrix[i][j].size(); ++k)
 			{
-				s += -std::powf(distance_matrix[i][j][k] - best, 0.1f);
+				s += -std::powf(distance_matrix[i][j][k] - best,
+					m_weighting);
 			}
 			// divide by size to normalise it a bit
 			utilities[j] += -best + s / (float)distance_matrix[i][j].size();

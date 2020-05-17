@@ -129,6 +129,11 @@ EquationalEditDistanceTracker::sub_edit_distance(
 		std::vector<Expression> sub_exprs;
 		for (auto iter = stmt1.begin(); iter != stmt1.end(); ++iter)
 		{
+			// skip free variables
+			if (iter->root_type() ==
+				logic::equational::SyntaxNodeType::FREE)
+				continue;
+
 			sub_exprs.emplace_back(std::move(*iter));
 		}
 
@@ -193,7 +198,7 @@ float EquationalEditDistanceTracker::edit_distance(
 
 		// add the cost:
 		const float cost = (expr1.root_id() == expr2.root_id()) ?
-			(-m_match_benefit * (float)depth) : m_unmatch_cost;
+			(-m_match_benefit) : m_unmatch_cost;
 		m_dists[pair_hash] = cost;
 		return cost;
 	}
@@ -205,7 +210,7 @@ float EquationalEditDistanceTracker::edit_distance(
 
 		// add the cost:
 		const float cost = (expr1.root_id() == expr2.root_id()) ?
-			(-m_match_benefit * (float)depth) : m_unmatch_cost;
+			(-m_match_benefit) : m_unmatch_cost;
 		m_dists[pair_hash] = cost;
 		return cost;
 	}
@@ -253,7 +258,7 @@ float EquationalEditDistanceTracker::edit_distance(
 		// compute substitution cost (but need to get it the right
 		// way around)
 		float sub_cost = (expr1.root_id() == expr2.root_id()) ?
-			(-m_match_benefit * (float)depth) : m_unmatch_cost;
+			(-m_match_benefit) : m_unmatch_cost;
 		if (expr1_arity < expr2_arity)
 		{
 			// need to transpose this:

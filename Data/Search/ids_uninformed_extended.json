@@ -5,8 +5,8 @@
 		"type" : "IterativeDeepeningSolver",
 		"max-depth" : 10,
 		"starting-depth" : 4,
-		"width-limit" : 15,
-		"width-limit-start-depth" : 2,
+		"width-limit" : 10,
+		"width-limit-start-depth" : 1,
 		"no-repeats" : true,
 		"randomised" : true
 	},
@@ -19,6 +19,6 @@
 		"weighting" : 0.05
 	},
 	"step-size" : 10000,
-	"max-steps" : 25,
+	"max-steps" : 50,
 	"seed" : "time"
 }

@@ -19,6 +19,7 @@
 #include "ATPSearchAPI.h"
 #include "Interfaces/ISolver.h"
 #include "Interfaces/IHeuristic.h"
+#include "Interfaces/ISelectionStrategy.h"
 #include "Internal/SearchSettings.h"
 
 

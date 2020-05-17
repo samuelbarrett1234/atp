@@ -32,6 +32,7 @@ EditDistanceSelectionStrategy::EditDistanceSelectionStrategy(
 void EditDistanceSelectionStrategy::set_targets(const logic::StatementArrayPtr& p_targets)
 {
 	ATP_SEARCH_PRECOND(p_targets != nullptr);
+	FixedSelectionStrategy::set_targets(p_targets);
 	m_targets = p_targets;
 }
 
@@ -42,7 +43,7 @@ logic::StatementArrayPtr EditDistanceSelectionStrategy::done()
 
 	auto stmts = FixedSelectionStrategy::done();
 
-	// handle this rare case
+	// handle this rare case (but a possible case)
 	if (stmts == nullptr)
 	{
 		ATP_SEARCH_LOG(error) << "Oops: helper theorem loading "

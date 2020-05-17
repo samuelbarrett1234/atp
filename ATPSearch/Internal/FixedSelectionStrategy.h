@@ -49,7 +49,7 @@ public:
 	virtual db::QueryBuilderPtr create_getter_query(
 		const db::DatabasePtr& p_db) override;
 	virtual void load_values(
-		const db::IQueryTransaction& query) override;
+		db::IQueryTransaction& query) override;
 	virtual logic::StatementArrayPtr done() override;
 
 protected:
@@ -57,6 +57,7 @@ protected:
 	const logic::ModelContextPtr m_ctx;
 	const size_t m_ctx_id;
 	const size_t m_num_thms;
+	bool m_failed;
 
 private:
 	std::stringstream m_cur_thms;

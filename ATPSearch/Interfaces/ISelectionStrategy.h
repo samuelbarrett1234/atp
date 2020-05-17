@@ -12,6 +12,7 @@
 */
 
 
+#include <memory>
 #include <ATPLogic.h>
 #include <ATPDatabase.h>
 #include "../ATPSearchAPI.h"
@@ -73,7 +74,7 @@ public:
 		more recently than `done`.
 	*/
 	virtual void load_values(
-		const db::IQueryTransaction& query) = 0;
+		db::IQueryTransaction& query) = 0;
 
 	/**
 	\brief Call this when the query finishes, to compute which
@@ -81,13 +82,16 @@ public:
 
 	\pre The query (provided earlier) has finished.
 
-	\returns The array of helper theorems.
+	\returns The array of helper theorems OR nullptr if failed!
 
 	\post This resets the current targets, i.e. resets the object to
 		the state it was when it was initialised.
 	*/
 	virtual logic::StatementArrayPtr done() = 0;
 };
+
+
+typedef std::unique_ptr<ISelectionStrategy> SelectionStrategyPtr;
 
 
 }  // namespace search

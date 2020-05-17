@@ -20,7 +20,8 @@ FixedSelectionStrategy::FixedSelectionStrategy(
 	const logic::LanguagePtr& p_lang,
 	const logic::ModelContextPtr& p_ctx, size_t ctx_id,
 	size_t n) :
-	m_lang(p_lang), m_ctx(p_ctx), m_ctx_id(ctx_id), m_num_thms(n)
+	m_lang(p_lang), m_ctx(p_ctx), m_ctx_id(ctx_id), m_num_thms(n),
+	m_failed(false)
 {
 	ATP_SEARCH_PRECOND(m_lang != nullptr);
 	ATP_SEARCH_PRECOND(m_ctx != nullptr);
@@ -28,12 +29,16 @@ FixedSelectionStrategy::FixedSelectionStrategy(
 
 
 void FixedSelectionStrategy::set_targets(const logic::StatementArrayPtr& p_targets)
-{ /* do nothing */ }
+{
+	// reset this
+	m_failed = false;
+}
 
 
 db::QueryBuilderPtr FixedSelectionStrategy::create_getter_query(const db::DatabasePtr& p_db)
 {
 	ATP_SEARCH_PRECOND(p_db != nullptr);
+	ATP_SEARCH_PRECOND(!m_failed);
 
 	auto _p_bder = p_db->create_query_builder(
 		atp::db::QueryBuilderType::RANDOM_THM_SELECTION);
@@ -51,9 +56,13 @@ db::QueryBuilderPtr FixedSelectionStrategy::create_getter_query(const db::Databa
 }
 
 
-void FixedSelectionStrategy::load_values(const db::IQueryTransaction& query)
+void FixedSelectionStrategy::load_values(db::IQueryTransaction& query)
 {
 	ATP_SEARCH_PRECOND(query.has_values());
+
+	// just skip if failed
+	if (m_failed)
+		return;
 
 	if (query.arity() != 1)
 	{
@@ -61,6 +70,8 @@ void FixedSelectionStrategy::load_values(const db::IQueryTransaction& query)
 			" Kernel initialisation query returned an arity "
 			"of " << query.arity() << ", which "
 			"differed from the expected result of 1.";
+
+		m_failed = true;  // :(
 	}
 	else
 	{
@@ -88,6 +99,9 @@ void FixedSelectionStrategy::load_values(const db::IQueryTransaction& query)
 
 logic::StatementArrayPtr FixedSelectionStrategy::done()
 {
+	if (m_failed)
+		return nullptr;
+
 	return m_lang->deserialise_stmts(m_cur_thms,
 		logic::StmtFormat::TEXT, *m_ctx);
 }

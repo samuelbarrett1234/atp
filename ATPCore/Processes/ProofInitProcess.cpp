@@ -6,9 +6,7 @@
 */
 
 
-#include <queue>
-#include <numeric>
-#include <sstream>
+#include <ATPSearch.h>
 #include "ProofInitProcess.h"
 #include "QueryProcess.h"
 #include "ATPStatsEditDistance.h"
@@ -83,86 +81,34 @@ protected:
 	{
 		ATP_CORE_LOG(trace) << "Setting up kernel initialisation query...";
 
-		auto _p_bder = m_setup_data.db->create_query_builder(
-			atp::db::QueryBuilderType::RANDOM_THM_SELECTION);
-
-		auto p_bder = dynamic_cast<
-			atp::db::IRndThmSelectQryBder*>(_p_bder.get());
-
-		ATP_CORE_ASSERT(p_bder != nullptr);
-
-		p_bder->set_limit(m_setup_data.settings.num_helper_thms
-			* m_setup_data.settings.helper_thms_factor  /* get extra */)
-			->set_context(m_setup_data.ctx_id, m_setup_data.ctx)
-			->set_proven(true);  // DEFINITELY load proven statements!
-
-		return _p_bder;
+		ATP_CORE_ASSERT(m_setup_data.db != nullptr);
+		return m_selection_strat->create_getter_query(m_setup_data.db);
 	}
 
 	void on_load_values(db::IQueryTransaction& query) override
 	{
-		if (query.arity() != 1)
-		{
-			ATP_CORE_LOG(error) << "Failed to initialise proof."
-				" Kernel initialisation query returned an arity "
-				"of " << query.arity() << ", which "
-				"differed from the expected result of 1. "
-				"Bailing...";
-			force_fail();
-		}
-		else
-		{
-			atp::db::DValue stmt_str;
-
-			if (!query.try_get(0, atp::db::DType::STR,
-				&stmt_str))
-			{
-				ATP_CORE_LOG(warning) << "Encountered non-string "
-					<< "statement value in database. Type "
-					<< "could be null?";
-			}
-			else
-			{
-				ATP_CORE_LOG(trace) << "Adding '"
-					<< atp::db::get_str(stmt_str)
-					<< "' to helper theorems.";
-
-				m_helper_thms_stream << atp::db::get_str(stmt_str)
-					<< std::endl;
-			}
-		}
+		ATP_CORE_PRECOND(query.has_values());
+		m_selection_strat->load_values(query);
 	}
 
 	void on_finished() override
 	{
 		ATP_CORE_LOG(trace) << "Finishing loading of proof data...";
 
-		// construct theorems (more than we will use)...
-		auto loaded_thms =
-			m_setup_data.lang->deserialise_stmts(
-				m_helper_thms_stream, logic::StmtFormat::TEXT,
-				*m_setup_data.ctx);
-
-		ATP_CORE_LOG(info) << "Proof initialisation process "
-			"loaded " << ((loaded_thms != nullptr) ?
-				loaded_thms->size() : 0) << " theorems from the "
-			"database. Now picking the best of them...";
-
-		// get the best of them according to edit distance heuristic
-		m_proof_data.helper_thms =
-			get_best_stmts(std::move(loaded_thms));
+		m_proof_data.helper_thms = m_selection_strat->done();
 
 		if (m_proof_data.helper_thms == nullptr)
 		{
 			force_fail();
+			on_failed();
 			return;
 		}
 		else if (m_proof_data.helper_thms->size() > 0)
 		{
-			ATP_CORE_LOG(info) << "Proof Process "
-				"loaded and selected " <<
-				m_proof_data.helper_thms->size() <<
-				" theorems from the database to aid in the proof.";
+			ATP_CORE_LOG(info) << "Proof initialisation process "
+				"loaded " << ((m_proof_data.helper_thms != nullptr) ?
+					m_proof_data.helper_thms->size() : 0) << " theorems from the "
+				"database.";
 
 			m_proof_data.ker->add_theorems(m_proof_data.helper_thms);
 		}
@@ -187,92 +133,9 @@ protected:
 	}
 
 private:
-	/**
-	\brief Get the best theorems (according to the edit distance
-		heuristic) from the given array
-	*/
-	logic::StatementArrayPtr get_best_stmts(
-		logic::StatementArrayPtr stmts) const
-	{
-		// in these cases we don't want to do any trimming
-		if (stmts == nullptr || stmts->size() <=
-			m_setup_data.settings.num_helper_thms)
-			return stmts;
-
-		auto p_ed = create_edit_distance_obj();
-
-		// compute edit distance between all the pairs
-		const auto distance_matrix =
-			p_ed->sub_edit_distance(
-				*m_setup_data.target_thms, *stmts);
-
-		// pick best members:
-		std::vector<float> utilities;
-		utilities.resize(stmts->size(), 0.0f);
-		for (size_t i = 0; i < m_setup_data.target_thms->size(); ++i)
-		{
-			for (size_t j = 0; j < stmts->size(); ++j)
-			{
-				const float best = *std::min_element(
-					distance_matrix[i][j].begin(),
-					distance_matrix[i][j].end());
-
-				// higher distance means worse, so use negative
-				// (note that the entries may be negative, as edit
-				// distance isn't a distance metric, rather just a
-				// distance-inspired heuristic)
-				float s = 0.0f;
-				for (size_t k = 0; k < distance_matrix[i][j].size(); ++k)
-				{
-					s += -std::powf(distance_matrix[i][j][k] - best, 0.1f);
-				}
-				// divide by size to normalise it a bit
-				utilities[j] += -best + s / (float)distance_matrix[i][j].size();
-			}
-		}
-
-		// obtain top m_setup_data.settings.num_helper_thms elements
-		// using a priority queue
-		std::priority_queue<std::pair<float, size_t>> q;
-		ATP_CORE_ASSERT(utilities.size() == stmts->size());
-		for (size_t i = 0; i < utilities.size(); ++i)
-		{
-			q.emplace(utilities[i], i);
-		}
-
-		// extract out the best elements
-		std::vector<logic::StatementArrayPtr> singletons;
-		singletons.reserve(m_setup_data.settings.num_helper_thms);
-		for (size_t i = 0; i < m_setup_data.settings.num_helper_thms;
-			++i)
-		{
-			auto [util, k] = q.top();
-			q.pop();
-
-			ATP_CORE_LOG(trace) << "Selected \"" <<
-				stmts->at(k).to_str() << "\" as a good statement to "
-				"help prove the target theorems (utility was "
-				<< util << ").";
-
-			singletons.emplace_back(stmts->slice(k, k + 1));
-		}
-		return logic::concat(singletons);
-	}
-
-	stats::EditDistancePtr create_edit_distance_obj() const
-	{
-		// TEMP (todo: don't specialise to equational logic)
-		return stats::create_edit_dist(
-			logic::LangType::EQUATIONAL_LOGIC,
-			m_setup_data.settings.ed_symb_match_benefit,
-			m_setup_data.settings.ed_symb_mismatch_cost);
-	}
-
-private:
-	std::stringstream m_helper_thms_stream;
-
 	proc_data::ProofSetupEssentials& m_setup_data;
 	proc_data::ProofEssentials& m_proof_data;
+	search::SelectionStrategyPtr m_selection_strat;
 };
 
 

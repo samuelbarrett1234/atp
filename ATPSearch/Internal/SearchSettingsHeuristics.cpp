@@ -52,11 +52,12 @@ bool try_create_edit_distance_heuristic(
 	HeuristicCreator& creator,
 	const boost::property_tree::ptree& ptree)
 {
-	const float p = ptree.get<float>("p");
 	const float symb_mismatch_cost =
 		ptree.get<float>("symbol-mismatch-cost");
+	const float symb_match_benefit =
+		ptree.get<float>("symbol-match-benefit");
 
-	if (p <= 0.0f || symb_mismatch_cost <= 0.0f)
+	if (symb_match_benefit <= 0.0f || symb_mismatch_cost <= 0.0f)
 		return false;  // bad parameters
 
 	/*
@@ -64,11 +65,11 @@ bool try_create_edit_distance_heuristic(
 	safe, so instead create a new one for each solver.
 	*/
 
-	creator = [p_ctx, p, symb_mismatch_cost](
+	creator = [p_ctx, symb_match_benefit, symb_mismatch_cost](
 		const logic::KnowledgeKernelPtr& p_ker)
 	{
 		return std::make_shared<EditDistanceHeuristic>(p_ctx, p_ker,
-			symb_mismatch_cost, p);
+			symb_mismatch_cost, symb_match_benefit);
 	};
 
 	return true;

@@ -119,11 +119,14 @@ bool load_search_settings(
 			"helper-theorems-factor", 5);
 		p_out_settings->ed_symb_mismatch_cost = ptree.get<float>(
 			"ed-symbol-mismatch-cost", 5.0f);
+		p_out_settings->ed_symb_match_benefit = ptree.get<float>(
+			"ed-symbol-match-benefit", 5.0f);
 
 		// check for bad values:
 		if (p_out_settings->max_steps == 0 ||
 			p_out_settings->step_size == 0 ||
-			p_out_settings->ed_symb_mismatch_cost <= 0.0f)
+			p_out_settings->ed_symb_mismatch_cost <= 0.0f ||
+			p_out_settings->ed_symb_match_benefit <= 0.0f)
 			return false;
 
 		// the default seed is based on the current time

@@ -32,11 +32,44 @@ class ATP_STATS_API IEditDistance
 public:
 	virtual ~IEditDistance() = default;
 
+	/**
+	\brief Compute the edit distance between two statements (this is
+		of course symmetric in both arguments)
+
+	\returns A (not-necessarily-non-negative) number, where positive
+		means the two statements are far away, and negative means
+		they are close.
+	*/
 	virtual float edit_distance(
 		const logic::IStatement& stmt1,
 		const logic::IStatement& stmt2) = 0;
 
+	/**
+	\brief Compute the edit distance pairwise in two arrays
+
+	\returns An array A such that A[i][j] == edit_distance(
+		stmtarr1[i], stmtarr2[j])
+	*/
 	virtual std::vector<std::vector<float>> edit_distance(
+		const logic::IStatementArray& stmtarr1,
+		const logic::IStatementArray& stmtarr2) = 0;
+
+	/**
+	\brief Compute the pairwise edit distance, but looping through
+		the "sub-expressions" of the statements of the **first**
+		array.
+
+	\details Use this over `edit_distance` if you are more interested
+		in how far stmt2 is *from any sub-part* of stmt1, rather than
+		just distances as a whole.
+
+	\remark This version of the function is **not** symmetric in its
+		arguments.
+
+	\returns An array A such that A[i][j][k] == edit_distance(
+		kth sub-expression of stmtarr1[i], stmtarr2[j])
+	*/
+	virtual std::vector<std::vector<std::vector<float>>> sub_edit_distance(
 		const logic::IStatementArray& stmtarr1,
 		const logic::IStatementArray& stmtarr2) = 0;
 };

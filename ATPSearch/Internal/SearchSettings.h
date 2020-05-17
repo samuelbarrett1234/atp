@@ -58,7 +58,9 @@ struct ATP_SEARCH_API SearchSettings
 	// substitution, which is fixed at 1.0
 	// you will want to experiment with this to see which picks the
 	// best helper theorems.
-	float ed_symb_mismatch_cost;
+	// ed_symbol_match_benefit is the corresponding decrease in edit
+	// distance for when a match occurs
+	float ed_symb_mismatch_cost, ed_symb_match_benefit;
 
 	// random number generator seed
 	size_t seed;

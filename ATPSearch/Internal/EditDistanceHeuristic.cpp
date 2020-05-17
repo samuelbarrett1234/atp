@@ -23,23 +23,22 @@ namespace search
 float eqlogic_edit_distance(
 	const logic::equational::ProofState& pf_state,
 	const logic::equational::KnowledgeKernel& ker,
-	const stats::EditDistancePtr& p_ed,
-	float p);
+	const stats::EditDistancePtr& p_ed);
 
 
 EditDistanceHeuristic::EditDistanceHeuristic(
 	const logic::ModelContextPtr& p_ctx,
 	const logic::KnowledgeKernelPtr& p_ker,
-	float symbol_mismatch_cost, float p) :
-	m_ker(p_ker), m_p(p)
+	float symbol_mismatch_cost, float symbol_match_benefit) :
+	m_ker(p_ker)
 {
-	ATP_SEARCH_PRECOND(m_p > 0.0f);
+	ATP_SEARCH_PRECOND(symbol_match_benefit > 0.0f);
 	ATP_SEARCH_PRECOND(symbol_mismatch_cost > 0.0f);
 
 	// TEMP (todo: don't specialise to equational logic)
 	m_ed = stats::create_edit_dist(
 		logic::LangType::EQUATIONAL_LOGIC,
-		0.1f * symbol_mismatch_cost, symbol_mismatch_cost);
+		symbol_match_benefit, symbol_mismatch_cost);
 }
 
 
@@ -53,7 +52,7 @@ float EditDistanceHeuristic::predict(
 	{
 		return eqlogic_edit_distance(*p_state,
 			dynamic_cast<const logic::equational::KnowledgeKernel&>(*m_ker),
-			m_ed, m_p);
+			m_ed);
 	}
 	else
 	{
@@ -66,8 +65,7 @@ float EditDistanceHeuristic::predict(
 float eqlogic_edit_distance(
 	const logic::equational::ProofState& pf_state,
 	const logic::equational::KnowledgeKernel& ker,
-	const stats::EditDistancePtr& p_ed,
-	float p)
+	const stats::EditDistancePtr& p_ed)
 {
 	// this includes axioms, but also loaded helper theorems
 	const auto& axioms = ker.get_active_rules();

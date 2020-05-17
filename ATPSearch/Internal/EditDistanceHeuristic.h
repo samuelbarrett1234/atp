@@ -46,27 +46,21 @@ public:
 		of symbols, relative to the cost of a free variable
 		substitution which is always fixed at 1.0
 
-	\param p A tweakable parameter for computing the heuristic. This
-		is the "power to which the inverse of the edit distance is
-		raised", which is then summed across all axioms. The higher
-		this is, the closer the heuristic will be to computing the
-		closest axiom, whereas if this is lower it's more like an
-		average.
+	\param symbol_match_benefit The corresponding benefit (decrease
+		in edit distance) incurred when two symbols match
 
-	\pre p > 0 and symbol_mismatch_cost > 0
+	\pre symbol_mismatch_cost > 0 and symbol_match_benefit > 0
 	*/
 	EditDistanceHeuristic(const logic::ModelContextPtr& p_ctx,
 		const logic::KnowledgeKernelPtr& p_ker,
 		float symbol_mismatch_cost,
-		float p);
+		float symbol_match_benefit);
 
 	float predict(const logic::ProofStatePtr& p_state) override;
 
 private:
 	logic::KnowledgeKernelPtr m_ker;
-	std::vector<size_t> m_all_symbols;
 	stats::EditDistancePtr m_ed;
-	const float m_p;
 };
 
 

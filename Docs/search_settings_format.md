@@ -14,11 +14,12 @@ The following settings are universal (independent of solver type):
 	"num-helper-theorems" : 25,
 	"helper-theorems-factor" : 5,
 	"ed-symbol-mismatch-cost" : 5.0,
+	"ed-symbol-match-benefit" : 5.0,
 	"seed" : "time"
 }
 ```
 
-`step-size` is the number of expansions to perform (on each target proof) at each iteration. `max-steps` is the maximum number of updates to perform, although the target statements may be proven earlier than this. Note that all of the above fields are optional (i.e. have default values). `num-helper-theorems` is the number of theorems, loaded from the database, to aid in the proof ("lemmas", if you will). The higher this number is, the higher the branching factor, but the more it leverages existing knowledge. However, the selection of these helper theorems is very important. Two parameters which govern how this is done is `helper-theorems-factor` and `ed-symbol-mismatch-cost`. The first of these parameters tells the program how many proven theorems to download from the database to rank - we will download `num-helper-theorems * helper-theorems-factor` such theorems, and then pick the best. The ranking is done by computing a variant of the edit distance between the helper theorems and the target theorems (pairwise). The cost of a free variable substitution is always fixed at `1.0`, but the cost of a mismatch between symbols is exactly `ed-symbol-mismatch-cost`. It is hard to say what values of this would be good (except that such values should be `> 0.0`), so experimentation is needed!
+`step-size` is the number of expansions to perform (on each target proof) at each iteration. `max-steps` is the maximum number of updates to perform, although the target statements may be proven earlier than this. Note that all of the above fields are optional (i.e. have default values). `num-helper-theorems` is the number of theorems, loaded from the database, to aid in the proof ("lemmas", if you will). The higher this number is, the higher the branching factor, but the more it leverages existing knowledge. However, the selection of these helper theorems is very important. Two parameters which govern how this is done is `helper-theorems-factor` and `ed-symbol-mismatch-cost`. The first of these parameters tells the program how many proven theorems to download from the database to rank - we will download `num-helper-theorems * helper-theorems-factor` such theorems, and then pick the best. The ranking is done by computing a variant of the edit distance between the helper theorems and the target theorems (pairwise). The cost of a free variable substitution is always fixed at `1.0`, but the cost of a mismatch between symbols is exactly `ed-symbol-mismatch-cost`, and the *benefit* (decrease in cost) of two symbols matching is `ed-symbol-match-benefit`. Think of these two values as being in direct opposition (they are the same "scale", both relative to the cost of a free variable substitution, which as mentioned is 1). It is hard to say what values of this would be good (except that such values should be `> 0.0`), so experimentation is needed!
 
 `no-repeats` is a flag indicating whether the search algorithm should avoid repeated states while searching. The benefit of this flag depends on the tradeoff between state space size, and time required to check for repeats. `randomised` is a flag telling the search to try to evaluate successors in a random order.
 
@@ -61,9 +62,7 @@ Iterative deepening search will make use of any successor modifiers (e.g. stoppi
 
 This heuristic computes (a variant of) the edit distance between the target and the current position, to hopefully guide the search to arrive at the right path more quickly. In equational logic, this is done by computing the edit distance between the "forefront" statement, and each of the axioms (and loaded helper theorems), and then returning the utility as a function of these distances.
 
-The utility is computed as follows: for distances `d_i`, the utility is just `sum_i 1.0/d_i^p` for some parameter `p`. The higher `p` is, the more this function looks like `1.0 / (min_i d_i)`, and the lower `p` is, the more this looks like an average of the `1.0/d_i`.
-
-This parameter `p` is one of two parameters supplied to this heuristic. The other is `symbol-mismatch-cost`, which has the same definition as `ed-symbol-mismatch-cost` above (so see the documentation for that parameter).
+The two edit distance parameters of this heuristic are the same as `ed-symbol-match-benefit` and `ed-symbol-mismatch-cost` as explained above.
 
 Here is an example:
 ```
@@ -72,7 +71,7 @@ Here is an example:
 	...
 	"heuristic" : {
 		"type" : "EditDistanceHeuristic",
-		"p" : 3.0,
+		"symbol-match-benefit" : 3.0,
 		"symbol-mismatch-cost" : 5.0
 	},
 	...

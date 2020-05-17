@@ -66,6 +66,10 @@ public:
 		const logic::IStatementArray& stmtarr1,
 		const logic::IStatementArray& stmtarr2) override;
 
+	std::vector<std::vector<std::vector<float>>> sub_edit_distance(
+		const logic::IStatementArray& stmtarr1,
+		const logic::IStatementArray& stmtarr2) override;
+
 private:
 	/**
 	\brief Helper function for computing edit distance between exprs

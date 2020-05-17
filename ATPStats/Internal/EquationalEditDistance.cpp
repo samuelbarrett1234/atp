@@ -105,6 +105,60 @@ std::vector<std::vector<float>> EquationalEditDistanceTracker::edit_distance(
 }
 
 
+std::vector<std::vector<std::vector<float>>>
+EquationalEditDistanceTracker::sub_edit_distance(
+	const logic::IStatementArray& stmtarr1,
+	const logic::IStatementArray& stmtarr2)
+{
+	std::vector<std::vector<std::vector<float>>> result;
+
+	auto p_stmtarr1 = dynamic_cast<const logic::equational::StatementArray*>(
+		&stmtarr1);
+	auto p_stmtarr2 = dynamic_cast<const logic::equational::StatementArray*>(
+		&stmtarr2);
+
+	ATP_STATS_PRECOND(p_stmtarr1 != nullptr);
+	ATP_STATS_PRECOND(p_stmtarr2 != nullptr);
+
+	result.resize(stmtarr1.size(),
+		std::vector<std::vector<float>>(stmtarr2.size()));
+
+	for (size_t i = 0; i < stmtarr1.size(); ++i)
+	{
+		const auto& stmt1 = p_stmtarr1->my_at(i);
+		std::vector<Expression> sub_exprs;
+		for (auto iter = stmt1.begin(); iter != stmt1.end(); ++iter)
+		{
+			sub_exprs.emplace_back(std::move(*iter));
+		}
+
+		for (size_t j = 0; j < stmtarr2.size(); ++j)
+		{
+			const auto& stmt2 = p_stmtarr2->my_at(j);
+
+			const Expression stmt2expr[2] = {
+				stmt2.lhs(), stmt2.rhs() };
+
+			result[i][j].resize(sub_exprs.size());
+
+			// heuristic: if we loop over backwards, we are less
+			// likely to get cache misses
+			for (size_t _k = 0; _k < sub_exprs.size(); ++_k)
+			{
+				const size_t k = sub_exprs.size() - _k - 1;
+
+				// pick the best of the two sides of stmt2:
+				result[i][j][k] = std::min(
+					edit_distance(sub_exprs[k], stmt2expr[0], 0),
+					edit_distance(sub_exprs[k], stmt2expr[1], 0));
+			}
+		}
+	}
+
+	return result;
+}
+
+
 float EquationalEditDistanceTracker::edit_distance(
 	const Expression& expr1, const Expression& expr2, size_t depth)
 {

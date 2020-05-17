@@ -23,5 +23,7 @@
 	"max-steps" : 25,
 	"num-helper-theorems" : 8,
 	"helper-theorems-factor" : 20,
+	"ed-symbol-mismatch-cost" : 3.0,
+	"ed-symbol-match-benefit" : 5.0,
 	"seed" : "time"
 }

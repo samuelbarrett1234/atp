@@ -50,12 +50,12 @@ BOOST_DATA_TEST_CASE(test_create_edit_distance_heuristic,
 		-1.0f, 0.0f, 1.0f }) *
 	boost::unit_test::data::make({
 		-1.0f, 0.0f, 1.0f }),
-	p, symb_mismatch_cost)
+	symb_match_benefit, symb_mismatch_cost)
 {
-	const bool correct = (p > 0.0f && symb_mismatch_cost > 0.0f);
+	const bool correct = (symb_match_benefit > 0.0f && symb_mismatch_cost > 0.0f);
 
 	s << "{ \"type\" : \"EditDistanceHeuristic\",";
-	s << "\"p\" : " << p << ", ";
+	s << "\"symbol-match-benefit\" : " << symb_match_benefit << ", ";
 	s << "\"symbol-mismatch-cost\" : " << symb_mismatch_cost;
 	s << "}";
 

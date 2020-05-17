@@ -203,29 +203,38 @@ private:
 
 		// compute edit distance between all the pairs
 		const auto distance_matrix =
-			p_ed->edit_distance(*stmts,
-				*m_setup_data.target_thms);
+			p_ed->sub_edit_distance(
+				*m_setup_data.target_thms, *stmts);
 
 		// pick best members:
 		std::vector<float> utilities;
 		utilities.resize(stmts->size(), 0.0f);
-		for (size_t i = 0; i < utilities.size(); ++i)
+		for (size_t i = 0; i < m_setup_data.target_thms->size(); ++i)
 		{
-			// sum up inverses of utilities (use inverse so that
-			// bigger distance means smaller utility)
-			for (float x : distance_matrix[i])
+			for (size_t j = 0; j < stmts->size(); ++j)
 			{
+				const float best = *std::min_element(
+					distance_matrix[i][j].begin(),
+					distance_matrix[i][j].end());
+
 				// higher distance means worse, so use negative
-				// (note that x may be negative, as edit distance
-				// isn't a distance metric, rather just a distance-
-				// inspired heuristic)
-				utilities[i] += -x;
+				// (note that the entries may be negative, as edit
+				// distance isn't a distance metric, rather just a
+				// distance-inspired heuristic)
+				float s = 0.0f;
+				for (size_t k = 0; k < distance_matrix[i][j].size(); ++k)
+				{
+					s += -std::powf(distance_matrix[i][j][k] - best, 0.1f);
+				}
+				// divide by size to normalise it a bit
+				utilities[j] += -best + s / (float)distance_matrix[i][j].size();
 			}
 		}
 
 		// obtain top m_setup_data.settings.num_helper_thms elements
 		// using a priority queue
 		std::priority_queue<std::pair<float, size_t>> q;
+		ATP_CORE_ASSERT(utilities.size() == stmts->size());
 		for (size_t i = 0; i < utilities.size(); ++i)
 		{
 			q.emplace(utilities[i], i);
@@ -255,7 +264,7 @@ private:
 		// TEMP (todo: don't specialise to equational logic)
 		return stats::create_edit_dist(
 			logic::LangType::EQUATIONAL_LOGIC,
-			0.1f * m_setup_data.settings.ed_symb_mismatch_cost,
+			m_setup_data.settings.ed_symb_match_benefit,
 			m_setup_data.settings.ed_symb_mismatch_cost);
 	}
 

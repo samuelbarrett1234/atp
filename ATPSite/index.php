@@ -49,9 +49,13 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		$query = $db->query("SELECT count(*) as n, sum(time_cost) as t, sum(num_expansions) as e FROM proof_attempts");
 		$row = $query->fetchArray();
 		
-		echo "<li>Total number of proof attempts: {$row['n']}</li>";
-		echo "<li>Total computation time: {$row['t']}s</li>";
-		echo "<li>Total number of search tree node expansions: {$row['e']}</li>";
+		$attempts = round($row['n'] / 1.0e3, 1);
+		$comp_time = round($row['t'] / (60.0 * 60.0 * 24.0), 1);
+		$exps = round(0.5 + $row['e'] / 1.0e6, 1);
+		
+		echo "<li>Total number of proof attempts: {$attempts} thousand</li>";
+		echo "<li>Total computation time: {$comp_time} days</li>";
+		echo "<li>Total number of search tree node expansions: {$exps} million</li>";
 		?>
 		</ul>
 		</div>

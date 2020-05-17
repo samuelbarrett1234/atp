@@ -10,11 +10,14 @@
 		"no-repeats" : true,
 		"randomised" : true
 	},
+	"selection-strategy" : {
+		"type" : "EditDistanceSelectionStrategy",
+		"num-thms-load" : 200,
+		"num-thms-help" : 10,
+		"symbol-mismatch-cost" : 2.0,
+		"symbol-match-benefit" : 5.0,
+	},
 	"step-size" : 2000,
 	"max-steps" : 15,
-	"num-helper-theorems" : 10,
-	"helper-theorems-factor" : 20,
-	"ed-symbol-mismatch-cost" : 3.0,
-	"ed-symbol-match-benefit" : 5.0,
 	"seed" : "time"
 }

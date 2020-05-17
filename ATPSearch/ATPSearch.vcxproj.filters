@@ -120,6 +120,9 @@
     <ClInclude Include="Internal\EditDistanceSelectionStrategy.h">
       <Filter>Header Files\Internal\Selection Strategies</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\SearchSettingsSelectionStrategies.h">
+      <Filter>Header Files\Search Settings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPSearch.cpp">
@@ -160,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="Internal\EditDistanceSelectionStrategy.cpp">
       <Filter>Source Files\Internal\Selection Strategies</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SearchSettingsSelectionStrategies.cpp">
+      <Filter>Source Files\Search Settings</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

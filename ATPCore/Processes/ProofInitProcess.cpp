@@ -35,10 +35,15 @@ public:
 		proc_data::ProofSetupEssentials& setup_data,
 		proc_data::ProofEssentials& proof_data) :
 		QueryProcess(setup_data.db),
-		m_setup_data(setup_data), m_proof_data(proof_data)
+		m_setup_data(setup_data), m_proof_data(proof_data),
+		m_selection_strat(
+			setup_data.settings.create_selection_strategy(
+				setup_data.ctx, setup_data.ctx_id))
 	{
 		ATP_CORE_LOG(trace) << "Creating proof initialisation "
 			"process...";
+
+		ATP_CORE_PRECOND(m_selection_strat != nullptr);
 
 		ATP_CORE_LOG(trace) << "Creating knowledge kernel...";
 		m_proof_data.ker = m_setup_data.lang->try_create_kernel(

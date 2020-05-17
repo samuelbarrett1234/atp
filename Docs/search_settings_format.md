@@ -11,17 +11,11 @@ The following settings are universal (independent of solver type):
 	"desc" : "Your settings type description here",
 	"step-size" : 1000,
 	"max-steps" : 10,
-	"num-helper-theorems" : 25,
-	"helper-theorems-factor" : 5,
-	"ed-symbol-mismatch-cost" : 5.0,
-	"ed-symbol-match-benefit" : 5.0,
 	"seed" : "time"
 }
 ```
 
-`step-size` is the number of expansions to perform (on each target proof) at each iteration. `max-steps` is the maximum number of updates to perform, although the target statements may be proven earlier than this. Note that all of the above fields are optional (i.e. have default values). `num-helper-theorems` is the number of theorems, loaded from the database, to aid in the proof ("lemmas", if you will). The higher this number is, the higher the branching factor, but the more it leverages existing knowledge. However, the selection of these helper theorems is very important. Two parameters which govern how this is done is `helper-theorems-factor` and `ed-symbol-mismatch-cost`. The first of these parameters tells the program how many proven theorems to download from the database to rank - we will download `num-helper-theorems * helper-theorems-factor` such theorems, and then pick the best. The ranking is done by computing a variant of the edit distance between the helper theorems and the target theorems (pairwise). The cost of a free variable substitution is always fixed at `1.0`, but the cost of a mismatch between symbols is exactly `ed-symbol-mismatch-cost`, and the *benefit* (decrease in cost) of two symbols matching is `ed-symbol-match-benefit`. Think of these two values as being in direct opposition (they are the same "scale", both relative to the cost of a free variable substitution, which as mentioned is 1). It is hard to say what values of this would be good (except that such values should be `> 0.0`), so experimentation is needed!
-
-`no-repeats` is a flag indicating whether the search algorithm should avoid repeated states while searching. The benefit of this flag depends on the tradeoff between state space size, and time required to check for repeats. `randomised` is a flag telling the search to try to evaluate successors in a random order.
+`step-size` is the number of expansions to perform (on each target proof) at each iteration. `max-steps` is the maximum number of updates to perform, although the target statements may be proven earlier than this.
 
 `seed` is the seed value used for a random number generator. You can either set this equal to the string `"time"`, which seeds it based on the current clock time when the program is launched, or you can give it a fixed integer value for reproducability. Any other string value is an error.
 
@@ -35,7 +29,7 @@ The iterative deepening solver is specified using the `IterativeDeepeningSolver`
 
 ```
 {
-	"name" : "Iterative-Deepening Solver (you can change this)",
+	"name" : "Search settings with an Iterative-Deepening Solver",
 	...
 	"solver" : {
 		"type" : "IterativeDeepeningSolver",
@@ -55,6 +49,32 @@ In order to create an iterative deepening solver, you must use the type `Iterati
 Setting the start depth higher means less wasted work for long proofs, but it makes finding short proofs much less efficient than they otherwise would be. Tighter width limits means you will be able to explore proofs of greater depth, but any limit on the width is cutting into the search space (by just outright not exploring possibilities), so only use a tight width limit when the solver also has heuristics available to pick the best branches.
 
 Iterative deepening search will make use of any successor modifiers (e.g. stopping strategies) that are specified in the settings file (see below).
+
+## Selection Strategies
+
+Selection strategies govern how the ATP loads in theorems from the database to try to prove a given set of statements. Of course, it is infeasible to load *all* proven theorems, because (i) there might be too many to fit in memory, and (ii) it would increase the branching factor too much. If you like, these strategies select lemmas for the target theorem.
+
+### Fixed Selection Strategy
+
+The fixed selection strategy just loads a prescribed number of theorems from the database at random. The higher this number is, the higher the branching factor, but the more it leverages existing knowledge. Here is an example:
+
+```
+{
+	"name" : "Search settings with a fixed selection strategy",
+	...
+	"selection-strategy" : {
+		"type" : "FixedSelectionStrategy",
+		"num-helper-thms" : 10
+	},
+	...
+}
+```
+
+### Edit Distance Selection Strategy
+
+The edit distance selection strategy is a bit more sophisticated than the fixed selection strategy. It starts by loading a large number of theorems from the database (again, at random, identically to the above), and then computes the pairwise edit distance between each statement loaded, and each target theorem. It picks a subset of that loaded set of helper theorems to be carried forward to help in the proof.
+
+This strategy has four parameters: `num-thms-load` is the number of theorems to load from the database, identically to `num-helper-theorems` in the fixed selection strategy. `num-thms-help` is the size of the subset of theorems to select, and carry forward to the proof. The higher this number is, the higher the branching factor, but the more it leverages existing knowledge. `symbol-mismatch-cost` and `symbol-match-benefit` are parameters for the edit distance computation, which proceeds as follows. The cost of a free variable substitution is always fixed at `1.0`, but the cost of a mismatch between symbols is exactly `symbol-mismatch-cost`, and the *benefit* (decrease in cost) of two symbols matching is `symbol-match-benefit`. Think of these two values as being in direct opposition (they are the same "scale", both relative to the cost of a free variable substitution, which as mentioned is 1). It is hard to say what values of this would be good (except that such values should be `> 0.0`), so experimentation is needed!
 
 ## Heuristics
 

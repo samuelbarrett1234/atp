@@ -59,8 +59,7 @@ BOOST_AUTO_TEST_CASE(test_no_solver)
 	s << "\"name\" : \"test-name\",";
 	s << "\"desc\" : \"test-desc\",";
 	s << "\"max-steps\" : 1,";
-	s << "\"step-size\" : 2,";
-	s << "\"num-helper-theorems\" : 3";
+	s << "\"step-size\" : 2";
 	s << "}";
 
 	SearchSettings settings;
@@ -70,17 +69,29 @@ BOOST_AUTO_TEST_CASE(test_no_solver)
 }
 
 
+BOOST_AUTO_TEST_CASE(test_no_selection_strateg)
+{
+	s << "{";
+	s << "\"name\" : \"test-name\",";
+	s << "\"desc\" : \"test-desc\",";
+	s << "\"max-steps\" : 1,";
+	s << "\"step-size\" : 2";
+	s << "}";
+
+	SearchSettings settings;
+	BOOST_TEST(load_search_settings(p_ctx, s,
+		&settings));
+	BOOST_TEST(!((bool)settings.create_selection_strategy));
+}
+
+
 BOOST_AUTO_TEST_CASE(test_get_step_settings)
 {
 	s << "{";
 	s << "\"name\" : \"test-name\",";
 	s << "\"desc\" : \"test-desc\",";
 	s << "\"max-steps\" : 1,";
-	s << "\"step-size\" : 2,";
-	s << "\"num-helper-theorems\" : 3,";
-	s << "\"helper-theorems-factor\" : 4,";
-	s << "\"ed-symbol-mismatch-cost\" : 6.0,";
-	s << "\"ed-symbol-match-benefit\" : 7.0";
+	s << "\"step-size\" : 2";
 	s << "}";
 
 	SearchSettings settings;
@@ -90,10 +101,6 @@ BOOST_AUTO_TEST_CASE(test_get_step_settings)
 	BOOST_TEST(settings.desc == "test-desc");
 	BOOST_TEST(settings.max_steps == 1);
 	BOOST_TEST(settings.step_size == 2);
-	BOOST_TEST(settings.num_helper_thms == 3);
-	BOOST_TEST(settings.helper_thms_factor == 4);
-	BOOST_TEST(settings.ed_symb_mismatch_cost == 6.0f);
-	BOOST_TEST(settings.ed_symb_match_benefit == 7.0f);
 }
 
 

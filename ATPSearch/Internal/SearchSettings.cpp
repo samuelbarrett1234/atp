@@ -113,20 +113,10 @@ bool load_search_settings(
 			"max-steps", 10);
 		p_out_settings->step_size = ptree.get<size_t>(
 			"step-size", 100);
-		p_out_settings->num_helper_thms = ptree.get<size_t>(
-			"num-helper-theorems", 25);
-		p_out_settings->helper_thms_factor = ptree.get<size_t>(
-			"helper-theorems-factor", 5);
-		p_out_settings->ed_symb_mismatch_cost = ptree.get<float>(
-			"ed-symbol-mismatch-cost", 5.0f);
-		p_out_settings->ed_symb_match_benefit = ptree.get<float>(
-			"ed-symbol-match-benefit", 5.0f);
 
 		// check for bad values:
 		if (p_out_settings->max_steps == 0 ||
-			p_out_settings->step_size == 0 ||
-			p_out_settings->ed_symb_mismatch_cost <= 0.0f ||
-			p_out_settings->ed_symb_match_benefit <= 0.0f)
+			p_out_settings->step_size == 0)
 			return false;
 
 		// the default seed is based on the current time
@@ -142,6 +132,15 @@ bool load_search_settings(
 				"seed");
 		}
 
+		// no selection strategy is not an error
+		if (auto selection_strat_ptree =
+			ptree.get_child_optional("selection-strategy"))
+		{
+			if (!try_create_selection_strategy(ptree,
+				p_out_settings->create_selection_strategy))
+				return false;
+		}
+
 		HeuristicCreator heuristic_creator;
 		if (auto heuristic_ptree =
 			ptree.get_child_optional("heuristic"))
@@ -152,13 +151,14 @@ bool load_search_settings(
 
 			ATP_SEARCH_ASSERT((bool)heuristic_creator);
 		}
-
-		if (!ptree.get_child_optional("solver"))
-			return true;  // no solver is not an error
-
-		if (!create_solver_creator(p_out_settings->create_solver,
-			heuristic_creator, ptree))
-			return false;
+		
+		// no solver is not an error
+		if (ptree.get_child_optional("solver"))
+		{
+			if (!create_solver_creator(p_out_settings->create_solver,
+				heuristic_creator, ptree))
+				return false;
+		}
 
 		// else we are done
 		return true;

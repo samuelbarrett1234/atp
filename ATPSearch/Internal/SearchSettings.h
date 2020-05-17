@@ -19,6 +19,7 @@
 #include "../Interfaces/ISolver.h"
 #include "../Interfaces/IHeuristic.h"
 #include "../Interfaces/IStoppingStrategy.h"
+#include "SearchSettingsSelectionStrategies.h"
 
 
 namespace atp
@@ -42,26 +43,6 @@ struct ATP_SEARCH_API SearchSettings
 	// the maximum number of calls to step() before giving up
 	size_t max_steps;
 
-	// the number of theorems, loaded from the database, to help
-	// prove the statements (these are carried forward to the solver
-	// and increase the branching factor).
-	size_t num_helper_thms;
-
-	// we will load num_helper_thms * helper_thms_factor proven
-	// theorems from the database, and pick the best from them.
-	// increasing this will increase load times, but will increase
-	// the likelihood of finding a good set of helper theorems.
-	size_t helper_thms_factor;
-
-	// this is the cost of a symbol mismatch for edit distance
-	// calculations - it is relative to the cost of a free variable
-	// substitution, which is fixed at 1.0
-	// you will want to experiment with this to see which picks the
-	// best helper theorems.
-	// ed_symbol_match_benefit is the corresponding decrease in edit
-	// distance for when a match occurs
-	float ed_symb_mismatch_cost, ed_symb_match_benefit;
-
 	// random number generator seed
 	size_t seed;
 	
@@ -69,6 +50,9 @@ struct ATP_SEARCH_API SearchSettings
 	// have been loaded.
 	std::function<SolverPtr(logic::KnowledgeKernelPtr)
 		> create_solver;
+
+	// functor for creating selection strategies
+	SelectionStrategyCreator create_selection_strategy;
 };
 
 
@@ -91,7 +75,7 @@ struct ATP_SEARCH_API SearchSettings
 
 \warning If the user doesn't provide certain info, default values may
 	be set instead - for example, if the file provides no solver,
-	p_solver will be set to null but this may not be an error. Check
+	create_solver will be left empty but this may not be an error. Check
 	the return value!
 
 */

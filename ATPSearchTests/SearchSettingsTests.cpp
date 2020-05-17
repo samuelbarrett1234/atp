@@ -79,12 +79,12 @@ BOOST_AUTO_TEST_CASE(test_get_step_settings)
 	s << "\"step-size\" : 2,";
 	s << "\"num-helper-theorems\" : 3,";
 	s << "\"helper-theorems-factor\" : 4,";
-	s << "\"ed-symbol-mismatch-cost\" : 6.0";
+	s << "\"ed-symbol-mismatch-cost\" : 6.0,";
 	s << "\"ed-symbol-match-benefit\" : 7.0";
 	s << "}";
 
 	SearchSettings settings;
-	BOOST_TEST(load_search_settings(p_ctx, s,
+	BOOST_REQUIRE(load_search_settings(p_ctx, s,
 		&settings));
 	BOOST_TEST(settings.name == "test-name");
 	BOOST_TEST(settings.desc == "test-desc");

@@ -14,7 +14,6 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 <div class="w3-row-padding w3-padding-64 w3-container">
 	<div class="w3-content">
 		<h1 id='pf_start'>Proof Data</h1>
-		<h5 class="w3-padding-32">Below is a catalogue of some proven theorems and information about them</h5>
 		<?php
 		// connect to database
 		$db = new SQLite3('../Data/DB/eqlogic.db');
@@ -26,8 +25,17 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			$off = (int)$_GET['off'];
 		}
 		
+		// context
+		$ctx_name = "group-theory";
+		if (array_key_exists('ctx', $_GET) && $_GET['ctx'] != null)
+		{
+			$ctx_name = $_GET['ctx'];
+		}
+		
+		echo "<h5 class=\"w3-padding-32\">Below is a catalogue of some proven theorems in {$ctx_name} and information about them</h5>\n";
+		
 		// big query:
-		$prep = $db->prepare("SELECT stmt, name AS ctx_name, num_attempts, time_agg, max_mem_agg, num_exp_agg,
+		$prep = $db->prepare("SELECT stmt, num_attempts, time_agg, max_mem_agg, num_exp_agg,
 
 		-- compute the number of times this theorem could've been / was used in a proof
 		IFNULL((SELECT SUM(cnt) FROM theorem_usage WHERE id=used_thm_id), 0) AS num_uses,
@@ -50,33 +58,57 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 
 		ON id=thm_id
 		
-		JOIN model_contexts ON ctx = ctx_id
+		JOIN model_contexts ON ctx = ctx_id WHERE name = :ctx_name
 
 		ORDER BY num_uses DESC, num_attempts DESC
 		LIMIT 25 OFFSET :off
 		");
 		
 		$prep->bindValue(':off', $off, SQLITE3_INTEGER);
+		$prep->bindValue(':ctx_name', $ctx_name, SQLITE3_TEXT);
 		$query = $prep->execute();
 		
 		// create table
 		echo "<br><table class=\"w3-text-grey w3-table-all\">\n";
 		
 		// create headers
-		echo "<tr><th>Statement</th><th>Context</th><th>Number of attempts</th><th>Time cost (s)</th><th>Max memory usage</th><th>Num node expansions</th><th>Num usages</th><th>Date entered</th><th>Date proven</th></tr>\n";
+		echo "<tr><th>Statement</th><th>Number of attempts</th><th>Time cost (s)</th><th>Max memory usage</th><th>Num node expansions</th><th>Num usages</th><th>Date entered</th><th>Date proven</th></tr>\n";
 		
 		// enumerate results
 		while ($row = $query->fetchArray())
 		{
 			// output row of table
-			echo "<tr><td><a href='examine_thm.php?stmt={$row['stmt']}&ctx={$row['ctx_name']}'>{$row['stmt']}</a></td><td>{$row['ctx_name']}</td><td>{$row['num_attempts']}</td><td>{$row['time_agg']}</td><td>{$row['max_mem_agg']}</td><td>{$row['num_exp_agg']}</td><td>{$row['num_uses']}</td><td>{$row['date_entered']}</td><td>{$row['date_proven']}</td></tr>\n";
+			echo "<tr><td><a href='examine_thm.php?stmt={$row['stmt']}&ctx={$ctx_name}'>{$row['stmt']}</a></td><td>{$row['num_attempts']}</td><td>{$row['time_agg']}</td><td>{$row['max_mem_agg']}</td><td>{$row['num_exp_agg']}</td><td>{$row['num_uses']}</td><td>{$row['date_entered']}</td><td>{$row['date_proven']}</td></tr>\n";
 		}
 		echo "</table>\n";
 		
 		// the "more..." link
 		$off += 25;
-		echo "<br><br><a href='view_pf_data.php?off={$off}#pf_start' class='w3-text-grey'>More...</a>\n";
+		echo "<br><br><a href='view_pf_data.php?off={$off}&ctx={$ctx_name}#pf_start' class='w3-text-grey'>More...</a>\n";
+		
+		// form for changing contexts
+		echo "<br><br>\n";
+		echo "<form action=\"view_pf_data.php\" method=get>\n";
+		echo "Change context:\n";
+		echo "<select name=\"ctx\" class=\"w3-select\">\n";
+		
+		$query = $db->query("SELECT name FROM model_contexts");
+		
+		// enumerate the model contexts to select from
+		while ($row = $query->fetchArray())
+		{
+			echo "<option value=\"{$row['name']}\" class=\"w3-input w3-option\"";
+			if ($ctx_name == $row['name'])
+			{
+				echo " selected=\"selected\"";
+			}
+			echo ">{$row['name']}</option>\n";
+		}
 		?>
+		</select>
+		<br><br>
+		<input type=submit value="Go" class="w3-input w3-button">
+		</form>
 	</div>
 </div>
 

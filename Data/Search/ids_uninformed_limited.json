@@ -15,7 +15,7 @@
 		"num-thms-load" : 200,
 		"num-thms-help" : 10,
 		"symbol-mismatch-cost" : 2.0,
-		"symbol-match-benefit" : 5.0,
+		"symbol-match-benefit" : 5.0
 	},
 	"step-size" : 2000,
 	"max-steps" : 15,

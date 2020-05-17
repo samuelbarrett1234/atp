@@ -44,6 +44,7 @@ public:
 			"process...";
 
 		ATP_CORE_PRECOND(m_selection_strat != nullptr);
+		m_selection_strat->set_targets(setup_data.target_thms);
 
 		ATP_CORE_LOG(trace) << "Creating knowledge kernel...";
 		m_proof_data.ker = m_setup_data.lang->try_create_kernel(

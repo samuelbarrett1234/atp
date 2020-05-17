@@ -136,7 +136,7 @@ bool load_search_settings(
 		if (auto selection_strat_ptree =
 			ptree.get_child_optional("selection-strategy"))
 		{
-			if (!try_create_selection_strategy(ptree,
+			if (!try_create_selection_strategy(*selection_strat_ptree,
 				p_out_settings->create_selection_strategy))
 				return false;
 		}
@@ -165,9 +165,11 @@ bool load_search_settings(
 	}
 	catch(pt::ptree_error&)
 	{
-		// in case we had already loaded this
-		p_out_settings->create_solver = std::function<SolverPtr(
-			logic::KnowledgeKernelPtr)>();
+		// in case we had already loaded these
+		p_out_settings->create_solver = decltype(
+			p_out_settings->create_solver)();
+		p_out_settings->create_selection_strategy = decltype(
+			p_out_settings->create_selection_strategy)();
 
 		return false;
 	}

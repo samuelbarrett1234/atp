@@ -219,9 +219,17 @@ int setup_logs(const po::variables_map& vm)
 
 	boost::log::add_common_attributes();
 
-	const int console_severity = (vm.count("verbose") ?
-		(int)severity_level::trace : (vm.count("surpress") ?
-			(int)severity_level::warning : (int)severity_level::info));
+	const int console_severity =
+		// verbose means show all
+		(vm.count("verbose") ? (int)severity_level::trace :
+			// surpress means warnings only
+			(vm.count("surpress") ? (int)severity_level::warning :
+				// serve mode: don't show info
+				(vm.count("serve") ? (int)severity_level::warning :
+					// default: info
+					(int)severity_level::info)));
+
+	// always put everything into the file log
 	const int file_severity = (int)severity_level::trace;
 
 	boost::log::add_console_log(

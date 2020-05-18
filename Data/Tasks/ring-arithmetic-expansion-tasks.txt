@@ -1,4 +1,7 @@
 
+# basic expansion of brackets:
+*(+(a, b), +(c, d)) = +(+(*(a, c), *(a, d)), +(*(b, c), *(b, d)))
+
 # theorem: (x+1)(x-1) = x^2 - 1
 
 #  +(*(x, x), -(1)) = +(*(x, x), -(1))  # true by reflexivity

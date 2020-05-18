@@ -58,7 +58,9 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 
 		ON id=thm_id
 		
-		JOIN model_contexts ON ctx = ctx_id WHERE name = :ctx_name
+		JOIN model_contexts ON ctx = ctx_id
+		WHERE name = :ctx_name
+		AND is_axiom = 0  -- no axioms please
 
 		ORDER BY num_uses DESC, num_attempts DESC
 		LIMIT 25 OFFSET :off
@@ -82,12 +84,12 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		}
 		echo "</table>\n";
 		
-		// the "more..." link
+		// the "next..." link
 		$off += 25;
-		echo "<br><br><a href='view_pf_data.php?off={$off}&ctx={$ctx_name}#pf_start' class='w3-text-grey'>More...</a>\n";
+		echo "<br><a href='view_pf_data.php?off={$off}&ctx={$ctx_name}#pf_start' class='w3-text-grey'>Next...</a>\n";
 		
 		// form for changing contexts
-		echo "<br><br>\n";
+		echo "<br><br><hr><br>\n";
 		echo "<form action=\"view_pf_data.php\" method=get>\n";
 		echo "Change context:\n";
 		echo "<select name=\"ctx\" class=\"w3-select\">\n";

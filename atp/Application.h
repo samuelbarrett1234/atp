@@ -28,8 +28,7 @@
 
 \details This class encapsulates the following use case: "given a
     logical language, and a context, try to prove a given set of
-	statements all in one go." It does not store the results in the
-	database; this application is intended to be quick and simple.
+	statements all in one go."
 */
 class Application
 {
@@ -46,7 +45,7 @@ public:
 
 	\returns True iff success.
 	*/
-	bool set_db(const std::string& db_config_file);
+	bool set_db(const std::string& path);
 
 	/**
 	\brief Loads the language and knowledge kernel from a given

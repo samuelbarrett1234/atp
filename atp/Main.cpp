@@ -20,6 +20,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
 #include "Application.h"
+#include "ServerApplication.h"
 
 
 namespace po = boost::program_options;
@@ -38,17 +39,23 @@ istream& operator>>(istream& in, pair<size_t, size_t>& pair)
 }
 
 
-std::unique_ptr<Application> g_app;
-
-
 int setup_logs(const po::variables_map& vm);
-int load_db(const po::variables_map& vm);
-int load_ctx(const po::variables_map& vm);
-int load_ss(const po::variables_map& vm);
-int add_proof(const po::variables_map& vm);
-int add_hmm_conj(const po::variables_map& vm);
-int add_hmm_train(const po::variables_map& vm);
-int create_hmm_conj(const po::variables_map& vm);
+int load_db(std::unique_ptr<Application>& p_app,
+	const po::variables_map& vm);
+int load_ctx(std::unique_ptr<Application>& p_app,
+	const po::variables_map& vm);
+int load_ss(std::unique_ptr<Application>& p_app, 
+	const po::variables_map& vm);
+int add_proof(std::unique_ptr<Application>& p_app, 
+	const po::variables_map& vm);
+int add_hmm_conj(std::unique_ptr<Application>& p_app, 
+	const po::variables_map& vm);
+int add_hmm_train(std::unique_ptr<Application>& p_app, 
+	const po::variables_map& vm);
+int create_hmm_conj(std::unique_ptr<Application>& p_app, 
+	const po::variables_map& vm);
+int load_db_server(std::unique_ptr<ServerApplication>& p_app,
+	const po::variables_map& vm);
 
 
 int main(int argc, const char* const argv[])
@@ -68,6 +75,12 @@ int main(int argc, const char* const argv[])
 			"Change file to write log info to.")
 
 		("nologfile,nlf", "Don't write any log files.")
+
+		("serve", "Set up a server application, which continuously "
+			"performs tasks and is autonomous. Using this option "
+			"ignores the `prove` option and options relating to "
+			"automated conjecturing. *Requires a DB*, but not the "
+			"context or search settings options.")
 
 		("prove,P", po::value<std::vector<std::string>>(),
 			"Either a statement like \"f(x) = y\", a path to a file "
@@ -133,7 +146,7 @@ int main(int argc, const char* const argv[])
 	// handle logging before creating application
 
 	setup_logs(vm);
-	ATP_LOG(trace) << "Starting up application...";
+	ATP_LOG(trace) << "**** STARTING UP APPLICATION ****";
 
 	// create application:
 
@@ -144,24 +157,41 @@ int main(int argc, const char* const argv[])
 		ATP_LOG(error) << "Need at least one thread.";
 		return -1;
 	}
-	g_app = std::make_unique<Application>(num_threads);
 
-	if (int rc = load_db(vm))
-		return rc;
-	if (int rc = load_ctx(vm))
-		return rc;
-	if (int rc = load_ss(vm))
-		return rc;
-	if (int rc = add_proof(vm))
-		return rc;
-	if (int rc = add_hmm_conj(vm))
-		return rc;
-	if (int rc = add_hmm_train(vm))
-		return rc;
-	if (int rc = create_hmm_conj(vm))
-		return rc;
+	if (vm.count("serve"))
+	{
+		std::unique_ptr<ServerApplication> p_app =
+			std::make_unique<ServerApplication>(num_threads);
 
-	g_app->run();
+		if (int rc = load_db_server(p_app, vm))
+		{
+			return rc;
+		}
+
+		p_app->run();
+	}
+	else
+	{
+		std::unique_ptr<Application> p_app =
+			std::make_unique<Application>(num_threads);
+
+		if (int rc = load_db(p_app, vm))
+			return rc;
+		if (int rc = load_ctx(p_app, vm))
+			return rc;
+		if (int rc = load_ss(p_app, vm))
+			return rc;
+		if (int rc = add_proof(p_app, vm))
+			return rc;
+		if (int rc = add_hmm_conj(p_app, vm))
+			return rc;
+		if (int rc = add_hmm_train(p_app, vm))
+			return rc;
+		if (int rc = create_hmm_conj(p_app, vm))
+			return rc;
+
+		p_app->run();
+	}
 
 	ATP_LOG(trace) << "Done. Exiting...";
 	return 0;
@@ -228,7 +258,8 @@ int setup_logs(const po::variables_map& vm)
 }
 
 
-int load_db(const po::variables_map& vm)
+int load_db(std::unique_ptr<Application>& p_app, 
+	const po::variables_map& vm)
 {
 	if (!vm.count("database"))
 	{
@@ -241,7 +272,7 @@ int load_db(const po::variables_map& vm)
 	const std::string db_file = vm["database"].as<std::string>();
 
 	// try to load database config file
-	if (!g_app->set_db(db_file))
+	if (!p_app->set_db(db_file))
 	{
 		return -1;
 	}
@@ -250,7 +281,8 @@ int load_db(const po::variables_map& vm)
 }
 
 
-int load_ctx(const po::variables_map& vm)
+int load_ctx(std::unique_ptr<Application>& p_app, 
+	const po::variables_map& vm)
 {
 	if (!vm.count("context"))
 	{
@@ -263,7 +295,7 @@ int load_ctx(const po::variables_map& vm)
 	const std::string ctx_name = vm["context"].as<std::string>();
 
 	// try to load context file
-	if (!g_app->set_context_name(ctx_name))
+	if (!p_app->set_context_name(ctx_name))
 	{
 		return -1;
 	}
@@ -272,7 +304,8 @@ int load_ctx(const po::variables_map& vm)
 }
 
 
-int load_ss(const po::variables_map& vm)
+int load_ss(std::unique_ptr<Application>& p_app, 
+	const po::variables_map& vm)
 {
 	if (!vm.count("search-settings"))
 	{
@@ -285,7 +318,7 @@ int load_ss(const po::variables_map& vm)
 	const std::string ss_name = vm["search-settings"].as<std::string>();
 
 	// try to load search file
-	if (!g_app->set_search_name(ss_name))
+	if (!p_app->set_search_name(ss_name))
 	{
 		return -1;
 	}
@@ -294,7 +327,8 @@ int load_ss(const po::variables_map& vm)
 }
 
 
-int add_proof(const po::variables_map& vm)
+int add_proof(std::unique_ptr<Application>& p_app, 
+	const po::variables_map& vm)
 {
 	if (vm.count("prove"))
 	{
@@ -308,7 +342,7 @@ int add_proof(const po::variables_map& vm)
 				// throws if not integer
 				const size_t N = boost::lexical_cast<size_t>(task);
 
-				if (!g_app->add_proof_task(N))
+				if (!p_app->add_proof_task(N))
 				{
 					ATP_LOG(error)
 						<< "Failed to load proof task: '"
@@ -319,7 +353,7 @@ int add_proof(const po::variables_map& vm)
 			catch (boost::bad_lexical_cast&)
 			{
 				// handle as filename / statement input
-				if (!g_app->add_proof_task(task))
+				if (!p_app->add_proof_task(task))
 				{
 					ATP_LOG(error)
 						<< "Failed to load proof task: '"
@@ -334,7 +368,8 @@ int add_proof(const po::variables_map& vm)
 }
 
 
-int add_hmm_conj(const po::variables_map& vm)
+int add_hmm_conj(std::unique_ptr<Application>& p_app, 
+	const po::variables_map& vm)
 {
 	if (vm.count("hmm-conjecture"))
 	{
@@ -343,7 +378,7 @@ int add_hmm_conj(const po::variables_map& vm)
 			vm["hmm-conjecture"].as<std::vector<size_t>>();
 		for (auto N : conjecture_tasks)
 		{
-			if (!g_app->add_hmm_conjecture_task(N))
+			if (!p_app->add_hmm_conjecture_task(N))
 			{
 				ATP_LOG(error) << "Failed to launch conjecturer.";
 				return -1;
@@ -355,7 +390,8 @@ int add_hmm_conj(const po::variables_map& vm)
 }
 
 
-int add_hmm_train(const po::variables_map& vm)
+int add_hmm_train(std::unique_ptr<Application>& p_app, 
+	const po::variables_map& vm)
 {
 	if (vm.count("hmm-conjecture-train"))
 	{
@@ -364,7 +400,7 @@ int add_hmm_train(const po::variables_map& vm)
 		const size_t epochs = params.first;
 		const size_t dataset_size = params.second;
 
-		if (!g_app->add_hmm_conj_train_task(epochs, dataset_size))
+		if (!p_app->add_hmm_conj_train_task(epochs, dataset_size))
 		{
 			ATP_LOG(error) << "Failed to launch conjecturer "
 				"training process.";
@@ -376,7 +412,8 @@ int add_hmm_train(const po::variables_map& vm)
 }
 
 
-int create_hmm_conj(const po::variables_map& vm)
+int create_hmm_conj(std::unique_ptr<Application>& p_app, 
+	const po::variables_map& vm)
 {
 	if (vm.count("create-hmm-conjecturer"))
 	{
@@ -393,7 +430,7 @@ int create_hmm_conj(const po::variables_map& vm)
 		}
 		else
 		{
-			if (!g_app->create_hmm_conjecturer(num_hidden, model_id))
+			if (!p_app->create_hmm_conjecturer(num_hidden, model_id))
 			{
 				ATP_CORE_LOG(error) << "Failed to create HMM "
 					"conjecturer.";
@@ -401,6 +438,29 @@ int create_hmm_conj(const po::variables_map& vm)
 			}
 		}
 	}
+	return 0;
+}
+
+
+int load_db_server(std::unique_ptr<ServerApplication>& p_app,
+	const po::variables_map& vm)
+{
+	if (!vm.count("database"))
+	{
+		ATP_LOG(error)
+			<< "Need to provide a database file."
+			<< " Use --database <filename>";
+		return -1;
+	}
+
+	const std::string db_file = vm["database"].as<std::string>();
+
+	// try to load database config file
+	if (!p_app->set_db(db_file))
+	{
+		return -1;
+	}
+
 	return 0;
 }
 

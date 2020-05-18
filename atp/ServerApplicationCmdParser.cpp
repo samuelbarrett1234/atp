@@ -11,25 +11,12 @@
 #include <boost/spirit/include/phoenix.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/bind.hpp>
-#include "ServerApplicationCommands.h"
 
 
 namespace qi = boost::spirit::qi;
 namespace phx = boost::phoenix;
 typedef boost::spirit::istream_iterator QiParseIterator;
 typedef boost::spirit::ascii::space_type SkipperType;
-
-
-CommandType create_prove_cmd(int n)
-{
-	return boost::bind(&prove_command, n, _1);
-}
-
-
-CommandType create_help_cmd()
-{
-	return boost::bind(&help_command, _1);
-}
 
 
 /**
@@ -39,16 +26,16 @@ struct CommandGrammar :
 	public qi::grammar<QiParseIterator,
 	CommandType, SkipperType>
 {
-	CommandGrammar() :
+	CommandGrammar(CommandSet& cmd_set) :
 		CommandGrammar::base_type(start)
 	{
 		start = prove_cmd | help_cmd;
 
 		prove_cmd = ".prove " >> qi::int_
-			[&create_prove_cmd];
+			[cmd_set.create_proof_cmd];
 
 		help_cmd = (qi::lit(".help ") | ".h")
-			[&create_help_cmd];
+			[cmd_set.create_help_cmd];
 	}
 
 	qi::rule<QiParseIterator, CommandType,
@@ -56,13 +43,13 @@ struct CommandGrammar :
 };
 
 
-CommandType get_cmd()
+CommandType get_cmd(CommandSet& cmd_set)
 {
 	QiParseIterator begin(std::cin), end;
 	CommandType cmd;
 
 	const bool ok = qi::phrase_parse(
-		begin, end, CommandGrammar(), SkipperType(),
+		begin, end, CommandGrammar(cmd_set), SkipperType(),
 		cmd
 	);
 

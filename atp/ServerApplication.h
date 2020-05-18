@@ -80,6 +80,12 @@ private:
 	*/
 	void initialise_tasks();
 
+private:  // COMMANDS
+
+	void help_cmd();
+	void prove_cmd(int n);
+	void exit_cmd();
+
 private:
 	bool m_done;  // indicates exit for worker threads
 	mutable boost::shared_mutex m_mutex;  // for worker threads

@@ -8,6 +8,7 @@
 #include "ServerApplication.h"
 #include <iostream>
 #include <boost/thread/locks.hpp>
+#include <boost/bind.hpp>
 #include "ServerApplicationCmdParser.h"
 
 
@@ -52,6 +53,17 @@ void ServerApplication::run()
 	// the parser will handle the skipping
 	std::cin >> std::noskipws;
 
+	// set up command creators:
+	CommandSet cmd_set;
+	cmd_set.create_proof_cmd = [this](int n)
+	{
+		return boost::bind(&ServerApplication::prove_cmd, this, n);
+	};
+	cmd_set.create_help_cmd = [this]()
+	{
+		return boost::bind(&ServerApplication::help_cmd, this);
+	};
+
 	// set up initial tasks
 	initialise_tasks();
 
@@ -59,7 +71,7 @@ void ServerApplication::run()
 	{
 		// accept user command input
 
-		CommandType cmd = get_cmd();
+		CommandType cmd = get_cmd(cmd_set);
 		
 		if (!cmd)
 		{
@@ -67,7 +79,7 @@ void ServerApplication::run()
 		}
 		else
 		{
-			cmd(m_proc_mgr);
+			cmd();
 		}
 	}
 
@@ -109,6 +121,22 @@ bool ServerApplication::is_done() const
 	boost::shared_lock<boost::shared_mutex> lock(m_mutex);
 
 	return m_done;
+}
+
+
+void ServerApplication::help_cmd()
+{
+	std::cout << "Usage:" << std::endl
+		<< "`.prove N`\tCreate a new process to prove"
+		" N statements." << std::endl <<
+		"`.help`,`.h`\tDisplay help message."
+		<< std::endl;
+}
+
+
+void ServerApplication::prove_cmd(int n)
+{
+	std::cout << "Prove " << n << "!" << std::endl;
 }
 
 

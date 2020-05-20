@@ -486,7 +486,7 @@ class ATP_DATABASE_API ISelectSearchSettings :
 public:
 	virtual ~ISelectSearchSettings() = default;
 
-	virtual void set_ctx_id(size_t ctx_id) = 0;
+	virtual ISelectSearchSettings* set_ctx_id(size_t ctx_id) = 0;
 };
 
 

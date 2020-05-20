@@ -20,6 +20,8 @@
 #include "SQLiteGetHmmConjStTransParams.h"
 #include "SQLiteGetHmmConjObsParams.h"
 #include "SQLiteSaveHmmConjModelParams.h"
+#include "SQLiteSelectModelContext.h"
+#include "SQLiteSelectSearchSettings.h"
 
 
 namespace atp
@@ -164,6 +166,10 @@ QueryBuilderPtr SQLiteDatabase::create_query_builder(
 		return std::make_unique<SQLiteGetHmmConjObsParams>();
 	case QueryBuilderType::SAVE_HMM_CONJ_PARAMS:
 		return std::make_unique<SQLiteSaveHmmConjModelParams>();
+	case QueryBuilderType::SELECT_CTX:
+		return std::make_unique<SQLiteSelectModelContext>();
+	case QueryBuilderType::SELECT_SS:
+		return std::make_unique<SQLiteSelectSearchSettings>();
 	default:
 		ATP_DATABASE_PRECOND(false && "bad type!");
 		return nullptr;

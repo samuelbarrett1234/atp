@@ -78,6 +78,12 @@
     <ClInclude Include="Internal\SQLiteSaveHmmConjModelParams.h">
       <Filter>Header Files\Internal\SQLite</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\SQLiteSelectModelContext.h">
+      <Filter>Header Files\Internal\SQLite</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\SQLiteSelectSearchSettings.h">
+      <Filter>Header Files\Internal\SQLite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPDatabase.cpp">
@@ -111,6 +117,12 @@
       <Filter>Source Files\Internal\SQLite</Filter>
     </ClCompile>
     <ClCompile Include="Internal\SQLiteSaveHmmConjModelParams.cpp">
+      <Filter>Source Files\Internal\SQLite</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SQLiteSelectModelContext.cpp">
+      <Filter>Source Files\Internal\SQLite</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\SQLiteSelectSearchSettings.cpp">
       <Filter>Source Files\Internal\SQLite</Filter>
     </ClCompile>
   </ItemGroup>

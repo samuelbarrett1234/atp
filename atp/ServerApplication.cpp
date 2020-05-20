@@ -55,14 +55,12 @@ void ServerApplication::run()
 
 	// set up command creators:
 	CommandSet cmd_set;
-	cmd_set.create_proof_cmd = [this](int n)
-	{
-		return boost::bind(&ServerApplication::prove_cmd, this, n);
-	};
-	cmd_set.create_help_cmd = [this]()
-	{
-		return boost::bind(&ServerApplication::help_cmd, this);
-	};
+	cmd_set.proof_cmd = boost::bind(
+		&ServerApplication::prove_cmd, this, _1);
+	cmd_set.help_cmd = boost::bind(&ServerApplication::help_cmd,
+		this);
+	cmd_set.exit_cmd = boost::bind(
+		&ServerApplication::exit_cmd, this);
 
 	// set up initial tasks
 	initialise_tasks();
@@ -71,30 +69,18 @@ void ServerApplication::run()
 	{
 		// accept user command input
 
-		CommandType cmd = get_cmd(cmd_set);
-		
-		if (!cmd)
+		std::cout << "> ";
+
+		const bool ok = do_cmd(cmd_set);
+
+		if (!ok)
 		{
-			std::cout << "Error: bad command. Check syntax." << std::endl;
-		}
-		else
-		{
-			cmd();
+			std::cout << "Error parsing / executing command. "
+				"Try `.help` for help." << std::endl;
 		}
 	}
 
-	// indicate done:
-	{
-		boost::unique_lock<boost::shared_mutex> lock(m_mutex);
-
-		m_done = true;
-	}
-
-	// join workers:
-	for (size_t i = 0; i < m_workers.size(); ++i)
-	{
-		m_workers[i].join();
-	}
+	// workers are automatically joined by the exit command
 }
 
 
@@ -124,19 +110,61 @@ bool ServerApplication::is_done() const
 }
 
 
-void ServerApplication::help_cmd()
+void ServerApplication::initialise_tasks()
+{
+	ATP_LOG(info) << "Initialising tasks...";
+
+	// todo: put some stuff here
+}
+
+
+bool ServerApplication::help_cmd()
 {
 	std::cout << "Usage:" << std::endl
 		<< "`.prove N`\tCreate a new process to prove"
 		" N statements." << std::endl <<
-		"`.help`,`.h`\tDisplay help message."
+		"`.help`,`.h`\tDisplay help message." << std::endl
+		<< "`.exit`\tStop the server."
 		<< std::endl;
+
+	return true;
 }
 
 
-void ServerApplication::prove_cmd(int n)
+bool ServerApplication::prove_cmd(int n)
 {
+	if (n <= 0)
+	{
+		std::cout << "Number of statements needs to be > 0" <<
+			std::endl;
+		return false;
+	}
+
+	// TEMP
 	std::cout << "Prove " << n << "!" << std::endl;
+
+	return true;
+}
+
+
+bool ServerApplication::exit_cmd()
+{
+	ATP_ASSERT(!m_done);
+
+	// indicate done:
+	{
+		boost::unique_lock<boost::shared_mutex> lock(m_mutex);
+
+		m_done = true;
+	}
+
+	// join workers:
+	for (size_t i = 0; i < m_workers.size(); ++i)
+	{
+		m_workers[i].join();
+	}
+
+	return true;
 }
 
 

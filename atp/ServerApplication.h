@@ -82,9 +82,9 @@ private:
 
 private:  // COMMANDS
 
-	void help_cmd();
-	void prove_cmd(int n);
-	void exit_cmd();
+	bool help_cmd();
+	bool prove_cmd(int n);
+	bool exit_cmd();
 
 private:
 	bool m_done;  // indicates exit for worker threads

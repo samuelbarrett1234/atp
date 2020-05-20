@@ -27,12 +27,24 @@ SimpleScheduler::SimpleScheduler(db::DatabasePtr p_db) :
 bool SimpleScheduler::update(ProcessManager& proc_mgr)
 {
 	static const size_t LOAD_FACTOR = 2;
+	static const size_t NUM_THMS_PER_PROOF_PROC = 10;
 
-	if (proc_mgr.num_procs_running() < LOAD_FACTOR * m_num_threads)
+	// cache this as it requires a mutex lock which is reasonably
+	// expensive
+	const size_t num_procs = proc_mgr.num_procs_running();
+
+	if (num_procs < LOAD_FACTOR * m_num_threads)
 	{
 		// create some extra processes:
-		
-		ATP_CORE_ASSERT(false && "not implemented yet!");
+
+		for (size_t i = 0; i <
+			LOAD_FACTOR * m_num_threads - num_procs; ++i)
+		{
+			proc_mgr.add(create_rand_proof_process(m_db,
+				NUM_THMS_PER_PROOF_PROC));
+		}
+
+		return true;
 	}
 	else return false;  // got enough already
 }

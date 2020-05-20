@@ -56,7 +56,7 @@ protected:
 	void on_load_values(db::IQueryTransaction& query) override
 	{
 		ATP_CORE_ASSERT(query.arity() == 2);
-		ATP_CORE_ASSERT(m_data.ctx == nullptr);
+		ATP_CORE_ASSERT(!m_collected_data);
 
 		db::DValue ss_filename, ss_id;
 

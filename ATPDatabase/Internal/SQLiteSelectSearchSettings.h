@@ -31,7 +31,7 @@ class ATP_DATABASE_API SQLiteSelectSearchSettings :
 {
 public:
 	std::string build() override;
-	inline ISelectSearchSettings* set_ctx(size_t ctx_id) override
+	inline ISelectSearchSettings* set_ctx_id(size_t ctx_id) override
 	{
 		m_ctx_id = ctx_id;
 		return this;

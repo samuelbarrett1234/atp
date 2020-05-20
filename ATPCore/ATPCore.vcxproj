@@ -219,6 +219,7 @@
     <ClCompile Include="Processes\RunSolverProcess.cpp" />
     <ClCompile Include="Processes\SaveConjResultsProcess.cpp" />
     <ClCompile Include="Processes\SaveProofResultsProcess.cpp" />
+    <ClCompile Include="Processes\SelectContextProcess.cpp" />
     <ClCompile Include="Processes\UnprovenThmSelectorProcess.cpp" />
     <ClCompile Include="Scheduling\SimpleScheduler.cpp" />
   </ItemGroup>

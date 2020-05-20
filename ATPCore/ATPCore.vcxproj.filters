@@ -212,5 +212,8 @@
     <ClCompile Include="Scheduling\SimpleScheduler.cpp">
       <Filter>Source Files\Scheduling</Filter>
     </ClCompile>
+    <ClCompile Include="Processes\SelectContextProcess.cpp">
+      <Filter>Source Files\Processes\Server</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

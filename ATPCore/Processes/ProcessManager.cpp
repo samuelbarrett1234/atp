@@ -23,6 +23,10 @@ void ProcessManager::add(ProcessPtr p_proc)
 
 void ProcessManager::commit_thread()
 {
+	// we will run processes N times every time we pop them from the
+	// queue
+	static const size_t N = 50;
+
 	while (!m_queue.done())
 	{
 		// may be null!!
@@ -33,12 +37,21 @@ void ProcessManager::commit_thread()
 			continue;
 
 		ATP_CORE_ASSERT(!p_proc->done());
-		p_proc->run_step();
+		for (size_t i = 0; i < N && !p_proc->done(); ++i)
+		{
+			p_proc->run_step();
+		}
 
 		// always put the process back onto the queue, regardless
 		// of its current state
 		m_queue.push(std::move(p_proc));
 	}
+}
+
+
+size_t ProcessManager::num_procs_running() const
+{
+	return m_queue.size();
 }
 
 
@@ -103,6 +116,15 @@ bool ProcessManager::ProcQueue::done() const
 
 	return m_running.empty() && m_waiting.empty() &&
 		m_executing.empty();
+}
+
+
+size_t ProcessManager::ProcQueue::size() const
+{
+	std::scoped_lock<std::mutex> lk(m_mutex);
+
+	return m_running.size() + m_waiting.size() +
+		m_executing.size();
 }
 
 

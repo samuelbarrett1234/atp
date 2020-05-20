@@ -76,6 +76,12 @@ private:
 		*/
 		bool done() const;
 
+		/**
+		\brief Returns the number of processes in the queue, and the
+			ones which have been temporarily popped from the queue.
+		*/
+		size_t size() const;
+
 	private:
 		// invariant: i < N, and whenever i == 0, we prioritise the
 		// waiting queue over the running queue.
@@ -98,6 +104,11 @@ public:
 	\details This will block until the process manager is empty.
 	*/
 	void commit_thread();
+
+	/**
+	\brief Get the number of processes currently running
+	*/
+	size_t num_procs_running() const;
 
 private:
 	ProcQueue m_queue;

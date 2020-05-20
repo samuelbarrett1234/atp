@@ -18,6 +18,7 @@
 #include <string>
 #include <vector>
 #include <thread>
+#include <memory>
 #include <boost/thread/shared_mutex.hpp>
 #include <ATPLogic.h>
 #include <ATPSearch.h>
@@ -83,14 +84,16 @@ private:
 private:  // COMMANDS
 
 	bool help_cmd();
-	bool prove_cmd(int n);
+	bool ls_cmd();
+	bool killall_cmd();
 	bool exit_cmd();
+	bool set_threads_cmd(int n);
 
 private:
 	bool m_done;  // indicates exit for worker threads
 	mutable boost::shared_mutex m_mutex;  // for worker threads
 	std::vector<std::thread> m_workers;
-	atp::core::ProcessManager m_proc_mgr;
+	std::unique_ptr<atp::core::ProcessManager> m_proc_mgr;
 	atp::db::DatabasePtr m_db;
 };
 

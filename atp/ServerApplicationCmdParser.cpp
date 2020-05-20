@@ -30,14 +30,21 @@ struct CommandGrammar :
 	CommandGrammar(CommandSet& cmd_set) :
 		CommandGrammar::base_type(start)
 	{
-		start = prove_cmd | help_cmd | exit_cmd;
+		start = ls_cmd | help_cmd | exit_cmd | killall_cmd |
+			set_threads_cmd;
 
 		// it is important to parse qi::eoi (end of input) at the
 		// end to prevent parsing only the start of an input and then
 		// executing the command
 
-		prove_cmd = (".prove" >> qi::int_ >> qi::eoi)
-			[qi::_val = phx::bind(cmd_set.proof_cmd, qi::_1)];
+		ls_cmd = (".ls" >> qi::eoi)
+			[qi::_val = phx::bind(cmd_set.ls_cmd)];
+
+		set_threads_cmd = (".set_threads" >> qi::int_ >> qi::eoi)
+			[qi::_val = phx::bind(cmd_set.set_threads_cmd, qi::_1)];
+
+		killall_cmd = (".killall" >> qi::eoi)
+			[qi::_val = phx::bind(cmd_set.killall_cmd)];
 
 		help_cmd = (qi::lit(".help") | ".h") >> qi::eoi
 			[qi::_val = phx::bind(cmd_set.help_cmd)];
@@ -47,16 +54,18 @@ struct CommandGrammar :
 	}
 
 	qi::rule<QiParseIterator, bool,
-		SkipperType> start, prove_cmd,
-		help_cmd, exit_cmd;
+		SkipperType> start, ls_cmd,
+		help_cmd, exit_cmd, killall_cmd, set_threads_cmd;
 };
 
 
 bool do_cmd(CommandSet& cmd_set)
 {
-	ATP_PRECOND((bool)cmd_set.proof_cmd);
+	ATP_PRECOND((bool)cmd_set.ls_cmd);
+	ATP_PRECOND((bool)cmd_set.killall_cmd);
 	ATP_PRECOND((bool)cmd_set.help_cmd);
 	ATP_PRECOND((bool)cmd_set.exit_cmd);
+	ATP_PRECOND((bool)cmd_set.set_threads_cmd);
 
 	// do commands line by line
 	std::string line;

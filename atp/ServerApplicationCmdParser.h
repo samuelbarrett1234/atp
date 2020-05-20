@@ -21,7 +21,9 @@
 // commands should return true iff success
 struct CommandSet
 {
-	std::function<bool(int)> proof_cmd;
+	std::function<bool()> ls_cmd;
+	std::function<bool(int)> set_threads_cmd;
+	std::function<bool()> killall_cmd;
 	std::function<bool()> help_cmd;
 	std::function<bool()> exit_cmd;
 };

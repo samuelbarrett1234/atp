@@ -55,12 +55,6 @@
     <Filter Include="Source Files\Scheduling">
       <UniqueIdentifier>{65a5a4cd-2639-4b60-8110-e5ff7cb1e44b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Processes\Server">
-      <UniqueIdentifier>{0c9faec4-a9ed-429c-8524-5aea34a43f2a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Processes\Server">
-      <UniqueIdentifier>{b077a535-e1c6-4724-8176-f950c58eb721}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ATPCoreAPI.h">
@@ -145,10 +139,10 @@
       <Filter>Header Files\Scheduling</Filter>
     </ClInclude>
     <ClInclude Include="Processes\SelectContextProcess.h">
-      <Filter>Header Files\Processes\Server</Filter>
+      <Filter>Header Files\Processes\Proof</Filter>
     </ClInclude>
     <ClInclude Include="Processes\SelectSearchSettingsProcess.h">
-      <Filter>Header Files\Processes\Server</Filter>
+      <Filter>Header Files\Processes\Proof</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -216,10 +210,10 @@
       <Filter>Source Files\Scheduling</Filter>
     </ClCompile>
     <ClCompile Include="Processes\SelectContextProcess.cpp">
-      <Filter>Source Files\Processes\Server</Filter>
+      <Filter>Source Files\Processes\Proof</Filter>
     </ClCompile>
     <ClCompile Include="Processes\SelectSearchSettingsProcess.cpp">
-      <Filter>Source Files\Processes\Server</Filter>
+      <Filter>Source Files\Processes\Proof</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

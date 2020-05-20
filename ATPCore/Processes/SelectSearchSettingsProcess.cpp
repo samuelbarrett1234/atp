@@ -32,7 +32,8 @@ class SelectSearchSettingsProcess :
 public:
 	SelectSearchSettingsProcess(
 		proc_data::ProofSetupEssentials& data) :
-		QueryProcess(data.db), m_data(data)
+		QueryProcess(data.db), m_data(data),
+		m_collected_data(false)
 	{
 		ATP_CORE_LOG(trace) <<
 			"Created search settings selection process...";
@@ -126,11 +127,22 @@ protected:
 		}
 
 		m_data.ss_id = db::get_int(ss_id);
+
+		m_collected_data = true;
 	}
 
 	void on_finished() override
 	{
-		ATP_CORE_ASSERT(m_data.ctx != nullptr);
+		if (!m_collected_data)
+		{
+			ATP_CORE_LOG(error) << "No rows returned from the "
+				"database for search settings selection query, "
+				" for context \"" << m_data.ctx->context_name()
+				<< "\", ID = " << m_data.ctx_id;
+			force_fail();
+			return;
+		}
+
 		ATP_CORE_LOG(info) <<
 			"Successfully loaded search settings \""
 			<< m_data.settings.name << "\"!";
@@ -143,6 +155,7 @@ protected:
 	}
 
 private:
+	bool m_collected_data;  // set to true when we load the data
 	proc_data::ProofSetupEssentials& m_data;
 };
 

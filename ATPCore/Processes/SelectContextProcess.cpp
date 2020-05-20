@@ -39,6 +39,11 @@ public:
 
 		m_data.lang = logic::create_language(
 			logic::LangType::EQUATIONAL_LOGIC);
+
+		// check this beforehand, because we're going to use the
+		// presence/absence of a non-null CTX pointer as a way of
+		// checking success at the end
+		ATP_CORE_ASSERT(m_data.ctx == nullptr);
 	}
 
 protected:
@@ -121,7 +126,15 @@ protected:
 
 	void on_finished() override
 	{
-		ATP_CORE_ASSERT(m_data.ctx != nullptr);
+		if (m_data.ctx == nullptr)
+		{
+			ATP_CORE_LOG(error) << "Failed to select a model context"
+				" from the database because (probably) no rows were "
+				"returned from the query.";
+			force_fail();
+			return;
+		}
+
 		ATP_CORE_LOG(info) << "Successfully loaded context \""
 			<< m_data.ctx->context_name() << "\"!";
 	}

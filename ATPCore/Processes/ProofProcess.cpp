@@ -14,6 +14,8 @@
 #include "ProofInitProcess.h"
 #include "RunSolverProcess.h"
 #include "SaveProofResultsProcess.h"
+#include "SelectContextProcess.h"
+#include "SelectSearchSettingsProcess.h"
 
 
 namespace atp
@@ -86,6 +88,33 @@ ProcessPtr create_proof_process(
 	p_proc->get_data<0>().ss_id = ss_id;
 	p_proc->get_data<0>().settings = search_settings;
 	// don't set target_thms
+
+	return p_proc;
+}
+
+
+ProcessPtr create_rand_proof_process(
+	db::DatabasePtr p_db, size_t num_to_prove)
+{
+	auto p_proc = make_sequence<
+		proc_data::DatabaseEssentials,
+		proc_data::LogicEssentials,
+		proc_data::ProofSetupEssentials,
+		proc_data::ProofSetupEssentials,
+		proc_data::ProofEssentials,
+		proc_data::ProofEssentials>(
+			boost::make_tuple(
+				boost::bind(&create_select_ctx_process, _1, _2),
+				boost::bind(&create_select_ss_process, _1, _2),
+				boost::bind(&create_unproven_thm_select_proc,
+					num_to_prove, _1, _2),
+				boost::bind(&create_proof_init_process, _1, _2),
+				boost::bind(&create_run_solver_process, _1, _2),
+				boost::bind(&create_save_results_process, _1)
+			));
+
+	// set initial data
+	p_proc->get_data<0>().db = std::move(p_db);
 
 	return p_proc;
 }

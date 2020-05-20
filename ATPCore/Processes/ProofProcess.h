@@ -54,6 +54,16 @@ ATP_CORE_API ProcessPtr create_proof_process(
 	size_t num_targets);
 
 
+/**
+\brief Create a proof process which randomly selects the domain
+	in which to prove.
+
+\returns A new process
+*/
+ATP_CORE_API ProcessPtr create_rand_proof_process(
+	db::DatabasePtr p_db, size_t num_to_prove);
+
+
 }  // namespace core
 }  // namespace atp
 

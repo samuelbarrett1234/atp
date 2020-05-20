@@ -83,6 +83,10 @@ void ServerApplication::run()
 			std::cout << "Error parsing / executing command. "
 				"Try `.help` for help." << std::endl;
 		}
+
+		// also check this (we could consider reducing how often this
+		// is called, slightly)
+		m_scheduler->update(*m_proc_mgr);
 	}
 
 	// workers are automatically joined by the exit command
@@ -117,9 +121,14 @@ bool ServerApplication::is_done() const
 
 void ServerApplication::initialise_tasks()
 {
+	ATP_ASSERT(m_db != nullptr);
 	ATP_LOG(trace) << "Initialising tasks...";
 
-	// todo: put some stuff here
+	m_scheduler = atp::core::create_scheduler(m_db);
+
+	m_scheduler->set_num_threads(m_workers.size());
+
+	m_scheduler->update(*m_proc_mgr);
 }
 
 
@@ -296,6 +305,8 @@ bool ServerApplication::set_threads_cmd(int n)
 		ATP_LOG(trace) << "No change in the number of worker threads"
 			" (" << m << "), so no action needed.";
 	}
+
+	m_scheduler->set_num_threads(m);
 
 	return true;
 }

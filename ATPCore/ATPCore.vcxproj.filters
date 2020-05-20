@@ -49,6 +49,18 @@
     <Filter Include="Source Files\Models\HMM">
       <UniqueIdentifier>{8ef9025d-bc3e-4faa-8006-7eb9bc05a616}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scheduling">
+      <UniqueIdentifier>{1acb1c77-8ad6-4f97-9599-fafc9b570c71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scheduling">
+      <UniqueIdentifier>{65a5a4cd-2639-4b60-8110-e5ff7cb1e44b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Processes\Server">
+      <UniqueIdentifier>{0c9faec4-a9ed-429c-8524-5aea34a43f2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Processes\Server">
+      <UniqueIdentifier>{b077a535-e1c6-4724-8176-f950c58eb721}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ATPCoreAPI.h">
@@ -126,6 +138,15 @@
     <ClInclude Include="Models\HMMStmtToObs.h">
       <Filter>Header Files\Models\HMM</Filter>
     </ClInclude>
+    <ClInclude Include="Scheduling\IScheduler.h">
+      <Filter>Header Files\Scheduling</Filter>
+    </ClInclude>
+    <ClInclude Include="Scheduling\SimpleScheduler.h">
+      <Filter>Header Files\Scheduling</Filter>
+    </ClInclude>
+    <ClInclude Include="Processes\SelectContextProcess.h">
+      <Filter>Header Files\Processes\Server</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp">
@@ -187,6 +208,9 @@
     </ClCompile>
     <ClCompile Include="Models\HMMStmtToObs.cpp">
       <Filter>Source Files\Models\HMM</Filter>
+    </ClCompile>
+    <ClCompile Include="Scheduling\SimpleScheduler.cpp">
+      <Filter>Source Files\Scheduling</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

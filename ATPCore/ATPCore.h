@@ -12,6 +12,7 @@
 */
 
 
+#include <ATPDatabase.h>
 #include "ATPCoreAPI.h"
 #include "Processes/IProcess.h"
 #include "Processes/ProcessManager.h"
@@ -19,6 +20,7 @@
 #include "Processes/HMMConjectureProcess.h"
 #include "Processes/HMMConjectureTrainProcess.h"
 #include "Processes/CreateHMMProcess.h"
+#include "Scheduling/IScheduler.h"
 
 
 /**
@@ -35,7 +37,11 @@ namespace core
 {
 
 
-
+/**
+\brief Allocate a new scheduler object.
+*/
+ATP_CORE_API SchedulerPtr create_scheduler(
+	db::DatabasePtr p_db);
 
 
 }  // namespace core

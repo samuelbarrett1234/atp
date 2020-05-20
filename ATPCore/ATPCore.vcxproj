@@ -194,7 +194,10 @@
     <ClInclude Include="Processes\RunSolverProcess.h" />
     <ClInclude Include="Processes\SaveConjResultsProcess.h" />
     <ClInclude Include="Processes\SaveProofResultsProcess.h" />
+    <ClInclude Include="Processes\SelectContextProcess.h" />
     <ClInclude Include="Processes\UnprovenThmSelectorProcess.h" />
+    <ClInclude Include="Scheduling\IScheduler.h" />
+    <ClInclude Include="Scheduling\SimpleScheduler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp" />
@@ -217,6 +220,7 @@
     <ClCompile Include="Processes\SaveConjResultsProcess.cpp" />
     <ClCompile Include="Processes\SaveProofResultsProcess.cpp" />
     <ClCompile Include="Processes\UnprovenThmSelectorProcess.cpp" />
+    <ClCompile Include="Scheduling\SimpleScheduler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

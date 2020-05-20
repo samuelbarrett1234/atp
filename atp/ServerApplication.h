@@ -95,6 +95,7 @@ private:
 	std::vector<std::thread> m_workers;
 	std::unique_ptr<atp::core::ProcessManager> m_proc_mgr;
 	atp::db::DatabasePtr m_db;
+	atp::core::SchedulerPtr m_scheduler;
 };
 
 

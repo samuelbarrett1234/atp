@@ -31,8 +31,8 @@ namespace core
 \returns A new process
 */
 ATP_CORE_API ProcessPtr create_select_ctx_process(
-	proc_data::DatabaseEssentials& setup_data,
-	proc_data::LogicEssentials& proof_data);
+	proc_data::DatabaseEssentials& db_data,
+	proc_data::LogicEssentials& logic_data);
 
 
 }  // namespace core

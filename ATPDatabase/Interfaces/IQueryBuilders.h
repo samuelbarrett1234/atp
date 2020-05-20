@@ -61,7 +61,16 @@ enum class QueryBuilderType
 	GET_HMM_CONJ_OBS_PARAMS,
 
 	// save HMM conjecture model parameters
-	SAVE_HMM_CONJ_PARAMS
+	SAVE_HMM_CONJ_PARAMS,
+
+	// select a model context, based on the usage statistics of all
+	// the contexts in the database
+	SELECT_CTX,
+
+	// select search settings, based on the selected model context,
+	// and the effectiveness statistics of each search settings type
+	// in each context
+	SELECT_SS
 };
 
 
@@ -441,6 +450,43 @@ public:
 	*/
 	virtual ISaveHmmConjModelParams* add_observation(size_t state,
 		size_t symb_id, float prob) = 0;
+};
+
+
+/**
+\brief A query which randomly selects a model context, according to
+	existing usage statistics as well.
+
+\details Intended to be good for automatically selecting contexts to
+	prove statements in. Returns exactly one row with columns
+	(context filename, context ID).
+*/
+class ATP_DATABASE_API ISelectModelContext :
+	public IQueryBuilder
+{
+public:
+	virtual ~ISelectModelContext() = default;
+
+	// no extra functions needed
+};
+
+
+/**
+\brief A query which randomly selects search settings, according to
+	existing usage statistics and taking into account the selected
+	context.
+
+\details Intended to be good for automatically selecting settings to
+	prove statements with. Returns exactly one row with columns
+	(search settings filename, search settings ID).
+*/
+class ATP_DATABASE_API ISelectSearchSettings :
+	public IQueryBuilder
+{
+public:
+	virtual ~ISelectSearchSettings() = default;
+
+	virtual void set_ctx_id(size_t ctx_id) = 0;
 };
 
 

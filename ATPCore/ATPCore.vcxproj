@@ -195,6 +195,7 @@
     <ClInclude Include="Processes\SaveConjResultsProcess.h" />
     <ClInclude Include="Processes\SaveProofResultsProcess.h" />
     <ClInclude Include="Processes\SelectContextProcess.h" />
+    <ClInclude Include="Processes\SelectSearchSettingsProcess.h" />
     <ClInclude Include="Processes\UnprovenThmSelectorProcess.h" />
     <ClInclude Include="Scheduling\IScheduler.h" />
     <ClInclude Include="Scheduling\SimpleScheduler.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="Processes\SaveConjResultsProcess.cpp" />
     <ClCompile Include="Processes\SaveProofResultsProcess.cpp" />
     <ClCompile Include="Processes\SelectContextProcess.cpp" />
+    <ClCompile Include="Processes\SelectSearchSettingsProcess.cpp" />
     <ClCompile Include="Processes\UnprovenThmSelectorProcess.cpp" />
     <ClCompile Include="Scheduling\SimpleScheduler.cpp" />
   </ItemGroup>

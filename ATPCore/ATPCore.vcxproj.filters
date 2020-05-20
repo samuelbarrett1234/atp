@@ -147,6 +147,9 @@
     <ClInclude Include="Processes\SelectContextProcess.h">
       <Filter>Header Files\Processes\Server</Filter>
     </ClInclude>
+    <ClInclude Include="Processes\SelectSearchSettingsProcess.h">
+      <Filter>Header Files\Processes\Server</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp">
@@ -213,6 +216,9 @@
       <Filter>Source Files\Scheduling</Filter>
     </ClCompile>
     <ClCompile Include="Processes\SelectContextProcess.cpp">
+      <Filter>Source Files\Processes\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\SelectSearchSettingsProcess.cpp">
       <Filter>Source Files\Processes\Server</Filter>
     </ClCompile>
   </ItemGroup>

@@ -44,7 +44,8 @@ public:
 protected:
 	db::QueryBuilderPtr create_query() override
 	{
-
+		return m_data.db->create_query_builder(
+			db::QueryBuilderType::SELECT_CTX);
 	}
 
 	void on_load_values(db::IQueryTransaction& query) override
@@ -136,14 +137,14 @@ private:
 
 
 ProcessPtr create_select_ctx_process(
-	proc_data::DatabaseEssentials& setup_data,
-	proc_data::LogicEssentials& proof_data)
+	proc_data::DatabaseEssentials& db_data,
+	proc_data::LogicEssentials& logic_data)
 {
-	ATP_CORE_ASSERT(setup_data.db != nullptr);
-	proof_data.db = std::move(setup_data.db);
+	ATP_CORE_ASSERT(db_data.db != nullptr);
+	logic_data.db = std::move(db_data.db);
 
 	return std::make_shared<SelectContextProcess>(
-		proof_data);
+		logic_data);
 }
 
 

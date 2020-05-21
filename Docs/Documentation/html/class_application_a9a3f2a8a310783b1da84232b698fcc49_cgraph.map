@@ -1,9 +1,10 @@
 <map id="Application::add_proof_task" name="Application::add_proof_task">
-<area shape="rect" id="node1" title="Add a process which will try to prove the given statements when run is called." alt="" coords="5,82,188,109"/>
-<area shape="rect" id="node2" href="$classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="236,53,444,79"/>
-<area shape="rect" id="node3" href="$namespaceatp_1_1core.html#a14a998365332d52ca949b7da1ae6870b" title="Create a proof process to try and prove p_target_stmts" alt="" coords="264,104,416,145"/>
-<area shape="rect" id="node4" href="$namespaceatp_1_1core.html#aafe2f9412bce7973267a7735bb16e763" title="This function creates a &quot;proof initialisation&quot; process, which creates the knowledge kernel,..." alt="" coords="504,5,656,47"/>
-<area shape="rect" id="node5" href="$namespaceatp_1_1core.html#a347bdbab224f5b7453926bd292125a2d" title="This function creates a process which just runs the solver to completion." alt="" coords="509,71,651,112"/>
-<area shape="rect" id="node6" href="$namespaceatp_1_1core.html#a1d7a30c723dce02909ce79d2a856c9fa" title="This function creates a process which saves proven theorems to the database." alt="" coords="505,136,655,177"/>
-<area shape="rect" id="node7" href="$namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="492,202,668,229"/>
+<area shape="rect" id="node1" title="Add a process which will try to prove the given statements when run is called." alt="" coords="5,97,188,123"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="236,49,444,75"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1core.html#a14a998365332d52ca949b7da1ae6870b" title="Create a proof process to try and prove p_target_stmts" alt="" coords="264,136,416,177"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_process_queue.html#a59b6123a147465c889ce7c3166a5d098" title="Either add a new process externally, or called by a worker thread which has finished updating its pro..." alt="" coords="497,5,663,47"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1core.html#aafe2f9412bce7973267a7735bb16e763" title="This function creates a &quot;proof initialisation&quot; process, which creates the knowledge kernel,..." alt="" coords="504,71,656,112"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1core.html#a347bdbab224f5b7453926bd292125a2d" title="This function creates a process which just runs the solver to completion." alt="" coords="509,136,651,177"/>
+<area shape="rect" id="node7" href="$namespaceatp_1_1core.html#a1d7a30c723dce02909ce79d2a856c9fa" title="This function creates a process which saves proven theorems to the database." alt="" coords="505,201,655,243"/>
+<area shape="rect" id="node8" href="$namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="492,267,668,294"/>
 </map>

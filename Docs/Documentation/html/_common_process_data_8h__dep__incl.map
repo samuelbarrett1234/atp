@@ -1,5 +1,5 @@
 <map id="ATPCore/Processes/CommonProcessData.h" name="ATPCore/Processes/CommonProcessData.h">
-<area shape="rect" id="node1" title="Contains a collection of structs which contain data that is used in a lot of different processes." alt="" coords="1321,5,1517,47"/>
+<area shape="rect" id="node1" title="Contains a collection of structs which contain data that is used in a lot of different processes." alt="" coords="1560,5,1756,47"/>
 <area shape="rect" id="node2" href="$_h_m_m_model_loader_process_8h.html" title="Contains the process which loads the HMM conjecturer model from the database." alt="" coords="743,184,954,225"/>
 <area shape="rect" id="node6" href="$_h_m_m_process_data_8h.html" title="Contains a collection of structs which contain data that is used in a lot of different processes." alt="" coords="968,95,1191,136"/>
 <area shape="rect" id="node7" href="$_h_m_m_generate_conj_process_8h.html" title="This process generates conjectures using a given HMM model." alt="" coords="265,184,493,225"/>
@@ -8,10 +8,12 @@
 <area shape="rect" id="node13" href="$_h_m_m_conj_model_train_process_8h.html" title="Contains a process which trains a given HMM conjecture model with a given dataset." alt="" coords="1205,184,1407,225"/>
 <area shape="rect" id="node15" href="$_h_m_m_save_model_params_process_8h.html" title="Contains a process which saves all HMM model parameters to the database." alt="" coords="1431,184,1634,225"/>
 <area shape="rect" id="node17" href="$_proof_init_process_8h.html" title="Contains the process which takes setup information about the proof setup, and creates all the informa..." alt="" coords="1644,95,1835,136"/>
-<area shape="rect" id="node19" href="$_proof_process_8cpp.html" title=" " alt="" coords="2096,191,2343,218"/>
+<area shape="rect" id="node19" href="$_proof_process_8cpp.html" title=" " alt="" coords="2323,191,2569,218"/>
 <area shape="rect" id="node20" href="$_unproven_thm_selector_process_8h.html" title="Contains a process which loads N arbitrary unproven theorems from the database." alt="" coords="1859,95,2057,136"/>
-<area shape="rect" id="node22" href="$_run_solver_process_8h.html" title="Contains the process which takes setup information about the proof setup, and creates all the informa..." alt="" coords="2131,95,2334,136"/>
+<area shape="rect" id="node22" href="$_run_solver_process_8h.html" title="Contains the process which takes setup information about the proof setup, and creates all the informa..." alt="" coords="2081,95,2283,136"/>
 <area shape="rect" id="node24" href="$_save_proof_results_process_8h.html" title="Contains the process which saves any proven theorems in the results of a solver&#39;s proof run." alt="" coords="2358,95,2561,136"/>
+<area shape="rect" id="node26" href="$_select_context_process_8h.html" title=" " alt="" coords="2585,95,2766,136"/>
+<area shape="rect" id="node28" href="$_select_search_settings_process_8h.html" title=" " alt="" coords="2790,95,2971,136"/>
 <area shape="rect" id="node3" href="$_h_m_m_conjecture_process_8cpp.html" title=" " alt="" coords="258,273,495,315"/>
 <area shape="rect" id="node4" href="$_h_m_m_conjecture_train_process_8cpp.html" title=" " alt="" coords="1205,273,1442,315"/>
 <area shape="rect" id="node5" href="$_h_m_m_model_loader_process_8cpp.html" title=" " alt="" coords="743,273,954,315"/>
@@ -22,6 +24,8 @@
 <area shape="rect" id="node16" href="$_h_m_m_save_model_params_process_8cpp.html" title=" " alt="" coords="1693,273,1895,315"/>
 <area shape="rect" id="node18" href="$_proof_init_process_8cpp.html" title=" " alt="" coords="1659,184,1849,225"/>
 <area shape="rect" id="node21" href="$_unproven_thm_selector_process_8cpp.html" title=" " alt="" coords="1874,184,2071,225"/>
-<area shape="rect" id="node23" href="$_run_solver_process_8cpp.html" title=" " alt="" coords="2367,184,2570,225"/>
+<area shape="rect" id="node23" href="$_run_solver_process_8cpp.html" title=" " alt="" coords="2095,184,2298,225"/>
 <area shape="rect" id="node25" href="$_save_proof_results_process_8cpp.html" title=" " alt="" coords="2594,184,2797,225"/>
+<area shape="rect" id="node27" href="$_select_context_process_8cpp.html" title=" " alt="" coords="2821,184,3002,225"/>
+<area shape="rect" id="node29" href="$_select_search_settings_process_8cpp.html" title=" " alt="" coords="3026,184,3210,225"/>
 </map>

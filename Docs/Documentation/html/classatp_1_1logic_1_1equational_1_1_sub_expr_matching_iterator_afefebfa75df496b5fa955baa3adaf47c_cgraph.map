@@ -1,7 +1,9 @@
 <map id="atp::logic::equational::SubExprMatchingIterator::SubExprMatchingIterator" name="atp::logic::equational::SubExprMatchingIterator::SubExprMatchingIterator">
-<area shape="rect" id="node1" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="5,112,179,168"/>
+<area shape="rect" id="node1" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="5,177,179,233"/>
 <area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_model_context.html#a9a3f38b6cbd6f76b7dfa49a15011493d" title="Returns a list of all symbol IDs of user&#45;defined constants." alt="" coords="227,5,415,61"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a1a13880ca04d9cf4367d6920c00654e6" title=" " alt="" coords="249,86,392,127"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a89e3d03ccfba238d766e0a2ddb2b4706" title=" " alt="" coords="237,151,404,193"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ad1f63f4bdd1bda0d227b8f6475db147b" title="Returns the largest free variable ID which occurs in any of the rules." alt="" coords="243,217,399,273"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a64f70ab3039063cdf226d987def14697" title=" " alt="" coords="249,86,392,127"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a1a13880ca04d9cf4367d6920c00654e6" title=" " alt="" coords="249,151,392,193"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_statement.html#a89e3d03ccfba238d766e0a2ddb2b4706" title=" " alt="" coords="237,217,404,258"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#ad1f63f4bdd1bda0d227b8f6475db147b" title="Returns the largest free variable ID which occurs in any of the rules." alt="" coords="243,283,399,339"/>
+<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a1f1ed484319a9bd2a1f732caac9afdcd" title=" " alt="" coords="234,363,407,419"/>
 </map>

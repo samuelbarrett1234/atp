@@ -1,0 +1,9 @@
+<map id="ATPCore/Scheduling/IScheduler.h" name="ATPCore/Scheduling/IScheduler.h">
+<area shape="rect" id="node1" title="Contains the interface for objects responsible for scheduling and balancing different ATP tasks." alt="" coords="69,5,212,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,44,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="77,169,146,196"/>
+<area shape="rect" id="node4" href="$_a_t_p_core_a_p_i_8h.html" title=" " alt="" coords="229,169,348,196"/>
+<area shape="rect" id="node7" href="$_i_process_8h.html" title="File containing interfaces for process management." alt="" coords="119,95,282,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="195,244,260,271"/>
+<area shape="rect" id="node6" title=" " alt="" coords="285,244,418,271"/>
+</map>

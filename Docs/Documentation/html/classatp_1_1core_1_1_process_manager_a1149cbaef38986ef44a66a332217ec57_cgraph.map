@@ -1,0 +1,4 @@
+<map id="atp::core::ProcessManager::add" name="atp::core::ProcessManager::add">
+<area shape="rect" id="node1" title="Add the given process to the mix." alt="" coords="5,13,213,39"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_process_queue.html#a59b6123a147465c889ce7c3166a5d098" title="Either add a new process externally, or called by a worker thread which has finished updating its pro..." alt="" coords="261,5,428,47"/>
+</map>

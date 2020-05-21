@@ -1,0 +1,4 @@
+<map id="atp::search::try_create_edit_dist_selection_strategy" name="atp::search::try_create_edit_dist_selection_strategy">
+<area shape="rect" id="node1" title="Try to create an EditDistanceSelectionStrategy, based on the type given in ptree." alt="" coords="5,5,196,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="244,5,363,47"/>
+</map>

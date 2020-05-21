@@ -1,0 +1,22 @@
+<map id="atp::core::SelectSearchSettingsProcess::on_load_values" name="atp::core::SelectSearchSettingsProcess::on_load_values">
+<area shape="rect" id="node1" title=" " alt="" coords="5,155,212,197"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_i_query_transaction.html#aa7b5f45e0642de55c5b49728b4b7f065" title="Get the arity (i.e. number of columns) of the current set of values." alt="" coords="260,57,435,98"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_query_process.html#af39bfba3ad15769bb3e03135d2fab528" title=" " alt="" coords="265,122,429,163"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="265,187,430,229"/>
+<area shape="rect" id="node20" href="$classatp_1_1db_1_1_i_query_transaction.html#ab2ff1359371849bc8cac9b47bf945034" title="Try to get the value at the given index." alt="" coords="260,253,435,294"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="494,122,625,163"/>
+<area shape="rect" id="node14" href="$namespaceatp_1_1search.html#a2436821c1e92d90b125e6a2a8d03fbcc" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="483,187,636,229"/>
+<area shape="rect" id="node16" href="$namespaceatp_1_1search.html#a0c882e1f9a20764cdd4f533986cfe723" title="Try to create a selection strategy, based on the type given in ptree." alt="" coords="483,253,636,294"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="703,57,856,98"/>
+<area shape="rect" id="node9" href="$namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="709,122,850,163"/>
+<area shape="rect" id="node7" href="$namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="923,5,1104,32"/>
+<area shape="rect" id="node8" href="$namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="946,57,1081,98"/>
+<area shape="rect" id="node10" href="$namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="928,122,1099,163"/>
+<area shape="rect" id="node12" href="$namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342" title="Try to load info for a FixedStoppingStrategy." alt="" coords="930,187,1097,229"/>
+<area shape="rect" id="node11" href="$classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="1152,122,1348,163"/>
+<area shape="rect" id="node13" href="$classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="1154,187,1346,229"/>
+<area shape="rect" id="node15" href="$namespaceatp_1_1search.html#af961e805f1c0565c0d5415d7edffa780" title="Try to create an edit distance heuristic object from the tree rooted at the given node." alt="" coords="698,187,861,229"/>
+<area shape="rect" id="node17" href="$namespaceatp_1_1search.html#aef23c2431a910abdc586fa9980001463" title="Try to create an EditDistanceSelectionStrategy, based on the type given in ptree." alt="" coords="684,253,875,294"/>
+<area shape="rect" id="node19" href="$namespaceatp_1_1search.html#aebbefebfe4e2943be51dbaea4f45dd30" title="Try to create a FixedSelectionStrategy, based on the type given in ptree." alt="" coords="695,318,864,359"/>
+<area shape="rect" id="node18" href="$namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="954,285,1073,326"/>
+</map>

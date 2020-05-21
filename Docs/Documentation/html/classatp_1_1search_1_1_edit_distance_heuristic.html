@@ -100,8 +100,8 @@ Collaboration diagram for atp::search::EditDistanceHeuristic:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abf280895866a64d66cd22bfa15366ff0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_edit_distance_heuristic.html#abf280895866a64d66cd22bfa15366ff0">EditDistanceHeuristic</a> (const <a class="el" href="namespaceatp_1_1logic.html#adccb0bf82b978a71476e3d2e85e7df6a">logic::ModelContextPtr</a> &amp;p_ctx, const <a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a> &amp;p_ker, float symbol_mismatch_cost, float p)</td></tr>
-<tr class="separator:abf280895866a64d66cd22bfa15366ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a062d299878ade9b02bd8fc0ddda1256c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_edit_distance_heuristic.html#a062d299878ade9b02bd8fc0ddda1256c">EditDistanceHeuristic</a> (const <a class="el" href="namespaceatp_1_1logic.html#adccb0bf82b978a71476e3d2e85e7df6a">logic::ModelContextPtr</a> &amp;p_ctx, const <a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a> &amp;p_ker, float symbol_mismatch_cost, float symbol_match_benefit)</td></tr>
+<tr class="separator:a062d299878ade9b02bd8fc0ddda1256c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac11cc65d70d8b95ddfa4dca91e2918a0"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_edit_distance_heuristic.html#ac11cc65d70d8b95ddfa4dca91e2918a0">predict</a> (const <a class="el" href="namespaceatp_1_1logic.html#a94eecbfcb4742ecac021b2a8d2019458">logic::ProofStatePtr</a> &amp;p_state) override</td></tr>
 <tr class="memdesc:ac11cc65d70d8b95ddfa4dca91e2918a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate the function on this proof state.  <a href="classatp_1_1search_1_1_edit_distance_heuristic.html#ac11cc65d70d8b95ddfa4dca91e2918a0">More...</a><br /></td></tr>
 <tr class="separator:ac11cc65d70d8b95ddfa4dca91e2918a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,8 +113,8 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>This heuristic uses a version of edit distance to estimate how far a proof state is away from its target. </p>
 <p>Since this function is highly specific to the structure of the proof state, internally this class has to specialise its calculations to each logic type. However each implementation will still use the edit distance function in some way. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="abf280895866a64d66cd22bfa15366ff0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf280895866a64d66cd22bfa15366ff0">&#9670;&nbsp;</a></span>EditDistanceHeuristic()</h2>
+<a id="a062d299878ade9b02bd8fc0ddda1256c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a062d299878ade9b02bd8fc0ddda1256c">&#9670;&nbsp;</a></span>EditDistanceHeuristic()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,7 +141,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>p</em>&#160;</td>
+          <td class="paramname"><em>symbol_match_benefit</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -155,19 +155,18 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">p_ctx</td><td>The model context tells us what symbols are present.</td></tr>
     <tr><td class="paramname">p_ker</td><td>The knowledge kernel tells us what axioms we can use hence a "reference point" for computing distances.</td></tr>
     <tr><td class="paramname">symbol_mismatch_cost</td><td>The edit distance cost for a mismatch of symbols, relative to the cost of a free variable substitution which is always fixed at 1.0</td></tr>
-    <tr><td class="paramname">p</td><td>A tweakable parameter for computing the heuristic. This is the "power to which the inverse of the edit distance is
-    raised", which is then summed across all axioms. The higher this is, the closer the heuristic will be to computing the closest axiom, whereas if this is lower it's more like an average.</td></tr>
+    <tr><td class="paramname">symbol_match_benefit</td><td>The corresponding benefit (decrease in edit distance) incurred when two symbols match</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondition</dt><dd>p &gt; 0 and symbol_mismatch_cost &gt; 0 </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>symbol_mismatch_cost &gt; 0 and symbol_match_benefit &gt; 0 </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classatp_1_1search_1_1_edit_distance_heuristic_abf280895866a64d66cd22bfa15366ff0_cgraph.png" border="0" usemap="#classatp_1_1search_1_1_edit_distance_heuristic_abf280895866a64d66cd22bfa15366ff0_cgraph" alt=""/></div>
-<map name="classatp_1_1search_1_1_edit_distance_heuristic_abf280895866a64d66cd22bfa15366ff0_cgraph" id="classatp_1_1search_1_1_edit_distance_heuristic_abf280895866a64d66cd22bfa15366ff0_cgraph">
+<div class="center"><img src="classatp_1_1search_1_1_edit_distance_heuristic_a062d299878ade9b02bd8fc0ddda1256c_cgraph.png" border="0" usemap="#classatp_1_1search_1_1_edit_distance_heuristic_a062d299878ade9b02bd8fc0ddda1256c_cgraph" alt=""/></div>
+<map name="classatp_1_1search_1_1_edit_distance_heuristic_a062d299878ade9b02bd8fc0ddda1256c_cgraph" id="classatp_1_1search_1_1_edit_distance_heuristic_a062d299878ade9b02bd8fc0ddda1256c_cgraph">
 <area shape="rect" title=" " alt="" coords="5,5,212,47"/>
-<area shape="rect" href="namespaceatp_1_1stats.html#a292c5a3a3a86501a4aa493cbbb290af4" title="Create a new edit distance calculator object for the given logic type and substitution costs." alt="" coords="260,5,381,47"/>
+<area shape="rect" href="namespaceatp_1_1stats.html#afa149474eea3d72fc7a73bd4007bb48d" title="Create a new edit distance calculator object for the given logic type and substitution costs." alt="" coords="260,5,381,47"/>
 </map>
 </div>
 
@@ -208,7 +207,7 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="classatp_1_1search_1_1_edit_distance_heuristic_ac11cc65d70d8b95ddfa4dca91e2918a0_cgraph.png" border="0" usemap="#classatp_1_1search_1_1_edit_distance_heuristic_ac11cc65d70d8b95ddfa4dca91e2918a0_cgraph" alt=""/></div>
 <map name="classatp_1_1search_1_1_edit_distance_heuristic_ac11cc65d70d8b95ddfa4dca91e2918a0_cgraph" id="classatp_1_1search_1_1_edit_distance_heuristic_ac11cc65d70d8b95ddfa4dca91e2918a0_cgraph">
 <area shape="rect" title="Evaluate the function on this proof state." alt="" coords="5,64,175,105"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a91f046e75c3c4a481001387c5bd0e5d0" title="A specialisation of edit distance computation to equational logic." alt="" coords="223,64,359,105"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a765f6d5fc102f71a4cea7ede1e621532" title="A specialisation of edit distance computation to equational logic." alt="" coords="223,64,359,105"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#abf8eb4014df92e183381278d5355663c" title=" " alt="" coords="421,5,566,47"/>
 <area shape="rect" href="namespaceatp_1_1logic.html#a1c89562065d65fe74e21d8b7415d2176" title="Create a singleton statment array from a given statement." alt="" coords="407,71,580,98"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html#a5b3702fe7637376677759df32b519d39" title=" " alt="" coords="415,122,571,178"/>

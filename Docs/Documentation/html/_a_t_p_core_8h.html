@@ -68,72 +68,76 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">ATPCore.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="_a_t_p_core_a_p_i_8h.html">ATPCoreAPI.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="_a_t_p_database_8h.html">ATPDatabase.h</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="_a_t_p_core_a_p_i_8h.html">ATPCoreAPI.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_i_process_8h.html">Processes/IProcess.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_process_manager_8h.html">Processes/ProcessManager.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_proof_process_8h.html">Processes/ProofProcess.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_h_m_m_conjecture_process_8h.html">Processes/HMMConjectureProcess.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_h_m_m_conjecture_train_process_8h.html">Processes/HMMConjectureTrainProcess.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_create_h_m_m_process_8h.html">Processes/CreateHMMProcess.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_i_scheduler_8h.html">Scheduling/IScheduler.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for ATPCore.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_a_t_p_core_8h__incl.png" border="0" usemap="#_a_t_p_core_2_a_t_p_core_8h" alt=""/></div>
 <map name="_a_t_p_core_2_a_t_p_core_8h" id="_a_t_p_core_2_a_t_p_core_8h">
-<area shape="rect" title=" " alt="" coords="843,5,985,32"/>
-<area shape="rect" href="_a_t_p_core_a_p_i_8h.html" title=" " alt="" coords="805,333,911,360"/>
-<area shape="rect" href="_i_process_8h.html" title="File containing interfaces for process management." alt="" coords="693,169,844,196"/>
-<area shape="rect" href="_process_manager_8h.html" title=" " alt="" coords="313,87,510,114"/>
-<area shape="rect" href="_proof_process_8h.html" title="A process for proving a set of statements." alt="" coords="1047,87,1224,114"/>
-<area shape="rect" href="_h_m_m_conjecture_process_8h.html" title="Contains an implementation of a process which runs an automated conjecturing procedure." alt="" coords="1254,87,1494,114"/>
-<area shape="rect" href="_h_m_m_conjecture_train_process_8h.html" title="Contains the process for training the HMM conjecturer model on existing proven theorems." alt="" coords="1519,80,1728,121"/>
-<area shape="rect" href="_create_h_m_m_process_8h.html" title="Contains a process which creates new HMM models." alt="" coords="806,87,1022,114"/>
-<area shape="rect" title=" " alt="" coords="531,945,596,972"/>
-<area shape="rect" title=" " alt="" coords="879,490,1013,517"/>
-<area shape="rect" title=" " alt="" coords="1193,796,1262,823"/>
-<area shape="rect" title=" " alt="" coords="343,169,383,196"/>
-<area shape="rect" title=" " alt="" coords="178,169,237,196"/>
-<area shape="rect" title=" " alt="" coords="261,169,319,196"/>
-<area shape="rect" title=" " alt="" coords="1346,169,1415,196"/>
-<area shape="rect" href="_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="1677,408,1767,435"/>
-<area shape="rect" href="_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="407,169,506,196"/>
-<area shape="rect" href="_a_t_p_database_8h.html" title=" " alt="" coords="1157,169,1271,196"/>
-<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="1541,871,1652,897"/>
-<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="1997,796,2153,823"/>
-<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="1735,721,1922,748"/>
-<area shape="rect" href="_i_language_8h.html" title="Contains the ILanguage interface which acts as a factory class for each type of logic in the library." alt="" coords="1509,490,1661,517"/>
-<area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a structure for performing logical deductio..." alt="" coords="1677,572,1813,599"/>
-<area shape="rect" href="_i_proof_state_8h.html" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="1879,647,1976,673"/>
-<area shape="rect" href="_i_model_context_8h.html" title="Contains the IModelContext interface for managing definitions and axioms." alt="" coords="2149,721,2265,748"/>
-<area shape="rect" href="_i_propositional_knowledge_kernel_8h.html" title="Contains a common specialisation of the IKnowledgeKernel interface." alt="" coords="1759,483,1919,524"/>
-<area shape="rect" title=" " alt="" coords="2372,871,2427,897"/>
-<area shape="rect" title=" " alt="" coords="2377,796,2433,823"/>
-<area shape="rect" title=" " alt="" coords="1291,572,1356,599"/>
-<area shape="rect" title=" " alt="" coords="1431,572,1501,599"/>
-<area shape="rect" href="_a_t_p_search_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="275,408,395,435"/>
-<area shape="rect" href="_i_solver_8h.html" title="Interface for proof solving strategies." alt="" coords="378,333,509,360"/>
-<area shape="rect" href="_i_heuristic_8h.html" title="Interfaces for search heuristic functions." alt="" coords="533,333,679,360"/>
-<area shape="rect" href="_search_settings_8h.html" title="Contains code for loading user search settings." alt="" coords="201,251,369,278"/>
-<area shape="rect" title=" " alt="" coords="45,333,122,360"/>
-<area shape="rect" href="_i_stopping_strategy_8h.html" title=" " alt="" coords="146,333,354,360"/>
-<area shape="rect" href="_a_t_p_database_a_p_i_8h.html" title=" " alt="" coords="979,408,1113,435"/>
-<area shape="rect" href="_i_transaction_8h.html" title="Contains an abstraction of a database transaction." alt="" coords="1570,251,1733,278"/>
-<area shape="rect" href="_i_query_builders_8h.html" title="Query builders are objects which create SQL statements for specific operations common to ATPDatabase ..." alt="" coords="1290,333,1469,360"/>
-<area shape="rect" href="_i_database_8h.html" title="Contains the core Database object interface of this library." alt="" coords="1139,251,1289,278"/>
-<area shape="rect" title=" " alt="" coords="2274,333,2402,360"/>
-<area shape="rect" title=" " alt="" coords="1645,333,1813,360"/>
-<area shape="rect" href="_h_m_m_conjecture_model_8h.html" title="Contains a Hidden Markov model implementation for the automated conjecturer." alt="" coords="1717,169,1935,196"/>
-<area shape="rect" href="_h_m_m_conjecture_model_builder_8h.html" title="Contains a class for building a HMMConjectureModel (which is useful loading one from the database)." alt="" coords="2325,244,2533,285"/>
-<area shape="rect" title=" " alt="" coords="1920,251,1985,278"/>
-<area shape="rect" title=" " alt="" coords="2010,244,2149,285"/>
-<area shape="rect" title=" " alt="" coords="1757,244,1895,285"/>
-<area shape="rect" href="_h_m_m_stmt_to_obs_8h.html" title="Contains a class for converting a statement into a list of integer observations for immediate use in ..." alt="" coords="1415,251,1546,278"/>
-<area shape="rect" title=" " alt="" coords="2477,333,2524,360"/>
+<area shape="rect" title=" " alt="" coords="2308,5,2449,32"/>
+<area shape="rect" href="_a_t_p_database_8h.html" title=" " alt="" coords="1465,319,1578,345"/>
+<area shape="rect" href="_a_t_p_core_a_p_i_8h.html" title=" " alt="" coords="2517,483,2624,509"/>
+<area shape="rect" href="_i_process_8h.html" title="File containing interfaces for process management." alt="" coords="2339,319,2490,345"/>
+<area shape="rect" href="_process_manager_8h.html" title=" " alt="" coords="2731,155,2928,181"/>
+<area shape="rect" href="_proof_process_8h.html" title="A process for proving a set of statements." alt="" coords="1871,80,2049,107"/>
+<area shape="rect" href="_h_m_m_conjecture_process_8h.html" title="Contains an implementation of a process which runs an automated conjecturing procedure." alt="" coords="639,237,879,263"/>
+<area shape="rect" href="_h_m_m_conjecture_train_process_8h.html" title="Contains the process for training the HMM conjecturer model on existing proven theorems." alt="" coords="903,229,1113,271"/>
+<area shape="rect" href="_create_h_m_m_process_8h.html" title="Contains a process which creates new HMM models." alt="" coords="2048,237,2264,263"/>
+<area shape="rect" href="_i_scheduler_8h.html" title="Contains the interface for objects responsible for scheduling and balancing different ATP tasks." alt="" coords="2493,237,2656,263"/>
+<area shape="rect" href="_a_t_p_database_a_p_i_8h.html" title=" " alt="" coords="1886,557,2021,584"/>
+<area shape="rect" href="_i_transaction_8h.html" title="Contains an abstraction of a database transaction." alt="" coords="1147,401,1309,427"/>
+<area shape="rect" href="_i_query_builders_8h.html" title="Query builders are objects which create SQL statements for specific operations common to ATPDatabase ..." alt="" coords="1685,483,1864,509"/>
+<area shape="rect" href="_i_database_8h.html" title="Contains the core Database object interface of this library." alt="" coords="1334,401,1485,427"/>
+<area shape="rect" title=" " alt="" coords="2339,1095,2405,1121"/>
+<area shape="rect" title=" " alt="" coords="2303,639,2436,666"/>
+<area shape="rect" title=" " alt="" coords="1547,1020,1602,1047"/>
+<area shape="rect" title=" " alt="" coords="1512,945,1581,972"/>
+<area shape="rect" title=" " alt="" coords="784,483,912,509"/>
+<area shape="rect" title=" " alt="" coords="1139,483,1307,509"/>
+<area shape="rect" href="_a_t_p_logic_8h.html" title="Main include file for the ATPLogic library." alt="" coords="955,557,1045,584"/>
+<area shape="rect" href="_a_t_p_logic_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="742,1020,853,1047"/>
+<area shape="rect" href="_i_statement_8h.html" title="Contains the IStatement interface for logical statements." alt="" coords="871,945,1027,972"/>
+<area shape="rect" href="_i_statement_array_8h.html" title="Provides the IStatementArray interface for collections of statement objects." alt="" coords="573,871,760,897"/>
+<area shape="rect" href="_i_language_8h.html" title="Contains the ILanguage interface which acts as a factory class for each type of logic in the library." alt="" coords="1057,639,1209,666"/>
+<area shape="rect" href="_i_knowledge_kernel_8h.html" title="Contains the IKnowledgeKernel interface, which represents a structure for performing logical deductio..." alt="" coords="725,721,861,748"/>
+<area shape="rect" href="_i_proof_state_8h.html" title="Contains the IProofState interface, which encapsulates the idea of either a partial or complete proof..." alt="" coords="611,796,709,823"/>
+<area shape="rect" href="_i_model_context_8h.html" title="Contains the IModelContext interface for managing definitions and axioms." alt="" coords="1139,871,1255,897"/>
+<area shape="rect" href="_i_propositional_knowledge_kernel_8h.html" title="Contains a common specialisation of the IKnowledgeKernel interface." alt="" coords="713,632,873,673"/>
+<area shape="rect" title=" " alt="" coords="407,945,463,972"/>
+<area shape="rect" href="_process_queue_8h.html" title=" " alt="" coords="2853,237,2971,263"/>
+<area shape="rect" title=" " alt="" coords="3215,319,3255,345"/>
+<area shape="rect" title=" " alt="" coords="2883,319,2941,345"/>
+<area shape="rect" title=" " alt="" coords="2966,319,3023,345"/>
+<area shape="rect" title=" " alt="" coords="3047,319,3190,345"/>
+<area shape="rect" title=" " alt="" coords="108,319,177,345"/>
+<area shape="rect" href="_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="1911,155,2009,181"/>
+<area shape="rect" href="_a_t_p_search_a_p_i_8h.html" title="This is the common header file to all parts of this library. It defines several macros used throughou..." alt="" coords="2380,557,2500,584"/>
+<area shape="rect" href="_i_solver_8h.html" title="Interface for proof solving strategies." alt="" coords="2261,483,2392,509"/>
+<area shape="rect" href="_i_heuristic_8h.html" title="Interfaces for search heuristic functions." alt="" coords="2091,483,2237,509"/>
+<area shape="rect" href="_i_selection_strategy_8h.html" title="Contains an interface for selecting theorems from the database in a clever manner to help prove a par..." alt="" coords="1673,237,1871,263"/>
+<area shape="rect" href="_search_settings_8h.html" title="Contains code for loading user search settings." alt="" coords="1917,401,2085,427"/>
+<area shape="rect" href="_h_m_m_conjecture_model_8h.html" title="Contains a Hidden Markov model implementation for the automated conjecturer." alt="" coords="317,319,536,345"/>
+<area shape="rect" href="_h_m_m_conjecture_model_builder_8h.html" title="Contains a class for building a HMMConjectureModel (which is useful loading one from the database)." alt="" coords="611,393,819,435"/>
+<area shape="rect" title=" " alt="" coords="94,401,159,427"/>
+<area shape="rect" title=" " alt="" coords="184,393,323,435"/>
+<area shape="rect" title=" " alt="" coords="347,393,485,435"/>
+<area shape="rect" href="_h_m_m_stmt_to_obs_8h.html" title="Contains a class for converting a statement into a list of integer observations for immediate use in ..." alt="" coords="1509,401,1640,427"/>
+<area shape="rect" title=" " alt="" coords="662,483,709,509"/>
+<area shape="rect" title=" " alt="" coords="2617,319,2655,345"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -141,11 +145,15 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_a_t_p_core_8h__dep__incl.png" border="0" usemap="#_a_t_p_core_2_a_t_p_core_8hdep" alt=""/></div>
 <map name="_a_t_p_core_2_a_t_p_core_8hdep" id="_a_t_p_core_2_a_t_p_core_8hdep">
-<area shape="rect" title=" " alt="" coords="151,5,292,32"/>
-<area shape="rect" href="_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="82,80,201,107"/>
-<area shape="rect" href="_a_t_p_core_8cpp.html" title=" " alt="" coords="225,80,380,107"/>
-<area shape="rect" href="_application_8cpp.html" title=" " alt="" coords="5,155,139,181"/>
-<area shape="rect" href="_main_8cpp.html" title="Entrypoint for atp command line application." alt="" coords="163,155,261,181"/>
+<area shape="rect" title=" " alt="" coords="324,5,465,32"/>
+<area shape="rect" href="_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="81,87,199,114"/>
+<area shape="rect" href="_server_application_8h.html" title="Contains a command line application which is intended to be left running continuously,..." alt="" coords="224,87,379,114"/>
+<area shape="rect" href="_server_application_cmd_parser_8h.html" title="Contains a function which parses the commands from std::cin for the server application&#39;s prompt." alt="" coords="403,80,573,121"/>
+<area shape="rect" href="_a_t_p_core_8cpp.html" title=" " alt="" coords="597,87,752,114"/>
+<area shape="rect" href="_application_8cpp.html" title=" " alt="" coords="5,177,139,203"/>
+<area shape="rect" href="_main_8cpp.html" title="Entrypoint for atp command line application." alt="" coords="163,177,261,203"/>
+<area shape="rect" href="_server_application_8cpp.html" title=" " alt="" coords="285,177,454,203"/>
+<area shape="rect" href="_server_application_cmd_parser_8cpp.html" title=" " alt="" coords="479,169,649,211"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -156,6 +164,12 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceatp"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp.html">atp</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:af092c541bc33b574ef43ca79b4b6296d"><td class="memItemLeft" align="right" valign="top">SchedulerPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1core.html#af092c541bc33b574ef43ca79b4b6296d">atp::core::create_scheduler</a> (db::DatabasePtr p_db)</td></tr>
+<tr class="memdesc:af092c541bc33b574ef43ca79b4b6296d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate a new scheduler object.  <a href="namespaceatp_1_1core.html#af092c541bc33b574ef43ca79b4b6296d">More...</a><br /></td></tr>
+<tr class="separator:af092c541bc33b574ef43ca79b4b6296d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

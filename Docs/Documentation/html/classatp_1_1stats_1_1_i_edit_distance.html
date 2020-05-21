@@ -94,9 +94,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a12c99bc9198e70f0509f277343063dcc"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1stats_1_1_i_edit_distance.html#a12c99bc9198e70f0509f277343063dcc">~IEditDistance</a> ()=default</td></tr>
 <tr class="separator:a12c99bc9198e70f0509f277343063dcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0132e625754edc2d78e384534acc309b"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1stats_1_1_i_edit_distance.html#a0132e625754edc2d78e384534acc309b">edit_distance</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">logic::IStatement</a> &amp;stmt1, const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">logic::IStatement</a> &amp;stmt2)=0</td></tr>
+<tr class="memdesc:a0132e625754edc2d78e384534acc309b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the edit distance between two statements (this is of course symmetric in both arguments)  <a href="classatp_1_1stats_1_1_i_edit_distance.html#a0132e625754edc2d78e384534acc309b">More...</a><br /></td></tr>
 <tr class="separator:a0132e625754edc2d78e384534acc309b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a578c5dd44d7bf0d66c31c28444a35b84"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::vector&lt; float &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1stats_1_1_i_edit_distance.html#a578c5dd44d7bf0d66c31c28444a35b84">edit_distance</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">logic::IStatementArray</a> &amp;stmtarr1, const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">logic::IStatementArray</a> &amp;stmtarr2)=0</td></tr>
+<tr class="memdesc:a578c5dd44d7bf0d66c31c28444a35b84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the edit distance pairwise in two arrays.  <a href="classatp_1_1stats_1_1_i_edit_distance.html#a578c5dd44d7bf0d66c31c28444a35b84">More...</a><br /></td></tr>
 <tr class="separator:a578c5dd44d7bf0d66c31c28444a35b84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13406f34d32958507045280054bf7c0c"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::vector&lt; std::vector&lt; float &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1stats_1_1_i_edit_distance.html#a13406f34d32958507045280054bf7c0c">sub_edit_distance</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">logic::IStatementArray</a> &amp;stmtarr1, const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">logic::IStatementArray</a> &amp;stmtarr2)=0</td></tr>
+<tr class="memdesc:a13406f34d32958507045280054bf7c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the pairwise edit distance, but looping through the "sub-expressions" of the statements of the <b>first</b> array.  <a href="classatp_1_1stats_1_1_i_edit_distance.html#a13406f34d32958507045280054bf7c0c">More...</a><br /></td></tr>
+<tr class="separator:a13406f34d32958507045280054bf7c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An object for computing edit distance for statements in a particular logic type, which is optimised. </p>
@@ -162,6 +167,9 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Compute the edit distance between two statements (this is of course symmetric in both arguments) </p>
+<dl class="section return"><dt>Returns</dt><dd>A (not-necessarily-non-negative) number, where positive means the two statements are far away, and negative means they are close. </dd></dl>
+
 <p>Implemented in <a class="el" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#a825fb970bafd9e35164e2d116af46848">atp::stats::EquationalEditDistanceTracker</a>.</p>
 
 </div>
@@ -200,7 +208,53 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Compute the edit distance pairwise in two arrays. </p>
+<dl class="section return"><dt>Returns</dt><dd>An array A such that A[i][j] == edit_distance( stmtarr1[i], stmtarr2[j]) </dd></dl>
+
 <p>Implemented in <a class="el" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#af4f6395e0951d9866da64422346bd263">atp::stats::EquationalEditDistanceTracker</a>.</p>
+
+</div>
+</div>
+<a id="a13406f34d32958507045280054bf7c0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13406f34d32958507045280054bf7c0c">&#9670;&nbsp;</a></span>sub_edit_distance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::vector&lt;std::vector&lt;std::vector&lt;float&gt; &gt; &gt; atp::stats::IEditDistance::sub_edit_distance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">logic::IStatementArray</a> &amp;&#160;</td>
+          <td class="paramname"><em>stmtarr1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">logic::IStatementArray</a> &amp;&#160;</td>
+          <td class="paramname"><em>stmtarr2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the pairwise edit distance, but looping through the "sub-expressions" of the statements of the <b>first</b> array. </p>
+<p>Use this over <code>edit_distance</code> if you are more interested in how far stmt2 is <em>from any sub-part</em> of stmt1, rather than just distances as a whole.</p>
+<dl class="section remark"><dt>Remarks</dt><dd>This version of the function is <b>not</b> symmetric in its arguments.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An array A such that A[i][j][k] == edit_distance( kth sub-expression of stmtarr1[i], stmtarr2[j]) </dd></dl>
+
+<p>Implemented in <a class="el" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#a677c954800ecebf6d3903a1114003f6d">atp::stats::EquationalEditDistanceTracker</a>.</p>
 
 </div>
 </div>

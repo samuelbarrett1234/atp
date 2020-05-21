@@ -1,9 +1,13 @@
 <map id="ATPCore/Processes/HMMConjectureTrainProcess.h" name="ATPCore/Processes/HMMConjectureTrainProcess.h">
-<area shape="rect" id="node1" title="Contains the process for training the HMM conjecturer model on existing proven theorems." alt="" coords="209,5,447,47"/>
-<area shape="rect" id="node2" href="$_a_t_p_core_8h.html" title=" " alt="" coords="151,102,292,129"/>
-<area shape="rect" id="node7" href="$_h_m_m_conjecture_train_process_8cpp.html" title=" " alt="" coords="316,95,553,136"/>
-<area shape="rect" id="node3" href="$_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="82,184,201,211"/>
-<area shape="rect" id="node6" href="$_a_t_p_core_8cpp.html" title=" " alt="" coords="225,184,380,211"/>
-<area shape="rect" id="node4" href="$_application_8cpp.html" title=" " alt="" coords="5,259,139,285"/>
-<area shape="rect" id="node5" href="$_main_8cpp.html" title="Entrypoint for atp command line application." alt="" coords="163,259,261,285"/>
+<area shape="rect" id="node1" title="Contains the process for training the HMM conjecturer model on existing proven theorems." alt="" coords="383,5,620,47"/>
+<area shape="rect" id="node2" href="$_a_t_p_core_8h.html" title=" " alt="" coords="324,102,465,129"/>
+<area shape="rect" id="node11" href="$_h_m_m_conjecture_train_process_8cpp.html" title=" " alt="" coords="489,95,727,136"/>
+<area shape="rect" id="node3" href="$_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="81,191,199,218"/>
+<area shape="rect" id="node6" href="$_server_application_8h.html" title="Contains a command line application which is intended to be left running continuously,..." alt="" coords="224,191,379,218"/>
+<area shape="rect" id="node8" href="$_server_application_cmd_parser_8h.html" title="Contains a function which parses the commands from std::cin for the server application&#39;s prompt." alt="" coords="403,184,573,225"/>
+<area shape="rect" id="node10" href="$_a_t_p_core_8cpp.html" title=" " alt="" coords="597,191,752,218"/>
+<area shape="rect" id="node4" href="$_application_8cpp.html" title=" " alt="" coords="5,281,139,307"/>
+<area shape="rect" id="node5" href="$_main_8cpp.html" title="Entrypoint for atp command line application." alt="" coords="163,281,261,307"/>
+<area shape="rect" id="node7" href="$_server_application_8cpp.html" title=" " alt="" coords="285,281,454,307"/>
+<area shape="rect" id="node9" href="$_server_application_cmd_parser_8cpp.html" title=" " alt="" coords="479,273,649,315"/>
 </map>

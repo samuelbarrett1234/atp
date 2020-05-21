@@ -1,0 +1,6 @@
+<map id="atp::core::ProcessManager::commit_thread" name="atp::core::ProcessManager::commit_thread">
+<area shape="rect" id="node1" title="Make the current thread work for the process manager." alt="" coords="5,71,184,112"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_process_queue.html#af59d1521a13cda1a5ea038f68f830580" title="Returns true if the stacks are empty AND no threads are currently working on processes that will subs..." alt="" coords="232,5,399,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_process_queue.html#a59b6123a147465c889ce7c3166a5d098" title="Either add a new process externally, or called by a worker thread which has finished updating its pro..." alt="" coords="232,71,399,112"/>
+<area shape="rect" id="node4" href="$classatp_1_1core_1_1_process_queue.html#a19a01e42ef47e0b5132b2d3ca0232de4" title="Try to get a process which isn&#39;t being handled." alt="" coords="232,136,399,177"/>
+</map>

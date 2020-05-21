@@ -1,10 +1,6 @@
 <map id="atp::logic::equational::Statement::end" name="atp::logic::equational::Statement::end">
-<area shape="rect" id="node1" title=" " alt="" coords="488,100,631,141"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a4f6caf310dc06e6602586ee730a67945" title="Increment the iterator; move on to the next successor." alt="" coords="21,54,195,110"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ad5d0f250225572f80719684247bcf43d" title="Substitute the free variables according to the given map." alt="" coords="259,35,440,76"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_statement.html#adfc8c3e839809b2e9ee0dceaef0fd23b" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="278,100,421,141"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#afefebfa75df496b5fa955baa3adaf47c" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="263,166,436,222"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a1f1ed484319a9bd2a1f732caac9afdcd" title=" " alt="" coords="263,246,436,302"/>
-<area shape="rect" id="node7" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a0744a6f9aec3d992dc8136485cac65e1" title="Get the successor pointed to by this iterator." alt="" coords="9,220,207,261"/>
-<area shape="rect" id="node8" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#a9288a1ce917b82b28cbec16d0c755a35" title="Get the number of proof states currently held in memory by this iterator." alt="" coords="5,285,211,327"/>
+<area shape="rect" id="node1" title=" " alt="" coords="235,71,377,112"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_statement.html#ad5d0f250225572f80719684247bcf43d" title="Substitute the free variables according to the given map." alt="" coords="5,5,187,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_statement.html#adfc8c3e839809b2e9ee0dceaef0fd23b" title="Replace the expression rooted at the given position iter with the given new expression." alt="" coords="25,71,167,112"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_sub_expr_matching_iterator.html#afefebfa75df496b5fa955baa3adaf47c" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="9,137,183,193"/>
 </map>

@@ -87,11 +87,20 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_edit_distance_heuristic.html">EditDistanceHeuristic</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This heuristic uses a version of edit distance to estimate how far a proof state is away from its target.  <a href="classatp_1_1search_1_1_edit_distance_heuristic.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_edit_distance_selection_strategy.html">EditDistanceSelectionStrategy</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A basic theorem selector strategy which just picks randomly from the database to help in a proof.  <a href="classatp_1_1search_1_1_edit_distance_selection_strategy.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_fixed_selection_strategy.html">FixedSelectionStrategy</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A basic theorem selector strategy which just picks randomly from the database to help in a proof.  <a href="classatp_1_1search_1_1_fixed_selection_strategy.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_fixed_stopping_strategy.html">FixedStoppingStrategy</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a naive, simple stopping strategy: always keep N successors in memory, and always just return the best one.  <a href="classatp_1_1search_1_1_fixed_stopping_strategy.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_heuristic.html">IHeuristic</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basically represents a function from proof states to floats.  <a href="classatp_1_1search_1_1_i_heuristic.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_selection_strategy.html">ISelectionStrategy</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A selection strategy for picking theorems from the database to help find a proof for a set of target theorems.  <a href="classatp_1_1search_1_1_i_selection_strategy.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_i_solver.html">ISolver</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generic interface for proving statements.  <a href="classatp_1_1search_1_1_i_solver.html#details">More...</a><br /></td></tr>
@@ -115,12 +124,16 @@ Classes</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:aa9b471dd0b51a5e48442f4e326df7a1a"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="classatp_1_1search_1_1_i_heuristic.html">IHeuristic</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#aa9b471dd0b51a5e48442f4e326df7a1a">HeuristicPtr</a></td></tr>
 <tr class="separator:aa9b471dd0b51a5e48442f4e326df7a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f7278028c40e8373c9c69c54b5b2e8e"><td class="memItemLeft" align="right" valign="top">typedef std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_i_selection_strategy.html">ISelectionStrategy</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a6f7278028c40e8373c9c69c54b5b2e8e">SelectionStrategyPtr</a></td></tr>
+<tr class="separator:a6f7278028c40e8373c9c69c54b5b2e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0acdc071811f1c4f3b31d99cd136a683"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="classatp_1_1search_1_1_i_solver.html">ISolver</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">SolverPtr</a></td></tr>
 <tr class="separator:a0acdc071811f1c4f3b31d99cd136a683"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30d0664015b80cf7901fc713966ccad3"><td class="memItemLeft" align="right" valign="top">typedef std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_i_stopping_strategy.html">IStoppingStrategy</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a30d0664015b80cf7901fc713966ccad3">StoppingStrategyPtr</a></td></tr>
 <tr class="separator:a30d0664015b80cf7901fc713966ccad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8f2b1d73eb3f7b71080c62f4ea2edc1"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; <a class="el" href="namespaceatp_1_1search.html#aa9b471dd0b51a5e48442f4e326df7a1a">HeuristicPtr</a>(const <a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a> &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#ab8f2b1d73eb3f7b71080c62f4ea2edc1">HeuristicCreator</a></td></tr>
 <tr class="separator:ab8f2b1d73eb3f7b71080c62f4ea2edc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a107601659e60d344377297fb72f72d70"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; <a class="el" href="namespaceatp_1_1search.html#a6f7278028c40e8373c9c69c54b5b2e8e">SelectionStrategyPtr</a>(<a class="el" href="namespaceatp_1_1logic.html#adccb0bf82b978a71476e3d2e85e7df6a">logic::ModelContextPtr</a>, size_t)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a107601659e60d344377297fb72f72d70">SelectionStrategyCreator</a></td></tr>
+<tr class="separator:a107601659e60d344377297fb72f72d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3eff2966d8cef9143ccac7b604a25b16"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; <a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">SolverPtr</a>(<a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a>, std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &gt;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a3eff2966d8cef9143ccac7b604a25b16">SolverCreator</a></td></tr>
 <tr class="separator:a3eff2966d8cef9143ccac7b604a25b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9beeb4aabc71b9fd2452fcd5b463d9b"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; void(<a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#af9beeb4aabc71b9fd2452fcd5b463d9b">SuccIterCreator</a></td></tr>
@@ -133,9 +146,9 @@ Functions</h2></td></tr>
 <tr class="separator:aa8dd2f9c72b427c8a08e2c78534f57de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af516415f9453508a4282934f390b9045"><td class="memItemLeft" align="right" valign="top">std::pair&lt; float, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#af516415f9453508a4282934f390b9045">compute_mean_variance</a> (float sum, float sum_sq, size_t n)</td></tr>
 <tr class="separator:af516415f9453508a4282934f390b9045"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91f046e75c3c4a481001387c5bd0e5d0"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a91f046e75c3c4a481001387c5bd0e5d0">eqlogic_edit_distance</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html">logic::equational::ProofState</a> &amp;pf_state, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html">logic::equational::KnowledgeKernel</a> &amp;ker, const <a class="el" href="namespaceatp_1_1stats.html#a69a3ab505c3d6f2741ccd4bf3d780815">stats::EditDistancePtr</a> &amp;p_ed, float p)</td></tr>
-<tr class="memdesc:a91f046e75c3c4a481001387c5bd0e5d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">A specialisation of edit distance computation to equational logic.  <a href="namespaceatp_1_1search.html#a91f046e75c3c4a481001387c5bd0e5d0">More...</a><br /></td></tr>
-<tr class="separator:a91f046e75c3c4a481001387c5bd0e5d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a765f6d5fc102f71a4cea7ede1e621532"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a765f6d5fc102f71a4cea7ede1e621532">eqlogic_edit_distance</a> (const <a class="el" href="classatp_1_1logic_1_1equational_1_1_proof_state.html">logic::equational::ProofState</a> &amp;pf_state, const <a class="el" href="classatp_1_1logic_1_1equational_1_1_knowledge_kernel.html">logic::equational::KnowledgeKernel</a> &amp;ker, const <a class="el" href="namespaceatp_1_1stats.html#a69a3ab505c3d6f2741ccd4bf3d780815">stats::EditDistancePtr</a> &amp;p_ed)</td></tr>
+<tr class="memdesc:a765f6d5fc102f71a4cea7ede1e621532"><td class="mdescLeft">&#160;</td><td class="mdescRight">A specialisation of edit distance computation to equational logic.  <a href="namespaceatp_1_1search.html#a765f6d5fc102f71a4cea7ede1e621532">More...</a><br /></td></tr>
+<tr class="separator:a765f6d5fc102f71a4cea7ede1e621532"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabe18437945bb44d6176221c8255c348"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348">create_solver_creator</a> (std::function&lt; <a class="el" href="namespaceatp_1_1search.html#a0acdc071811f1c4f3b31d99cd136a683">SolverPtr</a>(<a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a>)&gt; &amp;creator, <a class="el" href="namespaceatp_1_1search.html#ab8f2b1d73eb3f7b71080c62f4ea2edc1">HeuristicCreator</a> heuristic_creator, pt::ptree ptree)</td></tr>
 <tr class="separator:aabe18437945bb44d6176221c8255c348"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7075404471b8cd7ca992403a2d7bc86"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86">load_search_settings</a> (const <a class="el" href="namespaceatp_1_1logic.html#adccb0bf82b978a71476e3d2e85e7df6a">logic::ModelContextPtr</a> &amp;p_ctx, std::istream &amp;in, <a class="el" href="structatp_1_1search_1_1_search_settings.html">SearchSettings</a> *p_out_settings)</td></tr>
@@ -147,6 +160,15 @@ Functions</h2></td></tr>
 <tr class="memitem:af961e805f1c0565c0d5415d7edffa780"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#af961e805f1c0565c0d5415d7edffa780">try_create_edit_distance_heuristic</a> (const <a class="el" href="namespaceatp_1_1logic.html#adccb0bf82b978a71476e3d2e85e7df6a">logic::ModelContextPtr</a> &amp;p_ctx, <a class="el" href="namespaceatp_1_1search.html#ab8f2b1d73eb3f7b71080c62f4ea2edc1">HeuristicCreator</a> &amp;creator, const boost::property_tree::ptree &amp;ptree)</td></tr>
 <tr class="memdesc:af961e805f1c0565c0d5415d7edffa780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create an edit distance heuristic object from the tree rooted at the given node.  <a href="namespaceatp_1_1search.html#af961e805f1c0565c0d5415d7edffa780">More...</a><br /></td></tr>
 <tr class="separator:af961e805f1c0565c0d5415d7edffa780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c882e1f9a20764cdd4f533986cfe723"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a0c882e1f9a20764cdd4f533986cfe723">try_create_selection_strategy</a> (const boost::property_tree::ptree &amp;ptree, <a class="el" href="namespaceatp_1_1search.html#a107601659e60d344377297fb72f72d70">SelectionStrategyCreator</a> &amp;creator)</td></tr>
+<tr class="memdesc:a0c882e1f9a20764cdd4f533986cfe723"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create a selection strategy, based on the type given in <code>ptree</code>.  <a href="namespaceatp_1_1search.html#a0c882e1f9a20764cdd4f533986cfe723">More...</a><br /></td></tr>
+<tr class="separator:a0c882e1f9a20764cdd4f533986cfe723"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebbefebfe4e2943be51dbaea4f45dd30"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#aebbefebfe4e2943be51dbaea4f45dd30">try_create_fixed_selection_strategy</a> (const boost::property_tree::ptree &amp;ptree, <a class="el" href="namespaceatp_1_1search.html#a107601659e60d344377297fb72f72d70">SelectionStrategyCreator</a> &amp;creator)</td></tr>
+<tr class="memdesc:aebbefebfe4e2943be51dbaea4f45dd30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create a <a class="el" href="classatp_1_1search_1_1_fixed_selection_strategy.html" title="A basic theorem selector strategy which just picks randomly from the database to help in a proof.">FixedSelectionStrategy</a>, based on the type given in <code>ptree</code>.  <a href="namespaceatp_1_1search.html#aebbefebfe4e2943be51dbaea4f45dd30">More...</a><br /></td></tr>
+<tr class="separator:aebbefebfe4e2943be51dbaea4f45dd30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef23c2431a910abdc586fa9980001463"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#aef23c2431a910abdc586fa9980001463">try_create_edit_dist_selection_strategy</a> (const boost::property_tree::ptree &amp;ptree, <a class="el" href="namespaceatp_1_1search.html#a107601659e60d344377297fb72f72d70">SelectionStrategyCreator</a> &amp;creator)</td></tr>
+<tr class="memdesc:aef23c2431a910abdc586fa9980001463"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create an <a class="el" href="classatp_1_1search_1_1_edit_distance_selection_strategy.html" title="A basic theorem selector strategy which just picks randomly from the database to help in a proof.">EditDistanceSelectionStrategy</a>, based on the type given in <code>ptree</code>.  <a href="namespaceatp_1_1search.html#aef23c2431a910abdc586fa9980001463">More...</a><br /></td></tr>
+<tr class="separator:aef23c2431a910abdc586fa9980001463"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63dff82536a7665670203db4cdc0a20a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a">try_create_solver</a> (const boost::property_tree::ptree &amp;ptree, <a class="el" href="namespaceatp_1_1search.html#a3eff2966d8cef9143ccac7b604a25b16">SolverCreator</a> &amp;creator)</td></tr>
 <tr class="memdesc:a63dff82536a7665670203db4cdc0a20a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to create a solver, based on the type given in <code>ptree</code>.  <a href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a">More...</a><br /></td></tr>
 <tr class="separator:a63dff82536a7665670203db4cdc0a20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,6 +213,34 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="classatp_1_1search_1_1_i_heuristic.html">IHeuristic</a>&gt; <a class="el" href="namespaceatp_1_1search.html#aa9b471dd0b51a5e48442f4e326df7a1a">atp::search::HeuristicPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a107601659e60d344377297fb72f72d70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a107601659e60d344377297fb72f72d70">&#9670;&nbsp;</a></span>SelectionStrategyCreator</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::function&lt;<a class="el" href="namespaceatp_1_1search.html#a6f7278028c40e8373c9c69c54b5b2e8e">SelectionStrategyPtr</a>( <a class="el" href="namespaceatp_1_1logic.html#adccb0bf82b978a71476e3d2e85e7df6a">logic::ModelContextPtr</a>, size_t )&gt; <a class="el" href="namespaceatp_1_1search.html#a107601659e60d344377297fb72f72d70">atp::search::SelectionStrategyCreator</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6f7278028c40e8373c9c69c54b5b2e8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f7278028c40e8373c9c69c54b5b2e8e">&#9670;&nbsp;</a></span>SelectionStrategyPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::unique_ptr&lt;<a class="el" href="classatp_1_1search_1_1_i_selection_strategy.html">ISelectionStrategy</a>&gt; <a class="el" href="namespaceatp_1_1search.html#a6f7278028c40e8373c9c69c54b5b2e8e">atp::search::SelectionStrategyPtr</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -382,16 +432,17 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1search_aabe18437945bb44d6176221c8255c348_icgraph.png" border="0" usemap="#namespaceatp_1_1search_aabe18437945bb44d6176221c8255c348_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_aabe18437945bb44d6176221c8255c348_icgraph" id="namespaceatp_1_1search_aabe18437945bb44d6176221c8255c348_icgraph">
-<area shape="rect" title=" " alt="" coords="464,5,595,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,5,416,47"/>
-<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="5,13,203,39"/>
+<area shape="rect" title=" " alt="" coords="473,35,604,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a91f046e75c3c4a481001387c5bd0e5d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91f046e75c3c4a481001387c5bd0e5d0">&#9670;&nbsp;</a></span>eqlogic_edit_distance()</h2>
+<a id="a765f6d5fc102f71a4cea7ede1e621532"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a765f6d5fc102f71a4cea7ede1e621532">&#9670;&nbsp;</a></span>eqlogic_edit_distance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -412,13 +463,7 @@ Here is the caller graph for this function:</div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="namespaceatp_1_1stats.html#a69a3ab505c3d6f2741ccd4bf3d780815">stats::EditDistancePtr</a> &amp;&#160;</td>
-          <td class="paramname"><em>p_ed</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>p</em>&#160;</td>
+          <td class="paramname"><em>p_ed</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -432,8 +477,8 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a91f046e75c3c4a481001387c5bd0e5d0_cgraph.png" border="0" usemap="#namespaceatp_1_1search_a91f046e75c3c4a481001387c5bd0e5d0_cgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a91f046e75c3c4a481001387c5bd0e5d0_cgraph" id="namespaceatp_1_1search_a91f046e75c3c4a481001387c5bd0e5d0_cgraph">
+<div class="center"><img src="namespaceatp_1_1search_a765f6d5fc102f71a4cea7ede1e621532_cgraph.png" border="0" usemap="#namespaceatp_1_1search_a765f6d5fc102f71a4cea7ede1e621532_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_a765f6d5fc102f71a4cea7ede1e621532_cgraph" id="namespaceatp_1_1search_a765f6d5fc102f71a4cea7ede1e621532_cgraph">
 <area shape="rect" title="A specialisation of edit distance computation to equational logic." alt="" coords="5,64,141,105"/>
 <area shape="rect" href="classatp_1_1logic_1_1equational_1_1_proof_state.html#abf8eb4014df92e183381278d5355663c" title=" " alt="" coords="203,5,349,47"/>
 <area shape="rect" href="namespaceatp_1_1logic.html#a1c89562065d65fe74e21d8b7415d2176" title="Create a singleton statment array from a given statement." alt="" coords="189,71,363,98"/>
@@ -444,8 +489,8 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1search_a91f046e75c3c4a481001387c5bd0e5d0_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a91f046e75c3c4a481001387c5bd0e5d0_icgraph" alt=""/></div>
-<map name="namespaceatp_1_1search_a91f046e75c3c4a481001387c5bd0e5d0_icgraph" id="namespaceatp_1_1search_a91f046e75c3c4a481001387c5bd0e5d0_icgraph">
+<div class="center"><img src="namespaceatp_1_1search_a765f6d5fc102f71a4cea7ede1e621532_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a765f6d5fc102f71a4cea7ede1e621532_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_a765f6d5fc102f71a4cea7ede1e621532_icgraph" id="namespaceatp_1_1search_a765f6d5fc102f71a4cea7ede1e621532_icgraph">
 <area shape="rect" title="A specialisation of edit distance computation to equational logic." alt="" coords="223,5,359,47"/>
 <area shape="rect" href="classatp_1_1search_1_1_edit_distance_heuristic.html#ac11cc65d70d8b95ddfa4dca91e2918a0" title="Evaluate the function on this proof state." alt="" coords="5,5,175,47"/>
 </map>
@@ -497,24 +542,28 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section pre"><dt>Precondition</dt><dd>p_out_settings != nullptr</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>True iff success.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>If the user doesn't provide certain info, default values may be set instead - for example, if the file provides no solver, p_solver will be set to null but this may not be an error. Check the return value! </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>If the user doesn't provide certain info, default values may be set instead - for example, if the file provides no solver, create_solver will be left empty but this may not be an error. Check the return value! </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1search_ab7075404471b8cd7ca992403a2d7bc86_cgraph.png" border="0" usemap="#namespaceatp_1_1search_ab7075404471b8cd7ca992403a2d7bc86_cgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_ab7075404471b8cd7ca992403a2d7bc86_cgraph" id="namespaceatp_1_1search_ab7075404471b8cd7ca992403a2d7bc86_cgraph">
-<area shape="rect" title="Try to load a solver from a configuration file." alt="" coords="5,155,171,197"/>
+<area shape="rect" title="Try to load a solver from a configuration file." alt="" coords="5,187,171,229"/>
 <area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="230,122,361,163"/>
 <area shape="rect" href="namespaceatp_1_1search.html#a2436821c1e92d90b125e6a2a8d03fbcc" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="219,187,372,229"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="425,57,578,98"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="431,122,572,163"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="631,5,812,32"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="654,57,789,98"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="636,122,807,163"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342" title="Try to load info for a FixedStoppingStrategy." alt="" coords="638,187,805,229"/>
-<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="860,122,1056,163"/>
-<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="862,187,1054,229"/>
-<area shape="rect" href="namespaceatp_1_1search.html#af961e805f1c0565c0d5415d7edffa780" title="Try to create an edit distance heuristic object from the tree rooted at the given node." alt="" coords="420,187,583,229"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a0c882e1f9a20764cdd4f533986cfe723" title="Try to create a selection strategy, based on the type given in ptree." alt="" coords="219,253,372,294"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="439,57,592,98"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="445,122,586,163"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="659,5,840,32"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="682,57,817,98"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="664,122,835,163"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342" title="Try to load info for a FixedStoppingStrategy." alt="" coords="666,187,833,229"/>
+<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="888,122,1084,163"/>
+<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="890,187,1082,229"/>
+<area shape="rect" href="namespaceatp_1_1search.html#af961e805f1c0565c0d5415d7edffa780" title="Try to create an edit distance heuristic object from the tree rooted at the given node." alt="" coords="434,187,597,229"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aef23c2431a910abdc586fa9980001463" title="Try to create an EditDistanceSelectionStrategy, based on the type given in ptree." alt="" coords="420,253,611,294"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aebbefebfe4e2943be51dbaea4f45dd30" title="Try to create a FixedSelectionStrategy, based on the type given in ptree." alt="" coords="431,318,600,359"/>
+<area shape="rect" href="namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="690,285,809,326"/>
 </map>
 </div>
 <div class="dynheader">
@@ -522,8 +571,73 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1search_ab7075404471b8cd7ca992403a2d7bc86_icgraph.png" border="0" usemap="#namespaceatp_1_1search_ab7075404471b8cd7ca992403a2d7bc86_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_ab7075404471b8cd7ca992403a2d7bc86_icgraph" id="namespaceatp_1_1search_ab7075404471b8cd7ca992403a2d7bc86_icgraph">
-<area shape="rect" title="Try to load a solver from a configuration file." alt="" coords="251,5,416,47"/>
-<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="5,13,203,39"/>
+<area shape="rect" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aef23c2431a910abdc586fa9980001463"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef23c2431a910abdc586fa9980001463">&#9670;&nbsp;</a></span>try_create_edit_dist_selection_strategy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> bool atp::search::try_create_edit_dist_selection_strategy </td>
+          <td>(</td>
+          <td class="paramtype">const boost::property_tree::ptree &amp;&#160;</td>
+          <td class="paramname"><em>ptree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1search.html#a107601659e60d344377297fb72f72d70">SelectionStrategyCreator</a> &amp;&#160;</td>
+          <td class="paramname"><em>creator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Try to create an <a class="el" href="classatp_1_1search_1_1_edit_distance_selection_strategy.html" title="A basic theorem selector strategy which just picks randomly from the database to help in a proof.">EditDistanceSelectionStrategy</a>, based on the type given in <code>ptree</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">creator</td><td>This function will be assigned a value iff success.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True iff success</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Anything</td><td>that might be thrown by the ptree. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceatp_1_1search_aef23c2431a910abdc586fa9980001463_cgraph.png" border="0" usemap="#namespaceatp_1_1search_aef23c2431a910abdc586fa9980001463_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_aef23c2431a910abdc586fa9980001463_cgraph" id="namespaceatp_1_1search_aef23c2431a910abdc586fa9980001463_cgraph">
+<area shape="rect" title="Try to create an EditDistanceSelectionStrategy, based on the type given in ptree." alt="" coords="5,5,196,47"/>
+<area shape="rect" href="namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="244,5,363,47"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceatp_1_1search_aef23c2431a910abdc586fa9980001463_icgraph.png" border="0" usemap="#namespaceatp_1_1search_aef23c2431a910abdc586fa9980001463_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_aef23c2431a910abdc586fa9980001463_icgraph" id="namespaceatp_1_1search_aef23c2431a910abdc586fa9980001463_icgraph">
+<area shape="rect" title="Try to create an EditDistanceSelectionStrategy, based on the type given in ptree." alt="" coords="675,35,865,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a0c882e1f9a20764cdd4f533986cfe723" title="Try to create a selection strategy, based on the type given in ptree." alt="" coords="473,35,627,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
 </map>
 </div>
 
@@ -580,10 +694,75 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1search_af961e805f1c0565c0d5415d7edffa780_icgraph.png" border="0" usemap="#namespaceatp_1_1search_af961e805f1c0565c0d5415d7edffa780_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_af961e805f1c0565c0d5415d7edffa780_icgraph" id="namespaceatp_1_1search_af961e805f1c0565c0d5415d7edffa780_icgraph">
-<area shape="rect" title="Try to create an edit distance heuristic object from the tree rooted at the given node." alt="" coords="665,5,828,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a2436821c1e92d90b125e6a2a8d03fbcc" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="464,5,617,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,5,416,47"/>
-<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="5,13,203,39"/>
+<area shape="rect" title="Try to create an edit distance heuristic object from the tree rooted at the given node." alt="" coords="675,35,837,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a2436821c1e92d90b125e6a2a8d03fbcc" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="473,35,627,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aebbefebfe4e2943be51dbaea4f45dd30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebbefebfe4e2943be51dbaea4f45dd30">&#9670;&nbsp;</a></span>try_create_fixed_selection_strategy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> bool atp::search::try_create_fixed_selection_strategy </td>
+          <td>(</td>
+          <td class="paramtype">const boost::property_tree::ptree &amp;&#160;</td>
+          <td class="paramname"><em>ptree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1search.html#a107601659e60d344377297fb72f72d70">SelectionStrategyCreator</a> &amp;&#160;</td>
+          <td class="paramname"><em>creator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Try to create a <a class="el" href="classatp_1_1search_1_1_fixed_selection_strategy.html" title="A basic theorem selector strategy which just picks randomly from the database to help in a proof.">FixedSelectionStrategy</a>, based on the type given in <code>ptree</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">creator</td><td>This function will be assigned a value iff success.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True iff success</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Anything</td><td>that might be thrown by the ptree. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceatp_1_1search_aebbefebfe4e2943be51dbaea4f45dd30_cgraph.png" border="0" usemap="#namespaceatp_1_1search_aebbefebfe4e2943be51dbaea4f45dd30_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_aebbefebfe4e2943be51dbaea4f45dd30_cgraph" id="namespaceatp_1_1search_aebbefebfe4e2943be51dbaea4f45dd30_cgraph">
+<area shape="rect" title="Try to create a FixedSelectionStrategy, based on the type given in ptree." alt="" coords="5,5,175,47"/>
+<area shape="rect" href="namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="223,5,341,47"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceatp_1_1search_aebbefebfe4e2943be51dbaea4f45dd30_icgraph.png" border="0" usemap="#namespaceatp_1_1search_aebbefebfe4e2943be51dbaea4f45dd30_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_aebbefebfe4e2943be51dbaea4f45dd30_icgraph" id="namespaceatp_1_1search_aebbefebfe4e2943be51dbaea4f45dd30_icgraph">
+<area shape="rect" title="Try to create a FixedSelectionStrategy, based on the type given in ptree." alt="" coords="675,35,844,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a0c882e1f9a20764cdd4f533986cfe723" title="Try to create a selection strategy, based on the type given in ptree." alt="" coords="473,35,627,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
 </map>
 </div>
 
@@ -649,9 +828,10 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1search_a2436821c1e92d90b125e6a2a8d03fbcc_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a2436821c1e92d90b125e6a2a8d03fbcc_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_a2436821c1e92d90b125e6a2a8d03fbcc_icgraph" id="namespaceatp_1_1search_a2436821c1e92d90b125e6a2a8d03fbcc_icgraph">
-<area shape="rect" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="464,5,617,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,5,416,47"/>
-<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="5,13,203,39"/>
+<area shape="rect" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="473,35,627,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
 </map>
 </div>
 
@@ -708,11 +888,77 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1search_a4ad02c440d9ad48494fcf0667c7c3edd_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a4ad02c440d9ad48494fcf0667c7c3edd_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_a4ad02c440d9ad48494fcf0667c7c3edd_icgraph" id="namespaceatp_1_1search_a4ad02c440d9ad48494fcf0667c7c3edd_icgraph">
-<area shape="rect" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="844,13,1025,39"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="643,5,796,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="464,5,595,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,5,416,47"/>
-<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="5,13,203,39"/>
+<area shape="rect" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="853,42,1035,69"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="652,35,805,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="473,35,604,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0c882e1f9a20764cdd4f533986cfe723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c882e1f9a20764cdd4f533986cfe723">&#9670;&nbsp;</a></span>try_create_selection_strategy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_a_t_p_search_a_p_i_8h.html#a3775e504e3c64462a5e3303cafd34976">ATP_SEARCH_API</a> bool atp::search::try_create_selection_strategy </td>
+          <td>(</td>
+          <td class="paramtype">const boost::property_tree::ptree &amp;&#160;</td>
+          <td class="paramname"><em>ptree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceatp_1_1search.html#a107601659e60d344377297fb72f72d70">SelectionStrategyCreator</a> &amp;&#160;</td>
+          <td class="paramname"><em>creator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Try to create a selection strategy, based on the type given in <code>ptree</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">creator</td><td>This function will be assigned a value iff success.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True iff success</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Anything</td><td>that might be thrown by the ptree. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceatp_1_1search_a0c882e1f9a20764cdd4f533986cfe723_cgraph.png" border="0" usemap="#namespaceatp_1_1search_a0c882e1f9a20764cdd4f533986cfe723_cgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_a0c882e1f9a20764cdd4f533986cfe723_cgraph" id="namespaceatp_1_1search_a0c882e1f9a20764cdd4f533986cfe723_cgraph">
+<area shape="rect" title="Try to create a selection strategy, based on the type given in ptree." alt="" coords="5,39,159,80"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aef23c2431a910abdc586fa9980001463" title="Try to create an EditDistanceSelectionStrategy, based on the type given in ptree." alt="" coords="207,5,397,47"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aebbefebfe4e2943be51dbaea4f45dd30" title="Try to create a FixedSelectionStrategy, based on the type given in ptree." alt="" coords="217,71,387,112"/>
+<area shape="rect" href="namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="445,39,564,80"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceatp_1_1search_a0c882e1f9a20764cdd4f533986cfe723_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a0c882e1f9a20764cdd4f533986cfe723_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1search_a0c882e1f9a20764cdd4f533986cfe723_icgraph" id="namespaceatp_1_1search_a0c882e1f9a20764cdd4f533986cfe723_icgraph">
+<area shape="rect" title="Try to create a selection strategy, based on the type given in ptree." alt="" coords="473,35,627,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
 </map>
 </div>
 
@@ -773,10 +1019,11 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1search_a63dff82536a7665670203db4cdc0a20a_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a63dff82536a7665670203db4cdc0a20a_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_a63dff82536a7665670203db4cdc0a20a_icgraph" id="namespaceatp_1_1search_a63dff82536a7665670203db4cdc0a20a_icgraph">
-<area shape="rect" title="Try to create a solver, based on the type given in ptree." alt="" coords="643,5,796,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="464,5,595,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,5,416,47"/>
-<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="5,13,203,39"/>
+<area shape="rect" title="Try to create a solver, based on the type given in ptree." alt="" coords="652,35,805,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="473,35,604,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
 </map>
 </div>
 
@@ -810,11 +1057,12 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1search_a7450148ff8935d3c6c05e190b25b25d5_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a7450148ff8935d3c6c05e190b25b25d5_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_a7450148ff8935d3c6c05e190b25b25d5_icgraph" id="namespaceatp_1_1search_a7450148ff8935d3c6c05e190b25b25d5_icgraph">
-<area shape="rect" title="Try to create the iteration settings flags." alt="" coords="844,5,979,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="643,5,796,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="464,5,595,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,5,416,47"/>
-<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="5,13,203,39"/>
+<area shape="rect" title="Try to create the iteration settings flags." alt="" coords="853,35,988,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="652,35,805,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="473,35,604,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
 </map>
 </div>
 
@@ -874,11 +1122,12 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1search_a476af625bba58960534cfd90427c8b5c_icgraph.png" border="0" usemap="#namespaceatp_1_1search_a476af625bba58960534cfd90427c8b5c_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_a476af625bba58960534cfd90427c8b5c_icgraph" id="namespaceatp_1_1search_a476af625bba58960534cfd90427c8b5c_icgraph">
-<area shape="rect" title="Try to load info for a BasicStoppingStrategy." alt="" coords="832,5,1003,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="643,5,784,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="464,5,595,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,5,416,47"/>
-<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="5,13,203,39"/>
+<area shape="rect" title="Try to load info for a BasicStoppingStrategy." alt="" coords="841,35,1012,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="652,35,793,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="473,35,604,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
 </map>
 </div>
 
@@ -938,11 +1187,12 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1search_ad5d181aaf3c4a5ed3a94694e1682e342_icgraph.png" border="0" usemap="#namespaceatp_1_1search_ad5d181aaf3c4a5ed3a94694e1682e342_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_ad5d181aaf3c4a5ed3a94694e1682e342_icgraph" id="namespaceatp_1_1search_ad5d181aaf3c4a5ed3a94694e1682e342_icgraph">
-<area shape="rect" title="Try to load info for a FixedStoppingStrategy." alt="" coords="832,5,999,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="643,5,784,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="464,5,595,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,5,416,47"/>
-<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="5,13,203,39"/>
+<area shape="rect" title="Try to load info for a FixedStoppingStrategy." alt="" coords="841,35,1008,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="652,35,793,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="473,35,604,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
 </map>
 </div>
 
@@ -1005,10 +1255,11 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1search_ab323763e8bdb7015baadfcecd9dbfba2_icgraph.png" border="0" usemap="#namespaceatp_1_1search_ab323763e8bdb7015baadfcecd9dbfba2_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1search_ab323763e8bdb7015baadfcecd9dbfba2_icgraph" id="namespaceatp_1_1search_ab323763e8bdb7015baadfcecd9dbfba2_icgraph">
-<area shape="rect" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="643,5,784,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="464,5,595,47"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,5,416,47"/>
-<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="5,13,203,39"/>
+<area shape="rect" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="652,35,793,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="473,35,604,76"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
 </map>
 </div>
 

@@ -1,8 +1,8 @@
 <map id="atp::logic::equational::KnowledgeKernel::num_matching_rules" name="atp::logic::equational::KnowledgeKernel::num_matching_rules">
-<area shape="rect" id="node1" title=" " alt="" coords="629,27,792,83"/>
-<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a6ee653eb9abf01c71516f932222f4106" title=" " alt="" coords="219,27,368,83"/>
-<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a4c176746c077271a7104c39545c5eb79" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="5,27,155,83"/>
-<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a96991194a7bff122b215b3d362e93e42" title=" " alt="" coords="432,101,581,157"/>
-<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#ad298f51fdabf44be90fc436b90bebc67" title=" " alt="" coords="206,108,381,149"/>
-<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a708951e4f42e4c966178a3edad70206f" title=" " alt="" coords="203,173,384,215"/>
+<area shape="rect" id="node1" title=" " alt="" coords="629,99,792,155"/>
+<area shape="rect" id="node2" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a6ee653eb9abf01c71516f932222f4106" title=" " alt="" coords="219,33,368,89"/>
+<area shape="rect" id="node3" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a4c176746c077271a7104c39545c5eb79" title="Try to refrain from using this version for creating a pointer; instead use construct...." alt="" coords="5,33,155,89"/>
+<area shape="rect" id="node4" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#ad298f51fdabf44be90fc436b90bebc67" title=" " alt="" coords="206,165,381,206"/>
+<area shape="rect" id="node5" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a708951e4f42e4c966178a3edad70206f" title=" " alt="" coords="203,230,384,271"/>
+<area shape="rect" id="node6" href="$classatp_1_1logic_1_1equational_1_1_rule_matching_iterator.html#a96991194a7bff122b215b3d362e93e42" title=" " alt="" coords="432,99,581,155"/>
 </map>

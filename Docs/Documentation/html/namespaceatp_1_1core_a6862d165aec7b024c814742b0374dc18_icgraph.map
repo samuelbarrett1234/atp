@@ -1,0 +1,4 @@
+<map id="atp::core::create_rand_proof_process" name="atp::core::create_rand_proof_process">
+<area shape="rect" id="node1" title="Create a proof process which randomly selects the domain in which to prove." alt="" coords="232,5,381,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_simple_scheduler.html#a36543136ac9639b53042040ab32ec1c3" title="Add scheduling processes if necessary." alt="" coords="5,5,184,47"/>
+</map>

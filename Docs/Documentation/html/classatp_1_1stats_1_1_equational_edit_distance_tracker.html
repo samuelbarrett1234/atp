@@ -68,7 +68,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classatp_1_1stats_1_1_equational_edit_distance_tracker-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -101,12 +100,17 @@ Collaboration diagram for atp::stats::EquationalEditDistanceTracker:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abfc9688557803af326256cdbf2a3a5a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#abfc9688557803af326256cdbf2a3a5a0">EquationalEditDistanceTracker</a> (<a class="el" href="namespaceatp_1_1stats.html#aeb864e9a3904d0bd01a00a59d907cb47">EditDistSubCosts</a> sub_costs)</td></tr>
-<tr class="separator:abfc9688557803af326256cdbf2a3a5a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59ec68565c7cbec5110adcc803eff16b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#a59ec68565c7cbec5110adcc803eff16b">EquationalEditDistanceTracker</a> (float match_benefit, float unmatch_cost)</td></tr>
+<tr class="separator:a59ec68565c7cbec5110adcc803eff16b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a825fb970bafd9e35164e2d116af46848"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#a825fb970bafd9e35164e2d116af46848">edit_distance</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">logic::IStatement</a> &amp;stmt1, const <a class="el" href="classatp_1_1logic_1_1_i_statement.html">logic::IStatement</a> &amp;stmt2) override</td></tr>
+<tr class="memdesc:a825fb970bafd9e35164e2d116af46848"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the edit distance between two statements (this is of course symmetric in both arguments)  <a href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#a825fb970bafd9e35164e2d116af46848">More...</a><br /></td></tr>
 <tr class="separator:a825fb970bafd9e35164e2d116af46848"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4f6395e0951d9866da64422346bd263"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; float &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#af4f6395e0951d9866da64422346bd263">edit_distance</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">logic::IStatementArray</a> &amp;stmtarr1, const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">logic::IStatementArray</a> &amp;stmtarr2) override</td></tr>
+<tr class="memdesc:af4f6395e0951d9866da64422346bd263"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the edit distance pairwise in two arrays.  <a href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#af4f6395e0951d9866da64422346bd263">More...</a><br /></td></tr>
 <tr class="separator:af4f6395e0951d9866da64422346bd263"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a677c954800ecebf6d3903a1114003f6d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; std::vector&lt; float &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#a677c954800ecebf6d3903a1114003f6d">sub_edit_distance</a> (const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">logic::IStatementArray</a> &amp;stmtarr1, const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">logic::IStatementArray</a> &amp;stmtarr2) override</td></tr>
+<tr class="memdesc:a677c954800ecebf6d3903a1114003f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the pairwise edit distance, but looping through the "sub-expressions" of the statements of the <b>first</b> array.  <a href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#a677c954800ecebf6d3903a1114003f6d">More...</a><br /></td></tr>
+<tr class="separator:a677c954800ecebf6d3903a1114003f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classatp_1_1stats_1_1_i_edit_distance"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classatp_1_1stats_1_1_i_edit_distance')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classatp_1_1stats_1_1_i_edit_distance.html">atp::stats::IEditDistance</a></td></tr>
 <tr class="memitem:a12c99bc9198e70f0509f277343063dcc inherit pub_methods_classatp_1_1stats_1_1_i_edit_distance"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1stats_1_1_i_edit_distance.html#a12c99bc9198e70f0509f277343063dcc">~IEditDistance</a> ()=default</td></tr>
 <tr class="separator:a12c99bc9198e70f0509f277343063dcc inherit pub_methods_classatp_1_1stats_1_1_i_edit_distance"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,10 +118,11 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class computes the edit distance of equational logic statements. </p>
 <p>This class is optimised in two ways: (i) it is specialised to the logic type so is more efficient, and (ii) caches information between calls.</p>
+<dl class="section note"><dt>Note</dt><dd>The returned value is not a distance per se, as it is signed. It is more of a heuristic inspired by edit distance than any true distance metric.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This class is <b>NOT</b> thread safe, please use a different version of this heuristic for each solver object. </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="abfc9688557803af326256cdbf2a3a5a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfc9688557803af326256cdbf2a3a5a0">&#9670;&nbsp;</a></span>EquationalEditDistanceTracker()</h2>
+<a id="a59ec68565c7cbec5110adcc803eff16b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59ec68565c7cbec5110adcc803eff16b">&#9670;&nbsp;</a></span>EquationalEditDistanceTracker()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -125,12 +130,29 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">atp::stats::EquationalEditDistanceTracker::EquationalEditDistanceTracker </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1stats.html#aeb864e9a3904d0bd01a00a59d907cb47">EditDistSubCosts</a>&#160;</td>
-          <td class="paramname"><em>sub_costs</em></td><td>)</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>match_benefit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>unmatch_cost</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">match_benefit</td><td>A nonnegative number representing the DECREASE in edit distance PER DEPTH OF MATCHING</td></tr>
+    <tr><td class="paramname">unmatch_cost</td><td>A nonnegative number representing the increase in edit distance when a pair of symbols are not matched. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -169,14 +191,18 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Compute the edit distance between two statements (this is of course symmetric in both arguments) </p>
+<dl class="section return"><dt>Returns</dt><dd>A (not-necessarily-non-negative) number, where positive means the two statements are far away, and negative means they are close. </dd></dl>
+
 <p>Implements <a class="el" href="classatp_1_1stats_1_1_i_edit_distance.html#a0132e625754edc2d78e384534acc309b">atp::stats::IEditDistance</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1stats_1_1_equational_edit_distance_tracker_a825fb970bafd9e35164e2d116af46848_icgraph.png" border="0" usemap="#classatp_1_1stats_1_1_equational_edit_distance_tracker_a825fb970bafd9e35164e2d116af46848_icgraph" alt=""/></div>
 <map name="classatp_1_1stats_1_1_equational_edit_distance_tracker_a825fb970bafd9e35164e2d116af46848_icgraph" id="classatp_1_1stats_1_1_equational_edit_distance_tracker_a825fb970bafd9e35164e2d116af46848_icgraph">
-<area shape="rect" title=" " alt="" coords="255,5,456,47"/>
-<area shape="rect" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#af4f6395e0951d9866da64422346bd263" title=" " alt="" coords="5,5,207,47"/>
+<area shape="rect" title="Compute the edit distance between two statements (this is of course symmetric in both arguments)" alt="" coords="255,43,456,84"/>
+<area shape="rect" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#af4f6395e0951d9866da64422346bd263" title="Compute the edit distance pairwise in two arrays." alt="" coords="5,5,207,47"/>
+<area shape="rect" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#a677c954800ecebf6d3903a1114003f6d" title="Compute the pairwise edit distance, but looping through the &quot;sub&#45;expressions&quot; of the statements of th..." alt="" coords="19,71,193,127"/>
 </map>
 </div>
 
@@ -216,15 +242,71 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Compute the edit distance pairwise in two arrays. </p>
+<dl class="section return"><dt>Returns</dt><dd>An array A such that A[i][j] == edit_distance( stmtarr1[i], stmtarr2[j]) </dd></dl>
+
 <p>Implements <a class="el" href="classatp_1_1stats_1_1_i_edit_distance.html#a578c5dd44d7bf0d66c31c28444a35b84">atp::stats::IEditDistance</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1stats_1_1_equational_edit_distance_tracker_af4f6395e0951d9866da64422346bd263_cgraph.png" border="0" usemap="#classatp_1_1stats_1_1_equational_edit_distance_tracker_af4f6395e0951d9866da64422346bd263_cgraph" alt=""/></div>
 <map name="classatp_1_1stats_1_1_equational_edit_distance_tracker_af4f6395e0951d9866da64422346bd263_cgraph" id="classatp_1_1stats_1_1_equational_edit_distance_tracker_af4f6395e0951d9866da64422346bd263_cgraph">
-<area shape="rect" title=" " alt="" coords="5,39,207,80"/>
-<area shape="rect" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#a825fb970bafd9e35164e2d116af46848" title=" " alt="" coords="255,5,456,47"/>
+<area shape="rect" title="Compute the edit distance pairwise in two arrays." alt="" coords="5,39,207,80"/>
+<area shape="rect" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#a825fb970bafd9e35164e2d116af46848" title="Compute the edit distance between two statements (this is of course symmetric in both arguments)" alt="" coords="255,5,456,47"/>
 <area shape="rect" href="classatp_1_1logic_1_1_i_statement_array.html#adb5c5df8c6691e4b91f7811a60e11483" title=" " alt="" coords="267,71,444,112"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a677c954800ecebf6d3903a1114003f6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a677c954800ecebf6d3903a1114003f6d">&#9670;&nbsp;</a></span>sub_edit_distance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::vector&lt; std::vector&lt; float &gt; &gt; &gt; atp::stats::EquationalEditDistanceTracker::sub_edit_distance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">logic::IStatementArray</a> &amp;&#160;</td>
+          <td class="paramname"><em>stmtarr1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classatp_1_1logic_1_1_i_statement_array.html">logic::IStatementArray</a> &amp;&#160;</td>
+          <td class="paramname"><em>stmtarr2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the pairwise edit distance, but looping through the "sub-expressions" of the statements of the <b>first</b> array. </p>
+<p>Use this over <code>edit_distance</code> if you are more interested in how far stmt2 is <em>from any sub-part</em> of stmt1, rather than just distances as a whole.</p>
+<dl class="section remark"><dt>Remarks</dt><dd>This version of the function is <b>not</b> symmetric in its arguments.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An array A such that A[i][j][k] == edit_distance( kth sub-expression of stmtarr1[i], stmtarr2[j]) </dd></dl>
+
+<p>Implements <a class="el" href="classatp_1_1stats_1_1_i_edit_distance.html#a13406f34d32958507045280054bf7c0c">atp::stats::IEditDistance</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classatp_1_1stats_1_1_equational_edit_distance_tracker_a677c954800ecebf6d3903a1114003f6d_cgraph.png" border="0" usemap="#classatp_1_1stats_1_1_equational_edit_distance_tracker_a677c954800ecebf6d3903a1114003f6d_cgraph" alt=""/></div>
+<map name="classatp_1_1stats_1_1_equational_edit_distance_tracker_a677c954800ecebf6d3903a1114003f6d_cgraph" id="classatp_1_1stats_1_1_equational_edit_distance_tracker_a677c954800ecebf6d3903a1114003f6d_cgraph">
+<area shape="rect" title="Compute the pairwise edit distance, but looping through the &quot;sub&#45;expressions&quot; of the statements of th..." alt="" coords="5,31,179,87"/>
+<area shape="rect" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#a825fb970bafd9e35164e2d116af46848" title="Compute the edit distance between two statements (this is of course symmetric in both arguments)" alt="" coords="227,5,428,47"/>
+<area shape="rect" href="classatp_1_1logic_1_1_i_statement_array.html#adb5c5df8c6691e4b91f7811a60e11483" title=" " alt="" coords="239,71,416,112"/>
 </map>
 </div>
 

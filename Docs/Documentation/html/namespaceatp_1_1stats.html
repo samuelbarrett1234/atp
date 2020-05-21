@@ -102,15 +102,12 @@ Typedefs</h2></td></tr>
 <tr class="separator:a1b5194e833c2db1132fa1bb35b450a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ee54a2b77c469739c62bd91694ae6b7"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="classatp_1_1stats_1_1_i_pf_target_selector.html">IPfTargetSelector</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1stats.html#a7ee54a2b77c469739c62bd91694ae6b7">PfTargetSelectorPtr</a></td></tr>
 <tr class="separator:a7ee54a2b77c469739c62bd91694ae6b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb864e9a3904d0bd01a00a59d907cb47"><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; std::pair&lt; size_t, size_t &gt;, float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1stats.html#aeb864e9a3904d0bd01a00a59d907cb47">EditDistSubCosts</a></td></tr>
-<tr class="memdesc:aeb864e9a3904d0bd01a00a59d907cb47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for storing the costs of substituting two symbols in the edit distance algorithm.  <a href="namespaceatp_1_1stats.html#aeb864e9a3904d0bd01a00a59d907cb47">More...</a><br /></td></tr>
-<tr class="separator:aeb864e9a3904d0bd01a00a59d907cb47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a292c5a3a3a86501a4aa493cbbb290af4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1stats.html#a69a3ab505c3d6f2741ccd4bf3d780815">EditDistancePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1stats.html#a292c5a3a3a86501a4aa493cbbb290af4">create_edit_dist</a> (<a class="el" href="namespaceatp_1_1logic.html#a86775702f28d47ba503e3ed7304270e2">logic::LangType</a> lang_type, <a class="el" href="namespaceatp_1_1stats.html#aeb864e9a3904d0bd01a00a59d907cb47">EditDistSubCosts</a> sub_costs)</td></tr>
-<tr class="memdesc:a292c5a3a3a86501a4aa493cbbb290af4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new edit distance calculator object for the given logic type and substitution costs.  <a href="namespaceatp_1_1stats.html#a292c5a3a3a86501a4aa493cbbb290af4">More...</a><br /></td></tr>
-<tr class="separator:a292c5a3a3a86501a4aa493cbbb290af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa149474eea3d72fc7a73bd4007bb48d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceatp_1_1stats.html#a69a3ab505c3d6f2741ccd4bf3d780815">EditDistancePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1stats.html#afa149474eea3d72fc7a73bd4007bb48d">create_edit_dist</a> (<a class="el" href="namespaceatp_1_1logic.html#a86775702f28d47ba503e3ed7304270e2">logic::LangType</a> lang_type, float match_benefit, float unmatch_cost)</td></tr>
+<tr class="memdesc:afa149474eea3d72fc7a73bd4007bb48d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new edit distance calculator object for the given logic type and substitution costs.  <a href="namespaceatp_1_1stats.html#afa149474eea3d72fc7a73bd4007bb48d">More...</a><br /></td></tr>
+<tr class="separator:afa149474eea3d72fc7a73bd4007bb48d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa74fc5e9f889655b9287020ddbb4f828"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_a_t_p_stats_h_m_m_8cpp.html#a13c00eac8c164e122c2d705049f66c3c">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1stats.html#aa74fc5e9f889655b9287020ddbb4f828">forward</a> (<a class="el" href="_a_t_p_stats_h_m_m_8cpp.html#acc8cde59f4b38ced8a244f114ae9c37a">Vector</a> &amp;initial_state, <a class="el" href="_a_t_p_stats_h_m_m_8cpp.html#a13c00eac8c164e122c2d705049f66c3c">Matrix</a> &amp;st_trans, <a class="el" href="_a_t_p_stats_h_m_m_8cpp.html#a13c00eac8c164e122c2d705049f66c3c">Matrix</a> &amp;st_obs, const std::vector&lt; size_t &gt; &amp;obs_seq)</td></tr>
 <tr class="separator:aa74fc5e9f889655b9287020ddbb4f828"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6d537ee51638d11e4a47ae832527b96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_a_t_p_stats_h_m_m_8cpp.html#a13c00eac8c164e122c2d705049f66c3c">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceatp_1_1stats.html#ad6d537ee51638d11e4a47ae832527b96">backward</a> (<a class="el" href="_a_t_p_stats_h_m_m_8cpp.html#a13c00eac8c164e122c2d705049f66c3c">Matrix</a> &amp;st_trans, <a class="el" href="_a_t_p_stats_h_m_m_8cpp.html#a13c00eac8c164e122c2d705049f66c3c">Matrix</a> &amp;st_obs, const std::vector&lt; size_t &gt; &amp;obs_seq)</td></tr>
@@ -151,26 +148,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="aeb864e9a3904d0bd01a00a59d907cb47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb864e9a3904d0bd01a00a59d907cb47">&#9670;&nbsp;</a></span>EditDistSubCosts</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::map&lt;std::pair&lt;size_t, size_t&gt;, float&gt; <a class="el" href="namespaceatp_1_1stats.html#aeb864e9a3904d0bd01a00a59d907cb47">atp::stats::EditDistSubCosts</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Used for storing the costs of substituting two symbols in the edit distance algorithm. </p>
-<p>A mapping from (symbol ID 1, symbol ID 2) to cost, where the cost represents the cost of substituting 1 -&gt; 2</p>
-<dl class="section invariant"><dt>Invariant</dt><dd>The arity of symbol 1 is at least the arity of symbol 2 (this is because substitutions which increase the arity are kind of ambiguous - what would the distances of the new arguments be?)</dd>
-<dd>
-This mapping must contain, for EVERY pair of symbols (a,b) such that b's arity &lt;= a's arity, a floating point value. Note that for consistent results, you should set (a,a) to have cost 0 for every symbol a. </dd></dl>
 
 </div>
 </div>
@@ -476,8 +453,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a292c5a3a3a86501a4aa493cbbb290af4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a292c5a3a3a86501a4aa493cbbb290af4">&#9670;&nbsp;</a></span>create_edit_dist()</h2>
+<a id="afa149474eea3d72fc7a73bd4007bb48d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa149474eea3d72fc7a73bd4007bb48d">&#9670;&nbsp;</a></span>create_edit_dist()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -491,8 +468,14 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceatp_1_1stats.html#aeb864e9a3904d0bd01a00a59d907cb47">EditDistSubCosts</a>&#160;</td>
-          <td class="paramname"><em>sub_costs</em>&#160;</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>match_benefit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>unmatch_cost</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -503,14 +486,20 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Create a new edit distance calculator object for the given logic type and substitution costs. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceatp_1_1stats.html#aeb864e9a3904d0bd01a00a59d907cb47" title="Used for storing the costs of substituting two symbols in the edit distance algorithm.">EditDistSubCosts</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">match_benefit</td><td>A nonnegative number representing the DECREASE in edit distance PER DEPTH OF MATCHING</td></tr>
+    <tr><td class="paramname">unmatch_cost</td><td>A nonnegative number representing the increase in edit distance when a pair of symbols are not matched. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceatp_1_1stats_a292c5a3a3a86501a4aa493cbbb290af4_icgraph.png" border="0" usemap="#namespaceatp_1_1stats_a292c5a3a3a86501a4aa493cbbb290af4_icgraph" alt=""/></div>
-<map name="namespaceatp_1_1stats_a292c5a3a3a86501a4aa493cbbb290af4_icgraph" id="namespaceatp_1_1stats_a292c5a3a3a86501a4aa493cbbb290af4_icgraph">
+<div class="center"><img src="namespaceatp_1_1stats_afa149474eea3d72fc7a73bd4007bb48d_icgraph.png" border="0" usemap="#namespaceatp_1_1stats_afa149474eea3d72fc7a73bd4007bb48d_icgraph" alt=""/></div>
+<map name="namespaceatp_1_1stats_afa149474eea3d72fc7a73bd4007bb48d_icgraph" id="namespaceatp_1_1stats_afa149474eea3d72fc7a73bd4007bb48d_icgraph">
 <area shape="rect" title="Create a new edit distance calculator object for the given logic type and substitution costs." alt="" coords="260,5,381,47"/>
-<area shape="rect" href="classatp_1_1search_1_1_edit_distance_heuristic.html#abf280895866a64d66cd22bfa15366ff0" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" href="classatp_1_1search_1_1_edit_distance_heuristic.html#a062d299878ade9b02bd8fc0ddda1256c" title=" " alt="" coords="5,5,212,47"/>
 </map>
 </div>
 

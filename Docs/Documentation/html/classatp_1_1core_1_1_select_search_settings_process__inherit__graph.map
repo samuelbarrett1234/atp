@@ -1,0 +1,5 @@
+<map id="atp::core::SelectSearchSettingsProcess" name="atp::core::SelectSearchSettingsProcess">
+<area shape="rect" id="node1" title="This process transfers data from ProofSetupEssentials to ProofEssentials, and loads &quot;helper theorems&quot;..." alt="" coords="5,155,212,196"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_query_process.html" title="This process implements the IProcess virtual functions in terms of other virtual functions which are ..." alt="" coords="27,80,191,107"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_i_process.html" title="Represents a computation to be performed over time." alt="" coords="43,5,175,32"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="do_cmd" name="do_cmd">
+<area shape="rect" id="node1" title="Input a command from std::cin and execute it." alt="" coords="201,5,269,32"/>
+<area shape="rect" id="node2" href="$class_server_application.html#a79dc67f49e59ce95602216948e466cba" title="Let the processes run! This blocks until the user commands us to exit." alt="" coords="5,5,153,32"/>
+</map>

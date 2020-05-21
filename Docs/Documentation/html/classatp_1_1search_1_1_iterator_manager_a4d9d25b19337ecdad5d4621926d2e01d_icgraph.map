@@ -1,8 +1,9 @@
 <map id="atp::search::IteratorManager::set_basic_stopping_strategy" name="atp::search::IteratorManager::set_basic_stopping_strategy">
-<area shape="rect" id="node1" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="1051,5,1247,47"/>
-<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="832,5,1003,47"/>
-<area shape="rect" id="node3" href="$namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="643,5,784,47"/>
-<area shape="rect" id="node4" href="$namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="464,5,595,47"/>
-<area shape="rect" id="node5" href="$namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,5,416,47"/>
-<area shape="rect" id="node6" href="$class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="5,13,203,39"/>
+<area shape="rect" id="node1" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="1060,35,1256,76"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="841,35,1012,76"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="652,35,793,76"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="473,35,604,76"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,35,425,76"/>
+<area shape="rect" id="node6" href="$classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,5,212,47"/>
+<area shape="rect" id="node7" href="$class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,71,207,98"/>
 </map>

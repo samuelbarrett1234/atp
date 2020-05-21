@@ -1,0 +1,10 @@
+<map id="atp::core::create_rand_proof_process" name="atp::core::create_rand_proof_process">
+<area shape="rect" id="node1" title="Create a proof process which randomly selects the domain in which to prove." alt="" coords="5,201,155,243"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1core.html#aafe2f9412bce7973267a7735bb16e763" title="This function creates a &quot;proof initialisation&quot; process, which creates the knowledge kernel,..." alt="" coords="215,5,367,47"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1core.html#a347bdbab224f5b7453926bd292125a2d" title="This function creates a process which just runs the solver to completion." alt="" coords="219,71,362,112"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1core.html#a1d7a30c723dce02909ce79d2a856c9fa" title="This function creates a process which saves proven theorems to the database." alt="" coords="215,136,366,177"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1core.html#ae3836b024cffecfbd2225551f26d3794" title="Create a process which selects a context from the database (at random, basically) for which it would ..." alt="" coords="211,201,370,243"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1core.html#a1695014c6de03b19f3a825381736e429" title="Create a process which selects search settings from the database (at random, basically) for which it ..." alt="" coords="211,267,370,308"/>
+<area shape="rect" id="node7" href="$namespaceatp_1_1core.html#af2f2db5275692237d1dbb86b1c2b18d7" title="Create a process which loads a number of theorems into target_thms." alt="" coords="203,332,378,373"/>
+<area shape="rect" id="node8" href="$namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="203,398,379,425"/>
+</map>

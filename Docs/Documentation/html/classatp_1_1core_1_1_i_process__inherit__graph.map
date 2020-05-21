@@ -1,11 +1,11 @@
 <map id="atp::core::IProcess" name="atp::core::IProcess">
-<area shape="rect" id="node1" title="Represents a computation to be performed over time." alt="" coords="5,188,137,215"/>
-<area shape="rect" id="node2" href="$classatp_1_1core_1_1_build_h_m_m_model_process.html" title="This process is responsible for constructing the final model object from the model builder,..." alt="" coords="211,42,387,83"/>
-<area shape="rect" id="node3" href="$classatp_1_1core_1_1_h_m_m_conj_gen_process.html" title=" " alt="" coords="194,108,405,135"/>
-<area shape="rect" id="node4" href="$classatp_1_1core_1_1_h_m_m_conj_model_train_proc.html" title=" " alt="" coords="185,159,413,185"/>
-<area shape="rect" id="node5" href="$classatp_1_1core_1_1_process_sequence.html" title="This process just runs two processes in sequence, allowing them to communicate some data via the Data..." alt="" coords="193,210,405,251"/>
-<area shape="rect" id="node6" href="$classatp_1_1core_1_1_query_process.html" title="This process implements the IProcess virtual functions in terms of other virtual functions which are ..." alt="" coords="217,276,381,303"/>
-<area shape="rect" id="node17" href="$classatp_1_1core_1_1_run_solver_process.html" title=" " alt="" coords="206,327,393,353"/>
+<area shape="rect" id="node1" title="Represents a computation to be performed over time." alt="" coords="5,247,137,273"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_build_h_m_m_model_process.html" title="This process is responsible for constructing the final model object from the model builder,..." alt="" coords="211,101,387,142"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_h_m_m_conj_gen_process.html" title=" " alt="" coords="194,167,405,193"/>
+<area shape="rect" id="node4" href="$classatp_1_1core_1_1_h_m_m_conj_model_train_proc.html" title=" " alt="" coords="185,217,413,244"/>
+<area shape="rect" id="node5" href="$classatp_1_1core_1_1_process_sequence.html" title="This process just runs two processes in sequence, allowing them to communicate some data via the Data..." alt="" coords="193,269,405,310"/>
+<area shape="rect" id="node6" href="$classatp_1_1core_1_1_query_process.html" title="This process implements the IProcess virtual functions in terms of other virtual functions which are ..." alt="" coords="217,335,381,361"/>
+<area shape="rect" id="node19" href="$classatp_1_1core_1_1_run_solver_process.html" title=" " alt="" coords="206,385,393,412"/>
 <area shape="rect" id="node7" href="$classatp_1_1core_1_1_create_h_m_m_process.html" title=" " alt="" coords="485,5,684,32"/>
 <area shape="rect" id="node8" href="$classatp_1_1core_1_1_h_m_m_load_training_data_proc.html" title=" " alt="" coords="492,57,677,98"/>
 <area shape="rect" id="node9" href="$classatp_1_1core_1_1_h_m_m_model_loader_process.html" title="This process is for loading the main model parameters (like the ID, the number of hidden states,..." alt="" coords="491,122,678,163"/>
@@ -15,5 +15,7 @@
 <area shape="rect" id="node13" href="$classatp_1_1core_1_1_h_m_m_state_trans_loader_process.html" title="This process is for loading the state transition parameters of the HMM model." alt="" coords="497,357,672,398"/>
 <area shape="rect" id="node14" href="$classatp_1_1core_1_1_proof_init_process.html" title="This process transfers data from ProofSetupEssentials to ProofEssentials, and loads &quot;helper theorems&quot;..." alt="" coords="497,423,673,449"/>
 <area shape="rect" id="node15" href="$classatp_1_1core_1_1_save_proof_results_process.html" title=" " alt="" coords="493,474,676,515"/>
-<area shape="rect" id="node16" href="$classatp_1_1core_1_1_unproven_thm_select_proc.html" title=" " alt="" coords="473,540,696,567"/>
+<area shape="rect" id="node16" href="$classatp_1_1core_1_1_select_context_process.html" title="This process transfers data from ProofSetupEssentials to ProofEssentials, and loads &quot;helper theorems&quot;..." alt="" coords="503,539,666,581"/>
+<area shape="rect" id="node17" href="$classatp_1_1core_1_1_select_search_settings_process.html" title="This process transfers data from ProofSetupEssentials to ProofEssentials, and loads &quot;helper theorems&quot;..." alt="" coords="481,605,688,646"/>
+<area shape="rect" id="node18" href="$classatp_1_1core_1_1_unproven_thm_select_proc.html" title=" " alt="" coords="473,671,696,697"/>
 </map>

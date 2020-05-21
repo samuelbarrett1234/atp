@@ -1,4 +1,5 @@
 <map id="atp::core::ProofInitProcess::on_finished" name="atp::core::ProofInitProcess::on_finished">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,181,47"/>
-<area shape="rect" id="node2" href="$classatp_1_1core_1_1_query_process.html#af39bfba3ad15769bb3e03135d2fab528" title=" " alt="" coords="229,5,393,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,181,80"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_query_process.html#af39bfba3ad15769bb3e03135d2fab528" title=" " alt="" coords="235,5,399,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_proof_init_process.html#a04de4c5ce80b1b4b0086d5264af9582e" title=" " alt="" coords="229,71,405,112"/>
 </map>

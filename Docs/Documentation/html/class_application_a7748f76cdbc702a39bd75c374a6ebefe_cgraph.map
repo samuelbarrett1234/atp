@@ -1,16 +1,20 @@
 <map id="Application::set_search_name" name="Application::set_search_name">
-<area shape="rect" id="node1" title="Loads the solver." alt="" coords="5,131,203,157"/>
-<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#aa8dd2f9c72b427c8a08e2c78534f57de" title="Create this library&#39;s designated &quot;default solver&quot;." alt="" coords="268,90,399,131"/>
-<area shape="rect" id="node3" href="$namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,155,416,197"/>
+<area shape="rect" id="node1" title="Loads the solver." alt="" coords="5,163,203,189"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#aa8dd2f9c72b427c8a08e2c78534f57de" title="Create this library&#39;s designated &quot;default solver&quot;." alt="" coords="268,122,399,163"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,187,416,229"/>
 <area shape="rect" id="node4" href="$namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="475,122,606,163"/>
 <area shape="rect" id="node13" href="$namespaceatp_1_1search.html#a2436821c1e92d90b125e6a2a8d03fbcc" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="464,187,617,229"/>
-<area shape="rect" id="node5" href="$namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="670,57,823,98"/>
-<area shape="rect" id="node8" href="$namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="676,122,817,163"/>
-<area shape="rect" id="node6" href="$namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="876,5,1057,32"/>
-<area shape="rect" id="node7" href="$namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="899,57,1034,98"/>
-<area shape="rect" id="node9" href="$namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="881,122,1052,163"/>
-<area shape="rect" id="node11" href="$namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342" title="Try to load info for a FixedStoppingStrategy." alt="" coords="883,187,1050,229"/>
-<area shape="rect" id="node10" href="$classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="1105,122,1301,163"/>
-<area shape="rect" id="node12" href="$classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="1107,187,1299,229"/>
-<area shape="rect" id="node14" href="$namespaceatp_1_1search.html#af961e805f1c0565c0d5415d7edffa780" title="Try to create an edit distance heuristic object from the tree rooted at the given node." alt="" coords="665,187,828,229"/>
+<area shape="rect" id="node15" href="$namespaceatp_1_1search.html#a0c882e1f9a20764cdd4f533986cfe723" title="Try to create a selection strategy, based on the type given in ptree." alt="" coords="464,253,617,294"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="684,57,837,98"/>
+<area shape="rect" id="node8" href="$namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="690,122,831,163"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="904,5,1085,32"/>
+<area shape="rect" id="node7" href="$namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="927,57,1062,98"/>
+<area shape="rect" id="node9" href="$namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="909,122,1080,163"/>
+<area shape="rect" id="node11" href="$namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342" title="Try to load info for a FixedStoppingStrategy." alt="" coords="911,187,1078,229"/>
+<area shape="rect" id="node10" href="$classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="1133,122,1329,163"/>
+<area shape="rect" id="node12" href="$classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="1135,187,1327,229"/>
+<area shape="rect" id="node14" href="$namespaceatp_1_1search.html#af961e805f1c0565c0d5415d7edffa780" title="Try to create an edit distance heuristic object from the tree rooted at the given node." alt="" coords="679,187,842,229"/>
+<area shape="rect" id="node16" href="$namespaceatp_1_1search.html#aef23c2431a910abdc586fa9980001463" title="Try to create an EditDistanceSelectionStrategy, based on the type given in ptree." alt="" coords="665,253,856,294"/>
+<area shape="rect" id="node18" href="$namespaceatp_1_1search.html#aebbefebfe4e2943be51dbaea4f45dd30" title="Try to create a FixedSelectionStrategy, based on the type given in ptree." alt="" coords="676,318,845,359"/>
+<area shape="rect" id="node17" href="$namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="935,285,1054,326"/>
 </map>

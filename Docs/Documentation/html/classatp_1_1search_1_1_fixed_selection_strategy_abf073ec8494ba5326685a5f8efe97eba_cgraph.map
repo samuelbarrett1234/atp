@@ -1,0 +1,6 @@
+<map id="atp::search::FixedSelectionStrategy::load_values" name="atp::search::FixedSelectionStrategy::load_values">
+<area shape="rect" id="node1" title="Load values from the query (this should be called at each step.)" alt="" coords="5,71,187,112"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_i_query_transaction.html#aa7b5f45e0642de55c5b49728b4b7f065" title="Get the arity (i.e. number of columns) of the current set of values." alt="" coords="235,5,409,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1db_1_1_i_query_transaction.html#a3ff5cfdb89ad27880e15d2baad00d764" title="Determine if the query has a row value at the current time (this function is constant between step() ..." alt="" coords="235,71,409,112"/>
+<area shape="rect" id="node4" href="$classatp_1_1db_1_1_i_query_transaction.html#ab2ff1359371849bc8cac9b47bf945034" title="Try to get the value at the given index." alt="" coords="235,136,409,177"/>
+</map>

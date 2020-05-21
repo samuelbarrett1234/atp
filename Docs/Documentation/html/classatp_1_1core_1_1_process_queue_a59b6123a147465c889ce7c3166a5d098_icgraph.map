@@ -1,0 +1,10 @@
+<map id="atp::core::ProcessQueue::push" name="atp::core::ProcessQueue::push">
+<area shape="rect" id="node1" title="Either add a new process externally, or called by a worker thread which has finished updating its pro..." alt="" coords="492,173,659,215"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="236,137,444,163"/>
+<area shape="rect" id="node7" href="$classatp_1_1core_1_1_process_manager.html#a5f73c57ef7a04f0fdc52b34cc82eef02" title="Make the current thread work for the process manager." alt="" coords="251,217,429,259"/>
+<area shape="rect" id="node3" href="$class_application.html#a3e5ca8fa3dbe56d77f87f57dba5525b6" title="Create a new process which will train the HMM conjecturer model on existing proven theorems." alt="" coords="21,5,172,47"/>
+<area shape="rect" id="node4" href="$class_application.html#aff6b99955b7a8e12e53907c2cab552b9" title="Create a new process which will generate conjectures using a Hidden Markov Model." alt="" coords="21,71,172,112"/>
+<area shape="rect" id="node5" href="$class_application.html#a9a3f2a8a310783b1da84232b698fcc49" title="Add a process which will try to prove the given statements when run is called." alt="" coords="5,137,188,163"/>
+<area shape="rect" id="node6" href="$class_application.html#aec69d29e264c9cbbbce97dc47f212a2e" title="Create a new process which will create a new HMM conjecturer model." alt="" coords="31,188,162,229"/>
+<area shape="rect" id="node8" href="$class_application.html#a68965449404743bf1add056784d6cf81" title="Run all proofs that have been set." alt="" coords="41,254,153,281"/>
+</map>

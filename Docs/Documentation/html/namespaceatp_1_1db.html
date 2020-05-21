@@ -109,6 +109,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html">ISaveProofResultsQryBder</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for saving a collection of proof attempt results.  <a href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_i_select_model_context.html">ISelectModelContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A query which randomly selects a model context, according to existing usage statistics as well.  <a href="classatp_1_1db_1_1_i_select_model_context.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_i_select_search_settings.html">ISelectSearchSettings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A query which randomly selects search settings, according to existing usage statistics and taking into account the selected context.  <a href="classatp_1_1db_1_1_i_select_search_settings.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">interface &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_i_transaction.html">ITransaction</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A transaction is any database operation which is either (i) not instantaneous, or (ii) can fail (at potentially any point).  <a href="classatp_1_1db_1_1_i_transaction.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,6 +138,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_s_q_lite_save_hmm_conj_model_params.html">SQLiteSaveHmmConjModelParams</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html">SQLiteSaveProofResultsQryBder</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_s_q_lite_select_model_context.html">SQLiteSelectModelContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of a model context select for SQLite databases.  <a href="classatp_1_1db_1_1_s_q_lite_select_model_context.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_s_q_lite_select_search_settings.html">SQLiteSelectSearchSettings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of a search settings select for SQLite databases.  <a href="classatp_1_1db_1_1_s_q_lite_select_search_settings.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1db_1_1_transaction_list_wrapper.html">TransactionListWrapper</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This object is a wrapper for a list of transactions.  <a href="classatp_1_1db_1_1_transaction_list_wrapper.html#details">More...</a><br /></td></tr>
@@ -158,7 +170,10 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="namespaceatp_1_1db.html#ae3a5586339a988cc1d92d36349b8866da097c1baad4ef27d83a17f14686d4893d">QueryBuilderType::GET_HMM_CONJ_ST_TRANS_PARAMS</a>, 
 <a class="el" href="namespaceatp_1_1db.html#ae3a5586339a988cc1d92d36349b8866da486c04d28ee5a666b97e1afe9f5136cd">QueryBuilderType::GET_HMM_CONJ_OBS_PARAMS</a>, 
-<a class="el" href="namespaceatp_1_1db.html#ae3a5586339a988cc1d92d36349b8866dafd08edcb17c764f15de190b88e6ab4a6">QueryBuilderType::SAVE_HMM_CONJ_PARAMS</a>
+<a class="el" href="namespaceatp_1_1db.html#ae3a5586339a988cc1d92d36349b8866dafd08edcb17c764f15de190b88e6ab4a6">QueryBuilderType::SAVE_HMM_CONJ_PARAMS</a>, 
+<a class="el" href="namespaceatp_1_1db.html#ae3a5586339a988cc1d92d36349b8866da678011f8437eaa9f0e607de336bb8de8">QueryBuilderType::SELECT_CTX</a>, 
+<br />
+&#160;&#160;<a class="el" href="namespaceatp_1_1db.html#ae3a5586339a988cc1d92d36349b8866da23a3240535f5725938b0c168f051b2b7">QueryBuilderType::SELECT_SS</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ae3a5586339a988cc1d92d36349b8866d"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enumeration of common query types, for which many have corresponding extending interfaces.  <a href="namespaceatp_1_1db.html#ae3a5586339a988cc1d92d36349b8866d">More...</a><br /></td></tr>
@@ -308,6 +323,8 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="ae3a5586339a988cc1d92d36349b8866da097c1baad4ef27d83a17f14686d4893d"></a>GET_HMM_CONJ_ST_TRANS_PARAMS&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae3a5586339a988cc1d92d36349b8866da486c04d28ee5a666b97e1afe9f5136cd"></a>GET_HMM_CONJ_OBS_PARAMS&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae3a5586339a988cc1d92d36349b8866dafd08edcb17c764f15de190b88e6ab4a6"></a>SAVE_HMM_CONJ_PARAMS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae3a5586339a988cc1d92d36349b8866da678011f8437eaa9f0e607de336bb8de8"></a>SELECT_CTX&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae3a5586339a988cc1d92d36349b8866da23a3240535f5725938b0c168f051b2b7"></a>SELECT_SS&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -388,8 +405,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceatp_1_1db_a0d04b0bd46a32a2aa0f5499b0977adf5_icgraph.png" border="0" usemap="#namespaceatp_1_1db_a0d04b0bd46a32a2aa0f5499b0977adf5_icgraph" alt=""/></div>
 <map name="namespaceatp_1_1db_a0d04b0bd46a32a2aa0f5499b0977adf5_icgraph" id="namespaceatp_1_1db_a0d04b0bd46a32a2aa0f5499b0977adf5_icgraph">
-<area shape="rect" title="Create a new database object from the given SQLite database filename." alt="" coords="187,5,336,32"/>
-<area shape="rect" href="class_application.html#ab1ce87432e90c4802bacf842c3b4fda0" title="Loads the database file (this has to be done first)" alt="" coords="5,5,139,32"/>
+<area shape="rect" title="Create a new database object from the given SQLite database filename." alt="" coords="187,35,336,61"/>
+<area shape="rect" href="class_application.html#ad186e1ea4b51c856c7f40b7cc446ad32" title="Loads the database file (this has to be done first)" alt="" coords="5,5,139,32"/>
+<area shape="rect" href="class_server_application.html#a7d4b99467cbfd20d81ccdb218a99e03f" title="Loads the database file (this has to be done first)" alt="" coords="7,57,137,98"/>
 </map>
 </div>
 

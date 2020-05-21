@@ -89,9 +89,18 @@ $(function() {
 <li>seed
 : <a class="el" href="structatp_1_1search_1_1_search_settings.html#a03474b306f3b99a8571b145c373eacdb">atp::search::SearchSettings</a>
 </li>
+<li>SelectContextProcess()
+: <a class="el" href="classatp_1_1core_1_1_select_context_process.html#a323391a65128092bf846984cc3c7a30b">atp::core::SelectContextProcess</a>
+</li>
+<li>SelectSearchSettingsProcess()
+: <a class="el" href="classatp_1_1core_1_1_select_search_settings_process.html#ac0fe86bd2c5b0083e691dc26f5dd1dc8">atp::core::SelectSearchSettingsProcess</a>
+</li>
 <li>serialise_stmts()
 : <a class="el" href="classatp_1_1logic_1_1equational_1_1_language.html#adec40a682dfbcd158c654882b579fe8c">atp::logic::equational::Language</a>
 , <a class="el" href="classatp_1_1logic_1_1_i_language.html#af97edbdda922a39e6f78b9902acec00c">atp::logic::ILanguage</a>
+</li>
+<li>ServerApplication()
+: <a class="el" href="class_server_application.html#a7c404ae07c161802d700e85db484691f">ServerApplication</a>
 </li>
 <li>set_basic_stopping_strategy()
 : <a class="el" href="classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d">atp::search::IteratorManager</a>
@@ -116,8 +125,13 @@ $(function() {
 , <a class="el" href="classatp_1_1db_1_1_s_q_lite_get_hmm_conj_st_trans_params.html#a7545094b0f3c55ed7d89d161722009b7">atp::db::SQLiteGetHmmConjStTransParams</a>
 , <a class="el" href="classatp_1_1db_1_1_s_q_lite_save_hmm_conj_model_params.html#a6a12af3e7e1f32e3965e772c6d2627b4">atp::db::SQLiteSaveHmmConjModelParams</a>
 </li>
+<li>set_ctx_id()
+: <a class="el" href="classatp_1_1db_1_1_i_select_search_settings.html#a5daf9500997dd2ecad3f1761c4fae682">atp::db::ISelectSearchSettings</a>
+, <a class="el" href="classatp_1_1db_1_1_s_q_lite_select_search_settings.html#ae3a892cb481495d879d914cdc37f1e0f">atp::db::SQLiteSelectSearchSettings</a>
+</li>
 <li>set_db()
-: <a class="el" href="class_application.html#ab1ce87432e90c4802bacf842c3b4fda0">Application</a>
+: <a class="el" href="class_application.html#ad186e1ea4b51c856c7f40b7cc446ad32">Application</a>
+, <a class="el" href="class_server_application.html#a7d4b99467cbfd20d81ccdb218a99e03f">ServerApplication</a>
 </li>
 <li>set_decay()
 : <a class="el" href="classatp_1_1core_1_1_h_m_m_conjecture_model_builder.html#a97efeda24959ca9eae1d068bbb7ccb7b">atp::core::HMMConjectureModelBuilder</a>
@@ -159,6 +173,10 @@ $(function() {
 : <a class="el" href="classatp_1_1db_1_1_i_save_hmm_conj_model_params.html#a94d435692eeba604b6f0474873794846">atp::db::ISaveHmmConjModelParams</a>
 , <a class="el" href="classatp_1_1db_1_1_s_q_lite_save_hmm_conj_model_params.html#a865c66a8e467c579bc0a99857853081d">atp::db::SQLiteSaveHmmConjModelParams</a>
 </li>
+<li>set_num_threads()
+: <a class="el" href="classatp_1_1core_1_1_i_scheduler.html#aa5a018d361c5fdb78730761134566921">atp::core::IScheduler</a>
+, <a class="el" href="classatp_1_1core_1_1_simple_scheduler.html#ad4205126e5bb134d29d940987084d585">atp::core::SimpleScheduler</a>
+</li>
 <li>set_proven()
 : <a class="el" href="classatp_1_1db_1_1_i_rnd_thm_select_qry_bder.html#a670347fd2b5a6d6a4e6000259fa5b944">atp::db::IRndThmSelectQryBder</a>
 , <a class="el" href="classatp_1_1db_1_1_s_q_lite_rnd_thm_select_qry_bder.html#ac1d607eca806f943569a6c7f43956389">atp::db::SQLiteRndThmSelectQryBder</a>
@@ -168,6 +186,10 @@ $(function() {
 </li>
 <li>set_root()
 : <a class="el" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#a99eb2296752fd0ffa98dad4ec188dde4">atp::logic::equational::ExprTreeFlyweight</a>
+</li>
+<li>set_scheduler_cmd
+: <a class="el" href="struct_command_grammar.html#a43f99d0b894bbdb4a45b45fcbdab9b6d">CommandGrammar</a>
+, <a class="el" href="struct_command_set.html#a4c72eb550903c4cd70b0efab71437042">CommandSet</a>
 </li>
 <li>set_search_name()
 : <a class="el" href="class_application.html#a7748f76cdbc702a39bd75c374a6ebefe">Application</a>
@@ -184,14 +206,25 @@ $(function() {
 : <a class="el" href="classatp_1_1core_1_1_h_m_m_conjecture_model_builder.html#a00135cd3f26dce20e328d0e088335fec">atp::core::HMMConjectureModelBuilder</a>
 </li>
 <li>set_targets()
-: <a class="el" href="classatp_1_1search_1_1_i_solver.html#a91435b3796694b66a0a2dbddb1b9e809">atp::search::ISolver</a>
+: <a class="el" href="classatp_1_1search_1_1_edit_distance_selection_strategy.html#a8a3f9f2563b75e5ac2ca557be297f872">atp::search::EditDistanceSelectionStrategy</a>
+, <a class="el" href="classatp_1_1search_1_1_fixed_selection_strategy.html#abc2cde626707e47914e24cb4907b8953">atp::search::FixedSelectionStrategy</a>
+, <a class="el" href="classatp_1_1search_1_1_i_selection_strategy.html#afd4cd8440431ea9e1944942d3e616e3a">atp::search::ISelectionStrategy</a>
+, <a class="el" href="classatp_1_1search_1_1_i_solver.html#a91435b3796694b66a0a2dbddb1b9e809">atp::search::ISolver</a>
 , <a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#ae3208d7d1d583d723e9a91424c7493cd">atp::search::IterativeDeepeningSolver</a>
+</li>
+<li>set_threads_cmd
+: <a class="el" href="struct_command_grammar.html#aa92c9a7d466cf2d48caf9d97554c2e6c">CommandGrammar</a>
+, <a class="el" href="struct_command_set.html#a1dba12d91445a4511eef430c26281cf3">CommandSet</a>
 </li>
 <li>settings
 : <a class="el" href="structatp_1_1core_1_1proc__data_1_1_proof_setup_essentials.html#a7728c017158e1d0800d6f6a379142059">atp::core::proc_data::ProofSetupEssentials</a>
 </li>
+<li>SimpleScheduler()
+: <a class="el" href="classatp_1_1core_1_1_simple_scheduler.html#a34a9f480099f7559fb523bf174f05016">atp::core::SimpleScheduler</a>
+</li>
 <li>size()
-: <a class="el" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2">atp::logic::equational::ExprTreeFlyweight</a>
+: <a class="el" href="classatp_1_1core_1_1_process_queue.html#a5a76fffbd197ec100d15136665f8707c">atp::core::ProcessQueue</a>
+, <a class="el" href="classatp_1_1logic_1_1equational_1_1_expr_tree_flyweight.html#aa08a8296b3c5b7a05baf5136f50cbde2">atp::logic::equational::ExprTreeFlyweight</a>
 , <a class="el" href="classatp_1_1logic_1_1equational_1_1_free_var_assignment_iterator.html#a19212ddcd76e598b7e70e88b72045dfb">atp::logic::equational::FreeVarAssignmentIterator</a>
 , <a class="el" href="classatp_1_1logic_1_1equational_1_1_match_results_iterator.html#af7452f55930185bb4ccdeac907adc3bc">atp::logic::equational::MatchResultsIterator</a>
 , <a class="el" href="classatp_1_1logic_1_1equational_1_1_no_repeat_iterator.html#a560a1a621fa2622b34f87fdc582d8125">atp::logic::equational::NoRepeatIterator</a>
@@ -232,6 +265,7 @@ $(function() {
 </li>
 <li>start
 : <a class="el" href="structatp_1_1logic_1_1equational_1_1_statement_grammar.html#ad577a8ed44f4cd6745131ef0707598df">atp::logic::equational::StatementGrammar</a>
+, <a class="el" href="struct_command_grammar.html#a5576abad13945c8d15212fa9c883ac34">CommandGrammar</a>
 </li>
 <li>state()
 : <a class="el" href="classatp_1_1db_1_1_i_transaction.html#a9b99ea972dda9aaef843aa9dc60aee99">atp::db::ITransaction</a>
@@ -239,7 +273,7 @@ $(function() {
 , <a class="el" href="classatp_1_1db_1_1_transaction_list_wrapper.html#a75e7abe4a5b07234588657d2a984d16f">atp::db::TransactionListWrapper</a>
 </li>
 <li>Statement()
-: <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#ad7f4907ba0623cc37c62e9fa7becc201">atp::logic::equational::Statement</a>
+: <a class="el" href="classatp_1_1logic_1_1equational_1_1_statement.html#ade209f700ddac82807a7761da007815d">atp::logic::equational::Statement</a>
 </li>
 <li>statement
 : <a class="el" href="structatp_1_1logic_1_1equational_1_1_statement_grammar.html#a9c79567031ef9f26fed920b910a7968f">atp::logic::equational::StatementGrammar</a>
@@ -262,10 +296,14 @@ $(function() {
 , <a class="el" href="structatp_1_1search_1_1_search_settings.html#a57046711336695a17f9219524eaa7ba0">atp::search::SearchSettings</a>
 </li>
 <li>StmtList()
-: <a class="el" href="structatp_1_1logic_1_1equational_1_1_proof_state_1_1_stmt_list.html#a9c3c1894d55a25be423230d4c9a914cb">atp::logic::equational::ProofState::StmtList</a>
+: <a class="el" href="structatp_1_1logic_1_1equational_1_1_proof_state_1_1_stmt_list.html#a1bd590f312e0b4b23a3e73ed89c30844">atp::logic::equational::ProofState::StmtList</a>
 </li>
 <li>StoppingIterator()
 : <a class="el" href="classatp_1_1search_1_1_stopping_iterator.html#a71846e3d5b80b9bb4ca9c2768816f7e6">atp::search::StoppingIterator</a>
+</li>
+<li>sub_edit_distance()
+: <a class="el" href="classatp_1_1stats_1_1_equational_edit_distance_tracker.html#a677c954800ecebf6d3903a1114003f6d">atp::stats::EquationalEditDistanceTracker</a>
+, <a class="el" href="classatp_1_1stats_1_1_i_edit_distance.html#a13406f34d32958507045280054bf7c0c">atp::stats::IEditDistance</a>
 </li>
 <li>sub_expression()
 : <a class="el" href="classatp_1_1logic_1_1equational_1_1_expression.html#ad41bc0076fd552b0de7cc370fd1166bb">atp::logic::equational::Expression</a>

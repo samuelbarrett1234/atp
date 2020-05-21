@@ -1,0 +1,4 @@
+<map id="atp::search::FixedSelectionStrategy::done" name="atp::search::FixedSelectionStrategy::done">
+<area shape="rect" id="node1" title="Call this when the query finishes, to compute which theorems were best, and return them." alt="" coords="223,5,404,47"/>
+<area shape="rect" id="node2" href="$classatp_1_1search_1_1_edit_distance_selection_strategy.html#a3b7878e513da56a0b507f3f4a53c482a" title="Call this when the query finishes, to compute which theorems were best, and return them." alt="" coords="5,5,175,47"/>
+</map>

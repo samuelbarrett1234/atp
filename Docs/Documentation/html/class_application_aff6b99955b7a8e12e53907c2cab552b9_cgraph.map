@@ -1,9 +1,10 @@
 <map id="Application::add_hmm_conjecture_task" name="Application::add_hmm_conjecture_task">
-<area shape="rect" id="node1" title="Create a new process which will generate conjectures using a Hidden Markov Model." alt="" coords="5,71,156,112"/>
+<area shape="rect" id="node1" title="Create a new process which will generate conjectures using a Hidden Markov Model." alt="" coords="5,89,156,131"/>
 <area shape="rect" id="node2" href="$classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="204,49,412,75"/>
-<area shape="rect" id="node3" href="$namespaceatp_1_1core.html#acd27f75a9d6ea2ca3c18c65ed440ed1c" title="Create a process which generates a number of conjectures using the HMM conjecture model." alt="" coords="231,100,385,141"/>
-<area shape="rect" id="node4" href="$namespaceatp_1_1core.html#abe9d26c3f63cdcae9da1de1ae284cde0" title="This function creates a process which generates conjectures given a HMM conjecture model." alt="" coords="463,5,616,47"/>
-<area shape="rect" id="node5" href="$namespaceatp_1_1core.html#aa93a769df1700ad72d0f8ac88c1b0097" title="This function creates a process which loads a HMM conjecturer model from the database." alt="" coords="460,71,619,112"/>
-<area shape="rect" id="node6" href="$namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="667,107,843,134"/>
-<area shape="rect" id="node7" href="$namespaceatp_1_1core.html#adc97d6929bc30b9ea243e7f827071421" title="This function creates a process which saves proven theorems to the database." alt="" coords="463,188,615,229"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1core.html#acd27f75a9d6ea2ca3c18c65ed440ed1c" title="Create a process which generates a number of conjectures using the HMM conjecture model." alt="" coords="231,136,385,177"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_process_queue.html#a59b6123a147465c889ce7c3166a5d098" title="Either add a new process externally, or called by a worker thread which has finished updating its pro..." alt="" coords="460,5,627,47"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1core.html#abe9d26c3f63cdcae9da1de1ae284cde0" title="This function creates a process which generates conjectures given a HMM conjecture model." alt="" coords="467,71,620,112"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1core.html#aa93a769df1700ad72d0f8ac88c1b0097" title="This function creates a process which loads a HMM conjecturer model from the database." alt="" coords="464,136,623,177"/>
+<area shape="rect" id="node7" href="$namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="675,173,851,199"/>
+<area shape="rect" id="node8" href="$namespaceatp_1_1core.html#adc97d6929bc30b9ea243e7f827071421" title="This function creates a process which saves proven theorems to the database." alt="" coords="467,253,619,295"/>
 </map>

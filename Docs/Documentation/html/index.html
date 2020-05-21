@@ -84,6 +84,7 @@ Navigation</h1>
 <li><code>ATPDatabase</code> : the library for the management of proven theorems,</li>
 <li><code>ATPStats</code> : contains statistics and heuristics for usage in the search and core libraries,</li>
 <li><code>ATPStatsTests</code> : unit tests for the statistics library,</li>
+<li><code>ATPSite</code> : contains the website frontend (in PHP),</li>
 <li><code>Docs</code> : specifications, documentation, and example code,</li>
 <li><code>Data/Definitions</code> : axiom and definition files, e.g. group theory,</li>
 <li><code>Data/Search</code> : search settings files,</li>
@@ -106,19 +107,23 @@ Installation</h1>
 <li>Run all the unit tests to make sure everything passes.</li>
 <li>Follow the steps in the next section to create the database.</li>
 <li><em>Optional.</em> If you want to automatically build documentation, <a href="http://www.doxygen.nl/">install Doxygen</a>.</li>
+<li><em>Optional.</em> <a href="https://www.apachefriends.org/index.html">Install XAMPP</a> if you want to see the website frontend and don't already have a way to run a local web server. If you are going to do this, check the <code>ATPSite</code> README for additional notes on how the config files need to be tweaked.</li>
 </ol>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Setting up the database</h1>
 <p>Open the command prompt and navigate to the <code>Data\DB</code> directory (create it if it doesn't exist already). Type the command <code>sqlite3 eqlogic.db</code> to create a new database called <code>eqlogic</code> for equational logic.</p>
-<p>There is already a script for setting up the database. To run it, type (into the SQLite application, which should now be running): <code>.read ../Queries/create_eqlogic_db.sql</code>. This will initialise all the tables etc.</p>
+<p>There is already a script for setting up the database. To run it, type (into the SQLite application, which should now be running): <code>.read ../Queries/create_eqlogic_db.sql</code>. This will initialise all the tables etc. In the same folder, you will find scripts for initialising some other statistical models (e.g. the hidden Markov model conjecturer), and some other scripts for selecting useful combinations of data.</p>
 <h1><a class="anchor" id="autotoc_md5"></a>
-Running the client</h1>
-<p>At the moment, the application only supports a single <code>prove</code> mode. Usage:</p>
+Running the application</h1>
+<p>The command line application supports two modes: <code>prove</code> mode and <code>serve</code> mode. The former is invoked, executes its command, then exits. The latter mode is intended to be left running, and makes the whole process pretty automated. Usage for the <code>prove</code> mode:</p>
 <p><code>atp --db &lt;database-filename&gt; --ctx &lt;context-name&gt; --ss &lt;search-settings-name&gt; --prove &lt;statement-filename-or-in-quotes&gt;</code></p>
-<p><code>--ctx</code> tells the ATP which context you want to prove in - e.g. group theory, ring theory, etc. To get details on what context names are allowed, look at the database's <code>model_contexts</code> table. The name is looked-up in here, where the filename will be found. Similarly, <code>--ss</code> tells the solver what search settings to use. The different settings can be found in the <code>search_settings</code> table in the database.</p>
+<p><code>--ctx</code> tells the ATP which context you want to prove in - e.g. group theory, ring theory, etc. To get details on what context names are allowed, look at the database's <code>model_contexts</code> table. The name is looked-up in here, where the filename will be found. Similarly, <code>--ss</code> tells the solver what search settings to use. The different settings can be found in the <code>search_settings</code> table in the database. All three options (<code>db/ctx/ss</code>) are necessary for <code>--prove</code>.</p>
 <p><b>Example</b>: <code>atp_Releasex64 --db ../Data/DB/eqlogic.db --ctx group-theory --ss ids-uninformed-extended --prove "i(i(x0)) = x0"</code></p>
 <p>Note that, in the above example, you may need to change <code>atp</code> to <code>atp_Releasex64</code> or something similar (as in the example), depending on your build settings. Check the <code>Output</code> folder to see which versions of the application you have built.</p>
-<p>See <code>Docs</code> for documentation about context files and search settings files. Also, try typing <code>atp --help</code> for a full list of commands.</p>
+<p>For the <code>serve</code> mode, you can use:</p>
+<p><code>atp --db &lt;database-filename&gt; --serve</code></p>
+<p>Note that you still need to provide the database, but not the search settings or context, as those are chosen automatically and also change throughout execution. Also note that <code>serve</code> mode as of yet does not automatically generate theorems, it only automatically attempts proofs, so you need to ensure there is an ample supply of unproven theorems when running this (or it will spend all of its time trying to prove false theorems to no avail).</p>
+<p>See <code>Docs</code> for documentation about context files and search settings files. Also, try typing <code>atp --help</code> for a full list of commands (for example, if you wanted to do automated conjecturing). Also observe that these applications make extensive use of logging, so you can check the logs for more detail on what the application was doing, how the search trees were explored, exactly what queries were executed, etc.</p>
 <h1><a class="anchor" id="autotoc_md6"></a>
 Appendix: Prettier Printing with SQLite</h1>
 <p>From <a href="https://dba.stackexchange.com/questions/40656/how-to-properly-format-sqlite-shell-output/40672">https://dba.stackexchange.com/questions/40656/how-to-properly-format-sqlite-shell-output/40672</a> I gather that, if you want prettier SQLite outputs from <code>SELECT</code> statements in the shell application, type:</p>

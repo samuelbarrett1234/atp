@@ -98,8 +98,8 @@ Collaboration diagram for atp::search::IterativeDeepeningSolver:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af615fa03b392f59e080ca23ea6a16d8a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#af615fa03b392f59e080ca23ea6a16d8a">IterativeDeepeningSolver</a> (<a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a> p_kernel, size_t max_depth, size_t starting_depth=3, <a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">logic::IterSettings</a> iter_settings=logic::iter_settings::DEFAULT, std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &gt; p_iter_mgr=std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &gt;())</td></tr>
-<tr class="separator:af615fa03b392f59e080ca23ea6a16d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc65028e9e9c7255e46ecb904009088d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#acc65028e9e9c7255e46ecb904009088d">IterativeDeepeningSolver</a> (<a class="el" href="namespaceatp_1_1logic.html#a6c3c5ea3013b900b3b7fa9c4de64c357">logic::KnowledgeKernelPtr</a> p_kernel, size_t max_depth, size_t starting_depth=3, size_t width_limit=50, size_t width_limit_start=2, <a class="el" href="namespaceatp_1_1logic.html#ad91d7d221c455561ba0791aec7d85257">logic::IterSettings</a> iter_settings=logic::iter_settings::DEFAULT, std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &gt; p_iter_mgr=std::unique_ptr&lt; <a class="el" href="classatp_1_1search_1_1_iterator_manager.html">IteratorManager</a> &gt;())</td></tr>
+<tr class="separator:acc65028e9e9c7255e46ecb904009088d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3208d7d1d583d723e9a91424c7493cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#ae3208d7d1d583d723e9a91424c7493cd">set_targets</a> (<a class="el" href="namespaceatp_1_1logic.html#a3ed2bd85bb2dfbdf9288beaa94025928">logic::StatementArrayPtr</a> p_stmts) override</td></tr>
 <tr class="separator:ae3208d7d1d583d723e9a91424c7493cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a790f51cb03fa66252f77e9d9424698a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatp_1_1search_1_1_iterative_deepening_solver.html#a790f51cb03fa66252f77e9d9424698a9">step</a> (size_t n=1) override</td></tr>
@@ -125,8 +125,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a37e3870bd6bb754c838fba5439748f7d inherit pub_methods_classatp_1_1search_1_1_i_solver"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af615fa03b392f59e080ca23ea6a16d8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af615fa03b392f59e080ca23ea6a16d8a">&#9670;&nbsp;</a></span>IterativeDeepeningSolver()</h2>
+<a id="acc65028e9e9c7255e46ecb904009088d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc65028e9e9c7255e46ecb904009088d">&#9670;&nbsp;</a></span>IterativeDeepeningSolver()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,6 +148,18 @@ Public Member Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>starting_depth</em> = <code>3</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>width_limit</em> = <code>50</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>width_limit_start</em> = <code>2</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

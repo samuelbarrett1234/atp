@@ -1,4 +1,11 @@
 <map id="atp::logic::create_language" name="atp::logic::create_language">
-<area shape="rect" id="node1" title="Allocates a new language object for a particular logical language." alt="" coords="255,5,373,47"/>
-<area shape="rect" id="node2" href="$class_application.html#a6fe49a500b855c19e26acdc1dbe0b086" title="Loads the language and knowledge kernel from a given context (filename obtained from database)." alt="" coords="5,13,207,39"/>
+<area shape="rect" id="node1" title="Allocates a new language object for a particular logical language." alt="" coords="931,93,1049,135"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_select_context_process.html#a323391a65128092bf846984cc3c7a30b" title=" " alt="" coords="675,5,883,47"/>
+<area shape="rect" id="node3" href="$class_application.html#a6fe49a500b855c19e26acdc1dbe0b086" title="Loads the language and knowledge kernel from a given context (filename obtained from database)." alt="" coords="678,71,879,98"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1search.html#aef23c2431a910abdc586fa9980001463" title="Try to create an EditDistanceSelectionStrategy, based on the type given in ptree." alt="" coords="683,123,874,164"/>
+<area shape="rect" id="node9" href="$namespaceatp_1_1search.html#aebbefebfe4e2943be51dbaea4f45dd30" title="Try to create a FixedSelectionStrategy, based on the type given in ptree." alt="" coords="694,188,863,229"/>
+<area shape="rect" id="node5" href="$namespaceatp_1_1search.html#a0c882e1f9a20764cdd4f533986cfe723" title="Try to create a selection strategy, based on the type given in ptree." alt="" coords="473,156,627,197"/>
+<area shape="rect" id="node6" href="$namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="260,156,425,197"/>
+<area shape="rect" id="node7" href="$classatp_1_1core_1_1_select_search_settings_process.html#ace8783487e53597574c63ab6a72415bf" title=" " alt="" coords="5,127,212,168"/>
+<area shape="rect" id="node8" href="$class_application.html#a7748f76cdbc702a39bd75c374a6ebefe" title="Loads the solver." alt="" coords="10,193,207,219"/>
 </map>

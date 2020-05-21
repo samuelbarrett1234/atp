@@ -80,9 +80,9 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0504c3bfabeac6374ea7ee5dd7120353"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a0504c3bfabeac6374ea7ee5dd7120353">Application</a> (size_t num_threads)</td></tr>
 <tr class="separator:a0504c3bfabeac6374ea7ee5dd7120353"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1ce87432e90c4802bacf842c3b4fda0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#ab1ce87432e90c4802bacf842c3b4fda0">set_db</a> (const std::string &amp;db_config_file)</td></tr>
-<tr class="memdesc:ab1ce87432e90c4802bacf842c3b4fda0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the database file (this has to be done first)  <a href="class_application.html#ab1ce87432e90c4802bacf842c3b4fda0">More...</a><br /></td></tr>
-<tr class="separator:ab1ce87432e90c4802bacf842c3b4fda0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad186e1ea4b51c856c7f40b7cc446ad32"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#ad186e1ea4b51c856c7f40b7cc446ad32">set_db</a> (const std::string &amp;path)</td></tr>
+<tr class="memdesc:ad186e1ea4b51c856c7f40b7cc446ad32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the database file (this has to be done first)  <a href="class_application.html#ad186e1ea4b51c856c7f40b7cc446ad32">More...</a><br /></td></tr>
+<tr class="separator:ad186e1ea4b51c856c7f40b7cc446ad32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fe49a500b855c19e26acdc1dbe0b086"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a6fe49a500b855c19e26acdc1dbe0b086">set_context_name</a> (const std::string &amp;name)</td></tr>
 <tr class="memdesc:a6fe49a500b855c19e26acdc1dbe0b086"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the language and knowledge kernel from a given context (filename obtained from database).  <a href="class_application.html#a6fe49a500b855c19e26acdc1dbe0b086">More...</a><br /></td></tr>
 <tr class="separator:a6fe49a500b855c19e26acdc1dbe0b086"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -110,7 +110,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The simple command-line application for proving a small set of statements. </p>
-<p>This class encapsulates the following use case: "given a logical language, and a context, try to prove a given set of statements all in one go." It does not store the results in the database; this application is intended to be quick and simple. </p>
+<p>This class encapsulates the following use case: "given a logical language, and a context, try to prove a given set of statements all in one go." </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0504c3bfabeac6374ea7ee5dd7120353"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0504c3bfabeac6374ea7ee5dd7120353">&#9670;&nbsp;</a></span>Application()</h2>
@@ -179,14 +179,15 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_application_a3e5ca8fa3dbe56d77f87f57dba5525b6_cgraph.png" border="0" usemap="#class_application_a3e5ca8fa3dbe56d77f87f57dba5525b6_cgraph" alt=""/></div>
 <map name="class_application_a3e5ca8fa3dbe56d77f87f57dba5525b6_cgraph" id="class_application_a3e5ca8fa3dbe56d77f87f57dba5525b6_cgraph">
-<area shape="rect" title="Create a new process which will train the HMM conjecturer model on existing proven theorems." alt="" coords="5,100,156,141"/>
-<area shape="rect" href="classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="204,78,412,105"/>
-<area shape="rect" href="namespaceatp_1_1core.html#a0e758a1f3721e76b154d37c0650cdb2d" title="Create a process to train a particular HMM model." alt="" coords="221,129,395,171"/>
-<area shape="rect" href="namespaceatp_1_1core.html#a07907f92b319f65ab82db7a7302f7eca" title="Create a process which trains a given model on a given dataset." alt="" coords="477,5,626,47"/>
-<area shape="rect" href="namespaceatp_1_1core.html#aa93a769df1700ad72d0f8ac88c1b0097" title="This function creates a process which loads a HMM conjecturer model from the database." alt="" coords="472,71,631,112"/>
-<area shape="rect" href="namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="691,107,867,134"/>
-<area shape="rect" href="namespaceatp_1_1core.html#ac16658ecc65f81aeb5003c10167b1a6e" title="Creates a process which loads a set of training data for the given model." alt="" coords="468,188,635,229"/>
-<area shape="rect" href="namespaceatp_1_1core.html#a725d86a818121ef5aff9bbd65152a290" title=" " alt="" coords="460,253,643,295"/>
+<area shape="rect" title="Create a new process which will train the HMM conjecturer model on existing proven theorems." alt="" coords="5,104,156,145"/>
+<area shape="rect" href="classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="204,49,412,75"/>
+<area shape="rect" href="namespaceatp_1_1core.html#a0e758a1f3721e76b154d37c0650cdb2d" title="Create a process to train a particular HMM model." alt="" coords="221,165,395,207"/>
+<area shape="rect" href="classatp_1_1core_1_1_process_queue.html#a59b6123a147465c889ce7c3166a5d098" title="Either add a new process externally, or called by a worker thread which has finished updating its pro..." alt="" coords="468,5,635,47"/>
+<area shape="rect" href="namespaceatp_1_1core.html#a07907f92b319f65ab82db7a7302f7eca" title="Create a process which trains a given model on a given dataset." alt="" coords="477,71,626,112"/>
+<area shape="rect" href="namespaceatp_1_1core.html#aa93a769df1700ad72d0f8ac88c1b0097" title="This function creates a process which loads a HMM conjecturer model from the database." alt="" coords="472,136,631,177"/>
+<area shape="rect" href="namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="691,173,867,199"/>
+<area shape="rect" href="namespaceatp_1_1core.html#ac16658ecc65f81aeb5003c10167b1a6e" title="Creates a process which loads a set of training data for the given model." alt="" coords="468,253,635,295"/>
+<area shape="rect" href="namespaceatp_1_1core.html#a725d86a818121ef5aff9bbd65152a290" title=" " alt="" coords="460,319,643,360"/>
 </map>
 </div>
 
@@ -222,13 +223,14 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_application_aff6b99955b7a8e12e53907c2cab552b9_cgraph.png" border="0" usemap="#class_application_aff6b99955b7a8e12e53907c2cab552b9_cgraph" alt=""/></div>
 <map name="class_application_aff6b99955b7a8e12e53907c2cab552b9_cgraph" id="class_application_aff6b99955b7a8e12e53907c2cab552b9_cgraph">
-<area shape="rect" title="Create a new process which will generate conjectures using a Hidden Markov Model." alt="" coords="5,71,156,112"/>
+<area shape="rect" title="Create a new process which will generate conjectures using a Hidden Markov Model." alt="" coords="5,89,156,131"/>
 <area shape="rect" href="classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="204,49,412,75"/>
-<area shape="rect" href="namespaceatp_1_1core.html#acd27f75a9d6ea2ca3c18c65ed440ed1c" title="Create a process which generates a number of conjectures using the HMM conjecture model." alt="" coords="231,100,385,141"/>
-<area shape="rect" href="namespaceatp_1_1core.html#abe9d26c3f63cdcae9da1de1ae284cde0" title="This function creates a process which generates conjectures given a HMM conjecture model." alt="" coords="463,5,616,47"/>
-<area shape="rect" href="namespaceatp_1_1core.html#aa93a769df1700ad72d0f8ac88c1b0097" title="This function creates a process which loads a HMM conjecturer model from the database." alt="" coords="460,71,619,112"/>
-<area shape="rect" href="namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="667,107,843,134"/>
-<area shape="rect" href="namespaceatp_1_1core.html#adc97d6929bc30b9ea243e7f827071421" title="This function creates a process which saves proven theorems to the database." alt="" coords="463,188,615,229"/>
+<area shape="rect" href="namespaceatp_1_1core.html#acd27f75a9d6ea2ca3c18c65ed440ed1c" title="Create a process which generates a number of conjectures using the HMM conjecture model." alt="" coords="231,136,385,177"/>
+<area shape="rect" href="classatp_1_1core_1_1_process_queue.html#a59b6123a147465c889ce7c3166a5d098" title="Either add a new process externally, or called by a worker thread which has finished updating its pro..." alt="" coords="460,5,627,47"/>
+<area shape="rect" href="namespaceatp_1_1core.html#abe9d26c3f63cdcae9da1de1ae284cde0" title="This function creates a process which generates conjectures given a HMM conjecture model." alt="" coords="467,71,620,112"/>
+<area shape="rect" href="namespaceatp_1_1core.html#aa93a769df1700ad72d0f8ac88c1b0097" title="This function creates a process which loads a HMM conjecturer model from the database." alt="" coords="464,136,623,177"/>
+<area shape="rect" href="namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="675,173,851,199"/>
+<area shape="rect" href="namespaceatp_1_1core.html#adc97d6929bc30b9ea243e7f827071421" title="This function creates a process which saves proven theorems to the database." alt="" coords="467,253,619,295"/>
 </map>
 </div>
 
@@ -264,13 +266,14 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_application_ae192d45a99d49bbedcdda11afff225a4_cgraph.png" border="0" usemap="#class_application_ae192d45a99d49bbedcdda11afff225a4_cgraph" alt=""/></div>
 <map name="class_application_ae192d45a99d49bbedcdda11afff225a4_cgraph" id="class_application_ae192d45a99d49bbedcdda11afff225a4_cgraph">
-<area shape="rect" title="Add a process which will select some arbitrary unproven statements and try to prove them when run is ..." alt="" coords="5,82,188,109"/>
-<area shape="rect" href="classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="236,53,444,79"/>
-<area shape="rect" href="namespaceatp_1_1core.html#a14a998365332d52ca949b7da1ae6870b" title="Create a proof process to try and prove p_target_stmts" alt="" coords="264,104,416,145"/>
-<area shape="rect" href="namespaceatp_1_1core.html#aafe2f9412bce7973267a7735bb16e763" title="This function creates a &quot;proof initialisation&quot; process, which creates the knowledge kernel,..." alt="" coords="504,5,656,47"/>
-<area shape="rect" href="namespaceatp_1_1core.html#a347bdbab224f5b7453926bd292125a2d" title="This function creates a process which just runs the solver to completion." alt="" coords="509,71,651,112"/>
-<area shape="rect" href="namespaceatp_1_1core.html#a1d7a30c723dce02909ce79d2a856c9fa" title="This function creates a process which saves proven theorems to the database." alt="" coords="505,136,655,177"/>
-<area shape="rect" href="namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="492,202,668,229"/>
+<area shape="rect" title="Add a process which will select some arbitrary unproven statements and try to prove them when run is ..." alt="" coords="5,97,188,123"/>
+<area shape="rect" href="classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="236,49,444,75"/>
+<area shape="rect" href="namespaceatp_1_1core.html#a14a998365332d52ca949b7da1ae6870b" title="Create a proof process to try and prove p_target_stmts" alt="" coords="264,136,416,177"/>
+<area shape="rect" href="classatp_1_1core_1_1_process_queue.html#a59b6123a147465c889ce7c3166a5d098" title="Either add a new process externally, or called by a worker thread which has finished updating its pro..." alt="" coords="497,5,663,47"/>
+<area shape="rect" href="namespaceatp_1_1core.html#aafe2f9412bce7973267a7735bb16e763" title="This function creates a &quot;proof initialisation&quot; process, which creates the knowledge kernel,..." alt="" coords="504,71,656,112"/>
+<area shape="rect" href="namespaceatp_1_1core.html#a347bdbab224f5b7453926bd292125a2d" title="This function creates a process which just runs the solver to completion." alt="" coords="509,136,651,177"/>
+<area shape="rect" href="namespaceatp_1_1core.html#a1d7a30c723dce02909ce79d2a856c9fa" title="This function creates a process which saves proven theorems to the database." alt="" coords="505,201,655,243"/>
+<area shape="rect" href="namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="492,267,668,294"/>
 </map>
 </div>
 
@@ -306,13 +309,14 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_application_a9a3f2a8a310783b1da84232b698fcc49_cgraph.png" border="0" usemap="#class_application_a9a3f2a8a310783b1da84232b698fcc49_cgraph" alt=""/></div>
 <map name="class_application_a9a3f2a8a310783b1da84232b698fcc49_cgraph" id="class_application_a9a3f2a8a310783b1da84232b698fcc49_cgraph">
-<area shape="rect" title="Add a process which will try to prove the given statements when run is called." alt="" coords="5,82,188,109"/>
-<area shape="rect" href="classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="236,53,444,79"/>
-<area shape="rect" href="namespaceatp_1_1core.html#a14a998365332d52ca949b7da1ae6870b" title="Create a proof process to try and prove p_target_stmts" alt="" coords="264,104,416,145"/>
-<area shape="rect" href="namespaceatp_1_1core.html#aafe2f9412bce7973267a7735bb16e763" title="This function creates a &quot;proof initialisation&quot; process, which creates the knowledge kernel,..." alt="" coords="504,5,656,47"/>
-<area shape="rect" href="namespaceatp_1_1core.html#a347bdbab224f5b7453926bd292125a2d" title="This function creates a process which just runs the solver to completion." alt="" coords="509,71,651,112"/>
-<area shape="rect" href="namespaceatp_1_1core.html#a1d7a30c723dce02909ce79d2a856c9fa" title="This function creates a process which saves proven theorems to the database." alt="" coords="505,136,655,177"/>
-<area shape="rect" href="namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="492,202,668,229"/>
+<area shape="rect" title="Add a process which will try to prove the given statements when run is called." alt="" coords="5,97,188,123"/>
+<area shape="rect" href="classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="236,49,444,75"/>
+<area shape="rect" href="namespaceatp_1_1core.html#a14a998365332d52ca949b7da1ae6870b" title="Create a proof process to try and prove p_target_stmts" alt="" coords="264,136,416,177"/>
+<area shape="rect" href="classatp_1_1core_1_1_process_queue.html#a59b6123a147465c889ce7c3166a5d098" title="Either add a new process externally, or called by a worker thread which has finished updating its pro..." alt="" coords="497,5,663,47"/>
+<area shape="rect" href="namespaceatp_1_1core.html#aafe2f9412bce7973267a7735bb16e763" title="This function creates a &quot;proof initialisation&quot; process, which creates the knowledge kernel,..." alt="" coords="504,71,656,112"/>
+<area shape="rect" href="namespaceatp_1_1core.html#a347bdbab224f5b7453926bd292125a2d" title="This function creates a process which just runs the solver to completion." alt="" coords="509,136,651,177"/>
+<area shape="rect" href="namespaceatp_1_1core.html#a1d7a30c723dce02909ce79d2a856c9fa" title="This function creates a process which saves proven theorems to the database." alt="" coords="505,201,655,243"/>
+<area shape="rect" href="namespaceatp_1_1core.html#a0e1be0ed1f37669605474bce0f0031b0" title=" " alt="" coords="492,267,668,294"/>
 </map>
 </div>
 
@@ -359,9 +363,10 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_application_aec69d29e264c9cbbbce97dc47f212a2e_cgraph.png" border="0" usemap="#class_application_aec69d29e264c9cbbbce97dc47f212a2e_cgraph" alt=""/></div>
 <map name="class_application_aec69d29e264c9cbbbce97dc47f212a2e_cgraph" id="class_application_aec69d29e264c9cbbbce97dc47f212a2e_cgraph">
-<area shape="rect" title="Create a new process which will create a new HMM conjecturer model." alt="" coords="5,27,136,69"/>
-<area shape="rect" href="classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="184,5,392,32"/>
-<area shape="rect" href="namespaceatp_1_1core.html#ab807a83f4b761d5b389081611aa8e0d6" title="Create a new HMM conjecturer in the database." alt="" coords="211,57,365,98"/>
+<area shape="rect" title="Create a new process which will create a new HMM conjecturer model." alt="" coords="5,35,136,76"/>
+<area shape="rect" href="classatp_1_1core_1_1_process_manager.html#a1149cbaef38986ef44a66a332217ec57" title="Add the given process to the mix." alt="" coords="184,13,392,39"/>
+<area shape="rect" href="namespaceatp_1_1core.html#ab807a83f4b761d5b389081611aa8e0d6" title="Create a new HMM conjecturer in the database." alt="" coords="211,64,365,105"/>
+<area shape="rect" href="classatp_1_1core_1_1_process_queue.html#a59b6123a147465c889ce7c3166a5d098" title="Either add a new process externally, or called by a worker thread which has finished updating its pro..." alt="" coords="440,5,607,47"/>
 </map>
 </div>
 
@@ -388,8 +393,11 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_application_a68965449404743bf1add056784d6cf81_cgraph.png" border="0" usemap="#class_application_a68965449404743bf1add056784d6cf81_cgraph" alt=""/></div>
 <map name="class_application_a68965449404743bf1add056784d6cf81_cgraph" id="class_application_a68965449404743bf1add056784d6cf81_cgraph">
-<area shape="rect" title="Run all proofs that have been set." alt="" coords="5,13,117,39"/>
-<area shape="rect" href="classatp_1_1core_1_1_process_manager.html#a5f73c57ef7a04f0fdc52b34cc82eef02" title="Make the current thread work for the process manager." alt="" coords="165,5,344,47"/>
+<area shape="rect" title="Run all proofs that have been set." alt="" coords="5,78,117,105"/>
+<area shape="rect" href="classatp_1_1core_1_1_process_manager.html#a5f73c57ef7a04f0fdc52b34cc82eef02" title="Make the current thread work for the process manager." alt="" coords="165,71,344,112"/>
+<area shape="rect" href="classatp_1_1core_1_1_process_queue.html#af59d1521a13cda1a5ea038f68f830580" title="Returns true if the stacks are empty AND no threads are currently working on processes that will subs..." alt="" coords="392,5,559,47"/>
+<area shape="rect" href="classatp_1_1core_1_1_process_queue.html#a59b6123a147465c889ce7c3166a5d098" title="Either add a new process externally, or called by a worker thread which has finished updating its pro..." alt="" coords="392,71,559,112"/>
+<area shape="rect" href="classatp_1_1core_1_1_process_queue.html#a19a01e42ef47e0b5132b2d3ca0232de4" title="Try to get a process which isn&#39;t being handled." alt="" coords="392,136,559,177"/>
 </map>
 </div>
 
@@ -426,8 +434,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="ab1ce87432e90c4802bacf842c3b4fda0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1ce87432e90c4802bacf842c3b4fda0">&#9670;&nbsp;</a></span>set_db()</h2>
+<a id="ad186e1ea4b51c856c7f40b7cc446ad32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad186e1ea4b51c856c7f40b7cc446ad32">&#9670;&nbsp;</a></span>set_db()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -436,7 +444,7 @@ Here is the call graph for this function:</div>
           <td class="memname">bool Application::set_db </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>db_config_file</em></td><td>)</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -447,8 +455,8 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_application_ab1ce87432e90c4802bacf842c3b4fda0_cgraph.png" border="0" usemap="#class_application_ab1ce87432e90c4802bacf842c3b4fda0_cgraph" alt=""/></div>
-<map name="class_application_ab1ce87432e90c4802bacf842c3b4fda0_cgraph" id="class_application_ab1ce87432e90c4802bacf842c3b4fda0_cgraph">
+<div class="center"><img src="class_application_ad186e1ea4b51c856c7f40b7cc446ad32_cgraph.png" border="0" usemap="#class_application_ad186e1ea4b51c856c7f40b7cc446ad32_cgraph" alt=""/></div>
+<map name="class_application_ad186e1ea4b51c856c7f40b7cc446ad32_cgraph" id="class_application_ad186e1ea4b51c856c7f40b7cc446ad32_cgraph">
 <area shape="rect" title="Loads the database file (this has to be done first)" alt="" coords="5,13,139,39"/>
 <area shape="rect" href="namespaceatp_1_1db.html#a0d04b0bd46a32a2aa0f5499b0977adf5" title="Create a new database object from the given SQLite database filename." alt="" coords="187,13,336,39"/>
 <area shape="rect" href="classatp_1_1db_1_1_s_q_lite_database.html#a0e9b5d9f5570686f02f75ee14073b0c5" title="Create a new database object from the given SQLite database filename." alt="" coords="384,5,549,47"/>
@@ -481,20 +489,24 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_application_a7748f76cdbc702a39bd75c374a6ebefe_cgraph.png" border="0" usemap="#class_application_a7748f76cdbc702a39bd75c374a6ebefe_cgraph" alt=""/></div>
 <map name="class_application_a7748f76cdbc702a39bd75c374a6ebefe_cgraph" id="class_application_a7748f76cdbc702a39bd75c374a6ebefe_cgraph">
-<area shape="rect" title="Loads the solver." alt="" coords="5,131,203,157"/>
-<area shape="rect" href="namespaceatp_1_1search.html#aa8dd2f9c72b427c8a08e2c78534f57de" title="Create this library&#39;s designated &quot;default solver&quot;." alt="" coords="268,90,399,131"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,155,416,197"/>
+<area shape="rect" title="Loads the solver." alt="" coords="5,163,203,189"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aa8dd2f9c72b427c8a08e2c78534f57de" title="Create this library&#39;s designated &quot;default solver&quot;." alt="" coords="268,122,399,163"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab7075404471b8cd7ca992403a2d7bc86" title="Try to load a solver from a configuration file." alt="" coords="251,187,416,229"/>
 <area shape="rect" href="namespaceatp_1_1search.html#aabe18437945bb44d6176221c8255c348" title=" " alt="" coords="475,122,606,163"/>
 <area shape="rect" href="namespaceatp_1_1search.html#a2436821c1e92d90b125e6a2a8d03fbcc" title="Try to create a heuristic object from the tree rooted at the given parameter." alt="" coords="464,187,617,229"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="670,57,823,98"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="676,122,817,163"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="876,5,1057,32"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="899,57,1034,98"/>
-<area shape="rect" href="namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="881,122,1052,163"/>
-<area shape="rect" href="namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342" title="Try to load info for a FixedStoppingStrategy." alt="" coords="883,187,1050,229"/>
-<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="1105,122,1301,163"/>
-<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="1107,187,1299,229"/>
-<area shape="rect" href="namespaceatp_1_1search.html#af961e805f1c0565c0d5415d7edffa780" title="Try to create an edit distance heuristic object from the tree rooted at the given node." alt="" coords="665,187,828,229"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a0c882e1f9a20764cdd4f533986cfe723" title="Try to create a selection strategy, based on the type given in ptree." alt="" coords="464,253,617,294"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a63dff82536a7665670203db4cdc0a20a" title="Try to create a solver, based on the type given in ptree." alt="" coords="684,57,837,98"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ab323763e8bdb7015baadfcecd9dbfba2" title="Try to create a stopping strategy from the subtree rooted at the given node. Load them into the itera..." alt="" coords="690,122,831,163"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a4ad02c440d9ad48494fcf0667c7c3edd" title="Try to create an IterativeDeepeningSolver from the given ptree." alt="" coords="904,5,1085,32"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a7450148ff8935d3c6c05e190b25b25d5" title="Try to create the iteration settings flags." alt="" coords="927,57,1062,98"/>
+<area shape="rect" href="namespaceatp_1_1search.html#a476af625bba58960534cfd90427c8b5c" title="Try to load info for a BasicStoppingStrategy." alt="" coords="909,122,1080,163"/>
+<area shape="rect" href="namespaceatp_1_1search.html#ad5d181aaf3c4a5ed3a94694e1682e342" title="Try to load info for a FixedStoppingStrategy." alt="" coords="911,187,1078,229"/>
+<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a4d9d25b19337ecdad5d4621926d2e01d" title="Set the stopping strategy to be a BasicStoppingStrategy." alt="" coords="1133,122,1329,163"/>
+<area shape="rect" href="classatp_1_1search_1_1_iterator_manager.html#a5be7d368397ee2b3bf3187261fa1df7e" title="Set the stopping strategy to be a FixedStoppingStrategy with size N." alt="" coords="1135,187,1327,229"/>
+<area shape="rect" href="namespaceatp_1_1search.html#af961e805f1c0565c0d5415d7edffa780" title="Try to create an edit distance heuristic object from the tree rooted at the given node." alt="" coords="679,187,842,229"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aef23c2431a910abdc586fa9980001463" title="Try to create an EditDistanceSelectionStrategy, based on the type given in ptree." alt="" coords="665,253,856,294"/>
+<area shape="rect" href="namespaceatp_1_1search.html#aebbefebfe4e2943be51dbaea4f45dd30" title="Try to create a FixedSelectionStrategy, based on the type given in ptree." alt="" coords="676,318,845,359"/>
+<area shape="rect" href="namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="935,285,1054,326"/>
 </map>
 </div>
 

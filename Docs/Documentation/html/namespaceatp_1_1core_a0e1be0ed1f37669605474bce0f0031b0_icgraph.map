@@ -1,10 +1,12 @@
 <map id="atp::core::make_sequence" name="atp::core::make_sequence">
-<area shape="rect" id="node1" title=" " alt="" coords="641,87,817,114"/>
+<area shape="rect" id="node1" title=" " alt="" coords="641,117,817,143"/>
 <area shape="rect" id="node2" href="$namespaceatp_1_1core.html#acd27f75a9d6ea2ca3c18c65ed440ed1c" title="Create a process which generates a number of conjectures using the HMM conjecture model." alt="" coords="219,5,372,47"/>
-<area shape="rect" id="node4" href="$namespaceatp_1_1core.html#a0e758a1f3721e76b154d37c0650cdb2d" title="Create a process to train a particular HMM model." alt="" coords="208,84,383,125"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1core.html#a0e758a1f3721e76b154d37c0650cdb2d" title="Create a process to train a particular HMM model." alt="" coords="208,96,383,137"/>
 <area shape="rect" id="node6" href="$namespaceatp_1_1core.html#aa93a769df1700ad72d0f8ac88c1b0097" title="This function creates a process which loads a HMM conjecturer model from the database." alt="" coords="435,51,593,92"/>
 <area shape="rect" id="node7" href="$namespaceatp_1_1core.html#a14a998365332d52ca949b7da1ae6870b" title="Create a proof process to try and prove p_target_stmts" alt="" coords="438,168,590,209"/>
+<area shape="rect" id="node9" href="$namespaceatp_1_1core.html#a6862d165aec7b024c814742b0374dc18" title="Create a proof process which randomly selects the domain in which to prove." alt="" coords="439,233,589,275"/>
 <area shape="rect" id="node3" href="$class_application.html#aff6b99955b7a8e12e53907c2cab552b9" title="Create a new process which will generate conjectures using a Hidden Markov Model." alt="" coords="5,5,156,47"/>
-<area shape="rect" id="node5" href="$class_application.html#a3e5ca8fa3dbe56d77f87f57dba5525b6" title="Create a new process which will train the HMM conjecturer model on existing proven theorems." alt="" coords="5,84,156,125"/>
+<area shape="rect" id="node5" href="$class_application.html#a3e5ca8fa3dbe56d77f87f57dba5525b6" title="Create a new process which will train the HMM conjecturer model on existing proven theorems." alt="" coords="5,96,156,137"/>
 <area shape="rect" id="node8" href="$class_application.html#a9a3f2a8a310783b1da84232b698fcc49" title="Add a process which will try to prove the given statements when run is called." alt="" coords="204,175,387,202"/>
+<area shape="rect" id="node10" href="$classatp_1_1core_1_1_simple_scheduler.html#a36543136ac9639b53042040ab32ec1c3" title="Add scheduling processes if necessary." alt="" coords="206,233,385,275"/>
 </map>

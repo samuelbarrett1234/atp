@@ -1,0 +1,5 @@
+<map id="atp::search::ISelectionStrategy" name="atp::search::ISelectionStrategy">
+<area shape="rect" id="node1" title="A selection strategy for picking theorems from the database to help find a proof for a set of target ..." alt="" coords="5,5,207,32"/>
+<area shape="rect" id="node2" href="$classatp_1_1search_1_1_fixed_selection_strategy.html" title="A basic theorem selector strategy which just picks randomly from the database to help in a proof." alt="" coords="15,80,197,121"/>
+<area shape="rect" id="node3" href="$classatp_1_1search_1_1_edit_distance_selection_strategy.html" title="A basic theorem selector strategy which just picks randomly from the database to help in a proof." alt="" coords="21,169,191,211"/>
+</map>

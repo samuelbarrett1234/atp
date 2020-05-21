@@ -1,0 +1,4 @@
+<map id="atp::core::SimpleScheduler" name="atp::core::SimpleScheduler">
+<area shape="rect" id="node1" title=" " alt="" coords="5,80,184,107"/>
+<area shape="rect" id="node2" href="$classatp_1_1core_1_1_i_scheduler.html" title="A scheduler is responsible for periodically adding tasks to the process queue, to ensure that all the..." alt="" coords="23,5,166,32"/>
+</map>

@@ -84,13 +84,15 @@ Inheritance diagram for atp::db::IQueryBuilder:</div>
 <div class="dyncontent">
 <div class="center"><img src="classatp_1_1db_1_1_i_query_builder__inherit__graph.png" border="0" usemap="#atp_1_1db_1_1_i_query_builder_inherit__map" alt="Inheritance graph"/></div>
 <map name="atp_1_1db_1_1_i_query_builder_inherit__map" id="atp_1_1db_1_1_i_query_builder_inherit__map">
-<area shape="rect" title="An object for producing queries." alt="" coords="5,241,153,267"/>
+<area shape="rect" title="An object for producing queries." alt="" coords="5,307,153,334"/>
 <area shape="rect" href="classatp_1_1db_1_1_i_check_ax_in_db_qry_bder.html" title="Interface for making sure all of the axioms of a given context are appropriately set in the database ..." alt="" coords="205,38,405,65"/>
 <area shape="rect" href="classatp_1_1db_1_1_i_find_hmm_conj_model.html" title="Interface for getting basic information about a HMM conjecture model." alt="" coords="209,114,400,141"/>
 <area shape="rect" href="classatp_1_1db_1_1_i_get_hmm_conjecture_model_params.html" title="Interface for getting the parameters of a HMM conjecture model (both state transition parameters,..." alt="" coords="211,201,398,243"/>
-<area shape="rect" href="classatp_1_1db_1_1_i_rnd_thm_select_qry_bder.html" title="Interface for building a query to select theorems from the database." alt="" coords="201,271,408,298"/>
-<area shape="rect" href="classatp_1_1db_1_1_i_save_hmm_conj_model_params.html" title="This query builder is for putting together a query to save model parameters for the HMM conjecturer m..." alt="" coords="208,324,401,365"/>
-<area shape="rect" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html" title="Interface for saving a collection of proof attempt results." alt="" coords="217,392,392,433"/>
+<area shape="rect" href="classatp_1_1db_1_1_i_rnd_thm_select_qry_bder.html" title="Interface for building a query to select theorems from the database." alt="" coords="201,277,408,303"/>
+<area shape="rect" href="classatp_1_1db_1_1_i_save_hmm_conj_model_params.html" title="This query builder is for putting together a query to save model parameters for the HMM conjecturer m..." alt="" coords="208,329,401,371"/>
+<area shape="rect" href="classatp_1_1db_1_1_i_save_proof_results_qry_bder.html" title="Interface for saving a collection of proof attempt results." alt="" coords="217,396,392,437"/>
+<area shape="rect" href="classatp_1_1db_1_1_i_select_model_context.html" title="A query which randomly selects a model context, according to existing usage statistics as well." alt="" coords="209,465,400,491"/>
+<area shape="rect" href="classatp_1_1db_1_1_i_select_search_settings.html" title="A query which randomly selects search settings, according to existing usage statistics and taking int..." alt="" coords="205,526,404,553"/>
 <area shape="rect" href="classatp_1_1db_1_1_s_q_lite_check_ax_in_db_qry_bder.html" title=" " alt="" coords="467,5,640,47"/>
 <area shape="rect" href="classatp_1_1db_1_1_s_q_lite_find_hmm_conj_model.html" title=" " alt="" coords="457,71,649,112"/>
 <area shape="rect" href="classatp_1_1db_1_1_s_q_lite_get_hmm_conj_obs_params.html" title=" " alt="" coords="459,136,647,177"/>
@@ -98,6 +100,8 @@ Inheritance diagram for atp::db::IQueryBuilder:</div>
 <area shape="rect" href="classatp_1_1db_1_1_s_q_lite_rnd_thm_select_qry_bder.html" title="Implementation of a theorem select for SQLite databases." alt="" coords="456,267,651,308"/>
 <area shape="rect" href="classatp_1_1db_1_1_s_q_lite_save_hmm_conj_model_params.html" title=" " alt="" coords="456,332,651,373"/>
 <area shape="rect" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html" title=" " alt="" coords="469,397,637,439"/>
+<area shape="rect" href="classatp_1_1db_1_1_s_q_lite_select_model_context.html" title="Implementation of a model context select for SQLite databases." alt="" coords="462,463,645,504"/>
+<area shape="rect" href="classatp_1_1db_1_1_s_q_lite_select_search_settings.html" title="Implementation of a search settings select for SQLite databases." alt="" coords="459,528,647,569"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -164,7 +168,7 @@ Public Member Functions</h2></td></tr>
 <p>Create a the query that you have been building. </p>
 <dl class="section pre"><dt>Precondition</dt><dd>Check that you have filled in all the compulsory information before calling this! </dd></dl>
 
-<p>Implemented in <a class="el" href="classatp_1_1db_1_1_s_q_lite_save_hmm_conj_model_params.html#a675016d7348909f086a0af323afabe11">atp::db::SQLiteSaveHmmConjModelParams</a>, <a class="el" href="classatp_1_1db_1_1_s_q_lite_rnd_thm_select_qry_bder.html#a0e92ca9d05323dd3f36b10d2c965acac">atp::db::SQLiteRndThmSelectQryBder</a>, <a class="el" href="classatp_1_1db_1_1_s_q_lite_check_ax_in_db_qry_bder.html#a3b232ec6973b93f7bfb8467087dea465">atp::db::SQLiteCheckAxInDbQryBder</a>, <a class="el" href="classatp_1_1db_1_1_s_q_lite_get_hmm_conj_obs_params.html#aeb85dc92fc6b848ac1a3915d4b71135a">atp::db::SQLiteGetHmmConjObsParams</a>, <a class="el" href="classatp_1_1db_1_1_s_q_lite_get_hmm_conj_st_trans_params.html#a2307ab428b02ae70fc61ea5bba08650c">atp::db::SQLiteGetHmmConjStTransParams</a>, <a class="el" href="classatp_1_1db_1_1_s_q_lite_find_hmm_conj_model.html#a4e3d3791721236c9e96f7d5cee9a3be7">atp::db::SQLiteFindHmmConjModel</a>, and <a class="el" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#a7cdbd2a75e89b47b6636fafd1360e7d2">atp::db::SQLiteSaveProofResultsQryBder</a>.</p>
+<p>Implemented in <a class="el" href="classatp_1_1db_1_1_s_q_lite_save_hmm_conj_model_params.html#a675016d7348909f086a0af323afabe11">atp::db::SQLiteSaveHmmConjModelParams</a>, <a class="el" href="classatp_1_1db_1_1_s_q_lite_select_model_context.html#a38df462f38509baea6424400f30f446e">atp::db::SQLiteSelectModelContext</a>, <a class="el" href="classatp_1_1db_1_1_s_q_lite_select_search_settings.html#a80439ff8b11e3bcb1f86986e4dd23c8b">atp::db::SQLiteSelectSearchSettings</a>, <a class="el" href="classatp_1_1db_1_1_s_q_lite_rnd_thm_select_qry_bder.html#a0e92ca9d05323dd3f36b10d2c965acac">atp::db::SQLiteRndThmSelectQryBder</a>, <a class="el" href="classatp_1_1db_1_1_s_q_lite_check_ax_in_db_qry_bder.html#a3b232ec6973b93f7bfb8467087dea465">atp::db::SQLiteCheckAxInDbQryBder</a>, <a class="el" href="classatp_1_1db_1_1_s_q_lite_get_hmm_conj_obs_params.html#aeb85dc92fc6b848ac1a3915d4b71135a">atp::db::SQLiteGetHmmConjObsParams</a>, <a class="el" href="classatp_1_1db_1_1_s_q_lite_get_hmm_conj_st_trans_params.html#a2307ab428b02ae70fc61ea5bba08650c">atp::db::SQLiteGetHmmConjStTransParams</a>, <a class="el" href="classatp_1_1db_1_1_s_q_lite_find_hmm_conj_model.html#a4e3d3791721236c9e96f7d5cee9a3be7">atp::db::SQLiteFindHmmConjModel</a>, and <a class="el" href="classatp_1_1db_1_1_s_q_lite_save_proof_results_qry_bder.html#a7cdbd2a75e89b47b6636fafd1360e7d2">atp::db::SQLiteSaveProofResultsQryBder</a>.</p>
 
 </div>
 </div>

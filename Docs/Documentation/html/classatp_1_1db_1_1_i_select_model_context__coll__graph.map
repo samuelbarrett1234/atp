@@ -1,0 +1,4 @@
+<map id="atp::db::ISelectModelContext" name="atp::db::ISelectModelContext">
+<area shape="rect" id="node1" title="A query which randomly selects a model context, according to existing usage statistics as well." alt="" coords="5,80,196,107"/>
+<area shape="rect" id="node2" href="$classatp_1_1db_1_1_i_query_builder.html" title="An object for producing queries." alt="" coords="27,5,175,32"/>
+</map>

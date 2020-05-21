@@ -1,50 +1,52 @@
 <map id="ATPSearch/Interfaces/IHeuristic.h" name="ATPSearch/Interfaces/IHeuristic.h">
-<area shape="rect" id="node1" title="Interfaces for search heuristic functions." alt="" coords="1345,5,1493,47"/>
-<area shape="rect" id="node2" href="$_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="845,191,1014,218"/>
-<area shape="rect" id="node35" href="$_search_settings_8h.html" title="Contains code for loading user search settings." alt="" coords="967,95,1102,136"/>
-<area shape="rect" id="node37" href="$_iterator_manager_8h.html" title="Contains a class for managing the handling of successor iteration within a solver." alt="" coords="1779,95,1914,136"/>
-<area shape="rect" id="node42" href="$_edit_distance_heuristic_8h.html" title="Contains a heuristic which uses the edit distance between the forefront(s) of a proof state and its t..." alt="" coords="1527,95,1689,136"/>
-<area shape="rect" id="node45" href="$_stopping_iterator_8h.html" title="Contains an iterator for wrapping around another iterator and enumerating the successors of the child..." alt="" coords="2322,95,2457,136"/>
-<area shape="rect" id="node47" href="$_search_settings_heuristics_8h.html" title="Contains functions for loading heuristics from the search settings file." alt="" coords="1127,95,1311,136"/>
-<area shape="rect" id="node48" href="$_search_settings_solvers_8h.html" title="Contains functions for loading solvers from the search settings file." alt="" coords="1335,95,1503,136"/>
-<area shape="rect" id="node3" href="$_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="110,459,229,486"/>
-<area shape="rect" id="node4" href="$_application_8cpp.html" title=" " alt="" coords="5,549,139,575"/>
-<area shape="rect" id="node6" href="$_a_t_p_search_8cpp.html" title=" " alt="" coords="1755,281,1938,307"/>
-<area shape="rect" id="node7" href="$_proof_process_8h.html" title="A process for proving a set of statements." alt="" coords="498,281,731,307"/>
-<area shape="rect" id="node11" href="$_common_process_data_8h.html" title="Contains a collection of structs which contain data that is used in a lot of different processes." alt="" coords="1483,273,1679,315"/>
-<area shape="rect" id="node16" href="$_h_m_m_process_data_8h.html" title="Contains a collection of structs which contain data that is used in a lot of different processes." alt="" coords="1878,363,2101,404"/>
-<area shape="rect" id="node5" href="$_main_8cpp.html" title="Entrypoint for atp command line application." alt="" coords="163,549,261,575"/>
-<area shape="rect" id="node8" href="$_a_t_p_core_8h.html" title=" " alt="" coords="260,370,401,397"/>
-<area shape="rect" id="node10" href="$_proof_process_8cpp.html" title=" " alt="" coords="647,459,894,486"/>
-<area shape="rect" id="node9" href="$_a_t_p_core_8cpp.html" title=" " alt="" coords="253,459,408,486"/>
-<area shape="rect" id="node12" href="$_h_m_m_model_loader_process_8h.html" title="Contains the process which loads the HMM conjecturer model from the database." alt="" coords="2069,452,2280,493"/>
-<area shape="rect" id="node17" href="$_h_m_m_generate_conj_process_8h.html" title="This process generates conjectures using a given HMM model." alt="" coords="1594,452,1822,493"/>
-<area shape="rect" id="node19" href="$_save_conj_results_process_8h.html" title="Contains the process which saves any conjectures produced by the HMM conjecturer model." alt="" coords="1846,452,2045,493"/>
-<area shape="rect" id="node21" href="$_h_m_m_load_training_data_process_8h.html" title="Contains the process which loads the training dataset for the HMM conjecturer model from the database..." alt="" coords="2304,452,2507,493"/>
-<area shape="rect" id="node23" href="$_h_m_m_conj_model_train_process_8h.html" title="Contains a process which trains a given HMM conjecture model with a given dataset." alt="" coords="2531,452,2733,493"/>
-<area shape="rect" id="node25" href="$_h_m_m_save_model_params_process_8h.html" title="Contains a process which saves all HMM model parameters to the database." alt="" coords="2757,452,2960,493"/>
-<area shape="rect" id="node27" href="$_proof_init_process_8h.html" title="Contains the process which takes setup information about the proof setup, and creates all the informa..." alt="" coords="653,363,843,404"/>
-<area shape="rect" id="node29" href="$_unproven_thm_selector_process_8h.html" title="Contains a process which loads N arbitrary unproven theorems from the database." alt="" coords="919,363,1116,404"/>
-<area shape="rect" id="node31" href="$_run_solver_process_8h.html" title="Contains the process which takes setup information about the proof setup, and creates all the informa..." alt="" coords="1140,363,1343,404"/>
-<area shape="rect" id="node33" href="$_save_proof_results_process_8h.html" title="Contains the process which saves any proven theorems in the results of a solver&#39;s proof run." alt="" coords="1367,363,1569,404"/>
-<area shape="rect" id="node13" href="$_h_m_m_conjecture_process_8cpp.html" title=" " alt="" coords="1584,541,1821,583"/>
-<area shape="rect" id="node14" href="$_h_m_m_conjecture_train_process_8cpp.html" title=" " alt="" coords="2531,541,2768,583"/>
-<area shape="rect" id="node15" href="$_h_m_m_model_loader_process_8cpp.html" title=" " alt="" coords="2069,541,2280,583"/>
-<area shape="rect" id="node18" href="$_h_m_m_generate_conj_process_8cpp.html" title=" " alt="" coords="1331,541,1559,583"/>
-<area shape="rect" id="node20" href="$_save_conj_results_process_8cpp.html" title=" " alt="" coords="1846,541,2045,583"/>
-<area shape="rect" id="node22" href="$_h_m_m_load_training_data_process_8cpp.html" title=" " alt="" coords="2304,541,2507,583"/>
-<area shape="rect" id="node24" href="$_h_m_m_conj_model_train_process_8cpp.html" title=" " alt="" coords="2793,541,2994,583"/>
-<area shape="rect" id="node26" href="$_h_m_m_save_model_params_process_8cpp.html" title=" " alt="" coords="3019,541,3221,583"/>
-<area shape="rect" id="node28" href="$_proof_init_process_8cpp.html" title=" " alt="" coords="433,452,623,493"/>
-<area shape="rect" id="node30" href="$_unproven_thm_selector_process_8cpp.html" title=" " alt="" coords="919,452,1116,493"/>
-<area shape="rect" id="node32" href="$_run_solver_process_8cpp.html" title=" " alt="" coords="1140,452,1343,493"/>
-<area shape="rect" id="node34" href="$_save_proof_results_process_8cpp.html" title=" " alt="" coords="1367,452,1569,493"/>
-<area shape="rect" id="node36" href="$_search_settings_8cpp.html" title=" " alt="" coords="1038,184,1178,225"/>
-<area shape="rect" id="node38" href="$_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="1885,184,2075,225"/>
-<area shape="rect" id="node39" href="$_iterator_manager_8cpp.html" title=" " alt="" coords="2319,184,2460,225"/>
-<area shape="rect" id="node40" href="$_search_settings_solvers_8cpp.html" title=" " alt="" coords="1626,184,1809,225"/>
-<area shape="rect" id="node41" href="$_search_settings_succ_iters_8cpp.html" title=" " alt="" coords="2100,184,2295,225"/>
-<area shape="rect" id="node43" href="$_edit_distance_heuristic_8cpp.html" title=" " alt="" coords="1425,184,1601,225"/>
-<area shape="rect" id="node44" href="$_search_settings_heuristics_8cpp.html" title=" " alt="" coords="1202,184,1401,225"/>
-<area shape="rect" id="node46" href="$_stopping_iterator_8cpp.html" title=" " alt="" coords="2485,184,2627,225"/>
+<area shape="rect" id="node1" title="Interfaces for search heuristic functions." alt="" coords="800,5,948,47"/>
+<area shape="rect" id="node2" href="$_a_t_p_search_8h.html" title="Main include file for the ATPSearch library." alt="" coords="584,191,754,218"/>
+<area shape="rect" id="node37" href="$_search_settings_8h.html" title="Contains code for loading user search settings." alt="" coords="807,95,942,136"/>
+<area shape="rect" id="node39" href="$_iterator_manager_8h.html" title="Contains a class for managing the handling of successor iteration within a solver." alt="" coords="1196,95,1331,136"/>
+<area shape="rect" id="node44" href="$_edit_distance_heuristic_8h.html" title="Contains a heuristic which uses the edit distance between the forefront(s) of a proof state and its t..." alt="" coords="361,95,524,136"/>
+<area shape="rect" id="node47" href="$_stopping_iterator_8h.html" title="Contains an iterator for wrapping around another iterator and enumerating the successors of the child..." alt="" coords="1655,95,1790,136"/>
+<area shape="rect" id="node49" href="$_search_settings_heuristics_8h.html" title="Contains functions for loading heuristics from the search settings file." alt="" coords="598,95,782,136"/>
+<area shape="rect" id="node50" href="$_search_settings_solvers_8h.html" title="Contains functions for loading solvers from the search settings file." alt="" coords="966,95,1134,136"/>
+<area shape="rect" id="node3" href="$_application_8h.html" title="Contains the simple command line application for doing a proof." alt="" coords="398,459,516,486"/>
+<area shape="rect" id="node4" href="$_application_8cpp.html" title=" " alt="" coords="34,549,168,575"/>
+<area shape="rect" id="node6" href="$_server_application_8h.html" title="Contains a command line application which is intended to be left running continuously,..." alt="" coords="541,459,696,486"/>
+<area shape="rect" id="node8" href="$_a_t_p_search_8cpp.html" title=" " alt="" coords="2118,281,2300,307"/>
+<area shape="rect" id="node9" href="$_proof_process_8h.html" title="A process for proving a set of statements." alt="" coords="296,281,530,307"/>
+<area shape="rect" id="node15" href="$_common_process_data_8h.html" title="Contains a collection of structs which contain data that is used in a lot of different processes." alt="" coords="1846,273,2042,315"/>
+<area shape="rect" id="node20" href="$_h_m_m_process_data_8h.html" title="Contains a collection of structs which contain data that is used in a lot of different processes." alt="" coords="2312,363,2535,404"/>
+<area shape="rect" id="node31" href="$_proof_init_process_8cpp.html" title=" " alt="" coords="739,452,930,493"/>
+<area shape="rect" id="node5" href="$_main_8cpp.html" title="Entrypoint for atp command line application." alt="" coords="488,549,586,575"/>
+<area shape="rect" id="node7" href="$_server_application_8cpp.html" title=" " alt="" coords="260,549,430,575"/>
+<area shape="rect" id="node10" href="$_a_t_p_core_8h.html" title=" " alt="" coords="216,370,357,397"/>
+<area shape="rect" id="node13" href="$_proof_process_8cpp.html" title=" " alt="" coords="1264,459,1511,486"/>
+<area shape="rect" id="node14" href="$_simple_scheduler_8cpp.html" title=" " alt="" coords="381,363,530,404"/>
+<area shape="rect" id="node11" href="$_server_application_cmd_parser_8h.html" title="Contains a function which parses the commands from std::cin for the server application&#39;s prompt." alt="" coords="24,452,194,493"/>
+<area shape="rect" id="node12" href="$_a_t_p_core_8cpp.html" title=" " alt="" coords="218,459,373,486"/>
+<area shape="rect" id="node16" href="$_h_m_m_model_loader_process_8h.html" title="Contains the process which loads the HMM conjecturer model from the database." alt="" coords="2102,452,2313,493"/>
+<area shape="rect" id="node21" href="$_h_m_m_generate_conj_process_8h.html" title="This process generates conjectures using a given HMM model." alt="" coords="1627,452,1855,493"/>
+<area shape="rect" id="node23" href="$_save_conj_results_process_8h.html" title="Contains the process which saves any conjectures produced by the HMM conjecturer model." alt="" coords="1879,452,2078,493"/>
+<area shape="rect" id="node25" href="$_h_m_m_load_training_data_process_8h.html" title="Contains the process which loads the training dataset for the HMM conjecturer model from the database..." alt="" coords="2337,452,2540,493"/>
+<area shape="rect" id="node27" href="$_h_m_m_conj_model_train_process_8h.html" title="Contains a process which trains a given HMM conjecture model with a given dataset." alt="" coords="2791,452,2992,493"/>
+<area shape="rect" id="node29" href="$_h_m_m_save_model_params_process_8h.html" title="Contains a process which saves all HMM model parameters to the database." alt="" coords="2564,452,2766,493"/>
+<area shape="rect" id="node30" href="$_proof_init_process_8h.html" title="Contains the process which takes setup information about the proof setup, and creates all the informa..." alt="" coords="758,363,948,404"/>
+<area shape="rect" id="node32" href="$_unproven_thm_selector_process_8h.html" title="Contains a process which loads N arbitrary unproven theorems from the database." alt="" coords="973,363,1170,404"/>
+<area shape="rect" id="node33" href="$_run_solver_process_8h.html" title="Contains the process which takes setup information about the proof setup, and creates all the informa..." alt="" coords="1194,363,1397,404"/>
+<area shape="rect" id="node34" href="$_save_proof_results_process_8h.html" title="Contains the process which saves any proven theorems in the results of a solver&#39;s proof run." alt="" coords="1421,363,1624,404"/>
+<area shape="rect" id="node35" href="$_select_context_process_8h.html" title=" " alt="" coords="1648,363,1829,404"/>
+<area shape="rect" id="node36" href="$_select_search_settings_process_8h.html" title=" " alt="" coords="1853,363,2034,404"/>
+<area shape="rect" id="node17" href="$_h_m_m_conjecture_process_8cpp.html" title=" " alt="" coords="1841,541,2078,583"/>
+<area shape="rect" id="node18" href="$_h_m_m_conjecture_train_process_8cpp.html" title=" " alt="" coords="2564,541,2801,583"/>
+<area shape="rect" id="node19" href="$_h_m_m_model_loader_process_8cpp.html" title=" " alt="" coords="2102,541,2313,583"/>
+<area shape="rect" id="node22" href="$_h_m_m_generate_conj_process_8cpp.html" title=" " alt="" coords="1366,541,1594,583"/>
+<area shape="rect" id="node24" href="$_save_conj_results_process_8cpp.html" title=" " alt="" coords="1618,541,1816,583"/>
+<area shape="rect" id="node26" href="$_h_m_m_load_training_data_process_8cpp.html" title=" " alt="" coords="2337,541,2540,583"/>
+<area shape="rect" id="node28" href="$_h_m_m_conj_model_train_process_8cpp.html" title=" " alt="" coords="2826,541,3027,583"/>
+<area shape="rect" id="node38" href="$_search_settings_8cpp.html" title=" " alt="" coords="795,184,935,225"/>
+<area shape="rect" id="node40" href="$_iterative_deepening_solver_8cpp.html" title=" " alt="" coords="1436,184,1627,225"/>
+<area shape="rect" id="node41" href="$_iterator_manager_8cpp.html" title=" " alt="" coords="1652,184,1793,225"/>
+<area shape="rect" id="node42" href="$_search_settings_solvers_8cpp.html" title=" " alt="" coords="959,184,1142,225"/>
+<area shape="rect" id="node43" href="$_search_settings_succ_iters_8cpp.html" title=" " alt="" coords="1166,184,1361,225"/>
+<area shape="rect" id="node45" href="$_edit_distance_heuristic_8cpp.html" title=" " alt="" coords="161,184,337,225"/>
+<area shape="rect" id="node46" href="$_search_settings_heuristics_8cpp.html" title=" " alt="" coords="362,184,560,225"/>
+<area shape="rect" id="node48" href="$_stopping_iterator_8cpp.html" title=" " alt="" coords="1818,184,1960,225"/>
 </map>

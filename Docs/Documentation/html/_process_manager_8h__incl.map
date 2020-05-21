@@ -1,11 +1,13 @@
 <map id="ATPCore/Processes/ProcessManager.h" name="ATPCore/Processes/ProcessManager.h">
-<area shape="rect" id="node1" title=" " alt="" coords="85,5,277,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,45,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="69,95,128,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="153,95,210,121"/>
-<area shape="rect" id="node5" href="$_a_t_p_core_a_p_i_8h.html" title=" " alt="" coords="189,169,307,196"/>
-<area shape="rect" id="node8" href="$_i_process_8h.html" title="File containing interfaces for process management." alt="" coords="286,95,370,121"/>
-<area shape="rect" id="node6" title=" " alt="" coords="154,244,219,271"/>
-<area shape="rect" id="node7" title=" " alt="" coords="244,244,377,271"/>
-<area shape="rect" id="node9" title=" " alt="" coords="332,169,401,196"/>
+<area shape="rect" id="node1" title=" " alt="" coords="210,5,402,47"/>
+<area shape="rect" id="node2" href="$_a_t_p_core_a_p_i_8h.html" title=" " alt="" coords="40,244,159,271"/>
+<area shape="rect" id="node5" href="$_i_process_8h.html" title="File containing interfaces for process management." alt="" coords="533,169,617,196"/>
+<area shape="rect" id="node7" href="$_process_queue_8h.html" title=" " alt="" coords="247,95,365,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,319,71,345"/>
+<area shape="rect" id="node4" title=" " alt="" coords="95,319,229,345"/>
+<area shape="rect" id="node6" title=" " alt="" coords="541,244,610,271"/>
+<area shape="rect" id="node8" title=" " alt="" coords="469,169,509,196"/>
+<area shape="rect" id="node9" title=" " alt="" coords="137,169,195,196"/>
+<area shape="rect" id="node10" title=" " alt="" coords="220,169,277,196"/>
+<area shape="rect" id="node11" title=" " alt="" coords="301,169,444,196"/>
 </map>

@@ -1,0 +1,4 @@
+<map id="ServerApplication::run" name="ServerApplication::run">
+<area shape="rect" id="node1" title="Let the processes run! This blocks until the user commands us to exit." alt="" coords="5,5,153,32"/>
+<area shape="rect" id="node2" href="$_server_application_cmd_parser_8cpp.html#a5d46bcc2a5c7118786d1658e9af10740" title="Input a command from std::cin and execute it." alt="" coords="201,5,269,32"/>
+</map>

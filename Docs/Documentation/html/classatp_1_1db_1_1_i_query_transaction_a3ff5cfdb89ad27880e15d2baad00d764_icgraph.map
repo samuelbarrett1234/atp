@@ -1,0 +1,5 @@
+<map id="atp::db::IQueryTransaction::has_values" name="atp::db::IQueryTransaction::has_values">
+<area shape="rect" id="node1" title="Determine if the query has a row value at the current time (this function is constant between step() ..." alt="" coords="235,39,409,80"/>
+<area shape="rect" id="node2" href="$classatp_1_1search_1_1_fixed_selection_strategy.html#abf073ec8494ba5326685a5f8efe97eba" title="Load values from the query (this should be called at each step.)" alt="" coords="5,5,187,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_proof_init_process.html#a24564384429d20121ad4e2d18c6da720" title=" " alt="" coords="8,71,184,112"/>
+</map>

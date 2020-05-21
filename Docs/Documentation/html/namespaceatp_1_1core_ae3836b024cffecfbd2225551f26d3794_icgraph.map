@@ -1,0 +1,5 @@
+<map id="atp::core::create_select_ctx_process" name="atp::core::create_select_ctx_process">
+<area shape="rect" id="node1" title="Create a process which selects a context from the database (at random, basically) for which it would ..." alt="" coords="429,5,588,47"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1core.html#a6862d165aec7b024c814742b0374dc18" title="Create a proof process which randomly selects the domain in which to prove." alt="" coords="232,5,381,47"/>
+<area shape="rect" id="node3" href="$classatp_1_1core_1_1_simple_scheduler.html#a36543136ac9639b53042040ab32ec1c3" title="Add scheduling processes if necessary." alt="" coords="5,5,184,47"/>
+</map>

@@ -1,19 +1,21 @@
 <map id="ATPStats/ATPStatsAPI.h" name="ATPStats/ATPStatsAPI.h">
-<area shape="rect" id="node1" title=" " alt="" coords="657,5,828,32"/>
-<area shape="rect" id="node2" href="$_a_t_p_stats_edit_distance_8h.html" title=" " alt="" coords="313,177,535,203"/>
-<area shape="rect" id="node8" href="$_equational_edit_distance_8h.html" title="This file contains edit distance computations specialised to equational logic." alt="" coords="571,259,760,300"/>
-<area shape="rect" id="node10" href="$_edit_distance_utility_8h.html" title="Contains definitions used for all edit distance files." alt="" coords="435,80,637,121"/>
-<area shape="rect" id="node11" href="$_a_t_p_stats_h_m_m_8h.html" title="Contains Hidden Markov Model training functions." alt="" coords="722,87,902,114"/>
-<area shape="rect" id="node14" href="$_a_t_p_stats_min_assignment_8h.html" title="Contains a function for computing a minimum cost maximal matching in a complete bipartite graph." alt="" coords="1058,87,1297,114"/>
-<area shape="rect" id="node16" href="$_a_t_p_stats_pf_target_selector_8h.html" title="Contains functions relating to the selection of unproven theorems from the database which may be wort..." alt="" coords="1407,80,1593,121"/>
-<area shape="rect" id="node3" href="$_edit_distance_heuristic_8h.html" title="Contains a heuristic which uses the edit distance between the forefront(s) of a proof state and its t..." alt="" coords="117,259,280,300"/>
-<area shape="rect" id="node6" href="$_proof_init_process_8cpp.html" title=" " alt="" coords="355,259,546,300"/>
-<area shape="rect" id="node7" href="$_a_t_p_stats_edit_distance_8cpp.html" title=" " alt="" coords="488,355,725,382"/>
-<area shape="rect" id="node4" href="$_edit_distance_heuristic_8cpp.html" title=" " alt="" coords="5,348,181,389"/>
-<area shape="rect" id="node5" href="$_search_settings_heuristics_8cpp.html" title=" " alt="" coords="206,348,405,389"/>
-<area shape="rect" id="node9" href="$_equational_edit_distance_8cpp.html" title=" " alt="" coords="916,348,1105,389"/>
-<area shape="rect" id="node12" href="$_h_m_m_conjecture_model_8cpp.html" title=" " alt="" coords="703,169,921,211"/>
-<area shape="rect" id="node13" href="$_a_t_p_stats_h_m_m_8cpp.html" title=" " alt="" coords="945,177,1140,203"/>
-<area shape="rect" id="node15" href="$_a_t_p_stats_min_assignment_8cpp.html" title=" " alt="" coords="1215,177,1468,203"/>
-<area shape="rect" id="node17" href="$_a_t_p_stats_pf_target_selector_8cpp.html" title=" " alt="" coords="1492,169,1679,211"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1285,5,1456,32"/>
+<area shape="rect" id="node2" href="$_a_t_p_stats_edit_distance_8h.html" title=" " alt="" coords="767,87,990,114"/>
+<area shape="rect" id="node11" href="$_equational_edit_distance_8h.html" title="This file contains edit distance computations specialised to equational logic." alt="" coords="983,169,1172,211"/>
+<area shape="rect" id="node13" href="$_a_t_p_stats_h_m_m_8h.html" title="Contains Hidden Markov Model training functions." alt="" coords="1281,87,1461,114"/>
+<area shape="rect" id="node16" href="$_a_t_p_stats_min_assignment_8h.html" title="Contains a function for computing a minimum cost maximal matching in a complete bipartite graph." alt="" coords="1551,87,1790,114"/>
+<area shape="rect" id="node18" href="$_a_t_p_stats_pf_target_selector_8h.html" title="Contains functions relating to the selection of unproven theorems from the database which may be wort..." alt="" coords="1900,80,2087,121"/>
+<area shape="rect" id="node3" href="$_edit_distance_heuristic_8h.html" title="Contains a heuristic which uses the edit distance between the forefront(s) of a proof state and its t..." alt="" coords="224,169,387,211"/>
+<area shape="rect" id="node6" href="$_edit_distance_selection_strategy_8h.html" title="Contains a theorem selector strategy based on edit distance computations to the targets." alt="" coords="478,169,693,211"/>
+<area shape="rect" id="node9" href="$_proof_init_process_8cpp.html" title=" " alt="" coords="717,169,907,211"/>
+<area shape="rect" id="node10" href="$_a_t_p_stats_edit_distance_8cpp.html" title=" " alt="" coords="959,266,1196,293"/>
+<area shape="rect" id="node4" href="$_edit_distance_heuristic_8cpp.html" title=" " alt="" coords="5,259,181,300"/>
+<area shape="rect" id="node5" href="$_search_settings_heuristics_8cpp.html" title=" " alt="" coords="206,259,405,300"/>
+<area shape="rect" id="node7" href="$_edit_distance_selection_strategy_8cpp.html" title=" " alt="" coords="429,259,657,300"/>
+<area shape="rect" id="node8" href="$_search_settings_selection_strategies_8cpp.html" title=" " alt="" coords="681,259,935,300"/>
+<area shape="rect" id="node12" href="$_equational_edit_distance_8cpp.html" title=" " alt="" coords="1397,259,1587,300"/>
+<area shape="rect" id="node14" href="$_h_m_m_conjecture_model_8cpp.html" title=" " alt="" coords="1197,169,1414,211"/>
+<area shape="rect" id="node15" href="$_a_t_p_stats_h_m_m_8cpp.html" title=" " alt="" coords="1439,177,1633,203"/>
+<area shape="rect" id="node17" href="$_a_t_p_stats_min_assignment_8cpp.html" title=" " alt="" coords="1708,177,1961,203"/>
+<area shape="rect" id="node19" href="$_a_t_p_stats_pf_target_selector_8cpp.html" title=" " alt="" coords="1985,169,2172,211"/>
 </map>

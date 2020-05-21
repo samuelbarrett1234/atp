@@ -1,0 +1,6 @@
+<map id="atp::search::try_create_selection_strategy" name="atp::search::try_create_selection_strategy">
+<area shape="rect" id="node1" title="Try to create a selection strategy, based on the type given in ptree." alt="" coords="5,39,159,80"/>
+<area shape="rect" id="node2" href="$namespaceatp_1_1search.html#aef23c2431a910abdc586fa9980001463" title="Try to create an EditDistanceSelectionStrategy, based on the type given in ptree." alt="" coords="207,5,397,47"/>
+<area shape="rect" id="node4" href="$namespaceatp_1_1search.html#aebbefebfe4e2943be51dbaea4f45dd30" title="Try to create a FixedSelectionStrategy, based on the type given in ptree." alt="" coords="217,71,387,112"/>
+<area shape="rect" id="node3" href="$namespaceatp_1_1logic.html#a2fda740917a0bffb00bd9c06b8adc621" title="Allocates a new language object for a particular logical language." alt="" coords="445,39,564,80"/>
+</map>

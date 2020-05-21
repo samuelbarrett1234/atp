@@ -97,6 +97,7 @@ private:
 	atp::db::DatabasePtr m_db;
 	atp::core::SchedulerPtr m_scheduler;
 	bool m_scheduler_on;  // false means don't schedule things
+	size_t m_num_completed;  // track number of finished procs
 };
 
 

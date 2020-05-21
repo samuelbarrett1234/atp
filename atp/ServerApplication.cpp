@@ -13,7 +13,7 @@
 
 
 ServerApplication::ServerApplication(size_t num_threads) :
-	m_done(false), m_scheduler_on(true),
+	m_done(false), m_scheduler_on(true), m_num_completed(0),
 	m_proc_queue(std::make_unique<atp::core::ProcessQueue>())
 {
 	// initialise worker threads:
@@ -80,8 +80,8 @@ void ServerApplication::run()
 
 		if (!ok)
 		{
-			std::cout << "Error parsing / executing command. "
-				"Try `.help` for help." << std::endl;
+			std::cout << "Error parsing or executing command. "
+				"Try `.help` for usage details." << std::endl;
 		}
 
 		// run the scheduler if it is enabled
@@ -120,7 +120,7 @@ void ServerApplication::worker_thread_func()
 #ifdef _DEBUG
 	static const size_t N = 1;
 #else
-	static const size_t N = 10;
+	static const size_t N = 5;
 #endif
 
 	using namespace std::chrono_literals;
@@ -142,9 +142,18 @@ void ServerApplication::worker_thread_func()
 				continue;
 
 			ATP_CORE_ASSERT(!p_proc->done());
-			for (size_t i = 0; i < N && !p_proc->done(); ++i)
+			for (size_t i = 0; i < N && !p_proc->done()
+				&& !is_done(); ++i)
 			{
 				p_proc->run_step();
+			}
+
+			// keep track of the total number of completed processes
+			if (p_proc->done())
+			{
+				boost::unique_lock<boost::shared_mutex> lock(m_mutex);
+
+				++m_num_completed;
 			}
 
 			// always put the process back onto the queue, regardless
@@ -209,11 +218,20 @@ bool ServerApplication::ls_cmd()
 
 	const auto q_sizes = m_proc_queue->size();
 
-	std::cout << "There are currently "
-		<< q_sizes.get<0>() << " processes in the queue, "
-		"an extra " << q_sizes.get<1>() << " demoted to the "
-		"waiting queue, and " << q_sizes.get<2>() <<
-		" processes being actively worked on." << std::endl;
+	// warning: m_num_completed is being written to by other threads!
+	size_t num_completed;
+	{
+		boost::shared_lock<boost::shared_mutex> lock(m_mutex);
+		num_completed = m_num_completed;
+	}
+
+	std::cout << "There are currently:" << std::endl << "\t"
+		<< q_sizes.get<0>() << " processes in the queue,"
+		<< std::endl << "\t" << q_sizes.get<1>() << " in the "
+		"waiting queue," << std::endl << "\t" << q_sizes.get<2>() <<
+		" processes being actively worked on," << std::endl << "\t"
+		<< num_completed << " processes completed overall."
+		<< std::endl;
 
 	return true;
 }

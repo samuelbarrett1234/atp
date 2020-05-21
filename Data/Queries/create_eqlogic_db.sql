@@ -20,24 +20,31 @@ INSERT OR IGNORE INTO model_contexts (name, filename) VALUES (
 
 CREATE TABLE IF NOT EXISTS search_settings (
 	ss_id INTEGER PRIMARY KEY AUTOINCREMENT,
-	name TEXT UNIQUE NOT NULL, filename TEXT);
+	name TEXT UNIQUE NOT NULL, filename TEXT,
+	
+	-- whether or not these settings can be used in serve mode (where
+	-- everything is automated). you probably want to set this to 0
+	-- for extended settings, to stop the server from selecting the
+	-- more computationally expensive settings.
+	serve INTEGER NOT NULL,
+	CHECK(serve IN (0, 1)));
 
 
-INSERT OR IGNORE INTO search_settings (name, filename) VALUES (
+INSERT OR IGNORE INTO search_settings (name, filename, serve) VALUES (
 	"ids-uninformed-limited",
-	"../Data/Search/ids_uninformed_limited.json");
-INSERT OR IGNORE INTO search_settings (name, filename) VALUES (
+	"../Data/Search/ids_uninformed_limited.json", 1);
+INSERT OR IGNORE INTO search_settings (name, filename, serve) VALUES (
 	"ids-uninformed-extended",
-	"../Data/Search/ids_uninformed_extended.json");
-INSERT OR IGNORE INTO search_settings (name, filename) VALUES (
+	"../Data/Search/ids_uninformed_extended.json", 0);
+INSERT OR IGNORE INTO search_settings (name, filename, serve) VALUES (
 	"ids-uninformed-large",
-	"../Data/Search/ids_uninformed_large.json");
-INSERT OR IGNORE INTO search_settings (name, filename) VALUES (
+	"../Data/Search/ids_uninformed_large.json", 0);
+INSERT OR IGNORE INTO search_settings (name, filename, serve) VALUES (
 	"ids-informed-limited",
-	"../Data/Search/ids_informed_limited.json");
-INSERT OR IGNORE INTO search_settings (name, filename) VALUES (
+	"../Data/Search/ids_informed_limited.json", 1);
+INSERT OR IGNORE INTO search_settings (name, filename, serve) VALUES (
 	"ids-informed-extended",
-	"../Data/Search/ids_informed_extended.json");
+	"../Data/Search/ids_informed_extended.json", 0);
 
 
 CREATE TABLE IF NOT EXISTS theorems (

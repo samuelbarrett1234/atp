@@ -30,9 +30,9 @@ std::string SQLiteSelectSearchSettings::build()
 		"FROM (proof_attempts JOIN theorems ON "
 		"thm_id=id LEFT OUTER NATURAL JOIN proofs) WHERE ctx=" <<
 		*m_ctx_id <<
-		// interesting part: add random noise to p_success
-		" GROUP BY ss_id) ORDER BY avg_cost + RANDOM() * 1.0e-16 "
-		"ASC LIMIT 1;";
+		" GROUP BY ss_id) WHERE serve = 1 "
+		// interesting part: add random noise to avg_cost
+		"ORDER BY avg_cost + RANDOM() * 1.0e-16 ASC LIMIT 1;";
 
 	return query_builder.str();
 }

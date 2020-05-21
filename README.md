@@ -50,19 +50,25 @@ Open the command prompt and navigate to the `Data\DB` directory (create it if it
 
 There is already a script for setting up the database. To run it, type (into the SQLite application, which should now be running): `.read ../Queries/create_eqlogic_db.sql`. This will initialise all the tables etc. In the same folder, you will find scripts for initialising some other statistical models (e.g. the hidden Markov model conjecturer), and some other scripts for selecting useful combinations of data.
 
-## Running the client
+## Running the application
 
-At the moment, the application only supports a single `prove` mode. Usage:
+The command line application supports two modes: `prove` mode and `serve` mode. The former is invoked, executes its command, then exits. The latter mode is intended to be left running, and makes the whole process pretty automated. Usage for the `prove` mode:
 
 `atp --db <database-filename> --ctx <context-name> --ss <search-settings-name> --prove <statement-filename-or-in-quotes>`
 
-`--ctx` tells the ATP which context you want to prove in - e.g. group theory, ring theory, etc. To get details on what context names are allowed, look at the database's `model_contexts` table. The name is looked-up in here, where the filename will be found. Similarly, `--ss` tells the solver what search settings to use. The different settings can be found in the `search_settings` table in the database.
+`--ctx` tells the ATP which context you want to prove in - e.g. group theory, ring theory, etc. To get details on what context names are allowed, look at the database's `model_contexts` table. The name is looked-up in here, where the filename will be found. Similarly, `--ss` tells the solver what search settings to use. The different settings can be found in the `search_settings` table in the database. All three options (`db/ctx/ss`) are necessary for `--prove`.
 
 **Example**: `atp_Releasex64 --db ../Data/DB/eqlogic.db --ctx group-theory --ss ids-uninformed-extended --prove "i(i(x0)) = x0"`
 
 Note that, in the above example, you may need to change `atp` to `atp_Releasex64` or something similar (as in the example), depending on your build settings. Check the `Output` folder to see which versions of the application you have built.
 
-See `Docs` for documentation about context files and search settings files. Also, try typing `atp --help` for a full list of commands (for example, if you wanted to do automated conjecturing).
+For the `serve` mode, you can use:
+
+`atp --db <database-filename> --serve`
+
+Note that you still need to provide the database, but not the search settings or context, as those are chosen automatically and also change throughout execution. Also note that `serve` mode as of yet does not automatically generate theorems, it only automatically attempts proofs, so you need to ensure there is an ample supply of unproven theorems when running this (or it will spend all of its time trying to prove false theorems to no avail).
+
+See `Docs` for documentation about context files and search settings files. Also, try typing `atp --help` for a full list of commands (for example, if you wanted to do automated conjecturing). Also observe that these applications make extensive use of logging, so you can check the logs for more detail on what the application was doing, how the search trees were explored, exactly what queries were executed, etc.
 
 ## Appendix: Prettier Printing with SQLite
 

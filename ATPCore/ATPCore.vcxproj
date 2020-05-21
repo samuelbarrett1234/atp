@@ -186,6 +186,7 @@
     <ClInclude Include="Processes\HMMProcessData.h" />
     <ClInclude Include="Processes\HMMSaveModelParamsProcess.h" />
     <ClInclude Include="Processes\IProcess.h" />
+    <ClInclude Include="Processes\ProcessQueue.h" />
     <ClInclude Include="Processes\ProcessSequence.h" />
     <ClInclude Include="Processes\ProcessManager.h" />
     <ClInclude Include="Processes\ProofProcess.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="Processes\HMMModelLoaderProcess.cpp" />
     <ClCompile Include="Processes\HMMSaveModelParamsProcess.cpp" />
     <ClCompile Include="Processes\ProcessManager.cpp" />
+    <ClCompile Include="Processes\ProcessQueue.cpp" />
     <ClCompile Include="Processes\ProofProcess.cpp" />
     <ClCompile Include="Processes\ProofInitProcess.cpp" />
     <ClCompile Include="Processes\QueryProcess.cpp" />

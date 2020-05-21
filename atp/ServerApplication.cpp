@@ -13,8 +13,8 @@
 
 
 ServerApplication::ServerApplication(size_t num_threads) :
-	m_done(false),
-	m_proc_mgr(std::make_unique<atp::core::ProcessManager>())
+	m_done(false), m_scheduler_on(true),
+	m_proc_queue(std::make_unique<atp::core::ProcessQueue>())
 {
 	// initialise worker threads:
 	ATP_PRECOND(num_threads > 0);
@@ -58,14 +58,14 @@ void ServerApplication::run()
 	CommandSet cmd_set;
 	cmd_set.ls_cmd = boost::bind(
 		&ServerApplication::ls_cmd, this);
-	cmd_set.killall_cmd = boost::bind(
-		&ServerApplication::killall_cmd, this);
 	cmd_set.help_cmd = boost::bind(
 		&ServerApplication::help_cmd, this);
 	cmd_set.exit_cmd = boost::bind(
 		&ServerApplication::exit_cmd, this);
 	cmd_set.set_threads_cmd = boost::bind(
 		&ServerApplication::set_threads_cmd, this, _1);
+	cmd_set.set_scheduler_cmd = boost::bind(
+		&ServerApplication::set_scheduler, this, _1);
 
 	// set up initial tasks
 	initialise_tasks();
@@ -84,9 +84,29 @@ void ServerApplication::run()
 				"Try `.help` for help." << std::endl;
 		}
 
-		// also check this (we could consider reducing how often this
-		// is called, slightly)
-		m_scheduler->update(*m_proc_mgr);
+		// run the scheduler if it is enabled
+
+		const auto sizes = m_proc_queue->size();
+		const size_t num_procs = sizes.get<0>() + sizes.get<1>() +
+			sizes.get<2>();  // get total number of procs
+		std::list<atp::core::ProcessPtr> scheduled_procs;
+
+		if (m_scheduler_on && m_scheduler->update(scheduled_procs,
+			num_procs))
+		{
+			// should return true iff procs were added
+			ATP_ASSERT(scheduled_procs.size() > 0);
+
+			std::cout << "Scheduler is adding " <<
+				scheduled_procs.size() << " new process(es)."
+				<< std::endl;
+
+			// todo: maybe call `update` slightly less frequently
+
+			for (auto&& p : scheduled_procs)
+				m_proc_queue->push(std::move(p));
+			scheduled_procs.clear();
+		}
 	}
 
 	// workers are automatically joined by the exit command
@@ -95,22 +115,46 @@ void ServerApplication::run()
 
 void ServerApplication::worker_thread_func()
 {
+	// we will run processes N times every time we pop them from the
+	// queue
+#ifdef _DEBUG
+	static const size_t N = 1;
+#else
+	static const size_t N = 10;
+#endif
+
 	using namespace std::chrono_literals;
 
 	while (!is_done())
 	{
-		// note that, most of the time, this will block for ages,
-		// but on the off-chance that the process manager has no
-		// work left to do, this will exit, but we need to make
-		// sure we keep going until is_done() returns true
-		m_proc_mgr->commit_thread();
+		if (m_proc_queue->done())
+		{
+			// sleep to prevent spinning when we have no work to do
+			std::this_thread::sleep_for(100ms);
+		}
+		else
+		{
+			// may be null!!
+			auto p_proc = m_proc_queue->try_pop();
 
-		// sleep to prevent spinning when we have no work to do
-		std::this_thread::sleep_for(100ms);
+			// try again if we didn't get one:
+			if (p_proc == nullptr)
+				continue;
+
+			ATP_CORE_ASSERT(!p_proc->done());
+			for (size_t i = 0; i < N && !p_proc->done(); ++i)
+			{
+				p_proc->run_step();
+			}
+
+			// always put the process back onto the queue, regardless
+			// of its current state
+			m_proc_queue->push(std::move(p_proc));
+		}
 	}
 }
 
-
+	
 bool ServerApplication::is_done() const
 {
 	boost::shared_lock<boost::shared_mutex> lock(m_mutex);
@@ -128,7 +172,14 @@ void ServerApplication::initialise_tasks()
 
 	m_scheduler->set_num_threads(m_workers.size());
 
-	m_scheduler->update(*m_proc_mgr);
+	if (m_scheduler_on)
+	{
+		std::list<atp::core::ProcessPtr> scheduled_procs;
+		m_scheduler->update(scheduled_procs, 0);
+
+		for (auto&& p : scheduled_procs)
+			m_proc_queue->push(std::move(p));
+	}
 }
 
 
@@ -137,13 +188,14 @@ bool ServerApplication::help_cmd()
 	ATP_LOG(trace) << "Printing help...";
 
 	std::cout << "Usage:" << std::endl
-		<< "`.help`,`.h`\tDisplay help message." << std::endl
-		<< "`.ls`\tList information about processes which are "
-		"currently running." << std::endl <<
-		"`.killall`\tStop all processes, but don't shut down "
-		"the server." << std::endl
-		<< "`.exit`\t\tShut down the server." << std::endl
-		<< "`.set_threads N`\t\tSet the number of threads to N."
+		<< "`.help`,`.h`\t\tDisplay help message." << std::endl
+		<< "`.ls`\t\t\tList information about processes which are "
+		"currently running." << std::endl
+		<< "`.exit`\t\t\tShut down the server." << std::endl
+		<< "`.set_threads N`\tSet the number of threads to N."
+		<< std::endl
+		<< "`.set_scheduler on/off`\tEnable or disable automatic "
+		"scheduling of new tasks as old ones get completed."
 		<< std::endl;
 
 	return true;
@@ -155,9 +207,13 @@ bool ServerApplication::ls_cmd()
 	ATP_LOG(trace) << "Listing information about active server "
 		"processes...";
 
+	const auto q_sizes = m_proc_queue->size();
+
 	std::cout << "There are currently "
-		<< m_proc_mgr->num_procs_running()
-		<< " processes running." << std::endl;
+		<< q_sizes.get<0>() << " processes in the queue, "
+		"an extra " << q_sizes.get<1>() << " demoted to the "
+		"waiting queue, and " << q_sizes.get<2>() <<
+		" processes being actively worked on." << std::endl;
 
 	return true;
 }
@@ -175,59 +231,13 @@ bool ServerApplication::exit_cmd()
 		m_done = true;
 	}
 
-	// join workers:
-	for (size_t i = 0; i < m_workers.size(); ++i)
-	{
-		m_workers[i].join();
-	}
-
-	return true;
-}
-
-
-bool ServerApplication::killall_cmd()
-{
-	ATP_ASSERT(!m_done);
-	ATP_LOG(trace) << "Killing all processes...";
-
-	// pretend we're done:
-	{
-		boost::unique_lock<boost::shared_mutex> lock(m_mutex);
-
-		m_done = true;
-	}
+	std::cout << "Exiting, please wait..." << std::endl;
 
 	// join workers:
 	for (size_t i = 0; i < m_workers.size(); ++i)
 	{
 		m_workers[i].join();
 	}
-
-	// reset proc mgr:
-	m_proc_mgr.reset();
-
-	// we're not actually done (the lock probably isn't necessary
-	// here, but might as well code defensively!)
-	{
-		boost::unique_lock<boost::shared_mutex> lock(m_mutex);
-
-		m_done = false;
-	}
-
-	// recreate this
-	m_proc_mgr = std::make_unique<atp::core::ProcessManager>();
-
-	// relaunch the workers:
-	for (size_t i = 0; i < m_workers.size(); ++i)
-	{
-		m_workers[i] = std::thread([this]()
-			{ worker_thread_func(); });
-	}
-
-	// reinitialise tasks:
-	initialise_tasks();
-
-	ATP_LOG(trace) << "All processes killed.";
 
 	return true;
 }
@@ -259,13 +269,15 @@ bool ServerApplication::set_threads_cmd(int n)
 			m_done = true;
 		}
 
+		std::cout << "Setting threads, please wait..." << std::endl;
+
 		// join all workers:
 		for (size_t i = 0; i < m_workers.size(); ++i)
 		{
 			m_workers[i].join();
 		}
 
-		// do NOT reset the process manager, or we will abort active
+		// do NOT reset the process queue, or we will abort active
 		// processes
 
 		// we're not actually done:
@@ -307,6 +319,20 @@ bool ServerApplication::set_threads_cmd(int n)
 	}
 
 	m_scheduler->set_num_threads(m);
+
+	return true;
+}
+
+
+bool ServerApplication::set_scheduler(bool scheduler_on)
+{
+	const std::string cur = scheduler_on ? "on" : "off";
+	const std::string last = m_scheduler_on ? "on" : "off";
+
+	m_scheduler_on = scheduler_on;
+
+	std::cout << "Switched scheduler " << cur << " (from "
+		<< last << ")" << std::endl;
 
 	return true;
 }

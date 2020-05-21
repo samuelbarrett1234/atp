@@ -12,10 +12,10 @@
 */
 
 
+#include <list>
 #include <memory>
 #include "../ATPCoreAPI.h"
 #include "../Processes/IProcess.h"
-#include "../Processes/ProcessManager.h"
 
 
 namespace atp
@@ -26,7 +26,7 @@ namespace core
 
 /**
 \brief A scheduler is responsible for periodically adding tasks to
-	the process manager, to ensure that all the threads are
+	the process queue, to ensure that all the threads are
 	appropriately busy.
 
 \details Since computing what to schedule might be complex and
@@ -48,11 +48,16 @@ public:
 		means that as soon as you run out of work, this function will
 		make sure you have work to do.
 
-	\param proc_mgr The process manager to add the scheduler to
+	\param out_procs The place to put any new processes if the
+		scheduler wishes.
+
+	\param num_procs A count of the total number of processes
+		currently present, so the scheduler can get an idea of how
+		many more are needed.
 
 	\returns True if processes were added, false if nothing was added
 
-	\note The scheduling process adds to the process manager by the
+	\note The scheduling process adds to the process queue by the
 		time it finishes. Feel free to get rid of the scheduler once
 		this has been called, as the scheduling process is given all
 		the information it needs when it is constructed. This has the
@@ -60,7 +65,8 @@ public:
 		active threads) if it changes, but the scheduling process
 		shouldn't be alive for long in real-time.
 	*/
-	virtual bool update(ProcessManager& proc_mgr) = 0;
+	virtual bool update(std::list<ProcessPtr>& out_procs,
+		size_t num_procs) = 0;
 
 	/**
 	\brief Indicate the number of threads that are currently being

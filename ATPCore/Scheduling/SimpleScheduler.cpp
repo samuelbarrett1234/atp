@@ -24,23 +24,34 @@ SimpleScheduler::SimpleScheduler(db::DatabasePtr p_db) :
 }
 
 
-bool SimpleScheduler::update(ProcessManager& proc_mgr)
+bool SimpleScheduler::update(std::list<ProcessPtr>& out_procs,
+	size_t num_procs)
 {
+	ATP_CORE_LOG(info) << "Running scheduler...";
+
+#ifdef _DEBUG
+	static const size_t LOAD_FACTOR = 1;
+	static const size_t NUM_THMS_PER_PROOF_PROC = 1;
+#else
 	static const size_t LOAD_FACTOR = 2;
 	static const size_t NUM_THMS_PER_PROOF_PROC = 10;
+#endif
 
-	// cache this as it requires a mutex lock which is reasonably
+	// cache this as it requires locking a mutex which is reasonably
 	// expensive
-	const size_t num_procs = proc_mgr.num_procs_running();
 
 	if (num_procs < LOAD_FACTOR * m_num_threads)
 	{
+		ATP_CORE_LOG(info) << "Adding "
+			<< LOAD_FACTOR * m_num_threads - num_procs
+			<< " new proof processes...";
+
 		// create some extra processes:
 
 		for (size_t i = 0; i <
 			LOAD_FACTOR * m_num_threads - num_procs; ++i)
 		{
-			proc_mgr.add(create_rand_proof_process(m_db,
+			out_procs.push_back(create_rand_proof_process(m_db,
 				NUM_THMS_PER_PROOF_PROC));
 		}
 

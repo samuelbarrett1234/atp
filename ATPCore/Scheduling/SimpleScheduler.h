@@ -26,7 +26,8 @@ class ATP_CORE_API SimpleScheduler :
 public:
 	SimpleScheduler(db::DatabasePtr p_db);
 
-	bool update(ProcessManager& proc_mgr) override;
+	bool update(std::list<ProcessPtr>& out_procs,
+		size_t num_procs) override;
 	inline void set_num_threads(size_t nt) override
 	{
 		ATP_CORE_PRECOND(nt > 0);

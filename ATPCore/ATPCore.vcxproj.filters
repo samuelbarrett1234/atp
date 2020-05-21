@@ -144,6 +144,9 @@
     <ClInclude Include="Processes\SelectSearchSettingsProcess.h">
       <Filter>Header Files\Processes\Proof</Filter>
     </ClInclude>
+    <ClInclude Include="Processes\ProcessQueue.h">
+      <Filter>Header Files\Processes\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ATPCore.cpp">
@@ -214,6 +217,9 @@
     </ClCompile>
     <ClCompile Include="Processes\SelectSearchSettingsProcess.cpp">
       <Filter>Source Files\Processes\Proof</Filter>
+    </ClCompile>
+    <ClCompile Include="Processes\ProcessQueue.cpp">
+      <Filter>Source Files\Processes\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -85,17 +85,18 @@ private:  // COMMANDS
 
 	bool help_cmd();
 	bool ls_cmd();
-	bool killall_cmd();
 	bool exit_cmd();
 	bool set_threads_cmd(int n);
+	bool set_scheduler(bool on);
 
 private:
 	bool m_done;  // indicates exit for worker threads
 	mutable boost::shared_mutex m_mutex;  // for worker threads
 	std::vector<std::thread> m_workers;
-	std::unique_ptr<atp::core::ProcessManager> m_proc_mgr;
+	std::unique_ptr<atp::core::ProcessQueue> m_proc_queue;
 	atp::db::DatabasePtr m_db;
 	atp::core::SchedulerPtr m_scheduler;
+	bool m_scheduler_on;  // false means don't schedule things
 };
 
 

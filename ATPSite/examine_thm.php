@@ -45,7 +45,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		$db = new SQLite3('../Data/DB/eqlogic.db');
 		
 		// find theorem
-		$prep = $db->prepare("SELECT id FROM theorems JOIN model_contexts ON ctx = ctx_id WHERE stmt = :stmt AND name = :ctx_name");
+		$prep = $db->prepare("SELECT thm_id FROM theorems NATURAL JOIN model_contexts WHERE stmt = :stmt AND name = :ctx_name");
 		$prep->bindValue(':stmt', $stmt, SQLITE3_TEXT);
 		$prep->bindValue(':ctx_name', $_GET['ctx'], SQLITE3_TEXT);
 		$query = $prep->execute();
@@ -53,7 +53,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		// if theorem exists
 		if ($row = $query->fetchArray())
 		{
-			$thm_id = $row['id'];
+			$thm_id = $row['thm_id'];
 
 			// does it have a proof?
 			$query = $db->query("SELECT proof, is_axiom, proof_date FROM proofs WHERE thm_id={$thm_id}");
@@ -86,7 +86,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			// if it had a proof, what theorems were used in that proof?
 			if ($had_proof)
 			{
-				$query = $db->query("SELECT stmt FROM theorems JOIN theorem_usage ON used_thm_id = id WHERE target_thm_id = {$thm_id}");
+				$query = $db->query("SELECT stmt FROM theorems JOIN theorem_usage ON used_thm_id = thm_id WHERE target_thm_id = {$thm_id}");
 				
 				// list theorems used in proof
 				$any_available = false;
@@ -142,7 +142,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			// if this theorem is true, where has it been used?
 			if ($had_proof)
 			{
-				$query = $db->query("SELECT stmt FROM theorems JOIN theorem_usage ON id = target_thm_id WHERE used_thm_id = {$thm_id}");
+				$query = $db->query("SELECT stmt FROM theorems JOIN theorem_usage ON thm_id = target_thm_id WHERE used_thm_id = {$thm_id}");
 				
 				$used = false;
 				while ($row = $query->fetchArray())

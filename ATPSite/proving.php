@@ -23,7 +23,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		$ctx = escapeshellarg($_POST['ctx']);
 		
 		// execute proof command
-		exec("\"..\Output\atp_Releasex64.exe\" --db ../Data/DB/eqlogic.db --ctx {$ctx} --ss ids-informed-limited --prove {$stmt} 2>&1", $output);
+		exec("\"..\Output\atp_Releasex64.exe\" --db ../Data/DB/eqlogic.db --ctx {$ctx} --ss ids-informed-tiny --prove {$stmt} 2>&1", $output);
 		
 		if ($output ==  null)
 		{

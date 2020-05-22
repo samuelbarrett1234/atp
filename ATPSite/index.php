@@ -35,12 +35,12 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		$db = new SQLite3('../Data/DB/eqlogic.db');
 		
 		// get number of proven theorems
-		$query = $db->query("SELECT count(stmt) as n FROM theorems WHERE EXISTS (SELECT 1 FROM proofs WHERE thm_id = id)");
+		$query = $db->query("SELECT count(stmt) as n FROM theorems NATURAL JOIN proofs");
 		$row = $query->fetchArray();
 		echo "<li>Number of proven theorems: {$row['n']}</li>";
 		
 		// get number of unproven theorems
-		$query = $db->query("SELECT count(stmt) as n FROM theorems WHERE NOT EXISTS (SELECT 1 FROM proofs WHERE thm_id = id)");
+		$query = $db->query("SELECT count(stmt) as n FROM theorems WHERE NOT EXISTS (SELECT 1 FROM proofs WHERE theorems.thm_id = proofs.thm_id)");
 		$row = $query->fetchArray();
 		echo "<li>Number of unproven theorems: {$row['n']}</li>";
 		

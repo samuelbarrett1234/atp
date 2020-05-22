@@ -32,20 +32,20 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			$ctx_name = $_GET['ctx'];
 		}
 		
-		echo "<h5 class=\"w3-padding-32\">Below is a catalogue of some proven theorems in {$ctx_name} and information about them</h5>\n";
+		echo "<h5 class=\"w3-padding-32\">Below is a catalogue of some proven theorems in <b>{$ctx_name}</b> and information about them</h5>\n";
 		
 		// big query:
 		$prep = $db->prepare("SELECT stmt, num_attempts, time_agg, max_mem_agg, num_exp_agg,
 
 		-- compute the number of times this theorem could've been / was used in a proof
-		IFNULL((SELECT SUM(cnt) FROM theorem_usage WHERE id=used_thm_id), 0) AS num_uses,
+		IFNULL((SELECT SUM(cnt) FROM theorem_usage WHERE theorems.thm_id=used_thm_id), 0) AS num_uses,
 
 		  -- convert date from julianday to something readable
 		DATE(thm_date) AS date_entered,
 
 		DATE(proof_date) AS date_proven
 
-		FROM theorems JOIN
+		FROM theorems NATURAL JOIN
 
 		(
 			-- get aggregate information about each theorem's proof attempts
@@ -56,9 +56,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			NATURAL JOIN proofs
 		)
 
-		ON id=thm_id
-		
-		JOIN model_contexts ON ctx = ctx_id
+		NATURAL JOIN model_contexts
 		WHERE name = :ctx_name
 		AND is_axiom = 0  -- no axioms please
 

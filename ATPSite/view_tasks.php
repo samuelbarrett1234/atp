@@ -36,7 +36,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 
 		DATE(deadline) AS date_deadline
 
-		FROM theorems JOIN
+		FROM theorems NATURAL JOIN
 
 		(
 		SELECT thm_id, IFNULL(num_attempts, 0) as num_attempts,
@@ -56,10 +56,8 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			
 			NATURAL LEFT OUTER JOIN proofs
 		))
-
-		ON id=thm_id
 		
-		JOIN model_contexts ON ctx = ctx_id
+		NATURAL JOIN model_contexts
 
 		ORDER BY date_deadline DESC
 		LIMIT 25 OFFSET :off
@@ -84,7 +82,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 		
 		// the "more..." link
 		$off += 25;
-		echo "<br><br><a href='view_pf_data.php?off={$off}#pf_start' class='w3-text-grey'>More...</a>\n";
+		echo "<br><br><a href='view_tasks.php?off={$off}#pf_start' class='w3-text-grey'>More...</a>\n";
 		?>
 	</div>
 </div>

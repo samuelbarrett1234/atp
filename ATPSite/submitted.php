@@ -53,13 +53,13 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			$deadline = unixtojd($deadline_formatted->getTimestamp());
 			
 			// create theorem
-			$prep = $db->prepare("INSERT OR IGNORE INTO theorems(stmt, ctx) VALUES (:stmt, (SELECT ctx_id FROM model_contexts WHERE name = :ctx_name))");
+			$prep = $db->prepare("INSERT OR IGNORE INTO theorems(stmt, ctx_id) VALUES (:stmt, (SELECT ctx_id FROM model_contexts WHERE name = :ctx_name))");
 			$prep->bindValue(':stmt', $stmt, SQLITE3_TEXT);
 			$prep->bindValue(':ctx_name', $_POST['ctx'], SQLITE3_TEXT);
 			$prep->execute();
 			
 			// create task
-			$prep = $db->prepare("INSERT OR IGNORE INTO tasks (thm_id, deadline, priority) VALUES ((SELECT id FROM theorems JOIN model_contexts ON ctx = ctx_id WHERE stmt = :stmt AND name = :ctx_name), :deadline, :priority)");
+			$prep = $db->prepare("INSERT OR IGNORE INTO tasks (thm_id, deadline, priority) VALUES ((SELECT thm_id FROM theorems NATURAL JOIN model_contexts WHERE stmt = :stmt AND name = :ctx_name), :deadline, :priority)");
 			$prep->bindValue(':stmt', $stmt, SQLITE3_TEXT);
 			$prep->bindValue(':ctx_name', $_POST['ctx'], SQLITE3_TEXT);
 			$prep->bindValue(':deadline', $deadline, SQLITE3_FLOAT);

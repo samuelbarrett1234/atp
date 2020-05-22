@@ -43,8 +43,9 @@ std::string SQLiteSaveProofResultsQryBder::build()
 		// add the theorem to the database if it's not in there
 		// already
 		query_builder << "INSERT OR IGNORE INTO theorems (stmt, "
-			<< "ctx) VALUES ('" << (*m_targets)->at(i).to_str()
-			<< "', " << *m_ctx_id << ");\n\n";
+			<< "ctx_id, induced_priority) VALUES ('" <<
+			(*m_targets)->at(i).to_str() << "', " << *m_ctx_id
+			<< ", 0.0);\n\n";
 
 		// skip the rest if we are only loading theorems, not proof
 		// attempts
@@ -56,25 +57,31 @@ std::string SQLiteSaveProofResultsQryBder::build()
 		// WARNING: theorem statements by themselves are not unique!
 		// It is only unique when paired with a context!
 		const std::string thm_id_with_expr =
-			"WITH my_thm(my_id) AS (SELECT id FROM theorems WHERE "
+			"WITH my_thm(my_id) AS (SELECT thm_id FROM theorems WHERE "
 			"stmt = '" + (*m_targets)->at(i).to_str() +
-			"' AND ctx = " + boost::lexical_cast<std::string>(
+			"' AND ctx_id = " + boost::lexical_cast<std::string>(
 				*m_ctx_id) + ")\n";
+
+		const bool successful = ((*m_proof_states)[i] != nullptr &&
+			(*m_proof_states)[i]->completion_state() ==
+			atp::logic::ProofCompletionState::PROVEN);
 
 		// add proof attempt to database
 		query_builder << thm_id_with_expr;
 		query_builder << "INSERT INTO proof_attempts(thm_id, ss_id, "
-			"time_cost, max_mem, num_expansions) VALUES ((SELECT "
+			"time_cost, max_mem, num_expansions, success) VALUES ((SELECT "
 			"my_id FROM my_thm), "
 			<< *m_ss_id << ", " << (*m_times)[i] << ", "
-			<< (*m_max_mems)[i] << ", " << (*m_num_exps)[i]
-			<< ");\n\n";
+			<< (*m_max_mems)[i] << ", " << (*m_num_exps)[i] << ", "
+			// only set successful bit to 1 if the theorem has not been
+			// proven before
+			"CASE WHEN EXISTS (SELECT 1 FROM proofs JOIN my_thm ON "
+			"thm_id=my_id) THEN 0 ELSE "
+			<< (successful ? 1 : 0) << " END);\n\n";
 
 		// IF THE PROOF WAS SUCCESSFUL, add the proof to the database
 		// (obviously we do not want to do this if it failed)
-		if ((*m_proof_states)[i] != nullptr &&
-			(*m_proof_states)[i]->completion_state() ==
-			atp::logic::ProofCompletionState::PROVEN)
+		if (successful)
 		{
 			// make sure to not try inserting a new proof if there
 			// is already a proof in the database!
@@ -105,10 +112,10 @@ std::string SQLiteSaveProofResultsQryBder::build()
 						// are not unique! It is only unique when
 						// paired with a context!
 						const std::string helper_thm_id_with_expr =
-							", helper_thm(helper_id) AS (SELECT id "
-							"FROM theorems WHERE stmt = '" +
+							", helper_thm(helper_id) AS (SELECT "
+							"thm_id FROM theorems WHERE stmt = '" +
 							(*m_helpers)->at(j).to_str() +
-							"' AND ctx = " +
+							"' AND ctx_id = " +
 							boost::lexical_cast<std::string>(
 								*m_ctx_id) + ")\n";
 

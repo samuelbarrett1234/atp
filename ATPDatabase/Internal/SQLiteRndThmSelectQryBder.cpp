@@ -25,13 +25,14 @@ std::string SQLiteRndThmSelectQryBder::build()
 	std::stringstream query_builder;
 
 	// IMPORTANT: only load theorems for which there exist proofs!
-	query_builder << "SELECT stmt FROM theorems WHERE ctx = "
+	query_builder << "SELECT stmt FROM theorems WHERE ctx_id = "
 		<< *m_ctx_id << " AND ";
 	
 	if (!m_find_proven)
 		query_builder << "NOT ";
 
-	query_builder << " EXISTS (SELECT 1 FROM proofs WHERE thm_id=id";
+	query_builder << " EXISTS (SELECT 1 FROM proofs WHERE "
+		"proofs.thm_id = theorems.thm_id";
 
 	// only do this when looking for proven theorems, because of
 	// course this does not have the intended effect when trying to

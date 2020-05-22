@@ -40,6 +40,9 @@ INSERT OR IGNORE INTO search_settings (name, filename, serve) VALUES (
 	"ids-uninformed-large",
 	"../Data/Search/ids_uninformed_large.json", 0);
 INSERT OR IGNORE INTO search_settings (name, filename, serve) VALUES (
+	"ids-informed-tiny",
+	"../Data/Search/ids_informed_tiny.json", 1);
+INSERT OR IGNORE INTO search_settings (name, filename, serve) VALUES (
 	"ids-informed-limited",
 	"../Data/Search/ids_informed_limited.json", 1);
 INSERT OR IGNORE INTO search_settings (name, filename, serve) VALUES (
@@ -48,9 +51,9 @@ INSERT OR IGNORE INTO search_settings (name, filename, serve) VALUES (
 
 
 CREATE TABLE IF NOT EXISTS theorems (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	thm_id INTEGER PRIMARY KEY AUTOINCREMENT,
 	stmt TEXT NOT NULL,	/* target statement as text */
-	ctx INTEGER NOT NULL,	/* the model context */
+	ctx_id INTEGER NOT NULL,	/* the model context */
 	
 	/*
 	Number of days from noon in Greenwich on
@@ -59,8 +62,15 @@ CREATE TABLE IF NOT EXISTS theorems (
 	*/
 	thm_date REAL DEFAULT (julianday('now')),
 	
-	FOREIGN KEY (ctx) REFERENCES model_contexts(ctx_id),
-	UNIQUE(stmt, ctx)	/* can have duplicate stmts across different contexts */);
+	/*
+	Users assign priorities to tasks they set, however these imply
+	priorities for theorems in the database (because if A=>B and
+	B has priority x, then A must have priority >=x)
+	*/
+	induced_priority REAL NOT NULL,
+	
+	FOREIGN KEY (ctx_id) REFERENCES model_contexts(ctx_id),
+	UNIQUE(stmt, ctx_id)	/* can have duplicate stmts across different contexts */);
 
 
 /*
@@ -71,10 +81,20 @@ with, if necessary.
 */
 CREATE TABLE IF NOT EXISTS proof_attempts (
 	thm_id INTEGER NOT NULL,
-	ss_id INTEGER,	/* may be null, if using alternative settings */
+	
+	/*
+	Whether this attempt was successful (0 or 1).
+	If this is 1, it is the only proof attempt for this theorem with
+	success=1, and there will exist a corresponding entry in the
+	`proof` table.
+	*/
+	success INTEGER NOT NULL,
+	
+	/* may be null, if using alternative settings */
+	ss_id INTEGER,
 	time_cost REAL NOT NULL,
-	max_mem UNSIGNED INTEGER NOT NULL,
-	num_expansions UNSIGNED INTEGER NOT NULL,
+	max_mem UNSIGNED INTEGER,
+	num_expansions UNSIGNED INTEGER,
 	
 	/*
 	Number of days from noon in Greenwich on
@@ -83,7 +103,15 @@ CREATE TABLE IF NOT EXISTS proof_attempts (
 	*/
 	attempt_date REAL DEFAULT (julianday('now')),
 	
-	FOREIGN KEY(thm_id) REFERENCES theorems(id)
+	/*
+	Information about who ran the proof
+	*/
+	app_version TEXT,  -- e.g. "0.2"
+	app_build TEXT,  -- e.g. "Debugx64"
+	machine_name TEXT,  -- e.g. "Samuel's PC"
+	
+	CHECK (success IN (0, 1)),
+	FOREIGN KEY(thm_id) REFERENCES theorems(thm_id)
 	ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY(ss_id) REFERENCES search_settings(ss_id));
 
@@ -121,7 +149,7 @@ CREATE TABLE IF NOT EXISTS proofs (
 	proof_date REAL DEFAULT (julianday('now')),
 	
 	CHECK(is_axiom IN (0, 1)),
-	FOREIGN KEY (thm_id) REFERENCES theorems(id)
+	FOREIGN KEY (thm_id) REFERENCES theorems(thm_id)
 	ON DELETE CASCADE ON UPDATE CASCADE);
 
 
@@ -162,12 +190,12 @@ CREATE TABLE IF NOT EXISTS tasks (
 	deadline REAL,	/* number of days from noon in Greenwich on
 										 November 24, 4714 B.C up to deadline */
 	priority REAL,
-	FOREIGN KEY (thm_id) REFERENCES theorems(id)
+	FOREIGN KEY (thm_id) REFERENCES theorems(thm_id)
 	ON DELETE CASCADE ON UPDATE CASCADE
 	);
 
 
-CREATE INDEX IF NOT EXISTS thm_by_id ON theorems(id);
+CREATE INDEX IF NOT EXISTS thm_by_id ON theorems(thm_id);
 CREATE INDEX IF NOT EXISTS thm_stmt ON theorems(stmt);
 CREATE INDEX IF NOT EXISTS attempt_thm_ids ON proof_attempts(thm_id);
 CREATE INDEX IF NOT EXISTS proof_thm_ids ON proofs(thm_id);

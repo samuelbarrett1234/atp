@@ -53,12 +53,12 @@ std::string SQLiteCheckAxInDbQryBder::build()
 	{
 		const std::string ax_str = normed_stmts->at(0).to_str();
 
-		query_builder << "INSERT OR IGNORE INTO theorems(stmt, ctx) "
+		query_builder << "INSERT OR IGNORE INTO theorems(stmt, ctx_id) "
 			"VALUES ( '" << ax_str << "', " << *m_ctx_id << ");\n\n";
 
 		query_builder << "INSERT OR IGNORE INTO proofs(thm_id, "
-			"is_axiom) VALUES ((SELECT id FROM theorems WHERE stmt='"
-			<< ax_str << "' AND ctx = " << *m_ctx_id <<
+			"is_axiom) VALUES ((SELECT thm_id FROM theorems WHERE stmt='"
+			<< ax_str << "' AND ctx_id = " << *m_ctx_id <<
 			"), 1);\n\n";
 	}
 

@@ -1,0 +1,33 @@
+{
+	"name" : "Informed 'Tiny' Iterative-Deepening Solver",
+	"desc" : "An informed iterative deepening solver with very low settings",
+	"solver" : {
+		"type" : "IterativeDeepeningSolver",
+		"max-depth" : 5,
+		"starting-depth" : 2,
+		"width-limit" : 3,
+		"width-limit-start-depth" : 1,
+		"no-repeats" : true,
+		"randomised" : true
+	},
+	"selection-strategy" : {
+		"type" : "EditDistanceSelectionStrategy",
+		"num-thms-load" : 200,
+		"num-thms-help" : 5,
+		"symbol-mismatch-cost" : 5.0,
+		"symbol-match-benefit" : 1.0,
+		"weighting" : 0.05
+	},
+	"stopping-strategy" : {
+		"type" : "FixedStoppingStrategy",
+		"size" : 3
+	},
+	"heuristic" : {
+		"type" : "EditDistanceHeuristic",
+		"symbol-match-benefit" : 1.0,
+		"symbol-mismatch-cost" : 5.0
+	},
+	"step-size" : 50,
+	"max-steps" : 10,
+	"seed" : "time"
+}

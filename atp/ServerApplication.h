@@ -81,6 +81,12 @@ private:
 	*/
 	void initialise_tasks();
 
+	/**
+	\brief Run the scheduler, if it is enabled (if not this function
+		does nothing)
+	*/
+	void run_scheduler();
+
 private:  // COMMANDS
 
 	bool help_cmd();

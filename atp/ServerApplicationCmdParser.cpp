@@ -74,6 +74,10 @@ bool do_cmd(CommandSet& cmd_set)
 	std::string line;
 	std::getline(std::cin, line);
 
+	// don't throw error for empty line:
+	if (line == "")
+		return true;
+
 	bool cmd_succ = false;
 	const bool ok = qi::phrase_parse(
 		line.begin(), line.end(), CommandGrammar(cmd_set),

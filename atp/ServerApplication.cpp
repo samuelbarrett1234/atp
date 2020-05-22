@@ -83,30 +83,6 @@ void ServerApplication::run()
 			std::cout << "Error parsing or executing command. "
 				"Try `.help` for usage details." << std::endl;
 		}
-
-		// run the scheduler if it is enabled
-
-		const auto sizes = m_proc_queue->size();
-		const size_t num_procs = sizes.get<0>() + sizes.get<1>() +
-			sizes.get<2>();  // get total number of procs
-		std::list<atp::core::ProcessPtr> scheduled_procs;
-
-		if (m_scheduler_on && m_scheduler->update(scheduled_procs,
-			num_procs))
-		{
-			// should return true iff procs were added
-			ATP_ASSERT(scheduled_procs.size() > 0);
-
-			std::cout << "Scheduler is adding " <<
-				scheduled_procs.size() << " new process(es)."
-				<< std::endl;
-
-			// todo: maybe call `update` slightly less frequently
-
-			for (auto&& p : scheduled_procs)
-				m_proc_queue->push(std::move(p));
-			scheduled_procs.clear();
-		}
 	}
 
 	// workers are automatically joined by the exit command
@@ -131,6 +107,9 @@ void ServerApplication::worker_thread_func()
 		{
 			// sleep to prevent spinning when we have no work to do
 			std::this_thread::sleep_for(100ms);
+
+			// try and schedule some new stuff
+			run_scheduler();
 		}
 		else
 		{
@@ -139,7 +118,11 @@ void ServerApplication::worker_thread_func()
 
 			// try again if we didn't get one:
 			if (p_proc == nullptr)
+			{
+				// try and schedule some new stuff, at least
+				run_scheduler();
 				continue;
+			}
 
 			ATP_CORE_ASSERT(!p_proc->done());
 			for (size_t i = 0; i < N && !p_proc->done()
@@ -177,17 +160,40 @@ void ServerApplication::initialise_tasks()
 	ATP_ASSERT(m_db != nullptr);
 	ATP_LOG(trace) << "Initialising tasks...";
 
-	m_scheduler = atp::core::create_scheduler(m_db);
-
-	m_scheduler->set_num_threads(m_workers.size());
-
-	if (m_scheduler_on)
 	{
-		std::list<atp::core::ProcessPtr> scheduled_procs;
-		m_scheduler->update(scheduled_procs, 0);
+		boost::unique_lock<boost::shared_mutex> lock(m_mutex);
+
+		m_scheduler = atp::core::create_scheduler(m_db);
+
+		m_scheduler->set_num_threads(m_workers.size());
+
+	}  // unlock, as `run_scheduler` gets a lock of its own
+
+	run_scheduler();
+}
+
+
+void ServerApplication::run_scheduler()
+{
+	boost::unique_lock<boost::shared_mutex> lock(m_mutex);
+
+	// run the scheduler if it is enabled
+
+	const auto sizes = m_proc_queue->size();
+	const size_t num_procs = sizes.get<0>() + sizes.get<1>() +
+		sizes.get<2>();  // get total number of procs
+	std::list<atp::core::ProcessPtr> scheduled_procs;
+
+	// todo: maybe call `update` slightly less frequently
+	if (m_scheduler_on && m_scheduler->update(scheduled_procs,
+		num_procs))
+	{
+		// should return true iff procs were added
+		ATP_ASSERT(scheduled_procs.size() > 0);
 
 		for (auto&& p : scheduled_procs)
 			m_proc_queue->push(std::move(p));
+		scheduled_procs.clear();
 	}
 }
 
@@ -336,7 +342,11 @@ bool ServerApplication::set_threads_cmd(int n)
 			" (" << m << "), so no action needed.";
 	}
 
-	m_scheduler->set_num_threads(m);
+	{
+		boost::unique_lock<boost::shared_mutex> lock(m_mutex);
+
+		m_scheduler->set_num_threads(m);
+	}
 
 	return true;
 }
@@ -347,8 +357,11 @@ bool ServerApplication::set_scheduler(bool scheduler_on)
 	const std::string cur = scheduler_on ? "on" : "off";
 	const std::string last = m_scheduler_on ? "on" : "off";
 
-	m_scheduler_on = scheduler_on;
-
+	{
+		boost::unique_lock<boost::shared_mutex> lock(m_mutex);
+		m_scheduler_on = scheduler_on;
+	}
+	
 	std::cout << "Switched scheduler " << cur << " (from "
 		<< last << ")" << std::endl;
 

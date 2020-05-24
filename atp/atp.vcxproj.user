@@ -3,21 +3,21 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--db ../Data/DB/eqlogic.db --ss ids-informed-tiny --ctx group-theory --prove 10</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--db ../Data/Queries/dbconfig.json --serve</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--db ../Data/DB/eqlogic.db --ss ids-informed-tiny --ctx group-theory --prove 10</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--db ../Data/Queries/dbconfig.json --serve</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--db ../Data/DB/eqlogic.db --ss ids-informed-tiny --ctx group-theory --prove 10</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--db ../Data/Queries/dbconfig.json --serve</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--db ../Data/DB/eqlogic.db --ss ids-informed-tiny --ctx group-theory --prove 10</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--db ../Data/Queries/dbconfig.json --serve</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

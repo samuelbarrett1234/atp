@@ -94,6 +94,8 @@ void QueryProcess::run_step()
 		{
 			ATP_CORE_LOG(error) << "Failed to build query \""
 				<< q << "\", query process terminating...";
+			on_failed();
+			m_failed = true;
 			m_done = true;
 		}
 	}

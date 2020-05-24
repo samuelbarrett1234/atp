@@ -11,6 +11,7 @@
 */
 
 
+#include <map>
 #include <ATPLogic.h>
 #include "../ATPDatabaseAPI.h"
 #include "../Interfaces/IDatabase.h"
@@ -75,6 +76,7 @@ public:
 		const std::string& search_settings_name) override;
 
 private:
+	std::map<std::string, std::string> m_query_templates;
 	std::string m_name, m_desc;
 	sqlite3* m_db;
 };

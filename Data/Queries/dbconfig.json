@@ -1,0 +1,29 @@
+{
+	"db_filename" : "../Data/DB/eqlogic.db",
+	
+	"queries" : {
+		"select_model_context" :
+		"SELECT filename, ctx_id FROM model_contexts NATURAL JOIN (SELECT ctx_id, SUM(time_cost) AS total_cost FROM proof_attempts NATURAL JOIN theorems GROUP BY ctx_id) ORDER BY total_cost + RANDOM() * 1.0e-16 ASC LIMIT 1",
+		
+		"select_search_settings" :
+		"SELECT filename, ss_id FROM search_settings LEFT OUTER NATURAL JOIN (SELECT ss_id, (IFNULL(SUM(success),0) + 1.0) / (COUNT(success) + 2.0) AS p_success FROM (proof_attempts NATURAL JOIN theorems) WHERE ctx_id = :ctx_id GROUP BY ss_id) WHERE serve = 1 ORDER BY p_success + RANDOM() * 2.0e-20 DESC LIMIT 1",
+		
+		"insert_thm" :
+		"INSERT OR IGNORE INTO theorems (stmt, ctx_id, induced_priority) VALUES (:stmt, :ctx_id, 0.0)",
+		
+		"insert_proof_attempt" :
+		"WITH my_thm(my_id) AS (SELECT thm_id FROM theorems WHERE stmt = :stmt AND ctx_id = :ctx_id) INSERT INTO proof_attempts(thm_id, ss_id, time_cost, max_mem, num_expansions, success) VALUES ((SELECT my_id FROM my_thm), :ss_id, :time_cost, :max_mem, :num_expansions, CASE WHEN EXISTS (SELECT 1 FROM proofs JOIN my_thm ON thm_id=my_id) THEN 0 ELSE :success END)",
+		
+		"insert_proof" :
+		"WITH my_thm(my_id) AS (SELECT thm_id FROM theorems WHERE stmt = :stmt AND ctx_id = :ctx_id) INSERT INTO proofs(thm_id, proof) SELECT (SELECT my_id FROM my_thm), :proof WHERE NOT EXISTS (SELECT 1 FROM proofs JOIN my_thm ON thm_id = my_id)",
+		
+		"insert_usage" :
+		"WITH my_thm(my_id) AS (SELECT thm_id FROM theorems WHERE stmt = :stmt AND ctx_id = :ctx_id), helper_thm(helper_id) AS (SELECT thm_id FROM theorems WHERE stmt = :helper_stmt AND ctx_id = :ctx_id) INSERT OR IGNORE INTO theorem_usage (target_thm_id, used_thm_id, cnt) VALUES ((SELECT my_id FROM my_thm), (SELECT helper_id FROM helper_thm), :uses)",
+		
+		"random_proven_thms" :
+		"SELECT stmt FROM theorems NATURAL JOIN proofs WHERE ctx_id = :ctx_id AND is_axiom = 0 ORDER BY RANDOM() LIMIT :limit",
+		
+		"random_unproven_thms" :
+		"SELECT stmt FROM theorems LEFT OUTER NATURAL JOIN truth_predictions WHERE NOT EXISTS (SELECT 1 FROM proofs WHERE proofs.thm_id = theorems.thm_id) AND ctx_id = :ctx_id ORDER BY RANDOM() * 2.0e-20 + IFNULL(p_true, 0.5) DESC LIMIT :limit"
+	}
+}

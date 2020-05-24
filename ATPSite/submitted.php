@@ -19,7 +19,7 @@ Template obtained from https://www.w3schools.com/w3css/w3css_templates.asp
 			// input statement is sound
 			$stmt = escapeshellarg($_POST['stmt']);
 			$ctx = escapeshellarg($_POST['ctx']);
-			exec("\"..\Output\ATPSiteTools_Releasex64.exe\" --db ../Data/DB/eqlogic.db --ctx {$ctx} --norm {$stmt} 2>&1", $output, $ret_val);
+			exec("\"..\Output\ATPSiteTools_Releasex64.exe\" --db ../Data/Queries/dbconfig.json --ctx {$ctx} --norm {$stmt} 2>&1", $output, $ret_val);
 			
 			if ($ret_val == -1)
 			{

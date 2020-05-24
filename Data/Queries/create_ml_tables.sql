@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS truth_predictions (
+	thm_id INTEGER PRIMARY KEY,
+	p_true REAL NOT NULL,
+	FOREIGN KEY(thm_id) REFERENCES theorems(thm_id)
+	ON UPDATE CASCADE ON DELETE CASCADE
+	);

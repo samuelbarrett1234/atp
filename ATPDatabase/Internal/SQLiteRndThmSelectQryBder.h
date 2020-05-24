@@ -11,6 +11,8 @@
 */
 
 
+#include <map>
+#include <string>
 #include <boost/optional.hpp>
 #include "../ATPDatabaseAPI.h"
 #include "../Interfaces/IQueryBuilders.h"
@@ -29,6 +31,11 @@ class ATP_DATABASE_API SQLiteRndThmSelectQryBder :
 	public IRndThmSelectQryBder
 {
 public:
+	SQLiteRndThmSelectQryBder(
+		const std::map<std::string, std::string>& query_templates) :
+		m_query_templates(query_templates)
+	{ }
+
 	std::string build() override;
 	inline IRndThmSelectQryBder* set_limit(size_t N) override
 	{
@@ -58,6 +65,8 @@ public:
 
 
 private:
+	std::map<std::string, std::string> m_query_templates;
+
 	bool m_find_proven = true;  // true iff look for proven stmts only
 	boost::optional<size_t> m_limit, m_ctx_id;
 	boost::optional<logic::ModelContextPtr> m_ctx;

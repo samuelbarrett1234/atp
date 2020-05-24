@@ -6,8 +6,9 @@
 */
 
 
-#include <sstream>
 #include "SQLiteRndThmSelectQryBder.h"
+#include <boost/algorithm/string/replace.hpp>
+#include <boost/lexical_cast.hpp>
 
 
 namespace atp
@@ -22,28 +23,33 @@ std::string SQLiteRndThmSelectQryBder::build()
 	ATP_DATABASE_PRECOND(m_ctx_id.has_value());
 	ATP_DATABASE_PRECOND(m_ctx.has_value());
 
-	std::stringstream query_builder;
+	if (m_query_templates.find("random_proven_thms")
+		== m_query_templates.end() ||
+		m_query_templates.find("random_unproven_thms")
+		== m_query_templates.end())
+	{
+		ATP_DATABASE_LOG(error) << "Cannot find query templates "
+			"for \"random_proven_thms\" or \"random_unproven_thms\""
+			", please add these to the DB config file.";
 
-	// IMPORTANT: only load theorems for which there exist proofs!
-	query_builder << "SELECT stmt FROM theorems WHERE ctx_id = "
-		<< *m_ctx_id << " AND ";
-	
-	if (!m_find_proven)
-		query_builder << "NOT ";
+		return "- ; -- bad query because error earlier.";
+	}
+	else
+	{
+		std::string query = m_find_proven ?
+			m_query_templates.at("random_proven_thms") :
+			m_query_templates.at("random_unproven_thms");
 
-	query_builder << " EXISTS (SELECT 1 FROM proofs WHERE "
-		"proofs.thm_id = theorems.thm_id";
+		boost::algorithm::replace_all(
+			query,
+			":ctx_id", boost::lexical_cast<std::string>(*m_ctx_id));
 
-	// only do this when looking for proven theorems, because of
-	// course this does not have the intended effect when trying to
-	// load unproven theorems
-	// (axioms will always have a proof, anyway)
-	if (m_find_proven)
-		query_builder << " AND is_axiom = 0";  // don't load axioms!
+		boost::algorithm::replace_all(
+			query,
+			":limit", boost::lexical_cast<std::string>(*m_limit));
 
-	query_builder << " ) ORDER BY RANDOM() LIMIT " << *m_limit << ";";
-
-	return query_builder.str();
+		return query;
+	}
 }
 
 

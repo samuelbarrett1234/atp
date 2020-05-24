@@ -67,7 +67,7 @@ int main(int argc, const char* const argv[])
 	desc.add_options()
 		("help,h", "Produce help message, then exit.")
 
-		("verbose,v", "Print extra (trace) information to console.")
+		("verbose,v", "Print lots of extra information to console.")
 
 		("surpress,s", "Only print errors and warnings.")
 
@@ -77,18 +77,18 @@ int main(int argc, const char* const argv[])
 		("nologfile,nlf", "Don't write any log files.")
 
 		("serve", "Set up a server application, which continuously "
-			"performs tasks and is autonomous. Using this option "
+			"performs tasks, and is autonomous. Using this option "
 			"ignores the `prove` option and options relating to "
-			"automated conjecturing. *Requires a DB*, but not the "
+			"automated conjecturing. *Requires a DB*, but *not* the "
 			"context or search settings options.")
 
 		("prove,P", po::value<std::vector<std::string>>(),
-			"Either a statement like \"f(x) = y\", a path to a file "
-			"containing line-separated statements, or an integer "
-			"representing the number of unproven theorems to try "
-			"proving (selected from the database), and attempt to "
-			"prove them! Note that each separate invocation of this "
-			"command will run on a separate thread.")
+			"Usage: `--P <filename>` or `--P <stmt>` or `--P <N>` "
+			"which launches a proof attempt at the statements in "
+			"the file, or the given statement, or randomly picks "
+			"N unproven statements and attempts to prove them, "
+			"respectively. You can invoke this many times, each "
+			"proof task can run in its own thread.")
 
 		("hmm-conjecture,hmmc", po::value<std::vector<size_t>>(),
 			"Generate a number of conjectures; use "
@@ -108,16 +108,19 @@ int main(int argc, const char* const argv[])
 			" like to give it.")
 
 		("database,db", po::value<std::string>(),
-			"Path to database file")
+			"Path to database configuration file (required).")
 
 		("context,ctx", po::value<std::string>(),
-			"Context name (see `model_contexts` database table)")
+			"Context name (see `model_contexts` database table) - "
+			"required for all but the `serve` modes.")
 
 		("search-settings,ss", po::value<std::string>(),
-			"Search settings name (see `search_settings` database table)")
+			"Search settings name (see `search_settings` database table) - "
+			"required for all but the `serve` modes.")
 
 		("nthreads,nt", po::value<size_t>(),
-			"The number of threads to commit to the task at hand.")
+			"The number of threads to commit to the task at hand."
+			" In `serve` mode you can change this later.")
 	;
 
 	// parse the arguments:
@@ -232,6 +235,11 @@ int setup_logs(const po::variables_map& vm)
 	// always put everything into the file log
 	const int file_severity = (int)severity_level::trace;
 
+	// in server mode, overwrite the last log, unless the user has
+	// specified a log file, in which case never overwrite it
+	const auto open_mode = (vm.count("serve") && !vm.count("logfile")) ?
+		std::ios_base::trunc : std::ios_base::app;
+
 	boost::log::add_console_log(
 		std::cout,
 		boost::log::keywords::format = "%Severity% : %Message%")
@@ -244,7 +252,7 @@ int setup_logs(const po::variables_map& vm)
 			keywords::file_name = vm["logfile"].as<std::string>(),
 			keywords::format =
 			"%TimeStamp% [Thread %ThreadID%] %Severity% : %Message%",
-			keywords::open_mode = std::ios_base::app
+			keywords::open_mode = open_mode
 		)->set_filter(boost::log::trivial::severity
 			>= file_severity);
 	}
@@ -256,7 +264,7 @@ int setup_logs(const po::variables_map& vm)
 			keywords::rotation_size = 1024 * 1024,
 			keywords::format =
 			"%TimeStamp% [Thread %ThreadID%] %Severity% : %Message%",
-			keywords::open_mode = std::ios_base::app
+			keywords::open_mode = open_mode
 		)->set_filter(boost::log::trivial::severity
 			>= file_severity);
 	}

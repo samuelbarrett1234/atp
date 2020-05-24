@@ -6,8 +6,9 @@
 */
 
 
-#include <sstream>
 #include "SQLiteSelectSearchSettings.h"
+#include <boost/algorithm/string/replace.hpp>
+#include <boost/lexical_cast.hpp>
 
 
 namespace atp
@@ -20,20 +21,26 @@ std::string SQLiteSelectSearchSettings::build()
 {
 	ATP_DATABASE_PRECOND(m_ctx_id.has_value());
 
-	std::stringstream query_builder;
+	if (m_query_templates.find("select_search_settings")
+		== m_query_templates.end())
+	{
+		ATP_DATABASE_LOG(error) << "Cannot find query templates "
+			"for \"select_search_settings\""
+			", please add these to the DB config file.";
 
-	// order by probability of success
+		return "- ; -- bad query because error earlier.";
+	}
+	else
+	{
+		std::string query = m_query_templates.at(
+			"select_search_settings");
 
-	query_builder << "SELECT filename, ss_id FROM search_settings "
-		"LEFT OUTER NATURAL JOIN (SELECT ss_id, "
-		"(IFNULL(SUM(success),0) + 1.0) / (COUNT(success) + 2.0) AS p_success "
-		"FROM (proof_attempts NATURAL JOIN theorems) "
-		"WHERE ctx_id = " << *m_ctx_id <<
-		" GROUP BY ss_id) WHERE serve = 1 "
-		// interesting part: add random noise to avg_cost
-		"ORDER BY p_success + RANDOM() * 2.0e-20 DESC LIMIT 1;";
+		boost::algorithm::replace_all(
+			query,
+			":ctx_id", boost::lexical_cast<std::string>(*m_ctx_id));
 
-	return query_builder.str();
+		return query;
+	}
 }
 
 

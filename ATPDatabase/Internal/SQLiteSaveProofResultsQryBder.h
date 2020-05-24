@@ -9,6 +9,8 @@
 */
 
 
+#include <map>
+#include <string>
 #include <boost/optional.hpp>
 #include "../ATPDatabaseAPI.h"
 #include "../Interfaces/IQueryBuilders.h"
@@ -24,6 +26,11 @@ class ATP_DATABASE_API SQLiteSaveProofResultsQryBder :
 	public ISaveProofResultsQryBder
 {
 public:
+	SQLiteSaveProofResultsQryBder(
+		const std::map<std::string, std::string>& query_templates) :
+		m_query_templates(query_templates)
+	{ }
+
 	std::string build() override;
 	inline ISaveProofResultsQryBder* set_context(size_t ctx_id,
 		const logic::ModelContextPtr& p_ctx) override
@@ -113,6 +120,8 @@ private:
 	}
 
 private:
+	std::map<std::string, std::string> m_query_templates;
+
 	boost::optional<size_t> m_ctx_id, m_ss_id, m_size;
 	boost::optional<logic::ModelContextPtr> m_ctx;
 	boost::optional<logic::StatementArrayPtr> m_targets, m_helpers;

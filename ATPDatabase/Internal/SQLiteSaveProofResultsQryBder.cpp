@@ -6,9 +6,10 @@
 */
 
 
-#include <sstream>
-#include <boost/lexical_cast.hpp>
 #include "SQLiteSaveProofResultsQryBder.h"
+#include <sstream>
+#include <boost/algorithm/string/replace.hpp>
+#include <boost/lexical_cast.hpp>
 
 
 namespace atp
@@ -36,104 +37,132 @@ std::string SQLiteSaveProofResultsQryBder::build()
 	ATP_DATABASE_PRECOND(!m_helpers.has_value() ||
 		m_proof_states.has_value());
 
-	std::stringstream query_builder;
-
-	for (size_t i = 0; i < *m_size; i++)
+	if (m_query_templates.find("insert_thm")
+		== m_query_templates.end() ||
+		m_query_templates.find("insert_proof_attempt")
+		== m_query_templates.end() ||
+		m_query_templates.find("insert_proof")
+		== m_query_templates.end() ||
+		m_query_templates.find("insert_usage")
+		== m_query_templates.end())
 	{
-		// add the theorem to the database if it's not in there
-		// already
-		query_builder << "INSERT OR IGNORE INTO theorems (stmt, "
-			<< "ctx_id, induced_priority) VALUES ('" <<
-			(*m_targets)->at(i).to_str() << "', " << *m_ctx_id
-			<< ", 0.0);\n\n";
+		ATP_DATABASE_LOG(error) << "Cannot find query templates "
+			"for \"insert_thm\", \"insert_proof_attempt\""
+			", \"insert_proof\" or \"insert_usage\""
+			", please add these to the DB config file.";
 
-		// skip the rest if we are only loading theorems, not proof
-		// attempts
-		if (!m_proof_states.has_value())
-			continue;
+		return "- ; -- bad query because error earlier.";
+	}
+	else
+	{
+		const std::string ctx_id_str =
+			boost::lexical_cast<std::string>(*m_ctx_id);
 
-		// a common table expression for finding the theorem ID of the
-		// target statement
-		// WARNING: theorem statements by themselves are not unique!
-		// It is only unique when paired with a context!
-		const std::string thm_id_with_expr =
-			"WITH my_thm(my_id) AS (SELECT thm_id FROM theorems WHERE "
-			"stmt = '" + (*m_targets)->at(i).to_str() +
-			"' AND ctx_id = " + boost::lexical_cast<std::string>(
-				*m_ctx_id) + ")\n";
-
-		const bool successful = ((*m_proof_states)[i] != nullptr &&
-			(*m_proof_states)[i]->completion_state() ==
-			atp::logic::ProofCompletionState::PROVEN);
-
-		// add proof attempt to database
-		query_builder << thm_id_with_expr;
-		query_builder << "INSERT INTO proof_attempts(thm_id, ss_id, "
-			"time_cost, max_mem, num_expansions, success) VALUES ((SELECT "
-			"my_id FROM my_thm), "
-			<< *m_ss_id << ", " << (*m_times)[i] << ", "
-			<< (*m_max_mems)[i] << ", " << (*m_num_exps)[i] << ", "
-			// only set successful bit to 1 if the theorem has not been
-			// proven before
-			"CASE WHEN EXISTS (SELECT 1 FROM proofs JOIN my_thm ON "
-			"thm_id=my_id) THEN 0 ELSE "
-			<< (successful ? 1 : 0) << " END);\n\n";
-
-		// IF THE PROOF WAS SUCCESSFUL, add the proof to the database
-		// (obviously we do not want to do this if it failed)
-		if (successful)
+		std::stringstream query_builder;
+		std::string query;
+		for (size_t i = 0; i < *m_size; i++)
 		{
-			// make sure to not try inserting a new proof if there
-			// is already a proof in the database!
-			// WARNING: this theorem might already have a proof in
-			// the database - don't add it again!
-			query_builder << thm_id_with_expr;
-			query_builder << "INSERT INTO proofs "
-				"(thm_id, proof) SELECT (SELECT my_id FROM my_thm), "
-				"'" << (*m_proof_states)[i]->to_str()
-				<< "' WHERE NOT EXISTS (SELECT 1 FROM proofs WHERE"
-				" thm_id=(SELECT my_id FROM my_thm));\n\n";
+			// add the theorem to the database if it's not in there
+			// already
+			query = m_query_templates.at("insert_thm");
 
-			// add theorem usages:
-			if (m_helpers.has_value())
+			const std::string stmt_str = '"' +
+				(*m_targets)->at(i).to_str() + '"';
+
+			boost::algorithm::replace_all(query,
+				":stmt", stmt_str);
+			boost::algorithm::replace_all(query,
+				":ctx_id", ctx_id_str);
+
+			query_builder << query << ";\n\n";
+
+			// skip the rest if we are only loading theorems, not proof
+			// attempts
+			if (!m_proof_states.has_value())
+				continue;
+
+			const bool successful = ((*m_proof_states)[i] != nullptr &&
+				(*m_proof_states)[i]->completion_state() ==
+				atp::logic::ProofCompletionState::PROVEN);
+
+			// add the theorem to the database if it's not in there
+			// already
+			query = m_query_templates.at("insert_proof_attempt");
+
+			boost::algorithm::replace_all(query,
+				":stmt", stmt_str);
+			boost::algorithm::replace_all(query,
+				":ctx_id", ctx_id_str);
+			boost::algorithm::replace_all(query,
+				":ss_id",
+				boost::lexical_cast<std::string>(*m_ss_id));
+			boost::algorithm::replace_all(query,
+				":time_cost",
+				boost::lexical_cast<std::string>((*m_times)[i]));
+			boost::algorithm::replace_all(query,
+				":max_mem",
+				boost::lexical_cast<std::string>((*m_max_mems)[i]));
+			boost::algorithm::replace_all(query,
+				":num_expansions",
+				boost::lexical_cast<std::string>((*m_num_exps)[i]));
+			boost::algorithm::replace_all(query,
+				":success", (successful ? "1" : "0"));
+
+			query_builder << query << ";\n\n";
+
+			// If the proof was successful, add the proof to the database
+			// (obviously we do not want to do this if it failed)
+			if (successful)
 			{
-				const auto& pf_state = m_proof_states->at(i);
-				auto usages = pf_state->get_usage(*m_helpers);
+				query = m_query_templates.at("insert_proof");
 
-				for (size_t j = 0; j < usages.size(); ++j)
+				boost::algorithm::replace_all(query,
+					":stmt", stmt_str);
+				boost::algorithm::replace_all(query,
+					":ctx_id", ctx_id_str);
+				boost::algorithm::replace_all(query,
+					":proof", '"' +
+					(*m_proof_states)[i]->to_str() + '"');
+
+				query_builder << query << ";\n\n";
+
+				// add theorem usages:
+				if (m_helpers.has_value())
 				{
-					// cannot add entries with zero count!
-					if (usages[j] > 0)
-					{
-						// a common table expression for finding the
-						// theorem ID of the helper statement (this
-						// appears after the first WITH cte)
-						// WARNING: theorem statements by themselves
-						// are not unique! It is only unique when
-						// paired with a context!
-						const std::string helper_thm_id_with_expr =
-							", helper_thm(helper_id) AS (SELECT "
-							"thm_id FROM theorems WHERE stmt = '" +
-							(*m_helpers)->at(j).to_str() +
-							"' AND ctx_id = " +
-							boost::lexical_cast<std::string>(
-								*m_ctx_id) + ")\n";
+					const auto& pf_state = m_proof_states->at(i);
+					auto usages = pf_state->get_usage(*m_helpers);
 
-						// add it:
-						query_builder << thm_id_with_expr
-							<< helper_thm_id_with_expr;
-						query_builder << "INSERT OR IGNORE INTO "
-							"theorem_usage (target_thm_id, "
-							"used_thm_id, cnt) VALUES((SELECT my_id "
-							"FROM my_thm), (SELECT helper_id FROM "
-							"helper_thm), " << usages[j] << ");\n\n";
+					for (size_t j = 0; j < usages.size(); ++j)
+					{
+						// cannot add entries with zero count!
+						if (usages[j] > 0)
+						{
+							query = m_query_templates.at(
+								"insert_usage");
+
+							const std::string helper_str = '"' +
+								(*m_helpers)->at(j).to_str() + '"';
+
+							boost::algorithm::replace_all(query,
+								":stmt", stmt_str);
+							boost::algorithm::replace_all(query,
+								":ctx_id", ctx_id_str);
+							boost::algorithm::replace_all(query,
+								":helper_stmt", helper_str);
+							boost::algorithm::replace_all(query,
+								":uses",
+								boost::lexical_cast<std::string>(
+									usages[j]));
+
+							query_builder << query << ";\n\n";
+						}
 					}
 				}
 			}
 		}
-	}
 
-	return query_builder.str();
+		return query_builder.str();
+	}
 }
 
 

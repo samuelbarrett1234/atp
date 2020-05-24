@@ -8,7 +8,7 @@ db = sql.connect("../Data/DB/eqlogic.db")
 
 ctx = "group-theory"
 
-df = pd.read_sql_query("SELECT stmt, "
+df = pd.read_sql_query("SELECT thm_id, stmt, "
     "(CASE WHEN proof IS NULL THEN 0 ELSE 1 END) AS is_proven, "
     "time_agg, max_mem_agg, num_exp_agg, num_attempts "
     "FROM theorems LEFT OUTER NATURAL JOIN proofs NATURAL JOIN "

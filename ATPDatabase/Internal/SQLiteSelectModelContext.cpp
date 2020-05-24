@@ -18,11 +18,19 @@ namespace db
 
 std::string SQLiteSelectModelContext::build()
 {
-	return "SELECT filename, ctx_id FROM model_contexts "
-		"NATURAL JOIN (SELECT ctx_id, SUM(time_cost) AS total_cost "
-		"FROM proof_attempts NATURAL JOIN theorems GROUP BY ctx_id) "
-		// interesting part: add random noise to total costs
-		"ORDER BY total_cost + random() * 1.0e-16 ASC LIMIT 1";
+	if (m_query_templates.find("select_model_context")
+		== m_query_templates.end())
+	{
+		ATP_DATABASE_LOG(error) << "Cannot find query templates "
+			"for \"select_model_context\""
+			", please add these to the DB config file.";
+
+		return "- ; -- bad query because error earlier.";
+	}
+	else
+	{
+		return m_query_templates.at("select_model_context");
+	}
 }
 
 

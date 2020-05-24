@@ -11,6 +11,8 @@
 */
 
 
+#include <map>
+#include <string>
 #include <boost/optional.hpp>
 #include "../ATPDatabaseAPI.h"
 #include "../Interfaces/IQueryBuilders.h"
@@ -30,6 +32,11 @@ class ATP_DATABASE_API SQLiteSelectSearchSettings :
 	public ISelectSearchSettings
 {
 public:
+	SQLiteSelectSearchSettings(
+		const std::map<std::string, std::string>& query_templates) :
+		m_query_templates(query_templates)
+	{ }
+
 	std::string build() override;
 	inline ISelectSearchSettings* set_ctx_id(size_t ctx_id) override
 	{
@@ -38,6 +45,8 @@ public:
 	}
 
 private:
+	std::map<std::string, std::string> m_query_templates;
+
 	boost::optional<size_t> m_ctx_id;
 };
 

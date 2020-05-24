@@ -8,9 +8,12 @@
 
 #include "SQLiteDatabase.h"
 #include <sstream>
+#include <fstream>
 #include <sqlite3.h>
 #include <boost/filesystem.hpp>
 #include <boost/bind.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
 #include "SQLiteTransaction.h"
 #include "TransactionListWrapper.h"
 #include "SQLiteRndThmSelectQryBder.h"
@@ -51,22 +54,62 @@ DatabasePtr SQLiteDatabase::load_from_file(
 
 	if (!boost::filesystem::is_regular_file(filename))
 		return nullptr;
-
-	auto p_db = std::make_shared<SQLiteDatabase>();
-	int rc;
-
-	rc = sqlite3_open(filename.c_str(), &p_db->m_db);
-	if (rc != 0)
+	
+	std::ifstream fin(filename);
+	if (!fin)
 	{
-		ATP_DATABASE_LOG(error)
-			<< "Failed to open SQLite database \"" << filename <<
-			"\", error code " << rc;
-			
+		ATP_DATABASE_LOG(error) << "Cannot open database config "
+			"file at \"" << filename << "\".";
 		return nullptr;
 	}
-	ATP_DATABASE_ASSERT(p_db->m_db != nullptr);
+	boost::property_tree::ptree config_ptree;
+	boost::property_tree::read_json(fin, config_ptree);
 
-	return p_db;
+	try
+	{
+		auto p_db = std::make_shared<SQLiteDatabase>();
+
+		for (auto query_el : config_ptree.get_child("queries"))
+		{
+			p_db->m_query_templates[query_el.first] =
+				query_el.second.data();
+		}
+
+		const std::string db_filename = config_ptree.get<std::string>(
+			"db_filename");
+
+		if (!boost::filesystem::is_regular_file(db_filename))
+		{
+			ATP_DATABASE_LOG(error) << "Database filename provided "
+				"in config file was not found (is it relative to "
+				"the current working directory?). DB filename was \""
+				<< db_filename << "\", DB config file was \"" <<
+				filename << "\".";
+			return nullptr;
+		}
+
+		int rc;
+
+		rc = sqlite3_open(db_filename.c_str(), &p_db->m_db);
+		if (rc != 0)
+		{
+			ATP_DATABASE_LOG(error)
+				<< "Failed to open SQLite database \"" << db_filename <<
+				"\", error code " << rc;
+
+			return nullptr;
+		}
+		ATP_DATABASE_ASSERT(p_db->m_db != nullptr);
+
+		return p_db;
+	}
+	catch (boost::property_tree::ptree_error& ex)
+	{
+		ATP_DATABASE_LOG(error) << "Failed to parse database config "
+			"file, exception was: " << ex.what();
+
+		return nullptr;
+	}
 }
 
 
@@ -111,7 +154,7 @@ TransactionPtr SQLiteDatabase::begin_transaction(
 		{
 			ATP_DATABASE_LOG(error)
 				<< "Failed to build SQLite statement from: \""
-				<< std::string(p_cur, p_end)
+				<< std::string(p_last_cur, p_end)
 				<< "\".";
 
 			ATP_DATABASE_ASSERT(stmt == nullptr);
@@ -153,9 +196,11 @@ QueryBuilderPtr SQLiteDatabase::create_query_builder(
 	switch (qb_type)
 	{
 	case QueryBuilderType::RANDOM_THM_SELECTION:
-		return std::make_unique<SQLiteRndThmSelectQryBder>();
+		return std::make_unique<SQLiteRndThmSelectQryBder>(
+			m_query_templates);
 	case QueryBuilderType::SAVE_THMS_AND_PROOFS:
-		return std::make_unique<SQLiteSaveProofResultsQryBder>();
+		return std::make_unique<SQLiteSaveProofResultsQryBder>(
+			m_query_templates);
 	case QueryBuilderType::CHECK_AXIOMS_IN_DB:
 		return std::make_unique<SQLiteCheckAxInDbQryBder>();
 	case QueryBuilderType::FIND_HMM_CONJ_MODEL:
@@ -167,9 +212,11 @@ QueryBuilderPtr SQLiteDatabase::create_query_builder(
 	case QueryBuilderType::SAVE_HMM_CONJ_PARAMS:
 		return std::make_unique<SQLiteSaveHmmConjModelParams>();
 	case QueryBuilderType::SELECT_CTX:
-		return std::make_unique<SQLiteSelectModelContext>();
+		return std::make_unique<SQLiteSelectModelContext>(
+			m_query_templates);
 	case QueryBuilderType::SELECT_SS:
-		return std::make_unique<SQLiteSelectSearchSettings>();
+		return std::make_unique<SQLiteSelectSearchSettings>(
+			m_query_templates);
 	default:
 		ATP_DATABASE_PRECOND(false && "bad type!");
 		return nullptr;

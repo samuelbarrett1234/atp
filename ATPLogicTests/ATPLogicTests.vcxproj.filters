@@ -102,6 +102,9 @@
     <ClCompile Include="Equational\MaybeRandomIndexTests.cpp">
       <Filter>Source Files\Equational\Implementations\Successor Iterators</Filter>
     </ClCompile>
+    <ClCompile Include="Equational\StmtSuccIteratorTests.cpp">
+      <Filter>Source Files\Equational\Implementations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">

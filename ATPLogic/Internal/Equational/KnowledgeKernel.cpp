@@ -14,6 +14,7 @@
 #include <boost/phoenix.hpp>
 #include <boost/bind.hpp>
 #include "ProofState.h"
+#include "StmtSuccIterator.h"
 
 
 namespace atp
@@ -109,6 +110,17 @@ ProofStatePtr KnowledgeKernel::begin_proof_of(
 
 	return std::make_shared<ProofState>(m_context,
 		*this, *p_stmt, no_repeats, randomised);
+}
+
+StmtSuccIterPtr KnowledgeKernel::begin_succession_of(const IStatement& _stmt) const
+{
+	const Statement* p_stmt = dynamic_cast<const Statement*>(
+		&_stmt);
+
+	ATP_LOGIC_PRECOND(p_stmt != nullptr);
+	ATP_LOGIC_PRECOND(type_check(m_context, *p_stmt));
+
+	return std::make_shared<StmtSuccIterator>(*p_stmt, m_context, *this);
 }
 
 

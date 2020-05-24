@@ -69,6 +69,9 @@ public:
 		const IStatement& stmt,
 		IterSettings flags) const override;
 
+	StmtSuccIterPtr begin_succession_of(
+		const IStatement& stmt) const override;
+
 	bool iter_settings_supported(
 		IterSettings flags) const override;
 

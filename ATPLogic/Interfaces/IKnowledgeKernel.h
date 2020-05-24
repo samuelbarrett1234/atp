@@ -20,6 +20,7 @@
 #include "IStatement.h"
 #include "IStatementArray.h"
 #include "IProofState.h"
+#include "IStmtSuccIterator.h"
 
 
 namespace atp
@@ -140,6 +141,17 @@ public:
 	virtual ProofStatePtr begin_proof_of(
 		const IStatement& stmt,
 		IterSettings flags = iter_settings::DEFAULT) const = 0;
+
+	/**
+	\brief Create a successor iterator for the given statement.
+
+	\pre `stmt` is a valid statement within the context of this
+		knowledge kernel.
+
+	\returns A new successor iterator of the given statement
+	*/
+	virtual StmtSuccIterPtr begin_succession_of(
+		const IStatement& stmt) const = 0;
 
 	/**
 	\brief Determine if the given flags are supported by this kind of

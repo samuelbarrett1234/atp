@@ -178,6 +178,7 @@
     <ClInclude Include="Interfaces\IPropositionalKnowledgeKernel.h" />
     <ClInclude Include="Interfaces\IStatement.h" />
     <ClInclude Include="Interfaces\IStatementArray.h" />
+    <ClInclude Include="Interfaces\IStmtSuccIterator.h" />
     <ClInclude Include="Internal\Equational\Expression.h" />
     <ClInclude Include="Internal\Equational\ExprTreeFlyweight.h" />
     <ClInclude Include="Internal\Equational\FreeVarAssignmentIterator.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="Internal\Equational\ParseTreeFold.h" />
     <ClInclude Include="Internal\Equational\Statement.h" />
     <ClInclude Include="Internal\Equational\StatementArray.h" />
+    <ClInclude Include="Internal\Equational\StmtSuccIterator.h" />
     <ClInclude Include="Internal\Equational\SubExprMatchingIterator.h" />
     <ClInclude Include="Internal\Equational\SyntaxTreeFold.h" />
     <ClInclude Include="Internal\Equational\SyntaxNodes.h" />
@@ -218,6 +220,7 @@
     <ClCompile Include="Internal\Equational\Parser.cpp" />
     <ClCompile Include="Internal\Equational\Statement.cpp" />
     <ClCompile Include="Internal\Equational\StatementArray.cpp" />
+    <ClCompile Include="Internal\Equational\StmtSuccIterator.cpp" />
     <ClCompile Include="Internal\Equational\SubExprMatchingIterator.cpp" />
     <ClCompile Include="Internal\Equational\SyntaxNodes.cpp" />
   </ItemGroup>

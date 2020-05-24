@@ -20,8 +20,10 @@
 */
 
 
+#include <vector>
 #include <string>
 #include <memory>
+#include <boost/optional.hpp>
 #include <ATPLogic.h>
 #include "../ATPDatabaseAPI.h"
 
@@ -217,6 +219,26 @@ public:
 	*/
 	virtual ISaveProofResultsQryBder* add_helper_thms(
 		const logic::StatementArrayPtr& p_helpers) = 0;
+
+	/**
+	\brief Add the proof texts of those target theorems which were
+		successfully proven
+
+	\details Use `none` for target theorems which were not proven.
+		Furthermore, note that if this is omitted but the proof
+		states are present, the proof states are used as the proofs
+		instead. But this takes priority.
+
+	\pre All of these arrays must be the same size.
+
+	\pre Whether or not each entry is optional must agree with the
+		completion states of the proof states if they are provided.
+
+	\returns this
+	*/
+	virtual ISaveProofResultsQryBder* add_proofs(
+		const std::vector<
+			boost::optional<std::string>>& proof_texts) = 0;
 
 	/**
 	\brief Add the proof states of those which were successfully

@@ -20,6 +20,7 @@
 #include "Processes/HMMConjectureProcess.h"
 #include "Processes/HMMConjectureTrainProcess.h"
 #include "Processes/CreateHMMProcess.h"
+#include "Processes/UninformedWandererProcess.h"
 #include "Scheduling/IScheduler.h"
 
 

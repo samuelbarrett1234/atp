@@ -48,6 +48,8 @@ int load_ss(std::unique_ptr<Application>& p_app,
 	const po::variables_map& vm);
 int add_proof(std::unique_ptr<Application>& p_app, 
 	const po::variables_map& vm);
+int add_wandering(std::unique_ptr<Application>& p_app,
+	const po::variables_map& vm);
 int add_hmm_conj(std::unique_ptr<Application>& p_app, 
 	const po::variables_map& vm);
 int add_hmm_train(std::unique_ptr<Application>& p_app, 
@@ -89,6 +91,11 @@ int main(int argc, const char* const argv[])
 			"N unproven statements and attempts to prove them, "
 			"respectively. You can invoke this many times, each "
 			"proof task can run in its own thread.")
+
+		("wander,wdr", po::value<std::pair<size_t, size_t>>(),
+			"Usage: `--wdr N,D` will launch a \"successor wandering"
+			"\" process which generates N new true statements at "
+			"depth D.")
 
 		("hmm-conjecture,hmmc", po::value<std::vector<size_t>>(),
 			"Generate a number of conjectures; use "
@@ -185,6 +192,8 @@ int main(int argc, const char* const argv[])
 		if (int rc = load_ss(p_app, vm))
 			return rc;
 		if (int rc = add_proof(p_app, vm))
+			return rc;
+		if (int rc = add_wandering(p_app, vm))
 			return rc;
 		if (int rc = add_hmm_conj(p_app, vm))
 			return rc;
@@ -380,6 +389,24 @@ int add_proof(std::unique_ptr<Application>& p_app,
 		}
 	}
 
+	return 0;
+}
+
+
+int add_wandering(std::unique_ptr<Application>& p_app,
+	const po::variables_map& vm)
+{
+	if (vm.count("wander"))
+	{
+		const auto [N, D] = vm.at("wander").as<std::pair<size_t,
+			size_t>>();
+		
+		if (!p_app->add_wanderer_task(N, D))
+		{
+			ATP_LOG(error) << "Failed to add wanderer task.";
+			return -1;
+		}
+	}
 	return 0;
 }
 

@@ -77,6 +77,14 @@ public:
 		}
 		return this;
 	}
+	inline ISaveProofResultsQryBder* add_proofs(
+		const std::vector<
+		boost::optional<std::string>>& proof_texts) override
+	{
+		set_or_check_size(proof_texts.size());
+		m_proofs = proof_texts;
+		return this;
+	}
 	inline ISaveProofResultsQryBder* add_proof_states(
 		const std::vector<logic::ProofStatePtr>& proof_states) override
 	{
@@ -129,6 +137,8 @@ private:
 		std::vector<logic::ProofStatePtr>> m_proof_states;
 	boost::optional<std::vector<float>> m_times;
 	boost::optional<std::vector<size_t>> m_max_mems, m_num_exps;
+	boost::optional<std::vector<boost::optional<
+		std::string>>> m_proofs;
 };
 
 

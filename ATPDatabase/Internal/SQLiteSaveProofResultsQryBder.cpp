@@ -76,39 +76,61 @@ std::string SQLiteSaveProofResultsQryBder::build()
 
 			query_builder << query << ";\n\n";
 
-			// skip the rest if we are only loading theorems, not proof
-			// attempts
-			if (!m_proof_states.has_value())
+			// skip the rest if we are only saving theorems, not proof
+			// attempts or proofs
+			if (!m_proof_states.has_value() && !m_proofs.has_value())
 				continue;
 
-			const bool successful = ((*m_proof_states)[i] != nullptr &&
+#ifdef ATP_DATABASE_DEFENSIVE
+			if (m_proofs.has_value() && m_proof_states.has_value())
+			{
+				// check proof presence agrees with proof completion
+				// state
+				ATP_DATABASE_PRECOND(m_proofs->at(i).has_value() ==
+					((*m_proof_states)[i] != nullptr &&
+						(*m_proof_states)[i]->completion_state() ==
+						atp::logic::ProofCompletionState::PROVEN));
+			}
+#endif
+			
+			// successful if we have been given a proof, or the
+			// proof completion state is PROVEN
+			const bool successful = ((m_proof_states.has_value() &&
+				(*m_proof_states)[i] != nullptr &&
 				(*m_proof_states)[i]->completion_state() ==
-				atp::logic::ProofCompletionState::PROVEN);
+				atp::logic::ProofCompletionState::PROVEN) || (
+					m_proofs.has_value() &&
+					m_proofs->at(i).has_value()));
 
-			// add the theorem to the database if it's not in there
-			// already
-			query = m_query_templates.at("insert_proof_attempt");
+			if (m_proof_states.has_value())
+			{
+				query = m_query_templates.at("insert_proof_attempt");
 
-			boost::algorithm::replace_all(query,
-				":stmt", stmt_str);
-			boost::algorithm::replace_all(query,
-				":ctx_id", ctx_id_str);
-			boost::algorithm::replace_all(query,
-				":ss_id",
-				boost::lexical_cast<std::string>(*m_ss_id));
-			boost::algorithm::replace_all(query,
-				":time_cost",
-				boost::lexical_cast<std::string>((*m_times)[i]));
-			boost::algorithm::replace_all(query,
-				":max_mem",
-				boost::lexical_cast<std::string>((*m_max_mems)[i]));
-			boost::algorithm::replace_all(query,
-				":num_expansions",
-				boost::lexical_cast<std::string>((*m_num_exps)[i]));
-			boost::algorithm::replace_all(query,
-				":success", (successful ? "1" : "0"));
+				boost::algorithm::replace_all(query,
+					":stmt", stmt_str);
+				boost::algorithm::replace_all(query,
+					":ctx_id", ctx_id_str);
+				boost::algorithm::replace_all(query,
+					":ss_id",
+					boost::lexical_cast<std::string>(
+						*m_ss_id));
+				boost::algorithm::replace_all(query,
+					":time_cost",
+					boost::lexical_cast<std::string>(
+						(*m_times)[i]));
+				boost::algorithm::replace_all(query,
+					":max_mem",
+					boost::lexical_cast<std::string>(
+						(*m_max_mems)[i]));
+				boost::algorithm::replace_all(query,
+					":num_expansions",
+					boost::lexical_cast<std::string>(
+						(*m_num_exps)[i]));
+				boost::algorithm::replace_all(query,
+					":success", (successful ? "1" : "0"));
 
-			query_builder << query << ";\n\n";
+				query_builder << query << ";\n\n";
+			}
 
 			// If the proof was successful, add the proof to the database
 			// (obviously we do not want to do this if it failed)
@@ -116,19 +138,24 @@ std::string SQLiteSaveProofResultsQryBder::build()
 			{
 				query = m_query_templates.at("insert_proof");
 
+				const std::string proof = m_proofs.has_value() ?
+					m_proofs->at(i).get() :
+					(*m_proof_states)[i]->to_str();
+
 				boost::algorithm::replace_all(query,
 					":stmt", stmt_str);
 				boost::algorithm::replace_all(query,
 					":ctx_id", ctx_id_str);
 				boost::algorithm::replace_all(query,
-					":proof", '"' +
-					(*m_proof_states)[i]->to_str() + '"');
+					":proof", '"' + proof + '"');
 
 				query_builder << query << ";\n\n";
 
 				// add theorem usages:
 				if (m_helpers.has_value())
 				{
+					ATP_DATABASE_ASSERT(m_proof_states.has_value());
+
 					const auto& pf_state = m_proof_states->at(i);
 					auto usages = pf_state->get_usage(*m_helpers);
 

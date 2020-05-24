@@ -3,21 +3,21 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--db ../Data/Queries/dbconfig.json --serve</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--db ../Data/Queries/dbconfig.json --ctx group-theory --ss ids-informed-tiny --wdr 10,5</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--db ../Data/Queries/dbconfig.json --serve</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--db ../Data/Queries/dbconfig.json --ctx group-theory --ss ids-informed-tiny --wdr 10,5</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--db ../Data/Queries/dbconfig.json --serve</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--db ../Data/Queries/dbconfig.json --ctx group-theory --ss ids-informed-tiny --wdr 10,5</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>--db ../Data/Queries/dbconfig.json --serve</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>--db ../Data/Queries/dbconfig.json --ctx group-theory --ss ids-informed-tiny --wdr 10,5</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

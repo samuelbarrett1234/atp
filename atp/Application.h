@@ -98,6 +98,21 @@ public:
 	bool add_proof_task(size_t num_targets);
 
 	/**
+	\brief Add a process which will generate some true statements via
+		"successor wandering" i.e. just randomly traversing the
+		successors of some statements which are known to be true.
+
+	\param n The number of statements to generate
+
+	\param depth The length of the chain of successors to generate
+		(i.e. 1 means immediate successor, 2 means successor of a
+		successor, etc.)
+
+	\returns True iff success.
+	*/
+	bool add_wanderer_task(size_t n, size_t depth);
+
+	/**
 	\brief Create a new process which will generate conjectures
 		using a Hidden Markov Model.
 

@@ -248,6 +248,18 @@ bool Application::add_proof_task(size_t num_targets)
 }
 
 
+bool Application::add_wanderer_task(size_t n, size_t depth)
+{
+	if (n == 0 || depth == 0)
+		return false;
+
+	m_proc_mgr.add(atp::core::create_uninformed_wanderer_process(
+		m_lang, m_ctx_id, m_ctx, m_db, n, depth));
+
+	return true;
+}
+
+
 bool Application::add_hmm_conjecture_task(size_t N)
 {
 	ATP_PRECOND(m_lang != nullptr);

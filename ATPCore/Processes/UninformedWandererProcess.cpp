@@ -8,6 +8,7 @@
 
 #include "UninformedWandererProcess.h"
 #include <vector>
+#include <numeric>
 #include <sstream>
 #include "CommonProcessData.h"
 #include "QueryProcess.h"
@@ -156,23 +157,44 @@ protected:
 private:
 	void run_wanderer()
 	{
+		// array of singletons, we will concatenate them at the end
 		std::vector<logic::StatementArrayPtr> results;
 
+		// for each starting point
 		for (size_t i = 0; i < m_data.starts->size(); ++i)
 		{
+			// we will build the proof string into here
 			std::stringstream proof;
 
+			// start iterating at the start node, but we will
+			// update this as we go
 			auto iter = m_data.ker->begin_succession_of(
 				m_data.starts->at(i));
 
+			// first line of the proof
 			proof << iter->get().to_str() << "\n";
 
+			// for each depth count, pick a successor at random, and
+			// update iter
 			for (size_t d = 0; d < m_depth; ++d)
 			{
+				// build up arrays of all successors
 				std::vector<logic::StmtSuccIterPtr> nexts;
+				std::vector<float> utility;
 				while (iter->valid())
 				{
-					nexts.emplace_back(iter->dive());
+					auto next_depth = iter->dive();
+
+					if (next_depth->valid())
+					{
+						// use a little heuristic to prefer selecting
+						// shorter statements
+						utility.push_back(1.0f /
+							(float)next_depth->get().to_str().size());
+
+						nexts.emplace_back(std::move(next_depth));
+					}
+
 					iter->advance();
 				}
 
@@ -185,11 +207,28 @@ private:
 				}
 				else
 				{
-					const size_t chosen_succ =
-						m_data.ker->generate_rand() % nexts.size();
+					// pick randomly according to the utility values
+					// stored for each successor
+					const float sum = std::accumulate(
+						utility.begin(), utility.end(), 0.0f);
 
-					iter = nexts[chosen_succ];
+					// generate random fraction of `sum`
+					const float r = sum * static_cast<float>(
+						m_data.ker->generate_rand() % 1000000)
+						/ 1.0e6f;
 
+					float x = utility[0];
+					size_t j = 0;
+					while (x < r && j < utility.size())
+					{
+						++j;
+						x += utility[j];
+					}
+
+					// select this one!
+					iter = nexts[j];
+
+					// add this as the next line in the proof
 					proof << iter->get().to_str() << "\n";
 				}
 			}
@@ -206,6 +245,8 @@ private:
 					iter->get()));
 				m_data.proofs.push_back(proof.str());
 			}
+			// else we failed to generate, and we already outputted a
+			// message above
 		}
 
 		// don't forget to normalise the results!

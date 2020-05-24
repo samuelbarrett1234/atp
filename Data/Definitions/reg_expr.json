@@ -3,9 +3,12 @@
 	"definitions" : [
 		{ "name" : "emptystring", "arity" : 0 },
 		{ "name" : "emptyset", "arity" : 0 },
+		{ "name" : "0", "arity" : 0 },
+		{ "name" : "1", "arity" : 0 },
 		{ "name" : "+", "arity" : 2 },
 		{ "name" : ".", "arity" : 2 },
-		{ "name" : "*", "arity" : 1 }
+		{ "name" : "*", "arity" : 1 },
+		{ "name" : "C", "arity" : 1 }
 	],
 	"axioms" : [
 		"+(E, +(F, G)) = +(+(E, F), G)",
@@ -20,6 +23,11 @@
 		".(E, emptyset) = emptyset",
 		".(emptyset, E) = emptyset",
 		"+(emptystring, .(E, *(E))) = *(E)",
-		"+(emptystring, .(*(E), E)) = *(E)"
+		"+(emptystring, .(*(E), E)) = *(E)",
+		"C(+(0, 1)) = emptyset",
+		"C(C(E)) = E",
+		
+		"*(emptyset) = emptystring",
+		"*(emptystring) = emptystring"
 	]
 }

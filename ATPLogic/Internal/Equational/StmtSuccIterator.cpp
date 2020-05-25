@@ -19,8 +19,8 @@ namespace equational
 
 StmtSuccIterator::StmtSuccIterator(const Statement& my_root,
 	const ModelContext& ctx, const KnowledgeKernel& ker) :
-	m_ctx(ctx), m_ker(ker), m_pf_state(m_ctx, m_ker, my_root, true,
-		true), m_pf_st_iter(m_pf_state.succ_begin())
+	m_ctx(ctx), m_ker(ker), m_pf_state(m_ctx, m_ker, my_root, false,
+		false), m_pf_st_iter(m_pf_state.succ_begin())
 {
 	if (m_pf_st_iter->valid())
 	{

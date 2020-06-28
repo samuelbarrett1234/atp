@@ -37,7 +37,7 @@ Note that when you build the application, the binaries can be found in the `Outp
 4. Check the directory you specified under the environment variable `BOOST_DIR` contains a directory `/stage/lib/` which contains all of the Boost `.lib` and `.dll` files.
 5. Copy files of the form `boost_*.dll` to the `Output` folder of the `atp` project (you may need to create the `Output` folder if it's not there already).
 6. [Download SQLite3](https://www.sqlite.org/download.html), making sure to get the **binaries and the shell command line**, too.
-7. If the binaries you downloaded included a `.exp` file but **not** a `.lib` file, then you need to convert the `.exp` file into a `.lib` file. Visual studio [ships with a tool](https://docs.microsoft.com/en-us/cpp/build/reference/lib-reference?view=vs-2019) to do this.
+7. If the binaries you downloaded included a `.exp` file but **not** a `.lib` file, then you need to convert the `.exp` file into a `.lib` file. Visual studio [ships with a tool](https://docs.microsoft.com/en-us/cpp/build/reference/lib-reference?view=vs-2019) to do this. The following command worked for me: `lib /DEF:sqlite3.def /OUT:sqlite3.lib /MACHINE:x64`.
 8. Add the folder containing the SQLite source, binaries and command line to your `PATH` and to the environment variable `SQLITE_DIR`.
 9. Now you are ready to try compiling the whole `ATP` solution (the easiest way to do this is with a *batch build*).
 10. Run all the unit tests to make sure everything passes.

@@ -8,6 +8,7 @@
 
 
 #include <boost/algorithm/string/join.hpp>
+#include <boost/bind.hpp>
 #include <Internal/Equational/NoRepeatIterator.h>
 #include <Internal/Equational/Statement.h>
 #include <Internal/Equational/StatementArray.h>

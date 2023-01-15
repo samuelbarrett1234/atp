@@ -5,6 +5,7 @@
 */
 
 
+#include <boost/bind.hpp>
 #include "SearchSettingsSuccIters.h"
 #include "IteratorManager.h"
 #include "../ATPSearchLog.h"

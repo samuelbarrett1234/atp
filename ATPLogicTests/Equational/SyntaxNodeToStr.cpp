@@ -11,6 +11,7 @@
 #include <list>
 #include <map>
 #include <algorithm>
+#include <boost/bind.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/lexical_cast.hpp>

@@ -8,6 +8,7 @@
 
 
 #include <boost/algorithm/string/join.hpp>
+#include <boost/bind.hpp>
 #include "ProofState.h"
 #include "SubExprMatchingIterator.h"
 #include "NoRepeatIterator.h"
